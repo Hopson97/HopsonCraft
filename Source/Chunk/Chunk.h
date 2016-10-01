@@ -7,6 +7,9 @@
 #include "Utilities/Loader.h"
 
 #include "Generations/Height_Generator.h"
+#include "Simplex.h"
+
+#include "Blocks/Blocks.h"
 
 class Block;
 
@@ -21,7 +24,10 @@ class Chunk
         constexpr static int HEIGHT = 128;//128
         constexpr static int WIDTH  = 16;//16
 
-        static Block air;
+        static Block        air;
+        static Grass_Block  grass;
+        static Stone_Block  stone;
+        static Dirt_Block   dirt;
 
         MeshPtr tempMesh;
 

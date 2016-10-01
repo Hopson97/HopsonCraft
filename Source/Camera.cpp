@@ -4,7 +4,7 @@
 
 void Camera :: move ()
 {
-    float speed = 0.2;
+    float speed = 2;
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
     {
         m_position.z -= speed;
@@ -24,20 +24,20 @@ void Camera :: move ()
 
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) )
     {
-        m_rotation.y -= speed * 5;
+        m_rotation.y -= 0.2 * 5;
     }
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) )
     {
-        m_rotation.y += speed * 5;
+        m_rotation.y += 0.2 * 5;
     }
 
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) )
     {
-        m_rotation.x -= speed * 5;
+        m_rotation.x -= 0.2 * 5;
     }
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) )
     {
-        m_rotation.x += speed * 5;
+        m_rotation.x += 0.2 * 5;
     }
 
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )

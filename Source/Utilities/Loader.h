@@ -17,11 +17,11 @@ class Loader
         ~Loader();
 
         MeshPtr loadToVAO ( const std::vector<GLfloat>& positions,
-                              const std::vector<GLuint>&  indices,
-                              const std::vector<GLfloat>&  texture );
+                            const std::vector<GLuint>&  indices,
+                            const std::vector<GLfloat>&  texture );
 
         MeshPtr loadToVAO ( const std::vector<GLfloat>& positions,
-                         const std::vector<GLfloat>&  texture );
+                            const std::vector<GLfloat>&  texture );
 
         GLuint loadTexture  ( const std::string& fileName );
 

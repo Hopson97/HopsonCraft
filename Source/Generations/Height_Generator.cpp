@@ -15,9 +15,16 @@ Height_Generator :: Height_Generator()
     srand ( seed );
 }
 
+
+
+
+
+
+
+
 int Height_Generator :: generateHeight ( int x, int z )
 {
-    return getInterpolatedNoise( x, z ) * Chunk::HEIGHT;
+    return getInterpolatedNoise( x, z ) * (Chunk::HEIGHT) + 60;
 }
 
 float Height_Generator :: getNoise ( int x, int z )
@@ -30,16 +37,16 @@ float Height_Generator :: getSmoothNoise ( int x, int z )
     float cornerValues = (  getNoise( x - 1, z - 1  ) +
                             getNoise( x + 1, z - 1  ) +
                             getNoise( x - 1, z + 1  ) +
-                            getNoise( x + 1, z + 1  )   )   / 32.0f;
+                            getNoise( x + 1, z + 1  )   )   / 16.0f;
 
     float sideValues =  (  getNoise( x - 1, z       ) +
                            getNoise( x + 1, z       ) +
                            getNoise( x,     z + 1   ) +
-                           getNoise( x,     z + 1   )   ) / 16.0f;
+                           getNoise( x,     z + 1   )   ) / 8.0f;
 
-    float middle = getNoise( x, z ) / 2.0f;
+    float middle = getNoise( x, z ) / 4.0f;
 
-    return (middle * sideValues * cornerValues);
+    return (middle * sideValues * cornerValues) / 3;
 }
 
 float Height_Generator::getInterpolatedNoise(float x, float z)

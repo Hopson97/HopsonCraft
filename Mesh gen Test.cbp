@@ -16,6 +16,8 @@
 					<Add directory="Source/OpenGL/Objects" />
 					<Add directory="Source/OpenGL/Shaders" />
 					<Add directory="Source" />
+					<Add directory="Source/Utilities" />
+					<Add directory="Source/Generations" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -35,6 +37,8 @@
 					<Add directory="Source/OpenGL/Objects" />
 					<Add directory="Source/OpenGL/Shaders" />
 					<Add directory="Source" />
+					<Add directory="Source/Utilities" />
+					<Add directory="Source/Generations" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -91,6 +95,10 @@
 		<Unit filename="Source/Generations/Height_Generator.h" />
 		<Unit filename="Source/Generations/Perlin.cpp" />
 		<Unit filename="Source/Generations/Perlin.h" />
+		<Unit filename="Source/Generations/Simplex.cpp" />
+		<Unit filename="Source/Generations/Simplex.h" />
+		<Unit filename="Source/Generations/Simplex3D.cpp" />
+		<Unit filename="Source/Generations/Simplex3D.h" />
 		<Unit filename="Source/Generations/Simplex_Noise.cpp" />
 		<Unit filename="Source/Generations/Simplex_Noise.h" />
 		<Unit filename="Source/Main.cpp" />
@@ -110,6 +118,8 @@
 		<Unit filename="Source/Utilities/Loader.h" />
 		<Unit filename="Source/Utilities/Random.cpp" />
 		<Unit filename="Source/Utilities/Random.h" />
+		<Unit filename="Source/Utilities/Window.cpp" />
+		<Unit filename="Source/Utilities/Window.h" />
 		<Unit filename="Source/Utilities/old.h" />
 		<Unit filename="libgcc_s_sjlj-1.dll" />
 		<Unit filename="libstdc++-6.dll" />

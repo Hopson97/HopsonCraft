@@ -8,6 +8,7 @@
 class FPS
 {
     public:
+        FPS();
 
         void update     ();
         void drawFPS    ();
@@ -15,9 +16,8 @@ class FPS
     private:
         float getFPS( const sf::Time& time );
 
-        void printFPS ( float framesPerSecond );
+        void setFPS ( float framesPerSecond );
 
-    private:
         sf::Clock   fpsClock;
         sf::Clock   fpsClock2;
         int         fpsCount  = 0;
@@ -25,6 +25,9 @@ class FPS
 
         int         frameCount      = 0;
         float       frameTimes10    = 0; //Shows average FPS every 10 secs
+
+        sf::Text    text;
+        sf::Font    font;
 };
 
 

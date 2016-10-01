@@ -6,8 +6,11 @@
 
 void Chunk :: makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block& block )
 {
+
+
     if ( getBlock( x, y + 1, z).type == Block_Type::Air ) {
         makeTop( x, y, z, block );
+
     }
     if ( getBlock( x, y - 1, z).type == Block_Type::Air ) {
         makeBottom( x, y, z, block );

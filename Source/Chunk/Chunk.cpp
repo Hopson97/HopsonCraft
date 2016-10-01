@@ -7,8 +7,13 @@
 #include "Blocks/Blocks.h"
 
 #include "Utilities/Random.h"
+#include "Simplex3D.h"
 
 Block Chunk :: air ( Block_Type::Air );
+
+Grass_Block  Chunk::grass;
+Dirt_Block   Chunk::dirt;
+Stone_Block  Chunk::stone;
 
 Chunk :: Chunk( Loader& loader, int x, int z, Height_Generator& generator )
     :   m_xPos ( x )
@@ -19,37 +24,34 @@ Chunk :: Chunk( Loader& loader, int x, int z, Height_Generator& generator )
     //Generate the height map
     for ( int x = 0 ; x < WIDTH ; x++ ) {
         for ( int z = 0 ; z < WIDTH ; z++ ) {
-            heightMap[ z * WIDTH + x ] = generator.generateHeight( x * m_xPos, z * m_zPos );
+            heightMap[ z * WIDTH + x ] = generator.generateHeight( x + m_xPos,
+                                                                   z + m_zPos );
         }
     }
 
     //Create blocks based on the height map
     for ( int y = 0 ; y < HEIGHT ; y++ ) {
-        for ( int z = 0 ; z < WIDTH ; z++ ) {
-            for ( int x = 0 ; x < WIDTH ; x++ ) {
+        for ( int x = 0 ; x < WIDTH ; x++ ) {
+            for ( int z = 0 ; z < WIDTH ; z++ ) {
                 int h = heightMap.at( z * WIDTH + x );
-
                 if ( y > h ) {
                     m_blocks.emplace_back( &air );
                 }
                 else if ( y == h ) {
-                    m_blocks.emplace_back ( new Grass_Block () );
+                    m_blocks.emplace_back ( &grass );
                 }
                 else  if ( y < h && y > h - 5 ){
-                    m_blocks.emplace_back ( new Dirt_Block () );
+                    m_blocks.emplace_back ( &dirt );
                 } else {
-                    m_blocks.emplace_back( new Stone_Block() );
+                    m_blocks.emplace_back( &stone );
                 }
-
-                //m_blocks.emplace_back ( new Grass_Block () );
             }
         }
     }
-
     //Create the mesh for the blokcs
     for ( int y = 0 ; y < HEIGHT ; y++ ) {
-        for ( int z = 0 ; z < WIDTH ; z++ ) {
-            for ( int x = 0 ; x < WIDTH ; x++ ) {
+        for ( int x = 0 ; x < WIDTH ; x++ ) {
+            for ( int z = 0 ; z < WIDTH ; z++ ) {
                 Block* b = &getBlock( x, y, z );
                 if ( b->type == Block_Type::Air ) {
                     continue;
@@ -71,6 +73,7 @@ Block& Chunk :: getBlock ( int x, int y, int z )
 {
     static int area = WIDTH * WIDTH;
     try  {
+
         return *m_blocks.at ( area * y + WIDTH * z + x );
     } catch ( std::out_of_range& e ) {
         return air;
@@ -80,7 +83,7 @@ Block& Chunk :: getBlock ( int x, int y, int z )
 Chunk::~Chunk()
 {
     while ( !m_blocks.empty() ) {
-        delete m_blocks.back();
+        //delete m_blocks.back();
         m_blocks.pop_back();
     }
 }

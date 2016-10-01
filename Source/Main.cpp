@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <memory>
+#include <cmath>
 
 #include "Camera.h"
 #include "Utilities/Loader.h"
@@ -16,6 +17,9 @@
 #include "Chunk/Chunk.h"
 
 #include "Utilities/FPS.h"
+#include "Window.h"
+
+#include "Simplex.h"
 
 struct Chunk_Positions
 {
@@ -91,34 +95,21 @@ int main()
 {
     srand ( time ( NULL ) );
 
-    sf::ContextSettings settings;
-    settings.depthBits = 24;
-    settings.stencilBits = 8;
-    settings.antialiasingLevel = 4;
-    settings.majorVersion = 3;
-    settings.minorVersion = 0;
-
-    float w = 1280;
-    float h = 720;
-
-    sf::RenderWindow window ( sf::VideoMode ( w, h ), "Minecraft Clone Test", sf::Style::Close, settings );
-
-    glewInit();
-    glewExperimental = GL_TRUE;
-    glViewport  ( 0, 0, w, h );
-
-    glEnable    ( GL_DEPTH_TEST );
+    Window::create();
 
     GLuint shader = GL::Shader::load( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" );
     Camera camera;
     Loader loader;
     Height_Generator heightGen;
+    Simplex simplex;
+    simplex.init();
 
     GLuint texture = loader.loadTexture( "mc" ); //This is the texture atlas used by all blocks
 
-    int size = 16;
+    int size = 21;
     sf::Clock timer;
     std::vector<std::unique_ptr<Chunk>> m_chunks;
+    std::vector<Vector2> chunkPositions;
 
     Chunk_Positions positions;
     positions = positions.get( camera, size );
@@ -128,6 +119,7 @@ int main()
         for ( int z = positions.mZStart ; z < positions.mZEnd ; z++)
         {
             m_chunks.emplace_back ( std::make_unique<Chunk>( loader, x, z, heightGen ) );
+            chunkPositions.push_back( { x, z } );
         }
     }
 
@@ -138,7 +130,7 @@ int main()
 
     FPS fps;
 
-    Matrix4 pers = glm::perspective( glm::radians( 90.0f ), w/ h, 0.01f, 1000.0f);
+    Matrix4 pers = glm::perspective( glm::radians( 75.0f ), (float)Window::WIDTH/ (float)Window::HEIGHT, 0.01f, 1000.0f);
     glUseProgram ( shader );
     GLuint projectionLocation   = glGetUniformLocation ( shader, "projectionMatrix" );
     GLuint viewLocation         = glGetUniformLocation ( shader, "viewMatrix"       );
@@ -154,14 +146,15 @@ int main()
 
     Vector2 currentPos = getChunkPos( camera );
 
-    while ( window.isOpen() )
+    sf::Clock c;
+
+    while ( Window::isOpen() )
     {
         if ( currentPos != getChunkPos( camera ) ) {
-            std::cout << "Chunk change" << std::endl;
             currentPos = getChunkPos( camera );
         }
 
-        clearWindow();
+        Window::clear();
 
         glUniformMatrix4fv ( viewLocation, 1, GL_FALSE, glm::value_ptr( createViewMatrix( camera ) ) );
 
@@ -180,38 +173,18 @@ int main()
             glDrawArrays( GL_TRIANGLES, 0, chunk->tempMesh->getVertexCount() );
         }
 
-        window.display  ();
-        checkForClose   ( window );
+        Window::checkForClose();
+
         fps.update();
+
+        //Window::prepareSfDraw();
+        //fps.drawFPS();
+        //Window::endSfDraw();
+
+
+        Window::update();
     }
 
 
     return 0;
 }
-
-
-void checkForClose ( sf::RenderWindow& window )
-{
-    sf::Event e;
-    while ( window.pollEvent( e ) )
-    {
-        if ( e.type == sf::Event::Closed )
-        {
-            window.close();
-        }
-        if ( e.type == sf::Event::KeyPressed )
-        {
-            if ( e.key.code == sf::Keyboard::Escape )
-            {
-                window.close();
-            }
-        }
-    }
-}
-
-void clearWindow()
-{
-    glClear     ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    glClearColor( 0.52, 0.81, 0.92, 1 );
-}
-
