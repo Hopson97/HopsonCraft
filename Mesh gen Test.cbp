@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Mesh gen Test" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Mesh gen Test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="Source/OpenGL/Objects" />
+					<Add directory="Source/OpenGL/Shaders" />
+					<Add directory="Source" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-audio-d" />
+					<Add library="sfml-network-d" />
+					<Add library="sfml-system-d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Mesh gen Test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add directory="Source/OpenGL/Objects" />
+					<Add directory="Source/OpenGL/Shaders" />
+					<Add directory="Source" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-network" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=c++14" />
+			<Add option="-fexceptions" />
+			<Add option="-DGLEW_STATIC" />
+			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.3.2 ... MinGW/include" />
+		</Compiler>
+		<Linker>
+			<Add library="opengl32" />
+			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.3.2 ... MinGW/lib" />
+		</Linker>
+		<Unit filename="Data/Images/cow.jpg" />
+		<Unit filename="Loader.cpp" />
+		<Unit filename="Loader.h" />
+		<Unit filename="Project/libstdc++-6.dll" />
+		<Unit filename="Project/openal32.dll" />
+		<Unit filename="Project/sfml-audio-2.dll" />
+		<Unit filename="Project/sfml-audio-d-2.dll" />
+		<Unit filename="Project/sfml-graphics-2.dll" />
+		<Unit filename="Project/sfml-graphics-d-2.dll" />
+		<Unit filename="Project/sfml-network-2.dll" />
+		<Unit filename="Project/sfml-network-d-2.dll" />
+		<Unit filename="Project/sfml-system-2.dll" />
+		<Unit filename="Project/sfml-system-d-2.dll" />
+		<Unit filename="Project/sfml-window-2.dll" />
+		<Unit filename="Project/sfml-window-d-2.dll" />
+		<Unit filename="SFML Full.depend" />
+		<Unit filename="Shaders/Fragment.glsl" />
+		<Unit filename="Shaders/Vertex.glsl" />
+		<Unit filename="Source/Block.cpp" />
+		<Unit filename="Source/Block.h" />
+		<Unit filename="Source/Camera.cpp" />
+		<Unit filename="Source/Camera.h" />
+		<Unit filename="Source/Chunk.cpp" />
+		<Unit filename="Source/Chunk.h" />
+		<Unit filename="Source/Chunk_Block_Gen.cpp" />
+		<Unit filename="Source/Dirt_Block.cpp" />
+		<Unit filename="Source/Dirt_Block.h" />
+		<Unit filename="Source/FPS.cpp" />
+		<Unit filename="Source/FPS.h" />
+		<Unit filename="Source/Grass_Block.cpp" />
+		<Unit filename="Source/Grass_Block.h" />
+		<Unit filename="Source/Height_Generator.cpp" />
+		<Unit filename="Source/Height_Generator.h" />
+		<Unit filename="Source/Main.cpp" />
+		<Unit filename="Source/Mesh.cpp" />
+		<Unit filename="Source/Mesh.h" />
+		<Unit filename="Source/OpenGL/GLEW/glew.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source/OpenGL/GLEW/glew.h" />
+		<Unit filename="Source/OpenGL/GLEW/wglew.h" />
+		<Unit filename="Source/OpenGL/GLM/glm_transformations.h" />
+		<Unit filename="Source/OpenGL/Shaders/shader_loader.cpp" />
+		<Unit filename="Source/OpenGL/Shaders/shader_loader.h" />
+		<Unit filename="Source/Perlin.cpp" />
+		<Unit filename="Source/Perlin.h" />
+		<Unit filename="Source/Simplex_Noise.cpp" />
+		<Unit filename="Source/Simplex_Noise.h" />
+		<Unit filename="Source/Stone_Block.cpp" />
+		<Unit filename="Source/Stone_Block.h" />
+		<Unit filename="Source/old.h" />
+		<Unit filename="Source/random.cpp" />
+		<Unit filename="Source/random.h" />
+		<Unit filename="libgcc_s_sjlj-1.dll" />
+		<Unit filename="libstdc++-6.dll" />
+		<Unit filename="openal32.dll" />
+		<Unit filename="sfml-audio-2.dll" />
+		<Unit filename="sfml-audio-d-2.dll" />
+		<Unit filename="sfml-graphics-2.dll" />
+		<Unit filename="sfml-graphics-d-2.dll" />
+		<Unit filename="sfml-network-2.dll" />
+		<Unit filename="sfml-network-d-2.dll" />
+		<Unit filename="sfml-system-2.dll" />
+		<Unit filename="sfml-system-d-2.dll" />
+		<Unit filename="sfml-window-2.dll" />
+		<Unit filename="sfml-window-d-2.dll" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

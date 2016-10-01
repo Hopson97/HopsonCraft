@@ -1,0 +1,22 @@
+# Created by https://www.gitignore.io/api/codeblocks
+
+### CodeBlocks ###
+# specific to CodeBlocks IDE
+*.layout
+*.depend
+
+# generated directories
+bin/
+obj/
+
+#SFML Stuff
+*.dll
+*.zip
+*.7z
+Project/
+
+#OpenGL Files
+glew.c
+glew.h
+wglew.h
+
