@@ -4,13 +4,9 @@
 #include <stdexcept>
 #include <thread>
 
-#include "Grass_Block.h"
-#include "Dirt_Block.h"
-#include "Stone_Block.h"
+#include "Blocks/Blocks.h"
 
-#include "random.h"
-
-#include "Perlin.h"
+#include "Utilities/Random.h"
 
 Block Chunk :: air ( Block_Type::Air );
 

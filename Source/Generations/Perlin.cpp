@@ -1,6 +1,6 @@
 #include "Perlin.h"
 
-#include "Chunk.h"
+#include "Chunk/Chunk.h"
 
 // Two-dimensional value noise based on Hugo Elias's description:
 //   http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
@@ -8,7 +8,7 @@
 #include <cstdio>
 #include <cmath>
 #include <cstdlib>
-#include "Chunk.h"
+
 using namespace std;
 
 int numX = 512,

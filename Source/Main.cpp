@@ -8,14 +8,14 @@
 #include <memory>
 
 #include "Camera.h"
-#include "../Loader.h"
-#include "Block.h"
+#include "Utilities/Loader.h"
+#include "Blocks/Blocks.h"
 
 #include "shader_loader.h"
 
-#include "Chunk.h"
+#include "Chunk/Chunk.h"
 
-#include "FPS.h"
+#include "Utilities/FPS.h"
 
 struct Chunk_Positions
 {

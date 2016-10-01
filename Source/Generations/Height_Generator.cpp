@@ -1,10 +1,11 @@
 #include "Height_Generator.h"
 
-#include "random.h"
-#include "Chunk.h"
 #include <iostream>
-
 #include <cmath>
+
+
+#include "Utilities/Random.h"
+#include "Chunk/Chunk.h"
 
 Height_Generator :: Height_Generator()
 {

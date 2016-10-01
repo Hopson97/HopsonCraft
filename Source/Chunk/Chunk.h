@@ -4,10 +4,9 @@
 #include <vector>
 
 #include "OpenGL/GLEW/glew.h"
-#include "../Loader.h"
+#include "Utilities/Loader.h"
 
-#include "Height_Generator.h"
-#include "Perlin.h"
+#include "Generations/Height_Generator.h"
 
 class Block;
 
