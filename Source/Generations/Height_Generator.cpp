@@ -7,12 +7,111 @@
 #include "Utilities/Random.h"
 #include "Chunk/Chunk.h"
 
-Height_Generator :: Height_Generator()
+namespace Height_Generator
 {
-    seed = Random::integer ( 1, 32000 ) * Random::integer ( 1, 32000 ); //Random seems to go from 0->32000, so any higher aint possible
+    namespace
+    {
+        int gen_seed;
 
-    std::cout << seed << std::endl;
-    srand ( seed );
+        double gen_amplitude;
+        double gen_roughness;
+        int    gen_ocataves;
+
+
+        double getNoise             ( double x, double z );
+        double getSmoothNoise       ( double x, double z );
+        double getInterpolatedNoise ( double x, double z );
+        double interpolate          ( double a, double b, double blend );
+    }
+
+    void setUp( double amplitude,
+                double roughness,
+                int ocataves,
+                int seed        )
+    {
+        gen_amplitude = amplitude;
+        gen_ocataves  = ocataves;
+        gen_roughness = roughness;
+
+        if ( seed == -1 ) {
+            gen_seed = Random::integer( 0, 32000 ) * Random::integer( 0, 32000 );
+            srand( gen_seed );
+        }
+    }
+
+    int getHeight ( double x, double z, double gridX, double gridZ )
+    {
+        double xOffset = gridX * ( Chunk::WIDTH - 1 );
+        double zOffset = gridZ * ( Chunk::WIDTH - 1 );
+
+        double total = 0;
+        double value = std::pow ( 2, gen_ocataves) - 1.0;
+
+        for ( int i = 0 ; i < gen_ocataves ; i++ ) {
+            double frequency = std::pow( 2, i ) / value;
+            double amps      = std::pow ( gen_roughness, i ) * gen_amplitude;
+            total += getInterpolatedNoise( ( x + xOffset ) * frequency,
+                                           ( z + zOffset ) * frequency ) * amps;
+        }
+        return total;
+    }
+
+    namespace
+    {
+        double getNoise ( double x, double z )
+        {
+            srand( x * 5353 + z * 424212 + gen_seed );
+            double noise = Random::decimal( 0, 1, 2 );
+            srand( gen_seed );
+            return noise;
+        }
+
+        //Gets average noise from corners
+        double getSmoothNoise   ( double x, double z )
+        {
+            double corners = (  ( getNoise( x - 1, z - 1 ) ) +
+                                ( getNoise( x + 1, z + 1 ) ) +
+                                ( getNoise( x + 1, z - 1 ) ) +
+                                ( getNoise( x - 1, z + 1 ) ) )  / 16.0;
+
+            double sides = (    ( getNoise( x - 1,    z ) ) +
+                                ( getNoise( x + 1,    z ) ) +
+                                ( getNoise( x,        z - 1 ) ) +
+                                ( getNoise( x,        z + 1 ) ) ) / 8.0f;
+
+            double middle = getNoise( x, z ) / 4.f;
+
+            return corners + sides + middle;
+        }
+
+        double interpolate ( double a, double b, double blend )
+        {
+            double theta = blend * 3.14159;
+
+            double f = 1.0 - std::cos( theta ) * 0.5;
+
+            return a * ( 1.0 - f ) + b * f;
+        }
+
+        double getInterpolatedNoise ( double x, double z )
+        {
+            int intX = int( x );
+            int intZ = int( z );
+
+            double fracX = x - intX;
+            double fracZ = z - intZ;
+
+            double v1 = getSmoothNoise( intX,       intZ        );
+            double v2 = getSmoothNoise( intX + 1.0, intZ        );
+            double v3 = getSmoothNoise( intX,       intZ + 1.0  );
+            double v4 = getSmoothNoise( intX + 1.0, intZ + 1.0  );
+
+            double i1 = interpolate( v1, v2, fracX );
+            double i2 = interpolate( v3, v4, fracX );
+
+            return interpolate( i1, i2, fracZ );
+        }
+    }
 }
 
 
@@ -22,57 +121,13 @@ Height_Generator :: Height_Generator()
 
 
 
-int Height_Generator :: generateHeight ( int x, int z )
-{
-    return getInterpolatedNoise( x, z ) * (Chunk::HEIGHT) + 60;
-}
-
-float Height_Generator :: getNoise ( int x, int z )
-{
-    return Random::decimalD( 1.0f, 2.0f, 1 );
-}
-
-float Height_Generator :: getSmoothNoise ( int x, int z )
-{
-    float cornerValues = (  getNoise( x - 1, z - 1  ) +
-                            getNoise( x + 1, z - 1  ) +
-                            getNoise( x - 1, z + 1  ) +
-                            getNoise( x + 1, z + 1  )   )   / 16.0f;
-
-    float sideValues =  (  getNoise( x - 1, z       ) +
-                           getNoise( x + 1, z       ) +
-                           getNoise( x,     z + 1   ) +
-                           getNoise( x,     z + 1   )   ) / 8.0f;
-
-    float middle = getNoise( x, z ) / 4.0f;
-
-    return (middle * sideValues * cornerValues) / 3;
-}
-
-float Height_Generator::getInterpolatedNoise(float x, float z)
-{
-    int intX = x;
-    int intZ = z;
-
-    float fracX = x - intX;
-    float fracZ = z - intZ;
-
-    float v1 = getSmoothNoise( intX,        intZ );
-    float v2 = getSmoothNoise( intX + 1,    intZ );
-    float v3 = getSmoothNoise( intX,        intZ + 1 );
-    float v4 = getSmoothNoise( intX + 1,    intZ + 1 );
-
-    float i1 = interpolate( v1, v2, fracX );
-    float i2 = interpolate( v3, v4, fracX );
-
-    return interpolate( i1, i2, fracZ );
-}
 
 
-float Height_Generator :: interpolate ( float a, float b, float blend )
-{
-    double angle = blend * 3.14159;
-    float f = (float)(1.0f - std::cos( angle ) ) * 0.5f;
-    return  a * ( 1.0f - f ) + b * f;
-}
+
+
+
+
+
+
+
 

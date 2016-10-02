@@ -15,25 +15,28 @@ Grass_Block  Chunk::grass;
 Dirt_Block   Chunk::dirt;
 Stone_Block  Chunk::stone;
 
-Chunk :: Chunk( Loader& loader, int x, int z, Height_Generator& generator )
-    :   m_xPos ( x )
-    ,   m_zPos ( z )
+Chunk :: Chunk( Loader& loader, int x, int z )
+:   m_xPos ( x )
+,   m_zPos ( z )
 {
-    std::vector<int> heightMap ( WIDTH * WIDTH );
+    std::vector<int> heightMap;
 
     //Generate the height map
-    for ( int x = 0 ; x < WIDTH ; x++ ) {
-        for ( int z = 0 ; z < WIDTH ; z++ ) {
-            heightMap[ z * WIDTH + x ] = generator.generateHeight( x + m_xPos,
-                                                                   z + m_zPos );
+    for ( int heightMapX = 0 ; heightMapX < WIDTH; heightMapX++ ) {
+        for ( int heightMapZ = 0 ; heightMapZ < WIDTH; heightMapZ++ ) {
+            heightMap.push_back ( Height_Generator::getHeight( heightMapX,
+                                                               heightMapZ,
+                                                               m_xPos,
+                                                               m_zPos ) );
         }
     }
 
     //Create blocks based on the height map
     for ( int y = 0 ; y < HEIGHT ; y++ ) {
-        for ( int x = 0 ; x < WIDTH ; x++ ) {
-            for ( int z = 0 ; z < WIDTH ; z++ ) {
-                int h = heightMap.at( z * WIDTH + x );
+        for ( int x = 0 ; x < WIDTH; x++ ) {
+            for ( int z = 0 ; z < WIDTH; z++ ) {
+                int h = heightMap.at( x * (WIDTH) + z );
+
                 if ( y > h ) {
                     m_blocks.emplace_back( &air );
                 }
@@ -48,10 +51,11 @@ Chunk :: Chunk( Loader& loader, int x, int z, Height_Generator& generator )
             }
         }
     }
+
     //Create the mesh for the blokcs
     for ( int y = 0 ; y < HEIGHT ; y++ ) {
-        for ( int x = 0 ; x < WIDTH ; x++ ) {
-            for ( int z = 0 ; z < WIDTH ; z++ ) {
+        for ( int x = 0 ; x < WIDTH; x++ ) {
+            for ( int z = 0 ; z < WIDTH; z++ ) {
                 Block* b = &getBlock( x, y, z );
                 if ( b->type == Block_Type::Air ) {
                     continue;
@@ -71,10 +75,10 @@ Chunk :: Chunk( Loader& loader, int x, int z, Height_Generator& generator )
 
 Block& Chunk :: getBlock ( int x, int y, int z )
 {
-    static int area = WIDTH * WIDTH;
+    static int area = ( WIDTH ) * ( WIDTH );
     try  {
 
-        return *m_blocks.at ( area * y + WIDTH * z + x );
+        return *m_blocks.at ( area * y + ( WIDTH ) * x + z );
     } catch ( std::out_of_range& e ) {
         return air;
     }
@@ -87,4 +91,3 @@ Chunk::~Chunk()
         m_blocks.pop_back();
     }
 }
-

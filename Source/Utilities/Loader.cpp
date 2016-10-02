@@ -48,11 +48,11 @@ GLuint Loader :: loadTexture ( const std::string& fileName )
     sf::Image image;
     image.loadFromFile( "Data/Images/" + fileName + ".png" );
 
+    image.flipVertically();
+
     GLuint textureID;
     glGenTextures( 1, &textureID );
     textureList.push_back( textureID );
-
-    image.flipVertically();
 
     glBindTexture(GL_TEXTURE_2D, textureID);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getSize().x, image.getSize().y, 0,

@@ -95,18 +95,19 @@ int main()
 {
     srand ( time ( NULL ) );
 
+    Height_Generator::setUp( Chunk::HEIGHT / 1.5 );
+
     Window::create();
 
     GLuint shader = GL::Shader::load( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" );
     Camera camera;
     Loader loader;
-    Height_Generator heightGen;
     Simplex simplex;
     simplex.init();
 
     GLuint texture = loader.loadTexture( "mc" ); //This is the texture atlas used by all blocks
 
-    int size = 21;
+    int size = 25;
     sf::Clock timer;
     std::vector<std::unique_ptr<Chunk>> m_chunks;
     std::vector<Vector2> chunkPositions;
@@ -118,7 +119,7 @@ int main()
     {
         for ( int z = positions.mZStart ; z < positions.mZEnd ; z++)
         {
-            m_chunks.emplace_back ( std::make_unique<Chunk>( loader, x, z, heightGen ) );
+            m_chunks.emplace_back ( std::make_unique<Chunk>( loader, x, z ) );
             chunkPositions.push_back( { x, z } );
         }
     }
@@ -138,11 +139,10 @@ int main()
 
     glUniformMatrix4fv ( projectionLocation, 1, GL_FALSE, glm::value_ptr( pers ) );
 
-    int camHeight = 50;
-
-    camera.movePosition( {  0,
-                            camHeight,
-                            0 } );
+    camera.movePosition( {  -4,
+                            100,
+                            -5 } );
+    camera.m_rotation.y += 160;
 
     Vector2 currentPos = getChunkPos( camera );
 
@@ -152,7 +152,10 @@ int main()
     {
         if ( currentPos != getChunkPos( camera ) ) {
             currentPos = getChunkPos( camera );
+            std::cout << "CHANGE" << std::endl;
         }
+
+        float dt = c.restart().asSeconds();
 
         Window::clear();
 
@@ -161,7 +164,7 @@ int main()
         glActiveTexture ( GL_TEXTURE0 );
         glBindTexture( GL_TEXTURE_2D, texture );
 
-        camera.move();
+        camera.move( dt );
 
         for ( auto& chunk : m_chunks )
         {
@@ -171,6 +174,7 @@ int main()
                                    chunk->tempMesh->rot,
                                    chunk->tempMesh->sca ) ) );
             glDrawArrays( GL_TRIANGLES, 0, chunk->tempMesh->getVertexCount() );
+
         }
 
         Window::checkForClose();

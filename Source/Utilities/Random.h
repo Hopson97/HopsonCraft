@@ -5,7 +5,7 @@ namespace Random
 {
 	int integer		( int low, int high );
 
-	double decimalD ( double low, double high, int precision = 1 );
+	double decimal ( double low, double high, int precision = 1 );
 }
 
 #endif

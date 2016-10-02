@@ -7,7 +7,6 @@ Stone_Block :: Stone_Block()
 }
 
 //Texture/ OpenGL stuff:
-
 std::vector<GLfloat> Stone_Block :: getSideTxrCoords () const
 {
     static const std::vector<GLfloat> sideTextures =

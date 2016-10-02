@@ -2,29 +2,14 @@
 #define HEIGHT_GENERATOR_H
 
 
-class Height_Generator
+namespace Height_Generator
 {
-    public:
-        Height_Generator();
+    void setUp( double amplitude,
+                double roughness    = 0.3,
+                int ocataves        = 3,
+                int seed            = -1 );
 
-        int getPerlin ( int x, int z );
-
-        int generateHeight ( int x, int z );
-
-    private:
-        float getNoise          ( int x, int z );
-
-        float getSmoothNoise    ( int x, int z);
-
-        float interpolate       ( float a, float b, float blend );
-
-        float getInterpolatedNoise ( float x, float z );
-
-        int seed;
-
-        int m_octaves           = 3.0f;     //Octaves are just how many times over the noise functions are used.
-        float m_roughness       = 0.3f;     //On the tin.
-        float m_frequency       = 4.0f;    //Determines the smoothness, higher = smoother
-};
+    int getHeight ( double x, double z, double gridX, double gridZ );
+}
 
 #endif // HEIGHT_GENERATOR_H

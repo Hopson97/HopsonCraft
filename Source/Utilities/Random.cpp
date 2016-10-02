@@ -12,7 +12,7 @@ namespace Random
 		return rand() % (high - low + 1) + low;
 	}
 
-	double decimalD( double low, double high, int precision )
+	double decimal ( double low, double high, int precision )
 	{
 		double multiplier = pow(10, precision);
 

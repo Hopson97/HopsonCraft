@@ -16,7 +16,7 @@ class Block;
 class Chunk
 {
     public:
-        Chunk   ( Loader& loader, int x, int z, Height_Generator& generator );
+        Chunk   ( Loader& loader, int x, int z );
         ~Chunk  ();
 
         Block& getBlock( int x, int y, int z );
@@ -41,6 +41,8 @@ class Chunk
         void makeFront  (   GLfloat x, GLfloat y, GLfloat z, const Block& block );
         void makeBottom (   GLfloat x, GLfloat y, GLfloat z, const Block& block );
 
+        void addIndex();
+
 
         int m_xPos;
         int m_zPos;
@@ -49,6 +51,7 @@ class Chunk
 
         std::vector<GLfloat>    m_vertexList;
         std::vector<GLfloat>    m_textureList;
+        std::vector<GLuint>    m_indexList;
 };
 
 #endif // CHUNK_H

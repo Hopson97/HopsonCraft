@@ -19,9 +19,10 @@ class Mesh
 
         ~Mesh();
 
+        GLuint m_count;
+
     private:
         GLuint m_vao;
-        GLuint m_count;
 
         GLuint m_vert;
         GLuint m_txr;
