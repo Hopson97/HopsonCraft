@@ -7,6 +7,7 @@
 #include <iostream>
 #include <memory>
 #include <cmath>
+#include <thread>
 
 #include "Camera.h"
 #include "Utilities/Loader.h"
@@ -89,12 +90,21 @@ Vector2 getChunkPos ( Camera& cam )
     return { xPos, zPos };
 }
 
+void handleChunks ( std::vector<Chunk*>& chunks, int size, Loader& loader )
+{
+    while ( true ) {
+        for ( auto& chunk : chunks)
+        {
+            chunk->reset( loader );
+        }
+    }
+}
+
 int main()
 {
     srand ( time ( NULL ) );
 
-    Height_Generator::setUp( Chunk::HEIGHT / 1.5, 5 );
-
+    Height_Generator::setUp( Chunk::HEIGHT / 2 );
     Window::create();
 
     GLuint shader = GL::Shader::load( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" );
@@ -103,9 +113,9 @@ int main()
 
     GLuint texture = loader.loadTexture( "mc" ); //This is the texture atlas used by all blocks
 
-    int size = 25;
+    int size = 21;
     sf::Clock timer;
-    std::vector<std::unique_ptr<Chunk>> m_chunks;
+    std::vector<Chunk*> m_chunks;
     std::vector<Vector2> chunkPositions;
 
     Chunk_Positions positions;
@@ -115,7 +125,7 @@ int main()
     {
         for ( int z = positions.mZStart ; z < positions.mZEnd ; z++)
         {
-            m_chunks.emplace_back ( std::make_unique<Chunk>( loader, x, z ) );
+            m_chunks.emplace_back ( new Chunk( loader, x, z ) );
             chunkPositions.push_back( { x, z } );
         }
     }
@@ -144,6 +154,9 @@ int main()
 
     sf::Clock c;
 
+    std::thread t ( handleChunks , std::ref( m_chunks ), size, std::ref( loader ) );
+    t.detach();
+
     while ( Window::isOpen() )
     {
         if ( currentPos != getChunkPos( camera ) ) {
@@ -170,7 +183,6 @@ int main()
                                    chunk->tempMesh->rot,
                                    chunk->tempMesh->sca ) ) );
             glDrawArrays( GL_TRIANGLES, 0, chunk->tempMesh->getVertexCount() );
-
         }
 
         Window::checkForClose();

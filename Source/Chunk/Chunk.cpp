@@ -7,12 +7,20 @@
 #include "Blocks/Blocks.h"
 
 #include "Utilities/Random.h"
+#include "SimplexNoise.h"
 
-Block Chunk :: air ( Block_Type::Air );
 
-Grass_Block  Chunk::grass;
-Dirt_Block   Chunk::dirt;
-Stone_Block  Chunk::stone;
+
+namespace
+{
+    Block           air ( Block_Type::Air );
+
+    Grass_Block     grass;
+    Dirt_Block      dirt;
+    Stone_Block     stone;
+
+    SimplexNoise noise ( 0.5, 0.1, 0.2, 0.5 );
+}
 
 Chunk :: Chunk( Loader& loader, int x, int z )
 :   m_xPos ( x )
@@ -23,6 +31,7 @@ Chunk :: Chunk( Loader& loader, int x, int z )
     //Generate the height map
     for ( int heightMapX = 0 ; heightMapX < WIDTH; heightMapX++ ) {
         for ( int heightMapZ = 0 ; heightMapZ < WIDTH; heightMapZ++ ) {
+
             heightMap.push_back ( Height_Generator::getHeight( heightMapX,
                                                                heightMapZ,
                                                                m_xPos,
@@ -67,6 +76,31 @@ Chunk :: Chunk( Loader& loader, int x, int z )
 
     tempMesh = loader.loadToVAO( m_vertexList, m_textureList );
     tempMesh->pos = { x * WIDTH, 0, z * WIDTH };
+
+    m_vertexList.clear();
+    m_textureList.clear();
+}
+
+void Chunk :: reset( Loader& loader )
+{
+   std::vector<int> heightMap;
+
+    //Create the mesh for the blokcs
+    for ( int y = 0 ; y < HEIGHT ; y++ ) {
+        for ( int x = 0 ; x < WIDTH; x++ ) {
+            for ( int z = 0 ; z < WIDTH; z++ ) {
+                Block* b = &getBlock( x, y, z );
+                if ( b->type == Block_Type::Air ) {
+                    continue;
+                } else {
+                   makeBlock( x, y, z, *b );
+                }
+            }
+        }
+    }
+
+    tempMesh = loader.loadToVAO( m_vertexList, m_textureList );
+    tempMesh->pos = { m_xPos * WIDTH, 0, m_zPos * WIDTH };
 
     m_vertexList.clear();
     m_textureList.clear();

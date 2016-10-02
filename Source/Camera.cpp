@@ -4,7 +4,13 @@
 
 void Camera :: move ( float dt )
 {
-    float speed = 10 * dt;
+    float speed;
+    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::LControl) )
+    {
+        speed = 50 * dt;
+    }
+    else speed = 10 * dt;
+
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
     {
         m_position.z -= speed;

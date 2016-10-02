@@ -9,6 +9,11 @@
 
 namespace Height_Generator
 {
+
+    /* Decent Seeds:
+     *   112175343 , with default args and chunk height / 2
+     *
+     */
     namespace
     {
         int gen_seed;
@@ -36,7 +41,11 @@ namespace Height_Generator
         if ( seed == -1 ) {
             gen_seed = Random::integer( 0, 32000 ) * Random::integer( 0, 32000 );
             srand( gen_seed );
+        } else {
+            gen_seed = seed;
         }
+
+        std::cout << "Seed: " << gen_seed << std::endl;
     }
 
     int getHeight ( double x, double z, double gridX, double gridZ )
@@ -51,18 +60,24 @@ namespace Height_Generator
             double frequency = std::pow( 2, i ) / value;
             double amps      = std::pow ( gen_roughness, i ) * gen_amplitude;
             total += getInterpolatedNoise( ( x + xOffset ) * frequency,
-                                           ( z + zOffset ) * frequency ) * amps;
+                                        ( z + zOffset ) * frequency ) * amps;
         }
-        return total;
+        return total + 5;
     }
+
+    int getSeed()
+    {
+        return gen_seed;
+    }
+
 
     namespace
     {
         double getNoise ( double x, double z )
         {
-            srand( x * 5353 + z * 424212 + gen_seed );
+            srand( x * 5232 + z * 4545737 + gen_seed );
             double noise = Random::decimal( 0, 1, 2 );
-            srand( gen_seed );
+            //srand( gen_seed );
             return noise;
         }
 
@@ -72,14 +87,14 @@ namespace Height_Generator
             double corners = (  ( getNoise( x - 1, z - 1 ) ) +
                                 ( getNoise( x + 1, z + 1 ) ) +
                                 ( getNoise( x + 1, z - 1 ) ) +
-                                ( getNoise( x - 1, z + 1 ) ) )  / 16.0;
+                                ( getNoise( x - 1, z + 1 ) ) )  / 32;
 
             double sides = (    ( getNoise( x - 1,    z ) ) +
                                 ( getNoise( x + 1,    z ) ) +
                                 ( getNoise( x,        z - 1 ) ) +
-                                ( getNoise( x,        z + 1 ) ) ) / 8.0f;
+                                ( getNoise( x,        z + 1 ) ) ) / 16;
 
-            double middle = getNoise( x, z ) / 4.f;
+            double middle = getNoise( x, z ) / 8;
 
             return corners + sides + middle;
         }
@@ -112,9 +127,8 @@ namespace Height_Generator
             return interpolate( i1, i2, fracZ );
         }
     }
+
 }
-
-
 
 
 

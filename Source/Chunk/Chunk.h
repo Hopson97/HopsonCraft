@@ -18,15 +18,12 @@ class Chunk
         Chunk   ( Loader& loader, int x, int z );
         ~Chunk  ();
 
+        void reset( Loader& loader );
+
         Block& getBlock( int x, int y, int z );
 
         constexpr static int HEIGHT = 128;//128
         constexpr static int WIDTH  = 16;//16
-
-        static Block        air;
-        static Grass_Block  grass;
-        static Stone_Block  stone;
-        static Dirt_Block   dirt;
 
         MeshPtr tempMesh;
 
