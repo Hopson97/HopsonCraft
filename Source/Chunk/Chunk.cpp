@@ -7,7 +7,6 @@
 #include "Blocks/Blocks.h"
 
 #include "Utilities/Random.h"
-#include "Simplex3D.h"
 
 Block Chunk :: air ( Block_Type::Air );
 

@@ -19,8 +19,6 @@
 #include "Utilities/FPS.h"
 #include "Window.h"
 
-#include "Simplex.h"
-
 struct Chunk_Positions
 {
     Chunk_Positions() = default;
@@ -95,15 +93,13 @@ int main()
 {
     srand ( time ( NULL ) );
 
-    Height_Generator::setUp( Chunk::HEIGHT / 1.5 );
+    Height_Generator::setUp( Chunk::HEIGHT / 1.5, 5 );
 
     Window::create();
 
     GLuint shader = GL::Shader::load( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" );
     Camera camera;
     Loader loader;
-    Simplex simplex;
-    simplex.init();
 
     GLuint texture = loader.loadTexture( "mc" ); //This is the texture atlas used by all blocks
 
