@@ -9,7 +9,6 @@ uniform mat4 viewMatrix;
 
 out vec2 txrCoords;
 
-out float zPos;
 
 void main()
 {
@@ -18,6 +17,4 @@ void main()
     vec4 worldPosition = modelMatrix * vec4 ( vertexPosition, 1.0f );
 
     gl_Position = projectionMatrix * viewMatrix * worldPosition;
-
-    zPos = gl_Position.z;
 }

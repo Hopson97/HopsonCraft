@@ -5,27 +5,37 @@
 void Camera :: move ( float dt )
 {
     float speed;
-    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::LControl) )
-    {
+
+
+    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::LControl) ) {
         speed = 50 * dt;
+    } else {
+        speed = 10 * dt;
     }
-    else speed = 10 * dt;
 
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
     {
-        m_position.z -= speed;
+        float angle = glm::radians( m_rotation.y + 90 );
+        m_position.x -= cos ( angle) * speed;
+        m_position.z -= sin ( angle) * speed;
     }
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
     {
-        m_position.x += speed;
+        float angle = glm::radians( m_rotation.y );
+        m_position.x += cos ( angle) * speed;
+        m_position.z += sin ( angle) * speed;
     }
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
     {
-        m_position.x -= speed;
+        float angle = glm::radians( m_rotation.y );
+        m_position.x -= cos ( angle) * speed;
+        m_position.z -= sin ( angle) * speed;
     }
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
     {
-        m_position.z += speed;
+        float angle = glm::radians( m_rotation.y + 90 );
+        m_position.x += cos ( angle) * speed;
+        m_position.z += sin ( angle) * speed;
     }
 
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) )

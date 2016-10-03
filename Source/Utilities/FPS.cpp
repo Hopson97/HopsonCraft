@@ -36,7 +36,7 @@ float FPS :: getFPS( const sf::Time& time )
 
 void FPS :: setFPS ( float framesPerSecond )
 {
-    std::cout << framesPerSecond << std::endl;
+    std::cout << "Current FPS: " << framesPerSecond << std::endl;
     text.setString( "FPS: " + std::to_string( framesPerSecond ) );
 }
 

@@ -9,6 +9,8 @@
 #include "Utilities/Random.h"
 #include "SimplexNoise.h"
 
+int Chunk::highestBlock = 0;
+
 namespace
 {
     Block           air ( Block_Type::Air );
@@ -29,11 +31,15 @@ Chunk :: Chunk( Loader& loader, int x, int z )
     //Generate the height map
     for ( int heightMapX = 0 ; heightMapX < WIDTH; heightMapX++ ) {
         for ( int heightMapZ = 0 ; heightMapZ < WIDTH; heightMapZ++ ) {
-
-            heightMap.push_back ( Height_Generator::getHeight( heightMapX,
+            double height =     ( Height_Generator::getHeight( heightMapX,
                                                                heightMapZ,
                                                                m_xPos,
                                                                m_zPos ) );
+            heightMap.push_back( height );
+            if ( height > highestBlock ) {
+                highestBlock = height;
+                if (highestBlock > Chunk::HEIGHT ) highestBlock = Chunk::HEIGHT;
+            }
         }
     }
 

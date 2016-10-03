@@ -19,6 +19,7 @@
 
 #include "Utilities/FPS.h"
 #include "Window.h"
+#include "Random.h"
 
 struct Chunk_Positions
 {
@@ -105,16 +106,54 @@ int main()
 {
     srand ( time ( NULL ) );
 
-    Height_Generator::setUp( Chunk::HEIGHT / 2, 0.6, 5 );
+    double amplitude = Random::integer( 50, 150);
+    double roughness = Random::decimal( 0.1, 0.3, 3);
+    double octaves   = Random::integer( 1, 5);
+    int seed = Random::integer(0, 32000) * Random::integer(0, 32000);
+
+    int size    = Random::integer( 15, 30);
+    int fog     = Random::integer( 0, 1);
+
+    std::cout << "Do you want custom options? 0 for no, 1 for yes \n";
+    int options;
+    std::cin >> options;
+
+    if ( options ) {
+
+        std::cout   << "Please type in your, \n"
+                    << "Amplitude (Height of Terrain), (Rec: 50-150) \n"
+                    << "Rougness, (Rec: 0.01 to 1.0)\n"
+                    << "Octaves (Higher = smoother, Rec: 1-5), \n"
+                    << "And how big you want terrain: (Rec: 10-30) \n"
+                    << "Fog, 0 = no, 1 = yes \n"
+                    << "Seed \n";
+
+        std::cin >> amplitude;
+        std::cin >> roughness;
+        std::cin >> octaves;
+        std::cin >> size;
+        std::cin >> fog;
+        std::cin >> seed;
+    }
+
+    std::cout << "Amplitude: " << amplitude << std::endl;
+    std::cout << "Roughness: " << roughness << std::endl;
+    std::cout << "Octaves:   " << octaves   << std::endl;
+    std::cout << "Size:      " << size      << std::endl;
+    std::cout << "Fog:       " << fog  << std::endl;
+    std::cout << "Seed:      " << seed << std::endl << std::endl;
+
+
+
+    Height_Generator::setUp( amplitude, roughness, octaves, seed );
     Window::create();
 
     GLuint shader = GL::Shader::load( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" );
     Camera camera;
     Loader loader;
 
-    GLuint texture = loader.loadTexture( "atlas" ); //This is the texture atlas used by all blocks
+    GLuint texture = loader.loadTexture( "mc" ); //This is the texture atlas used by all blocks
 
-    int size = 32;
     sf::Clock timer;
     std::vector<Chunk*> m_chunks;
     std::vector<Vector2> chunkPositions;
@@ -143,11 +182,13 @@ int main()
     GLuint projectionLocation   = glGetUniformLocation ( shader, "projectionMatrix" );
     GLuint viewLocation         = glGetUniformLocation ( shader, "viewMatrix"       );
     GLuint modelLocation        = glGetUniformLocation ( shader, "modelMatrix"      );
+    GLuint fogLocation          = glGetUniformLocation ( shader, "fog"      );
 
     glUniformMatrix4fv ( projectionLocation, 1, GL_FALSE, glm::value_ptr( pers ) );
+    glUniform1i         ( fogLocation, fog );
 
     camera.movePosition( {  -10,
-                            50,
+                            Chunk::highestBlock,
                             10 } );
     camera.m_rotation.y += 0;
     camera.m_rotation.x += 0;
@@ -163,12 +204,12 @@ int main()
     {
         if ( currentPos != getChunkPos( camera ) ) {
             currentPos = getChunkPos( camera );
-            std::cout << "CHANGE" << std::endl;
+            //std::cout << "CHANGE" << std::endl;
         }
 
         float dt = c.restart().asSeconds();
 
-        Window::clear(0.1,0.1,0.5);
+        Window::clear();
 
         glUniformMatrix4fv ( viewLocation, 1, GL_FALSE, glm::value_ptr( createViewMatrix( camera ) ) );
 

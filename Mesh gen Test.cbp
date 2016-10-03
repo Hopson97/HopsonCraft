@@ -93,8 +93,6 @@
 		<Unit filename="Source/Chunk/Chunk_Block_Gen.cpp" />
 		<Unit filename="Source/Generations/Height_Generator.cpp" />
 		<Unit filename="Source/Generations/Height_Generator.h" />
-		<Unit filename="Source/Generations/SimplexNoise.cpp" />
-		<Unit filename="Source/Generations/SimplexNoise.h" />
 		<Unit filename="Source/Main.cpp" />
 		<Unit filename="Source/Mesh.cpp" />
 		<Unit filename="Source/Mesh.h" />

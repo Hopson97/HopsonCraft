@@ -25,6 +25,8 @@ class Chunk
         constexpr static int HEIGHT = 256;//128
         constexpr static int WIDTH  = 16;//16
 
+        static int highestBlock;
+
         MeshPtr tempMesh;
 
     private:
