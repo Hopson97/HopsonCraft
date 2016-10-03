@@ -89,7 +89,7 @@ Vector2 getChunkPos ( Camera& cam )
 
     return { xPos, zPos };
 }
-
+/*
 void handleChunks ( std::vector<Chunk*>& chunks, int size, Loader& loader )
 {
     while ( true ) {
@@ -97,23 +97,24 @@ void handleChunks ( std::vector<Chunk*>& chunks, int size, Loader& loader )
         {
             chunk->reset( loader );
         }
+        std::cout << chunks.size() << std::endl;
     }
 }
-
+*/
 int main()
 {
     srand ( time ( NULL ) );
 
-    Height_Generator::setUp( Chunk::HEIGHT / 2 );
+    Height_Generator::setUp( Chunk::HEIGHT / 2, 0.6, 5 );
     Window::create();
 
     GLuint shader = GL::Shader::load( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" );
     Camera camera;
     Loader loader;
 
-    GLuint texture = loader.loadTexture( "mc" ); //This is the texture atlas used by all blocks
+    GLuint texture = loader.loadTexture( "atlas" ); //This is the texture atlas used by all blocks
 
-    int size = 21;
+    int size = 32;
     sf::Clock timer;
     std::vector<Chunk*> m_chunks;
     std::vector<Vector2> chunkPositions;
@@ -145,17 +146,18 @@ int main()
 
     glUniformMatrix4fv ( projectionLocation, 1, GL_FALSE, glm::value_ptr( pers ) );
 
-    camera.movePosition( {  -4,
-                            100,
-                            -5 } );
-    camera.m_rotation.y += 160;
+    camera.movePosition( {  -10,
+                            50,
+                            10 } );
+    camera.m_rotation.y += 0;
+    camera.m_rotation.x += 0;
 
     Vector2 currentPos = getChunkPos( camera );
 
     sf::Clock c;
 
-    std::thread t ( handleChunks , std::ref( m_chunks ), size, std::ref( loader ) );
-    t.detach();
+    //std::thread t ( handleChunks , std::ref( m_chunks ), size, std::ref( loader ) );
+    //t.detach();
 
     while ( Window::isOpen() )
     {
@@ -166,7 +168,7 @@ int main()
 
         float dt = c.restart().asSeconds();
 
-        Window::clear();
+        Window::clear(0.1,0.1,0.5);
 
         glUniformMatrix4fv ( viewLocation, 1, GL_FALSE, glm::value_ptr( createViewMatrix( camera ) ) );
 
@@ -188,11 +190,6 @@ int main()
         Window::checkForClose();
 
         fps.update();
-
-        //Window::prepareSfDraw();
-        //fps.drawFPS();
-        //Window::endSfDraw();
-
 
         Window::update();
     }

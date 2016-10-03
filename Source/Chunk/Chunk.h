@@ -22,7 +22,7 @@ class Chunk
 
         Block& getBlock( int x, int y, int z );
 
-        constexpr static int HEIGHT = 128;//128
+        constexpr static int HEIGHT = 256;//128
         constexpr static int WIDTH  = 16;//16
 
         MeshPtr tempMesh;

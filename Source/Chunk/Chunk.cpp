@@ -9,8 +9,6 @@
 #include "Utilities/Random.h"
 #include "SimplexNoise.h"
 
-
-
 namespace
 {
     Block           air ( Block_Type::Air );
@@ -79,6 +77,7 @@ Chunk :: Chunk( Loader& loader, int x, int z )
 
     m_vertexList.clear();
     m_textureList.clear();
+    //m_indexList.clear();
 }
 
 void Chunk :: reset( Loader& loader )

@@ -70,6 +70,21 @@ namespace Height_Generator
         return gen_seed;
     }
 
+    void setOctave ( int octave )
+    {
+        gen_ocataves = octave;
+    }
+
+    void setRoughness ( double roughness )
+    {
+        gen_roughness = roughness;
+    }
+
+    void setAmplitude ( double amplitude )
+    {
+        gen_amplitude = amplitude;
+    }
+
 
     namespace
     {
