@@ -106,13 +106,13 @@ int main()
 {
     srand ( time ( NULL ) );
 
-    double amplitude = Random::integer( 50, 150);
+    double amplitude = Random::integer( 100, 150);
     double roughness = Random::decimal( 0.1, 0.3, 3);
-    double octaves   = Random::integer( 1, 5);
+    double octaves   = Random::integer( 2, 5);
     int seed = Random::integer(0, 32000) * Random::integer(0, 32000);
 
     int size    = Random::integer( 15, 30);
-    int fog     = Random::integer( 0, 1);
+    int fog     = Random::integer( 0, 0);
 
     std::cout << "Do you want custom options? 0 for no, 1 for yes \n";
     int options;
@@ -123,7 +123,7 @@ int main()
         std::cout   << "Please type in your, \n"
                     << "Amplitude (Height of Terrain), (Rec: 50-150) \n"
                     << "Rougness, (Rec: 0.01 to 1.0)\n"
-                    << "Octaves (Higher = smoother, Rec: 1-5), \n"
+                    << "Octaves (Higher = smoother, Rec: 2-5), \n"
                     << "And how big you want terrain: (Rec: 10-30) \n"
                     << "Fog, 0 = no, 1 = yes \n"
                     << "Seed \n";
@@ -199,6 +199,14 @@ int main()
 
     //std::thread t ( handleChunks , std::ref( m_chunks ), size, std::ref( loader ) );
     //t.detach();
+
+    int totalVerticies = 0;
+    for ( auto& chunk : m_chunks )
+    {
+        totalVerticies += chunk->tempMesh->getVertexCount();
+    }
+
+    std::cout << "Vertices: " << totalVerticies << std::endl;
 
     while ( Window::isOpen() )
     {
