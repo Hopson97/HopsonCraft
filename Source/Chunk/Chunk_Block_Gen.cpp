@@ -41,18 +41,13 @@ void Chunk :: makeFront ( GLfloat x, GLfloat y, GLfloat z, const Block& block )
 {
     std::vector<GLfloat> vertices =
     {
-        1 + x,  y,      1 + z,  //Bottom    Right
-        1 + x,  1 + y,  1 + z,  //Top       Right
-        x,      1 + y,  1 + z,  //Top       Left
-
-        x,      y,      1 + z,  //Bottom    Left
-        1 + x,  y,      1 + z,  //Bottom    Right
-        x,      1 + y,  1 + z   //Top       Left
+        x,      y,      z + 1,
+        x + 1,  y,      z + 1,
+        x + 1,  y + 1,  z + 1,
+        x + 1,  y + 1,  z + 1,
+        x,      y + 1,  z + 1,
+        x,      y,      z + 1,
     };
-
-
-
-
     std::vector<GLfloat> textureCoords = block.getSideTxrCoords();
 
     m_vertexList.insert     ( m_vertexList.end(),   vertices.begin(),       vertices.end()      );
@@ -64,13 +59,12 @@ void Chunk :: makeTop ( GLfloat x, GLfloat y, GLfloat z, const Block& block )
 {
     std::vector<GLfloat> vertices =
     {
-        1 + x,  1 + y,  z,      //Bottom    Right
-        1 + x,  1 + y,  1 + z,  //Top       Right
-        x,      1 + y,  1 + z,  //Top       Left
-
-        x,      1 + y,  z,      //Bottom    Left
-        1 + x,  1 + y,  z,      //Bottom    Right
-        x,      1 + y,  1 + z   //Top       Left
+        x,      y + 1, z + 1,
+        x + 1,  y + 1, z + 1,
+        x + 1,  y + 1, z,
+        x + 1,  y + 1, z,
+        x,      y + 1, z,
+        x,      y + 1, z + 1,
     };
 
     std::vector<GLfloat> textureCoords = block.getTopTxrCoords();
@@ -83,14 +77,12 @@ void Chunk::makeLeft(GLfloat x, GLfloat y, GLfloat z, const Block& block)
 {
     std::vector<GLfloat> vertices =
     {
-        x, y,       1 + z,  //Bottom    Right
-        x, 1 + y,   1 + z,  //Top       Right
-        x, 1 + y,   z,      //Top       Left
-
-        x, y,       z,      //Bottom    Left
-        x, y,       1 + z,  //Bottom    Right
-        x, 1 + y,   z       //Top       Left
-
+        x, y,       z,
+        x, y,       z + 1,
+        x, y + 1,   z + 1,
+        x, y + 1,   z + 1,
+        x, y + 1,   z,
+        x, y,       z,
     };
 
     std::vector<GLfloat> textureCoords = block.getSideTxrCoords();
@@ -103,13 +95,12 @@ void Chunk::makeRight(GLfloat x, GLfloat y, GLfloat z, const Block& block)
 {
     std::vector<GLfloat> vertices =
     {
-        1 + x, y,       1 + z,  //Bottom    Right
-        1 + x, 1 + y,   1 + z,  //Top       Right
-        1 + x, 1 + y,   z,      //Top       Left
-
-        1 + x, y,       z,      //Bottom    Left
-        1 + x, y,       1 + z,  //Bottom    Right
-        1 + x, 1 + y,   z       //Top       Left
+        x + 1, y,       z + 1,
+        x + 1, y,       z,
+        x + 1, y + 1,   z,
+        x + 1, y + 1,   z,
+        x + 1, y + 1,   z + 1,
+        x + 1, y,       z + 1,
     };
 
     std::vector<GLfloat> textureCoords = block.getSideTxrCoords();
@@ -122,13 +113,12 @@ void Chunk::makeBack(GLfloat x, GLfloat y, GLfloat z, const Block& block)
 {
     std::vector<GLfloat> vertices =
     {
-        1 + x,  y,      z,
-        1 + x,  1 + y,  z,
-        x,      1 + y,  z,
-
+        x + 1,  y,      z,
         x,      y,      z,
-        1 + x,  y,      z,
-        x,      1 + y,  z
+        x,      y + 1,  z,
+        x,      y + 1,  z,
+        x + 1,  y + 1,  z,
+        x + 1,  y,      z,
     };
 
     std::vector<GLfloat> textureCoords = block.getSideTxrCoords();
@@ -141,13 +131,12 @@ void Chunk::makeBottom(GLfloat x, GLfloat y, GLfloat z, const Block& block)
 {
     std::vector<GLfloat> vertices =
     {
-        1 + x,  y, z,       //Bottom    Right
-        1 + x,  y, 1 + z,   //Top       Right
-        x,      y, 1 + z,   //Top       Left
-
-        x,      y, z,       //Bottom    Left
-        1 + x,  y, z,       //Bottom    Right
-        x,      y, 1 + z    //Top       Left
+        x,      y, z,
+        x + 1,  y, z,
+        x + 1,  y, z + 1,
+        x + 1,  y, z + 1,
+        x,      y, z + 1,
+        x,      y, z
     };
 
     std::vector<GLfloat> textureCoords = block.getBottomTxrCoords();

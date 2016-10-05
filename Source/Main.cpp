@@ -108,7 +108,7 @@ int main()
 
     double amplitude = Random::integer( 100, 150);
     double roughness = Random::decimal( 0.1, 0.3, 3);
-    double octaves   = Random::integer( 2, 5);
+    double octaves   = Random::integer( 3, 6);
     int seed = Random::integer(0, 32000) * Random::integer(0, 32000);
 
     int size    = Random::integer( 15, 30);
@@ -190,15 +190,11 @@ int main()
     camera.movePosition( {  -10,
                             Chunk::highestBlock,
                             10 } );
-    camera.m_rotation.y += 0;
-    camera.m_rotation.x += 0;
 
     Vector2 currentPos = getChunkPos( camera );
 
     sf::Clock c;
-
-    //std::thread t ( handleChunks , std::ref( m_chunks ), size, std::ref( loader ) );
-    //t.detach();
+    timer.restart();
 
     int totalVerticies = 0;
     for ( auto& chunk : m_chunks )
@@ -210,10 +206,16 @@ int main()
 
     while ( Window::isOpen() )
     {
+        int chunkZ = camera.getPosition().z / Chunk::WIDTH;
+        int chunkX = camera.getPosition().x / Chunk::WIDTH;
+
         if ( currentPos != getChunkPos( camera ) ) {
             currentPos = getChunkPos( camera );
-            //std::cout << "CHANGE" << std::endl;
+            std::cout << "On new chunk at location: " << chunkX << " " << chunkZ << std::endl;
         }
+
+
+
 
         float dt = c.restart().asSeconds();
 
@@ -225,6 +227,18 @@ int main()
         glBindTexture( GL_TEXTURE_2D, texture );
 
         camera.move( dt );
+
+        for ( size_t i = 0 ; i < m_chunks.size() ; i++ )
+        {
+            auto& chunk = m_chunks.at( i );
+
+            chunk->update();
+            if ( chunk->isDelete() ) {
+                m_chunks.erase( m_chunks.begin() + i );
+            }
+        }
+
+
 
         for ( auto& chunk : m_chunks )
         {

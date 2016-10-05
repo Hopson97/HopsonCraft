@@ -31,13 +31,18 @@ Chunk :: Chunk( Loader& loader, int x, int z )
     //Generate the height map
     for ( int heightMapX = 0 ; heightMapX < WIDTH; heightMapX++ ) {
         for ( int heightMapZ = 0 ; heightMapZ < WIDTH; heightMapZ++ ) {
-            double height =     ( Height_Generator::getHeight( heightMapX,
-                                                               heightMapZ,
-                                                               m_xPos,
-                                                               m_zPos ) );
-            heightMap.push_back( height );
-            if ( height > highestBlock ) {
-                highestBlock = height;
+            int height =      ( Height_Generator::getHeight( heightMapX,
+                                                                heightMapZ,
+                                                                m_xPos,
+                                                                m_zPos ) );
+            //int height2 =     ( Height_Generator::getHeight( heightMapX & heightMapZ,
+            //                                                    heightMapZ | heightMapX,
+            //                                                    m_xPos ^ m_zPos,
+            //                                                    m_zPos >> m_xPos ) );
+            int finalHeight = height;//(height2 + height) / 2;
+            heightMap.push_back( finalHeight );
+            if ( finalHeight > highestBlock ) {
+                highestBlock = finalHeight;
                 if (highestBlock > Chunk::HEIGHT ) highestBlock = Chunk::HEIGHT;
             }
         }
@@ -121,6 +126,18 @@ Block& Chunk :: getBlock ( int x, int y, int z )
         return air;
     }
 }
+
+void Chunk::update()
+{
+
+}
+
+bool Chunk::isDelete()
+{
+    return m_isOverHorizon;
+}
+
+
 
 Chunk::~Chunk()
 {

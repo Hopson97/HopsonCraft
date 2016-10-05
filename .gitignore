@@ -16,7 +16,7 @@ obj/
 Project/
 
 #OpenGL Files
-#glew.c
-#glew.h
-#wglew.h
+glew.c
+glew.h
+wglew.h
 

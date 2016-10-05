@@ -29,6 +29,9 @@ class Chunk
 
         MeshPtr tempMesh;
 
+        void update     ();
+        bool isDelete   ();
+
     private:
         void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block& block );
 
@@ -44,6 +47,8 @@ class Chunk
 
         int m_xPos;
         int m_zPos;
+
+        bool m_isOverHorizon = false;
 
         std::vector<Block*> m_blocks;
 
