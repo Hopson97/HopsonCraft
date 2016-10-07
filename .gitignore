@@ -4,6 +4,7 @@
 # specific to CodeBlocks IDE
 *.layout
 *.depend
+*.cbp
 
 # generated directories
 bin/
@@ -17,6 +18,5 @@ Project/
 
 #OpenGL Files
 glew.c
-glew.h
 wglew.h
-
+glew.h

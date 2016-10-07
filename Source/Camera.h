@@ -13,7 +13,7 @@ class Camera
 
         void movePosition ( const Vector3& position );
 
-   // private:
+    private:
         Vector3 m_position;
         Vector3 m_rotation;
 };

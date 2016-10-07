@@ -1,3 +1,4 @@
+
 #include "Camera.h"
 
 #include <SFML/Graphics.hpp>
@@ -80,4 +81,3 @@ void Camera::movePosition(const Vector3& position)
 {
     m_position = position;
 }
-

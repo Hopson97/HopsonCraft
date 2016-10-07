@@ -1,0 +1,20 @@
+#ifndef TEXTURE_ATLAS_H
+#define TEXTURE_ATLAS_H
+
+#include <vector>
+#include "OpenGL/Glew/glew.h"
+#include "OpenGL/Glm/glm_transformations.h"
+
+class Texture_Atlas
+{
+    public:
+        Texture_Atlas( float imageSize, float textureSize );
+
+        std::vector<GLfloat> getTextureCoords ( Vector2 location ) const;
+
+    private:
+        float m_size;
+        float m_textureSize;
+};
+
+#endif // TEXTURE_ATLAS_H
