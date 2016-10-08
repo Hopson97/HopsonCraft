@@ -133,5 +133,6 @@ void World :: draw ()
 
 void World :: addChunk ( const Vector2i& location )
 {
+    assert( m_chunks.count( location ) == 0);
     m_chunks[ location ] = std::make_unique<Chunk> ( &m_chunks, location, m_blockAtlas );
 }

@@ -117,55 +117,45 @@ Chunk :: getBlock ( int x, int y, int z ) const
     {
         return air;
     }*/
-
-    try
+    if ( x == -1 )
     {
-        if ( x == -1 )
+        if ( m_p_chunkMap->find( { m_location.x - 1, m_location.z } ) != m_p_chunkMap->end() )
         {
-            if ( m_p_chunkMap->find( { m_location.x - 1, m_location.z } ) != m_p_chunkMap->end() )
-            {
-                assert( m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->m_location.x == m_location.x - 1);
-                return m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->getBlock ( WIDTH - 1, y, z );
-            }
-        }
-        else if ( z == -1 )
-        {
-            if ( m_p_chunkMap->find( { m_location.x, m_location.z - 1 } ) != m_p_chunkMap->end() )
-            {
-                assert( m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->m_location.z == m_location.z - 1);
-                return m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->getBlock ( x, y, WIDTH - 1 );
-            }
-        }
-        else if ( x == WIDTH )
-        {
-            if ( m_p_chunkMap->find( { m_location.x + 1, m_location.z } ) != m_p_chunkMap->end() )
-            {
-                assert( m_p_chunkMap->at( { m_location.x + 1, m_location.z } )->m_location.x == m_location.x + 1);
-                return m_p_chunkMap->at( { m_location.x + 1, m_location.z } )->getBlock ( 0, y, z );
-            }
-        }
-        else if ( z == WIDTH )
-        {
-            if ( m_p_chunkMap->find( { m_location.x, m_location.z + 1 } ) != m_p_chunkMap->end() )
-            {
-                assert( m_p_chunkMap->at( { m_location.x, m_location.z + 1 } )->m_location.z == m_location.z + 1);
-                return m_p_chunkMap->at( { m_location.x, m_location.z + 1 } )->getBlock ( x, y, 0 );
-            }
-        }
-        else
-        {   try
-            {
-                return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
-            }
-            catch ( std::out_of_range& e )
-            {
-                return air;
-            }
+            assert( m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->m_location.x == m_location.x - 1);
+            return m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->getBlock ( WIDTH - 1, y, z );
         }
     }
-    catch ( std::out_of_range& e )
+    else if ( z == -1 )
+    {
+        if ( m_p_chunkMap->find( { m_location.x, m_location.z - 1 } ) != m_p_chunkMap->end() )
+        {
+            assert( m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->m_location.z == m_location.z - 1);
+            return m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->getBlock ( x, y, WIDTH - 1 );
+        }
+    }
+    else if ( x == WIDTH )
+    {
+        if ( m_p_chunkMap->find( { m_location.x + 1, m_location.z } ) != m_p_chunkMap->end() )
+        {
+            assert( m_p_chunkMap->at( { m_location.x + 1, m_location.z } )->m_location.x == m_location.x + 1);
+            return m_p_chunkMap->at( { m_location.x + 1, m_location.z } )->getBlock ( 0, y, z );
+        }
+    }
+    else if ( z == WIDTH )
+    {
+        if ( m_p_chunkMap->find( { m_location.x, m_location.z + 1 } ) != m_p_chunkMap->end() )
+        {
+            assert( m_p_chunkMap->at( { m_location.x, m_location.z + 1 } )->m_location.z == m_location.z + 1);
+            return m_p_chunkMap->at( { m_location.x, m_location.z + 1 } )->getBlock ( x, y, 0 );
+        }
+    }
+    else if ( y == -1 )
     {
         return air;
+    }
+    else
+    {
+        return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
     }
     return air;
 }
