@@ -37,6 +37,10 @@ class Chunk : public Entity
 
         const Model& getModel () const;
 
+        const Vector2i m_location;
+
+        bool hasVertexData () const;
+
     private:
         void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
 
@@ -52,8 +56,6 @@ class Chunk : public Entity
         std::vector<Block::Block_Base*> m_blocks;
 
         Model    m_model;
-
-        Vector2i m_location;
 
         const Texture_Atlas* m_p_atlas;
 

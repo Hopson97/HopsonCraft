@@ -35,7 +35,7 @@ Matrix4 createViewMatrix ( const Camera& camera )
     return view;
 }
 
-Vector2 pos;
+Vector2i pos ( 0, 0 );
 
 World::World()
 :   m_blockAtlas    ( 512, 16 )
@@ -44,7 +44,7 @@ World::World()
 {
     m_blockAtlas.loadFromFile( "Blocks" );
 
-    int size = 26;
+    int size = 32;
     for ( int x = 0 ; x < size ; x++ )
     {
         for ( int z = 0 ; z < size ; z++ )
@@ -69,6 +69,8 @@ World::World()
     viewLocation         = glGetUniformLocation ( testShader, "viewMatrix"       );
     modelLocation        = glGetUniformLocation ( testShader, "modelMatrix"      );
 
+    activeLocation       = glGetUniformLocation ( testShader, "isActive" );
+
     glUniformMatrix4fv ( projectionLocation, 1, GL_FALSE, glm::value_ptr( matrix ) );
 
     glBindTexture( GL_TEXTURE_2D, m_blockAtlas.getId() );
@@ -76,20 +78,21 @@ World::World()
 
     std::cout << "Min Height: " << Chunk::minHeight << std::endl;
     std::cout << "Max Height: " << Chunk::maxHeight << std::endl;
+    std::cout << "Blocks: " << m_chunks.size() * Chunk::WIDTH * Chunk::WIDTH * Chunk::HEIGHT << std::endl;
 
     pos.x = (int)camera.getPosition().x / Chunk::WIDTH;
-    pos.y = (int)camera.getPosition().z / Chunk::WIDTH;
+    pos.z = (int)camera.getPosition().z / Chunk::WIDTH;
 }
 
 void World :: update ( float dt )
 {
-    Vector2 newPos = {
+    Vector2i newPos = {
                         (int)camera.getPosition().x / Chunk::WIDTH,
                         (int)camera.getPosition().z / Chunk::WIDTH
                     };
 
     if ( newPos != pos ) {
-        std::cout << "Moved to " << newPos.x << " " << newPos.y << std::endl;
+        std::cout << "Moved to " << newPos.x << " " << newPos.z << std::endl;
         pos = newPos;
     }
     camera.move( dt );
@@ -102,6 +105,17 @@ void World :: draw ()
     for ( auto& chunk : m_chunks )
     {
         Chunk& c = *chunk.second;
+
+        assert ( c.hasVertexData() );
+
+        if ( c.m_location == pos )
+        {
+            glUniform1i ( activeLocation, 1 );
+        }
+        else
+        {
+            glUniform1i ( activeLocation, 0 );
+        }
 
         glBindVertexArray ( c.getModel().getVAO() );
         glUniformMatrix4fv ( modelLocation, 1, GL_FALSE, glm::value_ptr( createTransforrmationMatrix

@@ -42,6 +42,7 @@ class World
         GLuint projectionLocation;
         GLuint viewLocation;
         GLuint modelLocation;
+        GLuint activeLocation;
 };
 
 #endif // WORLD_H

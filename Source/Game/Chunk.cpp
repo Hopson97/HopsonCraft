@@ -169,3 +169,8 @@ Chunk :: getBlock ( int x, int y, int z ) const
     }
     return air;
 }
+
+bool Chunk :: hasVertexData () const
+{
+    return m_hasVertexData;
+}

@@ -14,6 +14,8 @@ struct Vector2i
     int z;
 
     bool operator == ( const Vector2i& other ) const;
+
+    bool operator !=  ( const Vector2i& other ) const;
 };
 
 namespace std
@@ -22,20 +24,21 @@ namespace std
     struct hash<Vector2i>
     {
 
-        int hashInt ( int i ) const
+        int hashInt( int key ) const
         {
-            i = i ^ (i * 50);
-            i = i | (i ^ 50);
-            i = i << 5;
-            i = i & (i + 53);
-            i = i << 1;
-            return i;
+            key = ~key + (key << 15);
+            key = key ^ (key >> 12);
+            key = key + (key << 2);
+            key = key ^ (key >> 4);
+            key = key * 2057;
+            key = key ^ (key >> 16);
+            return key;
         }
 
         size_t operator() ( Vector2i const& v ) const
         {
-            size_t h1 = std::hash<double>()( hashInt ( v.x ) );
-            size_t h2 = std::hash<double>()( hashInt ( v.z ) );
+            size_t h1 = std::hash<double>()( hashInt ( v.x >> v.z ) );
+            size_t h2 = std::hash<double>()( hashInt ( v.x << v.z ) );
             return (h1 ^ (h2 << 1));
         }
     };

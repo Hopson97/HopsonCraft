@@ -8,3 +8,9 @@ bool Vector2i :: operator == ( const Vector2i& other ) const
 {
     return (x == other.x) && (z == other.z);
 }
+
+
+bool Vector2i :: operator!=(const Vector2i& other) const
+{
+    return !( (x == other.x) && (z == other.z) );
+}

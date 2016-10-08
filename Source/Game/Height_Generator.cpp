@@ -18,7 +18,7 @@ namespace Height_Generator
     {
         int gen_seed            = -1;
 
-        double gen_amplitude    = 200;
+        double gen_amplitude    = 230;
         double gen_roughness    = 0.5;
         int    gen_ocataves     = 5;
 
@@ -73,7 +73,7 @@ namespace Height_Generator
             total += getInterpolatedNoise( ( x + xOffset ) * frequency,
                                         ( z + zOffset ) * frequency ) * amps;
         }
-        return total;
+        return total - 25;
     }
 
     int getSeed()
