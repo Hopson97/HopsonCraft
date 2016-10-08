@@ -1,7 +1,9 @@
 # MattCraft
 
+A minecraft clone written using C++, SFML, OpenGL and GLEW. (Uses modern C++ and OpenGL)
 
-How it works:
+
+## How it works:
 
 The world class contains a hash map (std::unordered_list) of chunks. The key of the hash map is the position of a chunk, stored as custom type "Vector2i", which I also defined a hash function for.
 
@@ -27,13 +29,13 @@ And that is all there is to it.
 
 For texturing, a texture atlas is used.
 
-#Screenshots:
+## Screenshots:
 
 ![Blocks](http://i.imgur.com/MsdCJbz.png "Blocks")
 
 ![Blocks](http://i.imgur.com/imAEdza.png "Blocks")
 
-#Future:
+## Future:
 
 I hope to add collison detection, and make it for Minecraft-y, eg the ability to break and place blocks.
 
