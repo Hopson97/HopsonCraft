@@ -108,20 +108,11 @@ const Model& Chunk :: getModel () const
 
 const Block :: Block_Base&
 Chunk :: getBlock ( int x, int y, int z ) const
-{/*
-    try
-    {
-        return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
-    }
-    catch ( std::out_of_range& e )
-    {
-        return air;
-    }*/
+{
     if ( x == -1 )
     {
         if ( m_p_chunkMap->find( { m_location.x - 1, m_location.z } ) != m_p_chunkMap->end() )
         {
-            assert( m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->m_location.x == m_location.x - 1);
             return m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->getBlock ( WIDTH - 1, y, z );
         }
     }
@@ -129,7 +120,7 @@ Chunk :: getBlock ( int x, int y, int z ) const
     {
         if ( m_p_chunkMap->find( { m_location.x, m_location.z - 1 } ) != m_p_chunkMap->end() )
         {
-            assert( m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->m_location.z == m_location.z - 1);
+
             return m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->getBlock ( x, y, WIDTH - 1 );
         }
     }
@@ -137,7 +128,6 @@ Chunk :: getBlock ( int x, int y, int z ) const
     {
         if ( m_p_chunkMap->find( { m_location.x + 1, m_location.z } ) != m_p_chunkMap->end() )
         {
-            assert( m_p_chunkMap->at( { m_location.x + 1, m_location.z } )->m_location.x == m_location.x + 1);
             return m_p_chunkMap->at( { m_location.x + 1, m_location.z } )->getBlock ( 0, y, z );
         }
     }
@@ -145,7 +135,6 @@ Chunk :: getBlock ( int x, int y, int z ) const
     {
         if ( m_p_chunkMap->find( { m_location.x, m_location.z + 1 } ) != m_p_chunkMap->end() )
         {
-            assert( m_p_chunkMap->at( { m_location.x, m_location.z + 1 } )->m_location.z == m_location.z + 1);
             return m_p_chunkMap->at( { m_location.x, m_location.z + 1 } )->getBlock ( x, y, 0 );
         }
     }
