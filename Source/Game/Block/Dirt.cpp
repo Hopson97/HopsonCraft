@@ -3,7 +3,7 @@
 namespace Block
 {
     Dirt :: Dirt()
-    :   Block_Base ( true )
+    :   Block_Base ( true, ID::Dirt )
     {
         //ctor
     }

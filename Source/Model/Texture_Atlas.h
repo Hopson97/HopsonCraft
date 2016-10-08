@@ -5,7 +5,9 @@
 #include "OpenGL/Glew/glew.h"
 #include "OpenGL/Glm/glm_transformations.h"
 
-class Texture_Atlas
+#include "Texture.h"
+
+class Texture_Atlas : public Texture
 {
     public:
         Texture_Atlas( float imageSize, float textureSize );

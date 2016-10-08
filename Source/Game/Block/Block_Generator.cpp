@@ -7,33 +7,31 @@
 
 void Chunk :: makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block )
 {
-    if ( !getBlock( x, y + 1, z).isOpaque() );
+    if ( getBlock( x, y + 1, z).getID() == Block::ID::Air )
     {
-
         makeTop( x, y, z, block );
-
     }
-    if ( !getBlock( x, y - 1, z).isOpaque() );
+    if ( getBlock( x, y - 1, z).getID() == Block::ID::Air )
     {
         makeBottom( x, y, z, block );
     }
 
 
-    if ( !getBlock( x, y, z + 1).isOpaque() );
+    if ( getBlock( x, y, z + 1).getID() == Block::ID::Air )
     {
         makeFront( x, y, z, block );
     }
-    if ( !getBlock( x, y, z - 1).isOpaque() );
+    if ( getBlock( x, y, z - 1).getID() == Block::ID::Air )
     {
         makeBack( x, y, z, block );
     }
 
 
-    if ( !getBlock( x - 1, y, z).isOpaque() );
+    if ( getBlock( x - 1, y, z).getID() == Block::ID::Air )
     {
         makeLeft( x, y, z, block );
     }
-    if ( !getBlock( x + 1, y, z).isOpaque() );
+    if ( getBlock( x + 1, y, z).getID() == Block::ID::Air )
     {
         makeRight( x, y, z, block );
     }

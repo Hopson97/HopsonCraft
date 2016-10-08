@@ -3,7 +3,7 @@
 namespace Block
 {
     Grass :: Grass()
-    :   Block_Base ( true )
+    :   Block_Base ( true, ID::Grass )
     {
         //ctor
     }

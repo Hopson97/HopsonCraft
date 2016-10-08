@@ -6,25 +6,36 @@
 namespace Block
 {
 
-class Block_Base
-{
-    public:
-        Block_Base( bool isOpaque );
+    enum class ID
+    {
+        Air,
+        Grass,
+        Dirt
+    };
 
-        //These get block texture location inside of the texture atlas
-        virtual Vector2 getTextureTop       () const;
-        virtual Vector2 getTextureSide      () const;
-        virtual Vector2 getTextureBottom    () const;
+    class Block_Base
+    {
+        public:
+            Block_Base( bool isOpaque, ID id );
 
-        bool isOpaque () const;
+            //These get block texture location inside of the texture atlas
+            virtual Vector2 getTextureTop       () const;
+            virtual Vector2 getTextureSide      () const;
+            virtual Vector2 getTextureBottom    () const;
 
-    private:
-        bool m_isOpaque;
+            bool isOpaque () const;
 
-    public:
-        constexpr static int BLOCK_ATLAS_SIZE   = 4096;
-        constexpr static int TEXTURE_SIZE       = 128;
-};
+            ID getID () const;
+
+        private:
+            bool m_isOpaque;
+
+            ID m_id;
+
+        public:
+            constexpr static int BLOCK_ATLAS_SIZE   = 4096;
+            constexpr static int TEXTURE_SIZE       = 128;
+    };
 
 } //Namespace Block
 

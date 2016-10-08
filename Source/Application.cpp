@@ -22,7 +22,7 @@ void Application :: runLoop ()
 
     while ( Window::isOpen() )
     {
-        Window::clear( 1, 0.2, 0.8);
+        Window::clear( 0.2, 0.2, 0.8);
 
         if ( updateTimer.getElapsedTime().asMilliseconds() > updateTime.asMilliseconds() )
         {

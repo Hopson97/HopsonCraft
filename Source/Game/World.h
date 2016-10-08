@@ -10,6 +10,8 @@
 
 #include "Camera.h"
 
+#include <unordered_map>
+
 class World
 {
     public:
@@ -22,17 +24,16 @@ class World
 
 
     private:
-        std::map<Vector2i, Chunk_Ptr> m_chunks;
-
-        bool m_isRunning;
+        std::unordered_map<Vector2i, Chunk_Ptr> m_chunks;
 
         Texture_Atlas m_blockAtlas;
 
+        bool m_isRunning = true;
+
+        //temp
         Camera  camera;
-        Chunk   testChunk;
         GLuint  testShader;
         Matrix4 matrix;
-        Texture t;
 
         GLuint projectionLocation;
         GLuint viewLocation;

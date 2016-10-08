@@ -4,8 +4,9 @@
 
 namespace Block
 {
-    Block_Base :: Block_Base( bool isOpaque )
-    :   m_isOpaque ( isOpaque )
+    Block_Base :: Block_Base( bool isOpaque, ID id )
+    :   m_isOpaque  ( isOpaque )
+    ,   m_id        ( id       )
     {
     }
 
@@ -27,6 +28,11 @@ namespace Block
     bool Block_Base :: isOpaque () const
     {
         return m_isOpaque;
+    }
+
+    ID Block_Base :: getID () const
+    {
+        return m_id;
     }
 
 } //Namespace Block
