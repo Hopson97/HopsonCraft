@@ -35,14 +35,16 @@ Matrix4 createViewMatrix ( const Camera& camera )
     return view;
 }
 
+Vector2 pos;
+
 World::World()
-:   m_blockAtlas    ( 2048, 128 )
+:   m_blockAtlas    ( 512, 16 )
 ,   testShader      ( loadShader( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" ) )
 ,   matrix ( glm::perspective( glm::radians( 75.0f ), (float)Window::WIDTH/ (float)Window::HEIGHT, 0.01f, 1000.0f ) )
 {
     m_blockAtlas.loadFromFile( "Blocks" );
 
-    int size = 32;
+    int size = 26;
     for ( int x = 0 ; x < size ; x++ )
     {
         for ( int z = 0 ; z < size ; z++ )
@@ -51,7 +53,7 @@ World::World()
         }
     }
     assert( m_chunks.size() == size*size );
-    camera.movePosition( { 0, 64, 10 } );
+    camera.movePosition( { 0, Chunk::maxHeight, 10 } );
 
     assert( m_chunks.find( { 0, 0 } ) != m_chunks.end() );
 
@@ -71,10 +73,25 @@ World::World()
 
     glBindTexture( GL_TEXTURE_2D, m_blockAtlas.getId() );
     glActiveTexture ( GL_TEXTURE0 );
+
+    std::cout << "Min Height: " << Chunk::minHeight << std::endl;
+    std::cout << "Max Height: " << Chunk::maxHeight << std::endl;
+
+    pos.x = (int)camera.getPosition().x / Chunk::WIDTH;
+    pos.y = (int)camera.getPosition().z / Chunk::WIDTH;
 }
 
 void World :: update ( float dt )
 {
+    Vector2 newPos = {
+                        (int)camera.getPosition().x / Chunk::WIDTH,
+                        (int)camera.getPosition().z / Chunk::WIDTH
+                    };
+
+    if ( newPos != pos ) {
+        std::cout << "Moved to " << newPos.x << " " << newPos.y << std::endl;
+        pos = newPos;
+    }
     camera.move( dt );
 }
 

@@ -7,6 +7,7 @@
 
 void Chunk :: makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block )
 {
+    /**/
     if ( getBlock( x, y + 1, z).getID() == Block::ID::Air )
     {
         makeTop( x, y, z, block );
@@ -35,6 +36,47 @@ void Chunk :: makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Ba
     {
         makeRight( x, y, z, block );
     }
+
+/*
+    bool make = false;
+    if ( getBlock( x, y + 1, z).getID() == Block::ID::Air )
+    {
+        make = true;
+    }
+    if ( getBlock( x, y - 1, z).getID() == Block::ID::Air )
+    {
+        make = true;
+    }
+
+
+    if ( getBlock( x, y, z + 1).getID() == Block::ID::Air )
+    {
+        make = true;
+    }
+    if ( getBlock( x, y, z - 1).getID() == Block::ID::Air )
+    {
+        make = true;
+    }
+
+
+    if ( getBlock( x - 1, y, z).getID() == Block::ID::Air )
+    {
+        make = true;
+    }
+    if ( getBlock( x + 1, y, z).getID() == Block::ID::Air )
+    {
+        make = true;
+    }
+
+    if ( make ) {
+        makeTop     ( x, y, z, block );
+        makeBottom  ( x, y, z, block );
+        makeFront   ( x, y, z, block );
+        makeBack    ( x, y, z, block );
+        makeLeft    ( x, y, z, block );
+        makeRight   ( x, y, z, block );
+    }
+    /**/
 }
 
 /*

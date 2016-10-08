@@ -16,7 +16,7 @@ namespace Height_Generator
      */
     namespace
     {
-        int gen_seed;
+        int gen_seed            = -1;
 
         double gen_amplitude    = 200;
         double gen_roughness    = 0.5;
@@ -27,6 +27,12 @@ namespace Height_Generator
         double getSmoothNoise       ( double x, double z );
         double getInterpolatedNoise ( double x, double z );
         double interpolate          ( double a, double b, double blend );
+
+        void setRandSeed ()
+        {
+            gen_seed = Random::integer( 0, 32000 ) * Random::integer( 0, 32000 );
+            srand( gen_seed );
+        }
     }
 
     void setUp( double amplitude,
@@ -39,8 +45,7 @@ namespace Height_Generator
         gen_roughness = roughness;
 
         if ( seed == -1 ) {
-            gen_seed = Random::integer( 0, 32000 ) * Random::integer( 0, 32000 );
-            srand( gen_seed );
+            setRandSeed();
         } else {
             gen_seed = seed;
         }
@@ -50,13 +55,19 @@ namespace Height_Generator
 
     int getHeight ( double x, double z, double gridX, double gridZ )
     {
+        if ( gen_seed == -1 )
+        {
+            setRandSeed();
+        }
+
         double xOffset = gridX * ( Chunk::WIDTH - 1 );
         double zOffset = gridZ * ( Chunk::WIDTH - 1 );
 
         double total = 0;
         double value = std::pow ( 2, gen_ocataves) - 1.0;
 
-        for ( int i = 0 ; i < gen_ocataves ; i++ ) {
+        for ( int i = 0 ; i < gen_ocataves ; i++ )
+        {
             double frequency = std::pow( 2, i ) / value;
             double amps      = std::pow ( gen_roughness, i ) * gen_amplitude;
             total += getInterpolatedNoise( ( x + xOffset ) * frequency,

@@ -15,6 +15,9 @@ Block::Dirt         dirt;
 Block::Stone        stone;
 }
 
+int Chunk::maxHeight = 0;
+int Chunk::minHeight = 0xFFF;
+
 Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
                  const Vector2i& location,
                  const Texture_Atlas& atlas  )
@@ -41,6 +44,15 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
             for ( int z = 0 ; z < WIDTH ; z++ )
             {
                 int h = m_heightMap.at ( x * WIDTH + z );
+                if ( h > maxHeight )
+                {
+                    maxHeight = h;
+                }
+                if ( h < minHeight )
+                {
+                    minHeight = h;
+                    std::cout << h << std::endl;
+                }
 
                 if ( y > h )
                 {
@@ -141,8 +153,14 @@ Chunk :: getBlock ( int x, int y, int z ) const
             }
         }
         else
-        {
-            return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
+        {   try
+            {
+                return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
+            }
+            catch ( std::out_of_range& e )
+            {
+                return air;
+            }
         }
     }
     catch ( std::out_of_range& e )

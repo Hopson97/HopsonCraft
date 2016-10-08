@@ -12,6 +12,8 @@
 #include "Model.h"
 #include "Entity.h"
 
+
+
 namespace Block
 {
     class Block_Base;
@@ -64,6 +66,9 @@ class Chunk : public Entity
     public:
         static constexpr int WIDTH  = 16,
                              HEIGHT = 128;
+
+        static int maxHeight;
+        static int minHeight;
 };
 
 
