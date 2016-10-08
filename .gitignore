@@ -4,7 +4,7 @@
 # specific to CodeBlocks IDE
 *.layout
 *.depend
-*.cbp
+#*.cbp
 
 # generated directories
 bin/

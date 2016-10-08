@@ -10,8 +10,8 @@ struct Vector2i
 {
     Vector2i ( int x, int z );
 
-    int x;
-    int z;
+    int x = 0;
+    int z = 0;
 
     bool operator == ( const Vector2i& other ) const;
 

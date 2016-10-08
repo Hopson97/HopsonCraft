@@ -5,9 +5,10 @@ layout ( location = 1 ) in vec2 texturePosition;
 
 out vec2 textureCoords;
 
+uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
+
 
 void main()
 {

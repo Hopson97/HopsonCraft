@@ -7,13 +7,6 @@
 #include "Loader.h"
 #include "Height_Generator.h"
 
-namespace
-{
-Block::Block_Base   air     ( Block::ID::Air );
-Block::Grass        grass;
-Block::Dirt         dirt;
-Block::Stone        stone;
-}
 
 int Chunk::maxHeight = 0;
 int Chunk::minHeight = 0xFFF;
@@ -21,9 +14,11 @@ int Chunk::minHeight = 0xFFF;
 Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
                  const Vector2i& location,
                  const Texture_Atlas& atlas  )
-    :   m_p_chunkMap    ( chunkMap )
-    ,   m_location      ( location )
-    ,   m_p_atlas       ( &atlas )
+:   m_p_chunkMap    ( chunkMap )
+,   m_location      ( location )
+,   m_p_atlas       ( &atlas )
+,   m_dirtBlock     ( std::make_unique<Block::Dirt>() )
+,   m_airBlock      ( std::make_unique<Block::Block_Base> ( Block::ID::Air ) )
 {
     std::vector<int> m_heightMap;
     for ( int x = 0; x < WIDTH ; x ++ )
@@ -56,25 +51,33 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
 
                 if ( y > h )
                 {
-                    m_blocks.emplace_back( &air );
+                    m_blocks.emplace_back( std::make_unique<Block::Block_Base>( Block::ID::Air ) );
                 }
                 else if ( y == h )
                 {
-                    m_blocks.emplace_back ( &grass );
+                    m_blocks.emplace_back ( std::make_unique<Block::Grass>() );
                 }
                 else  if ( y < h && y > h - 5 )
                 {
-                    m_blocks.emplace_back ( &dirt );
+                    m_blocks.emplace_back ( std::make_unique<Block::Dirt>() );
                 }
                 else
                 {
-                    m_blocks.emplace_back( &stone );
+                    m_blocks.emplace_back ( std::make_unique<Block::Stone>() );
                 }
             }
         }
     }
     m_hasBlockData = true;
     position = { location.x * WIDTH, 0, location.z* WIDTH };
+}
+
+Chunk :: ~Chunk()
+{
+    while ( !m_blocks.empty() )
+    {
+        m_blocks.erase( m_blocks.begin() );
+    }
 }
 
 void Chunk :: generateMesh ()
@@ -140,16 +143,21 @@ Chunk :: getBlock ( int x, int y, int z ) const
     }
     else if ( y == -1 )
     {
-        return air;
+        return *m_dirtBlock;
     }
     else
     {
         return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
     }
-    return air;
+    return *m_airBlock;
 }
 
 bool Chunk :: hasVertexData () const
 {
     return m_hasVertexData;
+}
+
+const Vector2i& Chunk :: getLocation () const
+{
+    return m_location;
 }

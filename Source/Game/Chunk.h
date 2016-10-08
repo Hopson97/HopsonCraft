@@ -12,6 +12,8 @@
 #include "Model.h"
 #include "Entity.h"
 
+#include "Blocks.h"
+
 
 
 namespace Block
@@ -30,16 +32,17 @@ class Chunk : public Entity
         Chunk( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
                const Vector2i& location,
                const Texture_Atlas& atlas  );
+        ~Chunk ();
 
         void generateMesh ();
 
         const Block::Block_Base& getBlock ( int x, int y, int z ) const;
 
-        const Model& getModel () const;
+        const Model& getModel       () const;
 
-        const Vector2i m_location;
+        bool hasVertexData          () const;
 
-        bool hasVertexData () const;
+        const Vector2i& getLocation () const;
 
     private:
         void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
@@ -53,9 +56,11 @@ class Chunk : public Entity
 
     private:
         std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunkMap;
-        std::vector<Block::Block_Base*> m_blocks;
+        std::vector<std::unique_ptr<Block::Block_Base>> m_blocks;
 
         Model    m_model;
+
+        Vector2i m_location;
 
         const Texture_Atlas* m_p_atlas;
 
@@ -64,6 +69,9 @@ class Chunk : public Entity
 
         std::vector<GLfloat> m_vertexCoords;
         std::vector<GLfloat> m_textureCoords;
+
+        std::unique_ptr<Block::Dirt> m_dirtBlock;
+        std::unique_ptr<Block::Block_Base> m_airBlock;
 
     public:
         static constexpr int WIDTH  = 16,

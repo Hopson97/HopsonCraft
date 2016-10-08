@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MattCraft" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/MattCraft" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Winit-self" />
+					<Add option="-g" />
+					<Add directory="Source/OpenGL/Objects" />
+					<Add directory="Source/OpenGL/Shaders" />
+					<Add directory="Source/Util" />
+					<Add directory="Source/Model" />
+					<Add directory="Source" />
+					<Add directory="Source/Game" />
+					<Add directory="Source/Game/Block" />
+					<Add directory="Source/Renderer" />
+					<Add directory="Source/Shaders" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-audio-d" />
+					<Add library="sfml-network-d" />
+					<Add library="sfml-system-d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/MattCraft" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add directory="Source/Util" />
+					<Add directory="Source/Model" />
+					<Add directory="Source" />
+					<Add directory="Source/Game" />
+					<Add directory="Source/Game/Block" />
+					<Add directory="Source/Renderer" />
+					<Add directory="Source/Shaders" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-network" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=c++14" />
+			<Add option="-DGLEW_STATIC" />
+			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.3.2 ... MinGW/include" />
+		</Compiler>
+		<Linker>
+			<Add library="opengl32" />
+			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.3.2 ... MinGW/lib" />
+		</Linker>
+		<Unit filename="Data/Images/cow.jpg" />
+		<Unit filename="Project/libgcc_s_sjlj-1.dll" />
+		<Unit filename="Project/libstdc++-6.dll" />
+		<Unit filename="Project/openal32.dll" />
+		<Unit filename="Project/sfml-audio-2.dll" />
+		<Unit filename="Project/sfml-audio-d-2.dll" />
+		<Unit filename="Project/sfml-graphics-2.dll" />
+		<Unit filename="Project/sfml-graphics-d-2.dll" />
+		<Unit filename="Project/sfml-network-2.dll" />
+		<Unit filename="Project/sfml-network-d-2.dll" />
+		<Unit filename="Project/sfml-system-2.dll" />
+		<Unit filename="Project/sfml-system-d-2.dll" />
+		<Unit filename="Project/sfml-window-2.dll" />
+		<Unit filename="Project/sfml-window-d-2.dll" />
+		<Unit filename="SFML Full.depend" />
+		<Unit filename="Shaders/ChunkFrag.glsl" />
+		<Unit filename="Shaders/ChunkVert.glsl" />
+		<Unit filename="Source/Application.cpp" />
+		<Unit filename="Source/Application.h" />
+		<Unit filename="Source/Camera.cpp" />
+		<Unit filename="Source/Camera.h" />
+		<Unit filename="Source/Entity.h" />
+		<Unit filename="Source/Game/Block/Block.cpp" />
+		<Unit filename="Source/Game/Block/Block.h" />
+		<Unit filename="Source/Game/Block/Block_Generator.cpp" />
+		<Unit filename="Source/Game/Block/Blocks.h" />
+		<Unit filename="Source/Game/Block/Dirt.cpp" />
+		<Unit filename="Source/Game/Block/Dirt.h" />
+		<Unit filename="Source/Game/Block/Grass.cpp" />
+		<Unit filename="Source/Game/Block/Grass.h" />
+		<Unit filename="Source/Game/Block/Stone.cpp" />
+		<Unit filename="Source/Game/Block/Stone.h" />
+		<Unit filename="Source/Game/Chunk.cpp" />
+		<Unit filename="Source/Game/Chunk.h" />
+		<Unit filename="Source/Game/Chunk_Map.cpp" />
+		<Unit filename="Source/Game/Chunk_Map.h" />
+		<Unit filename="Source/Game/Height_Generator.cpp" />
+		<Unit filename="Source/Game/Height_Generator.h" />
+		<Unit filename="Source/Game/World.cpp" />
+		<Unit filename="Source/Game/World.h" />
+		<Unit filename="Source/Main.cpp" />
+		<Unit filename="Source/Model/Model.cpp" />
+		<Unit filename="Source/Model/Model.h" />
+		<Unit filename="Source/Model/Texture.cpp" />
+		<Unit filename="Source/Model/Texture.h" />
+		<Unit filename="Source/Model/Texture_Atlas.cpp" />
+		<Unit filename="Source/Model/Texture_Atlas.h" />
+		<Unit filename="Source/OpenGL/Glew/glew.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source/OpenGL/Glew/glew.h" />
+		<Unit filename="Source/OpenGL/Glew/wglew.h" />
+		<Unit filename="Source/OpenGL/Glm/glm_transformations.h" />
+		<Unit filename="Source/Renderer/Chunk_Renderer.cpp" />
+		<Unit filename="Source/Renderer/Chunk_Renderer.h" />
+		<Unit filename="Source/Shaders/Chunk_Shader.cpp" />
+		<Unit filename="Source/Shaders/Chunk_Shader.h" />
+		<Unit filename="Source/Shaders/Shader_Program.cpp" />
+		<Unit filename="Source/Shaders/Shader_Program.h" />
+		<Unit filename="Source/Util/Frames_Per_Second_Checker.cpp" />
+		<Unit filename="Source/Util/Frames_Per_Second_Checker.h" />
+		<Unit filename="Source/Util/Loader.cpp" />
+		<Unit filename="Source/Util/Loader.h" />
+		<Unit filename="Source/Util/Maths.cpp" />
+		<Unit filename="Source/Util/Maths.h" />
+		<Unit filename="Source/Util/Random.cpp" />
+		<Unit filename="Source/Util/Random.h" />
+		<Unit filename="Source/Util/Shader_Loader.cpp" />
+		<Unit filename="Source/Util/Shader_Loader.h" />
+		<Unit filename="Source/Util/Vector.cpp" />
+		<Unit filename="Source/Util/Vector.h" />
+		<Unit filename="Source/Util/Window.cpp" />
+		<Unit filename="Source/Util/Window.h" />
+		<Unit filename="libgcc_s_sjlj-1.dll" />
+		<Unit filename="libstdc++-6.dll" />
+		<Unit filename="openal32.dll" />
+		<Unit filename="sfml-audio-2.dll" />
+		<Unit filename="sfml-audio-d-2.dll" />
+		<Unit filename="sfml-graphics-2.dll" />
+		<Unit filename="sfml-graphics-d-2.dll" />
+		<Unit filename="sfml-network-2.dll" />
+		<Unit filename="sfml-network-d-2.dll" />
+		<Unit filename="sfml-system-2.dll" />
+		<Unit filename="sfml-system-d-2.dll" />
+		<Unit filename="sfml-window-2.dll" />
+		<Unit filename="sfml-window-d-2.dll" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

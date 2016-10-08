@@ -1,17 +1,15 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "OpenGL/Glm/glm_transformations.h"
+#include <unordered_map>
 
 #include "Chunk.h"
 #include "Vector.h"
 #include "Texture_Atlas.h"
-#include "Texture.h"
 
 #include "Camera.h"
 #include "Chunk_Map.h"
-
-#include <unordered_map>
+#include "Chunk_Renderer.h"
 
 class World
 {
@@ -27,22 +25,11 @@ class World
 
     private:
         std::unordered_map<Vector2i, Chunk_Ptr> m_chunks;
+        Texture_Atlas m_blockAtlas;;
 
-        Texture_Atlas m_blockAtlas;
+        Chunk_Renderer m_chunkRenderer;
 
-        bool m_isRunning = true;
-
-        Chunk_Map m_chunkMap;
-
-        //temp
-        Camera  camera;
-        GLuint  testShader;
-        Matrix4 matrix;
-
-        GLuint projectionLocation;
-        GLuint viewLocation;
-        GLuint modelLocation;
-        GLuint activeLocation;
+        Camera  m_camera;
 };
 
 #endif // WORLD_H
