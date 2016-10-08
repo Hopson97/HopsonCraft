@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "Loader.h"
+#include "Application.h"
 
 #include <iostream>
 
@@ -35,9 +36,9 @@ Matrix4 createViewMatrix ( const Camera& camera )
 }
 
 World::World()
-    :   m_blockAtlas    ( 2048, 128 )
-    ,   testShader      ( loadShader( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" ) )
-    ,   matrix ( glm::perspective( glm::radians( 75.0f ), (float)Window::WIDTH/ (float)Window::HEIGHT, 0.01f, 1000.0f ) )
+:   m_blockAtlas    ( 2048, 128 )
+,   testShader      ( loadShader( "Shaders/Vertex.glsl", "Shaders/Fragment.glsl" ) )
+,   matrix ( glm::perspective( glm::radians( 75.0f ), (float)Window::WIDTH/ (float)Window::HEIGHT, 0.01f, 1000.0f ) )
 {
     m_blockAtlas.loadFromFile( "Blocks" );
 
@@ -50,7 +51,8 @@ World::World()
         }
     }
     assert( m_chunks.size() == size*size );
-    camera.movePosition( { 0, 130, 10 } );
+    camera.movePosition( { 0, 64, 10 } );
+
     assert( m_chunks.find( { 0, 0 } ) != m_chunks.end() );
 
     for ( auto& chunk : m_chunks )
@@ -70,14 +72,16 @@ World::World()
     glBindTexture( GL_TEXTURE_2D, m_blockAtlas.getId() );
     glActiveTexture ( GL_TEXTURE0 );
 }
-sf::Clock tempC;
+
+void World :: update ( float dt )
+{
+    camera.move( dt );
+}
 
 void World :: draw ()
 {
-    float dt = tempC.restart().asSeconds();
-    camera.move( dt );
     glUniformMatrix4fv ( viewLocation, 1, GL_FALSE, glm::value_ptr( createViewMatrix( camera ) ) );
-    int drawCalls = 0;
+
     for ( auto& chunk : m_chunks )
     {
         Chunk& c = *chunk.second;

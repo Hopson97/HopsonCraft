@@ -2,6 +2,9 @@
 #define VECTOR_H
 
 #include <functional>
+#include <cmath>
+
+#include "OpenGL/Glm/glm_transformations.h"
 
 struct Vector2i
 {
@@ -17,12 +20,12 @@ namespace std
 {
     template<> struct hash<Vector2i>
     {
+
         size_t operator() ( Vector2i const& v ) const
         {
-            size_t const h1 ( std::hash<int>{}(v.x) );
-            size_t const h2 ( std::hash<int>{}(v.z) );
-
-            return h1 ^ ( h2 << 1 );
+            size_t h1 = std::hash<double>()(v.x);
+            size_t h2 = std::hash<double>()(v.z);
+            return (h1 ^ (h2 << 1));
         }
     };
 }

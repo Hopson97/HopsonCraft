@@ -3,10 +3,8 @@
 namespace Block
 {
     Grass :: Grass()
-    :   Block_Base ( true, ID::Grass )
-    {
-        //ctor
-    }
+    :   Block_Base ( ID::Grass )
+    {  }
 
     Vector2 Grass :: getTextureTop () const
     {

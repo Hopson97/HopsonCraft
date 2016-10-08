@@ -34,7 +34,7 @@ GLuint Model :: getVertexCount() const
 
 Model :: ~Model  ()
 {
-    std::cout << "Deleting Model" << std::endl;
+    //std::cout << "Deleting Model" << std::endl;
     deleteData ();
 }
 

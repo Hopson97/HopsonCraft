@@ -23,6 +23,6 @@ GLuint Texture :: getId () const
 
 Texture :: ~Texture()
 {
-    std::cout << "Deleting Texture " << m_textureID << "\n";
-    //glDeleteTextures( 1, &m_textureID );
+    //std::cout << "Deleting Texture " << m_textureID << "\n";
+    glDeleteTextures( 1, &m_textureID );
 }

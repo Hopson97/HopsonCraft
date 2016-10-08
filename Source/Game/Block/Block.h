@@ -10,13 +10,14 @@ namespace Block
     {
         Air,
         Grass,
-        Dirt
+        Dirt,
+        Stone
     };
 
     class Block_Base
     {
         public:
-            Block_Base( bool isOpaque, ID id );
+            Block_Base( ID id );
 
             //These get block texture location inside of the texture atlas
             virtual Vector2 getTextureTop       () const;
@@ -28,8 +29,6 @@ namespace Block
             ID getID () const;
 
         private:
-            bool m_isOpaque;
-
             ID m_id;
 
         public:

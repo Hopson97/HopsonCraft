@@ -19,18 +19,17 @@ void Application :: runLoop ()
 
     sf::Time updateTime = sf::milliseconds( FIXED_UPDATE_TIME );
     sf::Clock updateTimer;
+    sf::Clock dtClock;
 
     while ( Window::isOpen() )
     {
         Window::clear( 0.2, 0.2, 0.8);
 
-        if ( updateTimer.getElapsedTime().asMilliseconds() > updateTime.asMilliseconds() )
-        {
-            //input...
-            //update...
+        float dt = dtClock.restart().asSeconds();
 
-            updateTimer.restart();
-        }
+        m_world.update( dt );
+
+        updateTimer.restart();
 
         m_world.draw();
 

@@ -17,7 +17,7 @@ class Application
 
 
     public:
-        constexpr static int FIXED_UPDATE_TIME = 0.00833333; //120 updates a second
+        constexpr static float FIXED_UPDATE_TIME = 0.00833333; //120 updates a second
 
         World m_world;
 };

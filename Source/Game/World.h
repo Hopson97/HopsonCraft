@@ -9,6 +9,7 @@
 #include "Texture.h"
 
 #include "Camera.h"
+#include "Chunk_Map.h"
 
 #include <unordered_map>
 
@@ -17,7 +18,8 @@ class World
     public:
         World();
 
-        void draw ();
+        void update ( float dt );
+        void draw   ();
 
     private:
         void addChunk ( const Vector2i& location );
@@ -29,6 +31,8 @@ class World
         Texture_Atlas m_blockAtlas;
 
         bool m_isRunning = true;
+
+        Chunk_Map m_chunkMap;
 
         //temp
         Camera  camera;

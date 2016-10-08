@@ -3,10 +3,8 @@
 namespace Block
 {
     Dirt :: Dirt()
-    :   Block_Base ( true, ID::Dirt )
-    {
-        //ctor
-    }
+    :   Block_Base ( ID::Dirt )
+    {  }
 
     Vector2 Dirt :: getTextureTop () const
     {
