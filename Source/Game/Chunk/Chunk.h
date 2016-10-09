@@ -14,11 +14,6 @@
 
 #include "Blocks.h"
 
-namespace Block
-{
-    class Block_Base;
-}
-
 class Texture_Atlas;
 
 class Chunk;
@@ -54,11 +49,11 @@ class Chunk
 
         void makeTree   (   GLuint x, GLuint y, GLuint z );
 
-        void setBlock   (   GLuint x, GLuint y, GLuint z, std::unique_ptr<Block::Block_Base> block );
+        void setBlock   (   GLuint x, GLuint y, GLuint z, Block_t& block );
 
     private:
         std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunkMap;
-        std::vector<std::unique_ptr<Block::Block_Base>> m_blocks;
+        std::vector<Block_t*> m_blocks;
 
         Model    m_model;
 
@@ -73,17 +68,11 @@ class Chunk
         std::vector<GLfloat> m_vertexCoords;
         std::vector<GLfloat> m_textureCoords;
 
-        std::unique_ptr<Block::Dirt> m_dirtBlock;
-        std::unique_ptr<Block::Block_Base> m_airBlock;
-
     public:
         static constexpr int WIDTH  = 16,
                              HEIGHT = 128,
-                             WATER_LEVEL = 68,
-                             BEACH_LEVEL = WATER_LEVEL + 2;
-
-        static int maxHeight;
-        static int minHeight;
+                             WATER_LEVEL = 70,
+                             BEACH_LEVEL = WATER_LEVEL + 3;
 };
 
 

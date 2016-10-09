@@ -9,9 +9,17 @@
 
 #include "Random.h"
 
-
-int Chunk::maxHeight = 0;
-int Chunk::minHeight = 0xFFF;
+namespace
+{
+    Block_t         air     ( Block::ID::Air );
+    Block::Grass    grass;
+    Block::Dirt     dirt;
+    Block::Stone    stone;
+    Block::Water    water;
+    Block::Sand     sand;
+    Block::Oak_Wood oakWood;
+    Block::Oak_Leaf oakLeaf;
+}
 
 Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
                  const Vector2i& location,
@@ -20,8 +28,6 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
 ,   m_blocks        ( WIDTH * WIDTH * HEIGHT )
 ,   m_location      ( location )
 ,   m_p_atlas       ( &atlas )
-,   m_dirtBlock     ( std::make_unique<Block::Dirt>() )
-,   m_airBlock      ( std::make_unique<Block::Block_Base> ( Block::ID::Air ) )
 {
     std::vector<int> m_heightMap;
     for ( int x = 0; x < WIDTH ; x ++ )
@@ -42,52 +48,50 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
             for ( int z = 0 ; z < WIDTH ; z++ )
             {
                 int h = m_heightMap.at ( x * WIDTH + z );
-                if ( h > maxHeight )
-                {
-                    maxHeight = h;
-                }
-                if ( h < minHeight )
-                {
-                    minHeight = h;
-                }
-
                 if ( y > h )
                 {
                     if ( y <= WATER_LEVEL)
-                        setBlock( x, y, z, std::make_unique<Block::Water>() );
+                        setBlock( x, y, z, water );
                     else
-                        setBlock( x, y, z, std::make_unique<Block::Block_Base>( Block::ID::Air ) );
+                        setBlock( x, y, z, air );
                 }
                 else if ( y == h )
                 {
                     if ( y > BEACH_LEVEL ) //Top levels
                     {
-                        setBlock( x, y, z, std::make_unique<Block::Grass>() );
+                        setBlock( x, y, z, grass );
                         if ( Random::integer( 1, 10) == 10 )
                         {
                             makeTree( x, y, z );
                         }
                     }
-                    else //Beach
+                    else if ( y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
                     {
-                        setBlock( x, y, z, std::make_unique<Block::Sand>() );
+                        setBlock( x, y, z, sand );
+                    }
+                    else
+                    {
+                        if ( Random::integer( 0, 10 ) < 6 )
+                            setBlock( x, y, z, sand );
+                        else
+                            setBlock( x, y, z, dirt );
                     }
                 }
                 else  if ( y < h && y > h - 5 )
                 {
                     if ( y > WATER_LEVEL )
-                        setBlock( x, y, z, std::make_unique<Block::Dirt>() );
+                        setBlock( x, y, z, dirt );
                     else //Underwater
                     {
-                        if ( Random::integer( 0, 10 ) < 7 )
-                            setBlock( x, y, z, std::make_unique<Block::Sand>() );
+                        if ( Random::integer( 0, 10 ) < 6 )
+                            setBlock( x, y, z, sand );
                         else
-                            setBlock( x, y, z, std::make_unique<Block::Dirt>() );
+                            setBlock( x, y, z, dirt );
                     }
                 }
                 else
                 {
-                    setBlock( x, y, z, std::make_unique<Block::Stone>() );
+                    setBlock( x, y, z, stone );
                 }
             }
         }
@@ -96,12 +100,12 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
     m_position = { location.x * WIDTH, location.z * WIDTH };
 }
 
-void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, std::unique_ptr<Block::Block_Base> block )
+void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block )
 {
     try
     {
 
-        m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = std::move( block );
+        m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = &block;
     }
     catch ( std::out_of_range& e )
     {
@@ -148,13 +152,13 @@ Chunk :: getBlock ( int x, int y, int z ) const
     }
     else if ( y == -1 )
     {
-        return *m_dirtBlock;
+        return dirt;
     }
     else
     {
         return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
     }
-    return *m_airBlock;
+    return air;
 }
 
 bool Chunk :: hasVertexData () const

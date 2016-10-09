@@ -40,7 +40,8 @@ namespace Block
             constexpr static int BLOCK_ATLAS_SIZE   = 4096;
             constexpr static int TEXTURE_SIZE       = 128;
     };
-
 } //Namespace Block
+
+typedef Block::Block_Base Block_t;
 
 #endif // BLOCK_H

@@ -73,7 +73,7 @@ namespace Height_Generator
             total += getInterpolatedNoise( ( x + xOffset ) * frequency,
                                         ( z + zOffset ) * frequency ) * amps;
         }
-        return total - 25;
+        return total - 23;
     }
 
     int getSeed()

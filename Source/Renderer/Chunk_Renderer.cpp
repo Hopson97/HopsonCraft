@@ -30,6 +30,7 @@ void Chunk_Renderer :: render( const Camera& camera )
         prepareChunk( *chunk );
         glDrawArrays( GL_TRIANGLES, 0, chunk->getModel().getVertexCount() );
     }
+
     m_chunks.clear();
     glBindVertexArray ( 0 );
     m_shader.stop();
