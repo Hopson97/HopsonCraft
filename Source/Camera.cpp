@@ -1,5 +1,6 @@
-
 #include "Camera.h"
+
+#include <iostream>
 
 #include "Window.h"
 
@@ -13,6 +14,10 @@ void Camera :: update ()
     m_lastMosuePos = sf::Mouse::getPosition( Window::get() );
     //sf::Mouse::setPosition( { Window::WIDTH / 2, Window::HEIGHT / 2 },
     //                          Window::get() );
+
+    std::cout << m_rotation.x << std::endl;
+    if ( m_rotation.x > 80 ) m_rotation.x = 80;
+    else if ( m_rotation.x < -80 ) m_rotation.x = -80;
 }
 
 void Camera :: move ( float dt )
