@@ -23,6 +23,8 @@ namespace Window
 
     float getAspect     ();
 
+    const sf::RenderWindow& get ();
+
     constexpr static int WIDTH  = 1280,
                          HEIGHT = 720;
 }

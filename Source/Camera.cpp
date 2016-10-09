@@ -1,7 +1,19 @@
 
 #include "Camera.h"
 
-#include <SFML/Graphics.hpp>
+#include "Window.h"
+
+void Camera :: update ()
+{
+    sf::Vector2i mouseMove = m_lastMosuePos - sf::Mouse::getPosition( Window::get() );
+
+    m_rotation.y -= mouseMove.x;
+    m_rotation.x -= mouseMove.y;
+
+    m_lastMosuePos = sf::Mouse::getPosition( Window::get() );
+    //sf::Mouse::setPosition( { Window::WIDTH / 2, Window::HEIGHT / 2 },
+    //                          Window::get() );
+}
 
 void Camera :: move ( float dt )
 {

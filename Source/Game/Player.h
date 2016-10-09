@@ -29,7 +29,6 @@ class Player
 
 
         Vector3 m_velocity;
-        Vector3 m_rotation;
 
         Camera m_camera;
 

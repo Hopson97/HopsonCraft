@@ -17,8 +17,7 @@ World::World()
     //Height_Generator::setUp( 210, 0.5, 4, -1 );   //Hilly
     Height_Generator::setUp( 220, 0.4, 4, -1 );   //Very watery
     //Height_Generator::setUp( 250, 0.4, 5, -1 );   //Very hilly
-    //Height_Generator::setUp( 150, 0.6, 4, -1 );     //Ocean
-
+    //Height_Generator::setUp( 150, 0.6, 4, -1 );   //Ocean
 
     m_blockAtlas.loadFromFile( "Blocks_Sonic" );
 

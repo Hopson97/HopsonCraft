@@ -14,7 +14,7 @@ void Player :: update ( float dt )
 {
     setAABB();
     getCurrentChunk();
-    //m_camera.move( dt );
+    m_camera.update();
     input( dt );
     m_velocity *= 0.98;
     m_camera.movePosition( m_velocity );
@@ -32,27 +32,36 @@ void Player :: input ( float dt )
 
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
     {
-        float angle = glm::radians( m_rotation.y + 90 );
+        float angle = glm::radians( m_camera.getRotation().y + 90 );
         velocityChange.x -= cos ( angle) * ACC;
         velocityChange.z -= sin ( angle) * ACC;
     }
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
     {
-        float angle = glm::radians( m_rotation.y );
+        float angle = glm::radians( m_camera.getRotation().y );
         velocityChange.x += cos ( angle) * ACC;
         velocityChange.z += sin ( angle) * ACC;
     }
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
     {
-        float angle = glm::radians( m_rotation.y );
+        float angle = glm::radians( m_camera.getRotation().y );
         velocityChange.x -= cos ( angle) * ACC;
         velocityChange.z -= sin ( angle) * ACC;
     }
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
     {
-        float angle = glm::radians( m_rotation.y + 90 );
+        float angle = glm::radians( m_camera.getRotation().y + 90 );
         velocityChange.x += cos ( angle) * ACC;
         velocityChange.z += sin ( angle) * ACC;
+    }
+
+    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::LShift ) )
+    {
+        velocityChange.y -= 0.2;
+    }
+    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
+    {
+        velocityChange.y += 0.2;
     }
 
     velocityChange *= dt;

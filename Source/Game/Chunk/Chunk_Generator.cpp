@@ -13,7 +13,7 @@ void Chunk :: makeTree   (   GLuint x, GLuint y, GLuint z )
     int trunkHeight = Random::integer( 4, 6 );
     for ( int i = 1 ; i < trunkHeight + 1 ; i++ )
     {
-        setBlock( x, y + i, z, std::make_unique<Block::Oak_Wood>() );
+        //setBlock( x, y + i, z, std::make_unique<Block::Oak_Wood>() );
     }
 }
 
