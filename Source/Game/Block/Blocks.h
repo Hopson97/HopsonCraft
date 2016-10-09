@@ -6,5 +6,8 @@
 #include "Grass.h"
 #include "Dirt.h"
 #include "Stone.h"
+#include "Sand.h"
+#include "Water.h"
+#include "Oak_Wood.h"
 
 #endif // BLOCKS_H_INCLUDED

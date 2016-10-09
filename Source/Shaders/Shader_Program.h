@@ -12,7 +12,7 @@ class Shader_Program
 {
     public:
         Shader_Program  ( const std::string& vertexFile, const std::string& fragmentFile );
-        ~Shader_Program ();
+        virtual ~Shader_Program ();
 
         void start  () const;
         void stop   () const;

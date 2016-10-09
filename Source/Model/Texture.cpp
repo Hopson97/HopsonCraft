@@ -15,11 +15,15 @@ void Texture :: loadFromFile ( const std::string& file )
     m_textureID = Loader::loadTexture ( file );
 }
 
-GLuint Texture :: getId () const
+void Texture :: bind   ()
 {
-    return m_textureID;
+    glBindTexture( GL_TEXTURE_2D, m_textureID );
 }
 
+void Texture :: unbind ()
+{
+    glBindTexture( GL_TEXTURE_2D, 0 );
+}
 
 Texture :: ~Texture()
 {

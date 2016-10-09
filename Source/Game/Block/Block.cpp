@@ -5,7 +5,10 @@
 namespace Block
 {
     Block_Base :: Block_Base( ID id )
-    :   m_id        ( id       )//
+    :   m_id ( id       )
+    { }
+
+    Block_Base :: ~Block_Base ()
     { }
 
     Vector2 Block_Base :: getTextureTop () const
@@ -21,6 +24,11 @@ namespace Block
     Vector2 Block_Base :: getTextureBottom () const
     {
         return { 0, 0 };
+    }
+
+    bool Block_Base :: isOpaque () const
+    {
+        return false;
     }
 
     ID Block_Base :: getID () const

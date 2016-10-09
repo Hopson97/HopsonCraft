@@ -50,7 +50,7 @@ namespace Height_Generator
             gen_seed = seed;
         }
 
-        //std::cout << "Seed: " << gen_seed << std::endl;
+        std::cout << "Seed: " << gen_seed << std::endl;
     }
 
     int getHeight ( double x, double z, double gridX, double gridZ )

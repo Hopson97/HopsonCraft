@@ -30,7 +30,10 @@ class Model
 
         void addData ( const Model_Data& data );
 
-        GLuint getVAO           () const;
+        void bind   () const;
+        void unbind () const;
+
+
         GLuint getVertexCount   () const;
 
         ~Model  ();

@@ -14,6 +14,8 @@ namespace Block
             Vector2 getTextureSide      () const override;
             Vector2 getTextureBottom    () const override;
 
+            bool isOpaque () const;
+
         private:
     };
 

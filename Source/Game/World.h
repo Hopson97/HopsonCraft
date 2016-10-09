@@ -8,7 +8,6 @@
 #include "Texture_Atlas.h"
 
 #include "Camera.h"
-#include "Chunk_Map.h"
 #include "Chunk_Renderer.h"
 
 class World

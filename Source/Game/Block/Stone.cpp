@@ -20,4 +20,9 @@ namespace Block
     {
         return { 3, 0 };
     }
+
+    bool Stone :: isOpaque () const
+    {
+        return true;
+    }
 } //Namespace Block

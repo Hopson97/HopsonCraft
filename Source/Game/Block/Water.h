@@ -1,23 +1,23 @@
-#ifndef GRASS_H
-#define GRASS_H
+#ifndef WATER_H
+#define WATER_H
+
 
 #include "Block.h"
 
 namespace Block
 {
-    class Grass : public Block_Base
+    class Water : public Block_Base
     {
         public:
-            Grass();
+            Water();
 
             Vector2 getTextureTop       () const override;
             Vector2 getTextureSide      () const override;
             Vector2 getTextureBottom    () const override;
 
-            bool isOpaque () const;
-
         private:
     };
+
 } //Namespace Block
 
-#endif // GRASS_H
+#endif // WATER_H

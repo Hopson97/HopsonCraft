@@ -18,9 +18,8 @@ namespace Window
             glViewport  ( 0, 0, WIDTH, HEIGHT );
             glEnable    ( GL_DEPTH_TEST );
 
-
-            glEnable    ( GL_CULL_FACE  );
-            glCullFace  ( GL_BACK );
+            //glEnable    ( GL_CULL_FACE  );
+            //glCullFace  ( GL_BACK );
         }
     }
 
@@ -89,7 +88,7 @@ void endSfDraw ()
 
 float getAspect()
 {
-    return WIDTH / HEIGHT;
+    return (float)WIDTH / (float)HEIGHT;
 }
 
 

@@ -1,14 +1,14 @@
-#ifndef GRASS_H
-#define GRASS_H
+#ifndef SAND_H
+#define SAND_H
 
 #include "Block.h"
 
 namespace Block
 {
-    class Grass : public Block_Base
+    class Sand : public Block_Base
     {
         public:
-            Grass();
+            Sand();
 
             Vector2 getTextureTop       () const override;
             Vector2 getTextureSide      () const override;
@@ -18,6 +18,6 @@ namespace Block
 
         private:
     };
-} //Namespace Block
 
-#endif // GRASS_H
+} //Namespace Block
+#endif // SAND_H

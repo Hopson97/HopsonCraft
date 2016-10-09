@@ -11,20 +11,25 @@ namespace Block
         Air,
         Grass,
         Dirt,
-        Stone
+        Stone,
+        Sand,
+        Water,
+        Oak_Wood,
+        Oak_Leaf
     };
 
     class Block_Base
     {
         public:
-            Block_Base( ID id );
+            Block_Base  ( ID id );
+            virtual ~Block_Base ();
 
             //These get block texture location inside of the texture atlas
             virtual Vector2 getTextureTop       () const;
             virtual Vector2 getTextureSide      () const;
             virtual Vector2 getTextureBottom    () const;
 
-            bool isOpaque () const;
+            virtual bool isOpaque () const;
 
             ID getID () const;
 

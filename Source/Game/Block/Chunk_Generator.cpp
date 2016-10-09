@@ -4,35 +4,80 @@
 
 #include "Block.h"
 #include "Texture_Atlas.h"
+#include "Loader.h"
+#include "Blocks.h"
+#include "Random.h"
+
+void Chunk :: makeTree   (   GLuint x, GLuint y, GLuint z )
+{
+    int trunkHeight = Random::integer( 4, 6 );
+    for ( int i = 1 ; i < trunkHeight + 1 ; i++ )
+    {
+        setBlock( x, y + i, z, std::make_unique<Block::Oak_Wood>() );
+    }
+}
+
+void Chunk :: generateMesh ()
+{
+    for ( int y = 0; y < HEIGHT ; y++ )
+    {
+        for ( int x = 0 ; x < WIDTH ; x++ )
+        {
+            for ( int z = 0 ; z < WIDTH ; z++ )
+            {
+
+                if ( getBlock( x, y, z ).getID() == Block::ID::Air )
+                {
+                    continue;
+                }
+                makeBlock( x, y, z, getBlock( x, y, z ) );
+            }
+        }
+    }
+    m_model.addData ( Loader::loadArrayMesh( m_vertexCoords, m_textureCoords ) );
+    m_vertexCoords.clear();
+    m_textureCoords.clear();
+
+    m_hasVertexData = true;
+}
 
 void Chunk :: makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block )
 {
     /**/
-    if ( getBlock( x, y + 1, z).getID() == Block::ID::Air )
+    if (  getBlock ( x, y + 1, z).getID() == Block::ID::Air ||
+       ( !getBlock ( x, y + 1, z).isOpaque() && getBlock ( x, y + 1, z).getID() != block.getID() )  )
     {
         makeTop( x, y, z, block );
     }
-    if ( getBlock( x, y - 1, z).getID() == Block::ID::Air )
+
+    if (  getBlock ( x, y - 1, z).getID() == Block::ID::Air ||
+       ( !getBlock ( x, y - 1, z).isOpaque() && getBlock ( x, y - 1, z).getID() != block.getID() )  )
     {
         makeBottom( x, y, z, block );
     }
 
 
-    if ( getBlock( x, y, z + 1).getID() == Block::ID::Air )
+    if (  getBlock ( x, y, z + 1).getID() == Block::ID::Air ||
+       ( !getBlock ( x, y, z + 1).isOpaque() && getBlock ( x, y, z + 1).getID() != block.getID() )  )
     {
         makeFront( x, y, z, block );
     }
-    if ( getBlock( x, y, z - 1).getID() == Block::ID::Air )
+
+    if (  getBlock ( x, y, z - 1).getID() == Block::ID::Air ||
+       ( !getBlock ( x, y, z - 1).isOpaque() && getBlock ( x, y, z - 1).getID() != block.getID() )  )
     {
         makeBack( x, y, z, block );
     }
 
 
-    if ( getBlock( x - 1, y, z).getID() == Block::ID::Air )
+    if (  getBlock ( x - 1, y, z).getID() == Block::ID::Air ||
+       ( !getBlock ( x - 1, y, z).isOpaque() && getBlock ( x - 1, y, z).getID() != block.getID() )  )
     {
         makeLeft( x, y, z, block );
     }
-    if ( getBlock( x + 1, y, z).getID() == Block::ID::Air )
+
+    if (  getBlock ( x + 1, y, z).getID() == Block::ID::Air ||
+       ( !getBlock ( x + 1, y, z).isOpaque() && getBlock ( x + 1, y, z).getID() != block.getID() )  )
     {
         makeRight( x, y, z, block );
     }

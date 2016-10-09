@@ -1,14 +1,14 @@
-#ifndef GRASS_H
-#define GRASS_H
+#ifndef OAK_WOOD_H
+#define OAK_WOOD_H
 
 #include "Block.h"
 
 namespace Block
 {
-    class Grass : public Block_Base
+    class Oak_Wood : public Block_Base
     {
         public:
-            Grass();
+            Oak_Wood();
 
             Vector2 getTextureTop       () const override;
             Vector2 getTextureSide      () const override;
@@ -20,4 +20,4 @@ namespace Block
     };
 } //Namespace Block
 
-#endif // GRASS_H
+#endif // OAK_WOOD_H

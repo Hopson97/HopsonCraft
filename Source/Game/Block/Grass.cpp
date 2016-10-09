@@ -20,5 +20,10 @@ namespace Block
     {
         return { 2, 0 };
     }
+
+    bool Grass :: isOpaque () const
+    {
+        return true;
+    }
 } //Namespace Block
 

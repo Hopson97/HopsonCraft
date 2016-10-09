@@ -13,7 +13,8 @@ class Texture
 
         void loadFromFile ( const std::string& file );
 
-        GLuint getId () const;
+        void bind   ();
+        void unbind ();
 
         ~Texture ();
 

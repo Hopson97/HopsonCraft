@@ -37,7 +37,7 @@ void Chunk_Renderer :: render( const Camera& camera )
 
 void Chunk_Renderer :: prepareChunk ( const Chunk& chunk )
 {
-    glBindVertexArray   ( chunk.getModel().getVAO() );
+    chunk.getModel().bind();
     m_shader.loadModelMatrix( Maths::createTransforrmationMatrix( chunk.position,
                                                                   chunk.rotation,
                                                                   chunk.scale ) );

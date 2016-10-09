@@ -31,7 +31,5 @@ std::vector<GLfloat> Texture_Atlas :: getTextureCoords ( Vector2 location ) cons
         xMin, yMin,
         xMax, yMin,
         xMax, yMax,
-
-
     };
 }

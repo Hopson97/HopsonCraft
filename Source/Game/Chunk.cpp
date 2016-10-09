@@ -7,6 +7,8 @@
 #include "Loader.h"
 #include "Height_Generator.h"
 
+#include "Random.h"
+
 
 int Chunk::maxHeight = 0;
 int Chunk::minHeight = 0xFFF;
@@ -15,6 +17,7 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
                  const Vector2i& location,
                  const Texture_Atlas& atlas  )
 :   m_p_chunkMap    ( chunkMap )
+,   m_blocks        ( WIDTH * WIDTH * HEIGHT )
 ,   m_location      ( location )
 ,   m_p_atlas       ( &atlas )
 ,   m_dirtBlock     ( std::make_unique<Block::Dirt>() )
@@ -46,24 +49,45 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
                 if ( h < minHeight )
                 {
                     minHeight = h;
-                    std::cout << h << std::endl;
                 }
 
                 if ( y > h )
                 {
-                    m_blocks.emplace_back( std::make_unique<Block::Block_Base>( Block::ID::Air ) );
+                    if ( y <= WATER_LEVEL)
+                        setBlock( x, y, z, std::make_unique<Block::Water>() );
+                    else
+                        setBlock( x, y, z, std::make_unique<Block::Block_Base>( Block::ID::Air ) );
                 }
                 else if ( y == h )
                 {
-                    m_blocks.emplace_back ( std::make_unique<Block::Grass>() );
+                    if ( y > BEACH_LEVEL ) //Top levels
+                    {
+                        setBlock( x, y, z, std::make_unique<Block::Grass>() );
+                        if ( Random::integer( 1, 10) == 10 )
+                        {
+                            makeTree( x, y, z );
+                        }
+                    }
+                    else //Beach
+                    {
+                        setBlock( x, y, z, std::make_unique<Block::Sand>() );
+                    }
                 }
                 else  if ( y < h && y > h - 5 )
                 {
-                    m_blocks.emplace_back ( std::make_unique<Block::Dirt>() );
+                    if ( y > WATER_LEVEL )
+                        setBlock( x, y, z, std::make_unique<Block::Dirt>() );
+                    else //Underwater
+                    {
+                        if ( Random::integer( 0, 10 ) < 7 )
+                            setBlock( x, y, z, std::make_unique<Block::Sand>() );
+                        else
+                            setBlock( x, y, z, std::make_unique<Block::Dirt>() );
+                    }
                 }
                 else
                 {
-                    m_blocks.emplace_back ( std::make_unique<Block::Stone>() );
+                    setBlock( x, y, z, std::make_unique<Block::Stone>() );
                 }
             }
         }
@@ -72,36 +96,17 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
     position = { location.x * WIDTH, 0, location.z* WIDTH };
 }
 
-Chunk :: ~Chunk()
+void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, std::unique_ptr<Block::Block_Base> block )
 {
-    while ( !m_blocks.empty() )
+    try
     {
-        m_blocks.erase( m_blocks.begin() );
-    }
-}
 
-void Chunk :: generateMesh ()
-{
-    for ( int y = 0; y < HEIGHT ; y++ )
+        m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = std::move( block );
+    }
+    catch ( std::out_of_range& e )
     {
-        for ( int x = 0 ; x < WIDTH ; x++ )
-        {
-            for ( int z = 0 ; z < WIDTH ; z++ )
-            {
-
-                if ( getBlock( x, y, z ).getID() == Block::ID::Air )
-                {
-                    continue;
-                }
-                makeBlock( x, y, z, getBlock( x, y, z ) );
-            }
-        }
+        return;
     }
-    m_model.addData ( Loader::loadArrayMesh( m_vertexCoords, m_textureCoords ) );
-    m_vertexCoords.clear();
-    m_textureCoords.clear();
-
-    m_hasVertexData = true;
 }
 
 const Model& Chunk :: getModel () const

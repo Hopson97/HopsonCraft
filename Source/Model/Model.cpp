@@ -22,10 +22,16 @@ void Model :: addData ( const Model_Data& data )
     m_glData = data;
 }
 
-GLuint Model :: getVAO() const
+void Model :: bind   () const
 {
-    return m_glData.vao;
+    glBindVertexArray ( m_glData.vao );
 }
+
+void Model :: unbind () const
+{
+    glBindVertexArray ( 0 );
+}
+
 
 GLuint Model :: getVertexCount() const
 {
@@ -34,7 +40,6 @@ GLuint Model :: getVertexCount() const
 
 Model :: ~Model  ()
 {
-    //std::cout << "Deleting Model" << std::endl;
     deleteData ();
 }
 

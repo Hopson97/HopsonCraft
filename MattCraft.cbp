@@ -39,6 +39,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-Wextra" />
 					<Add directory="Source/Util" />
 					<Add directory="Source/Model" />
 					<Add directory="Source" />
@@ -57,6 +58,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-Wuninitialized" />
 			<Add option="-Wall" />
 			<Add option="-std=c++14" />
 			<Add option="-DGLEW_STATIC" />
@@ -90,18 +92,24 @@
 		<Unit filename="Source/Entity.h" />
 		<Unit filename="Source/Game/Block/Block.cpp" />
 		<Unit filename="Source/Game/Block/Block.h" />
-		<Unit filename="Source/Game/Block/Block_Generator.cpp" />
 		<Unit filename="Source/Game/Block/Blocks.h" />
+		<Unit filename="Source/Game/Block/Chunk_Generator.cpp" />
 		<Unit filename="Source/Game/Block/Dirt.cpp" />
 		<Unit filename="Source/Game/Block/Dirt.h" />
 		<Unit filename="Source/Game/Block/Grass.cpp" />
 		<Unit filename="Source/Game/Block/Grass.h" />
+		<Unit filename="Source/Game/Block/Oak_Leaf.cpp" />
+		<Unit filename="Source/Game/Block/Oak_Leaf.h" />
+		<Unit filename="Source/Game/Block/Oak_Wood.cpp" />
+		<Unit filename="Source/Game/Block/Oak_Wood.h" />
+		<Unit filename="Source/Game/Block/Sand.cpp" />
+		<Unit filename="Source/Game/Block/Sand.h" />
 		<Unit filename="Source/Game/Block/Stone.cpp" />
 		<Unit filename="Source/Game/Block/Stone.h" />
+		<Unit filename="Source/Game/Block/Water.cpp" />
+		<Unit filename="Source/Game/Block/Water.h" />
 		<Unit filename="Source/Game/Chunk.cpp" />
 		<Unit filename="Source/Game/Chunk.h" />
-		<Unit filename="Source/Game/Chunk_Map.cpp" />
-		<Unit filename="Source/Game/Chunk_Map.h" />
 		<Unit filename="Source/Game/Height_Generator.cpp" />
 		<Unit filename="Source/Game/Height_Generator.h" />
 		<Unit filename="Source/Game/World.cpp" />

@@ -20,4 +20,9 @@ namespace Block
     {
         return { 2, 0 };
     }
+
+    bool Dirt :: isOpaque () const
+    {
+        return true;
+    }
 } //Namespace Block

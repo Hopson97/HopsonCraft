@@ -32,7 +32,6 @@ class Chunk : public Entity
         Chunk( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
                const Vector2i& location,
                const Texture_Atlas& atlas  );
-        ~Chunk ();
 
         void generateMesh ();
 
@@ -53,6 +52,10 @@ class Chunk : public Entity
         void makeRight  (   GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
         void makeFront  (   GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
         void makeBottom (   GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
+
+        void makeTree   (   GLuint x, GLuint y, GLuint z );
+
+        void setBlock   (   GLuint x, GLuint y, GLuint z, std::unique_ptr<Block::Block_Base> block );
 
     private:
         std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunkMap;
@@ -75,7 +78,9 @@ class Chunk : public Entity
 
     public:
         static constexpr int WIDTH  = 16,
-                             HEIGHT = 128;
+                             HEIGHT = 128,
+                             WATER_LEVEL = 70,
+                             BEACH_LEVEL = WATER_LEVEL + 2;
 
         static int maxHeight;
         static int minHeight;
