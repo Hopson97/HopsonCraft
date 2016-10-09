@@ -35,6 +35,8 @@ For texturing, a texture atlas is used.
 
 ![Blocks](http://i.imgur.com/imAEdza.png "Blocks")
 
+![Blocks](http://i.imgur.com/KGxWgGw.png "Blocks")
+
 ## Future:
 
 I hope to add collison detection, and make it for Minecraft-y, eg the ability to break and place blocks.
