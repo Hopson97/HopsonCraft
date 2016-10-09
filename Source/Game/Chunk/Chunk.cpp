@@ -41,6 +41,8 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
         }
     }
 
+    std::vector<Vector3> treeLocations;
+
     for ( int y = 0; y < HEIGHT ; y++ )
     {
         for ( int x = 0 ; x < WIDTH ; x++ )
@@ -60,9 +62,9 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
                     if ( y > BEACH_LEVEL ) //Top levels
                     {
                         setBlock( x, y, z, grass );
-                        if ( Random::integer( 1, 10) == 10 )
+                        if ( Random::integer( 1, 10) == 1 )
                         {
-                            makeTree( x, y, z );
+                            treeLocations.emplace_back( x, y, z );
                         }
                     }
                     else if ( y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
@@ -96,20 +98,88 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
             }
         }
     }
+    for ( auto& loc : treeLocations )
+    {
+        makeTree( loc.x, loc.y, loc.z );
+    }
+
+
     m_hasBlockData = true;
     m_position = { location.x * WIDTH, location.z * WIDTH };
 }
 
+void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id )
+{
+    switch ( id )
+    {
+        case Block::ID::Air:
+            return;
+        case Block::ID::Dirt:
+            setBlock( x, y, z, dirt );
+            break;
+
+        case Block::ID::Grass:
+            setBlock( x, y, z, grass );
+            break;
+
+        case Block::ID::Stone:
+            setBlock( x, y, z, stone );
+            break;
+
+        case Block::ID::Oak_Leaf:
+            setBlock( x, y, z, oakLeaf );
+            break;
+
+        case Block::ID::Oak_Wood:
+            setBlock( x, y, z, oakWood );
+            break;
+
+        case Block::ID::Sand:
+            setBlock( x, y, z, sand );
+            break;
+
+        case Block::ID::Water:
+            setBlock( x, y, z, water );
+            break;
+    }
+}
+
 void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block )
 {
-    try
+    if ( y > HEIGHT - 1 || y < 0 ) return;
+    if ( x < 0 )
     {
-
-        m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = &block;
+        if ( m_p_chunkMap->find( { m_location.x - 1, m_location.z } ) != m_p_chunkMap->end() )
+        {
+            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( WIDTH + x, y, z, block );
+        }
     }
-    catch ( std::out_of_range& e )
+    else if ( z < 0 )
     {
-        return;
+        if ( m_p_chunkMap->find( { m_location.x, m_location.z - 1 } ) != m_p_chunkMap->end() )
+        {
+            m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->setBlock ( x, y, WIDTH + z, block );
+        }
+    }
+    else if ( x >= WIDTH )
+    {
+        if ( m_p_chunkMap->find( { m_location.x + 1, m_location.z } ) != m_p_chunkMap->end() )
+        {
+            int diff = x - WIDTH;
+            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( WIDTH + diff, y, z, block );
+        }
+    }
+    else if ( z >= WIDTH )
+    {
+        if ( m_p_chunkMap->find( { m_location.x, m_location.z + 1 } ) != m_p_chunkMap->end() )
+        {
+            int diff = z - WIDTH;
+            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( x, y, diff + WIDTH, block );
+        }
+    }
+    else
+    {
+        m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = &block;
     }
 }
 
@@ -174,4 +244,23 @@ const Vector2i& Chunk :: getLocation () const
 const Vector2& Chunk :: getPosition () const
 {
     return m_position;
+}
+
+void Chunk :: makeTree   (   GLuint x, GLuint y, GLuint z )
+{
+    int trunkHeight = Random::integer( 4, 6 );
+    for ( int i = 1 ; i < trunkHeight + 1 ; i++ )
+    {
+        setBlock( x, y + i, z, oakWood );
+    }
+    for ( int yLeaf = y + trunkHeight ; yLeaf < y + trunkHeight + 5 ; yLeaf++ )
+    {
+        for ( int xLeaf = x - 2 ; xLeaf < x + 2 ; xLeaf++ )
+        {
+            for ( int zLeaf = z - 2 ; zLeaf < z + 2 ; zLeaf++ )
+            {
+                setBlock( xLeaf, yLeaf, zLeaf, oakLeaf );
+            }
+        }
+    }
 }

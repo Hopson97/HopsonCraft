@@ -20,9 +20,4 @@ namespace Block
     {
         return { 7, 0 };
     }
-
-    bool Oak_Leaf :: isOpaque () const
-    {
-        return true;
-    }
 } //Namespace Block

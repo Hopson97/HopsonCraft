@@ -37,6 +37,8 @@ class Chunk
         const Vector2i& getLocation () const;
         const Vector2&  getPosition () const;
 
+        void setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id );
+
     private:
         void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
 

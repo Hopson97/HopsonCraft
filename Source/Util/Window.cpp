@@ -35,6 +35,7 @@ namespace Window
 
         m_window = std::make_unique<sf::RenderWindow>( sf::VideoMode ( WIDTH, HEIGHT ), name, sf::Style::Close, settings );
         m_window->setMouseCursorVisible( false );
+        m_window->setPosition ( { 0, 0 } );
 
         initGL();
     }

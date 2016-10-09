@@ -9,6 +9,8 @@
 #include "Chunk/Chunk.h"
 #include "AABB.h"
 
+#include <SFML/Graphics.hpp>
+
 class Player
 {
     public:
@@ -36,6 +38,9 @@ class Player
         Chunk* m_currentChunk = nullptr;
 
         AABB m_aabb;
+
+        sf::Clock m_lockTimer;
+        bool m_isLocked = false;
 };
 
 #endif // PLAYER_H
