@@ -79,5 +79,5 @@ const Vector3& Camera :: getRotation() const
 
 void Camera::movePosition(const Vector3& position)
 {
-    m_position = position;
+    m_position += position;
 }

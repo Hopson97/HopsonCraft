@@ -1,6 +1,6 @@
 #include "Chunk_Renderer.h"
 
-#include "Chunk.h"
+#include "Chunk/Chunk.h"
 #include "Camera.h"
 #include "Maths.h"
 #include "Window.h"
@@ -38,7 +38,7 @@ void Chunk_Renderer :: render( const Camera& camera )
 void Chunk_Renderer :: prepareChunk ( const Chunk& chunk )
 {
     chunk.getModel().bind();
-    m_shader.loadModelMatrix( Maths::createTransforrmationMatrix( chunk.position,
-                                                                  chunk.rotation,
-                                                                  chunk.scale ) );
+    m_shader.loadModelMatrix( Maths::createTransforrmationMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
+                                                                  { 0, 0, 0 },
+                                                                  { 1, 1, 1 } ) );
 }

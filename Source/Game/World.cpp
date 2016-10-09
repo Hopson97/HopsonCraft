@@ -12,6 +12,7 @@
 
 World::World()
 :   m_blockAtlas    ( 512, 16 )
+,   m_player        ( m_chunks )
 {
     //Height_Generator::setUp( 210, 0.5, 4, -1 );   //Hilly
     Height_Generator::setUp( 220, 0.4, 4, -1 );   //Very watery
@@ -30,8 +31,6 @@ World::World()
         }
     }
 
-    m_camera.movePosition( { 0, Chunk::maxHeight, 10 } );
-
     for ( auto& chunk : m_chunks )
     {
         chunk.second->generateMesh();
@@ -40,13 +39,7 @@ World::World()
 
 void World :: update ( float dt )
 {
-    m_camera.move( dt );
-    static sf::Clock c;
-    if ( c.getElapsedTime().asSeconds() > 1.0 )
-    {
-        std::cout << "Camera position: " << m_camera.getPosition().y << std::endl;
-        c.restart();
-    }
+    m_player.update( dt );
 }
 
 void World :: draw ()
@@ -55,7 +48,7 @@ void World :: draw ()
     {
         m_chunkRenderer.renderChunk( *chunk.second );
     }
-    m_chunkRenderer.render( m_camera );
+    m_chunkRenderer.render( m_player.getCamera() );
 }
 
 

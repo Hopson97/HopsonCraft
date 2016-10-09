@@ -93,7 +93,7 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
         }
     }
     m_hasBlockData = true;
-    position = { location.x * WIDTH, 0, location.z* WIDTH };
+    m_position = { location.x * WIDTH, location.z * WIDTH };
 }
 
 void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, std::unique_ptr<Block::Block_Base> block )
@@ -165,4 +165,9 @@ bool Chunk :: hasVertexData () const
 const Vector2i& Chunk :: getLocation () const
 {
     return m_location;
+}
+
+const Vector2& Chunk :: getPosition () const
+{
+    return m_position;
 }

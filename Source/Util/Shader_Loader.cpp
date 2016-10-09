@@ -83,7 +83,7 @@ std::string getSource ( const std::string& filePath );
 
             glLinkProgram  ( program );
 
-            checkForErrors( program, GL_LINK_STATUS, "Error linking shaders.", program );
+            //checkForErrors( program, GL_LINK_STATUS, "Error linking shaders.", program );
 
             return program;
         }

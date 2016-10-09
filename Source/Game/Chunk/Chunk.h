@@ -14,8 +14,6 @@
 
 #include "Blocks.h"
 
-
-
 namespace Block
 {
     class Block_Base;
@@ -26,7 +24,7 @@ class Texture_Atlas;
 class Chunk;
 typedef std::unique_ptr<Chunk> Chunk_Ptr;
 
-class Chunk : public Entity
+class Chunk
 {
     public:
         Chunk( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
@@ -42,6 +40,7 @@ class Chunk : public Entity
         bool hasVertexData          () const;
 
         const Vector2i& getLocation () const;
+        const Vector2&  getPosition () const;
 
     private:
         void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
@@ -63,7 +62,8 @@ class Chunk : public Entity
 
         Model    m_model;
 
-        Vector2i m_location;
+        Vector2i m_location; //Map coords
+        Vector2  m_position; //GL coords
 
         const Texture_Atlas* m_p_atlas;
 
@@ -79,7 +79,7 @@ class Chunk : public Entity
     public:
         static constexpr int WIDTH  = 16,
                              HEIGHT = 128,
-                             WATER_LEVEL = 70,
+                             WATER_LEVEL = 68,
                              BEACH_LEVEL = WATER_LEVEL + 2;
 
         static int maxHeight;

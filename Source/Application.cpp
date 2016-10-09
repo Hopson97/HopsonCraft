@@ -5,7 +5,7 @@
 #include "Util/Window.h"
 #include "Util/Frames_Per_Second_Checker.h"
 
-#include "Chunk.h"
+#include "Chunk/Chunk.h"
 #include "Texture_Atlas.h"
 #include "Texture.h"
 #include "Loader.h"

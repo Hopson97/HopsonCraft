@@ -3,11 +3,11 @@
 
 #include <unordered_map>
 
-#include "Chunk.h"
+#include "Chunk/Chunk.h"
 #include "Vector.h"
 #include "Texture_Atlas.h"
 
-#include "Camera.h"
+#include "Player.h"
 #include "Chunk_Renderer.h"
 
 class World
@@ -28,7 +28,7 @@ class World
 
         Chunk_Renderer m_chunkRenderer;
 
-        Camera  m_camera;
+        Player  m_player;
 };
 
 #endif // WORLD_H

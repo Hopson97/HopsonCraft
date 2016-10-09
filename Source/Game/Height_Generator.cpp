@@ -5,7 +5,7 @@
 
 
 #include "Random.h"
-#include "Chunk.h"
+#include "Chunk/Chunk.h"
 
 namespace Height_Generator
 {

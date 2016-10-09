@@ -1,0 +1,42 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
+#include <unordered_map>
+
+#include "OpenGL/Glm/glm_transformations.h"
+#include "Camera.h"
+#include "Vector.h"
+#include "Chunk/Chunk.h"
+#include "AABB.h"
+
+class Player
+{
+    public:
+        Player( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap );
+
+        void update ( float dt );
+
+        const Camera& getCamera () const;
+
+
+        constexpr static float ACC = 0.18;
+
+    private:
+        void input              ( float dt );
+        void getCurrentChunk    ();
+
+        void setAABB            ();
+
+
+        Vector3 m_velocity;
+        Vector3 m_rotation;
+
+        Camera m_camera;
+
+        std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunks = nullptr;
+        Chunk* m_currentChunk = nullptr;
+
+        AABB m_aabb;
+};
+
+#endif // PLAYER_H

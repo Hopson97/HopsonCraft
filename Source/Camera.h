@@ -6,13 +6,12 @@
 class Camera
 {
     public:
-        void move ( float dt );
-
         const Vector3& getPosition () const;
         const Vector3& getRotation () const;
 
         void movePosition ( const Vector3& position );
 
+        void move ( float dt );
     private:
         Vector3 m_position;
         Vector3 m_rotation;
