@@ -10,7 +10,7 @@
 class Texture_Atlas : public Texture
 {
     public:
-        Texture_Atlas( float imageSize, float textureSize );
+        Texture_Atlas( float imageSize, float textureSize, const std::string& file );
 
         std::vector<GLfloat> getTextureCoords ( Vector2 location ) const;
 

@@ -1,5 +1,7 @@
 #include "Chunk_Shader.h"
 
+#include <iostream>
+
 #include "Camera.h"
 #include "Maths.h"
 
@@ -25,6 +27,11 @@ void Chunk_Shader :: loadProjMatrix(const Matrix4& projMatrix)
     loadMatrix4( m_locationProjectionMatrix, projMatrix );
 }
 
+void Chunk_Shader :: loadIsPlayerLocation ( int isLocation )
+{
+    loadInteger( m_chunkLocation, isLocation );
+}
+
 void Chunk_Shader :: bindAttibs()
 {
     bindAttrib( 0, "vertexPosition"  );
@@ -36,4 +43,7 @@ void Chunk_Shader :: getUniformLocations()
     m_locationViewMatrix        = glGetUniformLocation ( getId(), "viewMatrix"          );
     m_locationModelMatrix       = glGetUniformLocation ( getId(), "modelMatrix"         );
     m_locationProjectionMatrix  = glGetUniformLocation ( getId(), "projectionMatrix"    );
+
+    m_chunkLocation             = glGetUniformLocation ( getId(), "isLocation" );
+
 }

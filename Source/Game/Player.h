@@ -8,6 +8,7 @@
 #include "Vector.h"
 #include "Chunk/Chunk.h"
 #include "AABB.h"
+#include "Vector.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -19,6 +20,8 @@ class Player
         void update ( float dt );
 
         const Camera& getCamera () const;
+
+        const Vector2i& getChunkLocation () const;
 
 
         constexpr static float ACC = 0.18;

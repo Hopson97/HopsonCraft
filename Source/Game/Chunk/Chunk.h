@@ -22,9 +22,12 @@ typedef std::unique_ptr<Chunk> Chunk_Ptr;
 class Chunk
 {
     public:
-        Chunk( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
+        Chunk( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap,
                const Vector2i& location,
                const Texture_Atlas& atlas  );
+
+        void generateBlockData      ();
+        void generateStructureData  ();
 
         void generateMesh ();
 
@@ -57,6 +60,8 @@ class Chunk
         std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunkMap;
         std::vector<Block_t*> m_blocks;
 
+        std::vector<Vector3> m_treeLocations;
+
         Model    m_model;
 
         Vector2i m_location; //Map coords
@@ -67,13 +72,15 @@ class Chunk
         bool m_hasBlockData     = false;
         bool m_hasVertexData    = false;
 
+        bool tempBool = false;
+
         std::vector<GLfloat> m_vertexCoords;
         std::vector<GLfloat> m_textureCoords;
 
     public:
         static constexpr int WIDTH  = 16,
                              HEIGHT = 180,
-                             WATER_LEVEL = 70,
+                             WATER_LEVEL = 75,
                              BEACH_LEVEL = WATER_LEVEL + 3;
 };
 

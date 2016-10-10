@@ -25,8 +25,8 @@ namespace Window
 
     const sf::RenderWindow& get ();
 
-    constexpr static int WIDTH  = 1960,
-                         HEIGHT = 1080;
+    constexpr static int WIDTH  = 1280,
+                         HEIGHT = 720;
 }
 
 #endif // WINDOW_H

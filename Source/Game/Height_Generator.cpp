@@ -50,7 +50,10 @@ namespace Height_Generator
             gen_seed = seed;
         }
 
-        std::cout << "Seed: " << gen_seed << std::endl;
+        std::cout << "Amplitude: " << gen_amplitude << std::endl;
+        std::cout << "Roughness: " << gen_roughness << std::endl;
+        std::cout << "Octaves:   " << gen_ocataves  << std::endl;
+        std::cout << "Seed:      " << gen_seed      << std::endl << std::endl;
     }
 
     int getHeight ( double x, double z, double gridX, double gridZ )
@@ -60,8 +63,8 @@ namespace Height_Generator
             setRandSeed();
         }
 
-        double xOffset = gridX * ( Chunk::WIDTH - 1 );
-        double zOffset = gridZ * ( Chunk::WIDTH - 1 );
+        double xOffset = gridX * ( Chunk::WIDTH );
+        double zOffset = gridZ * ( Chunk::WIDTH );
 
         double total = 0;
         double value = std::pow ( 2, gen_ocataves) - 1.0;
@@ -70,10 +73,12 @@ namespace Height_Generator
         {
             double frequency = std::pow( 2, i ) / value;
             double amps      = std::pow ( gen_roughness, i ) * gen_amplitude;
-            total += getInterpolatedNoise( ( x + xOffset ) * frequency,
-                                        ( z + zOffset ) * frequency ) * amps;
+
+            total += getInterpolatedNoise(  ( x + xOffset ) * frequency,
+                                            ( z + zOffset ) * frequency ) * amps;
         }
-        return total - 23;
+        int ret = total - 30;
+        return ret < Chunk::HEIGHT ? ret : Chunk::HEIGHT;
     }
 
     int getSeed()

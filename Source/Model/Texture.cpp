@@ -4,11 +4,9 @@
 
 #include <iostream>
 
-Texture :: Texture ( int textureID )
-:   m_textureID ( textureID )
-{
-
-}
+Texture :: Texture ( const std::string& file )
+:   m_textureID ( Loader::loadTexture ( file ) )
+{ }
 
 void Texture :: loadFromFile ( const std::string& file )
 {

@@ -3,8 +3,9 @@
 #include <cmath>
 #include <iostream>
 
-Texture_Atlas :: Texture_Atlas (float imageSize, float textureSize)
-:   m_size          ( imageSize )
+Texture_Atlas :: Texture_Atlas (float imageSize, float textureSize, const std::string& file )
+:   Texture         ( file )
+,   m_size          ( imageSize )
 ,   m_textureSize   ( textureSize )
 {
 

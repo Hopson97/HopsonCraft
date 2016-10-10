@@ -28,6 +28,11 @@ const Camera& Player :: getCamera () const
     return m_camera;
 }
 
+const Vector2i& Player :: getChunkLocation () const
+{
+    return m_currentChunk->getLocation();
+}
+
 void Player :: input ( float dt )
 {
     if ( m_lockTimer.getElapsedTime().asSeconds() > 3.0 )
@@ -85,7 +90,7 @@ void Player :: getCurrentChunk ()
 {
     int x = m_camera.getPosition().x / Chunk::WIDTH;
     int z = m_camera.getPosition().z / Chunk::WIDTH;
-   // m_currentChunk = &*m_p_chunks->at( { x, z } );
+    //m_currentChunk = &*m_p_chunks->at( { x, z } );
 }
 
 void Player :: setAABB ()

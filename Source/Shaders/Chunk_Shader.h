@@ -8,9 +8,11 @@ class Chunk_Shader : public Shader_Program
     public:
         Chunk_Shader();
 
-        void loadModelMatrix    ( const Matrix4& modelMatrix    );
-        void loadViewMatrix     ( const Camera&  camera         );
-        void loadProjMatrix     ( const Matrix4& projMatrix     );
+        void loadModelMatrix        ( const Matrix4& modelMatrix    );
+        void loadViewMatrix         ( const Camera&  camera         );
+        void loadProjMatrix         ( const Matrix4& projMatrix     );
+
+        void loadIsPlayerLocation   ( int isLocation                );
 
     private:
         void bindAttibs () override;
@@ -19,6 +21,8 @@ class Chunk_Shader : public Shader_Program
         GLuint m_locationViewMatrix;
         GLuint m_locationModelMatrix;
         GLuint m_locationProjectionMatrix;
+
+        GLuint m_chunkLocation;
 };
 
 #endif // CHUNK_SHADER_H

@@ -5,6 +5,8 @@
 
 #include <vector>
 
+#include "Vector.h"
+
 class Chunk;
 class Camera;
 
@@ -14,7 +16,7 @@ class Chunk_Renderer
         Chunk_Renderer ();
 
         void renderChunk    ( const Chunk& chunk );
-        void render         ( const Camera& camera );
+        void render         ( const Camera& camera, const Vector2i& playerLocation );
 
     private:
         void prepareChunk   ( const Chunk& chunk );

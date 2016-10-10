@@ -1,5 +1,7 @@
 #include "Chunk_Renderer.h"
 
+#include <iostream>
+
 #include "Chunk/Chunk.h"
 #include "Camera.h"
 #include "Maths.h"
@@ -20,7 +22,7 @@ void Chunk_Renderer :: renderChunk ( const Chunk& chunk )
     m_chunks.push_back( &chunk );
 }
 
-void Chunk_Renderer :: render( const Camera& camera )
+void Chunk_Renderer :: render( const Camera& camera, const Vector2i& playerLocation )
 {
     m_shader.start();
     m_shader.loadViewMatrix( camera );
@@ -28,6 +30,16 @@ void Chunk_Renderer :: render( const Camera& camera )
     for ( const Chunk* chunk : m_chunks )
     {
         prepareChunk( *chunk );
+/*
+        if ( playerLocation == chunk->getLocation() )
+        {
+            m_shader.loadIsPlayerLocation( 1 );
+        }
+        else
+        {
+            m_shader.loadIsPlayerLocation( 0 );
+        }
+*/
         glDrawArrays( GL_TRIANGLES, 0, chunk->getModel().getVertexCount() );
     }
 

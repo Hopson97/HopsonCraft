@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Chunk_Renderer.h"
 
+
 class World
 {
     public:
@@ -17,6 +18,8 @@ class World
 
         void update ( float dt );
         void draw   ();
+
+        static int worldSize;
 
     private:
         void addChunk ( const Vector2i& location );

@@ -9,7 +9,7 @@ class Texture
 {
     public:
         Texture     () = default;
-        Texture     ( int id );
+        Texture     ( const std::string& filePath );
 
         void loadFromFile ( const std::string& file );
 

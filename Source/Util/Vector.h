@@ -31,7 +31,7 @@ namespace std
             key = key + (key << 2);
             key = key ^ (key >> 4);
             key = key * 2057;
-            key = key ^ (key >> 16);
+            key = std::hash<double>{}(key ^ (key >> 16));
             return key;
         }
 
