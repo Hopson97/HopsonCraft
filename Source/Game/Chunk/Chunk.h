@@ -37,7 +37,7 @@ class Chunk
         const Vector2i& getLocation () const;
         const Vector2&  getPosition () const;
 
-        void setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id );
+        void setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true );
 
     private:
         void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
@@ -51,7 +51,7 @@ class Chunk
 
         void makeTree   (   GLuint x, GLuint y, GLuint z );
 
-        void setBlock   (   GLuint x, GLuint y, GLuint z, Block_t& block );
+        void setBlock   (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks = true );
 
     private:
         std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunkMap;
@@ -72,7 +72,7 @@ class Chunk
 
     public:
         static constexpr int WIDTH  = 16,
-                             HEIGHT = 128,
+                             HEIGHT = 180,
                              WATER_LEVEL = 70,
                              BEACH_LEVEL = WATER_LEVEL + 3;
 };

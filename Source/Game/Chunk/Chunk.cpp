@@ -82,13 +82,12 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
                 else  if ( y < h && y > h - 5 )
                 {
                     if ( y > WATER_LEVEL )
-                        setBlock( x, y, z, dirt );
+                        y <= BEACH_LEVEL ?
+                        setBlock( x, y, z, sand ) : setBlock( x, y, z, dirt );
                     else //Underwater
                     {
-                        if ( Random::integer( 0, 10 ) < 6 )
-                            setBlock( x, y, z, sand );
-                        else
-                            setBlock( x, y, z, dirt );
+                        Random::integer( 0, 10 ) < 6 ?
+                        setBlock( x, y, z, sand ) : setBlock( x, y, z, dirt );
                     }
                 }
                 else
@@ -108,57 +107,57 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>* chunkMap,
     m_position = { location.x * WIDTH, location.z * WIDTH };
 }
 
-void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id )
+void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks )
 {
     switch ( id )
     {
         case Block::ID::Air:
             return;
         case Block::ID::Dirt:
-            setBlock( x, y, z, dirt );
+            setBlock( x, y, z, dirt, overrideBlocks );
             break;
 
         case Block::ID::Grass:
-            setBlock( x, y, z, grass );
+            setBlock( x, y, z, grass, overrideBlocks );
             break;
 
         case Block::ID::Stone:
-            setBlock( x, y, z, stone );
+            setBlock( x, y, z, stone, overrideBlocks );
             break;
 
         case Block::ID::Oak_Leaf:
-            setBlock( x, y, z, oakLeaf );
+            setBlock( x, y, z, oakLeaf, overrideBlocks );
             break;
 
         case Block::ID::Oak_Wood:
-            setBlock( x, y, z, oakWood );
+            setBlock( x, y, z, oakWood, overrideBlocks );
             break;
 
         case Block::ID::Sand:
-            setBlock( x, y, z, sand );
+            setBlock( x, y, z, sand, overrideBlocks );
             break;
 
         case Block::ID::Water:
-            setBlock( x, y, z, water );
+            setBlock( x, y, z, water, overrideBlocks );
             break;
     }
 }
 
-void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block )
+void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks )
 {
     if ( y > HEIGHT - 1 || y < 0 ) return;
     if ( x < 0 )
     {
         if ( m_p_chunkMap->find( { m_location.x - 1, m_location.z } ) != m_p_chunkMap->end() )
         {
-            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( WIDTH + x, y, z, block );
+            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( WIDTH + x, y, z, block, overrideBlocks );
         }
     }
     else if ( z < 0 )
     {
         if ( m_p_chunkMap->find( { m_location.x, m_location.z - 1 } ) != m_p_chunkMap->end() )
         {
-            m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->setBlock ( x, y, WIDTH + z, block );
+            m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->setBlock ( x, y, WIDTH + z, block, overrideBlocks );
         }
     }
     else if ( x >= WIDTH )
@@ -166,7 +165,7 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block )
         if ( m_p_chunkMap->find( { m_location.x + 1, m_location.z } ) != m_p_chunkMap->end() )
         {
             int diff = x - WIDTH;
-            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( WIDTH + diff, y, z, block );
+            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( WIDTH + diff, y, z, block, overrideBlocks );
         }
     }
     else if ( z >= WIDTH )
@@ -174,12 +173,21 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block )
         if ( m_p_chunkMap->find( { m_location.x, m_location.z + 1 } ) != m_p_chunkMap->end() )
         {
             int diff = z - WIDTH;
-            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( x, y, diff + WIDTH, block );
+            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( x, y, diff + WIDTH, block, overrideBlocks );
         }
     }
     else
     {
-        m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = &block;
+        if ( !m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) )
+        {
+            m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = &block;
+            return;
+        }
+        if ( getBlock( x, y, z).getID() == Block::ID::Air )
+        {
+            m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = &block;
+            return;
+        }
     }
 }
 
@@ -220,7 +228,7 @@ Chunk :: getBlock ( int x, int y, int z ) const
             return m_p_chunkMap->at( { m_location.x, m_location.z + 1 } )->getBlock ( x, y, 0 );
         }
     }
-    else if ( y == -1 )
+    else if ( y == -1 || y > HEIGHT - 1 )
     {
         return dirt;
     }
@@ -228,7 +236,7 @@ Chunk :: getBlock ( int x, int y, int z ) const
     {
         return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
     }
-    return air;
+    return dirt;    //This is for world edges.
 }
 
 bool Chunk :: hasVertexData () const
@@ -248,18 +256,18 @@ const Vector2& Chunk :: getPosition () const
 
 void Chunk :: makeTree   (   GLuint x, GLuint y, GLuint z )
 {
-    int trunkHeight = Random::integer( 4, 6 );
-    for ( int i = 1 ; i < trunkHeight + 1 ; i++ )
+    unsigned trunkHeight = Random::integer( 6, 8 );
+    for ( unsigned i = 1 ; i < trunkHeight + 1 ; i++ )
     {
-        setBlock( x, y + i, z, oakWood );
+        setBlock( x, y + i, z, oakWood, false );
     }
-    for ( int yLeaf = y + trunkHeight ; yLeaf < y + trunkHeight + 5 ; yLeaf++ )
+    for ( unsigned yLeaf = y + trunkHeight ; yLeaf < y + trunkHeight + 5 ; yLeaf++ )
     {
-        for ( int xLeaf = x - 2 ; xLeaf < x + 2 ; xLeaf++ )
+        for ( unsigned xLeaf = x - 2 ; xLeaf < x + 2 ; xLeaf++ )
         {
-            for ( int zLeaf = z - 2 ; zLeaf < z + 2 ; zLeaf++ )
+            for ( unsigned zLeaf = z - 2 ; zLeaf < z + 2 ; zLeaf++ )
             {
-                setBlock( xLeaf, yLeaf, zLeaf, oakLeaf );
+                setBlock( xLeaf, yLeaf, zLeaf, oakLeaf, false );
             }
         }
     }

@@ -15,11 +15,11 @@ struct Model_Data
                     GLuint uvCoordsId,
                     size_t vertexCount );
 
-    GLuint vao;
-    GLuint vertexPosId;
-    GLuint uvCoordsId;
+    GLuint vao          = 0;
+    GLuint vertexPosId  = 0;
+    GLuint uvCoordsId   = 0;
 
-    size_t vertexCount;
+    size_t vertexCount  = 0;
 };
 
 class Model

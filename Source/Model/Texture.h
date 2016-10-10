@@ -19,7 +19,7 @@ class Texture
         ~Texture ();
 
     private:
-        GLuint m_textureID;
+        GLuint m_textureID = 0;
 };
 
 #endif // TEXTURE_H

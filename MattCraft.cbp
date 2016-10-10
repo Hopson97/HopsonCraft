@@ -12,7 +12,6 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-Winit-self" />
 					<Add option="-g" />
 					<Add directory="Source/OpenGL/Objects" />
 					<Add directory="Source/OpenGL/Shaders" />
@@ -39,7 +38,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O3" />
-					<Add option="-Wextra" />
 					<Add directory="Source/Util" />
 					<Add directory="Source/Model" />
 					<Add directory="Source" />
@@ -58,15 +56,14 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wuninitialized" />
 			<Add option="-Wall" />
 			<Add option="-std=c++14" />
 			<Add option="-DGLEW_STATIC" />
-			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.3.2 ... MinGW/include" />
+			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.4.0/include" />
 		</Compiler>
 		<Linker>
 			<Add library="opengl32" />
-			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.3.2 ... MinGW/lib" />
+			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.4.0/lib" />
 		</Linker>
 		<Unit filename="Data/Images/cow.jpg" />
 		<Unit filename="Project/libgcc_s_sjlj-1.dll" />
@@ -90,10 +87,11 @@
 		<Unit filename="Source/Camera.cpp" />
 		<Unit filename="Source/Camera.h" />
 		<Unit filename="Source/Entity.h" />
+		<Unit filename="Source/Game/AABB.cpp" />
+		<Unit filename="Source/Game/AABB.h" />
 		<Unit filename="Source/Game/Block/Block.cpp" />
 		<Unit filename="Source/Game/Block/Block.h" />
 		<Unit filename="Source/Game/Block/Blocks.h" />
-		<Unit filename="Source/Game/Block/Chunk_Generator.cpp" />
 		<Unit filename="Source/Game/Block/Dirt.cpp" />
 		<Unit filename="Source/Game/Block/Dirt.h" />
 		<Unit filename="Source/Game/Block/Grass.cpp" />
@@ -108,10 +106,14 @@
 		<Unit filename="Source/Game/Block/Stone.h" />
 		<Unit filename="Source/Game/Block/Water.cpp" />
 		<Unit filename="Source/Game/Block/Water.h" />
-		<Unit filename="Source/Game/Chunk.cpp" />
-		<Unit filename="Source/Game/Chunk.h" />
+		<Unit filename="Source/Game/Chunk/Chunk.cpp" />
+		<Unit filename="Source/Game/Chunk/Chunk.h" />
+		<Unit filename="Source/Game/Chunk/Chunk_Generator.cpp" />
+		<Unit filename="Source/Game/Chunk/Chunk_Generator.h" />
 		<Unit filename="Source/Game/Height_Generator.cpp" />
 		<Unit filename="Source/Game/Height_Generator.h" />
+		<Unit filename="Source/Game/Player.cpp" />
+		<Unit filename="Source/Game/Player.h" />
 		<Unit filename="Source/Game/World.cpp" />
 		<Unit filename="Source/Game/World.h" />
 		<Unit filename="Source/Main.cpp" />
