@@ -182,6 +182,13 @@ bool Chunk :: hasVertexData () const
     return m_hasVertexData;
 }
 
+bool Chunk :: hasBlockData   () const
+{
+    return m_hasBlockData;
+}
+
+
+
 const Vector2i& Chunk :: getLocation () const
 {
     return m_location;

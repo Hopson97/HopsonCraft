@@ -1,5 +1,7 @@
 #include "World.h"
 
+#include <thread>
+
 #include "Shader_Loader.h"
 
 #include "Window.h"
@@ -11,6 +13,21 @@
 #include <iostream>
 
 int World :: worldSize = 0;
+
+void World :: manageChunks ()
+{
+    while ( m_isRunning )
+    {
+        for ( auto& chunk: m_chunks )
+        {
+            if ( chunk.second->hasBlockData() && !chunk.second->hasVertexData() )
+            {
+                std::cout << "Creating mesh" << std::endl;
+                chunk.second->generateMesh();
+            }
+        }
+    }
+}
 
 World::World()
 :   m_blockAtlas    ( 512, 16, "Blocks_Sonic" )
@@ -34,11 +51,24 @@ World::World()
 
     std::cout << "Chunk block data created, Time: " << clock.getElapsedTime().asSeconds() << "s\n";
     std::cout << "Generating vertex data... (This might take a while)." << std::endl;
+
+/*
+    std::thread vertexGenThread ( &World::manageChunks, this );
+    vertexGenThread.detach();
+/**/
+
+/**/
     for ( auto& chunk : m_chunks )
     {
         chunk.second->generateMesh();
     }
-    std::cout << "Chunk vertex data created, Time: " << clock.getElapsedTime().asSeconds() << "s\n";
+/**/
+   // std::cout << "Chunk vertex data created, Time: " << clock.getElapsedTime().asSeconds() << "s\n";
+}
+
+World :: ~World ()
+{
+    m_isRunning = false;
 }
 
 void World :: update ( float dt )
@@ -50,8 +80,12 @@ void World :: draw ()
 {
     for ( auto& chunk : m_chunks )
     {
-        m_chunkRenderer.renderChunk( *chunk.second );
+        if ( chunk.second->hasVertexData() )
+        {
+            m_chunkRenderer.renderChunk( *chunk.second );
+        }
     }
+
     m_chunkRenderer.render( m_player.getCamera(), m_player.getChunkLocation() );
 }
 

@@ -90,7 +90,10 @@ void Player :: getCurrentChunk ()
 {
     int x = m_camera.getPosition().x / Chunk::WIDTH;
     int z = m_camera.getPosition().z / Chunk::WIDTH;
-    //m_currentChunk = &*m_p_chunks->at( { x, z } );
+    if ( m_p_chunks->find( { x, z } ) != m_p_chunks->end() )
+    {
+        m_currentChunk = &*m_p_chunks->at( { x, z } );
+    }
 }
 
 void Player :: setAABB ()

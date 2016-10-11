@@ -106,6 +106,7 @@
 		<Unit filename="Source/Game/Block/Stone.h" />
 		<Unit filename="Source/Game/Block/Water.cpp" />
 		<Unit filename="Source/Game/Block/Water.h" />
+		<Unit filename="Source/Game/Chunk/Block_Generator.cpp" />
 		<Unit filename="Source/Game/Chunk/Chunk.cpp" />
 		<Unit filename="Source/Game/Chunk/Chunk.h" />
 		<Unit filename="Source/Game/Chunk/Chunk_Generator.cpp" />

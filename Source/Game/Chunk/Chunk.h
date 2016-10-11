@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <memory>
 #include <vector>
+#include <mutex>
 
 #include <SFML/Graphics.hpp>
 
@@ -13,6 +14,7 @@
 #include "Entity.h"
 
 #include "Blocks.h"
+
 
 class Texture_Atlas;
 
@@ -29,13 +31,14 @@ class Chunk
         void generateBlockData      ();
         void generateStructureData  ();
 
+        bool hasBlockData   () const;
+        bool hasVertexData  () const;
+
         void generateMesh ();
 
         const Block::Block_Base& getBlock ( int x, int y, int z ) const;
 
         const Model& getModel       () const;
-
-        bool hasVertexData          () const;
 
         const Vector2i& getLocation () const;
         const Vector2&  getPosition () const;
@@ -77,11 +80,13 @@ class Chunk
         std::vector<GLfloat> m_vertexCoords;
         std::vector<GLfloat> m_textureCoords;
 
+        std::mutex boolMutex;
+
     public:
         static constexpr int WIDTH  = 16,
                              HEIGHT = 180,
                              WATER_LEVEL = 75,
-                             BEACH_LEVEL = WATER_LEVEL + 3;
+                             BEACH_LEVEL = WATER_LEVEL + 2;
 };
 
 

@@ -14,7 +14,8 @@
 class World
 {
     public:
-        World();
+        World   ();
+        ~World  ();
 
         void update ( float dt );
         void draw   ();
@@ -24,6 +25,8 @@ class World
     private:
         void addChunk ( const Vector2i& location );
 
+        void manageChunks ();
+
 
     private:
         std::unordered_map<Vector2i, Chunk_Ptr> m_chunks;
@@ -32,6 +35,8 @@ class World
         Chunk_Renderer m_chunkRenderer;
 
         Player  m_player;
+
+        bool m_isRunning = true;
 };
 
 #endif // WORLD_H

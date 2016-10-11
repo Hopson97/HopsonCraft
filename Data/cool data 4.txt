@@ -1,0 +1,6 @@
+Generating random data.
+World size: 28
+Amplitude: 218
+Roughness: 0.531
+Octaves:   4
+Seed:      709157770

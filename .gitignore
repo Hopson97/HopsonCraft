@@ -9,6 +9,7 @@
 # generated directories
 bin/
 obj/
+MattCraft/
 
 #SFML Stuff
 *.dll
