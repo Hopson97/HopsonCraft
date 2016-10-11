@@ -44,9 +44,8 @@ void Chunk :: generateBlockData()
                 int h = m_heightMap.at ( x * WIDTH + z );
                 if ( y > h )
                 {
-                    if ( y <= WATER_LEVEL)
-                        setBlock( x, y, z, water );
-                    else
+                    y <= WATER_LEVEL ?
+                        setBlock( x, y, z, water ) :
                         setBlock( x, y, z, air );
                 }
                 else if ( y == h )
@@ -54,10 +53,8 @@ void Chunk :: generateBlockData()
                     if ( y > BEACH_LEVEL ) //Top levels
                     {
                         setBlock( x, y, z, grass );
-                        if ( Random::integer( 1, 60) == 1 )
-                        {
+                        if ( Random::integer( 1, 90 ) == 1 )
                             m_treeLocations.emplace_back( x, y, z );    //Trees
-                        }
                     }
                     else if ( y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
                     {
@@ -65,9 +62,8 @@ void Chunk :: generateBlockData()
                     }
                     else
                     {
-                        if ( Random::integer( 0, 10 ) < 6 )
-                            setBlock( x, y, z, sand );
-                        else
+                        Random::integer( 0, 10 ) < 6 ?
+                            setBlock( x, y, z, sand )   :
                             setBlock( x, y, z, dirt );
                     }
                 }
@@ -75,11 +71,13 @@ void Chunk :: generateBlockData()
                 {
                     if ( y > WATER_LEVEL )
                         y <= BEACH_LEVEL ?
-                        setBlock( x, y, z, sand ) : setBlock( x, y, z, dirt );
+                            setBlock( x, y, z, sand ) :
+                            setBlock( x, y, z, dirt );
                     else //Underwater
                     {
                         Random::integer( 0, 10 ) < 6 ?
-                        setBlock( x, y, z, sand ) : setBlock( x, y, z, dirt );
+                            setBlock( x, y, z, sand ) :
+                            setBlock( x, y, z, dirt );
                     }
                 }
                 else
@@ -139,11 +137,16 @@ void Chunk :: generateMesh ()
             }
         }
     }
+    m_hasVertexData = true;
+}
+
+void Chunk :: bufferMesh ()
+{
     m_model.addData ( Loader::loadArrayMesh( m_vertexCoords, m_textureCoords ) );
     m_vertexCoords.clear();
     m_textureCoords.clear();
 
-    m_hasVertexData = true;
+    m_hasBufferedData = true;
 }
 
 void Chunk :: makeTree   (   GLuint x, GLuint y, GLuint z )

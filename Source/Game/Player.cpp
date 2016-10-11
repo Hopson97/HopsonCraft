@@ -1,13 +1,15 @@
 #include "Player.h"
 
 #include <SFML/Graphics.hpp>
-
 #include <iostream>
+
+#include "World.h"
+
 Player :: Player( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap )
 :   m_p_chunks  ( &chunkMap )
 ,   m_aabb      (  { 0.3, 0.3, 1.7 } )
 {
-    m_camera.movePosition( { Chunk::WIDTH * 16 / 2, 80, Chunk::WIDTH * 16 / 2 } );
+    //m_camera.movePosition( { 0,0} );
 }
 
 void Player :: update ( float dt )

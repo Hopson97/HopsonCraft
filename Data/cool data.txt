@@ -7,3 +7,12 @@
     //Height_Generator::setUp( 207, 0.503, 3, -1 );   //Hilly Swamp
     //Height_Generator::setUp( 222, 0.5, 5, -1 );   //Forest
     //Height_Generator::setUp( 229, 0.608, 4, -1 );   //Just forest
+
+
+Preferec 
+Generating random data.
+World size: 26
+Amplitude: 217
+Roughness: 0.546
+Octaves:   4
+Seed:      207795400

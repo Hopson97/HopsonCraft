@@ -15,7 +15,8 @@ namespace Block
         Sand,
         Water,
         Oak_Wood,
-        Oak_Leaf
+        Oak_Leaf,
+        NUM_BLOCK_TYPES
     };
 
     class Block_Base

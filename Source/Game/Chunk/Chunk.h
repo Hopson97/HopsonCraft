@@ -33,8 +33,10 @@ class Chunk
 
         bool hasBlockData   () const;
         bool hasVertexData  () const;
+        bool hasBuffered    () const;
 
-        void generateMesh ();
+        void generateMesh   ();
+        void bufferMesh     ();
 
         const Block::Block_Base& getBlock ( int x, int y, int z ) const;
 
@@ -74,6 +76,7 @@ class Chunk
 
         bool m_hasBlockData     = false;
         bool m_hasVertexData    = false;
+        bool m_hasBufferedData  = false;
 
         bool tempBool = false;
 
@@ -85,7 +88,7 @@ class Chunk
     public:
         static constexpr int WIDTH  = 16,
                              HEIGHT = 180,
-                             WATER_LEVEL = 75,
+                             WATER_LEVEL = 72,
                              BEACH_LEVEL = WATER_LEVEL + 2;
 };
 

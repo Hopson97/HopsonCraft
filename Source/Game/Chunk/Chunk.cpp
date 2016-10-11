@@ -70,6 +70,9 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id, bool over
             setBlock( x, y, z, water, overrideBlocks );
             break;
     }
+
+    m_hasVertexData     = false;
+    m_hasBufferedData   = false;
 }
 
 void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks )
@@ -187,6 +190,10 @@ bool Chunk :: hasBlockData   () const
     return m_hasBlockData;
 }
 
+bool Chunk :: hasBuffered () const
+{
+    return m_hasBufferedData;
+}
 
 
 const Vector2i& Chunk :: getLocation () const

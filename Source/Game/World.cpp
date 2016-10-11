@@ -16,17 +16,19 @@ int World :: worldSize = 0;
 
 void World :: manageChunks ()
 {
+    std::cout << "Thread launched." << std::endl;
     while ( m_isRunning )
     {
         for ( auto& chunk: m_chunks )
         {
             if ( chunk.second->hasBlockData() && !chunk.second->hasVertexData() )
             {
-                std::cout << "Creating mesh" << std::endl;
+                //std::cout << "Creating mesh" << std::endl;
                 chunk.second->generateMesh();
             }
         }
     }
+    std::cout << "Thread terminated." << std::endl;
 }
 
 World::World()
@@ -34,6 +36,8 @@ World::World()
 ,   m_player        ( m_chunks )
 {
     sf::Clock clock;
+
+    World::worldSize = 10;
 
     std::cout << "Generating block data... (This might take a while)." << std::endl;
     int size = worldSize;
@@ -48,22 +52,13 @@ World::World()
     {
         chunk.second->generateStructureData();
     }
-
     std::cout << "Chunk block data created, Time: " << clock.getElapsedTime().asSeconds() << "s\n";
-    std::cout << "Generating vertex data... (This might take a while)." << std::endl;
 
-/*
+    m_chunks.at( { 0, 0 } )->generateMesh();
+    m_chunks.at( { 0, 0 } )->bufferMesh();
+
     std::thread vertexGenThread ( &World::manageChunks, this );
     vertexGenThread.detach();
-/**/
-
-/**/
-    for ( auto& chunk : m_chunks )
-    {
-        chunk.second->generateMesh();
-    }
-/**/
-   // std::cout << "Chunk vertex data created, Time: " << clock.getElapsedTime().asSeconds() << "s\n";
 }
 
 World :: ~World ()
@@ -74,15 +69,27 @@ World :: ~World ()
 void World :: update ( float dt )
 {
     m_player.update( dt );
+
+    Block::ID id = static_cast<Block::ID>(Random::integer( 0, static_cast<int>( Block::ID::NUM_BLOCK_TYPES ) ) );
+    static sf::Clock c;
+    if ( c.getElapsedTime().asSeconds() > 1 )
+    {
+        m_chunks.at( { 0, 0 } )->setBlock ( 0, 0, 0, id, true );
+        c.restart();
+    }
 }
 
 void World :: draw ()
 {
     for ( auto& chunk : m_chunks )
     {
-        if ( chunk.second->hasVertexData() )
+        if ( chunk.second->hasBuffered() )
         {
             m_chunkRenderer.renderChunk( *chunk.second );
+        }
+        else if ( chunk.second->hasVertexData())
+        {
+            chunk.second->bufferMesh();
         }
     }
 
