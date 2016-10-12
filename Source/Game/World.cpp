@@ -72,7 +72,7 @@ void World :: update ( float dt )
     static sf::Clock c;
     if ( c.getElapsedTime().asSeconds() > 0.3 )
     {
-        m_chunks.at( { 0, 0 } )->setBlock ( 0, 0, 0, id, true );
+        m_chunks.at( { 0, 0 } )->setBlock ( 0, 200, 0, id, true );
         c.restart();
     }
 }

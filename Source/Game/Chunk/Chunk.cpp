@@ -69,6 +69,8 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id, bool over
         case Block::ID::Water:
             setBlock( x, y, z, water, overrideBlocks );
             break;
+        case Block::ID::NUM_BLOCK_TYPES:
+            return;
     }
 
     m_hasVertexData     = false;
@@ -177,7 +179,7 @@ Chunk :: getBlock ( int x, int y, int z ) const
     {
         return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
     }
-    return air;    //This is for world edges.
+    return dirt;    //This is for world edges.
 }
 
 bool Chunk :: hasVertexData () const
