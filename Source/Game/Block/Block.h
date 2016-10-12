@@ -18,7 +18,14 @@ namespace Block
         Oak_Leaf,
         NUM_BLOCK_TYPES
     };
-
+/*
+    enum class Block_Physical_State
+    {
+        Solid,
+        Liquid,
+        Gas
+    };
+*/
     class Block_Base
     {
         public:
@@ -31,6 +38,7 @@ namespace Block
             virtual Vector2 getTextureBottom    () const;
 
             virtual bool isOpaque () const;
+            //virtual Block_Physical_State getState () const;
 
             ID getID () const;
 

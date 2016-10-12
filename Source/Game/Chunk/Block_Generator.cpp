@@ -1,8 +1,22 @@
 #include "Chunk/Chunk.h"
 
+#include <iostream>
+
 #include "Texture_Atlas.h"
 
-void Chunk :: makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block )
+Chunk :: Chunk_Part& Chunk :: getPart ( const Block_t& block )
+{
+    switch ( block.getID() )
+    {
+        case Block::ID::Water:
+            return m_waterPart;
+        default:
+            return m_solidPart;
+    }
+}
+
+
+void Chunk :: makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block_t& block )
 {
     /**/
     if (  getBlock ( x, y + 1, z).getID() == Block::ID::Air ||
@@ -48,7 +62,7 @@ void Chunk :: makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Ba
  *  This marks the start of creating blocks
  */
 
-void Chunk :: makeFront ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block )
+void Chunk :: makeFront ( GLfloat x, GLfloat y, GLfloat z, const Block_t& block )
 {
     std::vector<GLfloat> vertices =
     {
@@ -61,12 +75,11 @@ void Chunk :: makeFront ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Ba
     };
     std::vector<GLfloat> textureCoords = m_p_atlas->getTextureCoords( block.getTextureSide() );
 
-    m_vertexCoords.insert     ( m_vertexCoords.end(),   vertices.begin(),       vertices.end()      );
-    m_textureCoords.insert    ( m_textureCoords.end(),  textureCoords.begin(),  textureCoords.end() );
+    finalizeFace( vertices, textureCoords, getPart( block ) );
 }
 
 
-void Chunk :: makeTop ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block )
+void Chunk :: makeTop ( GLfloat x, GLfloat y, GLfloat z, const Block_t& block )
 {
     std::vector<GLfloat> vertices =
     {
@@ -80,11 +93,10 @@ void Chunk :: makeTop ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base
 
     std::vector<GLfloat> textureCoords = m_p_atlas->getTextureCoords( block.getTextureTop() );
 
-    m_vertexCoords.insert     ( m_vertexCoords.end(),   vertices.begin(),       vertices.end()      );
-    m_textureCoords.insert    ( m_textureCoords.end(),  textureCoords.begin(),  textureCoords.end() );
+    finalizeFace( vertices, textureCoords, getPart( block ) );
 }
 
-void Chunk::makeLeft(GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block)
+void Chunk::makeLeft(GLfloat x, GLfloat y, GLfloat z, const Block_t& block)
 {
     std::vector<GLfloat> vertices =
     {
@@ -98,11 +110,10 @@ void Chunk::makeLeft(GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& b
 
     std::vector<GLfloat> textureCoords = m_p_atlas->getTextureCoords( block.getTextureSide() );
 
-    m_vertexCoords.insert     ( m_vertexCoords.end(),   vertices.begin(),       vertices.end()      );
-    m_textureCoords.insert    ( m_textureCoords.end(),  textureCoords.begin(),  textureCoords.end() );
+    finalizeFace( vertices, textureCoords, getPart( block ) );
 }
 
-void Chunk::makeRight(GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block)
+void Chunk::makeRight(GLfloat x, GLfloat y, GLfloat z, const Block_t& block)
 {
     std::vector<GLfloat> vertices =
     {
@@ -116,11 +127,10 @@ void Chunk::makeRight(GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& 
 
     std::vector<GLfloat> textureCoords = m_p_atlas->getTextureCoords( block.getTextureSide() );
 
-    m_vertexCoords.insert     ( m_vertexCoords.end(),   vertices.begin(),       vertices.end()      );
-    m_textureCoords.insert    ( m_textureCoords.end(),  textureCoords.begin(),  textureCoords.end() );
+    finalizeFace( vertices, textureCoords, getPart( block ) );
 }
 
-void Chunk::makeBack(GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block)
+void Chunk::makeBack(GLfloat x, GLfloat y, GLfloat z, const Block_t& block)
 {
     std::vector<GLfloat> vertices =
     {
@@ -134,11 +144,10 @@ void Chunk::makeBack(GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& b
 
     std::vector<GLfloat> textureCoords = m_p_atlas->getTextureCoords( block.getTextureSide() );
 
-    m_vertexCoords.insert     ( m_vertexCoords.end(),   vertices.begin(),       vertices.end()      );
-    m_textureCoords.insert    ( m_textureCoords.end(),  textureCoords.begin(),  textureCoords.end() );
+    finalizeFace( vertices, textureCoords, getPart( block ) );
 }
 
-void Chunk::makeBottom(GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block)
+void Chunk::makeBottom(GLfloat x, GLfloat y, GLfloat z, const Block_t& block)
 {
     std::vector<GLfloat> vertices =
     {
@@ -152,6 +161,13 @@ void Chunk::makeBottom(GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base&
 
     std::vector<GLfloat> textureCoords = m_p_atlas->getTextureCoords( block.getTextureBottom() );
 
-    m_vertexCoords.insert     ( m_vertexCoords.end(),   vertices.begin(),       vertices.end()      );
-    m_textureCoords.insert    ( m_textureCoords.end(),  textureCoords.begin(),  textureCoords.end() );
+    finalizeFace( vertices, textureCoords, getPart( block ) );
+}
+
+void Chunk::finalizeFace (  const std::vector<GLfloat> verticies,
+                            const std::vector<GLfloat> textureCoords,
+                            Chunk_Part& part )
+{
+    part.vertexData.insert  ( part.vertexData.end(),    verticies.begin(),      verticies.end()     );
+    part.textureData.insert ( part.textureData.end(),   textureCoords.begin(),  textureCoords.end() );
 }

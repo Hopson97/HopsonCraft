@@ -15,8 +15,9 @@ class Chunk_Renderer
     public:
         Chunk_Renderer ();
 
-        void renderChunk    ( const Chunk& chunk );
-        void render         ( const Camera& camera, const Vector2i& playerLocation );
+        void addChunk   ( const Chunk& chunk );
+
+        void render     ( const Camera& camera, const Vector2i& playerLocation );
 
     private:
         void prepareChunk   ( const Chunk& chunk );

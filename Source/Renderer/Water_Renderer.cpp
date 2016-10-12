@@ -1,4 +1,4 @@
-#include "Chunk_Renderer.h"
+#include "Water_Renderer.h"
 
 #include <iostream>
 
@@ -7,7 +7,7 @@
 #include "Maths.h"
 #include "Window.h"
 
-Chunk_Renderer :: Chunk_Renderer ()
+Water_Renderer :: Water_Renderer()
 {
     m_shader.start();
     m_shader.loadProjMatrix( glm::perspective( glm::radians( 75.0f ),
@@ -17,30 +17,23 @@ Chunk_Renderer :: Chunk_Renderer ()
     m_shader.stop();
 }
 
-void Chunk_Renderer :: addChunk ( const Chunk& chunk )
+void Water_Renderer :: addChunk ( const Chunk& chunk )
 {
     m_chunks.push_back( &chunk );
 }
 
-void Chunk_Renderer :: render( const Camera& camera, const Vector2i& playerLocation )
+void Water_Renderer :: render( const Camera& camera )
 {
+    //glDisable( GL_CULL_FACE );
+
     m_shader.start();
     m_shader.loadViewMatrix( camera );
 
     for ( const Chunk* chunk : m_chunks )
     {
-        prepareChunk( *chunk );
-/*
-        if ( playerLocation == chunk->getLocation() )
-        {
-            m_shader.loadIsPlayerLocation( 1 );
-        }
-        else
-        {
-            m_shader.loadIsPlayerLocation( 0 );
-        }
-*/
-        glDrawArrays( GL_TRIANGLES, 0, chunk->getChunkModel().getVertexCount() );
+        prepareWater( *chunk );
+
+        glDrawArrays( GL_TRIANGLES, 0, chunk->getWaterModel().getVertexCount() );
     }
 
     m_chunks.clear();
@@ -48,10 +41,12 @@ void Chunk_Renderer :: render( const Camera& camera, const Vector2i& playerLocat
     m_shader.stop();
 }
 
-void Chunk_Renderer :: prepareChunk ( const Chunk& chunk )
+void Water_Renderer :: prepareWater ( const Chunk& chunk )
 {
-    chunk.getChunkModel().bind();
+    chunk.getWaterModel().bind();
     m_shader.loadModelMatrix( Maths::createTransforrmationMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
                                                                   { 0, 0, 0 },
                                                                   { 1, 1, 1 } ) );
+
+    m_shader.loadTime( m_timer.getElapsedTime().asSeconds() );
 }

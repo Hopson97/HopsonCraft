@@ -8,7 +8,7 @@
 #include "Texture_Atlas.h"
 
 #include "Player.h"
-#include "Chunk_Renderer.h"
+#include "Master_Renderer.h"
 
 
 class World
@@ -32,7 +32,7 @@ class World
         std::unordered_map<Vector2i, Chunk_Ptr> m_chunks;
         Texture_Atlas m_blockAtlas;;
 
-        Chunk_Renderer m_chunkRenderer;
+        Master_Renderer m_renderer;
 
         Player  m_player;
 

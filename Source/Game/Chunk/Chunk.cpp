@@ -134,11 +134,6 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block, bool ov
     }
 }
 
-const Model& Chunk :: getModel () const
-{
-    return m_model;
-}
-
 const Block :: Block_Base&
 Chunk :: getBlock ( int x, int y, int z ) const
 {
@@ -207,4 +202,21 @@ const Vector2& Chunk :: getPosition () const
 {
     return m_position;
 }
+
+const Model& Chunk :: getChunkModel  () const
+{
+    return m_solidPart.model;
+}
+const Model& Chunk :: getWaterModel  () const
+{
+    return m_waterPart.model;
+}
+const Model& Chunk :: getFloraModel  () const
+{
+    return m_solidPart.model;
+}
+
+
+
+
 

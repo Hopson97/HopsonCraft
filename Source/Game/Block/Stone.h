@@ -16,7 +16,6 @@ namespace Block
 
             bool isOpaque () const;
 
-        private:
     };
 
 } //Namespace Block

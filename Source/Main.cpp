@@ -37,11 +37,11 @@ namespace
     void randomWorldData()
     {
         std::cout << "Generating random data. \n";
-        double amplitude    = Random::integer( 170, 250);
+        double amplitude    = Random::integer( 170, 250 );
         double roughness    = Random::decimalD( 0.25, 0.8, 3);
         double octaves      = Random::integer( 3, 6);
         int seed            = Random::integer(0, 32000) * Random::integer(0, 32000);
-        int worldSize       = Random::integer(16, 20);
+        int worldSize       = Random::integer(15, 20);
 
         World::worldSize = worldSize;
         std::cout << "World size: " << worldSize << std::endl;

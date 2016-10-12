@@ -142,11 +142,17 @@ void Chunk :: generateMesh ()
 
 void Chunk :: bufferMesh ()
 {
-    m_model.addData ( Loader::loadArrayMesh( m_vertexCoords, m_textureCoords ) );
-    m_vertexCoords.clear();
-    m_textureCoords.clear();
+    m_solidPart.buffer();
+    m_waterPart.buffer();
 
     m_hasBufferedData = true;
+}
+
+void Chunk :: Chunk_Part :: buffer ()
+{
+    model.addData ( Loader::loadArrayMesh( vertexData, textureData ) );
+    vertexData.clear();
+    textureData.clear();
 }
 
 void Chunk :: makeTree   (   GLuint x, GLuint y, GLuint z )

@@ -23,6 +23,15 @@ typedef std::unique_ptr<Chunk> Chunk_Ptr;
 
 class Chunk
 {
+    struct Chunk_Part
+    {
+        Model model;
+        std::vector<GLfloat> vertexData;
+        std::vector<GLfloat> textureData;
+
+        void buffer ();
+    };
+
     public:
         Chunk( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap,
                const Vector2i& location,
@@ -38,24 +47,30 @@ class Chunk
         void generateMesh   ();
         void bufferMesh     ();
 
-        const Block::Block_Base& getBlock ( int x, int y, int z ) const;
-
-        const Model& getModel       () const;
+        const Block_t& getBlock ( int x, int y, int z ) const;
 
         const Vector2i& getLocation () const;
         const Vector2&  getPosition () const;
 
-        void setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true );
+        void setBlock   (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true );
+
+        const Model& getChunkModel  () const;
+        const Model& getWaterModel  () const;
+        const Model& getFloraModel  () const;
 
     private:
-        void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
+        void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
 
-        void makeBack   (   GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
-        void makeTop    (   GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
-        void makeLeft   (   GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
-        void makeRight  (   GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
-        void makeFront  (   GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
-        void makeBottom (   GLfloat x, GLfloat y, GLfloat z, const Block::Block_Base& block );
+        void makeBack   (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
+        void makeTop    (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
+        void makeLeft   (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
+        void makeRight  (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
+        void makeFront  (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
+        void makeBottom (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
+
+        void finalizeFace ( const std::vector<GLfloat> verticies,
+                            const std::vector<GLfloat> textureCoords,
+                            Chunk_Part& part );
 
         void makeTree   (   GLuint x, GLuint y, GLuint z );
 
@@ -66,8 +81,6 @@ class Chunk
         std::vector<Block_t*> m_blocks;
 
         std::vector<Vector3> m_treeLocations;
-
-        Model    m_model;
 
         Vector2i m_location; //Map coords
         Vector2  m_position; //GL coords
@@ -80,10 +93,9 @@ class Chunk
 
         bool tempBool = false;
 
-        std::vector<GLfloat> m_vertexCoords;
-        std::vector<GLfloat> m_textureCoords;
-
-        std::mutex boolMutex;
+        Chunk_Part m_solidPart;
+        Chunk_Part m_waterPart;
+        Chunk_Part& getPart ( const Block_t& block );
 
     public:
         static constexpr int WIDTH  = 16,

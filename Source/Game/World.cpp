@@ -61,7 +61,7 @@ World::World()
 
 World :: ~World ()
 {
-    m_isRunning = false;
+    m_isRunning = false;    //Basically guarentees the termination of the chunk handling thread.
 }
 
 void World :: update ( float dt )
@@ -70,9 +70,9 @@ void World :: update ( float dt )
 
     Block::ID id = static_cast<Block::ID>(Random::integer( 0, static_cast<int>( Block::ID::NUM_BLOCK_TYPES ) ) );
     static sf::Clock c;
-    if ( c.getElapsedTime().asSeconds() > 0.3 )
+    if ( c.getElapsedTime().asSeconds() > 2 )
     {
-        m_chunks.at( { 0, 0 } )->setBlock ( 0, 200, 0, id, true );
+        m_chunks.at( { 0, 0 } )->setBlock ( 0, Chunk::HEIGHT - 1, 0, id, true );
         c.restart();
     }
 }
@@ -83,7 +83,8 @@ void World :: draw ()
     {
         if ( itr->second->hasBuffered() )
         {
-            m_chunkRenderer.renderChunk( *itr->second );
+
+            m_renderer.processChunk( *itr->second );
             itr++;
         }
         else if ( itr->second->hasVertexData())
@@ -93,7 +94,7 @@ void World :: draw ()
         }
     }
 
-    m_chunkRenderer.render( m_player.getCamera(), m_player.getChunkLocation() );
+    m_renderer.render( m_player.getCamera() );
 }
 
 
