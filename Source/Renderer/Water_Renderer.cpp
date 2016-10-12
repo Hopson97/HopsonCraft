@@ -24,11 +24,10 @@ void Water_Renderer :: addChunk ( const Chunk& chunk )
 
 void Water_Renderer :: render( const Camera& camera )
 {
-    //glDisable( GL_CULL_FACE );
-
     m_shader.start();
     m_shader.loadViewMatrix( camera );
 
+    glDisable( GL_CULL_FACE );
     for ( const Chunk* chunk : m_chunks )
     {
         prepareWater( *chunk );

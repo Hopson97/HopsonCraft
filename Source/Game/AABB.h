@@ -13,6 +13,15 @@ class AABB
     private:
         Vector3 m_position;
         Vector3 m_size;
+
+        float   ftl,    //f = far
+                ftr,    //n = near
+                ntl,    //b = bottom
+                ntr,    //t = top
+                fbl,    //l = left
+                fbr,    //r = right
+                nbl,
+                nbr;
 };
 
 #endif // AABB_H

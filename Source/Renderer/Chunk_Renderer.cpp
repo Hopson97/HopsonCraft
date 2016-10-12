@@ -27,6 +27,8 @@ void Chunk_Renderer :: render( const Camera& camera, const Vector2i& playerLocat
     m_shader.start();
     m_shader.loadViewMatrix( camera );
 
+    glEnable( GL_CULL_FACE );
+    glCullFace( GL_BACK );
     for ( const Chunk* chunk : m_chunks )
     {
         prepareChunk( *chunk );

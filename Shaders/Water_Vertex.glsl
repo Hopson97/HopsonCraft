@@ -19,7 +19,7 @@ void main()
 
     gl_Position = projectionMatrix * viewMatrix * worldPosition;
 
-    gl_Position.y -= 0.25;
+    gl_Position.y -= 0.1;
 
-    gl_Position.y += sin( time ) / 8;
+    gl_Position.y += sin( time ) / 10;
 }
