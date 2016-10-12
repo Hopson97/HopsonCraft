@@ -148,6 +148,8 @@
 		<Unit filename="Source/Util/Shader_Loader.h" />
 		<Unit filename="Source/Util/Vector.cpp" />
 		<Unit filename="Source/Util/Vector.h" />
+		<Unit filename="Source/Util/Viewing_Frustum.cpp" />
+		<Unit filename="Source/Util/Viewing_Frustum.h" />
 		<Unit filename="Source/Util/Window.cpp" />
 		<Unit filename="Source/Util/Window.h" />
 		<Unit filename="libgcc_s_sjlj-1.dll" />

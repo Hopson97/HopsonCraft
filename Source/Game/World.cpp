@@ -37,8 +37,6 @@ World::World()
 {
     sf::Clock clock;
 
-    World::worldSize = 10;
-
     std::cout << "Generating block data... (This might take a while)." << std::endl;
     int size = worldSize;
     for ( int x = 0 ; x < size ; x++ )
@@ -72,7 +70,7 @@ void World :: update ( float dt )
 
     Block::ID id = static_cast<Block::ID>(Random::integer( 0, static_cast<int>( Block::ID::NUM_BLOCK_TYPES ) ) );
     static sf::Clock c;
-    if ( c.getElapsedTime().asSeconds() > 1 )
+    if ( c.getElapsedTime().asSeconds() > 0.3 )
     {
         m_chunks.at( { 0, 0 } )->setBlock ( 0, 0, 0, id, true );
         c.restart();
@@ -81,15 +79,17 @@ void World :: update ( float dt )
 
 void World :: draw ()
 {
-    for ( auto& chunk : m_chunks )
+    for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
     {
-        if ( chunk.second->hasBuffered() )
+        if ( itr->second->hasBuffered() )
         {
-            m_chunkRenderer.renderChunk( *chunk.second );
+            m_chunkRenderer.renderChunk( *itr->second );
+            itr++;
         }
-        else if ( chunk.second->hasVertexData())
+        else if ( itr->second->hasVertexData())
         {
-            chunk.second->bufferMesh();
+            itr->second->bufferMesh();
+            continue;
         }
     }
 
