@@ -14,23 +14,6 @@
 
 int World :: worldSize = 0;
 
-void World :: manageChunks ()
-{
-    std::cout << "Thread launched." << std::endl;
-    while ( m_isRunning )
-    {
-        for ( auto& chunk: m_chunks )
-        {
-            if ( chunk.second->hasBlockData() && !chunk.second->hasVertexData() )
-            {
-                //std::cout << "Creating mesh" << std::endl;
-                chunk.second->generateMesh();
-            }
-        }
-    }
-    std::cout << "Thread terminated." << std::endl;
-}
-
 World::World()
 :   m_blockAtlas    ( 512, 16, "Blocks_Sonic" )
 ,   m_player        ( m_chunks )
@@ -73,8 +56,11 @@ void World :: update ( float dt )
     if ( c.getElapsedTime().asSeconds() > 2 )
     {
         m_chunks.at( { 0, 0 } )->setBlock ( 0, Chunk::HEIGHT - 1, 0, id, true );
+        m_updateChunks.push_back( m_chunks.at( { 0, 0 } ).get() );
         c.restart();
     }
+
+    updateChunks();
 }
 
 void World :: draw ()
@@ -90,18 +76,49 @@ void World :: draw ()
         else if ( itr->second->hasVertexData())
         {
             itr->second->bufferMesh();
-            continue;
+            itr++;
         }
+        else
+        {
+            itr++;
+        }
+
     }
 
     m_renderer.render( m_player.getCamera() );
 }
 
+void World :: updateChunks ()
+{
+    for ( auto itr = m_updateChunks.begin() ; itr != m_updateChunks.end() ; )
+    {
+        (*itr)->generateMesh();
+        itr = m_updateChunks.erase( itr );
+    }
+}
 
 
 
 void World :: addChunk ( const Vector2i& location )
 {
     m_chunks[ location ] = std::make_unique<Chunk> ( m_chunks, location, m_blockAtlas );
+}
+
+
+void World :: manageChunks ()
+{
+    std::cout << "Thread launched." << std::endl;
+    while ( m_isRunning )
+    {
+        for ( auto& chunk: m_chunks )
+        {
+            if ( chunk.second->hasBlockData() && !chunk.second->hasVertexData() )
+            {
+                //std::cout << "Creating mesh" << std::endl;
+                chunk.second->generateMesh();
+            }
+        }
+    }
+    std::cout << "Thread terminated." << std::endl;
 }
 

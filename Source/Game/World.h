@@ -23,13 +23,16 @@ class World
         static int worldSize;
 
     private:
-        void addChunk ( const Vector2i& location );
+        void updateChunks   ();
 
-        void manageChunks ();
+        void addChunk       ( const Vector2i& location );
+
+        void manageChunks   ();
 
 
     private:
         std::unordered_map<Vector2i, Chunk_Ptr> m_chunks;
+        std::vector<Chunk*> m_updateChunks;
         Texture_Atlas m_blockAtlas;;
 
         Master_Renderer m_renderer;
