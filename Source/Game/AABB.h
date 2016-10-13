@@ -14,7 +14,7 @@ class AABB
         Vector3 m_position;
         Vector3 m_size;
 
-        float   ftl,    //f = far
+        Vector3 ftl,    //f = far
                 ftr,    //n = near
                 ntl,    //b = bottom
                 ntr,    //t = top

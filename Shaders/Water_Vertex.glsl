@@ -11,6 +11,12 @@ uniform mat4 projectionMatrix;
 
 uniform float time;
 
+void makeWaves ( vec4 worldPos )
+{
+    gl_Position.y -= 0.16;
+    gl_Position.y += sin( time + worldPos.x * worldPos.z  ) / 9;
+}
+
 void main()
 {
     textureCoords = texturePosition;
@@ -19,7 +25,5 @@ void main()
 
     gl_Position = projectionMatrix * viewMatrix * worldPosition;
 
-    gl_Position.y -= 0.1;
-
-    gl_Position.y += sin( time ) / 10;
+    makeWaves ( worldPosition );
 }
