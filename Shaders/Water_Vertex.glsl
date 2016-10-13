@@ -13,8 +13,8 @@ uniform float time;
 
 void makeWaves ( vec4 worldPos )
 {
-    gl_Position.y -= 0.16;
-    gl_Position.y += sin( time + worldPos.x * worldPos.z  ) / 9;
+    gl_Position.y -= 0.18;
+    gl_Position.y += sin( time + worldPos.x * worldPos.z  ) /8.3;
 }
 
 void main()

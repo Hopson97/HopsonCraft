@@ -15,7 +15,6 @@ class World
 {
     public:
         World   ();
-        ~World  ();
 
         void update ( float dt );
         void draw   ();
@@ -27,7 +26,7 @@ class World
 
         void addChunk       ( const Vector2i& location );
 
-        void manageChunks   ();
+        void generateChunks ();
 
 
     private:
@@ -38,8 +37,6 @@ class World
         Master_Renderer m_renderer;
 
         Player  m_player;
-
-        bool m_isRunning = true;
 };
 
 #endif // WORLD_H

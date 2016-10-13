@@ -38,13 +38,8 @@ World::World()
     m_chunks.at( { 0, 0 } )->generateMesh();
     m_chunks.at( { 0, 0 } )->bufferMesh();
 
-    std::thread vertexGenThread ( &World::manageChunks, this );
+    std::thread vertexGenThread ( &World::generateChunks, this );
     vertexGenThread.detach();
-}
-
-World :: ~World ()
-{
-    m_isRunning = false;    //Basically guarentees the termination of the chunk handling thread.
 }
 
 void World :: update ( float dt )
@@ -105,20 +100,20 @@ void World :: addChunk ( const Vector2i& location )
 }
 
 
-void World :: manageChunks ()
+void World :: generateChunks ()
 {
-    std::cout << "Thread launched." << std::endl;
-    while ( m_isRunning )
+    for ( int x = 0 ; x < World::worldSize ; x++ )
     {
-        for ( auto& chunk: m_chunks )
+        for ( int z = 0 ; z < World::worldSize ; z++ )
         {
-            if ( chunk.second->hasBlockData() && !chunk.second->hasVertexData() )
+            Chunk& chunk = *m_chunks.at( { x, z } );
+
+            if ( chunk.hasBlockData() && !chunk.hasVertexData() )
             {
-                //std::cout << "Creating mesh" << std::endl;
-                chunk.second->generateMesh();
+                chunk.generateMesh();
             }
+
         }
     }
-    std::cout << "Thread terminated." << std::endl;
 }
 
