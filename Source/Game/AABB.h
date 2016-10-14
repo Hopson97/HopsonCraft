@@ -10,6 +10,8 @@ class AABB
 
         void setPosition    ( const Vector3& position );
 
+        bool testDown       ( const AABB& other );
+
     private:
         Vector3 m_position;
         Vector3 m_size;

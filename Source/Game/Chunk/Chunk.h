@@ -98,7 +98,7 @@ class Chunk
         Chunk_Part& getPart ( const Block_t& block );
 
     public:
-        static constexpr int WIDTH  = 16,
+        static constexpr int WIDTH  = 20,
                              HEIGHT = 250,
                              WATER_LEVEL = 150,
                              BEACH_LEVEL = WATER_LEVEL + 2;

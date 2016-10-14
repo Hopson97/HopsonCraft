@@ -35,3 +35,9 @@ void AABB::setPosition(const Vector3& position)
     nbr     = nbl;
     nbr.x   += m_size.x;
 }
+
+
+bool AABB :: testDown ( const AABB& down )
+{
+
+}

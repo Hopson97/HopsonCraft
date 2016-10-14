@@ -20,8 +20,12 @@ void Player :: update ( float dt )
     getCurrentChunk();
     if ( !m_isLocked ) m_camera.update();
 
-    m_velocity *= 0.98;
-    m_camera.movePosition( m_velocity );
+    //m_velocity.y -= 0.98;
+    m_velocity *= 0.95;
+
+
+
+    m_camera.movePosition( m_velocity * dt );
 }
 
 
@@ -34,6 +38,15 @@ const Vector2i& Player :: getChunkLocation () const
 {
     return m_currentChunk->getLocation();
 }
+
+const Vector3 Player :: getBlockPositionInChunk() const
+{
+    float x = (int)m_camera.getPosition().x % 16;
+    float z = (int)m_camera.getPosition().z % 16;
+
+    return { x, m_camera.getPosition().y, z };
+}
+
 
 void Player :: input ( float dt )
 {
@@ -84,7 +97,6 @@ void Player :: input ( float dt )
         velocityChange.y += acceleration;
     }
 
-    velocityChange *= dt;
     m_velocity += velocityChange;
 }
 

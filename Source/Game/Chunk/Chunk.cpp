@@ -174,7 +174,7 @@ Chunk :: getBlock ( int x, int y, int z ) const
     {
         return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
     }
-    return dirt;    //This is for world edges.
+    return air;    //This is for world edges.
 }
 
 bool Chunk :: hasVertexData () const

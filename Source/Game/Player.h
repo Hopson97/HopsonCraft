@@ -24,9 +24,11 @@ class Player
         const Vector2i& getChunkLocation () const;
 
 
-        constexpr static float ACC = 0.08;
+        constexpr static float ACC = 0.45;
 
     private:
+        const Vector3   getBlockPositionInChunk () const;
+
         void input              ( float dt );
         void getCurrentChunk    ();
 

@@ -41,7 +41,7 @@ namespace
         double roughness    = Random::decimalD( 0.25, 0.8, 3);
         double octaves      = Random::integer( 3, 6);
         int seed            = Random::integer(0, 32000) * Random::integer(0, 32000);
-        int worldSize       = Random::integer(25, 35);
+        int worldSize       = Random::integer(20, 25);
 
         World::worldSize = worldSize;
         std::cout << "World size: " << worldSize << std::endl;
