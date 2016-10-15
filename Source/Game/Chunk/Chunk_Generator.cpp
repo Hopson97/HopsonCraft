@@ -138,7 +138,6 @@ void Chunk :: generateMesh ()
         }
     }
     m_hasVertexData = true;
-    std::cout << "Mesh generated" << std::endl;
 }
 
 void Chunk :: bufferMesh ()

@@ -25,6 +25,5 @@ void Texture :: unbind ()
 
 Texture :: ~Texture()
 {
-    //std::cout << "Deleting Texture " << m_textureID << "\n";
     glDeleteTextures( 1, &m_textureID );
 }

@@ -16,14 +16,7 @@ Application::Application()
 void Application :: runLoop ()
 {
     Frames_Per_Second_Checker fpsCheck;
-
-    //m_appTimer.restart();
-    //sf::Time updateTime = sf::milliseconds( FIXED_UPDATE_TIME );
-
-    //sf::Clock updateTimer;
     sf::Clock dtClock;
-
-    std::cout << "Starting App" << std::endl;
 
     while ( Window::isOpen() )
     {
@@ -32,8 +25,6 @@ void Application :: runLoop ()
         float dt = dtClock.restart().asSeconds();
 
         m_world.update( dt );
-
-        //updateTimer.restart();
 
         m_world.draw();
 

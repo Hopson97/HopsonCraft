@@ -62,7 +62,6 @@ void World :: draw ()
         }
         else if ( itr->second->hasVertexData())
         {
-            std::cout << "buffered af " << std::endl;
             itr->second->bufferMesh();
             itr++;
         }
@@ -72,9 +71,6 @@ void World :: draw ()
         }
 
     }
-
-    std::cout << "Draw calls: " << calls << std::endl;
-
     m_renderer.render( m_player.getCamera() );
 }
 
@@ -110,7 +106,6 @@ void World :: generateChunks ()
                 threads.push_back( std::make_unique<std::thread>( &Chunk::generateMesh, std::ref(*m_chunks.at( { x, z } ) ) ) );// chunk.generateMesh();
             }
         }
-        std::cout << threads.size() << std::endl;
         for ( auto& thread : threads ) thread->join();
         threads.clear();
     }
