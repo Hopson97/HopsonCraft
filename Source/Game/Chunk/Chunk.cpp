@@ -134,8 +134,7 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block, bool ov
     }
 }
 
-const Block :: Block_Base&
-Chunk :: getBlock ( int x, int y, int z ) const
+const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
 {
     if ( x == -1 )
     {
@@ -175,6 +174,24 @@ Chunk :: getBlock ( int x, int y, int z ) const
         return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
     }
     return air;    //This is for world edges.
+}
+
+const Block_t& Chunk :: getBlock ( const Vector3& location ) const
+{
+    return getBlock( location.x, location.y, location.z );
+}
+
+const AABB Chunk :: getBlockAABBTop ( const Vector3& location ) const
+{
+    int x = location.x;
+    int y = location.y;
+    int z = location.z; //Cast to int
+
+    if ( getBlock( x, y, z ).getID() == Block::ID::Air ) return Vector3{ 0, 0, 0 };
+
+    AABB block ( { 1, 1, 1 } );
+    block.setPosition( { x, y + 1, z } );
+    return block;
 }
 
 bool Chunk :: hasVertexData () const

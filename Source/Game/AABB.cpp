@@ -1,43 +1,52 @@
 #include "AABB.h"
 
 AABB::AABB(const Vector3& size)
-:   m_size ( size)
+:   m_size ( size )
 { }
 
 void AABB::setPosition(const Vector3& position)
 {
-    m_position = position;
+    minX = position.x;
+    minY = position.y;
+    minZ = position.z;
 
-    ftl = m_position;
-
-    ftr     = ftl;
-    ftr.x   += m_size.x;
-
-
-    ntl     = ftl;
-    ntl.z   += m_size.z;
-
-    ntl     = ftr;
-    ntl.z   += m_size.z;
-
-    ntr     = ntl;
-    ntr.x   += m_size.x;
-
-    fbl     = ftl;
-    fbl.y   += m_size.y;
-
-    fbr     = fbl;
-    fbr.x   +=m_size.x;
-
-    nbl     = ntl;
-    nbl.y   += m_size.y;
-
-    nbr     = nbl;
-    nbr.x   += m_size.x;
+    maxX = position.x + m_size.x;
+    maxY = position.y + m_size.y;
+    maxZ = position.z + m_size.z;
 }
 
-
-bool AABB :: testDown ( const AABB& down )
+namespace Collision
 {
-
+    bool pointInAABB ( const Vector3& point, const AABB& box )
+    {
+        return  ( point.x >= box.minX && point.x <= box.maxX ) &&
+                ( point.y >= box.minY && point.y <= box.maxY ) &&
+                ( point.z >= box.minY && point.z <= box.maxZ );
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,6 +12,7 @@
 #include "Vector.h"
 #include "Model.h"
 #include "Entity.h"
+#include "AABB.h"
 
 #include "Blocks.h"
 
@@ -48,6 +49,9 @@ class Chunk
         void bufferMesh     ();
 
         const Block_t& getBlock ( int x, int y, int z ) const;
+        const Block_t& getBlock ( const Vector3& location ) const;
+
+        const AABB getBlockAABBTop ( const Vector3& location ) const;
 
         const Vector2i& getLocation () const;
         const Vector2&  getPosition () const;

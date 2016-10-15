@@ -32,17 +32,19 @@ class Player
         void input              ( float dt );
         void getCurrentChunk    ();
 
-        void setAABB            ();
+        void setAABB    ();
+        void collide    ();
+
+        std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunks = nullptr;
+        Chunk* m_p_currentChunk = nullptr;
+
+
+        AABB m_bottomAABB;
 
 
         Vector3 m_velocity;
 
         Camera m_camera;
-
-        std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunks = nullptr;
-        Chunk* m_currentChunk = nullptr;
-
-        AABB m_aabb;
 
         sf::Clock m_lockTimer;
         bool m_isLocked = false;

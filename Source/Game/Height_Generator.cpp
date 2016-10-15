@@ -50,10 +50,10 @@ namespace Height_Generator
             gen_seed = seed;
         }
 
-        std::cout << "Amplitude: " << gen_amplitude << std::endl;
-        std::cout << "Roughness: " << gen_roughness << std::endl;
-        std::cout << "Octaves:   " << gen_ocataves  << std::endl;
-        std::cout << "Seed:      " << gen_seed      << std::endl << std::endl;
+        std::cout <<    "Amplitude: " << gen_amplitude  << "\n"
+                  <<    "Roughness: " << gen_roughness  << "\n"
+                  <<    "Octaves:   " << gen_ocataves   << "\n"
+                  <<    "Seed:      " << gen_seed       << "\n" << "\n";
     }
 
     int getHeight ( double x, double z, double gridX, double gridZ )

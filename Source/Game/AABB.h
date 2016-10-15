@@ -10,20 +10,23 @@ class AABB
 
         void setPosition    ( const Vector3& position );
 
-        bool testDown       ( const AABB& other );
+        float   minX,
+                maxX,
+
+                minY,
+                maxY,
+
+                minZ,
+                maxZ;
 
     private:
-        Vector3 m_position;
         Vector3 m_size;
 
-        Vector3 ftl,    //f = far
-                ftr,    //n = near
-                ntl,    //b = bottom
-                ntr,    //t = top
-                fbl,    //l = left
-                fbr,    //r = right
-                nbl,
-                nbr;
 };
+
+namespace Collision
+{
+    bool pointInAABB ( const Vector3& point, const AABB& box );
+}
 
 #endif // AABB_H

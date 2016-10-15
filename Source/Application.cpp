@@ -11,9 +11,7 @@
 #include "Loader.h"
 
 Application::Application()
-{
-    std::cout << "Construction complete" << std::endl;
-}
+{ }
 
 void Application :: runLoop ()
 {

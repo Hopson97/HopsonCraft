@@ -45,21 +45,12 @@ World::World()
 void World :: update ( float dt )
 {
     m_player.update( dt );
-
-    Block::ID id = static_cast<Block::ID>(Random::integer( 0, static_cast<int>( Block::ID::NUM_BLOCK_TYPES ) ) );
-    static sf::Clock c;
-    if ( c.getElapsedTime().asSeconds() > 2 )
-    {
-        m_chunks.at( { 0, 0 } )->setBlock ( 0, Chunk::HEIGHT - 1, 0, id, true );
-        m_updateChunks.push_back( m_chunks.at( { 0, 0 } ).get() );
-        c.restart();
-    }
-
     updateChunks();
 }
 
 void World :: draw ()
 {
+    int calls = 0;
     for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
     {
         if ( itr->second->hasBuffered() )
@@ -67,9 +58,11 @@ void World :: draw ()
 
             m_renderer.processChunk( *itr->second );
             itr++;
+            calls++;
         }
         else if ( itr->second->hasVertexData())
         {
+            std::cout << "buffered af " << std::endl;
             itr->second->bufferMesh();
             itr++;
         }
@@ -79,6 +72,8 @@ void World :: draw ()
         }
 
     }
+
+    std::cout << "Draw calls: " << calls << std::endl;
 
     m_renderer.render( m_player.getCamera() );
 }
@@ -102,6 +97,8 @@ void World :: addChunk ( const Vector2i& location )
 
 void World :: generateChunks ()
 {
+    std::vector<std::unique_ptr<std::thread>> threads;
+
     for ( int x = 0 ; x < World::worldSize ; x++ )
     {
         for ( int z = 0 ; z < World::worldSize ; z++ )
@@ -110,10 +107,12 @@ void World :: generateChunks ()
 
             if ( chunk.hasBlockData() && !chunk.hasVertexData() )
             {
-                chunk.generateMesh();
+                threads.push_back( std::make_unique<std::thread>( &Chunk::generateMesh, std::ref(*m_chunks.at( { x, z } ) ) ) );// chunk.generateMesh();
             }
-
         }
+        std::cout << threads.size() << std::endl;
+        for ( auto& thread : threads ) thread->join();
+        threads.clear();
     }
 }
 
