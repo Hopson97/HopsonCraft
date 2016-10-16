@@ -37,6 +37,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-O3" />
 					<Add directory="Source/Util" />
 					<Add directory="Source/Model" />
 					<Add directory="Source" />

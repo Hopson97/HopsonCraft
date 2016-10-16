@@ -12,8 +12,6 @@
 
 #include <iostream>
 
-int World :: worldSize = 0;
-
 World::World()
 :   m_blockAtlas    ( 512, 16, "Blocks_Sonic" )
 ,   m_player        ( m_chunks )
@@ -21,28 +19,11 @@ World::World()
 {
     sf::Clock clock;
 
-   // std::cout << "Generating block data... (This might take a while)." << std::endl;
-    int size = worldSize;
-    /*
-    for ( int x = 0 ; x < size ; x++ )
-    {
-        for ( int z = 0 ; z < size ; z++ )
-        {
-            addChunk( { x, z } );
-        }
-    }
-    for ( auto& chunk : m_chunks )
-    {
-        chunk.second->generateStructureData();
-    }
-    */
-    //std::cout << "Chunk block data created, Time: " << clock.getElapsedTime().asSeconds() << "s\n";
+    addChunk( { 0, 0 } );
+    m_chunks.at( { 0, 0 } )->generateMesh();
+    m_chunks.at( { 0, 0 } )->bufferMesh();
 
-   // m_chunks.at( { 0, 0 } )->generateMesh();
-    //m_chunks.at( { 0, 0 } )->bufferMesh();
-
-    std::thread vertexGenThread ( &World::generateChunks, this );
-    vertexGenThread.detach();
+    std::thread ( &World::manageChunks, this ).detach();
 }
 
 World :: ~World ()
@@ -101,73 +82,89 @@ void World :: addChunk ( const Vector2i& location )
 }
 
 
+//This below is all ran on a seperate thread
+struct RenderArea
+{
+    int minX;
+    int minZ;
 
-void World :: generateChunks ()
+    int maxX;
+    int maxZ;
+};
+
+
+void World :: manageChunks()
 {
     while ( m_isRunning )
     {
-        int minX =  m_player.getChunkLocation().x - renderDistance;
-        int minZ =  m_player.getChunkLocation().z - renderDistance;
-
-        int maxX =  m_player.getChunkLocation().x + renderDistance;
-        int maxZ =  m_player.getChunkLocation().z + renderDistance;
-        std::vector<std::unique_ptr<std::thread>> threads;
-
-        for ( int x = minX ; x < maxX ; x++ )
+        if ( m_loadDistance < m_renderDistance )
         {
-            for ( int z = minZ ; z < maxZ ; z++ )
-            {
-                if ( m_chunks.find( { x, z } ) == m_chunks.end() )
-                {
-                    threads.emplace_back( std::make_unique<std::thread>( &addChunk, this, Vector2i(x, z) ) );//       )addChunk( {x, z } );
-                }
-            }
-            for ( auto& thread : threads ) thread->join();
-            threads.clear();
-
+            m_loadDistance++;
+        }
+        else if ( m_loadDistance > m_renderDistance )
+        {
+            m_loadDistance = m_renderDistance;
         }
 
-        for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
-        {
-            Chunk&      currChunk   = *(*itr).second;
-            Vector2i    loc         = currChunk.getLocation();
+        RenderArea area;
+        area.minX =  m_player.getChunkLocation().x - m_loadDistance;
+        area.minZ =  m_player.getChunkLocation().z - m_loadDistance;
 
-            if ( loc.x < minX || loc.x > maxX || loc.z < minZ || loc.z > maxZ )
-            {
-                itr = m_chunks.erase( itr );
-            }
-            else
-            {
-                if ( !currChunk.hasVertexData() && currChunk.hasBlockData() )
-                {
-                    currChunk.generateMesh();
-                }
-                itr++;
-            }
-        }
+        area.maxX =  m_player.getChunkLocation().x + m_loadDistance;
+        area.maxZ =  m_player.getChunkLocation().z + m_loadDistance;
 
+        generateChunks( area );
 
+        if ( !m_isRunning ) return;
 
-
-
-
-
-
+        checkChunks( area );
     }
-
-/*
-    for ( int x = 0 ; x < World::worldSize ; x++ )
-    {
-        for ( int z = 0 ; z < World::worldSize ; z++ )
-        {
-            Chunk& chunk = *m_chunks.at( { x, z } );
-
-            if ( chunk.hasBlockData() && !chunk.hasVertexData() )
-            {
-                chunk.generateMesh();
-            }
-        }
-    }
-*/
 }
+
+void World :: generateChunks ( const RenderArea& area )
+{
+    std::vector<std::unique_ptr<std::thread>> threads;
+
+    for ( int x = area.minX ; x < area.maxX ; x++ )
+    {
+        for ( int z = area.minZ ; z < area.maxZ ; z++ )
+        {
+            if ( !m_isRunning ) return; //Safety
+            if ( m_chunks.find( { x, z } ) == m_chunks.end() )
+            {
+                addChunk( {x, z } );
+            }
+        }
+        for ( auto& thread : threads ) thread->join();
+        threads.clear();
+
+    }
+}
+
+void World::checkChunks( const RenderArea& area )
+{
+    for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
+    {
+        if ( !m_isRunning ) return; //Safety
+        Chunk&      currChunk   = *(*itr).second;
+        Vector2i    loc         = currChunk.getLocation();
+
+        if ( loc.x < area.minX ||
+             loc.x > area.maxX ||
+             loc.z < area.minZ ||
+             loc.z > area.maxZ )
+        {
+            itr = m_chunks.erase( itr );
+        }
+        else
+        {
+            if ( !currChunk.hasVertexData() && currChunk.hasBlockData() )
+            {
+                currChunk.generateMesh();
+            }
+            itr++;
+        }
+    }
+}
+
 

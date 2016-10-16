@@ -10,7 +10,7 @@
 Chunk_Renderer :: Chunk_Renderer ()
 {
     m_shader.start();
-    m_shader.loadProjMatrix( glm::perspective( glm::radians( 75.0f ),
+    m_shader.loadProjMatrix( glm::perspective( glm::radians( 90.0f ),
                                                Window::getAspect(),
                                                0.01f,
                                                1000.0f ) );

@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Master_Renderer.h"
 
+struct RenderArea;
 
 class World
 {
@@ -20,14 +21,14 @@ class World
         void update ( float dt );
         void draw   ();
 
-        static int worldSize;
-
     private:
         void updateChunks   ();
 
         void addChunk       ( const Vector2i& location );
 
-        void generateChunks ();
+        void manageChunks   ();
+        void generateChunks ( const RenderArea& area );
+        void checkChunks    ( const RenderArea& area );
 
 
     private:
@@ -43,7 +44,8 @@ class World
 
         bool m_isRunning = true;
 
-        int renderDistance = 16;
+        int m_renderDistance    = 16;
+        int m_loadDistance      = 2;
 };
 
 #endif // WORLD_H
