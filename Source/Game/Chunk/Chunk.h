@@ -18,6 +18,7 @@
 
 
 class Texture_Atlas;
+class World;
 
 class Chunk;
 typedef std::unique_ptr<Chunk> Chunk_Ptr;
@@ -36,10 +37,10 @@ class Chunk
     public:
         Chunk( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap,
                const Vector2i& location,
-               const Texture_Atlas& atlas  );
+               const Texture_Atlas& atlas,
+               World& world  );
 
         void generateBlockData      ();
-        void generateStructureData  ();
 
         bool hasBlockData   () const;
         bool hasVertexData  () const;
@@ -62,7 +63,12 @@ class Chunk
         const Model& getWaterModel  () const;
         const Model& getFloraModel  () const;
 
+        void setToDelete        ();
+        bool shouldBeDeleted    ();
+
     private:
+        void generateStructureData  ();
+
         void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
 
         void makeBack   (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
@@ -80,6 +86,8 @@ class Chunk
 
         void setBlock   (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks = true );
 
+        const Block_t& getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const;
+
     private:
         std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunkMap;
         std::vector<Block_t*> m_blocks;
@@ -91,11 +99,12 @@ class Chunk
 
         const Texture_Atlas* m_p_atlas;
 
+        World* m_p_world;
+
         bool m_hasBlockData     = false;
         bool m_hasVertexData    = false;
         bool m_hasBufferedData  = false;
-
-        bool tempBool = false;
+        bool m_shouldBeDeleted  = false;
 
         Chunk_Part m_solidPart;
         Chunk_Part m_waterPart;

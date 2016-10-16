@@ -9,6 +9,7 @@
 
 #include "Random.h"
 
+#include "World.h"
 
 
 namespace
@@ -25,15 +26,17 @@ namespace
 
 Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap,
                  const Vector2i& location,
-                 const Texture_Atlas& atlas  )
-:   m_p_chunkMap    ( &chunkMap )
+                 const Texture_Atlas& atlas,
+                 World& world       )
+:   m_p_chunkMap    ( &chunkMap     )
 ,   m_blocks        ( WIDTH * WIDTH * HEIGHT )
-,   m_location      ( location )
-,   m_p_atlas       ( &atlas )
+,   m_location      ( location      )
+,   m_p_atlas       ( &atlas        )
+,   m_p_world       ( &world        )
 {
     m_position = { location.x * WIDTH, location.z * WIDTH };
-    generateBlockData();
-    tempBool = true;
+    generateBlockData       ();
+    generateStructureData   ();
 }
 
 void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks )
@@ -101,10 +104,6 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block, bool ov
             int diff = x - WIDTH;
             m_p_chunkMap->at( { m_location.x + 1, m_location.z } )->setBlock ( WIDTH + diff, y, z, block, overrideBlocks );
         }
-        else
-        {
-
-        }
     }
     else if ( z >= WIDTH )
     {
@@ -138,32 +137,19 @@ const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
 {
     if ( x == -1 )
     {
-        if ( m_p_chunkMap->find( { m_location.x - 1, m_location.z } ) != m_p_chunkMap->end() )
-        {
-            return m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->getBlock ( WIDTH - 1, y, z );
-        }
+        return getAdjChunkBlock( -1, 0, WIDTH - 1, y, z );
     }
     else if ( z == -1 )
     {
-        if ( m_p_chunkMap->find( { m_location.x, m_location.z - 1 } ) != m_p_chunkMap->end() )
-        {
-
-            return m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->getBlock ( x, y, WIDTH - 1 );
-        }
+        return getAdjChunkBlock( 0, -1, x, y, WIDTH - 1 );
     }
     else if ( x == WIDTH )
     {
-        if ( m_p_chunkMap->find( { m_location.x + 1, m_location.z } ) != m_p_chunkMap->end() )
-        {
-            return m_p_chunkMap->at( { m_location.x + 1, m_location.z } )->getBlock ( 0, y, z );
-        }
+        return getAdjChunkBlock( 1, 0, 0, y, z );
     }
     else if ( z == WIDTH )
     {
-        if ( m_p_chunkMap->find( { m_location.x, m_location.z + 1 } ) != m_p_chunkMap->end() )
-        {
-            return m_p_chunkMap->at( { m_location.x, m_location.z + 1 } )->getBlock ( x, y, 0 );
-        }
+        return getAdjChunkBlock( 0, 1, z, y, 0 );
     }
     else if ( y == -1 || y > HEIGHT - 1 )
     {
@@ -174,6 +160,17 @@ const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
         return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
     }
     return dirt;    //This is for world edges.
+}
+
+const Block_t& Chunk :: getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const
+{
+    Vector2i location ( m_location.x + xChange, m_location.z + zChange);
+
+    if ( m_p_chunkMap->find( location ) != m_p_chunkMap->end() )
+    {
+        return m_p_chunkMap->at( location )->getBlock ( blockX, blockY, blockZ );
+    }
+    else return dirt;
 }
 
 const Block_t& Chunk :: getBlock ( const Vector3& location ) const
@@ -224,16 +221,25 @@ const Model& Chunk :: getChunkModel  () const
 {
     return m_solidPart.model;
 }
+
 const Model& Chunk :: getWaterModel  () const
 {
     return m_waterPart.model;
 }
+
 const Model& Chunk :: getFloraModel  () const
 {
     return m_solidPart.model;
 }
 
+void Chunk :: setToDelete ()
+{
+    m_shouldBeDeleted = true;
+}
 
-
+bool Chunk :: shouldBeDeleted ()
+{
+    return m_shouldBeDeleted;
+}
 
 

@@ -34,6 +34,18 @@ World :: ~World ()
 
 void World :: update ( float dt )
 {
+    for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
+    {
+        Chunk&      currChunk   = *(*itr).second;
+
+        if ( currChunk.shouldBeDeleted() )
+        {
+            itr = m_chunks.erase( itr );
+        }
+        else itr++;
+    }
+
+
     m_player.update( dt );
     updateChunks();
 }
@@ -77,8 +89,12 @@ void World :: updateChunks ()
 
 void World :: addChunk ( const Vector2i& location )
 {
-    m_chunks[ location ] = std::make_unique<Chunk> ( m_chunks, location, m_blockAtlas );
-    m_chunks[ location ]->generateStructureData();
+    m_chunkAddMutex.lock();
+    if ( m_chunks.find( location) == m_chunks.end() )
+    {
+        m_chunks[ location ] = std::make_unique<Chunk> ( m_chunks, location, m_blockAtlas, *this );
+    }
+    m_chunkAddMutex.unlock();
 }
 
 
@@ -143,27 +159,25 @@ void World :: generateChunks ( const RenderArea& area )
 
 void World::checkChunks( const RenderArea& area )
 {
-    for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
+    for ( auto& chunkPair : m_chunks )
     {
-        if ( !m_isRunning ) return; //Safety
-        Chunk&      currChunk   = *(*itr).second;
-        Vector2i    loc         = currChunk.getLocation();
-
+        Chunk& chunk = *chunkPair.second;
+        Vector2i loc = chunk.getLocation();
         if ( loc.x < area.minX ||
              loc.x > area.maxX ||
              loc.z < area.minZ ||
              loc.z > area.maxZ )
         {
-            itr = m_chunks.erase( itr );
+            chunk.setToDelete();
         }
         else
         {
-            if ( !currChunk.hasVertexData() && currChunk.hasBlockData() )
+            if ( !chunk.hasVertexData() && chunk.hasBlockData() )
             {
-                currChunk.generateMesh();
+                chunk.generateMesh();
             }
-            itr++;
         }
+
     }
 }
 

@@ -2,6 +2,7 @@
 #define WORLD_H
 
 #include <unordered_map>
+#include <mutex>
 
 #include "Chunk/Chunk.h"
 #include "Vector.h"
@@ -21,10 +22,10 @@ class World
         void update ( float dt );
         void draw   ();
 
+        void addChunk       ( const Vector2i& location );
+
     private:
         void updateChunks   ();
-
-        void addChunk       ( const Vector2i& location );
 
         void manageChunks   ();
         void generateChunks ( const RenderArea& area );
@@ -41,10 +42,12 @@ class World
         Player  m_player;
         Vector2i lastPlayerPos;
 
+        std::mutex m_chunkAddMutex;
+
 
         bool m_isRunning = true;
 
-        int m_renderDistance    = 16;
+        int m_renderDistance    = 5;
         int m_loadDistance      = 2;
 };
 
