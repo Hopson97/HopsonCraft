@@ -111,7 +111,7 @@ void World :: generateChunks ()
 
         int maxX =  m_player.getChunkLocation().x + renderDistance;
         int maxZ =  m_player.getChunkLocation().z + renderDistance;
-
+        std::vector<std::unique_ptr<std::thread>> threads;
 
         for ( int x = minX ; x < maxX ; x++ )
         {
@@ -119,9 +119,12 @@ void World :: generateChunks ()
             {
                 if ( m_chunks.find( { x, z } ) == m_chunks.end() )
                 {
-                    addChunk( {x, z } );
+                    threads.emplace_back( std::make_unique<std::thread>( &addChunk, this, Vector2i(x, z) ) );//       )addChunk( {x, z } );
                 }
             }
+            for ( auto& thread : threads ) thread->join();
+            threads.clear();
+
         }
 
         for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
