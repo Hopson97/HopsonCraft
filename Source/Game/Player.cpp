@@ -21,6 +21,10 @@ void Player :: update ( float dt )
 
     if ( !m_isLocked ) m_camera.update();
     m_velocity *= 0.95;
+    if ( !m_isFlyMode )
+    {
+        m_velocity.y -= 2;
+    }
     m_camera.movePosition( m_velocity * dt );
 }
 
@@ -50,16 +54,25 @@ void Player :: input ( float dt )
 {
     if ( m_lockTimer.getElapsedTime().asSeconds() > 3.0 )
     {
-        if ( sf::Keyboard::isKeyPressed( sf::Keyboard::L )) {
-            m_lockTimer.restart();
+        if ( sf::Keyboard::isKeyPressed( sf::Keyboard::L ))
+        {
             m_isLocked = !m_isLocked;
+            m_lockTimer.restart();
         }
     }
 
+    if ( m_flightTimer.getElapsedTime().asSeconds() > 0.3 )
+    {
+        if ( sf::Keyboard::isKeyPressed( sf::Keyboard::F ))
+        {
+            m_isFlyMode = !m_isFlyMode;
+            m_flightTimer.restart();
+        }
+    }
 
     Vector3 velocityChange;
 
-    float acceleration = sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) ? ACC * 5 : ACC;
+    float acceleration = sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) ? ACC * 4 : ACC;
 
     if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
     {

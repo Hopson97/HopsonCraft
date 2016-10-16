@@ -78,7 +78,7 @@ namespace Height_Generator
                                             ( z + zOffset ) * frequency ) * amps;
         }
         int ret = total + 50;
-        return ret < Chunk::HEIGHT ? ret : Chunk::HEIGHT - 1;
+        return ret < Chunk::HEIGHT ? ret : Chunk::HEIGHT - 2;
     }
 
     int getSeed()

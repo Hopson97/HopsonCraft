@@ -47,7 +47,9 @@ class Player
         Camera m_camera;
 
         sf::Clock m_lockTimer;
-        bool m_isLocked = false;
+        sf::Clock m_flightTimer;
+        bool m_isLocked     = false;
+        bool m_isFlyMode    = true;
 };
 
 #endif // PLAYER_H

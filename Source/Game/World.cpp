@@ -97,15 +97,6 @@ void World :: manageChunks()
 {
     while ( m_isRunning )
     {
-        if ( m_loadDistance < m_renderDistance )
-        {
-            m_loadDistance++;
-        }
-        else if ( m_loadDistance > m_renderDistance )
-        {
-            m_loadDistance = m_renderDistance;
-        }
-
         RenderArea area;
         area.minX =  m_player.getChunkLocation().x - m_loadDistance;
         area.minZ =  m_player.getChunkLocation().z - m_loadDistance;
@@ -114,6 +105,15 @@ void World :: manageChunks()
         area.maxZ =  m_player.getChunkLocation().z + m_loadDistance;
 
         generateChunks( area );
+
+        if ( m_loadDistance < m_renderDistance )
+        {
+            m_loadDistance++;
+        }
+        else if ( m_loadDistance > m_renderDistance )
+        {
+            m_loadDistance = m_renderDistance;
+        }
 
         if ( !m_isRunning ) return;
 
