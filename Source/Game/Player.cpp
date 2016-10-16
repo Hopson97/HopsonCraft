@@ -41,7 +41,7 @@ Vector2i Player :: getChunkLocation () const
     return { x, z };
 }
 
-const Vector3 Player :: getBlockPositionInChunk() const
+Vector3 Player :: getBlockPositionInChunk() const
 {
     float x = (int)m_camera.getPosition().x % 16;
     float z = (int)m_camera.getPosition().z % 16;

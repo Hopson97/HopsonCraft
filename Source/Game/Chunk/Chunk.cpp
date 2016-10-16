@@ -75,9 +75,7 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id, bool over
         case Block::ID::NUM_BLOCK_TYPES:
             return;
     }
-
-    m_hasVertexData     = false;
-    m_hasBufferedData   = false;
+    m_hasBufferedData = false;
 }
 
 void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks )

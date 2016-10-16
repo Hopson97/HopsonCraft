@@ -13,7 +13,7 @@
 #include <iostream>
 
 World::World()
-:   m_blockAtlas    ( 512, 16, "Blocks_Sonic" )
+:   m_blockAtlas    ( 512, 16, "Blocks" )
 ,   m_player        ( m_chunks )
 ,   lastPlayerPos   ( m_player.getChunkLocation() )
 {
@@ -29,9 +29,10 @@ World::World()
 World :: ~World ()
 {
     m_isRunning = false;
-    std::this_thread::sleep_for( std::chrono::seconds ( 1 ) );
+    std::this_thread::sleep_for( std::chrono::seconds ( 2 ) );
 }
 
+sf::Clock c;
 void World :: update ( float dt )
 {
     for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
@@ -44,9 +45,23 @@ void World :: update ( float dt )
         }
         else itr++;
     }
-
+    if (c.getElapsedTime().asSeconds() > 0.1 )
+    {
+        if ( m_chunks.find( m_player.getChunkLocation() ) != m_chunks.end() )
+        {
+            m_chunks.at( m_player.getChunkLocation() )->setBlock (m_player.getBlockPositionInChunk().x,
+                                                                m_player.getBlockPositionInChunk().y,
+                                                                m_player.getBlockPositionInChunk().z,
+                                                                Block::ID::Sand,
+                                                                true );
+            m_updateChunks.push_back( m_chunks.at( m_player.getChunkLocation() ).get() );
+            std::cout << m_player.getChunkLocation().x << " " << m_player.getChunkLocation().z << std::endl;
+        }
+        c.restart();
+    }
 
     m_player.update( dt );
+
     updateChunks();
 }
 
@@ -65,7 +80,6 @@ void World :: draw ()
         else if ( itr->second->hasVertexData())
         {
             itr->second->bufferMesh();
-            itr++;
         }
         else
         {
@@ -89,12 +103,10 @@ void World :: updateChunks ()
 
 void World :: addChunk ( const Vector2i& location )
 {
-    m_chunkAddMutex.lock();
     if ( m_chunks.find( location) == m_chunks.end() )
     {
         m_chunks[ location ] = std::make_unique<Chunk> ( m_chunks, location, m_blockAtlas, *this );
     }
-    m_chunkAddMutex.unlock();
 }
 
 
@@ -148,7 +160,7 @@ void World :: generateChunks ( const RenderArea& area )
             if ( !m_isRunning ) return; //Safety
             if ( m_chunks.find( { x, z } ) == m_chunks.end() )
             {
-                addChunk( {x, z } );
+                threads.emplace_back( std::make_unique<std::thread>(&World::addChunk, this, Vector2i(x, z) ) );
             }
         }
         for ( auto& thread : threads ) thread->join();
@@ -177,7 +189,6 @@ void World::checkChunks( const RenderArea& area )
                 chunk.generateMesh();
             }
         }
-
     }
 }
 

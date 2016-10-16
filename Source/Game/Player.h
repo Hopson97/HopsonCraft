@@ -22,13 +22,12 @@ class Player
         const Camera& getCamera () const;
 
         Vector2i getChunkLocation () const;
+        Vector3   getBlockPositionInChunk () const;
 
 
         constexpr static float ACC = 0.45;
 
     private:
-        const Vector3   getBlockPositionInChunk () const;
-
         void input              ( float dt );
         void getCurrentChunk    ();
 
