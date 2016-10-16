@@ -32,6 +32,12 @@ And that is all there is to it.
 
 For texturing, a texture atlas is used.
 
+####Rendering
+
+For rendering, only exposed faces are added into a vertex array to be drawn, which saves a lot of memory and draw call time.
+
+Future: Frustum culling
+
 ## Screenshots:
 
 ![Blocks](http://i.imgur.com/MsdCJbz.png "Blocks")
