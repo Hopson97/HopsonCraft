@@ -2,6 +2,24 @@
 
 A minecraft clone written using C++, SFML, OpenGL and GLEW. (Uses modern C++ and OpenGL)
 
+Linker:
+
+All:
+opengl32
+
+Debug:
+sfml-graphics-d
+sfml-window-d
+sfml-system-d
+
+Release
+sfml-graphics
+sfml-window
+sfml-system
+
+Flags:
+
+Please use -O3 in release mode!
 
 ## How it works:
 
