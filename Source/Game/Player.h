@@ -21,7 +21,7 @@ class Player
 
         const Camera& getCamera () const;
 
-        const Vector2i& getChunkLocation () const;
+        Vector2i getChunkLocation () const;
 
 
         constexpr static float ACC = 0.45;

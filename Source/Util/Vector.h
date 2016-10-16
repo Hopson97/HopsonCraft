@@ -23,8 +23,8 @@ namespace std
     template<>
     struct hash<Vector2i>
     {
-
-        int hashInt( int key ) const
+        template <typename T>
+        T hashInt( T key ) const
         {
             key = ~key + (key << 15);
             key = key ^ (key >> 12);

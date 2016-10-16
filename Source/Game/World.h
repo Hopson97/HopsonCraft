@@ -15,6 +15,7 @@ class World
 {
     public:
         World   ();
+        ~World  ();
 
         void update ( float dt );
         void draw   ();
@@ -37,6 +38,12 @@ class World
         Master_Renderer m_renderer;
 
         Player  m_player;
+        Vector2i lastPlayerPos;
+
+
+        bool m_isRunning = true;
+
+        int renderDistance = 16;
 };
 
 #endif // WORLD_H

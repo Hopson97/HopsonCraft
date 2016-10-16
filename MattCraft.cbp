@@ -59,11 +59,11 @@
 			<Add option="-Wall" />
 			<Add option="-std=c++14" />
 			<Add option="-DGLEW_STATIC" />
-			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.4.0/include" />
+			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML MinGW/include" />
 		</Compiler>
 		<Linker>
 			<Add library="opengl32" />
-			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML-2.4.0/lib" />
+			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML MinGW/lib" />
 		</Linker>
 		<Unit filename="Data/Images/cow.jpg" />
 		<Unit filename="SFML Full.depend" />

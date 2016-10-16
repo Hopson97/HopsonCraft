@@ -30,9 +30,11 @@ const Camera& Player :: getCamera () const
     return m_camera;
 }
 
-const Vector2i& Player :: getChunkLocation () const
+Vector2i Player :: getChunkLocation () const
 {
-    return m_p_currentChunk->getLocation();
+    int x = m_camera.getPosition().x / Chunk::WIDTH;
+    int z = m_camera.getPosition().z / Chunk::WIDTH;
+    return { x, z };
 }
 
 const Vector3 Player :: getBlockPositionInChunk() const

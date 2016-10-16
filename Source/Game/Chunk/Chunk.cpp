@@ -173,7 +173,7 @@ const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
     {
         return *m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z );
     }
-    return air;    //This is for world edges.
+    return dirt;    //This is for world edges.
 }
 
 const Block_t& Chunk :: getBlock ( const Vector3& location ) const
