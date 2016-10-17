@@ -14,6 +14,8 @@ namespace Maths
                                          const Vector3& rotation,
                                          const Vector3& scale );
 
+    Matrix4 createPerspectiveMatrix     ();
+
     Vector2i worldToChunkLocation   ( const Vector3& worldPos );
     Vector3  worldToBlockInChunkPos ( const Vector3& worldPos );
 }

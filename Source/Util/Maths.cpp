@@ -4,6 +4,8 @@
 
 #include "Camera.h"
 #include "Chunk/Chunk.h"
+#include "D_Settings.h"
+#include "Window.h"
 
 namespace Maths
 {
@@ -33,6 +35,14 @@ namespace Maths
         transformation = glm::scale( transformation, scale );
 
         return transformation;
+    }
+
+    Matrix4 createPerspectiveMatrix ()
+    {
+        return glm::perspective( glm::radians( Settings::FOV ),
+                                 Window::getAspect(),
+                                 Settings::NEAR_PLANE,
+                                 Settings::FAR_PLANE );
     }
 
     Vector2i worldToChunkLocation   ( const Vector3& worldPos )

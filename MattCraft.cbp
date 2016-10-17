@@ -37,6 +37,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-fomit-frame-pointer" />
 					<Add option="-O3" />
 					<Add directory="Source/Util" />
 					<Add directory="Source/Model" />
@@ -76,6 +77,7 @@
 		<Unit filename="Source/Application.h" />
 		<Unit filename="Source/Camera.cpp" />
 		<Unit filename="Source/Camera.h" />
+		<Unit filename="Source/D_Settings.h" />
 		<Unit filename="Source/Entity.h" />
 		<Unit filename="Source/Game/AABB.cpp" />
 		<Unit filename="Source/Game/AABB.h" />

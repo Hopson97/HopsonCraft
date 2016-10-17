@@ -1,32 +1,32 @@
 #ifndef VIEWING_FRUSTUM_H_INCLUDED
 #define VIEWING_FRUSTUM_H_INCLUDED
 
-class Plane
+#include "OpenGL/Glm/glm_transformations.h"
+
+class Box
 {
-
-};
-
-class Frustum
-{
-    enum
-    {
-        Top,
-        Botttom,
-        Left,
-        Right,
-        Near_Plane,
-        Far_Plane
-    };
-
     public:
-        static enum
+        Box ( const Vector3& corner, float x, float y, float z )
         {
-            Inside,
-            Outside,
-            Intersect
-        };
+            set ( corner, x, y, z );
+        }
+
+        void set( const Vector3& corner, float x, float y, float z )
+        {
+            m_corner = corner;
+            m_x = x;
+            m_y = y;
+            m_z = z;
+        }
 
     private:
+        Vector3 m_corner;
+        float m_x, m_y, m_z;
 };
+
+namespace Frustum
+{
+    bool boxInFrustum;
+}
 
 #endif // VIEWING_FRUSTUM_H_INCLUDED

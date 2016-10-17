@@ -6,14 +6,6 @@
 
 namespace Block
 {
-/*
-    enum class Block_Physical_State
-    {
-        Solid,
-        Liquid,
-        Gas
-    };
-*/
     class Block_Base
     {
         public:
@@ -26,7 +18,6 @@ namespace Block
             virtual Vector2 getTextureBottom    () const;
 
             virtual bool isOpaque () const;
-            //virtual Block_Physical_State getState () const;
 
             virtual ID getID () const;
 
