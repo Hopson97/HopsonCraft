@@ -35,37 +35,8 @@ World :: ~World ()
 sf::Clock c;
 void World :: update ( float dt )
 {
-    for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
-    {
-        Chunk&      currChunk   = *(*itr).second;
-
-        if ( currChunk.shouldBeDeleted() )
-        {
-            itr = m_chunks.erase( itr );
-        }
-        else itr++;
-    }
-    /**/
-    if (c.getElapsedTime().asSeconds() > 1.0f )
-    {
-        Vector2i chunkLocation = Maths::worldToChunkLocation  ( m_player.getPosition() );
-        Vector3  blockLocation = Maths::worldToBlockInChunkPos( m_player.getPosition() );
-
-        if ( m_chunks.find( chunkLocation ) != m_chunks.end() )
-        {
-            m_chunks.at( chunkLocation )->setBlock (    blockLocation.x,
-                                                        blockLocation.y,
-                                                        blockLocation.z,
-                                                        Block::ID::Sand,
-                                                        true );
-
-            m_updateChunks.push_back( m_chunks.at( chunkLocation ).get() );
-        }
-        c.restart();
-    }
-/**/
+    deleteChunks();
     m_player.update( dt );
-
     updateChunks();
 }
 
@@ -92,6 +63,20 @@ void World :: draw ()
 
     }
     m_renderer.render( m_player.getCamera(), Maths::worldToChunkLocation( m_player.getPosition() ) );
+}
+
+void World :: deleteChunks   ()
+{
+    for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
+    {
+        Chunk& currChunk = *(*itr).second;
+
+        if ( currChunk.shouldBeDeleted() )
+        {
+            itr = m_chunks.erase( itr );
+        }
+        else itr++;
+    }
 }
 
 void World :: updateChunks ()
@@ -196,4 +181,24 @@ void World::checkChunks( const RenderArea& area )
     }
 }
 
+//Setting a block
+/*
+    if (c.getElapsedTime().asSeconds() > 1.0f )
+    {
+        Vector2i chunkLocation = Maths::worldToChunkLocation  ( m_player.getPosition() );
+        Vector3  blockLocation = Maths::worldToBlockInChunkPos( m_player.getPosition() );
+
+        if ( m_chunks.find( chunkLocation ) != m_chunks.end() )
+        {
+            m_chunks.at( chunkLocation )->setBlock (    blockLocation.x,
+                                                        blockLocation.y,
+                                                        blockLocation.z,
+                                                        Block::ID::Sand,
+                                                        true );
+
+            m_updateChunks.push_back( m_chunks.at( chunkLocation ).get() );
+        }
+        c.restart();
+    }
+*/
 

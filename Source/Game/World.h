@@ -25,6 +25,7 @@ class World
         void addChunk       ( const Vector2i& location );
 
     private:
+        void deleteChunks   ();
         void updateChunks   ();
 
         void manageChunks   ();

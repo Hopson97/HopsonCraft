@@ -25,6 +25,7 @@ int main()
     setConsoleLocation();
 
     Window::create( "MattCraft (" + std::to_string ( Window::WIDTH ) + " x " + std::to_string ( Window::HEIGHT) + ")" );
+    Window::setToFullScreen();
     Application app;
     app.runLoop();
 

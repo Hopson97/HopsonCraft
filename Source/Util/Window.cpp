@@ -92,6 +92,13 @@ namespace Window
         m_window->popGLStates();
     }
 
+    void setToFullScreen ()
+    {
+        sf::VideoMode m( sf::VideoMode::getDesktopMode() );
+        m_window->setSize ( { m.width, m.height } );
+        glViewport( 0, 0, m.width, m.height );
+    }
+
     float getAspect()
     {
         return (float)WIDTH / (float)HEIGHT;

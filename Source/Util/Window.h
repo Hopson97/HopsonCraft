@@ -15,13 +15,15 @@ namespace Window
     void close  ();
     bool isOpen ();
 
-    void prepareSfDraw  ();
-    void sfDraw         ( const sf::Drawable& drawable );
-    void endSfDraw      ();
+    void prepareSfDraw      ();
+    void sfDraw             ( const sf::Drawable& drawable );
+    void endSfDraw          ();
 
-    void checkForClose  ();
+    void setToFullScreen    ();
 
-    float getAspect     ();
+    void checkForClose      ();
+
+    float getAspect         ();
 
     const sf::RenderWindow& get ();
 
