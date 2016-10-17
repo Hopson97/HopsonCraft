@@ -69,10 +69,4 @@ namespace Maths
                     z
                 };
     }
-
-
-
-
-
-
 }

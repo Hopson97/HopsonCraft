@@ -89,21 +89,19 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block, bool ov
 
     if ( x < 0 )
     {
-        std::cout << "\n" << x << std::endl;
-        std::cout << "LESS THAN X" << std::endl;
+        //...
     }
     else if ( z < 0 )
     {
-        std::cout << "LESS THAN Z" << std::endl;
+        //...
     }
     else if ( x >= WIDTH )
     {
-        std::cout << "\n" << x << std::endl;
-        std::cout << "GREATER THAN X" << std::endl;
+        //...
     }
     else if ( z >= WIDTH )
     {
-        std::cout << "GREATER THAN Z" << std::endl;
+        //...
     }
     else
     {
