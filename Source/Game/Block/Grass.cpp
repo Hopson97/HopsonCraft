@@ -3,7 +3,6 @@
 namespace Block
 {
     Grass :: Grass()
-    :   Block_Base ( ID::Grass )
     {  }
 
     Vector2 Grass :: getTextureTop () const
@@ -24,6 +23,11 @@ namespace Block
     bool Grass :: isOpaque () const
     {
         return true;
+    }
+
+    ID Grass :: getID () const
+    {
+        return ID::Grass;
     }
 } //Namespace Block
 

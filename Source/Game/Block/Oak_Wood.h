@@ -16,7 +16,7 @@ namespace Block
 
             bool isOpaque () const;
 
-        private:
+            ID getID() const override;
     };
 } //Namespace Block
 

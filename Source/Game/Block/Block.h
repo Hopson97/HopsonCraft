@@ -2,22 +2,10 @@
 #define BLOCK_H
 
 #include "OpenGL/Glm/glm_transformations.h"
+#include "E_Block_ID.h"
 
 namespace Block
 {
-
-    enum class ID
-    {
-        Air,
-        Grass,
-        Dirt,
-        Stone,
-        Sand,
-        Water,
-        Oak_Wood,
-        Oak_Leaf,
-        NUM_BLOCK_TYPES
-    };
 /*
     enum class Block_Physical_State
     {
@@ -29,7 +17,7 @@ namespace Block
     class Block_Base
     {
         public:
-            Block_Base  ( ID id );
+            Block_Base  ();
             virtual ~Block_Base ();
 
             //These get block texture location inside of the texture atlas
@@ -40,10 +28,7 @@ namespace Block
             virtual bool isOpaque () const;
             //virtual Block_Physical_State getState () const;
 
-            ID getID () const;
-
-        private:
-            ID m_id;
+            virtual ID getID () const;
 
         public:
             constexpr static int BLOCK_ATLAS_SIZE   = 4096;

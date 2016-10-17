@@ -88,6 +88,8 @@ class Chunk
 
         const Block_t& getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const;
 
+        void genAdjChunks( const Vector2i& location );
+
     private:
         std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunkMap;
         std::vector<Block_t*> m_blocks;
@@ -111,9 +113,9 @@ class Chunk
         Chunk_Part& getPart ( const Block_t& block );
 
     public:
-        static constexpr int WIDTH  = 16,
-                             HEIGHT = 256,
-                             WATER_LEVEL = 150,
+        static constexpr int WIDTH  = 20,
+                             HEIGHT = 230,
+                             WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2;
 };
 

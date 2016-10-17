@@ -4,8 +4,7 @@
 
 namespace Block
 {
-    Block_Base :: Block_Base( ID id )
-    :   m_id ( id       )
+    Block_Base :: Block_Base()
     { }
 
     Block_Base :: ~Block_Base ()
@@ -33,7 +32,7 @@ namespace Block
 
     ID Block_Base :: getID () const
     {
-        return m_id;
+        return ID::Air;
     }
 
 } //Namespace Block

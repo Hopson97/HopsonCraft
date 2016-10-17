@@ -14,7 +14,7 @@
 
 namespace
 {
-    Block_t         air     ( Block::ID::Air );
+    Block_t         air;
     Block::Grass    grass;
     Block::Dirt     dirt;
     Block::Stone    stone;
@@ -23,6 +23,8 @@ namespace
     Block::Oak_Wood oakWood;
     Block::Oak_Leaf oakLeaf;
 }
+
+
 
 Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap,
                  const Vector2i& location,
@@ -36,8 +38,10 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap,
 {
     m_position = { location.x * WIDTH, location.z * WIDTH };
     generateBlockData       ();
-    generateStructureData   ();
+    //generateStructureData   ();
 }
+
+
 
 void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks )
 {
@@ -75,61 +79,50 @@ void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block::ID id, bool over
         case Block::ID::NUM_BLOCK_TYPES:
             return;
     }
-    m_hasBufferedData = false;
 }
+
+
 
 void Chunk :: setBlock (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks )
 {
     if ( y > HEIGHT - 1 || y < 0 ) return;
+
     if ( x < 0 )
     {
-        if ( m_p_chunkMap->find( { m_location.x - 1, m_location.z } ) != m_p_chunkMap->end() )
-        {
-            m_p_chunkMap->at( { m_location.x - 1, m_location.z } )->setBlock ( WIDTH + x, y, z, block, overrideBlocks );
-        }
+        std::cout << "\n" << x << std::endl;
+        std::cout << "LESS THAN X" << std::endl;
     }
     else if ( z < 0 )
     {
-        if ( m_p_chunkMap->find( { m_location.x, m_location.z - 1 } ) != m_p_chunkMap->end() )
-        {
-            m_p_chunkMap->at( { m_location.x, m_location.z - 1 } )->setBlock ( x, y, WIDTH + z, block, overrideBlocks );
-        }
+        std::cout << "LESS THAN Z" << std::endl;
     }
     else if ( x >= WIDTH )
     {
-        if ( m_p_chunkMap->find( { m_location.x + 1, m_location.z } ) != m_p_chunkMap->end() )
-        {
-            int diff = x - WIDTH;
-            m_p_chunkMap->at( { m_location.x + 1, m_location.z } )->setBlock ( WIDTH + diff, y, z, block, overrideBlocks );
-        }
+        std::cout << "\n" << x << std::endl;
+        std::cout << "GREATER THAN X" << std::endl;
     }
     else if ( z >= WIDTH )
     {
-        if ( m_p_chunkMap->find( { m_location.x, m_location.z + 1 } ) != m_p_chunkMap->end() )
-        {
-            int diff = z - WIDTH;
-            m_p_chunkMap->at( { m_location.x, m_location.z + 1 } )->setBlock ( x, y, diff + WIDTH, block, overrideBlocks );
-        }
+        std::cout << "GREATER THAN Z" << std::endl;
     }
     else
     {
         if ( !m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) )
         {
             m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = &block;
-            return;
         }
         else if ( getBlock( x, y, z).getID() == Block::ID::Air )
         {
             m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = &block;
-            return;
         }
         else if ( overrideBlocks )
         {
             m_blocks.at( WIDTH * WIDTH * y + WIDTH * x + z ) = &block;
-            return;
         }
     }
 }
+
+
 
 const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
 {
@@ -160,6 +153,8 @@ const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
     return dirt;    //This is for world edges.
 }
 
+
+
 const Block_t& Chunk :: getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const
 {
     Vector2i location ( m_location.x + xChange, m_location.z + zChange);
@@ -171,10 +166,14 @@ const Block_t& Chunk :: getAdjChunkBlock ( int xChange, int zChange, int blockX,
     else return dirt;
 }
 
+
+
 const Block_t& Chunk :: getBlock ( const Vector3& location ) const
 {
     return getBlock( location.x, location.y, location.z );
 }
+
+
 
 const AABB Chunk :: getBlockAABBTop ( const Vector3& location ) const
 {
@@ -189,15 +188,19 @@ const AABB Chunk :: getBlockAABBTop ( const Vector3& location ) const
     return block;
 }
 
+
+
 bool Chunk :: hasVertexData () const
 {
     return m_hasVertexData;
 }
 
+
 bool Chunk :: hasBlockData   () const
 {
     return m_hasBlockData;
 }
+
 
 bool Chunk :: hasBuffered () const
 {
@@ -210,6 +213,7 @@ const Vector2i& Chunk :: getLocation () const
     return m_location;
 }
 
+
 const Vector2& Chunk :: getPosition () const
 {
     return m_position;
@@ -220,20 +224,24 @@ const Model& Chunk :: getChunkModel  () const
     return m_solidPart.model;
 }
 
+
 const Model& Chunk :: getWaterModel  () const
 {
     return m_waterPart.model;
 }
+
 
 const Model& Chunk :: getFloraModel  () const
 {
     return m_solidPart.model;
 }
 
+
 void Chunk :: setToDelete ()
 {
     m_shouldBeDeleted = true;
 }
+
 
 bool Chunk :: shouldBeDeleted ()
 {

@@ -1,6 +1,9 @@
 #include "Maths.h"
 
+#include <iostream>
+
 #include "Camera.h"
+#include "Chunk/Chunk.h"
 
 namespace Maths
 {
@@ -31,4 +34,45 @@ namespace Maths
 
         return transformation;
     }
+
+    Vector2i worldToChunkLocation   ( const Vector3& worldPos )
+    {
+        return  {   (int)std::floor( worldPos.x / Chunk::WIDTH ),
+                    (int)std::floor( worldPos.z / Chunk::WIDTH )
+                };
+    }
+
+    Vector3 worldToBlockInChunkPos ( const Vector3& worldPos )
+    {
+        int x;
+        int z;
+
+        if ( worldPos.x < 0 )
+        {
+            x = abs( Chunk::WIDTH + (int) std::floor( worldPos.x ) % Chunk::WIDTH );
+        }
+        else
+        {
+            x = (int) worldPos.x % Chunk::WIDTH;
+        }
+
+        if ( worldPos.z < 0 )
+        {
+            z = abs( Chunk::WIDTH + (int) std::floor( worldPos.z ) % Chunk::WIDTH );
+        }
+        else
+        {
+            z = (int) worldPos.z % Chunk::WIDTH;
+        }
+        return  {   x,
+                    (int) worldPos.y,
+                    z
+                };
+    }
+
+
+
+
+
+
 }

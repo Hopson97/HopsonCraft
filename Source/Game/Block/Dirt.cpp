@@ -3,7 +3,6 @@
 namespace Block
 {
     Dirt :: Dirt()
-    :   Block_Base ( ID::Dirt )
     {  }
 
     Vector2 Dirt :: getTextureTop () const
@@ -24,5 +23,10 @@ namespace Block
     bool Dirt :: isOpaque () const
     {
         return true;
+    }
+
+    ID Dirt :: getID () const
+    {
+        return ID::Dirt;
     }
 } //Namespace Block

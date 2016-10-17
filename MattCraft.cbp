@@ -84,6 +84,7 @@
 		<Unit filename="Source/Game/Block/Blocks.h" />
 		<Unit filename="Source/Game/Block/Dirt.cpp" />
 		<Unit filename="Source/Game/Block/Dirt.h" />
+		<Unit filename="Source/Game/Block/E_Block_ID.h" />
 		<Unit filename="Source/Game/Block/Grass.cpp" />
 		<Unit filename="Source/Game/Block/Grass.h" />
 		<Unit filename="Source/Game/Block/Oak_Leaf.cpp" />

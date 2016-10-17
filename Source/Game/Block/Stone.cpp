@@ -3,7 +3,6 @@
 namespace Block
 {
     Stone :: Stone()
-    :   Block_Base ( ID::Stone )
     { }
 
     Vector2 Stone :: getTextureTop () const
@@ -24,5 +23,10 @@ namespace Block
     bool Stone :: isOpaque () const
     {
         return true;
+    }
+
+    ID Stone :: getID () const
+    {
+        return ID::Stone;
     }
 } //Namespace Block

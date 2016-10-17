@@ -3,7 +3,6 @@
 namespace Block
 {
     Water :: Water()
-    :   Block_Base ( ID::Water )
     {  }
 
     Vector2 Water :: getTextureTop () const
@@ -20,5 +19,10 @@ namespace Block
     {
         return { 5, 0 };
         return { 5, 0 };
+    }
+
+    ID Water :: getID () const
+    {
+        return ID::Water;
     }
 } //Namespace Block

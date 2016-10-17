@@ -3,7 +3,6 @@
 namespace Block
 {
     Oak_Wood :: Oak_Wood()
-    :   Block_Base ( ID::Oak_Wood )
     {  }
 
     Vector2 Oak_Wood :: getTextureTop () const
@@ -24,5 +23,10 @@ namespace Block
     bool Oak_Wood :: isOpaque () const
     {
         return true;
+    }
+
+    ID Oak_Wood :: getID () const
+    {
+        return ID::Oak_Wood;
     }
 } //Namespace Block

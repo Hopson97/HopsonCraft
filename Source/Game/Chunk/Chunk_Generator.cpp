@@ -11,7 +11,7 @@
 
 namespace
 {
-    Block_t         air     ( Block::ID::Air );
+    Block_t         air;
     Block::Grass    grass;
     Block::Dirt     dirt;
     Block::Stone    stone;
@@ -87,6 +87,8 @@ void Chunk :: generateBlockData()
             }
         }
     }
+    //temp
+    m_hasBlockData = true;
 }
 
 void Chunk :: generateStructureData ()
@@ -95,29 +97,9 @@ void Chunk :: generateStructureData ()
     {
         makeTree( loc.x, loc.y, loc.z );
     }
+    m_treeLocations.clear();
 
     m_hasBlockData = true;
-
-    /*TEMP
-    if ( m_location.x == 5 && m_location.z == 5)
-    {
-        bool change = true;
-        for ( int x = 0 ; x < (double)WIDTH * 1.5 ; x++ )
-        {
-            if ( change )
-            {
-                setBlock( x, 150, 0, dirt, true );
-                change = false;
-            }
-            else
-            {
-                change = true;
-                setBlock( x, 150, 0, stone, true );
-            }
-        }
-    }
-    tempBool = false;
-    /**/
 }
 
 void Chunk :: generateMesh ()
@@ -137,7 +119,8 @@ void Chunk :: generateMesh ()
             }
         }
     }
-    m_hasVertexData = true;
+    m_hasVertexData     = true;
+    m_hasBufferedData   = false;
 }
 
 void Chunk :: bufferMesh ()

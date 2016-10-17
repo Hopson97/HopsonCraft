@@ -40,14 +40,10 @@ class World
         Master_Renderer m_renderer;
 
         Player  m_player;
-        Vector2i lastPlayerPos;
-
-        std::mutex m_chunkAddMutex;
-
 
         bool m_isRunning = true;
 
-        int m_renderDistance    = 18;
+        int m_renderDistance    = 16;
         int m_loadDistance      = 2;
 };
 

@@ -10,7 +10,7 @@ Player :: Player( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap )
 :   m_p_chunks      ( &chunkMap )
 ,   m_bottomAABB    ( { 0.3, 0, 0.3 } )
 {
-    m_camera.movePosition( { 1,  Chunk::HEIGHT - 1, 1 } );
+    m_camera.movePosition( { 0,  Chunk::HEIGHT - 20, 0 } );
 }
 
 void Player :: update ( float dt )
@@ -34,21 +34,10 @@ const Camera& Player :: getCamera () const
     return m_camera;
 }
 
-Vector2i Player :: getChunkLocation () const
+const Vector3& Player :: getPosition () const
 {
-    int x = m_camera.getPosition().x / Chunk::WIDTH;
-    int z = m_camera.getPosition().z / Chunk::WIDTH;
-    return { x, z };
+    return m_camera.getPosition();
 }
-
-Vector3 Player :: getBlockPositionInChunk() const
-{
-    float x = (int)m_camera.getPosition().x % 16;
-    float z = (int)m_camera.getPosition().z % 16;
-
-    return { x, m_camera.getPosition().y, z };
-}
-
 
 void Player :: input ( float dt )
 {

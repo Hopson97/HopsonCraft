@@ -9,13 +9,13 @@
 #include "Application.h"
 #include "Height_Generator.h"
 #include "Random.h"
+#include "Maths.h"
 
 #include <iostream>
 
 World::World()
 :   m_blockAtlas    ( 512, 16, "Blocks" )
 ,   m_player        ( m_chunks )
-,   lastPlayerPos   ( m_player.getChunkLocation() )
 {
     sf::Clock clock;
 
@@ -45,21 +45,25 @@ void World :: update ( float dt )
         }
         else itr++;
     }
-    if (c.getElapsedTime().asSeconds() > 0.1 )
+    /**/
+    if (c.getElapsedTime().asSeconds() > 1.0f )
     {
-        if ( m_chunks.find( m_player.getChunkLocation() ) != m_chunks.end() )
+        Vector2i chunkLocation = Maths::worldToChunkLocation  ( m_player.getPosition() );
+        Vector3  blockLocation = Maths::worldToBlockInChunkPos( m_player.getPosition() );
+
+        if ( m_chunks.find( chunkLocation ) != m_chunks.end() )
         {
-            m_chunks.at( m_player.getChunkLocation() )->setBlock (m_player.getBlockPositionInChunk().x,
-                                                                m_player.getBlockPositionInChunk().y,
-                                                                m_player.getBlockPositionInChunk().z,
-                                                                Block::ID::Sand,
-                                                                true );
-            m_updateChunks.push_back( m_chunks.at( m_player.getChunkLocation() ).get() );
-            std::cout << m_player.getChunkLocation().x << " " << m_player.getChunkLocation().z << std::endl;
+            m_chunks.at( chunkLocation )->setBlock (    blockLocation.x,
+                                                        blockLocation.y,
+                                                        blockLocation.z,
+                                                        Block::ID::Sand,
+                                                        true );
+
+            m_updateChunks.push_back( m_chunks.at( chunkLocation ).get() );
         }
         c.restart();
     }
-
+/**/
     m_player.update( dt );
 
     updateChunks();
@@ -87,7 +91,7 @@ void World :: draw ()
         }
 
     }
-    m_renderer.render( m_player.getCamera() );
+    m_renderer.render( m_player.getCamera(), Maths::worldToChunkLocation( m_player.getPosition() ) );
 }
 
 void World :: updateChunks ()
@@ -126,11 +130,12 @@ void World :: manageChunks()
     while ( m_isRunning )
     {
         RenderArea area;
-        area.minX =  m_player.getChunkLocation().x - m_loadDistance;
-        area.minZ =  m_player.getChunkLocation().z - m_loadDistance;
+        Vector2i chunkLocation = Maths::worldToChunkLocation( m_player.getPosition() );
+        area.minX =  chunkLocation.x - m_loadDistance;
+        area.minZ =  chunkLocation.z - m_loadDistance;
 
-        area.maxX =  m_player.getChunkLocation().x + m_loadDistance;
-        area.maxZ =  m_player.getChunkLocation().z + m_loadDistance;
+        area.maxX =  chunkLocation.x + m_loadDistance;
+        area.maxZ =  chunkLocation.z + m_loadDistance;
 
         generateChunks( area );
 
@@ -165,7 +170,6 @@ void World :: generateChunks ( const RenderArea& area )
         }
         for ( auto& thread : threads ) thread->join();
         threads.clear();
-
     }
 }
 
