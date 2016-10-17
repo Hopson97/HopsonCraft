@@ -38,7 +38,7 @@ Chunk :: Chunk ( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap,
 {
     m_position = { location.x * WIDTH, location.z * WIDTH };
     generateBlockData       ();
-    //generateStructureData   ();
+    generateStructureData   ();
 }
 
 

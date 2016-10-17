@@ -25,12 +25,17 @@ void Chunk_Renderer :: render( const Camera& camera, const Vector2i& playerLocat
     m_shader.start();
     m_shader.loadViewMatrix( camera );
 
+    m_shader.loadSkyColour  ( {     Settings::SKY_RED,
+                                    Settings::SKY_GREEN,
+                                    Settings::SKY_BLUE
+                            } );
+
     glEnable( GL_CULL_FACE );
     glCullFace( GL_BACK );
     for ( const Chunk* chunk : m_chunks )
     {
         prepareChunk( *chunk );
-
+/*
         if ( playerLocation == chunk->getLocation() )
         {
             m_shader.loadIsPlayerLocation( 1 );
@@ -39,7 +44,7 @@ void Chunk_Renderer :: render( const Camera& camera, const Vector2i& playerLocat
         {
             m_shader.loadIsPlayerLocation( 0 );
         }
-
+*/
         glDrawArrays( GL_TRIANGLES, 0, chunk->getChunkModel().getVertexCount() );
     }
 

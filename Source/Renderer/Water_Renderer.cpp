@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Maths.h"
 #include "Window.h"
+#include "D_Settings.h"
 
 Water_Renderer :: Water_Renderer()
 {
@@ -23,6 +24,11 @@ void Water_Renderer :: render( const Camera& camera )
 {
     m_shader.start();
     m_shader.loadViewMatrix( camera );
+
+    m_shader.loadSkyColour  ( {     Settings::SKY_RED,
+                                    Settings::SKY_GREEN,
+                                    Settings::SKY_BLUE
+                            } );
 
     glDisable( GL_CULL_FACE );
     for ( const Chunk* chunk : m_chunks )

@@ -6,13 +6,14 @@
 #include <iostream>
 #include <vector>
 
-std::string getSource ( const std::string& filePath );
+
+        std::string getSource ( const std::string& filePath );
 
         GLuint compileShader ( const GLchar* source, GLenum type );
 
         GLuint createProgram ( GLuint vertexId, GLuint fragmentId );
 
-        void checkForErrors  ( GLuint id, GLenum status, const std::string& errorType, GLuint program );
+        void checkForErrors  ( GLuint id, GLenum status, const std::string& errorType );
 
 
         GLuint loadShader ( const std::string& vertexFilePath,
@@ -68,7 +69,7 @@ std::string getSource ( const std::string& filePath );
             glShaderSource  ( id, 1, &source, NULL );
             glCompileShader ( id );
 
-            checkForErrors( id, GL_COMPILE_STATUS, "Error compiling shader of type " + type, id );
+            checkForErrors( id, GL_COMPILE_STATUS, "Error compiling shader of type " + type );
             return id;
         }
 
@@ -89,22 +90,18 @@ std::string getSource ( const std::string& filePath );
         }
 
         //Checks for errors and prints them + throws an exception if one is found
-        void checkForErrors ( GLuint id, GLenum status, const std::string& errorType, GLuint program )
+        void checkForErrors ( GLuint id, GLenum status, const std::string& errorType )
         {
             GLint success;
+            GLchar infoLog[512];
 
             glGetShaderiv ( id, status, &success );
-
             if ( !success )
             {
-                GLint maxLength = 0;
-                glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-
-                GLchar infoLog[maxLength];
-                glGetProgramInfoLog(program, maxLength, &maxLength, infoLog);
-
-                throw std::runtime_error ( errorType + "\n Why: " + infoLog  );
+                glGetShaderInfoLog (id, 512, NULL, infoLog );
+                throw std::runtime_error ( errorType + "\n Error is: " + infoLog  );
             }
         }
+
 
 

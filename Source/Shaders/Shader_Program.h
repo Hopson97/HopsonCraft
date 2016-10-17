@@ -21,8 +21,9 @@ class Shader_Program
 
     protected:
         void loadMatrix4 ( GLuint location, const Matrix4& matrix ) const;
+        void loadVector3 ( GLuint location, const Vector3& vect   ) const;
 
-        void loadInteger ( GLuint location, int data ) const;
+        void loadInteger ( GLuint location, int data   ) const;
         void loadFloat   ( GLuint location, float data ) const;
 
 

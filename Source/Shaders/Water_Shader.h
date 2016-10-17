@@ -12,6 +12,8 @@ class Water_Shader : public Shader_Program
         void loadViewMatrix         ( const Camera&  camera         );
         void loadProjMatrix         ( const Matrix4& projMatrix     );
 
+        void loadSkyColour          ( const Vector3& skyColour      );
+
         void loadTime   ( float time );
 
     private:
@@ -23,7 +25,7 @@ class Water_Shader : public Shader_Program
         GLuint m_locationProjectionMatrix;
 
         GLuint m_timeLocation;
-
+        GLuint m_skyColourLocation;
 };
 
 #endif // WATER_SHADER_H

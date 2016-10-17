@@ -4,12 +4,17 @@ out vec4 color;
 
 in vec2 textureCoords;
 
-uniform sampler2D textureSampler;
+in float vis;
 
-uniform int isLocation;
+uniform sampler2D   textureSampler;
+uniform int         isLocation;
+uniform vec3        skyColour;
 
 void main()
 {
+
+
+
     if ( isLocation == 1 )
     {
         color = texture(textureSampler, textureCoords) * vec4 ( 0.5, 0.5, 0.5, 1);
@@ -26,4 +31,6 @@ void main()
             discard;
         }
     }
+
+    color = mix ( vec4 ( skyColour, 1.0), color, vis );
 }

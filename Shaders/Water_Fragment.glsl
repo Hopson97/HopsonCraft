@@ -3,8 +3,11 @@
 out vec4 color;
 
 in vec2 textureCoords;
+in float vis;
 
 uniform sampler2D textureSampler;
+
+uniform vec3 skyColour;
 
 void main()
 {
@@ -14,4 +17,6 @@ void main()
     {
             discard;
     }
+
+    color = mix ( vec4 ( skyColour, 1.0), color, vis );
 }

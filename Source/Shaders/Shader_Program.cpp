@@ -34,6 +34,11 @@ void Shader_Program :: loadMatrix4 ( GLuint location, const Matrix4& matrix ) co
     glUniformMatrix4fv ( location, 1, GL_FALSE, glm::value_ptr( matrix ) );
 }
 
+void Shader_Program :: loadVector3 ( GLuint location, const Vector3& vect   ) const
+{
+    glUniform3fv ( location, 1, glm::value_ptr( vect ) );
+}
+
 void Shader_Program :: loadInteger (GLuint location, int data ) const
 {
     glUniform1i ( location, data );

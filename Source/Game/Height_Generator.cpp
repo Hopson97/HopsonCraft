@@ -40,9 +40,9 @@ namespace Height_Generator
                 int ocataves,
                 int seed        )
     {
-        gen_amplitude = amplitude;
-        gen_ocataves  = ocataves;
-        gen_roughness = roughness;
+        gen_amplitude = 220;//amplitude;
+        gen_ocataves  = 4;//ocataves;
+        gen_roughness = 0.4;//roughness;
 
         if ( seed == -1 ) {
             setRandSeed();
@@ -78,7 +78,7 @@ namespace Height_Generator
                                             ( z + zOffset ) * frequency ) * amps;
         }
         int ret = total + 20;
-        return ret < Chunk::HEIGHT ? ret : Chunk::HEIGHT - 2;
+        return ret < Chunk::HEIGHT - 3 ? ret : Chunk::HEIGHT - 3;
     }
 
     int getSeed()

@@ -13,6 +13,7 @@ class Chunk_Shader : public Shader_Program
         void loadProjMatrix         ( const Matrix4& projMatrix     );
 
         void loadIsPlayerLocation   ( int isLocation                );
+        void loadSkyColour          ( const Vector3& skyColour      );
 
     private:
         void bindAttibs () override;
@@ -21,6 +22,7 @@ class Chunk_Shader : public Shader_Program
         GLuint m_locationViewMatrix;
         GLuint m_locationModelMatrix;
         GLuint m_locationProjectionMatrix;
+        GLuint m_skyColourLocation;
 
         GLuint m_chunkLocation;
 };

@@ -27,6 +27,11 @@ void Water_Shader :: loadProjMatrix(const Matrix4& projMatrix)
     loadMatrix4( m_locationProjectionMatrix, projMatrix );
 }
 
+void Water_Shader :: loadSkyColour ( const Vector3& skyColour )
+{
+    loadVector3 ( m_skyColourLocation, skyColour );
+}
+
 void Water_Shader :: loadTime ( float time )
 {
     loadFloat( m_timeLocation, time );
@@ -44,6 +49,7 @@ void Water_Shader :: getUniformLocations()
     m_locationModelMatrix       = glGetUniformLocation ( getId(), "modelMatrix"         );
     m_locationProjectionMatrix  = glGetUniformLocation ( getId(), "projectionMatrix"    );
 
-    m_timeLocation  = glGetUniformLocation ( getId(), "time" );
+    m_timeLocation      = glGetUniformLocation ( getId(), "time" );
+    m_skyColourLocation = glGetUniformLocation ( getId(), "skyColour"   );
 
 }

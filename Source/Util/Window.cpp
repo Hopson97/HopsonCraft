@@ -3,6 +3,8 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "../OpenGL/Glew/glew.h"
+#include "D_Settings.h"
+
 
 namespace Window
 {
@@ -42,7 +44,11 @@ namespace Window
     void clear( float r, float g, float b )
     {
         glClear     ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-        glClearColor( r, g, b, 1 );
+        glClearColor(   Settings::SKY_RED,
+                        Settings::SKY_GREEN,
+                        Settings::SKY_BLUE,
+                        1.0
+                    );
     }
 
 
