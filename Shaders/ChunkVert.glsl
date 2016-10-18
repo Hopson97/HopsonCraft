@@ -11,7 +11,7 @@ uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
 
-const float density     = 0.0034;
+const float density     = 0.004;
 const float gradient    = 3.0;
 
 void main()

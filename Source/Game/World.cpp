@@ -35,6 +35,21 @@ World :: ~World ()
 sf::Clock c;
 void World :: update ( float dt )
 {
+    /*
+    struct Ray
+    {
+        float x = 0;
+        float y = 0;
+        float z = 0;
+    } ray;
+
+    for ( int distance = 0; distance < 5 ; distance++ )
+    {
+
+    }
+
+*/
+
     deleteChunks();
     m_player.update( dt );
     updateChunks();
@@ -69,13 +84,17 @@ void World :: deleteChunks   ()
 {
     for ( auto itr = m_chunks.begin() ; itr != m_chunks.end() ; )
     {
-        Chunk& currChunk = *(*itr).second;
+        Chunk* currChunk = (*itr).second.get();
+        if ( !currChunk ) continue;
 
-        if ( currChunk.shouldBeDeleted() )
+        if ( currChunk->shouldBeDeleted() )
         {
             itr = m_chunks.erase( itr );
         }
-        else itr++;
+        else
+        {
+            itr++;
+        }
     }
 }
 
@@ -114,7 +133,7 @@ void World :: manageChunks()
 {
     while ( m_isRunning )
     {
-        RenderArea area;
+        static RenderArea area;
         Vector2i chunkLocation = Maths::worldToChunkLocation( m_player.getPosition() );
         area.minX =  chunkLocation.x - m_loadDistance;
         area.minZ =  chunkLocation.z - m_loadDistance;
@@ -131,6 +150,10 @@ void World :: manageChunks()
         else if ( m_loadDistance > m_renderDistance )
         {
             m_loadDistance = m_renderDistance;
+        }
+        else if ( m_loadDistance == m_renderDistance )
+        {
+            m_loadDistance = 2;
         }
 
         if ( !m_isRunning ) return;
@@ -162,7 +185,11 @@ void World::checkChunks( const RenderArea& area )
 {
     for ( auto& chunkPair : m_chunks )
     {
+        if ( !m_isRunning ) return; //Safety
+
         Chunk& chunk = *chunkPair.second;
+        if ( chunk.shouldBeDeleted() ) continue;
+
         Vector2i loc = chunk.getLocation();
         if ( loc.x < area.minX ||
              loc.x > area.maxX ||

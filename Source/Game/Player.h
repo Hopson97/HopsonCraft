@@ -21,6 +21,7 @@ class Player
 
         const Camera&   getCamera   () const;
         const Vector3&  getPosition () const;
+        const Vector3&  getRotation () const;
 
         constexpr static float ACC = 0.45;
 

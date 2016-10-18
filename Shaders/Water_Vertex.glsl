@@ -15,7 +15,7 @@ uniform mat4 projectionMatrix;
 uniform float time;
 
 //Fog
-const float density     = 0.0034;
+const float density     = 0.004;
 const float gradient    = 3.0;
 
 void makeWaves ( vec4 worldPos )

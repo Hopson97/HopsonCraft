@@ -39,6 +39,11 @@ const Vector3& Player :: getPosition () const
     return m_camera.getPosition();
 }
 
+const Vector3&  Player :: getRotation () const
+{
+    return m_camera.getRotation();
+}
+
 void Player :: input ( float dt )
 {
     if ( m_lockTimer.getElapsedTime().asSeconds() > 3.0 )
