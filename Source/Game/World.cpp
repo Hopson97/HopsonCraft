@@ -133,15 +133,22 @@ void World :: manageChunks()
 {
     while ( m_isRunning )
     {
-        static RenderArea area;
+        static RenderArea loadArea;
+        static RenderArea deleteArea;
+
         Vector2i chunkLocation = Maths::worldToChunkLocation( m_player.getPosition() );
-        area.minX =  chunkLocation.x - m_loadDistance;
-        area.minZ =  chunkLocation.z - m_loadDistance;
 
-        area.maxX =  chunkLocation.x + m_loadDistance;
-        area.maxZ =  chunkLocation.z + m_loadDistance;
+        loadArea.minX =  chunkLocation.x - m_loadDistance;
+        loadArea.minZ =  chunkLocation.z - m_loadDistance;
+        loadArea.maxX =  chunkLocation.x + m_loadDistance;
+        loadArea.maxZ =  chunkLocation.z + m_loadDistance;
 
-        generateChunks( area );
+        deleteArea.minX =  chunkLocation.x - m_renderDistance;
+        deleteArea.minZ =  chunkLocation.z - m_renderDistance;
+        deleteArea.maxX =  chunkLocation.x + m_renderDistance;
+        deleteArea.maxZ =  chunkLocation.z + m_renderDistance;
+
+        generateChunks( loadArea );
 
         if ( m_loadDistance < m_renderDistance )
         {
@@ -158,7 +165,7 @@ void World :: manageChunks()
 
         if ( !m_isRunning ) return;
 
-        checkChunks( area );
+        checkChunks( deleteArea );
     }
 }
 

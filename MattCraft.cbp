@@ -37,8 +37,8 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-fomit-frame-pointer" />
 					<Add option="-O3" />
+					<Add option="-pg" />
 					<Add directory="Source/Util" />
 					<Add directory="Source/Model" />
 					<Add directory="Source" />
@@ -48,7 +48,7 @@
 					<Add directory="Source/Shaders" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
+					<Add option="-pg -lgmon" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-audio" />
