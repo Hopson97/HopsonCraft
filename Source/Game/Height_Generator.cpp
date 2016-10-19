@@ -42,7 +42,7 @@ namespace Height_Generator
     {
         gen_amplitude = 240;//amplitude;
         gen_ocataves  = 4;//ocataves;
-        gen_roughness = 0.45;//roughness;
+        gen_roughness = 0.4;//roughness;
 
         if ( seed == -1 ) {
             setRandSeed();

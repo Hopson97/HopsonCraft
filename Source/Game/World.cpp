@@ -14,7 +14,7 @@
 #include <iostream>
 
 World::World()
-:   m_blockAtlas    ( 512, 16, "Blocks" )
+:   m_blockAtlas    ( 512, 16, "Blocks_det" )
 ,   m_player        ( m_chunks )
 {
     sf::Clock clock;

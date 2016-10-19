@@ -10,7 +10,7 @@ Player :: Player( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap )
 :   m_p_chunks      ( &chunkMap )
 ,   m_bottomAABB    ( { 0.3, 0, 0.3 } )
 {
-    m_camera.movePosition( { 0,  Chunk::WATER_LEVEL + 7, 0 } );
+    m_camera.movePosition( { 0,  Chunk::WATER_LEVEL + 25, 0 } );
 }
 
 void Player :: update ( float dt )

@@ -43,5 +43,5 @@ void main()
 
     calculateFog( vertRelToCamera );
 
-    gl_Position.y -= (vertRelToCamera.z * vertRelToCamera.z) / 1000;
+    //gl_Position.y -= (vertRelToCamera.z * vertRelToCamera.z) / 1000;
 }

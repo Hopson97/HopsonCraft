@@ -31,5 +31,5 @@ void main()
 
 
     textureCoords = texturePosition;
-        gl_Position.y -= (vertRelToCamera.z * vertRelToCamera.z) / 1000;
+        //gl_Position.y -= (vertRelToCamera.z * vertRelToCamera.z) / 1000;
 }
