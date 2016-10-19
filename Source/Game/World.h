@@ -44,7 +44,7 @@ class World
 
         bool m_isRunning = true;
 
-        int m_renderDistance    = 16;
+        int m_renderDistance    = 15;
         int m_loadDistance      = 2;
 };
 

@@ -11,8 +11,15 @@ uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
 
-const float density     = 0.004;
+const float density     = 0.0037;
 const float gradient    = 3.0;
+
+void calculateFog ( vec4 vertRelToCamera )
+{
+    float dist = length ( vertRelToCamera.xyz );
+    vis = exp( -pow ( dist * density , gradient ) );
+    vis = clamp ( vis, 0.0, 1.0 );
+}
 
 void main()
 {
@@ -20,11 +27,9 @@ void main()
     vec4 vertRelToCamera = viewMatrix * worldPosition;
     gl_Position = projectionMatrix * vertRelToCamera;
 
-    //Fog calculations
-    float dist = length ( vertRelToCamera.xyz );
-    vis = exp( -pow ( dist * density , gradient ) );
-    vis = clamp ( vis, 0.0, 1.0 );
+    calculateFog( vertRelToCamera );
 
 
     textureCoords = texturePosition;
+        gl_Position.y -= (vertRelToCamera.z * vertRelToCamera.z) / 1000;
 }

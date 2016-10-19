@@ -14,16 +14,17 @@
 
 namespace
 {
-    void getWorldData ();
+    //void getWorldData ();
     void setConsoleLocation();
 }
+
 
 int main()
 {
     srand ( time ( nullptr ) );
-    getWorldData();
-    setConsoleLocation();
+    Height_Generator::setUp();
 
+    setConsoleLocation();
     Window::create( "MattCraft (" + std::to_string ( Window::WIDTH ) + " x " + std::to_string ( Window::HEIGHT) + ")" );
     Window::setToFullScreen();
     Application app;
@@ -35,6 +36,7 @@ int main()
 
 namespace
 {
+/*
     void randomWorldData()
     {
         std::cout << "Generating random data. \n";
@@ -89,13 +91,13 @@ namespace
         }
 
     }
-
+*/
     void setConsoleLocation()
     {
         #ifdef __WIN32
             int consoleWidth = 500;
             HWND console = GetConsoleWindow();
-            MoveWindow(console, Window::WIDTH - 250, 0, consoleWidth, Window::HEIGHT, TRUE);
+            MoveWindow(console, -500, 0, consoleWidth, Window::HEIGHT, TRUE);
         #endif // __WIN32
     }
 }

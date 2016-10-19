@@ -16,12 +16,7 @@ namespace Window
         {
             glewInit();
             glewExperimental = GL_TRUE;
-
-            glViewport  ( 0, 0, WIDTH, HEIGHT );
             glEnable    ( GL_DEPTH_TEST );
-
-            //glPolygonMode(GL_FRONT, GL_LINE);
-            //glPolygonMode(GL_BACK, GL_LINE);
         }
     }
 
@@ -34,11 +29,16 @@ namespace Window
         settings.majorVersion = 3;
         settings.minorVersion = 0;
 
-        m_window = std::make_unique<sf::RenderWindow>( sf::VideoMode ( WIDTH, HEIGHT ), name, sf::Style::Close, settings );
+        sf::VideoMode m( sf::VideoMode::getDesktopMode() );
+        m_window = std::make_unique<sf::RenderWindow>( sf::VideoMode ( m.width, m.height ), name, sf::Style::Fullscreen, settings );
         m_window->setMouseCursorVisible( false );
         m_window->setPosition ( { 0, 0 } );
 
+
+
         initGL();
+
+        glViewport( 0, 0, m.width, m.height );
     }
 
     void clear( float r, float g, float b )
@@ -100,9 +100,7 @@ namespace Window
 
     void setToFullScreen ()
     {
-        sf::VideoMode m( sf::VideoMode::getDesktopMode() );
-        m_window->setSize ( { m.width, m.height } );
-        glViewport( 0, 0, m.width, m.height );
+
     }
 
     float getAspect()
