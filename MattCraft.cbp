@@ -143,6 +143,8 @@
 		<Unit filename="Source/Util/Random.h" />
 		<Unit filename="Source/Util/Shader_Loader.cpp" />
 		<Unit filename="Source/Util/Shader_Loader.h" />
+		<Unit filename="Source/Util/Toggle_Key.cpp" />
+		<Unit filename="Source/Util/Toggle_Key.h" />
 		<Unit filename="Source/Util/Vector.cpp" />
 		<Unit filename="Source/Util/Vector.h" />
 		<Unit filename="Source/Util/Viewing_Frustum.cpp" />

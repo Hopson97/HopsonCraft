@@ -9,6 +9,7 @@
 #include "Chunk/Chunk.h"
 #include "AABB.h"
 #include "Vector.h"
+#include "Toggle_Key.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -23,7 +24,7 @@ class Player
         const Vector3&  getPosition () const;
         const Vector3&  getRotation () const;
 
-        constexpr static float ACC = 0.45;
+        constexpr static float ACC = 0.3;
 
     private:
         void input              ( float dt );
@@ -43,10 +44,10 @@ class Player
 
         Camera m_camera;
 
-        sf::Clock m_lockTimer;
-        sf::Clock m_flightTimer;
         bool m_isLocked     = false;
         bool m_isFlyMode    = true;
+
+        std::vector<Toggle_Key> m_toggles;
 };
 
 #endif // PLAYER_H

@@ -11,6 +11,9 @@ Player :: Player( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap )
 ,   m_bottomAABB    ( { 0.3, 0, 0.3 } )
 {
     m_camera.movePosition( { 0,  Chunk::WATER_LEVEL + 25, 0 } );
+
+    m_toggles.emplace_back( [&]() { m_isLocked  = !m_isLocked;  }, sf::Keyboard::L, 3.0f );
+    m_toggles.emplace_back( [&]() { m_isFlyMode = !m_isFlyMode; }, sf::Keyboard::F, 1.0f );
 }
 
 void Player :: update ( float dt )
@@ -46,22 +49,9 @@ const Vector3&  Player :: getRotation () const
 
 void Player :: input ( float dt )
 {
-    if ( m_lockTimer.getElapsedTime().asSeconds() > 3.0 )
+    for ( auto& toggle : m_toggles )
     {
-        if ( sf::Keyboard::isKeyPressed( sf::Keyboard::L ))
-        {
-            m_isLocked = !m_isLocked;
-            m_lockTimer.restart();
-        }
-    }
-
-    if ( m_flightTimer.getElapsedTime().asSeconds() > 0.3 )
-    {
-        if ( sf::Keyboard::isKeyPressed( sf::Keyboard::F ))
-        {
-            m_isFlyMode = !m_isFlyMode;
-            m_flightTimer.restart();
-        }
+        toggle.checkInput();
     }
 
     Vector3 velocityChange;
