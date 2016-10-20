@@ -4,6 +4,8 @@
 
 namespace Height_Generator
 {
+    double simplex ( int x, int y, int gridX, int gridY );
+
     void setUp( double amplitude    = 100,           //Higher = Higer
                 double roughness    = 0.3,  //Lower  = smoother
                 int ocataves        = 3,    //Higher = Smoother

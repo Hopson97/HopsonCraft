@@ -94,6 +94,7 @@ namespace
 */
     void setConsoleLocation()
     {
+
         #ifdef __WIN32
             int consoleWidth = 500;
             HWND console = GetConsoleWindow();

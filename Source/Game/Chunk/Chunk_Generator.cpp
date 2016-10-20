@@ -28,10 +28,12 @@ void Chunk :: generateBlockData()
     {
         for ( int z = 0 ; z < WIDTH ; z++ )
         {
-            m_heightMap.push_back ( Height_Generator::getHeight ( x,
-                                    z,
-                                    m_location.x,
-                                    m_location.z ) );
+            m_heightMap.push_back ( Height_Generator::getHeight
+                                   (    x,
+                                        z,
+                                        m_location.x,
+                                        m_location.z )
+                                   );
         }
     }
 
