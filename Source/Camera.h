@@ -10,18 +10,17 @@ class Camera
         const Vector3& getPosition () const;
         const Vector3& getRotation () const;
 
-        void movePosition ( const Vector3& position );
+        void movePosition (const Vector3& position);
 
-        void move ( float dt );
+        void move (float dt);
         void update ();
-
-
 
     private:
         Vector3 m_position;
-        Vector3 m_rotation = { 90, 0, 0 };
+        Vector3 m_rotation;
 
         sf::Vector2i m_lastMosuePos;
 };
+
 
 #endif // CAMERA_H

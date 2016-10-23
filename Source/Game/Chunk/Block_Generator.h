@@ -1,9 +1,0 @@
-#ifndef BLOCK_GENERATOR_H_INCLUDED
-#define BLOCK_GENERATOR_H_INCLUDED
-
-class Block_Generator
-{
-
-};
-
-#endif // BLOCK_GENERATOR_H_INCLUDED

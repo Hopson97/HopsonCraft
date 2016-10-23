@@ -1,21 +1,15 @@
 #include "Camera.h"
-
-#include <iostream>
-
-#include "Window.h"
+#include "Display.h"
 
 void Camera :: update ()
 {
-    sf::Vector2i mouseMove = m_lastMosuePos - sf::Mouse::getPosition( Window::get() );
+    sf::Vector2i mouseMove = m_lastMosuePos - sf::Mouse::getPosition(Display::get());
 
-    m_rotation.y -= mouseMove.x;
-    m_rotation.x -= mouseMove.y;
+    m_rotation.y -= mouseMove.x;    //Remember the Y-Axis is Up and Down so rotating around it would be Left-Right
+    m_rotation.x -= mouseMove.y;    //Hence the kind of inversion here
 
-    m_lastMosuePos = sf::Mouse::getPosition( Window::get() );
-/*
-    sf::Mouse::setPosition( { Window::WIDTH / 2, Window::HEIGHT / 2 },
-                              Window::get() );
-*/
+    m_lastMosuePos = sf::Mouse::getPosition(Display::get());
+
     if ( m_rotation.x > 80 ) m_rotation.x = 80;
     else if ( m_rotation.x < -80 ) m_rotation.x = -80;
 }

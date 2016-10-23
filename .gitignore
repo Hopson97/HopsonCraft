@@ -1,23 +1,13 @@
-# Created by https://www.gitignore.io/api/codeblocks
 
 ### CodeBlocks ###
 # specific to CodeBlocks IDE
+*.cbp
 *.layout
 *.depend
-#*.cbp
 
 # generated directories
 bin/
 obj/
-MattCraft/
 
-#SFML Stuff
+
 *.dll
-*.zip
-*.7z
-Project/
-
-#OpenGL Files
-glew.c
-wglew.h
-glew.h
