@@ -9,6 +9,7 @@
 class Player
 {
     public:
+        void input  ();
         void update (float dt);
 
         const Camera&   getCamera   () const;
@@ -18,7 +19,7 @@ class Player
         constexpr static float ACC = 0.3;
 
     private:
-        void input              (float dt);
+
 
         Vector3 m_velocity;
 

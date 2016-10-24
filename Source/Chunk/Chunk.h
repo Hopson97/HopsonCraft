@@ -4,16 +4,18 @@
 #include "Block.h"
 #include "Chunk_Layer.h"
 #include "Chunk_Mesh.h"
+#include "Chunk_Position.h"
 
 #include <vector>
 #include <unordered_map>
 
 class Texture_Atlas;
+class Chunk_Map;
 
 class Chunk
 {
     public:
-        Chunk(const Texture_Atlas& blockAtlas);
+        Chunk(const Chunk_Position& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas);
 
         const Block::Block_Base& getBlock(int x, int y, int z) const;
 
@@ -29,7 +31,10 @@ class Chunk
         void addLayer();
 
     private:
-        const Texture_Atlas* m_p_atlas;
+        const Chunk_Position   m_location;
+        const Vector2          m_glPosition;
+        const Chunk_Map*       m_p_chunkMap;
+        const Texture_Atlas*   m_p_atlas;
 
         std::vector<Chunk_Layer> m_layers; //Like an onion
 

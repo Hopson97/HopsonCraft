@@ -2,6 +2,7 @@
 #define PLAYING_STATE_H
 
 #include "Game_State.h"
+#include "Player.h"
 
 class Application;
 
@@ -16,8 +17,9 @@ namespace State
             void update (float dt) override;
             void draw   (float dt) override;
 
-        protected:
-            Application* m_application; //fuck da police
+        private:
+            Application* m_application;
+            Player m_player;
     };
 }
 

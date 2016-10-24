@@ -8,12 +8,12 @@ namespace State
 
     void Playing_State::input  (float dt)
     {
-
+        m_player.input();
     }
 
     void Playing_State::update (float dt)
     {
-
+        m_player.update(dt);
     }
 
     void Playing_State::draw   (float dt)

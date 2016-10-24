@@ -12,8 +12,8 @@ struct Chunk_Position
         int x = 0;
         int z = 0;
 
-        bool operator == (const Chunk_Position& other);
-        bool operator != (const Chunk_Position& other);
+        bool operator == (const Chunk_Position& other) const;
+        bool operator != (const Chunk_Position& other) const;
 
 };
 
@@ -33,7 +33,7 @@ namespace std
             return key;
         }
 
-        size_t operator () (const Chunk_Position& position)
+        size_t operator () (const Chunk_Position& position) const
         {
             auto h1 = std::hash<int>{}(hashInt(position.x));
             auto h2 = std::hash<int>{}(hashInt(position.z));

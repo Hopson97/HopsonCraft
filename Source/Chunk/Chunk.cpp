@@ -2,11 +2,15 @@
 
 #include "D_Blocks.h"
 #include "Texture.h"
+#include "Chunk_Map.h"
 
-Chunk::Chunk(const Texture_Atlas& blockAtlas)
-:   m_p_atlas   (&blockAtlas)
-,   m_layers    (SIZE * SIZE)
-,   m_mesh      (*this, m_layers)
+Chunk::Chunk(const Chunk_Position& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas)
+:   m_location      (position)
+,   m_glPosition    (position.x * SIZE, position.z * SIZE)
+,   m_p_chunkMap    (&chunkMap)
+,   m_p_atlas       (&blockAtlas)
+,   m_layers        (SIZE * SIZE)
+,   m_mesh          (*this, m_layers)
 {
 
 }
@@ -43,13 +47,15 @@ void Chunk::draw()
     m_mesh.draw();
 }
 
-
-
 const Block::Block_Base& Chunk::getBlock(int x, int y, int z) const
 {
-    if ( y == -1 || y > m_layers.size() -1 ) {
+    if ((unsigned)y > m_layers.size() - 1) {
+        return Block::grass;
+    }
+    else if ( y < 0) {
         return Block::air;
     }
+
     if (x == SIZE) {
         return Block::air;
     }

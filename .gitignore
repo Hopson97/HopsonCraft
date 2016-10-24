@@ -11,3 +11,8 @@ obj/
 
 
 *.dll
+*.zip
+*.7z
+*.txt
+
+MattCraft/

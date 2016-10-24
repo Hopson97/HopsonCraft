@@ -82,9 +82,6 @@ void Application::runMainLoop()
 
     sf::Clock dtClock;
 
-    Model rel (tempVertexCoords, tempTextureCoords);
-    Texture relT ("cow");
-
     shader.loadMatrix4(glGetUniformLocation(shader.m_shaderProgram, "projectionMatrix"),
                        Maths::createPerspectiveMatrix());
 
@@ -106,10 +103,6 @@ void Application::runMainLoop()
         chunk.bind();
 
         chunk.draw();
-
-        relT.bind();
-        rel.bind();
-        glDrawArrays(GL_TRIANGLES, 0, rel.getVertexCount());
 
 
         Display::update();
