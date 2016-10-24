@@ -29,6 +29,12 @@ namespace Shader
         glUseProgram (m_shaderProgram);
     }
 
+    GLuint Shader_Program::getId() const
+    {
+        return m_shaderProgram;
+    }
+
+
     void Shader_Program::loadMatrix4(GLuint location, const Matrix4& matrix) const
     {
         glUniformMatrix4fv (location, 1, GL_FALSE, glm::value_ptr(matrix));
@@ -47,5 +53,10 @@ namespace Shader
     void Shader_Program::loadFloat(GLuint location, float data) const
     {
         glUniform1f (location, data);
+    }
+
+    void Shader_Program::bindAttribute(GLuint location, const std::string& name)
+    {
+        glBindAttribLocation(m_shaderProgram, location, name.c_str());
     }
 } //Namespace Shader

@@ -26,7 +26,6 @@ class Chunk_Map
     private:
         std::unordered_map<Chunk_Position, std::unique_ptr<Chunk>> m_chunks;
         Texture_Atlas m_blockTextures;
-        Shader::Shader_Program shader;
 };
 
 #endif // CHUNK_MAP_H

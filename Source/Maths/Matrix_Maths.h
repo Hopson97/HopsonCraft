@@ -9,9 +9,9 @@ namespace Maths
 {
     Matrix4 createViewMatrix (const Camera& camera);
 
-    Matrix4 createTransforrmationMatrix(const Vector3& translation,
-                                        const Vector3& rotation,
-                                        const Vector3& scale);
+    Matrix4 createModelMatrix(const Vector3& translation,
+                              const Vector3& rotation,
+                              const Vector3& scale);
 
     Matrix4 createPerspectiveMatrix ();
 }

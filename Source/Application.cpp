@@ -65,53 +65,6 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
     m_stateStack.push(std::move(state));
 }
 
-
-/*
-void Application::runMainLoop()
-{
-    Shader::Shader_Program shader ("Basic_Vertex_Shader", "Basic_Fragment_Shader");
-
-    shader.useProgram();
-    Texture_Atlas atlas("Block_Texture_Atlas", 1024, 32);
-
-    Chunk chunk(atlas);
-    chunk.setBlockData();
-    chunk.bufferMesh();
-
-    Player player;
-
-    sf::Clock dtClock;
-
-    shader.loadMatrix4(glGetUniformLocation(shader.m_shaderProgram, "projectionMatrix"),
-                       Maths::createPerspectiveMatrix());
-
-    while (Display::isOpen()) {
-        auto dt = dtClock.restart().asSeconds();
-        Display::clear();
-
-        player.update(dt);
-        atlas.bind();
-
-
-        shader.loadMatrix4(glGetUniformLocation(shader.m_shaderProgram, "viewMatrix"),
-                           Maths::createViewMatrix(player.getCamera()));
-
-        shader.loadMatrix4(glGetUniformLocation(shader.m_shaderProgram, "modelMatrix"),
-                           Maths::createTransforrmationMatrix({0,0,-5},
-                                                              {0,0,0},
-                                                              {1, 1, 1}));
-        chunk.bind();
-
-        chunk.draw();
-
-
-        Display::update();
-        checkFps();
-        Display::checkForClose();
-    }
-}
-*/
-
 namespace
 {
     void checkFps ()

@@ -1,10 +1,10 @@
 #include "Chunk_Map.h"
 
-#include "Matrix_Math.h"
+#include "Maths/Matrix_Maths.h"
 
 Chunk_Map::Chunk_Map()
 :   m_blockTextures ("Block_Texture_Atlas", 1024, 32)
-,   shader     ("Basic_Vertex_Shader", "Basic_Fragment_Shader")
+//,   shader     ("Basic_Vertex_Shader", "Basic_Fragment_Shader")
 {
     int testSize = 8;
     for (int x = 0 ; x < testSize ; x++) {
@@ -12,10 +12,6 @@ Chunk_Map::Chunk_Map()
             addChunk({x, z});
         }
     }
-
-    shader.useProgram();
-    shader.loadMatrix4(glGetUniformLocation(shader.m_shaderProgram, "projectionMatrix"),
-                       Maths::createPerspectiveMatrix());
 }
 
 Chunk* Chunk_Map::getChunkAt (const Chunk_Position& location)
