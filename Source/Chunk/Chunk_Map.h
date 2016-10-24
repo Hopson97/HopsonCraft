@@ -8,7 +8,10 @@
 #include "Chunk.h"
 #include "Texture.h"
 #include "Shader.h"
-#include "Camera.h"
+
+#include "Chunk_Ground_Renderer.h"
+
+class Camera;
 
 class Chunk_Map
 {
@@ -25,7 +28,9 @@ class Chunk_Map
 
     private:
         std::unordered_map<Chunk_Position, std::unique_ptr<Chunk>> m_chunks;
-        Texture_Atlas m_blockTextures;
+
+        Texture_Atlas           m_blockTextures;
+        Chunk_Ground_Renderer   m_renderer;
 };
 
 #endif // CHUNK_MAP_H

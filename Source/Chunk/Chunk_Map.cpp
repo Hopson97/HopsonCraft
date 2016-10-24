@@ -1,16 +1,20 @@
 #include "Chunk_Map.h"
 
 #include "Maths/Matrix_Maths.h"
+#include "Camera.h"
 
 Chunk_Map::Chunk_Map()
 :   m_blockTextures ("Block_Texture_Atlas", 1024, 32)
-//,   shader     ("Basic_Vertex_Shader", "Basic_Fragment_Shader")
 {
     int testSize = 8;
     for (int x = 0 ; x < testSize ; x++) {
         for (int z = 0 ; z < testSize ; z++) {
             addChunk({x, z});
         }
+    }
+    for (auto& chunk : m_chunks) {
+        chunk.second->generateMesh();
+        chunk.second->bufferMesh();
     }
 }
 
@@ -32,7 +36,10 @@ void Chunk_Map::addChunk(const Chunk_Position& location)
 
 void Chunk_Map::draw(const Camera& camera)
 {
-
+    for (auto& chunk : m_chunks) {
+        m_renderer.processChunk(*chunk.second.get());
+    }
+    m_renderer.render(camera);
 }
 
 void Chunk_Map::mangageChunk()

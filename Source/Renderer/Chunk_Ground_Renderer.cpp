@@ -24,11 +24,11 @@ void Chunk_Ground_Renderer::render (const Camera& camera)
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
 
-    for(auto& chunk : m_chunks)
-    {
+    for(auto& chunk : m_chunks) {
         prepareChunk(*chunk);
         glDrawArrays(GL_TRIANGLES, 0, chunk->getMesh().getSolidPart().model.getVertexCount());
     }
+    m_chunks.clear();
 }
 
 

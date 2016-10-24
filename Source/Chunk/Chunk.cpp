@@ -12,10 +12,10 @@ Chunk::Chunk(const Chunk_Position& position, Chunk_Map& chunkMap, const Texture_
 ,   m_glPosition    (position.x * SIZE, 0, position.z * SIZE)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_p_atlas       (&blockAtlas)
-,   m_layers        (Random::integer(5, 1000))
+,   m_layers        (Random::integer(5, 6))
 ,   m_mesh          (*this, m_layers)
 {
-
+    setBlockData();
 }
 
 const Texture_Atlas& Chunk::getAtlas() const
