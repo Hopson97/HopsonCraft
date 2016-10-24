@@ -18,6 +18,6 @@ namespace State
 
     void Playing_State::draw   (float dt)
     {
-
+        m_chunkMap.draw(m_player.getCamera());
     }
 }

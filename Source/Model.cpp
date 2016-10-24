@@ -15,8 +15,7 @@ Model::~Model()
 
 void Model::create(const std::vector<GLfloat>& vertexCoords, const std::vector<GLfloat>& textureCoords)
 {
-    //deleteObjects();
-    std::cout << "Creating model..." << std::endl;
+    deleteObjects();
     glGenVertexArrays   (1, &m_vao);
     glBindVertexArray   (m_vao);
 
@@ -42,7 +41,6 @@ void Model::createVBO (GLuint& vbo, GLuint location, GLuint vertexSize, const st
 
 void Model::deleteObjects()
 {
-    std::cout << "Deleting model!" << std::endl;
     glDeleteBuffers     (1, &m_vertexCoords);
     glDeleteBuffers     (1, &m_textureCoords);
     glDeleteVertexArrays(1, &m_vao);

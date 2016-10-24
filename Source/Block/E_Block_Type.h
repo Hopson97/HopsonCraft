@@ -6,7 +6,9 @@ namespace Block
     enum class Id
     {
         Air,
-        Grass
+        Grass,
+        Dirt,
+        Stone
     };
 }
 

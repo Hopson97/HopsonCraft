@@ -14,7 +14,6 @@ namespace Shader
 
     Shader_Program::~Shader_Program()
     {
-        std::cout << "Deleting Shader!" << std::endl;
         glDeleteProgram (m_shaderProgram);
         m_shaderProgram = 0;
     }

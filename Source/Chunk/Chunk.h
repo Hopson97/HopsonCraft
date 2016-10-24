@@ -21,20 +21,23 @@ class Chunk
 
         const Texture_Atlas& getAtlas () const;
 
-        void setBlockData ();
+        const Chunk_Mesh& getMesh () const;
+
+        void generateMesh ();
         void bufferMesh   ();
 
-        void bind();
-        void draw();
+        const Vector3& getGlPosition() const;
 
     private://Functions
         void addLayer();
+        void setBlockData ();
 
     private:
-        const Chunk_Position   m_location;
-        const Vector2          m_glPosition;
-        const Chunk_Map*       m_p_chunkMap;
-        const Texture_Atlas*   m_p_atlas;
+        const Chunk_Position    m_location;
+        const Vector3           m_glPosition;
+
+        Chunk_Map*              m_p_chunkMap;
+        const Texture_Atlas*    m_p_atlas;
 
         std::vector<Chunk_Layer> m_layers; //Like an onion
 

@@ -3,6 +3,7 @@
 
 #include "Game_State.h"
 #include "Player.h"
+#include "Chunk_Map.h"
 
 class Application;
 
@@ -18,8 +19,8 @@ namespace State
             void draw   (float dt) override;
 
         private:
-            Application* m_application;
-            Player m_player;
+            Player          m_player;
+            Chunk_Map       m_chunkMap;
     };
 }
 

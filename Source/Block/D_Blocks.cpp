@@ -2,6 +2,8 @@
 
 namespace Block
 {
-    Block::Air air;
-    Block::Grass grass;
+    Block::Air      air;
+    Block::Grass    grass;
+    Block::Dirt     dirt;
+    Block::Stone    stone;
 }

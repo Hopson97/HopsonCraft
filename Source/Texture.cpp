@@ -60,16 +60,16 @@ Texture_Atlas::Texture_Atlas(const std::string& textureFileName, size_t imageSiz
 std::vector<GLfloat> Texture_Atlas::getTextureCoords(const Vector2& location) const
 {
     static size_t texturesPerRow  = m_imageSize / m_textureSize;
-    static float  unitSize        = 1.0f / (float)texturesPerRow; //The size of a single texture in normalised GL coord system
-    static float  pixelSize       = 1.0f / m_imageSize;
+    static double  unitSize        = 1.0f /  (double) texturesPerRow; //The size of a single texture in normalised GL coord system
+    static double  pixelSize       = (1.0f / (double) m_imageSize);
 
     //Get the coords of the texture in the image in terms of GL UV coords where the bottom left
     //of an image is (0, 0) and the top right is (1, 1).
-    float xMin = location.x * unitSize + pixelSize;
-    float xMax = xMin       + unitSize - pixelSize;
+    double xMin = location.x * unitSize + pixelSize;
+    double xMax = xMin       + unitSize - pixelSize;
 
-    float yMin = location.y * unitSize + pixelSize;
-    float yMax = yMin       + unitSize - pixelSize;
+    double yMin = location.y * unitSize + pixelSize;
+    double yMax = yMin       + unitSize - pixelSize;
 
     return
     {
