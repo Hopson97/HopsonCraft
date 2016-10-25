@@ -38,4 +38,13 @@ namespace Maths
         return  {(int)std::floor( worldPosition.x / Chunk::SIZE),
                  (int)std::floor( worldPosition.z / Chunk::SIZE)};
     }
+
+    unsigned getChunkDistance(const Chunk_Location& l1, const Chunk_Location& l2)
+    {
+        auto dx = std::abs(l1.x - l2.x);
+        auto dz = std::abs(l1.z - l2.z);
+
+        return std::sqrt(dx * dx + dz * dz );
+    }
+
 }

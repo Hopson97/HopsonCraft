@@ -124,7 +124,7 @@ struct RenderArea
 
 void Chunk_Map :: manageChunks()
 {
-    while ( m_isRunning )
+    while (m_isRunning)
     {
         static RenderArea loadArea;
         static RenderArea deleteArea;
@@ -136,16 +136,20 @@ void Chunk_Map :: manageChunks()
 
         generateChunks( loadArea );
 
-        if ( m_loadingDistance < m_renderDistance )
+        if (m_loadingDistance < m_renderDistance)
         {
             m_loadingDistance++;
         }
-        else if ( m_loadingDistance > m_renderDistance )
+        else if  (m_loadingDistance > m_renderDistance)
         {
             m_loadingDistance = m_renderDistance;
         }
+        else if (m_loadingDistance == m_renderDistance)
+        {
+            m_loadingDistance = 2;
+        }
 
-        if ( !m_isRunning ) return;
+        if (!m_isRunning) return;
 
         deleteArea.minX =  m_playerPosition->x - m_renderDistance;
         deleteArea.minZ =  m_playerPosition->z - m_renderDistance;
@@ -156,47 +160,51 @@ void Chunk_Map :: manageChunks()
     }
 }
 
-void Chunk_Map :: generateChunks ( const RenderArea& area )
+void Chunk_Map :: generateChunks (const RenderArea& area)
 {
     std::vector<std::unique_ptr<std::thread>> threads;
 
-    for ( int x = area.minX ; x < area.maxX ; x++ )
+    for (int x = area.minX ; x < area.maxX ; x++)
     {
-        for ( int z = area.minZ ; z < area.maxZ ; z++ )
+        for (int z = area.minZ ; z < area.maxZ ; z++)
         {
-            if ( !m_isRunning ) return; //Safety
-            if ( m_chunks.find( { x, z } ) == m_chunks.end() )
+            if (!m_isRunning ) return; //Safety
+            if (m_chunks.find( { x, z } ) == m_chunks.end())
             {
-                threads.emplace_back( std::make_unique<std::thread>(&Chunk_Map::addChunk, this, Chunk_Location(x, z) ) );
+                threads.emplace_back(std::make_unique<std::thread>(&Chunk_Map::addChunk, this, Chunk_Location(x, z)));
             }
         }
-        for ( auto& thread : threads ) thread->join();
+        for (auto& thread : threads) thread->join();
         threads.clear();
     }
 }
 
 void Chunk_Map::checkChunks( const RenderArea& area )
 {
-    for ( auto& chunkPair : m_chunks )
+    for (auto& chunkPair : m_chunks)
     {
-        if ( !m_isRunning ) return; //Safety
+        if (!m_isRunning) return; //Safety
 
         Chunk& chunk = *chunkPair.second;
-        if ( chunk.hasDeleteFlag() ) continue;
+        if (chunk.hasDeleteFlag()) continue;
 
         Chunk_Location loc = chunk.getLocation();
-        if ( loc.x < area.minX ||
-             loc.x > area.maxX ||
-             loc.z < area.minZ ||
-             loc.z > area.maxZ )
+        if (loc.x < area.minX ||
+            loc.x > area.maxX ||
+            loc.z < area.minZ ||
+            loc.z > area.maxZ)
         {
             chunk.setToDelete();
         }
         else
         {
-            if ( !chunk.hasVertexData() && chunk.hasBlockData() )
+            if (!chunk.hasVertexData() && chunk.hasBlockData())
             {
                 chunk.generateMesh();
+                if (Maths::getChunkDistance(chunk.getLocation(), *m_playerPosition) < (unsigned)m_renderDistance/ 2)
+                {
+                    m_loadingDistance = 1;
+                }
             }
         }
     }
