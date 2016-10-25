@@ -6,7 +6,7 @@
 
 void Camera :: update ()
 {
-    sf::Vector2i mouseMove = m_lastMosuePos - sf::Mouse::getPosition( Display::get() );
+    sf::Vector2i mouseMove = m_lastMosuePos - sf::Mouse::getPosition(Display::get());
 
     m_rotation.y -= mouseMove.x;
     m_rotation.x -= mouseMove.y;
@@ -16,8 +16,8 @@ void Camera :: update ()
     sf::Mouse::setPosition( { Display::WIDTH / 2, Display::HEIGHT / 2 },
                               Display::get() );
 */
-    if ( m_rotation.x > 80 ) m_rotation.x = 80;
-    else if ( m_rotation.x < -80 ) m_rotation.x = -80;
+    if (m_rotation.x > 80) m_rotation.x = 80;
+    else if ( m_rotation.x < -80) m_rotation.x = -80;
 }
 
 const Vector3& Camera :: getPosition() const
