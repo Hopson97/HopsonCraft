@@ -91,9 +91,9 @@ class Chunk
         Chunk_Location m_location; //Map coords
         Vector2  m_position; //GL coords
 
-        const Texture_Atlas* m_p_atlas;
+        Chunk_Map* m_p_chunkMap;
 
-        World* m_p_world;
+        const Texture_Atlas* m_p_atlas;
 
         bool m_hasBlockData     = false;
         bool m_hasVertexData    = false;
@@ -104,7 +104,6 @@ class Chunk
         Chunk_Part m_waterPart;
         Chunk_Part& getPart ( const Block_t& block );
 
-        Chunk_Map* m_p_chunkMap;
 
     public:
         static constexpr int SIZE  = 24,

@@ -1,31 +1,36 @@
 #ifndef WATER_SHADER_H
 #define WATER_SHADER_H
 
-#include "Shader_Program.h"
+#include "Shader.h"
 
-class Water_Shader : public Shader_Program
+class Camera;
+
+namespace Shader
 {
-    public:
-        Water_Shader();
+    class Water_Shader : public Shader_Program
+    {
+        public:
+            Water_Shader();
 
-        void loadModelMatrix        ( const Matrix4& modelMatrix    );
-        void loadViewMatrix         ( const Camera&  camera         );
-        void loadProjMatrix         ( const Matrix4& projMatrix     );
+            void loadCameraMatrix   (const Camera& camera);
+            void loadChunkMatrix    (const Matrix4& matrix);
+            void loadSkyColour      ( const Vector3& skyColour );
+            void loadTime           (float time);
 
-        void loadSkyColour          ( const Vector3& skyColour      );
 
-        void loadTime   ( float time );
+        private:
+            void bindAttributes     () override;
+            void getUniformLocations() override;
 
-    private:
-        void bindAttibs () override;
-        void getUniformLocations () override;
 
-        GLuint m_locationViewMatrix;
-        GLuint m_locationModelMatrix;
-        GLuint m_locationProjectionMatrix;
+            GLuint m_locationViewMatrix;
+            GLuint m_locationModelMatrix;
+            GLuint m_locationProjectionMatrix;
 
-        GLuint m_timeLocation;
-        GLuint m_skyColourLocation;
-};
+            GLuint m_timeLocation;
+            GLuint m_skyColourLocation;
+    };
+}
+
 
 #endif // WATER_SHADER_H

@@ -14,10 +14,10 @@ class Application
         void runMainLoop();
 
         void pushState  (std::unique_ptr<State::Game_State> state);
+        void popState   ();
 
     private:
         std::stack<std::unique_ptr<State::Game_State>> m_stateStack;
-
 };
 
 #endif // APPLICATION_H

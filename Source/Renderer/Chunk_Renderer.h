@@ -22,7 +22,7 @@ class Chunk_Renderer
     private:
         void prepareChunk   (const Chunk& chunk);
 
-        Chunk_Shader m_shader;
+        Shader::Ground_Chunk_Shader m_shader;
 
         std::vector<const Chunk*> m_chunks;
 };

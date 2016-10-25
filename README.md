@@ -1,6 +1,8 @@
 # MattCraft
 
-A minecraft clone written using C++, SFML, OpenGL and GLEW. (Uses modern C++ and OpenGL)
+A minecraft clone written using C++, SFML, OpenGL and GLEW. (Uses modern C++ and OpenGL).
+
+I am making this for fun and for learning.
 
 Flags:
 
@@ -8,35 +10,9 @@ Please use -O3 in release mode!
 
 ## How it works:
 
-The world class contains a hash map (std::unordered_list) of chunks. The key of the hash map is the position of a chunk, stored as custom type "Vector2i", which I also defined a hash function for.
-
-Each chunk contains a std::vector of "blocks". The block, at this moment, just stores an ID for it's type. In the future, it will contain methods for actions with said tile (eg destory)
-
-The chunk also contains a function to generate a vertex array, for OpenGL to render with. 
-
-This is quite simple:
-
-1. It iterates through every block.
-
-2. It checks the ID.
-
-3. If it is an air block, it ignores it and continues the iteration.
-
-4. If it not an air block, it goes and checks each face of the block for a perpendicuar solid block. If it finds one, no face is generated. If it finds an air block, it does generate a face.
-
-5. Sometimes when it checks a block, it might be out of range of the vector itself. If this is the case, it looks at the respective adjecent chunk, and looks at the corrosponding "overlap".
-
-6. A mesh is created! 
-
-And that is all there is to it.
-
-For texturing, a texture atlas is used.
-
-####Rendering
-
-For rendering, only exposed faces are added into a vertex array to be drawn, which saves a lot of memory and draw call time.
-
-Future: Frustum culling
+####Rendering:
+  Only exposed faces are rendered, or actually added to the vertex array for each chunk.
+  So far, there is 2 draw calls per chunk; one for the water and one for the "ground/flora". This is so that the water can have a shader indepenant from the ground shader, which allows the water to have "waves".
 
 ## Screenshots:
 

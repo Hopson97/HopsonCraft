@@ -45,6 +45,12 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
     m_stateStack.push(std::move(state));
 }
 
+void Application::popState()
+{
+    if (!m_stateStack.empty()) m_stateStack.pop();
+}
+
+
 namespace
 {
     void checkFps ()

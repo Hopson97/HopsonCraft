@@ -12,11 +12,11 @@
 #include "Chunk_Map.h"
 
 Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas)
-:   m_location      (position)
+:   m_blocks        ( SIZE * SIZE * HEIGHT )
+,   m_location      (position)
 ,   m_position      (position.x * SIZE, position.z * SIZE)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_p_atlas       (&blockAtlas)
-,   m_blocks        ( SIZE * SIZE * HEIGHT )
 {
     generateBlockData       ();
     generateStructureData   ();

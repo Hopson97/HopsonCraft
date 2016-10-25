@@ -1,30 +1,30 @@
-#ifndef CHUNK_SHADER_H
-#define CHUNK_SHADER_H
+#ifndef GROUND_CHUNK_SHADER_H
+#define GROUND_CHUNK_SHADER_H
 
-#include "Shader_Program.h"
+#include "Shader.h"
 
-class Chunk_Shader : public Shader_Program
+class Camera;
+
+namespace Shader
 {
-    public:
-        Chunk_Shader();
+    class Ground_Chunk_Shader : public Shader_Program
+    {
+        public:
+            Ground_Chunk_Shader();
 
-        void loadModelMatrix        ( const Matrix4& modelMatrix    );
-        void loadViewMatrix         ( const Camera&  camera         );
-        void loadProjMatrix         ( const Matrix4& projMatrix     );
+            void loadCameraMatrix   (const Camera& camera);
+            void loadChunkMatrix    (const Matrix4& matrix);
+            void loadSkyColour      ( const Vector3& skyColour );
 
-        void loadIsPlayerLocation   ( int isLocation                );
-        void loadSkyColour          ( const Vector3& skyColour      );
+        private:
+            void bindAttributes     () override;
+            void getUniformLocations() override;
 
-    private:
-        void bindAttibs () override;
-        void getUniformLocations () override;
+            GLuint m_locationViewMatrix;
+            GLuint m_locationModelMatrix;
+            GLuint m_locationProjectionMatrix;
+            GLuint m_skyColourLocation;
+    };
+}
 
-        GLuint m_locationViewMatrix;
-        GLuint m_locationModelMatrix;
-        GLuint m_locationProjectionMatrix;
-        GLuint m_skyColourLocation;
-
-        GLuint m_chunkLocation;
-};
-
-#endif // CHUNK_SHADER_H
+#endif // GROUND_CHUNK_SHADER_H

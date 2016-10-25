@@ -1,55 +1,49 @@
 #include "Chunk_Shader.h"
 
-#include <iostream>
-
-#include "Camera.h"
 #include "Maths/Matrix_Maths.h"
+#include "Camera.h"
 
-Chunk_Shader :: Chunk_Shader ()
-:   Shader_Program  ( "Chunk_Vertex", "Chunk_Fragment" )
+namespace Shader
 {
-    bindAttibs();
-    getUniformLocations();
-}
+    Ground_Chunk_Shader::Ground_Chunk_Shader()
+    :   Shader_Program ("Ground_Vertex", "Ground_Fragment")
+    {
+        bindAttributes();
+        getUniformLocations();
 
-void Chunk_Shader :: loadModelMatrix(const Matrix4& modelMatrix )
-{
-    loadMatrix4( m_locationModelMatrix, modelMatrix );
-}
+        useProgram();
+        loadMatrix4(m_locationProjectionMatrix, Maths::createPerspectiveMatrix());
+        glUseProgram(0);
+    }
 
-void Chunk_Shader :: loadViewMatrix(const Camera& camera)
-{
-    loadMatrix4 ( m_locationViewMatrix, Maths::createViewMatrix( camera ) );
-}
+    void Ground_Chunk_Shader::loadCameraMatrix(const Camera& camera)
+    {
+        loadMatrix4(m_locationViewMatrix, Maths::createViewMatrix(camera));
+    }
 
-void Chunk_Shader :: loadProjMatrix(const Matrix4& projMatrix)
-{
-    loadMatrix4( m_locationProjectionMatrix, projMatrix );
-}
+    void Ground_Chunk_Shader::loadChunkMatrix(const Matrix4& matrix)
+    {
+        loadMatrix4(m_locationModelMatrix, matrix);
+    }
 
-void Chunk_Shader :: loadIsPlayerLocation ( int isLocation )
-{
-    loadInteger( m_chunkLocation, isLocation );
-}
 
-void Chunk_Shader :: loadSkyColour ( const Vector3& skyColour )
-{
-    loadVector3 ( m_skyColourLocation, skyColour );
-}
+    void Ground_Chunk_Shader::loadSkyColour (const Vector3& skyColour )
+    {
+        loadVector3 ( m_skyColourLocation, skyColour );
+    }
 
-void Chunk_Shader :: bindAttibs()
-{
-    bindAttrib( 0, "vertexPosition"  );
-    bindAttrib( 1, "texturePosition" );
-}
+    void Ground_Chunk_Shader::bindAttributes()
+    {
+        bindAttribute(0, "inVertexCoords");
+        bindAttribute(1, "inTextureCoords");
+    }
 
-void Chunk_Shader :: getUniformLocations()
-{
-    m_locationViewMatrix        = glGetUniformLocation ( getId(), "viewMatrix"          );
-    m_locationModelMatrix       = glGetUniformLocation ( getId(), "modelMatrix"         );
-    m_locationProjectionMatrix  = glGetUniformLocation ( getId(), "projectionMatrix"    );
+    void Ground_Chunk_Shader::getUniformLocations()
+    {
+        m_locationViewMatrix        = glGetUniformLocation ( getId(), "viewMatrix"          );
+        m_locationModelMatrix       = glGetUniformLocation ( getId(), "modelMatrix"         );
+        m_locationProjectionMatrix  = glGetUniformLocation ( getId(), "projectionMatrix"    );
 
-    m_chunkLocation             = glGetUniformLocation ( getId(), "isLocation"  );
-    m_skyColourLocation         = glGetUniformLocation ( getId(), "skyColour"   );
-
+        m_skyColourLocation = glGetUniformLocation ( getId(), "skyColour" );
+    }
 }

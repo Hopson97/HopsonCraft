@@ -23,7 +23,7 @@ class Water_Renderer
 
         std::vector<const Chunk*> m_chunks;
 
-        Water_Shader m_shader;
+        Shader::Water_Shader m_shader;
 
         sf::Clock m_timer;
 };

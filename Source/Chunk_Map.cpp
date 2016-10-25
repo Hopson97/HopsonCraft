@@ -8,7 +8,7 @@
 #include "Master_Renderer.h"
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition)
-:   m_blockTextures     (1024, 32, "Block_Texture_Atlas")
+:   m_blockTextures     (1024, 32, "Blocks_Texture_Atlas")
 ,   m_playerPosition    (&playerPosition)
 {
     std::cout << "Chunk map created!" << std::endl;

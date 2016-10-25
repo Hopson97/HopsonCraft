@@ -9,11 +9,7 @@
 #include "D_Settings.h"
 
 Chunk_Renderer :: Chunk_Renderer ()
-{
-    m_shader.start();
-    m_shader.loadProjMatrix( Maths::createPerspectiveMatrix() );
-    m_shader.stop();
-}
+{}
 
 void Chunk_Renderer :: addChunk ( const Chunk& chunk )
 {
@@ -22,17 +18,17 @@ void Chunk_Renderer :: addChunk ( const Chunk& chunk )
 
 void Chunk_Renderer :: render( const Camera& camera)
 {
-    m_shader.start();
-    m_shader.loadViewMatrix( camera );
+    m_shader.useProgram();
+    m_shader.loadCameraMatrix(camera);
 
-    m_shader.loadSkyColour  ( {     Settings::SKY_RED,
-                                    Settings::SKY_GREEN,
-                                    Settings::SKY_BLUE
-                            } );
+    m_shader.loadSkyColour  ({Settings::SKY_RED,
+                              Settings::SKY_GREEN,
+                              Settings::SKY_BLUE
+                            });
 
-    glEnable( GL_CULL_FACE );
-    glCullFace( GL_BACK );
-    for ( const Chunk* chunk : m_chunks )
+    glEnable    (GL_CULL_FACE);
+    glCullFace  (GL_BACK);
+    for (const Chunk* chunk : m_chunks)
     {
         prepareChunk( *chunk );
         glDrawArrays( GL_TRIANGLES, 0, chunk->getChunkModel().getVertexCount() );
@@ -40,13 +36,13 @@ void Chunk_Renderer :: render( const Camera& camera)
 
     m_chunks.clear();
     glBindVertexArray ( 0 );
-    m_shader.stop();
+    glUseProgram(0);
 }
 
 void Chunk_Renderer :: prepareChunk ( const Chunk& chunk )
 {
     chunk.getChunkModel().bind();
-    m_shader.loadModelMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
+    m_shader.loadChunkMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
                                                                   { 0, 0, 0 },
                                                                   { 1, 1, 1 } ) );
 }

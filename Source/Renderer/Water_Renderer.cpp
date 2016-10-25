@@ -10,9 +10,6 @@
 
 Water_Renderer :: Water_Renderer()
 {
-    m_shader.start();
-    m_shader.loadProjMatrix( Maths::createPerspectiveMatrix() );
-    m_shader.stop();
 }
 
 void Water_Renderer :: addChunk ( const Chunk& chunk )
@@ -22,8 +19,8 @@ void Water_Renderer :: addChunk ( const Chunk& chunk )
 
 void Water_Renderer :: render( const Camera& camera )
 {
-    m_shader.start();
-    m_shader.loadViewMatrix( camera );
+    m_shader.useProgram();
+    m_shader.loadCameraMatrix( camera );
 
     m_shader.loadSkyColour  ( {     Settings::SKY_RED,
                                     Settings::SKY_GREEN,
@@ -40,13 +37,13 @@ void Water_Renderer :: render( const Camera& camera )
 
     m_chunks.clear();
     glBindVertexArray ( 0 );
-    m_shader.stop();
+    glUseProgram(0);
 }
 
 void Water_Renderer :: prepareWater ( const Chunk& chunk )
 {
     chunk.getWaterModel().bind();
-    m_shader.loadModelMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
+    m_shader.loadChunkMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
                                                                   { 0, 0, 0 },
                                                                   { 1, 1, 1 } ) );
 
