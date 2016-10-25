@@ -10,9 +10,9 @@ class Camera;
 class Master_Renderer
 {
     public:
-        void processChunk ( const Chunk& chunk );
+        void processChunk (const Chunk& chunk);
 
-        void render ( const Camera& camera, const Chunk_Location& playerLocation );
+        void render (const Camera& camera);
 
     private:
         Chunk_Renderer m_chunkRenderer;

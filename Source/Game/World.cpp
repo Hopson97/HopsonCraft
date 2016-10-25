@@ -15,13 +15,15 @@
 
 World::World()
 :   m_blockAtlas    ( 512, 16, "Blocks_det" )
-,   m_player        ( m_chunks )
+//,   m_player        ( m_chunks )
 {
     sf::Clock clock;
 
     addChunk( { 0, 0 } );
     m_chunks.at( { 0, 0 } )->generateMesh();
     m_chunks.at( { 0, 0 } )->bufferMesh();
+
+    std::cout << "World ue" << std::endl;
 
     std::thread ( &World::manageChunks, this ).detach();
 }
@@ -77,7 +79,6 @@ void World :: draw ()
         }
 
     }
-    m_renderer.render( m_player.getCamera(), Maths::worldToChunkPosition( m_player.getPosition() ) );
 }
 
 void World :: deleteChunks   ()
@@ -87,7 +88,7 @@ void World :: deleteChunks   ()
         Chunk* currChunk = (*itr).second.get();
         if ( !currChunk ) continue;
 
-        currChunk->shouldBeDeleted() ?
+        currChunk->hasDeleteFlag() ?
             itr = m_chunks.erase( itr ) :
             itr++;
     }
@@ -108,7 +109,7 @@ void World :: addChunk ( const Chunk_Location& location )
 {
     if ( m_chunks.find( location) == m_chunks.end() )
     {
-        m_chunks[ location ] = std::make_unique<Chunk> ( m_chunks, location, m_blockAtlas, *this );
+       // m_chunks[ location ] = std::make_unique<Chunk> (location, *this, )
     }
 }
 
@@ -186,7 +187,7 @@ void World::checkChunks( const RenderArea& area )
         if ( !m_isRunning ) return; //Safety
 
         Chunk& chunk = *chunkPair.second;
-        if ( chunk.shouldBeDeleted() ) continue;
+        if ( chunk.hasDeleteFlag() ) continue;
 
         Chunk_Location loc = chunk.getLocation();
         if ( loc.x < area.minX ||

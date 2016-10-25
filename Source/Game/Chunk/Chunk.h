@@ -19,6 +19,7 @@
 
 class Texture_Atlas;
 class World;
+class Chunk_Map;
 
 class Chunk;
 typedef std::unique_ptr<Chunk> Chunk_Ptr;
@@ -35,10 +36,7 @@ class Chunk
     };
 
     public:
-        Chunk( std::unordered_map<Chunk_Location, Chunk_Ptr>& chunkMap,
-               const Chunk_Location& location,
-               const Texture_Atlas& atlas,
-               World& world  );
+        Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas);
 
         void generateBlockData      ();
 
@@ -57,14 +55,15 @@ class Chunk
         const Chunk_Location& getLocation () const;
         const Vector2&  getPosition () const;
 
-        void setBlock   (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true );
+        //void setBlock   (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true );
+        void setBlock   ( const Vector3& position, Block::Block_Base& block, bool overrideBlocks = true );
 
         const Model& getChunkModel  () const;
         const Model& getWaterModel  () const;
         const Model& getFloraModel  () const;
 
         void setToDelete        ();
-        bool shouldBeDeleted    ();
+        bool hasDeleteFlag    ();
 
     private:
         void generateStructureData  ();
@@ -84,14 +83,13 @@ class Chunk
 
         void makeTree   (   GLuint x, GLuint y, GLuint z );
 
-        void setBlock   (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks = true );
+        void qSetBlock   (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks = true );
 
         const Block_t& getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const;
 
         void genAdjChunks( const Chunk_Location& location );
 
     private:
-        std::unordered_map<Chunk_Location, Chunk_Ptr>* m_p_chunkMap;
         std::vector<Block_t*> m_blocks;
 
         std::vector<Vector3> m_treeLocations;
@@ -111,6 +109,8 @@ class Chunk
         Chunk_Part m_solidPart;
         Chunk_Part m_waterPart;
         Chunk_Part& getPart ( const Block_t& block );
+
+        Chunk_Map* m_p_chunkMap;
 
     public:
         static constexpr int SIZE  = 24,

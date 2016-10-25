@@ -20,7 +20,7 @@ void Chunk_Renderer :: addChunk ( const Chunk& chunk )
     m_chunks.push_back( &chunk );
 }
 
-void Chunk_Renderer :: render( const Camera& camera, const Chunk_Location& playerLocation )
+void Chunk_Renderer :: render( const Camera& camera)
 {
     m_shader.start();
     m_shader.loadViewMatrix( camera );
@@ -35,16 +35,6 @@ void Chunk_Renderer :: render( const Camera& camera, const Chunk_Location& playe
     for ( const Chunk* chunk : m_chunks )
     {
         prepareChunk( *chunk );
-/*
-        if ( playerLocation == chunk->getLocation() )
-        {
-            m_shader.loadIsPlayerLocation( 1 );
-        }
-        else
-        {
-            m_shader.loadIsPlayerLocation( 0 );
-        }
-*/
         glDrawArrays( GL_TRIANGLES, 0, chunk->getChunkModel().getVertexCount() );
     }
 

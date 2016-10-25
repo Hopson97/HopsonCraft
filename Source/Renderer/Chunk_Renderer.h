@@ -15,12 +15,12 @@ class Chunk_Renderer
     public:
         Chunk_Renderer ();
 
-        void addChunk   ( const Chunk& chunk );
+        void addChunk   (const Chunk& chunk );
 
-        void render     ( const Camera& camera, const Chunk_Location& playerLocation );
+        void render     (const Camera& camera);
 
     private:
-        void prepareChunk   ( const Chunk& chunk );
+        void prepareChunk   (const Chunk& chunk);
 
         Chunk_Shader m_shader;
 

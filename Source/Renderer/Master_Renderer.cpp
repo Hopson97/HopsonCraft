@@ -1,13 +1,13 @@
 #include "Master_Renderer.h"
 
-void Master_Renderer :: processChunk( const Chunk& chunk )
+void Master_Renderer::processChunk(const Chunk& chunk)
 {
     m_chunkRenderer.addChunk ( chunk );
     m_waterRenderer.addChunk ( chunk );
 }
 
-void Master_Renderer :: render ( const Camera& camera, const Chunk_Location& playerLocation )
+void Master_Renderer::render (const Camera& camera)
 {
-    m_chunkRenderer.render ( camera, playerLocation );
-    m_waterRenderer.render ( camera );
+    m_chunkRenderer.render (camera);
+    m_waterRenderer.render (camera);
 }

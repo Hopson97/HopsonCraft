@@ -27,7 +27,7 @@ int main()
     setConsoleLocation();
     Display::create( "MattCraft (" + std::to_string ( Display::WIDTH ) + " x " + std::to_string ( Display::HEIGHT) + ")" );
     Application app;
-    app.runLoop();
+    app.runMainLoop();
 
     return EXIT_SUCCESS;
 }

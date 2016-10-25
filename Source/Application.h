@@ -1,25 +1,23 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <SFML/System/Clock.hpp>
+#include <stack>
+#include <memory>
 
-#include "World.h"
+#include "Game_States/Game_State.h"
 
 class Application
 {
     public:
-        Application     ();
+        Application();
 
-        void runLoop    ();
+        void runMainLoop();
+
+        void pushState  (std::unique_ptr<State::Game_State> state);
 
     private:
-        sf::Clock m_appTimer;
+        std::stack<std::unique_ptr<State::Game_State>> m_stateStack;
 
-
-    public:
-        constexpr static float FIXED_UPDATE_TIME = 0.00833333; //120 updates a second
-
-        World m_world;
 };
 
 #endif // APPLICATION_H

@@ -8,18 +8,9 @@
 #include "Blocks.h"
 #include "Random.h"
 #include "Height_Generator.h"
+#include "D_Blocks.h"
+#include "Chunk_Map.h"
 
-namespace
-{
-    Block_t         air;
-    Block::Grass    grass;
-    Block::Dirt     dirt;
-    Block::Stone    stone;
-    Block::Water    water;
-    Block::Sand     sand;
-    Block::Oak_Wood oakWood;
-    Block::Oak_Leaf oakLeaf;
-}
 
 void Chunk :: generateBlockData()
 {
@@ -47,49 +38,48 @@ void Chunk :: generateBlockData()
                 if ( y > h )
                 {
                     y <= WATER_LEVEL ?
-                        setBlock( x, y, z, water ) :
-                        setBlock( x, y, z, air );
+                        qSetBlock( x, y, z, Block::water ) :
+                        qSetBlock( x, y, z, Block::air );
                 }
                 else if ( y == h )
                 {
                     if ( y > BEACH_LEVEL ) //Top levels
                     {
-                        setBlock( x, y, z, grass );
+                        qSetBlock( x, y, z, Block::grass );
                         if ( Random::integer( 1, 90 ) == 1 )
                             m_treeLocations.emplace_back( x, y, z );    //Trees
                     }
                     else if ( y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
                     {
-                        setBlock( x, y, z, sand );
+                        qSetBlock( x, y, z, Block::sand );
                     }
                     else
                     {
                         Random::integer( 0, 10 ) < 6 ?
-                            setBlock( x, y, z, sand )   :
-                            setBlock( x, y, z, dirt );
+                            qSetBlock( x, y, z, Block::sand )   :
+                            qSetBlock( x, y, z, Block::dirt );
                     }
                 }
                 else  if ( y < h && y > h - 5 )
                 {
                     if ( y > WATER_LEVEL )
                         y <= BEACH_LEVEL ?
-                            setBlock( x, y, z, sand ) :
-                            setBlock( x, y, z, dirt );
+                            qSetBlock( x, y, z, Block::sand ) :
+                            qSetBlock( x, y, z, Block::dirt );
                     else //Underwater
                     {
                         Random::integer( 0, 10 ) < 6 ?
-                            setBlock( x, y, z, sand ) :
-                            setBlock( x, y, z, dirt );
+                            qSetBlock( x, y, z, Block::sand ) :
+                            qSetBlock( x, y, z, Block::dirt );
                     }
                 }
                 else
                 {
-                    setBlock( x, y, z, stone );
+                    qSetBlock( x, y, z, Block::stone );
                 }
             }
         }
     }
-    //temp
     m_hasBlockData = true;
 }
 
@@ -106,6 +96,11 @@ void Chunk :: generateStructureData ()
 
 void Chunk :: generateMesh ()
 {
+    m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
+    m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
+    m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
+    m_p_chunkMap->addChunk({m_location.x, m_location.z - 1});
+
     sf::Clock c;
     for ( int y = 0; y < HEIGHT ; y++ )
     {
@@ -147,7 +142,7 @@ void Chunk :: makeTree   (   GLuint x, GLuint y, GLuint z )
     unsigned trunkHeight = Random::integer( 5, 8 );
     for ( unsigned i = 1 ; i < trunkHeight + 1 ; i++ )
     {
-        setBlock( x, y + i, z, oakWood, false );
+        qSetBlock( x, y + i, z, Block::oakWood, false );
     }
     for ( unsigned yLeaf = y + trunkHeight ; yLeaf < y + trunkHeight + 4 ; yLeaf++ )
     {
@@ -155,7 +150,7 @@ void Chunk :: makeTree   (   GLuint x, GLuint y, GLuint z )
         {
             for ( unsigned zLeaf = z - 2 ; zLeaf < z + 3 ; zLeaf++ )
             {
-                setBlock( xLeaf, yLeaf, zLeaf, oakLeaf, false );
+                qSetBlock( xLeaf, yLeaf, zLeaf, Block::oakLeaf, false );
             }
         }
     }
