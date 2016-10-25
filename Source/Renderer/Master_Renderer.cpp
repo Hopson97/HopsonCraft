@@ -6,7 +6,7 @@ void Master_Renderer :: processChunk( const Chunk& chunk )
     m_waterRenderer.addChunk ( chunk );
 }
 
-void Master_Renderer :: render ( const Camera& camera, const Vector2i& playerLocation )
+void Master_Renderer :: render ( const Camera& camera, const Chunk_Location& playerLocation )
 {
     m_chunkRenderer.render ( camera, playerLocation );
     m_waterRenderer.render ( camera );

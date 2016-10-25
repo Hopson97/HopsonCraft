@@ -24,9 +24,9 @@ namespace
 void Chunk :: generateBlockData()
 {
     std::vector<int> m_heightMap;
-    for ( int x = 0; x < WIDTH ; x ++ )
+    for ( int x = 0; x < SIZE ; x ++ )
     {
-        for ( int z = 0 ; z < WIDTH ; z++ )
+        for ( int z = 0 ; z < SIZE ; z++ )
         {
             m_heightMap.push_back ( Height_Generator::getHeight
                                    (    x,
@@ -39,11 +39,11 @@ void Chunk :: generateBlockData()
 
     for ( int y = 0; y < HEIGHT ; y++ )
     {
-        for ( int x = 0 ; x < WIDTH ; x++ )
+        for ( int x = 0 ; x < SIZE ; x++ )
         {
-            for ( int z = 0 ; z < WIDTH ; z++ )
+            for ( int z = 0 ; z < SIZE ; z++ )
             {
-                int h = m_heightMap.at ( x * WIDTH + z );
+                int h = m_heightMap.at ( x * SIZE + z );
                 if ( y > h )
                 {
                     y <= WATER_LEVEL ?
@@ -106,11 +106,12 @@ void Chunk :: generateStructureData ()
 
 void Chunk :: generateMesh ()
 {
+    sf::Clock c;
     for ( int y = 0; y < HEIGHT ; y++ )
     {
-        for ( int x = 0 ; x < WIDTH ; x++ )
+        for ( int x = 0 ; x < SIZE ; x++ )
         {
-            for ( int z = 0 ; z < WIDTH ; z++ )
+            for ( int z = 0 ; z < SIZE ; z++ )
             {
 
                 if ( getBlock( x, y, z ).getID() == Block::ID::Air )
@@ -123,6 +124,7 @@ void Chunk :: generateMesh ()
     }
     m_hasVertexData     = true;
     m_hasBufferedData   = false;
+    std::cout << "Timee: " << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk :: bufferMesh ()

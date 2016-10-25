@@ -5,7 +5,7 @@
 #include <mutex>
 
 #include "Chunk/Chunk.h"
-#include "Vector.h"
+#include "Chunk_Location.h"
 #include "Texture_Atlas.h"
 
 #include "Player.h"
@@ -22,7 +22,7 @@ class World
         void update ( float dt );
         void draw   ();
 
-        void addChunk       ( const Vector2i& location );
+        void addChunk       ( const Chunk_Location& location );
 
     private:
         void deleteChunks   ();
@@ -34,7 +34,7 @@ class World
 
 
     private:
-        std::unordered_map<Vector2i, Chunk_Ptr> m_chunks;
+        std::unordered_map<Chunk_Location, Chunk_Ptr> m_chunks;
         std::vector<Chunk*> m_updateChunks;
         Texture_Atlas m_blockAtlas;;
 

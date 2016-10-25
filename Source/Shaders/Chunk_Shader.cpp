@@ -3,10 +3,10 @@
 #include <iostream>
 
 #include "Camera.h"
-#include "Maths.h"
+#include "Maths/Matrix_Maths.h"
 
 Chunk_Shader :: Chunk_Shader ()
-:   Shader_Program  ( "ChunkVert", "ChunkFrag" )
+:   Shader_Program  ( "Chunk_Vertex", "Chunk_Fragment" )
 {
     bindAttibs();
     getUniformLocations();

@@ -4,8 +4,8 @@
 
 #include "Chunk/Chunk.h"
 #include "Camera.h"
-#include "Maths.h"
-#include "Window.h"
+#include "Maths/Matrix_Maths.h"
+#include "Display.h"
 #include "D_Settings.h"
 
 Water_Renderer :: Water_Renderer()
@@ -46,7 +46,7 @@ void Water_Renderer :: render( const Camera& camera )
 void Water_Renderer :: prepareWater ( const Chunk& chunk )
 {
     chunk.getWaterModel().bind();
-    m_shader.loadModelMatrix( Maths::createTransforrmationMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
+    m_shader.loadModelMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
                                                                   { 0, 0, 0 },
                                                                   { 1, 1, 1 } ) );
 

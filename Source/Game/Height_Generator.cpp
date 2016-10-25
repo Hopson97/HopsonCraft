@@ -62,8 +62,8 @@ namespace Height_Generator
             setRandSeed();
         }
 
-        double xOffset = gridX * ( Chunk::WIDTH - 1 );
-        double zOffset = gridZ * ( Chunk::WIDTH - 1 );
+        double xOffset = gridX * ( Chunk::SIZE - 1 );
+        double zOffset = gridZ * ( Chunk::SIZE - 1 );
 
         double total = 0;
         double value = std::pow ( 2, gen_ocataves) - 1.0;

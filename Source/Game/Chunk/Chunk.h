@@ -9,7 +9,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "OpenGL/Glm/glm_transformations.h"
-#include "Vector.h"
+#include "Chunk_Location.h"
 #include "Model.h"
 #include "Entity.h"
 #include "AABB.h"
@@ -35,8 +35,8 @@ class Chunk
     };
 
     public:
-        Chunk( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap,
-               const Vector2i& location,
+        Chunk( std::unordered_map<Chunk_Location, Chunk_Ptr>& chunkMap,
+               const Chunk_Location& location,
                const Texture_Atlas& atlas,
                World& world  );
 
@@ -54,7 +54,7 @@ class Chunk
 
         const AABB getBlockAABBTop ( const Vector3& location ) const;
 
-        const Vector2i& getLocation () const;
+        const Chunk_Location& getLocation () const;
         const Vector2&  getPosition () const;
 
         void setBlock   (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true );
@@ -88,15 +88,15 @@ class Chunk
 
         const Block_t& getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const;
 
-        void genAdjChunks( const Vector2i& location );
+        void genAdjChunks( const Chunk_Location& location );
 
     private:
-        std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunkMap;
+        std::unordered_map<Chunk_Location, Chunk_Ptr>* m_p_chunkMap;
         std::vector<Block_t*> m_blocks;
 
         std::vector<Vector3> m_treeLocations;
 
-        Vector2i m_location; //Map coords
+        Chunk_Location m_location; //Map coords
         Vector2  m_position; //GL coords
 
         const Texture_Atlas* m_p_atlas;
@@ -113,7 +113,7 @@ class Chunk
         Chunk_Part& getPart ( const Block_t& block );
 
     public:
-        static constexpr int WIDTH  = 24,
+        static constexpr int SIZE  = 24,
                              HEIGHT = 200,
                              WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2;

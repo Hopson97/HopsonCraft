@@ -8,7 +8,7 @@
 #endif // __WIN32
 
 #include "Application.h"
-#include "Window.h"
+#include "Display.h"
 #include "Height_Generator.h"
 #include "Random.h"
 
@@ -25,8 +25,7 @@ int main()
     Height_Generator::setUp();
 
     setConsoleLocation();
-    Window::create( "MattCraft (" + std::to_string ( Window::WIDTH ) + " x " + std::to_string ( Window::HEIGHT) + ")" );
-    Window::setToFullScreen();
+    Display::create( "MattCraft (" + std::to_string ( Display::WIDTH ) + " x " + std::to_string ( Display::HEIGHT) + ")" );
     Application app;
     app.runLoop();
 
@@ -98,7 +97,7 @@ namespace
         #ifdef __WIN32
             int consoleWidth = 500;
             HWND console = GetConsoleWindow();
-            MoveWindow(console, -500, 0, consoleWidth, Window::HEIGHT, TRUE);
+            MoveWindow(console, -500, 0, consoleWidth, Display::HEIGHT, TRUE);
         #endif // __WIN32
     }
 }

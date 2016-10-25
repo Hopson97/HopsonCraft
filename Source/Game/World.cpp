@@ -4,12 +4,12 @@
 
 #include "Shader_Loader.h"
 
-#include "Window.h"
+#include "Display.h"
 #include "Loader.h"
 #include "Application.h"
 #include "Height_Generator.h"
 #include "Random.h"
-#include "Maths.h"
+#include "Maths/Position_Converter_Maths.h"
 
 #include <iostream>
 
@@ -77,7 +77,7 @@ void World :: draw ()
         }
 
     }
-    m_renderer.render( m_player.getCamera(), Maths::worldToChunkLocation( m_player.getPosition() ) );
+    m_renderer.render( m_player.getCamera(), Maths::worldToChunkPosition( m_player.getPosition() ) );
 }
 
 void World :: deleteChunks   ()
@@ -87,14 +87,9 @@ void World :: deleteChunks   ()
         Chunk* currChunk = (*itr).second.get();
         if ( !currChunk ) continue;
 
-        if ( currChunk->shouldBeDeleted() )
-        {
-            itr = m_chunks.erase( itr );
-        }
-        else
-        {
+        currChunk->shouldBeDeleted() ?
+            itr = m_chunks.erase( itr ) :
             itr++;
-        }
     }
 }
 
@@ -109,7 +104,7 @@ void World :: updateChunks ()
 
 
 
-void World :: addChunk ( const Vector2i& location )
+void World :: addChunk ( const Chunk_Location& location )
 {
     if ( m_chunks.find( location) == m_chunks.end() )
     {
@@ -136,7 +131,7 @@ void World :: manageChunks()
         static RenderArea loadArea;
         static RenderArea deleteArea;
 
-        Vector2i chunkLocation = Maths::worldToChunkLocation( m_player.getPosition() );
+        Chunk_Location chunkLocation = Maths::worldToChunkPosition( m_player.getPosition() );
 
         loadArea.minX =  chunkLocation.x - m_loadDistance;
         loadArea.minZ =  chunkLocation.z - m_loadDistance;
@@ -158,10 +153,6 @@ void World :: manageChunks()
         {
             m_loadDistance = m_renderDistance;
         }
-        else if ( m_loadDistance == m_renderDistance )
-        {
-            m_loadDistance = 2;
-        }
 
         if ( !m_isRunning ) return;
 
@@ -180,7 +171,7 @@ void World :: generateChunks ( const RenderArea& area )
             if ( !m_isRunning ) return; //Safety
             if ( m_chunks.find( { x, z } ) == m_chunks.end() )
             {
-                threads.emplace_back( std::make_unique<std::thread>(&World::addChunk, this, Vector2i(x, z) ) );
+                threads.emplace_back( std::make_unique<std::thread>(&World::addChunk, this, Chunk_Location(x, z) ) );
             }
         }
         for ( auto& thread : threads ) thread->join();
@@ -197,7 +188,7 @@ void World::checkChunks( const RenderArea& area )
         Chunk& chunk = *chunkPair.second;
         if ( chunk.shouldBeDeleted() ) continue;
 
-        Vector2i loc = chunk.getLocation();
+        Chunk_Location loc = chunk.getLocation();
         if ( loc.x < area.minX ||
              loc.x > area.maxX ||
              loc.z < area.minZ ||
@@ -219,7 +210,7 @@ void World::checkChunks( const RenderArea& area )
 /*
     if (c.getElapsedTime().asSeconds() > 1.0f )
     {
-        Vector2i chunkLocation = Maths::worldToChunkLocation  ( m_player.getPosition() );
+        Chunk_Location chunkLocation = Maths::worldToChunkLocation  ( m_player.getPosition() );
         Vector3  blockLocation = Maths::worldToBlockInChunkPos( m_player.getPosition() );
 
         if ( m_chunks.find( chunkLocation ) != m_chunks.end() )

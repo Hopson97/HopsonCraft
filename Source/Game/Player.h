@@ -5,10 +5,9 @@
 
 #include "OpenGL/Glm/glm_transformations.h"
 #include "Camera.h"
-#include "Vector.h"
+#include "Chunk_Location.h"
 #include "Chunk/Chunk.h"
 #include "AABB.h"
-#include "Vector.h"
 #include "Toggle_Key.h"
 
 #include <SFML/Graphics.hpp>
@@ -16,7 +15,7 @@
 class Player
 {
     public:
-        Player( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap );
+        Player( std::unordered_map<Chunk_Location, Chunk_Ptr>& chunkMap );
 
         void update ( float dt );
 
@@ -33,7 +32,7 @@ class Player
         void setAABB    ();
         void collide    ();
 
-        std::unordered_map<Vector2i, Chunk_Ptr>* m_p_chunks = nullptr;
+        std::unordered_map<Chunk_Location, Chunk_Ptr>* m_p_chunks = nullptr;
         Chunk* m_p_currentChunk = nullptr;
 
 

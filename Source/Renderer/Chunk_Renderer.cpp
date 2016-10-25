@@ -4,8 +4,8 @@
 
 #include "Chunk/Chunk.h"
 #include "Camera.h"
-#include "Maths.h"
-#include "Window.h"
+#include "Maths/Matrix_Maths.h"
+#include "Display.h"
 #include "D_Settings.h"
 
 Chunk_Renderer :: Chunk_Renderer ()
@@ -20,7 +20,7 @@ void Chunk_Renderer :: addChunk ( const Chunk& chunk )
     m_chunks.push_back( &chunk );
 }
 
-void Chunk_Renderer :: render( const Camera& camera, const Vector2i& playerLocation )
+void Chunk_Renderer :: render( const Camera& camera, const Chunk_Location& playerLocation )
 {
     m_shader.start();
     m_shader.loadViewMatrix( camera );
@@ -56,7 +56,7 @@ void Chunk_Renderer :: render( const Camera& camera, const Vector2i& playerLocat
 void Chunk_Renderer :: prepareChunk ( const Chunk& chunk )
 {
     chunk.getChunkModel().bind();
-    m_shader.loadModelMatrix( Maths::createTransforrmationMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
+    m_shader.loadModelMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
                                                                   { 0, 0, 0 },
                                                                   { 1, 1, 1 } ) );
 }

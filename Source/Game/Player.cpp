@@ -6,7 +6,7 @@
 
 #include "World.h"
 
-Player :: Player( std::unordered_map<Vector2i, Chunk_Ptr>& chunkMap )
+Player :: Player( std::unordered_map<Chunk_Location, Chunk_Ptr>& chunkMap )
 :   m_p_chunks      ( &chunkMap )
 ,   m_bottomAABB    ( { 0.3, 0, 0.3 } )
 {
@@ -24,11 +24,21 @@ void Player :: update ( float dt )
 
     if ( !m_isLocked ) m_camera.update();
     m_velocity *= 0.95;
+
     if ( !m_isFlyMode )
     {
-        m_velocity.y -= 2;
+        m_velocity.y -= 0.8;
     }
     m_camera.movePosition( m_velocity * dt );
+/*
+    if (m_camera.getPosition().y > 125 )
+    {
+        m_velocity.y -= 0.8;
+    }
+    else
+    {
+        m_velocity.y = 0;
+    }*/
 }
 
 
@@ -82,6 +92,10 @@ void Player :: input ( float dt )
         velocityChange.x += cos ( angle) * acceleration;
         velocityChange.z += sin ( angle) * acceleration;
     }
+    if  ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) && m_velocity.y == 0 )
+    {
+        //m_velocity.y += 40;
+    }
 
     if ( sf::Keyboard::isKeyPressed( sf::Keyboard::LShift ) )
     {
@@ -97,8 +111,8 @@ void Player :: input ( float dt )
 
 void Player :: getCurrentChunk ()
 {
-    int x = m_camera.getPosition().x / Chunk::WIDTH;
-    int z = m_camera.getPosition().z / Chunk::WIDTH;
+    int x = m_camera.getPosition().x / Chunk::SIZE;
+    int z = m_camera.getPosition().z / Chunk::SIZE;
     if ( m_p_chunks->find( { x, z } ) != m_p_chunks->end() )
     {
         m_p_currentChunk = &*m_p_chunks->at( { x, z } );

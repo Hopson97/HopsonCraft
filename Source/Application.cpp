@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "Util/Window.h"
+#include "Display.h"
 #include "Util/Frames_Per_Second_Checker.h"
 
 #include "Chunk/Chunk.h"
@@ -20,9 +20,9 @@ void Application :: runLoop ()
 
     sf::Clock test;
 
-    while ( Window::isOpen() )
+    while ( Display::isOpen() )
     {
-        Window::clear( 0.2, 0.2, 0.8);
+        Display::clear();
 
         float dt = dtClock.restart().asSeconds();
 
@@ -30,8 +30,8 @@ void Application :: runLoop ()
 
         m_world.draw();
 
-        Window::update();
-        Window::checkForClose();
+        Display::update();
+        Display::checkForClose();
         fpsCheck.update();
     }
 }

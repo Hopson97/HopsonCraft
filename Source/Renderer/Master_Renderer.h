@@ -12,7 +12,7 @@ class Master_Renderer
     public:
         void processChunk ( const Chunk& chunk );
 
-        void render ( const Camera& camera, const Vector2i& playerLocation );
+        void render ( const Camera& camera, const Chunk_Location& playerLocation );
 
     private:
         Chunk_Renderer m_chunkRenderer;
