@@ -2,16 +2,14 @@
 
 #include <iostream>
 
-#include "Blocks.h"
+#include "Block/Block.h"
 
 #include "Loader.h"
 #include "Height_Generator.h"
 
 #include "Random.h"
-#include "D_Blocks.h"
+#include "Block/D_Blocks.h"
 #include "Chunk_Map.h"
-
-#include "World.h"
 
 Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas)
 :   m_location      (position)
@@ -94,23 +92,6 @@ const Block_t& Chunk :: getBlock ( const Vector3& location ) const
 {
     return getBlock( location.x, location.y, location.z );
 }
-
-
-
-const AABB Chunk :: getBlockAABBTop ( const Vector3& location ) const
-{
-    int x = location.x;
-    int y = location.y;
-    int z = location.z; //Cast to int
-
-    if ( getBlock( x, y, z ).getID() == Block::ID::Air ) return Vector3{ 0, 0, 0 };
-
-    AABB block ( { 1, 1, 1 } );
-    block.setPosition( { x, y + 1, z } );
-    return block;
-}
-
-
 
 bool Chunk :: hasVertexData () const
 {

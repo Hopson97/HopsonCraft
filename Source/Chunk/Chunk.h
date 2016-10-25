@@ -4,17 +4,13 @@
 #include <unordered_map>
 #include <memory>
 #include <vector>
-#include <mutex>
 
 #include <SFML/Graphics.hpp>
 
 #include "OpenGL/Glm/glm_transformations.h"
 #include "Chunk_Location.h"
 #include "Model.h"
-#include "Entity.h"
-#include "AABB.h"
-
-#include "Blocks.h"
+#include "Block/Block.h"
 
 
 class Texture_Atlas;
@@ -49,8 +45,6 @@ class Chunk
 
         const Block_t& getBlock ( int x, int y, int z ) const;
         const Block_t& getBlock ( const Vector3& location ) const;
-
-        const AABB getBlockAABBTop ( const Vector3& location ) const;
 
         const Chunk_Location& getLocation () const;
         const Vector2&  getPosition () const;

@@ -8,9 +8,6 @@
 #include "Chunk/Chunk.h"
 #include "Texture_Atlas.h"
 
-
-#include "Block.h"
-
 class Camera;
 class Master_Renderer;
 struct RenderArea;

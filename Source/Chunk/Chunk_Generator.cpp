@@ -2,24 +2,23 @@
 
 #include <iostream>
 
-#include "Block.h"
+#include "Block/Block.h"
 #include "Texture_Atlas.h"
 #include "Loader.h"
-#include "Blocks.h"
 #include "Random.h"
 #include "Height_Generator.h"
-#include "D_Blocks.h"
+#include "Block/D_Blocks.h"
 #include "Chunk_Map.h"
 
 
 void Chunk :: generateBlockData()
 {
     std::vector<int> m_heightMap;
-    for ( int x = 0; x < SIZE ; x ++ )
+    for (int x = 0; x < SIZE ; x ++)
     {
-        for ( int z = 0 ; z < SIZE ; z++ )
+        for (int z = 0 ; z < SIZE ; z++)
         {
-            m_heightMap.push_back ( Height_Generator::getHeight
+            m_heightMap.push_back (Height_Generator::getHeight
                                    (    x,
                                         z,
                                         m_location.x,
@@ -28,14 +27,14 @@ void Chunk :: generateBlockData()
         }
     }
 
-    for ( int y = 0; y < HEIGHT ; y++ )
+    for (int y = 0; y < HEIGHT ; y++)
     {
-        for ( int x = 0 ; x < SIZE ; x++ )
+        for (int x = 0 ; x < SIZE ; x++)
         {
-            for ( int z = 0 ; z < SIZE ; z++ )
+            for (int z = 0 ; z < SIZE ; z++)
             {
                 int h = m_heightMap.at ( x * SIZE + z );
-                if ( y > h )
+                if (y > h)
                 {
                     y <= WATER_LEVEL ?
                         qSetBlock( x, y, z, Block::water ) :
@@ -101,7 +100,6 @@ void Chunk :: generateMesh ()
     m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z - 1});
 
-    sf::Clock c;
     for ( int y = 0; y < HEIGHT ; y++ )
     {
         for ( int x = 0 ; x < SIZE ; x++ )
@@ -119,7 +117,6 @@ void Chunk :: generateMesh ()
     }
     m_hasVertexData     = true;
     m_hasBufferedData   = false;
-    std::cout << "Timee: " << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk :: bufferMesh ()
