@@ -68,6 +68,7 @@ void Chunk::qSetBlock (GLuint x, GLuint y, GLuint z, Block_t& block, bool overri
 
 const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
 {
+    //Check if trying to get a block from other chuky
     if ( x == -1 )
     {
         return getAdjChunkBlock( -1, 0, SIZE - 1, y, z );
@@ -92,7 +93,7 @@ const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
     {
         return *m_blocks.at( SIZE * SIZE * y + SIZE * x + z );
     }
-    return Block::dirt;    //This is for world edges.
+    return Block::dirt;    //This is for world edges
 }
 
 

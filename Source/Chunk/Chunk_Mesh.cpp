@@ -1,8 +1,7 @@
 #include "Chunk_Mesh.h"
 
 #include "Chunk.h"
-#include "Texture.h"
-#include "Texture_Atlas.h"
+#include "Texture/Texture_Atlas.h"
 #include "Loader.h"
 
 #include <iostream>

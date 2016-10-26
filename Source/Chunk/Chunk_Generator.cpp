@@ -4,7 +4,7 @@
 #include <thread>
 
 #include "Block/Block.h"
-#include "Texture_Atlas.h"
+#include "Texture/Texture_Atlas.h"
 #include "Loader.h"
 #include "Random.h"
 #include "Height_Generator.h"
