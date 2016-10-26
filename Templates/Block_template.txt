@@ -1,0 +1,48 @@
+#include "Block.h"
+
+namespace Block
+{
+    struct Block_named : public Block_Base
+    {
+        bool isOpaque   () const override;
+        Id   getID      () const override;
+
+        Vector2 getTextureTop   () const override;
+        Vector2 getTextureSide  () const override;
+        Vector2 getTextureBottom() const override;
+
+    };
+}
+
+
+
+
+
+
+namespace Block
+{
+    bool Block_named::isOpaque () const
+    {
+        return true;
+    }
+
+    Id Block_named::getID () const
+    {
+        return Id::Grass;
+    }
+
+    Vector2 Block_named::getTextureTop () const
+    {
+        return {0, 0};
+    }
+
+    Vector2 Block_named::getTextureSide () const
+    {
+        return {1, 0};
+    }
+
+    Vector2 Block_named::getTextureBottom () const
+    {
+        return {2, 0};
+    }
+}
