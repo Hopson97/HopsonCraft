@@ -35,11 +35,12 @@ Chunk* Chunk_Map::getChunkAt (const Chunk_Location& location)
 
 void Chunk_Map::addChunk(const Chunk_Location& location)
 {
+    m_accessMutex.lock();
     if (!getChunkAt(location))
     {
         m_chunks[location] = std::make_unique<Chunk>(location, *this, m_blockTextures);
     }
-
+    m_accessMutex.unlock();
 }
 
 void Chunk_Map::checkChunks()
@@ -50,6 +51,7 @@ void Chunk_Map::checkChunks()
 
 void Chunk_Map::draw(Master_Renderer& renderer)
 {
+    m_accessMutex.lock();
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
         Chunk* c = &*(itr)->second;  //So we don't have to dereference the iteraor which looks messy
@@ -67,6 +69,7 @@ void Chunk_Map::draw(Master_Renderer& renderer)
             itr++;
         }
     }
+    m_accessMutex.unlock();
 }
 
 void Chunk_Map::updateChunks()
