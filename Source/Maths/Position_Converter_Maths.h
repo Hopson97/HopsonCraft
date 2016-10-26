@@ -1,7 +1,7 @@
 #ifndef POSITION_CONVERTER_MATHS_H_INCLUDED
 #define POSITION_CONVERTER_MATHS_H_INCLUDED
 
-#include "Chunk_Location.h"
+#include "Chunk/Chunk_Location.h"
 #include "OpenGL/GLM/glm_transformations.h"
 
 namespace Maths

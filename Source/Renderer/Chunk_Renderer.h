@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include "Chunk_Location.h"
+#include "Chunk/Chunk_Location.h"
 
 class Chunk;
 class Camera;
