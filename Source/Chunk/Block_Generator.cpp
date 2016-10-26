@@ -164,8 +164,8 @@ void Chunk::makeBottom(GLfloat x, GLfloat y, GLfloat z, const Block_t& block)
     finalizeFace( vertices, textureCoords, getPart( block ) );
 }
 
-void Chunk::finalizeFace (  const std::vector<GLfloat> verticies,
-                            const std::vector<GLfloat> textureCoords,
+void Chunk::finalizeFace (  const std::vector<GLfloat>& verticies,
+                            const std::vector<GLfloat>& textureCoords,
                             Chunk_Part& part )
 {
     part.vertexData.insert  ( part.vertexData.end(),    verticies.begin(),      verticies.end()     );

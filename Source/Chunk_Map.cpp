@@ -223,11 +223,12 @@ void Chunk_Map::checkChunks( const RenderArea& area )
             if (!chunk.hasVertexData() && chunk.hasBlockData())
             {
                 chunk.generateMesh();
-                if (Maths::getChunkDistance(chunk.getLocation(), *m_playerPosition) < (unsigned)m_renderDistance/ 2)
+                if (Maths::getChunkDistance(chunk.getLocation(), *m_playerPosition) <= 3)
                 {
-                    m_loadingDistance = 1;
+                    m_loadingDistance = 3;
                 }
             }
         }
+
     }
 }

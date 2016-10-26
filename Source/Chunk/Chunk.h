@@ -71,8 +71,8 @@ class Chunk
         void makeFront  (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
         void makeBottom (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
 
-        void finalizeFace ( const std::vector<GLfloat> verticies,
-                            const std::vector<GLfloat> textureCoords,
+        void finalizeFace ( const std::vector<GLfloat>& verticies,
+                            const std::vector<GLfloat>& textureCoords,
                             Chunk_Part& part );
 
         void makeTree   (   GLuint x, GLuint y, GLuint z );

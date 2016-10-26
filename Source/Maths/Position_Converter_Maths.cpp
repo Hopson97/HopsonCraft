@@ -55,10 +55,6 @@ namespace Maths
 
         //int cx = location.x * Chunk::SIZE;
         //int cz = location.z * Chunk::SIZE;
-
-
-
-
     }
 
 }

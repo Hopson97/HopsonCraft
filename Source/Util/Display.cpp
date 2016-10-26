@@ -40,7 +40,7 @@ namespace Display
 
         window = std::make_unique<sf::RenderWindow>(  videoMode,
                  name,
-                 sf::Style::Fullscreen,
+                 sf::Style::Close,
                  settings);
         window->setMouseCursorVisible(false);
         window->setPosition ({0, 0});

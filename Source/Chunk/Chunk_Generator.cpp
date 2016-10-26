@@ -1,6 +1,7 @@
 #include "Chunk.h"
 
 #include <iostream>
+#include <thread>
 
 #include "Block/Block.h"
 #include "Texture_Atlas.h"
@@ -95,10 +96,14 @@ void Chunk :: generateStructureData ()
 
 void Chunk :: generateMesh ()
 {
+    sf::Clock c;
+
+
     m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
     m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z - 1});
+
 
     for ( int y = 0; y < HEIGHT ; y++ )
     {
@@ -117,6 +122,7 @@ void Chunk :: generateMesh ()
     }
     m_hasVertexData     = true;
     m_hasBufferedData   = false;
+    std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk :: bufferMesh ()

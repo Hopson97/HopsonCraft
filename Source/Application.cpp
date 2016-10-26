@@ -40,10 +40,12 @@ void Application::runMainLoop()
     }
 }
 
+
 void Application::pushState(std::unique_ptr<State::Game_State> state)
 {
     m_stateStack.push(std::move(state));
 }
+
 
 void Application::popState()
 {
