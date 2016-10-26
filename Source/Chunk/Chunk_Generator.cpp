@@ -98,37 +98,21 @@ void Chunk :: generateMesh ()
 {
     sf::Clock c;
 
-
     m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
     m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z - 1});
 
+    m_mesh.generateMesh();
 
-    for ( int y = 0; y < HEIGHT ; y++ )
-    {
-        for ( int x = 0 ; x < SIZE ; x++ )
-        {
-            for ( int z = 0 ; z < SIZE ; z++ )
-            {
-
-                if ( getBlock( x, y, z ).getID() == Block::ID::Air )
-                {
-                    continue;
-                }
-                makeBlock( x, y, z, getBlock( x, y, z ) );
-            }
-        }
-    }
-    m_hasMesh     = true;
+    m_hasMesh       = true;
     m_hasBuffered   = false;
     std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk :: bufferMesh ()
 {
-    m_solidPart.buffer();
-    m_waterPart.buffer();
+    m_mesh.bufferMesh();
 
     m_hasBuffered = true;
 }

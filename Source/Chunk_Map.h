@@ -21,7 +21,7 @@ class Chunk_Map
         void addChunk(const Chunk_Location& location);
 
         void checkChunks ();
-        void draw(const Camera& camera, Master_Renderer& renderer);
+        void draw(Master_Renderer& renderer);
 
         void setBlock (Block::Block_Base& block, const Vector3& worldPosition);
 
@@ -41,7 +41,7 @@ class Chunk_Map
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;
 
-        int m_renderDistance    = 20;
+        int m_renderDistance    = 24;
         int m_loadingDistance   = 1;
 
         const Chunk_Location* m_playerPosition;

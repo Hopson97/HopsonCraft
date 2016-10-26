@@ -15,6 +15,8 @@ namespace State
                               (int)m_player.getPosition().z / Chunk::SIZE})
     ,   m_chunkMap          (m_playerPosition)
     {
+        t.loadFromFile("Data/Images/cow.jpg");
+        s.setTexture(t);
     }
 
     void Playing_State::input  (float dt)
@@ -33,6 +35,13 @@ namespace State
 
     void Playing_State::draw   (float dt)
     {
-        m_chunkMap.draw(m_player.getCamera(), m_renderer);
+        m_chunkMap.draw(m_renderer);
+
+        m_renderer.render(m_player.getCamera());
     }
 }
+/*
+        Display::prepareSfDraw();
+        Display::sfDraw(s);
+        Display::endSfDraw();
+*/

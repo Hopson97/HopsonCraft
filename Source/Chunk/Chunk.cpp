@@ -17,6 +17,7 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 ,   m_position      (position.x * SIZE, position.z * SIZE)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_p_atlas       (&blockAtlas)
+,   m_mesh          (*this)
 {
     generateBlockData       ();
     generateStructureData   ();
@@ -24,7 +25,7 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 
 void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool overrideBlocks)
 {
-    if ( position.y > HEIGHT - 1 || position.y < 0 ) return;
+    if (position.y > HEIGHT - 1 || position.y < 0) return;
 /*
     if ( position.x < 0 )
     {
@@ -64,8 +65,6 @@ void Chunk::qSetBlock (GLuint x, GLuint y, GLuint z, Block_t& block, bool overri
         m_blocks.at(SIZE * SIZE * y + SIZE * x + z) = &block;
     }
 }
-
-
 
 const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
 {
@@ -147,21 +146,21 @@ const Vector2& Chunk :: getPosition () const
 
 const Model& Chunk :: getChunkModel  () const
 {
-    return m_solidPart.model;
+    return m_mesh.getSolidPart().model;
 }
 
 
 const Model& Chunk :: getWaterModel  () const
 {
-    return m_waterPart.model;
+    return m_mesh.getWaterPart().model;
 }
 
-
+/*
 const Model& Chunk :: getFloraModel  () const
 {
     return m_solidPart.model;
 }
-
+*/
 
 void Chunk :: setToDelete ()
 {
@@ -172,6 +171,11 @@ void Chunk :: setToDelete ()
 bool Chunk :: hasDeleteFlag ()
 {
     return m_hasDeleteFlag;
+}
+
+const Texture_Atlas& Chunk::getAtlas() const
+{
+    return *m_p_atlas;
 }
 
 

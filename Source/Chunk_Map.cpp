@@ -48,7 +48,7 @@ void Chunk_Map::checkChunks()
     updateChunks();
 }
 
-void Chunk_Map::draw(const Camera& camera, Master_Renderer& renderer)
+void Chunk_Map::draw(Master_Renderer& renderer)
 {
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
@@ -67,7 +67,6 @@ void Chunk_Map::draw(const Camera& camera, Master_Renderer& renderer)
             itr++;
         }
     }
-    renderer.render(camera);
 }
 
 void Chunk_Map::updateChunks()

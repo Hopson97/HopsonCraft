@@ -6,6 +6,7 @@
 #include "Chunk_Map.h"
 #include "Master_Renderer.h"
 
+#include <SFML/Graphics.hpp>
 
 class Application;
 
@@ -25,6 +26,9 @@ namespace State
             Chunk_Location  m_playerPosition;
             Chunk_Map       m_chunkMap;
             Master_Renderer m_renderer;
+
+            sf::Sprite  s;
+            sf::Texture t;
     };
 }
 

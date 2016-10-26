@@ -11,6 +11,7 @@
 #include "Chunk_Location.h"
 #include "Model.h"
 #include "Block/Block.h"
+#include "Chunk/Chunk_Mesh.h"
 
 
 class Texture_Atlas;
@@ -37,13 +38,15 @@ class Chunk
         void generateBlockData      ();
 
         bool hasBlockData   () const;
-        bool hasMesh  () const;
+        bool hasMesh        () const;
         bool hasBuffered    () const;
 
         void generateMesh   ();
         void bufferMesh     ();
 
-        const Block_t& getBlock ( int x, int y, int z ) const;
+        const Texture_Atlas& getAtlas () const;
+
+        const Block_t& getBlock ( int x, int y, int z )     const;
         const Block_t& getBlock ( const Vector3& location ) const;
 
         const Chunk_Location& getLocation () const;
@@ -61,19 +64,6 @@ class Chunk
 
     private:
         void generateStructureData  ();
-
-        void makeBlock ( GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
-
-        void makeBack   (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
-        void makeTop    (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
-        void makeLeft   (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
-        void makeRight  (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
-        void makeFront  (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
-        void makeBottom (   GLfloat x, GLfloat y, GLfloat z, const Block_t& block );
-
-        void finalizeFace ( const std::vector<GLfloat>& verticies,
-                            const std::vector<GLfloat>& textureCoords,
-                            Chunk_Part& part );
 
         void makeTree   (   GLuint x, GLuint y, GLuint z );
 
@@ -96,17 +86,15 @@ class Chunk
         const Texture_Atlas* m_p_atlas;
 
         bool m_hasBlockData     = false;
-        bool m_hasMesh    = false;
-        bool m_hasBuffered  = false;
-        bool m_hasDeleteFlag  = false;
+        bool m_hasMesh          = false;
+        bool m_hasBuffered      = false;
+        bool m_hasDeleteFlag    = false;
 
-        Chunk_Part m_solidPart;
-        Chunk_Part m_waterPart;
-        Chunk_Part& getPart ( const Block_t& block );
+        Chunk_Mesh m_mesh;
 
 
     public:
-        static constexpr int SIZE  = 24,
+        static constexpr int SIZE  = 16,
                              HEIGHT = 200,
                              WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2;
