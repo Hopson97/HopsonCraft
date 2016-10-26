@@ -1,9 +1,11 @@
 #include "playing_state.h"
 
 #include <SFML/System/Clock.hpp>
+#include <iostream>
 
 #include "Block/Block.h"
 #include "Display.h"
+#include "Block/D_Blocks.h"
 
 namespace State
 {

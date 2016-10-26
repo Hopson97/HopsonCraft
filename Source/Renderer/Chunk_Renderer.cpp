@@ -8,15 +8,15 @@
 #include "Display.h"
 #include "D_Settings.h"
 
-Chunk_Renderer :: Chunk_Renderer ()
+Chunk_Renderer::Chunk_Renderer ()
 {}
 
-void Chunk_Renderer :: addChunk ( const Chunk& chunk )
+void Chunk_Renderer::addChunk (const Chunk& chunk)
 {
     m_chunks.push_back( &chunk );
 }
 
-void Chunk_Renderer :: render( const Camera& camera)
+void Chunk_Renderer::render(const Camera& camera)
 {
     m_shader.useProgram();
     m_shader.loadCameraMatrix(camera);
@@ -39,10 +39,10 @@ void Chunk_Renderer :: render( const Camera& camera)
     glUseProgram(0);
 }
 
-void Chunk_Renderer :: prepareChunk ( const Chunk& chunk )
+void Chunk_Renderer::prepareChunk (const Chunk& chunk)
 {
     chunk.getChunkModel().bind();
     m_shader.loadChunkMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
-                                                                  { 0, 0, 0 },
-                                                                  { 1, 1, 1 } ) );
+                                                        { 0, 0, 0 },
+                                                        { 1, 1, 1 } ) );
 }

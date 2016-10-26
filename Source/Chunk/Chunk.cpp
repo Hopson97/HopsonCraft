@@ -24,21 +24,44 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 
 void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool overrideBlocks)
 {
+    if ( position.y > HEIGHT - 1 || position.y < 0 ) return;
+/*
+    if ( position.x < 0 )
+    {
+
+    }
+    else if ( position.z < 0 )
+    {
+
+    }
+    else if ( position.x >= SIZE )
+    {
+
+    }
+    else if ( position.z >= SIZE )
+    {
+
+
+    }
+    else
+    {*/
+        qSetBlock(position.x, position.y, position.z, block, overrideBlocks);
+    //}
 }
 
-void Chunk :: qSetBlock   (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks )
+void Chunk::qSetBlock (GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks)
 {
-    if ( !m_blocks.at( SIZE * SIZE * y + SIZE * x + z ) )
+    if (!m_blocks.at(SIZE * SIZE * y + SIZE * x + z))
     {
-        m_blocks.at( SIZE * SIZE * y + SIZE * x + z ) = &block;
+        m_blocks.at(SIZE * SIZE * y + SIZE * x + z) = &block;
     }
-    else if ( getBlock( x, y, z).getID() == Block::ID::Air )
+    else if ( getBlock(x, y, z).getID() == Block::ID::Air)
     {
-        m_blocks.at( SIZE * SIZE * y + SIZE * x + z ) = &block;
+        m_blocks.at(SIZE * SIZE * y + SIZE * x + z) = &block;
     }
-    else if ( overrideBlocks )
+    else if (overrideBlocks)
     {
-        m_blocks.at( SIZE * SIZE * y + SIZE * x + z ) = &block;
+        m_blocks.at(SIZE * SIZE * y + SIZE * x + z) = &block;
     }
 }
 

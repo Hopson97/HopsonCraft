@@ -39,6 +39,7 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
     {
         m_chunks[location] = std::make_unique<Chunk>(location, *this, m_blockTextures);
     }
+
 }
 
 void Chunk_Map::checkChunks()
@@ -93,9 +94,17 @@ void Chunk_Map::deleteChunks()
         }
     }
 }
-/*
+
 void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition)
 {
+    auto addToBatch = [&](int x, int y)
+    {
+        if (getChunkAt({x, y}))
+        {
+            m_chunksToUpdate.push_back(getChunkAt({x, y}));
+        }
+    };
+
     Chunk_Location position (Maths::worldToChunkPosition(worldPosition));
     Vector3 blockPosition (Maths::worldToBlockPosition(worldPosition));
 
@@ -104,13 +113,26 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
     if (chunk)
     {
         chunk->setBlock(blockPosition, block);
-        for (unsigned i = 0 ; i < chunk->getChunkBatch().size() ; i++)
-        {
-            m_chunksToUpdate.push_back(chunk->getChunkBatch().at(i));
-        }
+        m_chunksToUpdate.push_back(chunk);
+    }
+    if (blockPosition.x == 0)
+    {
+        addToBatch(position.x - 1, position.z);
+    }
+    if (blockPosition.z == 0)
+    {
+        addToBatch(position.x, position.z - 1);
+    }
+    if (blockPosition.x == Chunk::SIZE)
+    {
+        addToBatch(position.x + 1, position.z);
+    }
+    if (blockPosition.z == Chunk::SIZE)
+    {
+        addToBatch(position.x, position.z + 1);
     }
 }
-*/
+
 
 struct RenderArea
 {

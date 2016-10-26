@@ -49,7 +49,7 @@ class Chunk
         const Chunk_Location& getLocation () const;
         const Vector2&  getPosition () const;
 
-        //void setBlock   (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true );
+        void setBlock   (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true );
         void setBlock   ( const Vector3& position, Block::Block_Base& block, bool overrideBlocks = true );
 
         const Model& getChunkModel  () const;
