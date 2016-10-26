@@ -58,7 +58,7 @@ void Chunk_Map::draw(const Camera& camera, Master_Renderer& renderer)
             renderer.processChunk(*c);
             itr++;
         }
-        else if (c->hasVertexData())
+        else if (c->hasMesh())
         {
             c->bufferMesh();    //This is only for new chunks, when chunks are updated I just buffer the data there and then
         }
@@ -220,7 +220,7 @@ void Chunk_Map::checkChunks( const RenderArea& area )
         }
         else
         {
-            if (!chunk.hasVertexData() && chunk.hasBlockData())
+            if (!chunk.hasMesh() && chunk.hasBlockData())
             {
                 chunk.generateMesh();
                 if (Maths::getChunkDistance(chunk.getLocation(), *m_playerPosition) <= 3)

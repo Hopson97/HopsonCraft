@@ -37,7 +37,7 @@ class Chunk
         void generateBlockData      ();
 
         bool hasBlockData   () const;
-        bool hasVertexData  () const;
+        bool hasMesh  () const;
         bool hasBuffered    () const;
 
         void generateMesh   ();
@@ -96,9 +96,9 @@ class Chunk
         const Texture_Atlas* m_p_atlas;
 
         bool m_hasBlockData     = false;
-        bool m_hasVertexData    = false;
-        bool m_hasBufferedData  = false;
-        bool m_shouldBeDeleted  = false;
+        bool m_hasMesh    = false;
+        bool m_hasBuffered  = false;
+        bool m_hasDeleteFlag  = false;
 
         Chunk_Part m_solidPart;
         Chunk_Part m_waterPart;

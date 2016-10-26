@@ -120,8 +120,8 @@ void Chunk :: generateMesh ()
             }
         }
     }
-    m_hasVertexData     = true;
-    m_hasBufferedData   = false;
+    m_hasMesh     = true;
+    m_hasBuffered   = false;
     std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
@@ -130,7 +130,7 @@ void Chunk :: bufferMesh ()
     m_solidPart.buffer();
     m_waterPart.buffer();
 
-    m_hasBufferedData = true;
+    m_hasBuffered = true;
 }
 
 void Chunk :: Chunk_Part :: buffer ()

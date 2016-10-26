@@ -116,9 +116,9 @@ const Block_t& Chunk :: getBlock ( const Vector3& location ) const
     return getBlock( location.x, location.y, location.z );
 }
 
-bool Chunk :: hasVertexData () const
+bool Chunk :: hasMesh () const
 {
-    return m_hasVertexData;
+    return m_hasMesh;
 }
 
 
@@ -130,7 +130,7 @@ bool Chunk :: hasBlockData   () const
 
 bool Chunk :: hasBuffered () const
 {
-    return m_hasBufferedData;
+    return m_hasBuffered;
 }
 
 
@@ -165,13 +165,13 @@ const Model& Chunk :: getFloraModel  () const
 
 void Chunk :: setToDelete ()
 {
-    m_shouldBeDeleted = true;
+    m_hasDeleteFlag = true;
 }
 
 
 bool Chunk :: hasDeleteFlag ()
 {
-    return m_shouldBeDeleted;
+    return m_hasDeleteFlag;
 }
 
 
