@@ -5,7 +5,9 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <string>
 
+#include "Debug_Display.h"
 #include "Game_States/Playing_State.h"
 
 namespace
@@ -35,11 +37,11 @@ void Application::runMainLoop()
         m_stateStack.top()->draw    (dt);
 
         Display::prepareSfDraw();
+        checkFps();
         m_stateStack.top()->sfDraw  (dt);
         Display::endSfDraw();
 
         Display::update();
-        checkFps();
         Display::checkForClose();
     }
 }
@@ -72,7 +74,7 @@ namespace
 
         if (printFpsTimer.getElapsedTime().asSeconds() > 1.0f)
         {
-            std::cout << "FPS -> " << frameTimes / frames << "\n";
+            Debug_Display::addFPS(frameTimes / frames);
             printFpsTimer.restart();
         }
     }

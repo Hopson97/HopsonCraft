@@ -6,6 +6,7 @@
 #include "Block/Block.h"
 #include "Display.h"
 #include "Block/D_Blocks.h"
+#include "Debug_Display.h"
 
 namespace State
 {
@@ -14,15 +15,14 @@ namespace State
     ,   m_playerPosition    ({(int)m_player.getPosition().x / Chunk::SIZE,
                               (int)m_player.getPosition().z / Chunk::SIZE})
     ,   m_chunkMap          (m_playerPosition)
+    ,   m_debugDisplay      ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, 0.5)
     {
-        t.loadFromFile("Data/Images/cow.jpg");
-        s.setTexture(&t);
-        s.setSize({500, 500});
     }
 
     void Playing_State::input (float dt)
     {
         m_player.input();
+        m_debugDisplay.checkInput();
     }
 
     void Playing_State::update (float dt)
@@ -44,7 +44,10 @@ namespace State
 
     void Playing_State::sfDraw(float dt)
     {
-
+        if (m_debugDisplayActive)
+        {
+            Debug_Display::draw();
+        }
     }
 }
 

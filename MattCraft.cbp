@@ -154,6 +154,8 @@
 		<Unit filename="Source/Texture/Texture.h" />
 		<Unit filename="Source/Texture/Texture_Atlas.cpp" />
 		<Unit filename="Source/Texture/Texture_Atlas.h" />
+		<Unit filename="Source/Util/Debug_Display.cpp" />
+		<Unit filename="Source/Util/Debug_Display.h" />
 		<Unit filename="Source/Util/Display.cpp" />
 		<Unit filename="Source/Util/Display.h" />
 		<Unit filename="Source/Util/Random.cpp" />

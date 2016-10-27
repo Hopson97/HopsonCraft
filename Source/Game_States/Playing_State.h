@@ -29,7 +29,9 @@ namespace State
             Chunk_Map       m_chunkMap;
             Master_Renderer m_renderer;
 
-            Toggle_Key debugDisplay;
+            bool m_debugDisplayActive;
+
+            Toggle_Key m_debugDisplay;
     };
 }
 

@@ -8,9 +8,10 @@
 #endif // __WIN32
 
 #include "Application.h"
+
+#include "Debug_Display.h"
 #include "Display.h"
 #include "Height_Generator.h"
-#include "Random.h"
 
 namespace
 {
@@ -21,10 +22,13 @@ namespace
 int main()
 {
     srand ( time ( nullptr ) );
-    Height_Generator::setUp();
 
     setConsoleLocation();
+
     Display::create( "MattCraft (" + std::to_string ( Display::WIDTH ) + " x " + std::to_string ( Display::HEIGHT) + ")" );
+    Debug_Display::init();
+    Height_Generator::setUp();
+
     Application app;
     app.runMainLoop();
 
