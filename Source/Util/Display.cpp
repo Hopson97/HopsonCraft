@@ -65,9 +65,13 @@ namespace Display
 
     void prepareSfDraw ()
     {
+        glDisable(GL_DEPTH_TEST);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glUseProgram(0);
         window->pushGLStates();
-        glDisable ( GL_DEPTH_TEST );
-        //window->resetGLStates();
+        window->resetGLStates();
     }
 
 
@@ -79,7 +83,7 @@ namespace Display
     void endSfDraw ()
     {
         window->popGLStates();
-        glEnable ( GL_DEPTH_TEST );
+        glEnable(GL_DEPTH_TEST);
     }
 
 

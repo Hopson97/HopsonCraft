@@ -52,6 +52,7 @@ void Chunk_Map::checkChunks()
 void Chunk_Map::draw(Master_Renderer& renderer)
 {
     m_accessMutex.lock();
+    m_blockTextures.bind();
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
         Chunk* c = &*(itr)->second;  //So we don't have to dereference the iteraor which looks messy

@@ -2,8 +2,8 @@
 
 void Master_Renderer::processChunk(const Chunk& chunk)
 {
-    m_chunkRenderer.addChunk ( chunk );
-    m_waterRenderer.addChunk ( chunk );
+    m_chunkRenderer.addChunk (chunk);
+    m_waterRenderer.addChunk (chunk);
 }
 
 void Master_Renderer::render (const Camera& camera)

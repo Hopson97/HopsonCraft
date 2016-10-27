@@ -16,10 +16,11 @@ namespace State
     ,   m_chunkMap          (m_playerPosition)
     {
         t.loadFromFile("Data/Images/cow.jpg");
-        s.setTexture(t);
+        s.setTexture(&t);
+        s.setSize({500, 500});
     }
 
-    void Playing_State::input  (float dt)
+    void Playing_State::input (float dt)
     {
         m_player.input();
     }
@@ -33,15 +34,17 @@ namespace State
         m_chunkMap.checkChunks();//This must be the last thing to happen in the update function here!
     }
 
-    void Playing_State::draw   (float dt)
+    void Playing_State::draw (float dt)
     {
         m_chunkMap.draw(m_renderer);
 
         m_renderer.render(m_player.getCamera());
+
+    }
+
+    void Playing_State::sfDraw(float dt)
+    {
+
     }
 }
-/*
-        Display::prepareSfDraw();
-        Display::sfDraw(s);
-        Display::endSfDraw();
-*/
+

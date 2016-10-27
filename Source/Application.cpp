@@ -34,6 +34,10 @@ void Application::runMainLoop()
         m_stateStack.top()->update  (dt);
         m_stateStack.top()->draw    (dt);
 
+        Display::prepareSfDraw();
+        m_stateStack.top()->sfDraw  (dt);
+        Display::endSfDraw();
+
         Display::update();
         checkFps();
         Display::checkForClose();

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Chunk/Chunk_Map.h"
 #include "Master_Renderer.h"
+#include "Input/Toggle_Key.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -20,6 +21,7 @@ namespace State
             void input  (float dt) override;
             void update (float dt) override;
             void draw   (float dt) override;
+            void sfDraw (float dt) override;
 
         private:
             Player          m_player;
@@ -27,8 +29,7 @@ namespace State
             Chunk_Map       m_chunkMap;
             Master_Renderer m_renderer;
 
-            sf::Sprite  s;
-            sf::Texture t;
+            Toggle_Key debugDisplay;
     };
 }
 
