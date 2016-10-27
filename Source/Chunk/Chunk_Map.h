@@ -4,13 +4,14 @@
 #include <unordered_map>
 #include <memory>
 #include <mutex>
+#include <thread>
 
 #include "Chunk/Chunk.h"
 #include "Texture/Texture_Atlas.h"
 
 class Camera;
 class Master_Renderer;
-struct RenderArea;
+struct Area;
 
 class Chunk_Map
 {
@@ -30,9 +31,9 @@ class Chunk_Map
         void deleteChunks   ();
 
         void manageChunks  ();
-        void generateChunks (const RenderArea& area);
-        void checkChunks    (const RenderArea& area);
-
+        void generateChunks         (const Area& createArea);
+        void flagChunksForDelete    (const Area& deleteArea);
+        void generateMeshes         (const Area& generationArea);
 
     private:
         std::unordered_map<Chunk_Location, std::unique_ptr<Chunk>> m_chunks;
@@ -41,12 +42,15 @@ class Chunk_Map
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;
 
-        int m_renderDistance    = 22;
-        int m_loadingDistance   = 1;
+        int m_renderDistance        = 22;
+
+        int m_generationDistance    = 1;
+        int m_loadingDistance       = 1;
 
         const Chunk_Location* m_playerPosition;
 
-        std::mutex m_accessMutex;
+        std::mutex  m_accessMutex;
+        std::thread m_chunkManageThread;
 };
 
 #endif // CHUNK_MAP_H

@@ -66,7 +66,7 @@ void Chunk::qSetBlock (GLuint x, GLuint y, GLuint z, Block_t& block, bool overri
     }
 }
 
-const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
+const Block_t& Chunk::getBlock ( int x, int y, int z ) const
 {
     //Check if trying to get a block from other chuky
     if ( x == -1 )
@@ -104,49 +104,49 @@ const Block_t& Chunk::getBlock(const Vector3& location) const
 
 
 
-const Block_t& Chunk :: getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const
+const Block_t& Chunk::getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const
 {
     Chunk_Location location ( m_location.x + xChange, m_location.z + zChange);
     m_p_chunkMap->addChunk(location);
     return m_p_chunkMap->getChunkAt(location)->getBlock(blockX, blockY, blockZ);
 }
 
-bool Chunk :: hasMesh () const
+bool Chunk::hasMesh () const
 {
     return m_hasMesh;
 }
 
 
-bool Chunk :: hasBlockData   () const
+bool Chunk::hasBlockData () const
 {
     return m_hasBlockData;
 }
 
 
-bool Chunk :: hasBuffered () const
+bool Chunk::hasBuffered () const
 {
     return m_hasBuffered;
 }
 
 
-const Chunk_Location& Chunk :: getLocation () const
+const Chunk_Location& Chunk::getLocation () const
 {
     return m_location;
 }
 
 
-const Vector2& Chunk :: getPosition () const
+const Vector2& Chunk::getPosition () const
 {
     return m_position;
 }
 
-const Model& Chunk :: getChunkModel  () const
+const Model& Chunk::getChunkModel  () const
 {
     return m_mesh.getSolidPart().model;
 }
 
 
-const Model& Chunk :: getWaterModel  () const
+const Model& Chunk::getWaterModel  () const
 {
     return m_mesh.getWaterPart().model;
 }

@@ -38,10 +38,10 @@ namespace Display
 
         sf::VideoMode videoMode (sf::VideoMode::getDesktopMode());
 
-        window = std::make_unique<sf::RenderWindow>(  videoMode,
-                 name,
-                 sf::Style::Close,
-                 settings);
+        window = std::make_unique<sf::RenderWindow>(videoMode,
+                                                    name,
+                                                    sf::Style::Fullscreen,
+                                                    settings);
         window->setMouseCursorVisible(false);
         window->setPosition ({0, 0});
         initGL(videoMode);
