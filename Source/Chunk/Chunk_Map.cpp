@@ -5,6 +5,7 @@
 #include "Maths/Position_Converter_Maths.h"
 #include "Camera.h"
 #include "Master_Renderer.h"
+#include "Debug_Display.h"
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition)
 :   m_blockTextures     (1024, 32, "Blocks_Texture_Atlas")
@@ -38,33 +39,30 @@ Chunk* Chunk_Map::getChunkAt (const Chunk_Location& location)
 
 void Chunk_Map::addChunk(const Chunk_Location& location)
 {
-    //m_accessMutex.lock();
     if (!getChunkAt(location))
     {
         m_chunks[location] = std::make_unique<Chunk>(location, *this, m_blockTextures);
     }
-    //m_accessMutex.unlock();
 }
 
 void Chunk_Map::checkChunks()
 {
-    //m_accessMutex.lock();
     deleteChunks();
-    //m_accessMutex.unlock();
-
     updateChunks();
 }
 
 void Chunk_Map::draw(Master_Renderer& renderer)
 {
-    //m_accessMutex.lock();
     m_blockTextures.bind();
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
         Chunk* c = &*(itr)->second;  //So we don't have to dereference the iteraor which looks messy
         if (c->hasBuffered())
         {
-            renderer.processChunk(*c);
+            if ((Maths::getChunkDistance(c->getLocation(), *m_playerPosition) <= m_renderDistance))
+            {
+                renderer.processChunk(*c);
+            }
             itr++;
         }
         else if (c->hasMesh())
@@ -76,11 +74,12 @@ void Chunk_Map::draw(Master_Renderer& renderer)
             itr++;
         }
     }
-    //m_accessMutex.unlock();
 }
 
 void Chunk_Map::updateChunks()
 {
+    Debug_Display::addChunkUpdates(m_chunksToUpdate.size());
+    Debug_Display::addChunkAmounth(m_chunks.size());
     for ( auto itr = m_chunksToUpdate.begin() ; itr != m_chunksToUpdate.end() ; )
     {
         (*itr)->update();
@@ -122,7 +121,12 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
     Vector3         blockPosition   (Maths::worldToBlockPosition(worldPosition));
 
     auto* chunk = getChunkAt(position);
-    if (chunk->getBlock(blockPosition).getID() == block.getID()) return;
+
+    if (chunk->getBlock(blockPosition).getID() == block.getID() ||
+        blockPosition.y >= Chunk::HEIGHT - 1 )
+    {
+        return;
+    }
 
     if (chunk)
     {
@@ -230,11 +234,11 @@ void Chunk_Map :: manageChunks()
         }
 
 
-        if (m_loadingDistance < m_renderDistance + 2)
+        if (m_loadingDistance < m_renderDistance)
         {
             m_loadingDistance++;
         }
-        else if (m_loadingDistance >= m_renderDistance + 2)
+        else if (m_loadingDistance >= m_renderDistance)
         {
             m_loadingDistance = 2;
         }

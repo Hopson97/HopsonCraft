@@ -24,6 +24,9 @@ namespace Debug_Display
 
         sf::Text t_lookVector;
 
+        sf::Text t_chunkUpdates;
+        sf::Text t_numChunks;
+
 
         void initText(sf::Text& text)
         {
@@ -40,17 +43,25 @@ namespace Debug_Display
         font.loadFromFile("Data/Font/rs.ttf");
 
         initText(t_fps);
+
         initText(t_chunkPosition);
         initText(t_blockPosition);
         initText(t_worldPosition);
 
         initText(t_lookVector);
 
+        initText(t_chunkUpdates);
+        initText(t_numChunks);
+
         t_chunkPosition.move(0, 40);
         t_blockPosition.move(0, 80);
         t_worldPosition.move(0, 120);
 
         t_lookVector.move(0, 160);
+
+        t_chunkUpdates.move(300, 0);
+        t_numChunks.move(300, 40);
+
     }
 
     void addFPS(float fps)
@@ -70,9 +81,9 @@ namespace Debug_Display
                                                  " Y: " + std::to_string((int)bl.y) +
                                                  " Z: " + std::to_string((int)bl.z));
 
-        t_worldPosition.setString("World Location: X: " + std::to_string(location.x) +
-                                                 " Y: " + std::to_string(location.y) +
-                                                 " Z: " + std::to_string(location.z));
+        t_worldPosition.setString("World Location: X: " + std::to_string((int)location.x) +
+                                                 " Y: " + std::to_string((int)location.y) +
+                                                 " Z: " + std::to_string((int)location.z));
     }
 
     void addLookVector(const Vector3& rotation)
@@ -80,6 +91,16 @@ namespace Debug_Display
         t_lookVector.setString("Look Rotation: X: " + std::to_string((int)rotation.x) +
                                              " Y: " + std::to_string((int)rotation.y) +
                                              " Z: " + std::to_string((int)rotation.z));
+    }
+
+    void addChunkUpdates (size_t numChunks)
+    {
+        t_chunkUpdates.setString("Chunk Updates: " + std::to_string(numChunks));
+    }
+
+    void addChunkAmounth (size_t numChunks)
+    {
+        t_numChunks.setString("Total Chunks: " + std::to_string(numChunks));
     }
 
 
@@ -92,5 +113,8 @@ namespace Debug_Display
         Display::sfDraw(t_worldPosition);
 
         Display::sfDraw(t_lookVector);
+
+        Display::sfDraw(t_chunkUpdates);
+        Display::sfDraw(t_numChunks);
     }
 }

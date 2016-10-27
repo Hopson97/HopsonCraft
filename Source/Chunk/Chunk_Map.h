@@ -45,14 +45,13 @@ class Chunk_Map
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;
 
-        int m_renderDistance        = 21;
+        int m_renderDistance        = 24;
 
         int m_generationDistance    = 1;
         int m_loadingDistance       = 1;
 
         const Chunk_Location* m_playerPosition;
 
-        std::mutex  m_accessMutex;
         std::thread m_chunkManageThread;
 };
 
