@@ -13,6 +13,10 @@ Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition)
 {
     std::cout << "Chunk map created!" << std::endl;
     std::thread(&Chunk_Map::manageChunks, this).detach();
+
+    addChunk({0, 0});
+    getChunkAt({0,0})->generateMesh();
+    getChunkAt({0,0})->bufferMesh();
 }
 
 Chunk_Map::~Chunk_Map()
@@ -35,25 +39,26 @@ Chunk* Chunk_Map::getChunkAt (const Chunk_Location& location)
 
 void Chunk_Map::addChunk(const Chunk_Location& location)
 {
-    m_accessMutex.lock();
+    //m_accessMutex.lock();
     if (!getChunkAt(location))
     {
         m_chunks[location] = std::make_unique<Chunk>(location, *this, m_blockTextures);
     }
-    m_accessMutex.unlock();
+    //m_accessMutex.unlock();
 }
 
 void Chunk_Map::checkChunks()
 {
-    m_accessMutex.lock();
+    //m_accessMutex.lock();
     deleteChunks();
+    //m_accessMutex.unlock();
+
     updateChunks();
-    m_accessMutex.unlock();
 }
 
 void Chunk_Map::draw(Master_Renderer& renderer)
 {
-    m_accessMutex.lock();
+    //m_accessMutex.lock();
     m_blockTextures.bind();
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
@@ -72,7 +77,7 @@ void Chunk_Map::draw(Master_Renderer& renderer)
             itr++;
         }
     }
-    m_accessMutex.unlock();
+    //m_accessMutex.unlock();
 }
 
 void Chunk_Map::updateChunks()
@@ -113,7 +118,8 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
     Chunk_Location position (Maths::worldToChunkPosition(worldPosition));
     Vector3 blockPosition (Maths::worldToBlockPosition(worldPosition));
 
-    Chunk* chunk = getChunkAt(position);
+    auto* chunk = getChunkAt(position);
+    if (chunk->getBlock(blockPosition).getID() == block.getID()) return;
 
     if (chunk)
     {

@@ -22,7 +22,6 @@ Chunk_Mesh::Chunk_Mesh(const Chunk& chunk)
 
 void Chunk_Mesh::bufferMesh()
 {
-    if(!m_solidPart.model.getVertexCount() == 0 ) std::cout << "NOT ZERO" << m_solidPart.model.getVertexCount() << std::endl;
     m_solidPart.model.addData(Loader::loadArrayMesh(m_solidPart.vertexCoords, m_solidPart.textureCoords));
     m_solidPart.textureCoords.clear();
     m_solidPart.vertexCoords.clear();

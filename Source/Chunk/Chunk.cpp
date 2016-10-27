@@ -96,6 +96,12 @@ const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
     return Block::dirt;    //This is for world edges
 }
 
+const Block_t& Chunk::getBlock(const Vector3& location) const
+{
+    return getBlock(location.x, location.y, location.z);
+}
+
+
 
 
 const Block_t& Chunk :: getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const

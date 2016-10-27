@@ -16,7 +16,7 @@ void Player::input()
     auto acceleration = sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) ? ACC * 4 : ACC;
 
     //Forward/Back/Left/Right
-    //if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         auto angle = glm::radians(m_camera.getRotation().y + 90);
         velocityChange.x -= cos (angle) * acceleration;
