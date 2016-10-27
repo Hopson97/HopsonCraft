@@ -63,6 +63,9 @@ namespace Display
         return window->isOpen();
     }
 
+    //The following functions are for SFML drawing
+    //SFML uses OpenGL internally, thus you need to reset some states
+    //for it to work
     void prepareSfDraw ()
     {
         glDisable(GL_DEPTH_TEST);
@@ -74,18 +77,18 @@ namespace Display
         window->resetGLStates();
     }
 
-
     void sfDraw(const sf::Drawable& drawable)
     {
         window->draw(drawable);
     }
+
 
     void endSfDraw ()
     {
         window->popGLStates();
         glEnable(GL_DEPTH_TEST);
     }
-
+    //End of SFML functions
 
     const sf::RenderWindow& get()
     {

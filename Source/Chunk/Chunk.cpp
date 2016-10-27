@@ -20,7 +20,7 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 ,   m_mesh          (*this)
 {
     generateBlockData       ();
-    generateStructureData   ();
+    //generateStructureData   ();
 }
 
 void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool overrideBlocks)
@@ -101,19 +101,8 @@ const Block_t& Chunk :: getBlock ( int x, int y, int z ) const
 const Block_t& Chunk :: getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const
 {
     Chunk_Location location ( m_location.x + xChange, m_location.z + zChange);
-
-    if (m_p_chunkMap->getChunkAt(location))
-    {
-        return m_p_chunkMap->getChunkAt(location)->getBlock({blockX, blockY, blockZ});
-    }
-    else return Block::dirt;
-}
-
-
-
-const Block_t& Chunk :: getBlock ( const Vector3& location ) const
-{
-    return getBlock( location.x, location.y, location.z );
+    m_p_chunkMap->addChunk(location);
+    return m_p_chunkMap->getChunkAt(location)->getBlock(blockX, blockY, blockZ);
 }
 
 bool Chunk :: hasMesh () const

@@ -17,6 +17,12 @@ namespace State
     ,   m_chunkMap          (m_playerPosition)
     ,   m_debugDisplay      ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, 0.5)
     {
+
+        crossHairTexture.loadFromFile("Data/Images/Crosshair.png");
+        crossHairSprite.setTexture(crossHairTexture);
+        crossHairSprite.setPosition(Display::get().getSize().x / 2 - crossHairSprite.getTexture()->getSize().x / 2,
+                                    Display::get().getSize().y / 2 - crossHairSprite.getTexture()->getSize().y / 2);
+
     }
 
     void Playing_State::input (float dt)
@@ -48,6 +54,7 @@ namespace State
         {
             Debug_Display::draw();
         }
+        Display::sfDraw(crossHairSprite);
     }
 }
 

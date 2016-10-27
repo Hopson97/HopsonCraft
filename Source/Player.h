@@ -4,11 +4,13 @@
 
 #include "OpenGL/Glm/glm_transformations.h"
 #include "Camera.h"
+#include "Input/Toggle_Key.h"
 #include <SFML/Graphics.hpp>
 
 class Player
 {
     public:
+        Player ();
         void input  ();
         void update (float dt);
 
@@ -22,6 +24,9 @@ class Player
         Vector3 m_velocity;
 
         Camera m_camera;
+
+        Toggle_Key m_rotationLock;
+        bool m_isRotLocked = false;
 };
 
 #endif // PLAYER_H

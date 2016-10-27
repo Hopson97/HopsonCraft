@@ -94,7 +94,7 @@ class Chunk
 
 
     public:
-        static constexpr int SIZE  = 16,
+        static constexpr int SIZE  = 20,
                              HEIGHT = 200,
                              WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2;

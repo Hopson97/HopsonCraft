@@ -1,14 +1,22 @@
 #include "Player.h"
 
+Player::Player()
+:   m_rotationLock ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, 0.5)
+{
+
+}
+
 void Player::input()
 {
-    m_camera.update();
+    m_rotationLock.checkInput();
+    if (!m_isRotLocked)
+        m_camera.update();
 
     Vector3 velocityChange;
     auto acceleration = sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) ? ACC * 4 : ACC;
 
     //Forward/Back/Left/Right
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    //if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         auto angle = glm::radians(m_camera.getRotation().y + 90);
         velocityChange.x -= cos (angle) * acceleration;

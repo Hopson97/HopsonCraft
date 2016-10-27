@@ -41,7 +41,7 @@ class Chunk_Map
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;
 
-        int m_renderDistance    = 24;
+        int m_renderDistance    = 22;
         int m_loadingDistance   = 1;
 
         const Chunk_Location* m_playerPosition;

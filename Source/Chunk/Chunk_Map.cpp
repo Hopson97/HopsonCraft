@@ -45,8 +45,10 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
 
 void Chunk_Map::checkChunks()
 {
+    m_accessMutex.lock();
     deleteChunks();
     updateChunks();
+    m_accessMutex.unlock();
 }
 
 void Chunk_Map::draw(Master_Renderer& renderer)
@@ -165,11 +167,7 @@ void Chunk_Map :: manageChunks()
         {
             m_loadingDistance++;
         }
-        else if  (m_loadingDistance > m_renderDistance)
-        {
-            m_loadingDistance = m_renderDistance;
-        }
-        else if (m_loadingDistance == m_renderDistance)
+        else if (m_loadingDistance >= m_renderDistance)
         {
             m_loadingDistance = 2;
         }
@@ -226,10 +224,6 @@ void Chunk_Map::checkChunks( const RenderArea& area )
             if (!chunk.hasMesh() && chunk.hasBlockData())
             {
                 chunk.generateMesh();
-                if (Maths::getChunkDistance(chunk.getLocation(), *m_playerPosition) <= 3)
-                {
-                    m_loadingDistance = 3;
-                }
             }
         }
 

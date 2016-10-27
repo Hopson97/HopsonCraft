@@ -29,9 +29,12 @@ namespace State
             Chunk_Map       m_chunkMap;
             Master_Renderer m_renderer;
 
-            bool m_debugDisplayActive;
+            bool m_debugDisplayActive = false;
 
             Toggle_Key m_debugDisplay;
+
+            sf::Texture crossHairTexture;
+            sf::Sprite  crossHairSprite;
     };
 }
 
