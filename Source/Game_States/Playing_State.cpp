@@ -7,6 +7,7 @@
 #include "Display.h"
 #include "Block/D_Blocks.h"
 #include "Debug_Display.h"
+#include "Maths/Position_Converter_Maths.h"
 
 namespace State
 {
@@ -29,10 +30,42 @@ namespace State
     {
         m_player.input();
         m_debugDisplay.checkInput();
+
+        static sf::Clock c;
+
+        if (c.getElapsedTime().asSeconds() > 0.5)
+        {
+            m_chunkMap.setBlock(Block::air, m_player.getPosition());
+        }
+/*
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            float   x = m_player.getPosition().x,
+                    y = m_player.getPosition().y + 0.85,
+                    z = m_player.getPosition().z;
+
+            float oldX, oldY, oldZ;
+
+            for (int dist = 0 ; dist < 120 ; dist++)
+            {
+                x += -sin(glm::radians(m_player.getRotation().x));
+                y +=  tan(glm::radians(m_player.getRotation().y));
+                z += -cos(glm::radians(m_player.getRotation().z));
+
+                if (m_chunkMap.isSolidBlockAt({x, y, z}))
+                {
+                    m_chunkMap.setBlock(Block::air, {x, y, z});
+                    break;
+                }
+            }
+        }
+        */
     }
 
     void Playing_State::update (float dt)
     {
+        Debug_Display::addPlayerPosition(m_player.getPosition());
+
         m_player.update(dt);
         m_playerPosition = {(int)m_player.getPosition().x / Chunk::SIZE,
                             (int)m_player.getPosition().z / Chunk::SIZE};

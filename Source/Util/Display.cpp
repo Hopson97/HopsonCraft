@@ -40,7 +40,7 @@ namespace Display
 
         window = std::make_unique<sf::RenderWindow>(videoMode,
                                                     name,
-                                                    sf::Style::Fullscreen,
+                                                    sf::Style::Close,
                                                     settings);
         window->setMouseCursorVisible(false);
         window->setPosition ({0, 0});
@@ -73,6 +73,7 @@ namespace Display
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
         glUseProgram(0);
+
         window->pushGLStates();
         window->resetGLStates();
     }

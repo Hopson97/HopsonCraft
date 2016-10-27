@@ -114,8 +114,8 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
         }
     };
 
-    Chunk_Location position (Maths::worldToChunkPosition(worldPosition));
-    Vector3 blockPosition (Maths::worldToBlockPosition(worldPosition));
+    Chunk_Location  position        (Maths::worldToChunkPosition(worldPosition));
+    Vector3         blockPosition   (Maths::worldToBlockPosition(worldPosition));
 
     auto* chunk = getChunkAt(position);
     if (chunk->getBlock(blockPosition).getID() == block.getID()) return;
@@ -124,24 +124,34 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
     {
         chunk->setBlock(blockPosition, block);
         m_chunksToUpdate.push_back(chunk);
+
+        if (blockPosition.x == 0)
+            addToBatch(position.x - 1, position.z);
+
+        if (blockPosition.z == 0)
+            addToBatch(position.x, position.z - 1);
+
+        if (blockPosition.x == Chunk::SIZE - 1)
+            addToBatch(position.x + 1, position.z);
+
+        if (blockPosition.z == Chunk::SIZE - 1)
+            addToBatch(position.x, position.z + 1);
     }
-    if (blockPosition.x == 0)
-    {
-        addToBatch(position.x - 1, position.z);
-    }
-    if (blockPosition.z == 0)
-    {
-        addToBatch(position.x, position.z - 1);
-    }
-    if (blockPosition.x == Chunk::SIZE)
-    {
-        addToBatch(position.x + 1, position.z);
-    }
-    if (blockPosition.z == Chunk::SIZE)
-    {
-        addToBatch(position.x, position.z + 1);
-    }
+
 }
+
+bool Chunk_Map::isSolidBlockAt(const Vector3& worldPosition)
+{
+    Chunk_Location  position        (Maths::worldToChunkPosition(worldPosition));
+    Vector3         blockPosition   (Maths::worldToBlockPosition(worldPosition));
+
+    if (getChunkAt(position))
+    {
+        return (getChunkAt(position)->getBlock(blockPosition).getID() != Block::ID::Air);
+    }
+    return false;
+}
+
 
 
 struct Area
