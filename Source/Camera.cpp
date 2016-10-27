@@ -5,16 +5,17 @@
 #include "Display.h"
 #include "Debug_Display.h"
 
-void Camera :: update ()
+void Camera::update ()
 {
-    sf::Vector2i mouseMove = m_lastMosuePos - sf::Mouse::getPosition(Display::get());
+    auto mouseMove = m_lastMosuePos - sf::Mouse::getPosition(Display::get());
 
     m_rotation.y -= mouseMove.x;
     m_rotation.x -= mouseMove.y;
 
-    m_lastMosuePos = sf::Mouse::getPosition( Display::get() );
+    m_lastMosuePos = sf::Mouse::getPosition(Display::get());
 /*
-    sf::Mouse::setPosition( { Display::WIDTH / 2, Display::HEIGHT / 2 },
+    sf::Mouse::setPosition({ Display::WIDTH / 2,
+                            Display::HEIGHT / 2 },
                               Display::get() );
 */
     if (m_rotation.x > 80) m_rotation.x = 80;
@@ -23,12 +24,12 @@ void Camera :: update ()
     Debug_Display::addLookVector(m_rotation);
 }
 
-const Vector3& Camera :: getPosition() const
+const Vector3& Camera::getPosition() const
 {
     return m_position;
 }
 
-const Vector3& Camera :: getRotation() const
+const Vector3& Camera::getRotation() const
 {
     return m_rotation;
 }
