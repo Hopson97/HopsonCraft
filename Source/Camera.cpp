@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "Display.h"
+#include "Debug_Display.h"
 
 void Camera :: update ()
 {
@@ -18,6 +19,8 @@ void Camera :: update ()
 */
     if (m_rotation.x > 80) m_rotation.x = 80;
     else if ( m_rotation.x < -80) m_rotation.x = -80;
+
+    Debug_Display::addLookVector(m_rotation);
 }
 
 const Vector3& Camera :: getPosition() const

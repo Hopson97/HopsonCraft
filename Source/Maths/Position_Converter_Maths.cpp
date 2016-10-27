@@ -46,7 +46,7 @@ namespace Maths
 
         return std::sqrt(dx * dx + dz * dz );
     }
-
+/*
     Vector3 chunkBlockToWolrdCoords(const Vector3& blocks, const Chunk_Location& location)
     {
         //int x;
@@ -57,5 +57,6 @@ namespace Maths
         //int cz = location.z * Chunk::SIZE;
 
     }
+    */
 
 }
