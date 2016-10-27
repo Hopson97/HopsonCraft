@@ -146,6 +146,13 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
 
 struct Area
 {
+    Area(int minX, int minZ, int maxX, int maxZ)
+    :   minX (minX)
+    ,   minZ (minZ)
+    ,   maxX (maxX)
+    ,   maxZ (maxZ)
+    { }
+
     int minX;
     int minZ;
 
@@ -156,41 +163,54 @@ struct Area
 
 void Chunk_Map :: manageChunks()
 {
-    Area loadArea;
-    Area deleteArea;
-    Area generationArea;
-
     while (m_isRunning)
     {
-        loadArea.minX =  m_playerPosition->x - m_loadingDistance;
-        loadArea.minZ =  m_playerPosition->z - m_loadingDistance;
-        loadArea.maxX =  m_playerPosition->x + m_loadingDistance;
-        loadArea.maxZ =  m_playerPosition->z + m_loadingDistance;
+        {
+            Area loadArea
+            (
+                m_playerPosition->x - m_loadingDistance,
+                m_playerPosition->z - m_loadingDistance,
+                m_playerPosition->x + m_loadingDistance,
+                m_playerPosition->z + m_loadingDistance
+            );
 
-        generateChunks( loadArea );
+            generateChunks( loadArea );
+            if (!m_isRunning) return;
+        }
+
+        {
+            Area deleteArea
+            (
+                m_playerPosition->x - m_renderDistance,
+                m_playerPosition->z - m_renderDistance,
+                m_playerPosition->x + m_renderDistance,
+                m_playerPosition->z + m_renderDistance
+            );
 
 
-        if (!m_isRunning) return;
+            flagChunksForDelete( deleteArea );
+            if (!m_isRunning) return;
+        }
 
-        deleteArea.minX =  m_playerPosition->x - m_renderDistance;
-        deleteArea.minZ =  m_playerPosition->z - m_renderDistance;
-        deleteArea.maxX =  m_playerPosition->x + m_renderDistance;
-        deleteArea.maxZ =  m_playerPosition->z + m_renderDistance;
+        {
+            Area generationArea
+            (
+                generationArea.minX =  m_playerPosition->x - m_generationDistance,
+                generationArea.minZ =  m_playerPosition->z - m_generationDistance,
+                generationArea.maxX =  m_playerPosition->x + m_generationDistance,
+                generationArea.maxZ =  m_playerPosition->z + m_generationDistance
+            );
 
-        flagChunksForDelete( deleteArea );
-        if (!m_isRunning) return;
-
-        generationArea.minX =  m_playerPosition->x - m_generationDistance;
-        generationArea.minZ =  m_playerPosition->z - m_generationDistance;
-        generationArea.maxX =  m_playerPosition->x + m_generationDistance;
-        generationArea.maxZ =  m_playerPosition->z + m_generationDistance;
+            generateMeshes(generationArea);
+            if (!m_isRunning) return; //Safety
+        }
 
 
-        if (m_loadingDistance < m_renderDistance * 1.5)
+        if (m_loadingDistance < m_renderDistance + 2)
         {
             m_loadingDistance++;
         }
-        else if (m_loadingDistance >= m_renderDistance * 1.5)
+        else if (m_loadingDistance >= m_renderDistance + 2)
         {
             m_loadingDistance = 2;
         }
@@ -203,9 +223,6 @@ void Chunk_Map :: manageChunks()
         {
             m_generationDistance = 2;
         }
-        if (!m_isRunning) return; //Safety
-
-        generateMeshes(generationArea);
     }
 }
 
@@ -219,10 +236,12 @@ void Chunk_Map::generateChunks (const Area& createArea)
         for (int z = createArea.minZ ; z < createArea.maxZ ; z++)
         {
             if (!m_isRunning ) return; //Safety
-            if(!getChunkAt({x,z}))
+            addChunk({x, z});
+                /*
                 threads.emplace_back(std::make_unique<std::thread>(&Chunk_Map::addChunk,
                                                                    this,
                                                                    Chunk_Location(x, z)));
+                                                                   */
         }
         for (auto& thread : threads) thread->join();
         threads.clear();
