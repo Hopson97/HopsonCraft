@@ -13,7 +13,7 @@ void Player::input()
         m_camera.update();
 
     Vector3 velocityChange;
-    auto acceleration = sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) ? ACC * 4 : ACC;
+    auto acceleration = sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) ? ACC * 4 : ACC / 2;
 
     //Forward/Back/Left/Right
     if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))

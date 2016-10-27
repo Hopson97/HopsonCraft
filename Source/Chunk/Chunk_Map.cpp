@@ -228,8 +228,6 @@ void Chunk_Map :: manageChunks()
 
 void Chunk_Map::generateChunks (const Area& createArea)
 {
-    std::vector<std::unique_ptr<std::thread>> threads;
-
     for (int x = createArea.minX ; x < createArea.maxX ; x++)
     {
         if (!m_isRunning) return; //Safety
@@ -237,17 +235,8 @@ void Chunk_Map::generateChunks (const Area& createArea)
         {
             if (!m_isRunning ) return; //Safety
             addChunk({x, z});
-                /*
-                threads.emplace_back(std::make_unique<std::thread>(&Chunk_Map::addChunk,
-                                                                   this,
-                                                                   Chunk_Location(x, z)));
-                                                                   */
         }
-        for (auto& thread : threads) thread->join();
-        threads.clear();
     }
-    for (auto& thread : threads) thread->join();
-    threads.clear();
 }
 
 void Chunk_Map::flagChunksForDelete( const Area& deleteArea )
