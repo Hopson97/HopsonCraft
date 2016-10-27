@@ -164,7 +164,7 @@ void Chunk :: setToDelete ()
 }
 
 
-bool Chunk :: hasDeleteFlag ()
+bool Chunk :: hasDeleteFlag () const
 {
     return m_hasDeleteFlag;
 }
@@ -172,6 +172,23 @@ bool Chunk :: hasDeleteFlag ()
 const Texture_Atlas& Chunk::getAtlas() const
 {
     return *m_p_atlas;
+}
+
+void Chunk::update()
+{
+    generateMesh();
+    bufferMesh();
+    m_hasUpdateFlag = false;
+}
+
+void Chunk::giveUpdateFlag()
+{
+    m_hasUpdateFlag = true;
+}
+
+bool Chunk::hasUpdateFlag() const
+{
+    return m_hasUpdateFlag;
 }
 
 

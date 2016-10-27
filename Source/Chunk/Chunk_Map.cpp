@@ -83,8 +83,7 @@ void Chunk_Map::updateChunks()
 {
     for ( auto itr = m_chunksToUpdate.begin() ; itr != m_chunksToUpdate.end() ; )
     {
-        (*itr)->generateMesh();
-        (*itr)->bufferMesh();
+        (*itr)->update();
         itr = m_chunksToUpdate.erase( itr );
     }
 }
@@ -106,11 +105,16 @@ void Chunk_Map::deleteChunks()
 
 void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition)
 {
+    sf::Clock c;
     auto addToBatch = [&](int x, int y)
     {
-        if (getChunkAt({x, y}))
+        auto* c = getChunkAt({x, y});
+        if (c)
         {
-            m_chunksToUpdate.push_back(getChunkAt({x, y}));
+            if(!c->hasUpdateFlag()){
+                c->giveUpdateFlag();
+                m_chunksToUpdate.push_back(c);
+            }
         }
     };
 
@@ -123,7 +127,8 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
     if (chunk)
     {
         chunk->setBlock(blockPosition, block);
-        m_chunksToUpdate.push_back(chunk);
+
+        addToBatch(position.x, position.z);
 
         if (blockPosition.x == 0)
             addToBatch(position.x - 1, position.z);
@@ -137,8 +142,17 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
         if (blockPosition.z == Chunk::SIZE - 1)
             addToBatch(position.x, position.z + 1);
     }
-
 }
+
+void Chunk_Map::setBlocks(Block::Block_Base& block, const std::vector<Vector3>worldPositions)
+{
+    for (auto& position : worldPositions)
+    {
+        setBlock(block, position);
+    }
+}
+
+
 
 bool Chunk_Map::isSolidBlockAt(const Vector3& worldPosition)
 {

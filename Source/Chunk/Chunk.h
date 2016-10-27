@@ -59,8 +59,12 @@ class Chunk
         const Model& getWaterModel  () const;
         const Model& getFloraModel  () const;
 
-        void setToDelete        ();
-        bool hasDeleteFlag    ();
+        void setToDelete    ();
+        bool hasDeleteFlag  () const;
+
+        void update         ();
+        void giveUpdateFlag ();
+        bool hasUpdateFlag  () const;
 
     private:
         void generateStructureData  ();
@@ -89,6 +93,7 @@ class Chunk
         bool m_hasMesh          = false;
         bool m_hasBuffered      = false;
         bool m_hasDeleteFlag    = false;
+        bool m_hasUpdateFlag    = false;
 
         Chunk_Mesh m_mesh;
 

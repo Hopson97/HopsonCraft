@@ -25,6 +25,7 @@ class Chunk_Map
         void draw(Master_Renderer& renderer);
 
         void setBlock (Block::Block_Base& block, const Vector3& worldPosition);
+        void setBlocks(Block::Block_Base& block, const std::vector<Vector3> worldPositions);
 
         bool isSolidBlockAt (const Vector3& worldPosition);
 

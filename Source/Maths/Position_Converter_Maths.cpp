@@ -28,6 +28,10 @@ namespace Maths
         {
             z = (int) worldPosition.z % Chunk::SIZE;
         }
+        if (z == 20) z = 0;
+        if (x == 20) x = 0;
+
+
         return  {x, (int)worldPosition.y, z};
     }
 

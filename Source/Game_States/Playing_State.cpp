@@ -35,7 +35,25 @@ namespace State
 
         if (c.getElapsedTime().asSeconds() > 0.5)
         {
-            m_chunkMap.setBlock(Block::air, m_player.getPosition());
+            auto& p = m_player.getPosition();
+
+            int xStart = p.x - 1;
+            int yStart = p.y - 1;
+            int zStart = p.z - 1;
+
+            std::vector<Vector3> positions;
+            for (int y = yStart ; y <= yStart + 2 ; y++)
+            {
+                for (int x = xStart ; x <= xStart + 2 ; x++)
+                {
+                    for (int z = zStart ; z <= zStart + 2 ; z++)
+                    {
+                        positions.emplace_back(x, y, z);
+                    }
+                }
+            }
+
+            m_chunkMap.setBlocks(Block::air, positions);
         }
 /*
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
