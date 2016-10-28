@@ -8,6 +8,7 @@ class Camera;
 namespace Maths
 {
     Matrix4 createViewMatrix (const Camera& camera);
+    Matrix4 createViewRotatationMatrix(const Vector3& rotation);
 
     Matrix4 createModelMatrix(const Vector3& translation,
                               const Vector3& rotation,

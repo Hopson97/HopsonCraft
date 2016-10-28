@@ -8,29 +8,18 @@ namespace Maths
 {
     Vector3 worldToBlockPosition(const Vector3& worldPosition)
     {
-        int x;
-        int z;
+        int x = (int) worldPosition.x % Chunk::SIZE;
+        int z = (int) worldPosition.z % Chunk::SIZE;
 
         if ( worldPosition.x < 0 )
         {
-            x = abs( Chunk::SIZE + (int) std::floor(worldPosition.x) % Chunk::SIZE );
-        }
-        else
-        {
-            x = (int) worldPosition.x % Chunk::SIZE;
+            x = abs( Chunk::SIZE + (int) std::floor(worldPosition.x) % Chunk::SIZE ) - 1;
         }
 
         if ( worldPosition.z < 0 )
         {
-            z = abs(Chunk::SIZE + (int) std::floor(worldPosition.z) % Chunk::SIZE);
+            z = abs(Chunk::SIZE + (int) std::floor(worldPosition.z) % Chunk::SIZE) - 1;
         }
-        else
-        {
-            z = (int) worldPosition.z % Chunk::SIZE;
-        }
-        if (z == 20) z = 0;
-        if (x == 20) x = 0;
-
 
         return  {x, (int)worldPosition.y, z};
     }

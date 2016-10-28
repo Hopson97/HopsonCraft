@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Master_Renderer.h"
 #include "Debug_Display.h"
+#include "Input/Toggle_Key.h"
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition)
 :   m_blockTextures     (1024, 32, "Blocks_Texture_Atlas")
@@ -47,12 +48,21 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
 
 void Chunk_Map::checkChunks()
 {
+    static Toggle_Key key([&](){m_renderDistance++;}, sf::Keyboard::Up, 0.5);
+    static Toggle_Key ke2y([&](){if(m_renderDistance > 5) m_renderDistance--;}, sf::Keyboard::Down, 0.5);
+
+    key.checkInput  ();
+    ke2y.checkInput ();
+
     deleteChunks();
     updateChunks();
 }
 
 void Chunk_Map::draw(Master_Renderer& renderer)
 {
+    static sf::Clock printTimer;
+    sf::Clock timer;
+    int calls = 0;
     m_blockTextures.bind();
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
@@ -62,6 +72,7 @@ void Chunk_Map::draw(Master_Renderer& renderer)
             if ((Maths::getChunkDistance(c->getLocation(), *m_playerPosition) <= m_renderDistance))
             {
                 renderer.processChunk(*c);
+                calls++;
             }
             itr++;
         }
@@ -74,6 +85,12 @@ void Chunk_Map::draw(Master_Renderer& renderer)
             itr++;
         }
     }
+    if (printTimer.getElapsedTime().asSeconds() > 0.5)
+         {
+        std::cout << "Total time for " << calls << " draw calls: " << timer.getElapsedTime().asMicroseconds() << "ms, or " << timer.getElapsedTime().asMicroseconds() / calls << "ms per draw calls avg" << std::endl;
+        printTimer.restart();
+    }
+
 }
 
 void Chunk_Map::updateChunks()
@@ -134,6 +151,7 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
 
         addToBatch(position.x, position.z);
 
+        //Add ajacent blocks to the update batch so that their block faces are updated
         if (blockPosition.x == 0)
             addToBatch(position.x - 1, position.z);
 

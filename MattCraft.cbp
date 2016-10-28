@@ -69,8 +69,8 @@
 		</Linker>
 		<Unit filename="Data/Images/cow.jpg" />
 		<Unit filename="SFML Full.depend" />
-		<Unit filename="Shaders/Chunk_Fragment.glsl" />
-		<Unit filename="Shaders/Chunk_Vertex.glsl" />
+		<Unit filename="Shaders/Ground_Fragment.glsl" />
+		<Unit filename="Shaders/Ground_Vertex.glsl" />
 		<Unit filename="Shaders/Water_Fragment.glsl" />
 		<Unit filename="Shaders/Water_Vertex.glsl" />
 		<Unit filename="Source/AABB.cpp" />
