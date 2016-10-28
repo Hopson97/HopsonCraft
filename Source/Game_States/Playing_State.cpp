@@ -32,7 +32,7 @@ namespace State
         m_debugDisplay.checkInput();
 
         static sf::Clock c;
-
+/*
         if (c.getElapsedTime().asSeconds() > 0.5)
         {
             auto& p = m_player.getPosition();
@@ -55,29 +55,41 @@ namespace State
 
             m_chunkMap.setBlocks(Block::air, positions);
         }
-/*
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+*/
+        if (c.getElapsedTime().asSeconds() > 0.5)
         {
-            float   x = m_player.getPosition().x,
-                    y = m_player.getPosition().y + 0.85,
-                    z = m_player.getPosition().z;
-
-            float oldX, oldY, oldZ;
-
-            for (int dist = 0 ; dist < 120 ; dist++)
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                x += -sin(glm::radians(m_player.getRotation().x));
-                y +=  tan(glm::radians(m_player.getRotation().y));
-                z += -cos(glm::radians(m_player.getRotation().z));
+                Vector3 change;
+                //change.y += 0.8;
 
-                if (m_chunkMap.isSolidBlockAt({x, y, z}))
+                auto yaw    = glm::radians(m_player.getRotation().y + 90);
+                auto pitch  = glm::radians(m_player.getRotation().x);
+
+                for (float dist = 0.0f ; dist < 25 ; dist += 0.02f )
                 {
-                    m_chunkMap.setBlock(Block::air, {x, y, z});
-                    break;
+                    change.x -= cos (yaw)   * dist;
+                    change.y -= sin (yaw)   * dist;
+                    change.z -= sin (pitch) * dist;
+
+                    auto rayEnd = change + m_player.getPosition();
+
+                    if (m_chunkMap.isSolidBlockAt(rayEnd))
+                    {
+                        std::cout << " X: "  << rayEnd.x
+                                  << " Y: " << rayEnd.y
+                                  << " Z: " << rayEnd.z << std::endl;
+
+                        std::cout << "Solid." << std::endl;
+
+                        m_chunkMap.setBlock(Block::air, rayEnd);
+                        break;
+                    }
                 }
+                c.restart();
             }
         }
-        */
+
     }
 
     void Playing_State::update (float dt)

@@ -60,19 +60,15 @@ void Chunk_Map::checkChunks()
 
 void Chunk_Map::draw(Master_Renderer& renderer)
 {
-    static sf::Clock printTimer;
-    sf::Clock timer;
-    int calls = 0;
     m_blockTextures.bind();
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
         Chunk* c = &*(itr)->second;  //So we don't have to dereference the iteraor which looks messy
         if (c->hasBuffered())
         {
-            if ((Maths::getChunkDistance(c->getLocation(), *m_playerPosition) <= m_renderDistance))
+            //if ((Maths::getChunkDistance(c->getLocation(), *m_playerPosition) <= m_renderDistance))
             {
                 renderer.processChunk(*c);
-                calls++;
             }
             itr++;
         }
@@ -85,12 +81,6 @@ void Chunk_Map::draw(Master_Renderer& renderer)
             itr++;
         }
     }
-    if (printTimer.getElapsedTime().asSeconds() > 0.5)
-         {
-        std::cout << "Total time for " << calls << " draw calls: " << timer.getElapsedTime().asMicroseconds() << "ms, or " << timer.getElapsedTime().asMicroseconds() / calls << "ms per draw calls avg" << std::endl;
-        printTimer.restart();
-    }
-
 }
 
 void Chunk_Map::updateChunks()
@@ -178,6 +168,8 @@ void Chunk_Map::setBlocks(Block::Block_Base& block, const std::vector<Vector3>wo
 
 bool Chunk_Map::isSolidBlockAt(const Vector3& worldPosition)
 {
+    if (worldPosition.y > Chunk::HEIGHT) return false;
+
     Chunk_Location  position        (Maths::worldToChunkPosition(worldPosition));
     Vector3         blockPosition   (Maths::worldToBlockPosition(worldPosition));
 
