@@ -67,8 +67,8 @@ class Chunk
         void giveUpdateFlag ();
         bool hasUpdateFlag  () const;
 
-        static constexpr int SIZE  = 16,
-                             HEIGHT = 200,
+        static constexpr int SIZE  = 18,
+                             HEIGHT = 256,
                              WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2,
                              BLOCKS = SIZE * SIZE * HEIGHT;

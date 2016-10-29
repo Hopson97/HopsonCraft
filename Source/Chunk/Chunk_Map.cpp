@@ -3,21 +3,20 @@
 #include <iostream>
 
 #include "Maths/Position_Converter_Maths.h"
+#include "Maths/General_Maths.h"
+
 #include "Camera.h"
 #include "Master_Renderer.h"
 #include "Debug_Display.h"
 #include "Input/Toggle_Key.h"
+#include "Block/D_Blocks.h"
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition)
-:   m_blockTextures     (1024, 32, "Blocks_Texture_Atlas")
+:   m_blockTextures     (1024, 16, "Block_Atlas")
 ,   m_playerPosition    (&playerPosition)
 ,   m_chunkManageThread (&Chunk_Map::manageChunks, this)
 {
     m_chunkManageThread.detach();
-
-    addChunk({0, 0});
-    getChunkAt({0,0})->generateMesh();
-    getChunkAt({0,0})->bufferMesh();
 }
 
 Chunk_Map::~Chunk_Map()
@@ -165,21 +164,69 @@ void Chunk_Map::setBlocks(Block::Block_Base& block, const std::vector<Vector3>wo
 }
 
 
+/* isSolidBlockAt
 
+    Used for such things as breaking blocks, as it needs to check if the ray cast in within a solid block.
+*/
 bool Chunk_Map::isSolidBlockAt(const Vector3& worldPosition)
 {
     if (worldPosition.y > Chunk::HEIGHT) return false;
+    return getBlockAt(worldPosition).getID() != Block::ID::Air;
+}
 
+/* getBlockAt
+
+    Obvious in use.
+*/
+const Block::Block_Base& Chunk_Map::getBlockAt(const Vector3& worldPosition)
+{
     Chunk_Location  position        (Maths::worldToChunkPosition(worldPosition));
     Vector3         blockPosition   (Maths::worldToBlockPosition(worldPosition));
 
     if (getChunkAt(position))
     {
-        return (getChunkAt(position)->getBlock(blockPosition).getID() != Block::ID::Air);
+        return getChunkAt(position)->getBlock(blockPosition);
     }
-    return false;
+    return Block::air;
 }
+/*
+makeEplosion:
 
+    Converts Blocks into "air" around point "worldPosition".
+
+    The size of the clearence is dependent on "power"
+*/
+
+void Chunk_Map::makeExplosion(const Vector3& worldPosition, int power)
+{
+    auto& p = worldPosition;
+
+    auto xStart = p.x - power;
+    auto yStart = p.y - power;
+    auto zStart = p.z - power;
+
+    std::vector<Vector3> positions;
+    for (auto y = yStart ; y <= yStart + power * 2 ; y++)
+    {
+        for (auto x = xStart ; x <= xStart + power * 2 ; x++)
+        {
+            for (auto z = zStart ; z <= zStart + power * 2 ; z++)
+            {
+                auto distance = Maths::getDistance({x, y, z}, worldPosition);
+
+                auto factor = power - distance;
+
+
+                if (factor >= getBlockAt({x,y,z}).getBlastRestistance())
+                {
+                    positions.emplace_back(x, y, z);
+                }
+
+            }
+        }
+    }
+    setBlocks(Block::air, positions);
+}
 
 
 struct Area
@@ -266,10 +313,10 @@ void Chunk_Map :: manageChunks()
 
 void Chunk_Map::generateChunks (const Area& createArea)
 {
-    for (int x = createArea.minX ; x < createArea.maxX ; x++)
+    for (auto x = createArea.minX ; x < createArea.maxX ; x++)
     {
         if (!m_isRunning) return; //Safety
-        for (int z = createArea.minZ ; z < createArea.maxZ ; z++)
+        for (auto z = createArea.minZ ; z < createArea.maxZ ; z++)
         {
             if (!m_isRunning ) return; //Safety
             addChunk({x, z});
@@ -299,10 +346,10 @@ void Chunk_Map::flagChunksForDelete( const Area& deleteArea )
 
 void Chunk_Map::generateMeshes(const Area& generationArea)
 {
-    for (int x = generationArea.minX ; x < generationArea.maxX ; x++)
+    for (auto x = generationArea.minX ; x < generationArea.maxX ; x++)
     {
         if (!m_isRunning) return; //Safety
-        for (int z = generationArea.minZ ; z < generationArea.maxZ ; z++)
+        for (auto z = generationArea.minZ ; z < generationArea.maxZ ; z++)
         {
             if (!m_isRunning) return; //Safety
             Chunk* chunk = getChunkAt({x, z});

@@ -63,7 +63,7 @@ namespace State
         }
 
         //Block breaking and placing
-        if (breakBlockClock.getElapsedTime().asSeconds() > 0.05)
+        if (breakBlockClock.getElapsedTime().asSeconds() > 0.8)
         {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
@@ -74,7 +74,7 @@ namespace State
                 auto yaw    = glm::radians(m_player.getRotation().y + 90);
                 auto pitch  = glm::radians(m_player.getRotation().x);
 
-                for (float dist = 0.0f ; dist < 6 ; dist += 0.001f )
+                for (float dist = 0.0f ; dist < 1.0 ; dist += 0.001f )
                 {
                     change.x -= cos (yaw)   * dist;
                     change.z -= sin (yaw)   * dist;
@@ -88,7 +88,9 @@ namespace State
                     {
                         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                         {
-                            m_chunkMap.setBlock(Block::air, rayEnd);
+                            //powerMode ?
+                                m_chunkMap.makeExplosion(rayEnd, 8);// :
+                                //m_chunkMap.setBlock(Block::air, rayEnd);
                         }
                         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                         {
@@ -104,7 +106,6 @@ namespace State
                 breakBlockClock.restart();
             }
         }
-
     }
 
     void Playing_State::update (float dt)

@@ -64,16 +64,7 @@ void Chunk :: generateBlockData()
                 }
                 else  if ( y < h && y > h - 5 )
                 {
-                    if ( y > WATER_LEVEL )
-                        y <= BEACH_LEVEL ?
-                            qSetBlock( x, y, z, Block::sand ) :
-                            qSetBlock( x, y, z, Block::dirt );
-                    else //Underwater
-                    {
-                        Random::integer( 0, 10 ) < 6 ?
-                            qSetBlock( x, y, z, Block::sand ) :
-                            qSetBlock( x, y, z, Block::dirt );
-                    }
+                    qSetBlock( x, y, z, Block::dirt );
                 }
                 else
                 {

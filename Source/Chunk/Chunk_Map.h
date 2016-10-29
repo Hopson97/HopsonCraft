@@ -29,6 +29,10 @@ class Chunk_Map
 
         bool isSolidBlockAt (const Vector3& worldPosition);
 
+        void makeExplosion  (const Vector3& worldPosition, int power);
+
+        const Block::Block_Base& getBlockAt(const Vector3& worldPosition);
+
     private:
         void updateChunks   ();
         void deleteChunks   ();

@@ -85,7 +85,11 @@ const Block_t& Chunk::getBlock ( int x, int y, int z ) const
     {
         return getAdjChunkBlock( 0, 1, z, y, 0 );
     }
-    else if ( y == -1 || y > HEIGHT - 1 )
+    else if ( y > HEIGHT - 1 )
+    {
+        return Block::air;
+    }
+    else if ( y < 0 )
     {
         return Block::dirt;
     }

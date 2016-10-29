@@ -23,6 +23,8 @@ namespace Block
 
             bool isOpaque () const;
 
+            int getBlastRestistance() const;
+
         private:
             ID m_id;
 
@@ -31,6 +33,8 @@ namespace Block
             Vector2 m_bottomTexture;
 
             bool m_isOpaque;
+
+            int m_blastRestistance; //The "power" from a blast must be greater than this
 
     };
 } //Namespace Block

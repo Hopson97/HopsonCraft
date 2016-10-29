@@ -3,7 +3,7 @@
 Player::Player()
 :   m_rotationLock ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, 0.5)
 {
-    m_camera.movePosition({100, 140, 100});
+    m_camera.movePosition({100000, 140, 100000});
 }
 
 void Player::input()

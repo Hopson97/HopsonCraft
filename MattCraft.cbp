@@ -67,8 +67,15 @@
 			<Add library="opengl32" />
 			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML MinGW/lib" />
 		</Linker>
+		<Unit filename="Data/Blocks/Air.block" />
+		<Unit filename="Data/Blocks/Dirt.block" />
+		<Unit filename="Data/Blocks/Grass.block" />
+		<Unit filename="Data/Blocks/Oak_Leaf.block" />
+		<Unit filename="Data/Blocks/Oak_Wood.block" />
+		<Unit filename="Data/Blocks/Sand.block" />
+		<Unit filename="Data/Blocks/Stone.block" />
+		<Unit filename="Data/Blocks/Water.block" />
 		<Unit filename="Data/Images/cow.jpg" />
-		<Unit filename="SFML Full.depend" />
 		<Unit filename="Shaders/Ground_Fragment.glsl" />
 		<Unit filename="Shaders/Ground_Vertex.glsl" />
 		<Unit filename="Shaders/Water_Fragment.glsl" />
@@ -81,21 +88,7 @@
 		<Unit filename="Source/Block/Block.h" />
 		<Unit filename="Source/Block/D_Blocks.cpp" />
 		<Unit filename="Source/Block/D_Blocks.h" />
-		<Unit filename="Source/Block/Dirt.cpp" />
-		<Unit filename="Source/Block/Dirt.h" />
 		<Unit filename="Source/Block/E_Block_ID.h" />
-		<Unit filename="Source/Block/Grass.cpp" />
-		<Unit filename="Source/Block/Grass.h" />
-		<Unit filename="Source/Block/Oak_Leaf.cpp" />
-		<Unit filename="Source/Block/Oak_Leaf.h" />
-		<Unit filename="Source/Block/Oak_Wood.cpp" />
-		<Unit filename="Source/Block/Oak_Wood.h" />
-		<Unit filename="Source/Block/Sand.cpp" />
-		<Unit filename="Source/Block/Sand.h" />
-		<Unit filename="Source/Block/Stone.cpp" />
-		<Unit filename="Source/Block/Stone.h" />
-		<Unit filename="Source/Block/Water.cpp" />
-		<Unit filename="Source/Block/Water.h" />
 		<Unit filename="Source/Camera.cpp" />
 		<Unit filename="Source/Camera.h" />
 		<Unit filename="Source/Chunk/Chunk.cpp" />
@@ -119,6 +112,8 @@
 		<Unit filename="Source/Loader.cpp" />
 		<Unit filename="Source/Loader.h" />
 		<Unit filename="Source/Main.cpp" />
+		<Unit filename="Source/Maths/General_Maths.cpp" />
+		<Unit filename="Source/Maths/General_Maths.h" />
 		<Unit filename="Source/Maths/Matrix_Maths.cpp" />
 		<Unit filename="Source/Maths/Matrix_Maths.h" />
 		<Unit filename="Source/Maths/Position_Converter_Maths.cpp" />
