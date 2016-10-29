@@ -2,12 +2,12 @@
 
 namespace Block
 {
-Block::Block_Base    air;
-Block::Grass         grass;
-Block::Dirt          dirt;
-Block::Stone         stone;
-Block::Water         water;
-Block::Sand          sand;
-Block::Oak_Leaf      oakLeaf;
-Block::Oak_Wood      oakWood;
+Block::Block_Base air       ("Air");
+Block::Block_Base grass     ("Grass");
+Block::Block_Base dirt      ("Dirt");
+Block::Block_Base stone     ("Stone");
+Block::Block_Base water     ("Water");
+Block::Block_Base sand      ("Sand");
+Block::Block_Base oakLeaf   ("Oak_Leaf");
+Block::Block_Base oakWood   ("Oak_Wood");
 }

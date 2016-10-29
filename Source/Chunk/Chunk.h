@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <memory>
 #include <vector>
+#include <array>
 
 #include <SFML/Graphics.hpp>
 
@@ -66,6 +67,12 @@ class Chunk
         void giveUpdateFlag ();
         bool hasUpdateFlag  () const;
 
+        static constexpr int SIZE  = 16,
+                             HEIGHT = 200,
+                             WATER_LEVEL = 115,
+                             BEACH_LEVEL = WATER_LEVEL + 2,
+                             BLOCKS = SIZE * SIZE * HEIGHT;
+
     private:
         void generateStructureData  ();
 
@@ -96,13 +103,6 @@ class Chunk
         bool m_hasUpdateFlag    = false;
 
         Chunk_Mesh m_mesh;
-
-
-    public:
-        static constexpr int SIZE  = 16,
-                             HEIGHT = 200,
-                             WATER_LEVEL = 115,
-                             BEACH_LEVEL = WATER_LEVEL + 2;
 };
 
 

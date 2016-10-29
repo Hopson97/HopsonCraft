@@ -4,26 +4,34 @@
 #include "OpenGL/Glm/glm_transformations.h"
 #include "E_Block_ID.h"
 
+#include <string>
+
 namespace Block
 {
     class Block_Base
     {
         public:
-            Block_Base  ();
+            Block_Base  (const std::string& name = "Air");
             virtual ~Block_Base ();
 
+            ID getID () const;
+
             //These get block texture location inside of the texture atlas
-            virtual Vector2 getTextureTop       () const;
-            virtual Vector2 getTextureSide      () const;
-            virtual Vector2 getTextureBottom    () const;
+            const Vector2& getTextureTop    () const;
+            const Vector2& getTextureSide   () const;
+            const Vector2& getTextureBottom () const;
 
-            virtual bool isOpaque () const;
+            bool isOpaque () const;
 
-            virtual ID getID () const;
+        private:
+            ID m_id;
 
-        public:
-            constexpr static int BLOCK_ATLAS_SIZE   = 4096;
-            constexpr static int TEXTURE_SIZE       = 128;
+            Vector2 m_topTexture;
+            Vector2 m_sideTexture;
+            Vector2 m_bottomTexture;
+
+            bool m_isOpaque;
+
     };
 } //Namespace Block
 
