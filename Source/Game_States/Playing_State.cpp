@@ -56,34 +56,43 @@ namespace State
             m_chunkMap.setBlocks(Block::air, positions);
         }
 */
-        if (c.getElapsedTime().asSeconds() > 0.5)
+        //Block breaking and placing
+        if (c.getElapsedTime().asSeconds() > 0.3)
         {
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
                 Vector3 change;
-                //change.y += 0.8;
+                Vector3 rayEnd;
+                Vector3 oldRayEnd;
 
                 auto yaw    = glm::radians(m_player.getRotation().y + 90);
                 auto pitch  = glm::radians(m_player.getRotation().x);
 
-                for (float dist = 0.0f ; dist < 25 ; dist += 0.02f )
+                for (float dist = 0.0f ; dist < 6 ; dist += 0.001f )
                 {
                     change.x -= cos (yaw)   * dist;
-                    change.y -= sin (yaw)   * dist;
-                    change.z -= sin (pitch) * dist;
+                    change.z -= sin (yaw)   * dist;
+                    change.y -= tan (pitch) * dist; //For the Y component, "dist" is the "adjecent" side of the
+                                                    //vector, hence the use of tan as tan(x) = opp / adj so opp aka
+                                                    //the down vecor is adj * tan(x)
+                    rayEnd = change + m_player.getPosition();
 
-                    auto rayEnd = change + m_player.getPosition();
 
                     if (m_chunkMap.isSolidBlockAt(rayEnd))
                     {
-                        std::cout << " X: "  << rayEnd.x
-                                  << " Y: " << rayEnd.y
-                                  << " Z: " << rayEnd.z << std::endl;
-
-                        std::cout << "Solid." << std::endl;
-
-                        m_chunkMap.setBlock(Block::air, rayEnd);
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                        {
+                            m_chunkMap.setBlock(Block::air, rayEnd);
+                        }
+                        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                        {
+                            m_chunkMap.setBlock(Block::stone, oldRayEnd);
+                        }
                         break;
+                    }
+                    else
+                    {
+                        oldRayEnd = rayEnd;
                     }
                 }
                 c.restart();

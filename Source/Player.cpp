@@ -23,7 +23,7 @@ void Player::input()
 
         velocityChange.x -= cos (yaw)   * acceleration;
         velocityChange.z -= sin (yaw)   * acceleration;
-        velocityChange.y -= sin (pitch) * acceleration;
+        velocityChange.y -= tan (pitch) * acceleration;
     }
     if  (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
@@ -44,7 +44,7 @@ void Player::input()
 
         velocityChange.x += cos (yaw)   * acceleration;
         velocityChange.z += sin (yaw)   * acceleration;
-        velocityChange.y += sin (pitch) * acceleration;
+        velocityChange.y += tan (pitch) * acceleration;
     }
 
     //Up/ Down
