@@ -31,9 +31,15 @@ namespace State
         m_player.input();
         m_debugDisplay.checkInput();
 
-        static sf::Clock c;
-/*
-        if (c.getElapsedTime().asSeconds() > 0.5)
+        static sf::Clock powerManClock;
+        static sf::Clock breakBlockClock;
+        static bool powerMode = false;
+        static Toggle_Key powerManToggle ([&](){powerMode = !powerMode;}, sf::Keyboard::P, 1.5f);
+
+        powerManToggle.checkInput();
+
+        if (powerMode)
+        if (powerManClock.getElapsedTime().asSeconds() > 0.03)
         {
             auto& p = m_player.getPosition();
 
@@ -52,12 +58,12 @@ namespace State
                     }
                 }
             }
-
+            powerManClock.restart();
             m_chunkMap.setBlocks(Block::air, positions);
         }
-*/
+
         //Block breaking and placing
-        if (c.getElapsedTime().asSeconds() > 0.3)
+        if (breakBlockClock.getElapsedTime().asSeconds() > 0.05)
         {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
@@ -95,7 +101,7 @@ namespace State
                         oldRayEnd = rayEnd;
                     }
                 }
-                c.restart();
+                breakBlockClock.restart();
             }
         }
 
