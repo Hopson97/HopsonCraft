@@ -70,6 +70,7 @@
 			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML MinGW/lib" />
 		</Linker>
 		<Unit filename="Data/Blocks/Air.block" />
+		<Unit filename="Data/Blocks/Cobblestone.block" />
 		<Unit filename="Data/Blocks/Dirt.block" />
 		<Unit filename="Data/Blocks/Glass.block" />
 		<Unit filename="Data/Blocks/Grass.block" />
