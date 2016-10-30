@@ -48,7 +48,7 @@ void Chunk :: generateBlockData()
                     if ( y > BEACH_LEVEL ) //Top levels
                     {
                         qSetBlock( x, y, z, Block::grass );
-                        if ( Random::integer( 1, 90 ) == 1 )
+                        if ( Random::integer( 1, 50 ) == 1 && (x > 4 && x < 13) && (z > 4 && z < 15))
                             m_treeLocations.emplace_back( x, y, z );    //Trees
                     }
                     else if ( y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach

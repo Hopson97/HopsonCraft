@@ -2,6 +2,7 @@
 #define D_BLOCKS_H_INCLUDED
 
 #include "Block/Block.h"
+#include "Block/E_Block_ID.h"
 
 namespace Block
 {
@@ -13,6 +14,12 @@ namespace Block
     extern Block::Block_Base sand;
     extern Block::Block_Base oakLeaf;
     extern Block::Block_Base oakWood;
+    extern Block::Block_Base oakPlank;
+    extern Block::Block_Base glass;
+
+    void initBlockDatabase ();
+
+    Block::Block_Base& getBlock (Block::ID id);
 }
 
 #endif // D_BLOCKS_H_INCLUDED

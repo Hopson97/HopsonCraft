@@ -31,39 +31,10 @@ namespace State
         m_player.input();
         m_debugDisplay.checkInput();
 
-        static sf::Clock powerManClock;
         static sf::Clock breakBlockClock;
-        static bool powerMode = false;
-        static Toggle_Key powerManToggle ([&](){powerMode = !powerMode;}, sf::Keyboard::P, 1.5f);
-
-        powerManToggle.checkInput();
-
-        if (powerMode)
-        if (powerManClock.getElapsedTime().asSeconds() > 0.03)
-        {
-            auto& p = m_player.getPosition();
-
-            int xStart = p.x - 1;
-            int yStart = p.y - 1;
-            int zStart = p.z - 1;
-
-            std::vector<Vector3> positions;
-            for (int y = yStart ; y <= yStart + 2 ; y++)
-            {
-                for (int x = xStart ; x <= xStart + 2 ; x++)
-                {
-                    for (int z = zStart ; z <= zStart + 2 ; z++)
-                    {
-                        positions.emplace_back(x, y, z);
-                    }
-                }
-            }
-            powerManClock.restart();
-            m_chunkMap.setBlocks(Block::air, positions);
-        }
 
         //Block breaking and placing
-        if (breakBlockClock.getElapsedTime().asSeconds() > 0.8)
+        if (breakBlockClock.getElapsedTime().asSeconds() > 0.2)
         {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
@@ -88,13 +59,11 @@ namespace State
                     {
                         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                         {
-                            //powerMode ?
-                                m_chunkMap.makeExplosion(rayEnd, 8);// :
-                                //m_chunkMap.setBlock(Block::air, rayEnd);
+                            m_chunkMap.setBlock(Block::air, rayEnd);
                         }
                         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                         {
-                            m_chunkMap.setBlock(Block::stone, oldRayEnd);
+                            m_chunkMap.setBlock(m_player.getHeldBlock(), oldRayEnd);
                         }
                         break;
                     }

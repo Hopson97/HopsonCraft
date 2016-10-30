@@ -1,3 +1,4 @@
+
 #include "Texture_Atlas.h"
 
 #include <cmath>
@@ -15,12 +16,12 @@ std::vector<GLfloat> Texture_Atlas :: getTextureCoords ( Vector2 location ) cons
 {
     static float txrPerRow = m_size / m_textureSize;
     static float unitSize  = 1.0f   / txrPerRow;
-    static float pixelSize = (1.0f   / m_size);
+    //static float pixelSize = (1.0f   / m_size);
 
-    float xMin  = location.x * unitSize + pixelSize;
-    float yMin  = location.y * unitSize + pixelSize;
-    float xMax  = xMin + unitSize - pixelSize;
-    float yMax  = yMin + unitSize - pixelSize;
+    float xMin  = location.x * unitSize;
+    float yMin  = location.y * unitSize;
+    float xMax  = xMin + unitSize;
+    float yMax  = yMin + unitSize;
 
     return
     {

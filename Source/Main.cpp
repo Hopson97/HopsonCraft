@@ -12,6 +12,7 @@
 #include "Debug_Display.h"
 #include "Display.h"
 #include "Height_Generator.h"
+#include "Block/D_Blocks.h"
 
 namespace
 {
@@ -25,9 +26,13 @@ int main()
 
     setConsoleLocation();
 
-    Display::create( "MattCraft (" + std::to_string ( Display::WIDTH ) + " x " + std::to_string ( Display::HEIGHT) + ")" );
+    Display::create("MattCraft");
     Debug_Display::init();
+
     Height_Generator::setUp();
+
+    Block::initBlockDatabase();
+
 
     Application app;
     app.runMainLoop();

@@ -20,7 +20,7 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 ,   m_mesh          (*this)
 {
     generateBlockData       ();
-    //generateStructureData   ();
+    generateStructureData   ();
 }
 
 void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool overrideBlocks)
@@ -155,12 +155,6 @@ const Model& Chunk::getWaterModel  () const
     return m_mesh.getWaterPart().model;
 }
 
-/*
-const Model& Chunk :: getFloraModel  () const
-{
-    return m_solidPart.model;
-}
-*/
 
 void Chunk :: setToDelete ()
 {

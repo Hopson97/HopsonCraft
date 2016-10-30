@@ -8,7 +8,7 @@ struct Toggle_Key
 {
     Toggle_Key( std::function<void(void)> f, sf::Keyboard::Key k, float seconds );
 
-    void checkInput();
+    bool checkInput();
 
     private:
         std::function<void(void)>   m_func;

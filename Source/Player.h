@@ -7,6 +7,11 @@
 #include "Input/Toggle_Key.h"
 #include <SFML/Graphics.hpp>
 
+namespace Block
+{
+    class Block_Base;
+}
+
 class Player
 {
     public:
@@ -18,15 +23,26 @@ class Player
         const Vector3&  getPosition () const;
         const Vector3&  getRotation () const;
 
+        Block::Block_Base& getHeldBlock ();
+
         constexpr static float ACC = 0.3;
 
     private:
+        void switchBlock (int inc);
+
         Vector3 m_velocity;
 
         Camera m_camera;
 
         Toggle_Key m_rotationLock;
         bool m_isRotLocked = false;
+
+        bool m_canChangeBlock = true;
+        Toggle_Key m_increaseBlockToggle;
+        Toggle_Key m_decreaseBlockToggle;
+
+
+        Block::Block_Base* m_heldBlock;
 };
 
 #endif // PLAYER_H

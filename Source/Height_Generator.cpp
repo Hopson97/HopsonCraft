@@ -40,7 +40,7 @@ namespace Height_Generator
                 int seed        )
     {
         gen_amplitude = 240;//amplitude;
-        gen_ocataves  = 4;//ocataves;
+        gen_ocataves  = 5;//ocataves;
         gen_roughness = 0.4;//roughness;
 
         if ( seed == -1 ) {
@@ -57,6 +57,7 @@ namespace Height_Generator
 
     int getHeight ( double x, double z, double gridX, double gridZ )
     {
+        //return 140;
         if ( gen_seed == -1 )
         {
             setRandSeed();
