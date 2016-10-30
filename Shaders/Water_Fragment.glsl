@@ -18,5 +18,5 @@ void main()
             discard;
     }
 
-    //color = mix ( vec4 ( skyColour, 1.0), color, vis );
+    color = mix ( vec4 ( skyColour, 1.0), color, vis );
 }

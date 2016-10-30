@@ -8,6 +8,7 @@
 #include "Block/D_Blocks.h"
 #include "Debug_Display.h"
 #include "Maths/Position_Converter_Maths.h"
+#include "Ray.h"
 
 namespace State
 {
@@ -34,32 +35,26 @@ namespace State
         static sf::Clock breakBlockClock;
 
         //Block breaking and placing
-        if (breakBlockClock.getElapsedTime().asSeconds() > 0.2)
+        if (breakBlockClock.getElapsedTime().asSeconds() > 0.1)
         {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
-                Vector3 change;
-                Vector3 rayEnd;
+
                 Vector3 oldRayEnd;
 
-                auto yaw    = glm::radians(m_player.getRotation().y + 90);
-                auto pitch  = glm::radians(m_player.getRotation().x);
+                Maths::Ray ray(m_player.getRotation().y + 90,
+                               m_player.getRotation().x,
+                               m_player.getPosition());
 
-                for (float dist = 0.0f ; dist < 1.0 ; dist += 0.001f )
+                for (float dist = 0.0f ; dist < 0.1 ; dist += 0.001f )
                 {
-                    change.x -= cos (yaw)   * dist;
-                    change.z -= sin (yaw)   * dist;
-                    change.y -= tan (pitch) * dist; //For the Y component, "dist" is the "adjecent" side of the
-                                                    //vector, hence the use of tan as tan(x) = opp / adj so opp aka
-                                                    //the down vecor is adj * tan(x)
-                    rayEnd = change + m_player.getPosition();
+                    ray.step(dist);
 
-
-                    if (m_chunkMap.isSolidBlockAt(rayEnd))
+                    if (m_chunkMap.isSolidBlockAt(ray.getEndPoint()))
                     {
                         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                         {
-                            m_chunkMap.setBlock(Block::air, rayEnd);
+                            m_chunkMap.setBlock(Block::air, ray.getEndPoint());
                         }
                         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                         {
@@ -69,7 +64,7 @@ namespace State
                     }
                     else
                     {
-                        oldRayEnd = rayEnd;
+                        oldRayEnd = ray.getEndPoint();
                     }
                 }
                 breakBlockClock.restart();
