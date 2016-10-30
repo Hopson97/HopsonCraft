@@ -16,6 +16,7 @@ namespace Block
     extern Block::Block_Base oakWood;
     extern Block::Block_Base oakPlank;
     extern Block::Block_Base glass;
+    extern Block::Block_Base cobbleStone;
 
     void initBlockDatabase ();
 

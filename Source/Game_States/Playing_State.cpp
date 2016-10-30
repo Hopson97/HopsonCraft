@@ -40,7 +40,7 @@ namespace State
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
 
-                Vector3 oldRayEnd;
+                auto oldRayEnd = m_player.getPosition();
 
                 Maths::Ray ray(m_player.getRotation().y + 90,
                                m_player.getRotation().x,
@@ -54,11 +54,13 @@ namespace State
                     {
                         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                         {
-                            m_chunkMap.setBlock(Block::air, ray.getEndPoint());
+                            if (Maths::worldToBlockPosition(ray.getEndPoint()) != Maths::worldToBlockPosition(m_player.getPosition()))
+                                m_chunkMap.setBlock(Block::air, ray.getEndPoint());
                         }
                         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                         {
-                            m_chunkMap.setBlock(m_player.getHeldBlock(), oldRayEnd);
+                            if (Maths::worldToBlockPosition(oldRayEnd) != Maths::worldToBlockPosition(m_player.getPosition()))
+                                m_chunkMap.setBlock(m_player.getHeldBlock(), oldRayEnd);
                         }
                         break;
                     }

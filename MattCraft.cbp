@@ -22,6 +22,7 @@
 					<Add directory="Source/Game/Block" />
 					<Add directory="Source/Renderer" />
 					<Add directory="Source/Shaders" />
+					<Add directory="Source/Maths" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -46,6 +47,7 @@
 					<Add directory="Source/Game/Block" />
 					<Add directory="Source/Renderer" />
 					<Add directory="Source/Shaders" />
+					<Add directory="Source/Maths" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -120,6 +122,8 @@
 		<Unit filename="Source/Maths/Matrix_Maths.h" />
 		<Unit filename="Source/Maths/Position_Converter_Maths.cpp" />
 		<Unit filename="Source/Maths/Position_Converter_Maths.h" />
+		<Unit filename="Source/Maths/Ray.cpp" />
+		<Unit filename="Source/Maths/Ray.h" />
 		<Unit filename="Source/Maths/Viewing_Frustum.cpp" />
 		<Unit filename="Source/Maths/Viewing_Frustum.h" />
 		<Unit filename="Source/Model/Model.cpp" />

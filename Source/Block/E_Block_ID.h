@@ -17,7 +17,9 @@ namespace Block
         Oak_Leaf    =   7,
         Oak_Plank   =   8,
 
-        Glass       = 9,
+        Glass = 9,
+
+        Cobble_Stone = 10,
 
         NUM_BLOCK_TYPES
     };
