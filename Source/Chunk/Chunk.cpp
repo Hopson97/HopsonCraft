@@ -66,36 +66,36 @@ void Chunk::qSetBlock (GLuint x, GLuint y, GLuint z, Block_t& block, bool overri
     }
 }
 
-const Block_t& Chunk::getBlock ( int x, int y, int z ) const
+const Block_t& Chunk::getBlock (int x, int y, int z) const
 {
     //Check if trying to get a block from other chuky
-    if ( x == -1 )
+    if (x == -1 )
     {
-        return getAdjChunkBlock( -1, 0, SIZE - 1, y, z );
+        return getAdjChunkBlock(-1, 0, SIZE - 1, y, z);
     }
-    else if ( z == -1 )
+    else if (z == -1 )
     {
-        return getAdjChunkBlock( 0, -1, x, y, SIZE - 1 );
+        return getAdjChunkBlock(0, -1, x, y, SIZE - 1);
     }
-    else if ( x == SIZE )
+    else if (x == SIZE )
     {
-        return getAdjChunkBlock( 1, 0, 0, y, z );
+        return getAdjChunkBlock(1, 0, 0, y, z);
     }
-    else if ( z == SIZE )
+    else if (z == SIZE )
     {
-        return getAdjChunkBlock( 0, 1, z, y, 0 );
+        return getAdjChunkBlock(0, 1, z, y, 0);
     }
-    else if ( y > HEIGHT - 1 )
+    else if (y > HEIGHT - 1)
     {
         return Block::air;
     }
-    else if ( y < 0 )
+    else if (y < 0)
     {
         return Block::dirt;
     }
     else
     {
-        return *m_blocks.at( SIZE * SIZE * y + SIZE * x + z );
+        return *m_blocks.at(SIZE * SIZE * y + SIZE * x + z);
     }
     return Block::dirt;    //This is for world edges
 }
@@ -156,13 +156,13 @@ const Model& Chunk::getWaterModel  () const
 }
 
 
-void Chunk :: setToDelete ()
+void Chunk::setToDelete ()
 {
     m_hasDeleteFlag = true;
 }
 
 
-bool Chunk :: hasDeleteFlag () const
+bool Chunk::hasDeleteFlag () const
 {
     return m_hasDeleteFlag;
 }
