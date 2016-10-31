@@ -9,6 +9,7 @@
 namespace Block
 {
     Block_Base::Block_Base(const std::string& name)
+    :   m_name (name)
     {
         std::ifstream inFile ("Data/Blocks/" + name + ".block");
         if (!inFile.is_open())
@@ -53,6 +54,12 @@ namespace Block
             }
         }
     }
+
+    const std::string& Block_Base::getName() const
+    {
+        return m_name;
+    }
+
 
     Block_Base::~Block_Base ()
     { }

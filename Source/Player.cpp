@@ -15,6 +15,8 @@ Player::Player()
 
 void Player::input()
 {
+    tempCtrlInput();
+
     m_rotationLock.checkInput();
     if (!m_isRotLocked)
         m_camera.update();
@@ -75,6 +77,11 @@ void Player::input()
     m_velocity += velocityChange;
 }
 
+void Player::tempCtrlInput()
+{
+
+}
+
 void Player::update(float dt)
 {
     m_velocity *= 0.95;
@@ -120,11 +127,9 @@ void Player::switchBlock(int inc)
     if (currId == 0) currId = NUM_BLOCK_TYPES - 1;
     else if (currId == NUM_BLOCK_TYPES) currId = 1;
 
-
-
-    std::cout << "Switching to block id: " << currId << std::endl;
-
     m_heldBlock = &Block::getBlock(static_cast<Block::ID>(currId));
+
+    std::cout << "Switching to block: " << m_heldBlock->getName() << std::endl;
 }
 
 

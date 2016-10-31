@@ -14,6 +14,8 @@ namespace Block
             Block_Base  (const std::string& name = "Air");
             virtual ~Block_Base ();
 
+            const std::string& getName() const;
+
             ID getID () const;
 
             //These get block texture location inside of the texture atlas
@@ -26,6 +28,8 @@ namespace Block
             int getBlastRestistance() const;
 
         private:
+            std::string m_name;
+
             ID m_id;
 
             Vector2 m_topTexture;
