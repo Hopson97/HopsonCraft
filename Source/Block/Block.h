@@ -28,6 +28,8 @@ namespace Block
             int getBlastRestistance() const;
 
         private:
+            void loadFromFile();
+
             std::string m_name;
 
             ID m_id;

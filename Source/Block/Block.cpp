@@ -11,48 +11,7 @@ namespace Block
     Block_Base::Block_Base(const std::string& name)
     :   m_name (name)
     {
-        std::ifstream inFile ("Data/Blocks/" + name + ".block");
-        if (!inFile.is_open())
-        {
-            throw std::runtime_error ("Unable to load block:" + name);
-        }
-
-
-        std::string line;
-        while (std::getline(inFile, line))
-        {
-            if (line == "id")
-            {
-                int id;
-                inFile >> id;
-                m_id = static_cast<ID>(id);
-            }
-            else if (line == "txrtop")
-            {
-                inFile >> m_topTexture.x >> m_topTexture.y;
-            }
-            else if (line == "txrside")
-            {
-                inFile >> m_sideTexture.x >> m_sideTexture.y;
-            }
-            else if (line == "txrbottom")
-            {
-                inFile >> m_bottomTexture.x >> m_bottomTexture.y;
-            }
-            else if (line == "opaque")
-            {
-                inFile >> m_isOpaque;
-            }
-            else if (line == "blastres")
-            {
-                inFile >> m_blastRestistance;
-            }
-            else if (line == "") continue;
-            else
-            {
-                throw std::runtime_error ("Unrecognised word in " + name + ".block -> " + line + "!");
-            }
-        }
+        loadFromFile();
     }
 
     const std::string& Block_Base::getName() const
@@ -93,5 +52,52 @@ namespace Block
     {
         return m_blastRestistance;
     }
+
+    void Block_Base::loadFromFile()
+    {
+        std::ifstream inFile ("Data/Blocks/" + m_name + ".block");
+        if (!inFile.is_open())
+        {
+            throw std::runtime_error ("Unable to load block:" + m_name);
+        }
+
+
+        std::string line;
+        while (std::getline(inFile, line))
+        {
+            if (line == "id")
+            {
+                int id;
+                inFile >> id;
+                m_id = static_cast<ID>(id);
+            }
+            else if (line == "txrtop")
+            {
+                inFile >> m_topTexture.x >> m_topTexture.y;
+            }
+            else if (line == "txrside")
+            {
+                inFile >> m_sideTexture.x >> m_sideTexture.y;
+            }
+            else if (line == "txrbottom")
+            {
+                inFile >> m_bottomTexture.x >> m_bottomTexture.y;
+            }
+            else if (line == "opaque")
+            {
+                inFile >> m_isOpaque;
+            }
+            else if (line == "blastres")
+            {
+                inFile >> m_blastRestistance;
+            }
+            else if (line == "") continue;
+            else
+            {
+                throw std::runtime_error ("Unrecognised word in " + m_name + ".block -> " + line + "!");
+            }
+        }
+    }
+
 
 } //Namespace Block
