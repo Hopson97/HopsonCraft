@@ -43,9 +43,11 @@ namespace Height_Generator
         gen_ocataves  = 4;//ocataves;
         gen_roughness = 0.5;//roughness;
 
-        if ( seed == -1 ) {
+        if ( seed == -1 )
+        {
             setRandSeed();
-        } else {
+        } else
+        {
             gen_seed = seed;
         }
 
@@ -77,8 +79,11 @@ namespace Height_Generator
             total += getInterpolatedNoise(  ( x + xOffset ) * frequency,
                                             ( z + zOffset ) * frequency ) * amps;
         }
-        int ret = total + 20;
-        return ret < Chunk::HEIGHT - 3 ? ret : Chunk::HEIGHT - 3;
+        int height = total + 20;
+
+        return height < Chunk::HEIGHT - 3 ?
+            height :
+            Chunk::HEIGHT - 3;
     }
 
     int getSeed()
