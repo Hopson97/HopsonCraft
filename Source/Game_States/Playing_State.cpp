@@ -46,7 +46,7 @@ namespace State
                                m_player.getRotation().x,
                                m_player.getPosition());
 
-                for (auto dist = 0.0f ; dist < 0.075 ; dist += 0.001f )
+                for (auto dist = 0.0f ; dist < 0.093 ; dist += 0.001f )
                 {
                     ray.step(dist);
 
