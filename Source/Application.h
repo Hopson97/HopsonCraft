@@ -4,6 +4,8 @@
 #include <stack>
 #include <memory>
 
+#include <SFML/Audio.hpp>
+
 #include "Game_States/Game_State.h"
 
 class Application
@@ -17,7 +19,13 @@ class Application
         void popState   ();
 
     private:
+        void resetSong();
+
         std::stack<std::unique_ptr<State::Game_State>> m_stateStack;
+
+        sf::Music m_song;
+        sf::Time  m_songDuration;
+        sf::Clock m_songTimer;
 };
 
 #endif // APPLICATION_H

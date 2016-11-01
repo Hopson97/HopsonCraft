@@ -9,6 +9,7 @@
 
 #include "Debug_Display.h"
 #include "Game_States/Playing_State.h"
+#include "Random.h"
 
 namespace
 {
@@ -20,6 +21,7 @@ Application::Application()
     srand(time(nullptr));
     std::cout << "Starting app!" << std::endl;
     m_stateStack.push(std::make_unique<State::Playing_State>(*this));
+    resetSong();
 }
 
 
@@ -43,6 +45,11 @@ void Application::runMainLoop()
 
         Display::update();
         Display::checkForClose();
+
+        if(m_songTimer.getElapsedTime() > m_songDuration )
+        {
+            resetSong();
+        }
     }
 }
 
@@ -56,6 +63,28 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
 void Application::popState()
 {
     if (!m_stateStack.empty()) m_stateStack.pop();
+}
+
+void Application::resetSong()
+{
+    static std::string songFilesPath = "Data/Music/";
+    static std::vector<std::string> songNames =
+    {
+        "C418-Ward",
+        "C418-Sweden(Caution and Crisis Remix)"
+    };
+    static auto lastSong = songNames.size() - 1; //In terms of the index in the std::vector
+    auto thisSong = lastSong;
+
+    while (thisSong != lastSong) thisSong = Random::integer(0, songNames.size() - 1);
+
+    lastSong = thisSong;
+    m_song.openFromFile(songFilesPath + songNames.at(thisSong) + ".ogg");
+    m_song.play();
+    m_songDuration = m_song.getDuration();
+    m_songTimer.restart();
+
+    std::cout << "Switched song" << std::endl;
 }
 
 
