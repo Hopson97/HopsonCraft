@@ -31,38 +31,28 @@ void Player::input()
     if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         auto yaw    = glm::radians(m_camera.getRotation().y + 90);
-        auto pitch  = glm::radians(m_camera.getRotation().x);
 
         velocityChange.x -= cos (yaw) * acceleration;
         velocityChange.z -= sin (yaw) * acceleration;
-
-        //velocityChange.x -= cos (yaw)   * acceleration;
-        //velocityChange.z -= sin (yaw)   * acceleration;
-        //velocityChange.y -= tan (pitch) * acceleration;
     }
     if  (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        auto angle = glm::radians(m_camera.getRotation().y);
-        velocityChange.x += cos (angle) * acceleration;
-        velocityChange.z += sin (angle) * acceleration;
+        auto yaw = glm::radians(m_camera.getRotation().y);
+        velocityChange.x += cos (yaw) * acceleration;
+        velocityChange.z += sin (yaw) * acceleration;
     }
     if  (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        auto angle = glm::radians(m_camera.getRotation().y);
-        velocityChange.x -= cos (angle) * acceleration;
-        velocityChange.z -= sin (angle) * acceleration;
+        auto yaw = glm::radians(m_camera.getRotation().y);
+        velocityChange.x -= cos (yaw) * acceleration;
+        velocityChange.z -= sin (yaw) * acceleration;
     }
     if  (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
         auto yaw    = glm::radians(m_camera.getRotation().y + 90);
-        auto pitch  = glm::radians(m_camera.getRotation().x);
 
         velocityChange.x += cos (yaw) * acceleration;
         velocityChange.z += sin (yaw) * acceleration;
-
-        //velocityChange.x += cos (yaw)   * acceleration;
-        //velocityChange.z += sin (yaw)   * acceleration;
-        //velocityChange.y += tan (pitch) * acceleration;
     }
 
     //Up/ Down
