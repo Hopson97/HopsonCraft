@@ -11,6 +11,7 @@ namespace Maths
             Ray(float yaw, float pitch, const Vector3& origin);
 
             void step (float scaler);
+            void set  (float scaler);
 
             const Vector3& getEndPoint() const;
 

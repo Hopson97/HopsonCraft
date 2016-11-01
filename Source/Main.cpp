@@ -19,7 +19,6 @@ namespace
     void setConsoleLocation();
 }
 
-
 int main()
 {
     srand ( time ( nullptr ) );
