@@ -15,15 +15,12 @@ Player::Player()
 
 void Player::input()
 {
-    tempCtrlInput();
+    movementInput();
+    toggleInput();
+}
 
-    m_rotationLock.checkInput();
-    if (!m_isRotLocked)
-        m_camera.update();
-
-    if (m_increaseBlockToggle.checkInput()) switchBlock(1);
-    if (m_decreaseBlockToggle.checkInput()) switchBlock(-1);
-
+void Player::movementInput()
+{
     Vector3 velocityChange;
     auto acceleration = sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) ? ACC * 4 : ACC / 2;
 
@@ -67,10 +64,16 @@ void Player::input()
     m_velocity += velocityChange;
 }
 
-void Player::tempCtrlInput()
+void Player::toggleInput()
 {
+    m_rotationLock.checkInput();
+    if (!m_isRotLocked)
+        m_camera.update();
 
+    if (m_increaseBlockToggle.checkInput()) switchBlock(1);
+    if (m_decreaseBlockToggle.checkInput()) switchBlock(-1);
 }
+
 
 void Player::update(float dt)
 {

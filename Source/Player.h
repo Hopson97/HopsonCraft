@@ -28,7 +28,9 @@ class Player
         constexpr static float ACC = 0.3;
 
     private:
-        void tempCtrlInput();
+        void movementInput();
+        void toggleInput();
+
         void switchBlock (int inc);
 
         Vector3 m_velocity;
