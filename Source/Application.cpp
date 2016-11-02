@@ -10,6 +10,7 @@
 #include "Debug_Display.h"
 #include "Game_States/Playing_State.h"
 #include "Random.h"
+#include <ctime>
 
 namespace
 {
@@ -92,6 +93,22 @@ namespace
 {
     void checkFps ()
     {
+        static sf::Clock timer;
+        static sf::Clock printTimer;
+        static auto numFrames = 0;
+
+        numFrames++;
+
+        if (printTimer.getElapsedTime().asSeconds() >= 1.0f)
+        {
+            auto fps = (float)numFrames / timer.getElapsedTime().asSeconds();
+            printTimer.restart();
+            Debug_Display::addFPS(fps);
+
+            numFrames = 0;
+            timer.restart();
+        }
+/*
         static float frameTimes = 0;
         static int   frames = 0;
 
@@ -106,5 +123,7 @@ namespace
             Debug_Display::addFPS(frameTimes / frames);
             printFpsTimer.restart();
         }
+        */
     }
+
 }

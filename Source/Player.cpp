@@ -101,8 +101,6 @@ Block::Block_Base& Player::getHeldBlock ()
     return *m_heldBlock;
 }
 
-
-
 void Player::switchBlock(int inc)
 {
     constexpr static auto NUM_BLOCK_TYPES = static_cast<int>(Block::ID::NUM_BLOCK_TYPES);

@@ -99,6 +99,7 @@ class Chunk
         bool m_hasBlockData     = false;
         bool m_hasMesh          = false;
         bool m_hasBuffered      = false;
+
         bool m_hasDeleteFlag    = false;
         bool m_hasUpdateFlag    = false;
 
