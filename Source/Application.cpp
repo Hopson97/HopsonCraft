@@ -20,7 +20,6 @@ namespace
 Application::Application()
 {
     srand(time(nullptr));
-    std::cout << "Starting app!" << std::endl;
     m_stateStack.push(std::make_unique<State::Playing_State>(*this));
     resetSong();
 }
@@ -84,8 +83,6 @@ void Application::resetSong()
     m_song.play();
     m_songDuration = m_song.getDuration();
     m_songTimer.restart();
-
-    std::cout << "Switched song" << std::endl;
 }
 
 
@@ -108,22 +105,6 @@ namespace
             numFrames = 0;
             timer.restart();
         }
-/*
-        static float frameTimes = 0;
-        static int   frames = 0;
-
-        static sf::Clock fpsTimer;
-        static sf::Clock printFpsTimer;
-
-        frameTimes += (1000000.0f / fpsTimer.restart().asMicroseconds());
-        frames++;
-
-        if (printFpsTimer.getElapsedTime().asSeconds() > 1.0f)
-        {
-            Debug_Display::addFPS(frameTimes / frames);
-            printFpsTimer.restart();
-        }
-        */
     }
 
 }
