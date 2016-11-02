@@ -12,8 +12,6 @@ class Camera;
 class Water_Renderer
 {
     public:
-        Water_Renderer();
-
         void addChunk       ( const Chunk& chunk );
 
         void render         ( const Camera& camera );

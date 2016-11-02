@@ -8,10 +8,6 @@
 #include "Display.h"
 #include "D_Settings.h"
 
-Water_Renderer :: Water_Renderer()
-{
-}
-
 void Water_Renderer :: addChunk ( const Chunk& chunk )
 {
     m_chunks.push_back( &chunk );

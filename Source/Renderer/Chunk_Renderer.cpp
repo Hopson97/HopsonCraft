@@ -8,9 +8,6 @@
 #include "Display.h"
 #include "D_Settings.h"
 
-Chunk_Renderer::Chunk_Renderer ()
-{}
-
 void Chunk_Renderer::addChunk (const Chunk& chunk)
 {
     m_chunks.push_back( &chunk );
@@ -28,6 +25,7 @@ void Chunk_Renderer::render(const Camera& camera)
 
     glEnable    (GL_CULL_FACE);
     glCullFace  (GL_BACK);
+
     for (const Chunk* chunk : m_chunks)
     {
         prepareChunk( *chunk );

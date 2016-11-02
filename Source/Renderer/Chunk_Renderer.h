@@ -13,8 +13,6 @@ class Camera;
 class Chunk_Renderer
 {
     public:
-        Chunk_Renderer ();
-
         void addChunk   (const Chunk& chunk );
 
         void render     (const Camera& camera);
