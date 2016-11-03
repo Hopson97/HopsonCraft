@@ -51,17 +51,15 @@ namespace State
                 {
                     ray.step(dist);
 
+
                     auto dx = abs(ray.getEndPoint().x - m_player.getPosition().x);
                     auto dy = abs(ray.getEndPoint().y - m_player.getPosition().y);
                     auto dz = abs(ray.getEndPoint().z - m_player.getPosition().z);
 
-
-
-                    if (Maths::getLength({dx, dy, dz}) > 6) //Temp range of the ray cast
+                    if (Maths::getLength({dx, dy, dz}) > 6.75) //Temp range of the ray cast
                     {
                         break;
                     }
-
 
                     if (m_chunkMap.isSolidBlockAt(ray.getEndPoint()))
                     {

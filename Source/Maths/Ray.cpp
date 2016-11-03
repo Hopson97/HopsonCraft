@@ -7,7 +7,6 @@ namespace Maths
     Ray::Ray(float yaw, float pitch, const Vector3& origin)
     :   m_yaw       (glm::radians(yaw))
     ,   m_pitch     (glm::radians(pitch))
-    ,   m_origin    (origin)
     ,   m_endPoint  (origin)
     {}
 

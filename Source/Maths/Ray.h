@@ -18,7 +18,6 @@ namespace Maths
         private:
             float m_yaw;
             float m_pitch;
-            Vector3 m_origin;
             Vector3 m_endPoint;
     };
 }
