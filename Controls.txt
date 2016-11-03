@@ -1,0 +1,22 @@
+Controls:
+
+W -> Move forwards. Note this litterally makes you move forwards, meaning it will make you go up and down if you look in those directions
+S -> Move backwards.
+
+A -> Move left. Does not make you move up or down.
+D -> Move right. Does not make you move up or down.
+
+Up Arrow Key -> Increase render/ loading distance.
+Down Arrow KEy -> Decrease render/ loading distance.
+
+Space -> Move up vertically.
+Shift -> Move down vertically.
+
+CTRL -> Hold down while moving to move faster.
+
+Left-Click -> Break blocks.
+Right-Click -> Place stone. 
+
+P -> Turn on "power mode", which makes you break blocks in a 3x3x3 box around you.
+
+E -> Exit

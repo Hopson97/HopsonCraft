@@ -40,7 +40,7 @@ namespace Display
 
         window = std::make_unique<sf::RenderWindow>(videoMode,
                                                     name,
-                                                    sf::Style::Close,
+                                                    sf::Style::Fullscreen,
                                                     settings);
         window->setMouseCursorVisible(false);
         window->setPosition ({0, 0});
@@ -64,7 +64,7 @@ namespace Display
     }
 
     //The following functions are for SFML drawing
-    //SFML uses OpenGL internally, thus you need to reset some states
+    //SFML uses OpenGL internally, thus you need to push some states
     //for it to work
     void prepareSfDraw ()
     {

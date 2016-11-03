@@ -95,6 +95,7 @@
 		<Unit filename="Source/Block/D_Blocks.cpp" />
 		<Unit filename="Source/Block/D_Blocks.h" />
 		<Unit filename="Source/Block/E_Block_ID.h" />
+		<Unit filename="Source/Block/E_Block_Physical_State.h" />
 		<Unit filename="Source/Camera.cpp" />
 		<Unit filename="Source/Camera.h" />
 		<Unit filename="Source/Chunk/Chunk.cpp" />
