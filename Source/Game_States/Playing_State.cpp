@@ -9,6 +9,7 @@
 #include "Debug_Display.h"
 #include "Maths/Position_Converter_Maths.h"
 #include "Ray.h"
+#include "General_Maths.h"
 
 namespace State
 {
@@ -49,6 +50,18 @@ namespace State
                 for (auto dist = 0.0f ; dist < 1.0f ; dist += 0.001f )
                 {
                     ray.step(dist);
+
+                    auto dx = abs(ray.getEndPoint().x - m_player.getPosition().x);
+                    auto dy = abs(ray.getEndPoint().y - m_player.getPosition().y);
+                    auto dz = abs(ray.getEndPoint().z - m_player.getPosition().z);
+
+
+
+                    if (Maths::getLength({dx, dy, dz}) > 6) //Temp range of the ray cast
+                    {
+                        break;
+                    }
+
 
                     if (m_chunkMap.isSolidBlockAt(ray.getEndPoint()))
                     {

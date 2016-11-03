@@ -10,6 +10,15 @@ namespace Maths
         double dy = p1.y - p2.y;
         double dz = p1.z - p2.z;
 
-        return std::abs (std::sqrt(dx * dx + dy * dy + dz * dz));
+        return std::abs (std::sqrt(dx * dx +
+                                   dy * dy +
+                                   dz * dz));
+    }
+
+    double getLength (const Vector3& vect)
+    {
+        return std::abs (std::sqrt(vect.x * vect.x +
+                                   vect.y * vect.y +
+                                   vect.z * vect.z));
     }
 }//namespace maths
