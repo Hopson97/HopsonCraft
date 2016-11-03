@@ -20,8 +20,8 @@ namespace
 Application::Application()
 {
     srand(time(nullptr));
-    m_stateStack.push(std::make_unique<State::Playing_State>(*this));
     resetSong();
+    m_stateStack.push(std::make_unique<State::Playing_State>(*this));
 }
 
 
@@ -71,14 +71,15 @@ void Application::resetSong()
     static std::vector<std::string> songNames =
     {
         "C418-Ward",
-        "C418-Sweden(Caution and Crisis Remix)"
+        //"C418-Sweden(Caution and Crisis Remix)"
     };
     static auto lastSong = songNames.size() - 1; //In terms of the index in the std::vector
-    auto thisSong = lastSong;
+    auto thisSong = lastSong;   //Get the Index of the last song
 
-    while (thisSong != lastSong) thisSong = Random::integer(0, songNames.size() - 1);
+    while (thisSong != lastSong) //So that the new song to play is not the same as the first
+        thisSong = Random::integer(0, songNames.size() - 1);
 
-    lastSong = thisSong;
+    lastSong = thisSong; //The new song playing is now technically the last song
     m_song.openFromFile(songFilesPath + songNames.at(thisSong) + ".ogg");
     m_song.play();
     m_songDuration = m_song.getDuration();

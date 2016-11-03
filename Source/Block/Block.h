@@ -3,6 +3,7 @@
 
 #include "OpenGL/Glm/glm_transformations.h"
 #include "E_Block_ID.h"
+#include "Block/E_Block_Physical_State.h"
 
 #include <string>
 
@@ -27,6 +28,8 @@ namespace Block
 
             int getBlastRestistance() const;
 
+            Physical_State getPhysicalState() const;;
+
         private:
             void loadFromFile();
 
@@ -38,9 +41,11 @@ namespace Block
             Vector2 m_sideTexture;
             Vector2 m_bottomTexture;
 
-            bool m_isOpaque;
+            bool m_isOpaque = false;
 
-            int m_blastRestistance; //The "power" from a blast must be greater than this
+            int m_blastRestistance = 0; //The "power" from a blast must be greater than this
+
+            Physical_State m_state;
 
     };
 } //Namespace Block

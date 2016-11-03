@@ -53,6 +53,12 @@ namespace Block
         return m_blastRestistance;
     }
 
+    Physical_State Block_Base::getPhysicalState() const
+    {
+        return m_state;
+    }
+
+
     void Block_Base::loadFromFile()
     {
         std::ifstream inFile ("Data/Blocks/" + m_name + ".block");
@@ -90,6 +96,12 @@ namespace Block
             else if (line == "blastres")
             {
                 inFile >> m_blastRestistance;
+            }
+            else if (line == "physstate")
+            {
+                int state;
+                inFile >> state;
+                m_state = static_cast<Physical_State>(state);
             }
             else if (line == "") continue;
             else
