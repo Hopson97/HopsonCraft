@@ -71,12 +71,16 @@ void Application::resetSong()
     static std::vector<std::string> songNames =
     {
         "C418-Ward",
-        //"C418-Sweden(Caution and Crisis Remix)"
+        "C418-Sweden(Caution and Crisis Remix)",
+        "euk",
+        "gm",
+        "tbatw",
+        "uouat"
     };
     static auto lastSong = songNames.size() - 1; //In terms of the index in the std::vector
     auto thisSong = lastSong;   //Get the Index of the last song
 
-    while (thisSong != lastSong) //So that the new song to play is not the same as the first
+    while (thisSong == lastSong) //So that the new song to play is not the same as the first
         thisSong = Random::integer(0, songNames.size() - 1);
 
     lastSong = thisSong; //The new song playing is now technically the last song
