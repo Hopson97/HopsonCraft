@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Chunk/Chunk_Map.h"
 #include "Master_Renderer.h"
-#include "Input/Toggle_Key.h"
+#include "Input/Function_Toggle_Key.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -31,7 +31,7 @@ namespace State
 
             bool m_debugDisplayActive = false;
 
-            Toggle_Key m_debugDisplay;
+            Function_Toggle_Key m_debugDisplay;
 
             sf::Texture crossHairTexture;
             sf::Sprite  crossHairSprite;

@@ -1,14 +1,15 @@
-#ifndef TOGGLE_KEY_H
-#define TOGGLE_KEY_H
+#ifndef FUNCTION_TOGGLE_KEY_H
+#define FUNCTION_TOGGLE_KEY_H
 
 #include <functional>
 #include <SFML/Graphics.hpp>
 
-struct Toggle_Key
+class Function_Toggle_Key
 {
-    Toggle_Key( std::function<void(void)> f, sf::Keyboard::Key k, float seconds );
+    public:
+        Function_Toggle_Key(std::function<void(void)> f, sf::Keyboard::Key k, float seconds);
 
-    bool checkInput();
+        bool checkInput();
 
     private:
         std::function<void(void)>   m_func;
@@ -17,4 +18,4 @@ struct Toggle_Key
         sf::Clock                   m_toggleClock;
 };
 
-#endif // TOGGLE_KEY_H
+#endif // FUNCTION_TOGGLE_KEY_H

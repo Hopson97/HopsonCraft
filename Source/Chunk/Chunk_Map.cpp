@@ -10,6 +10,7 @@
 #include "Debug_Display.h"
 #include "Input/Toggle_Key.h"
 #include "Block/D_Blocks.h"
+#include "Function_Toggle_Key.h"
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition)
 :   m_blockTextures     (1024, 16, "Block_Atlas")
@@ -47,8 +48,8 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
 
 void Chunk_Map::checkChunks()
 {
-    static Toggle_Key key([&](){m_renderDistance++;}, sf::Keyboard::Up, 0.5);
-    static Toggle_Key ke2y([&](){if(m_renderDistance > 5) m_renderDistance--;}, sf::Keyboard::Down, 0.5);
+    static Function_Toggle_Key key([&](){m_renderDistance++;}, sf::Keyboard::Up, 0.5);
+    static Function_Toggle_Key ke2y([&](){if(m_renderDistance > 5) m_renderDistance--;}, sf::Keyboard::Down, 0.5);
 
     key.checkInput  ();
     ke2y.checkInput ();
@@ -59,6 +60,7 @@ void Chunk_Map::checkChunks()
 
 void Chunk_Map::draw(Master_Renderer& renderer)
 {
+    sf::Clock c;
     m_blockTextures.bind();
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
@@ -80,6 +82,7 @@ void Chunk_Map::draw(Master_Renderer& renderer)
             itr++;
         }
     }
+    std::cout << c.getElapsedTime().asMicroseconds() << std::endl;
 }
 
 void Chunk_Map::updateChunks()

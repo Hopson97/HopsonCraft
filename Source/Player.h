@@ -4,7 +4,8 @@
 
 #include "OpenGL/Glm/glm_transformations.h"
 #include "Camera.h"
-#include "Input/Toggle_Key.h"
+#include "Function_Toggle_Key.h"
+#include "Toggle_Key.h"
 #include <SFML/Graphics.hpp>
 
 namespace Block
@@ -37,12 +38,12 @@ class Player
 
         Camera m_camera;
 
-        Toggle_Key m_rotationLock;
+        Function_Toggle_Key m_rotationLock;
         bool m_isRotLocked = false;
 
         bool m_canChangeBlock = true;
-        Toggle_Key m_increaseBlockToggle;
-        Toggle_Key m_decreaseBlockToggle;
+        Function_Toggle_Key m_increaseBlockToggle;
+        Function_Toggle_Key m_decreaseBlockToggle;
 
 
         Block::Block_Base* m_heldBlock;
