@@ -12,7 +12,7 @@
 #include "Chunk_Map.h"
 
 Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas)
-:   m_blocks        ( SIZE * SIZE * HEIGHT )
+:   m_layers        (HEIGHT)
 ,   m_location      (position)
 ,   m_position      (position.x * SIZE, position.z * SIZE)
 ,   m_p_chunkMap    (&chunkMap)
@@ -52,23 +52,15 @@ void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool 
 
 void Chunk::qSetBlock (GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks)
 {
-    if (!m_blocks.at(SIZE * SIZE * y + SIZE * x + z))
+    if (m_layers.at(y).getBlock(x, z).getID() == Block::ID::Air || overrideBlocks)
     {
-        m_blocks.at(SIZE * SIZE * y + SIZE * x + z) = &block;
-    }
-    else if ( getBlock(x, y, z).getID() == Block::ID::Air)
-    {
-        m_blocks.at(SIZE * SIZE * y + SIZE * x + z) = &block;
-    }
-    else if (overrideBlocks)
-    {
-        m_blocks.at(SIZE * SIZE * y + SIZE * x + z) = &block;
+        m_layers.at(y).setBlock(x, z, block);
     }
 }
 
 const Block_t& Chunk::getBlock (int x, int y, int z) const
 {
-    //Check if trying to get a block from other chuky
+    //Check if trying to get a block from other chunk
     if (x == -1 )
     {
         return getAdjChunkBlock(-1, 0, SIZE - 1, y, z);
@@ -95,7 +87,7 @@ const Block_t& Chunk::getBlock (int x, int y, int z) const
     }
     else
     {
-        return *m_blocks.at(SIZE * SIZE * y + SIZE * x + z);
+        return m_layers.at(y).getBlock(x, z);
     }
     return Block::dirt;    //This is for world edges
 }

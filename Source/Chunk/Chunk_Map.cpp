@@ -8,7 +8,6 @@
 #include "Camera.h"
 #include "Master_Renderer.h"
 #include "Debug_Display.h"
-#include "Input/Toggle_Key.h"
 #include "Block/D_Blocks.h"
 #include "Function_Toggle_Key.h"
 
@@ -60,7 +59,7 @@ void Chunk_Map::checkChunks()
 
 void Chunk_Map::draw(Master_Renderer& renderer)
 {
-    sf::Clock c;
+    //sf::Clock c;
     m_blockTextures.bind();
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
@@ -82,7 +81,7 @@ void Chunk_Map::draw(Master_Renderer& renderer)
             itr++;
         }
     }
-    std::cout << c.getElapsedTime().asMicroseconds() << std::endl;
+    //std::cout << c.getElapsedTime().asMicroseconds() << std::endl;
 }
 
 void Chunk_Map::updateChunks()

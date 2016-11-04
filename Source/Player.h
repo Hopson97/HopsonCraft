@@ -5,7 +5,6 @@
 #include "OpenGL/Glm/glm_transformations.h"
 #include "Camera.h"
 #include "Function_Toggle_Key.h"
-#include "Toggle_Key.h"
 #include <SFML/Graphics.hpp>
 
 namespace Block

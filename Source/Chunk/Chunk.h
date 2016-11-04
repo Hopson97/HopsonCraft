@@ -13,6 +13,7 @@
 #include "Model.h"
 #include "Block/Block.h"
 #include "Chunk/Chunk_Mesh.h"
+#include "Chunk_Layer.h"
 
 
 class Texture_Atlas;
@@ -85,7 +86,7 @@ class Chunk
         void genAdjChunks( const Chunk_Location& location );
 
     private:
-        std::vector<Block_t*> m_blocks;
+        std::vector<Chunk_Layer> m_layers;
 
         std::vector<Vector3> m_treeLocations;
 
