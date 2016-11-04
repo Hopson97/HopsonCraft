@@ -173,7 +173,7 @@ void Chunk_Map::setBlocks(Block::Block_Base& block, const std::vector<Vector3>wo
 bool Chunk_Map::isSolidBlockAt(const Vector3& worldPosition)
 {
     if (worldPosition.y > Chunk::HEIGHT) return false;
-    return getBlockAt(worldPosition).getID() != Block::ID::Air;
+    return getBlockAt(worldPosition).getPhysicalState() == Block::Physical_State::Solid;
 }
 
 /* getBlockAt

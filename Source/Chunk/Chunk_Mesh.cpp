@@ -49,7 +49,7 @@ void Chunk_Mesh::generateMesh()
         {
             for (int x = 0 ; x < Chunk::SIZE ; x++)
             {
-                if (m_p_chunk->getBlock(x, y, z).getID() == Block::ID::Air)
+                if (m_p_chunk->getBlock(x, y, z).getPhysicalState() == Block::Physical_State::Gas)
                 {
                     continue;
                 }
