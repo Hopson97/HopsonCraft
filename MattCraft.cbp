@@ -23,6 +23,8 @@
 					<Add directory="Source/Renderer" />
 					<Add directory="Source/Shaders" />
 					<Add directory="Source/Maths" />
+					<Add directory="Source/Input" />
+					<Add directory="Source/Chunk" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -49,6 +51,8 @@
 					<Add directory="Source/Renderer" />
 					<Add directory="Source/Shaders" />
 					<Add directory="Source/Maths" />
+					<Add directory="Source/Input" />
+					<Add directory="Source/Chunk" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -101,6 +105,8 @@
 		<Unit filename="Source/Chunk/Chunk.cpp" />
 		<Unit filename="Source/Chunk/Chunk.h" />
 		<Unit filename="Source/Chunk/Chunk_Generator.cpp" />
+		<Unit filename="Source/Chunk/Chunk_Layer.cpp" />
+		<Unit filename="Source/Chunk/Chunk_Layer.h" />
 		<Unit filename="Source/Chunk/Chunk_Location.cpp" />
 		<Unit filename="Source/Chunk/Chunk_Location.h" />
 		<Unit filename="Source/Chunk/Chunk_Map.cpp" />
@@ -114,8 +120,8 @@
 		<Unit filename="Source/Game_States/Playing_State.h" />
 		<Unit filename="Source/Height_Generator.cpp" />
 		<Unit filename="Source/Height_Generator.h" />
-		<Unit filename="Source/Input/Toggle_Key.cpp" />
-		<Unit filename="Source/Input/Toggle_Key.h" />
+		<Unit filename="Source/Input/Function_Toggle_Key.cpp" />
+		<Unit filename="Source/Input/Function_Toggle_Key.h" />
 		<Unit filename="Source/Loader.cpp" />
 		<Unit filename="Source/Loader.h" />
 		<Unit filename="Source/Main.cpp" />

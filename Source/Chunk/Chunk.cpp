@@ -29,7 +29,8 @@ void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool 
 /*
     if ( position.x < 0 )
     {
-
+        m_p_chunkMap->addChunk({-1, m_location.z});
+        m_p_chunkMap->getChunkAt({-1, m_location.z})->setBlock(SIZE - x, y, z);
     }
     else if ( position.z < 0 )
     {

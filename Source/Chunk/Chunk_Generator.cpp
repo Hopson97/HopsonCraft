@@ -107,13 +107,6 @@ void Chunk::bufferMesh ()
     m_hasBuffered = true;
 }
 
-void Chunk::Chunk_Part :: buffer ()
-{
-    model.addData ( Loader::loadArrayMesh( vertexData, textureData ) );
-    vertexData.clear();
-    textureData.clear();
-}
-
 void Chunk::makeTree (GLuint x, GLuint y, GLuint z)
 {
     auto trunkHeight = Random::integer(5, 8);

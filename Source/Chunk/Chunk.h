@@ -15,7 +15,6 @@
 #include "Chunk/Chunk_Mesh.h"
 #include "Chunk_Layer.h"
 
-
 class Texture_Atlas;
 class World;
 class Chunk_Map;
@@ -25,15 +24,6 @@ typedef std::unique_ptr<Chunk> Chunk_Ptr;
 
 class Chunk
 {
-    struct Chunk_Part
-    {
-        Model model;
-        std::vector<GLfloat> vertexData;
-        std::vector<GLfloat> textureData;
-
-        void buffer ();
-    };
-
     public:
         Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas);
 
