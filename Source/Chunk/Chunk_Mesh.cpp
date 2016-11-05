@@ -17,19 +17,22 @@ void Chunk_Mesh::Chunk_Mesh_Part::addUvCoords (const std::vector<GLfloat>& coord
     textureCoords.insert(textureCoords.end(), coords.begin(), coords.end());
 }
 
+void Chunk_Mesh::Chunk_Mesh_Part::buffer()
+{
+    model.addData(Loader::loadArrayMesh(vertexCoords, textureCoords));
+    vertexCoords.clear();
+    textureCoords.clear();
+}
+
+
 Chunk_Mesh::Chunk_Mesh(const Chunk& chunk)
 :   m_p_chunk (&chunk)
 {}
 
 void Chunk_Mesh::bufferMesh()
 {
-    m_solidPart.model.addData(Loader::loadArrayMesh(m_solidPart.vertexCoords, m_solidPart.textureCoords));
-    m_solidPart.textureCoords.clear();
-    m_solidPart.vertexCoords.clear();
-
-    m_waterPart.model.addData(Loader::loadArrayMesh(m_waterPart.vertexCoords, m_waterPart.textureCoords));
-    m_waterPart.textureCoords.clear();
-    m_waterPart.vertexCoords.clear();
+    m_solidPart.buffer();
+    m_waterPart.buffer();
 }
 
 const Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getSolidPart() const
@@ -59,10 +62,11 @@ void Chunk_Mesh::generateMesh(int height)
         }
     }
 }
-
-Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block::Block_Base& block)
+//This is for the block vertex array generator.
+//It basically just determines which vertex array, water or ground, to add the verticies into.
+Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(Block::ID id)
 {
-    if (block.getID() == Block::ID::Water)
+    if (id == Block::ID::Water)
     {
         return m_waterPart;
     }
@@ -72,8 +76,7 @@ Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block::Block_Base& block)
     }
 }
 
-
-
+//Adds blocks to mesh if there is a adjacent air block to a block
 void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Base& block)
 {
     if (shouldMakeMesh(x, y + 1, z, block))
@@ -106,11 +109,20 @@ void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Bas
 
 bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block::Block_Base& block)
 {
-    Block_Location location(x, y, z);
+    Block_Location location(x, y, z); //This is so it does not construct this object 3 times, but rather just once.
+
     return   ( m_p_chunk->getBlock(location).getID() == Block::ID::Air) ||
              (!m_p_chunk->getBlock(location).isOpaque() && m_p_chunk->getBlock(location).getID() != block.getID());
 }
 
+
+//Some people are confused by this part so here we go:
+
+/*
+    So the x, y or z variables refer to the block position, of which is passed into the function.
+    The +1 refers to where the vertex is in respect to the block vertex array "origin", of which is the front bottom
+    left of a block.
+*/
 
 void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block_Base& block)
 {

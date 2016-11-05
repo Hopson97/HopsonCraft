@@ -20,6 +20,7 @@ class Chunk_Mesh
 
         void addVerticies   (const std::vector<GLfloat>& verticies);
         void addUvCoords    (const std::vector<GLfloat>& coords);
+        void buffer         ();
     };
 
     public:
@@ -32,7 +33,7 @@ class Chunk_Mesh
         const Chunk_Mesh_Part& getWaterPart() const;
 
     private:
-        Chunk_Mesh_Part& getPart (const Block::Block_Base& block);
+        Chunk_Mesh_Part& getPart (Block::ID id);
 
         void addBlockMesh   (float x, float y, float z, const Block::Block_Base& block );
 
@@ -46,10 +47,6 @@ class Chunk_Mesh
 
         void addBlockFrontToMesh    (float x, float y, float z, const Block::Block_Base& block);
         void addBlockBackToMesh     (float x, float y, float z, const Block::Block_Base& block);
-
-        void finalizeFace (const std::vector<GLfloat>& verticies,
-                           const std::vector<GLfloat>& textureCoords,
-                           Chunk_Mesh_Part& part );
 
         Chunk_Mesh_Part m_solidPart;
         Chunk_Mesh_Part m_waterPart;

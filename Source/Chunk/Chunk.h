@@ -28,7 +28,7 @@ class Chunk
     public:
         Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas);
 
-        void generateBlockData      ();
+        void generateBlockData ();
 
         bool hasBlockData   () const;
         bool hasMesh        () const;
@@ -50,7 +50,7 @@ class Chunk
         const Model& getWaterModel  () const;
         const Model& getFloraModel  () const;
 
-        void giveDeleteFlag    ();
+        void giveDeleteFlag ();
         bool hasDeleteFlag  () const;
 
         void update         ();
@@ -58,10 +58,8 @@ class Chunk
         bool hasUpdateFlag  () const;
 
         static constexpr int SIZE  = 16,
-                             //HEIGHT = 256,
                              WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2;
-                             //BLOCKS = SIZE * SIZE * HEIGHT;
 
     private:
         void generateStructureData  ();

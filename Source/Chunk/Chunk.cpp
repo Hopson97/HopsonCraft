@@ -52,13 +52,11 @@ void Chunk :: setBlock (const Block_Location& location, Block::Block_Base& block
             //m_addedBlocks.insert(std::make_pair(position, block.getID()));
         }
     }
-
-
 }
 
 void Chunk::qSetBlock (const Block_Location& location, Block_t& block, bool overrideBlocks)
 {
-    if ((unsigned)location.y > m_layers.size() - 2)
+    if ((unsigned)location.y > m_layers.size() - 1)
     {
         addLayers(location.y);
     }
@@ -71,7 +69,7 @@ void Chunk::qSetBlock (const Block_Location& location, Block_t& block, bool over
 
 void Chunk::addLayers (unsigned target)
 {
-    while (m_layers.size() < target + 1 ) m_layers.emplace_back();
+    while (m_layers.size() - 1 < target) m_layers.emplace_back();
 }
 
 const Block_t& Chunk::getBlock (const Block_Location& location) const
