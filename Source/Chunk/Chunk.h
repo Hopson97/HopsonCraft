@@ -53,7 +53,7 @@ class Chunk
         void giveUpdateFlag ();
         bool hasUpdateFlag  () const;
 
-        static constexpr int SIZE  = 20,
+        static constexpr int SIZE  = 5,
                              WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2;
 
@@ -74,7 +74,7 @@ class Chunk
         std::vector<Chunk_Layer> m_layers;
         std::vector<Block_Location> m_treeLocations;
 
-        std::unordered_map<Block_Location, Block::ID> m_addedBlocks;
+        std::unordered_map<Block_Location, int> m_addedBlocks;
 
         Chunk_Location m_location; //Map coords
         Vector2  m_position; //GL coords

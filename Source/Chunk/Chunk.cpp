@@ -66,7 +66,8 @@ void Chunk::qSetBlock (const Block_Location& location, Block_t& block, bool over
 
     if (m_hasBlockData)
     {
-        m_addedBlocks.insert(std::make_pair(location, block.getID()));
+        m_addedBlocks.insert(std::make_pair(location, static_cast<int>(block.getID())));
+        std::cout << "Added blocks" << std::endl;
     }
 }
 
@@ -162,8 +163,21 @@ const Model& Chunk::getWaterModel  () const
 
 void Chunk::giveDeleteFlag ()
 {
+    if(!m_addedBlocks.empty())
+    {
+        std::cout << "Saving" << std::endl;
+        std::ofstream outFile ("Worlds/" + std::to_string(Height_Generator::getSeed()) + "/" +
+                                std::to_string(m_location.x) + " " + std::to_string(m_location.z));;
+
+        for(auto& block : m_addedBlocks)
+        {
+            Block_Location l = block.first;
+
+            outFile << l.x << " " << l.y << " " << l.z << " ";
+            outFile << block.second << std::endl;
+        }
+    }
     m_hasDeleteFlag = true;
-    std::ofstream outFile ("Worlds/" + std::to_string(Height_Generator::getSeed());
 }
 
 
