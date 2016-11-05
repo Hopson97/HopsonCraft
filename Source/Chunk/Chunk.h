@@ -4,11 +4,7 @@
 #include <unordered_map>
 #include <memory>
 #include <vector>
-#include <array>
 
-#include <SFML/Graphics.hpp>
-
-#include "OpenGL/Glm/glm_transformations.h"
 #include "Chunk_Location.h"
 #include "Model.h"
 #include "Block/Block.h"
@@ -57,7 +53,7 @@ class Chunk
         void giveUpdateFlag ();
         bool hasUpdateFlag  () const;
 
-        static constexpr int SIZE  = 16,
+        static constexpr int SIZE  = 20,
                              WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2;
 
@@ -78,7 +74,7 @@ class Chunk
         std::vector<Chunk_Layer> m_layers;
         std::vector<Block_Location> m_treeLocations;
 
-        std::map<Block_Location, Block::ID> m_addedBlocks;
+        std::unordered_map<Block_Location, Block::ID> m_addedBlocks;
 
         Chunk_Location m_location; //Map coords
         Vector2  m_position; //GL coords

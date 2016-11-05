@@ -14,7 +14,7 @@
 
 void Chunk::generateBlockData()
 {
-    auto maxHeight = 0; //todo: assign to 0
+    auto maxHeight = 0;
     std::vector<int> m_heightMap;
     for (int x = 0; x < SIZE ; x ++)
     {
@@ -25,7 +25,7 @@ void Chunk::generateBlockData()
                                                         m_location.x,
                                                         m_location.z );
             if (height > maxHeight) maxHeight = height;
-            m_heightMap.push_back(height); //todo: assign to height
+            m_heightMap.push_back(height);
         }
     }
 

@@ -25,6 +25,7 @@
 					<Add directory="Source/Maths" />
 					<Add directory="Source/Input" />
 					<Add directory="Source/Chunk" />
+					<Add directory="Source/Block" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -53,6 +54,7 @@
 					<Add directory="Source/Maths" />
 					<Add directory="Source/Input" />
 					<Add directory="Source/Chunk" />
+					<Add directory="Source/Block" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -96,6 +98,8 @@
 		<Unit filename="Source/Application.h" />
 		<Unit filename="Source/Block/Block.cpp" />
 		<Unit filename="Source/Block/Block.h" />
+		<Unit filename="Source/Block/Block_Location.cpp" />
+		<Unit filename="Source/Block/Block_Location.h" />
 		<Unit filename="Source/Block/D_Blocks.cpp" />
 		<Unit filename="Source/Block/D_Blocks.h" />
 		<Unit filename="Source/Block/E_Block_ID.h" />
@@ -165,6 +169,8 @@
 		<Unit filename="Source/Texture/Texture_Atlas.h" />
 		<Unit filename="Source/Util/Debug_Display.cpp" />
 		<Unit filename="Source/Util/Debug_Display.h" />
+		<Unit filename="Source/Util/Directory_Creator.cpp" />
+		<Unit filename="Source/Util/Directory_Creator.h" />
 		<Unit filename="Source/Util/Display.cpp" />
 		<Unit filename="Source/Util/Display.h" />
 		<Unit filename="Source/Util/Random.cpp" />

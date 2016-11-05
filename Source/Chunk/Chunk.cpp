@@ -1,6 +1,8 @@
 #include "Chunk.h"
 
 #include <iostream>
+#include <fstream>
+#include <windows.h>
 
 #include "Block/Block.h"
 
@@ -47,10 +49,6 @@ void Chunk :: setBlock (const Block_Location& location, Block::Block_Base& block
     //else
     {
         qSetBlock(location, block, overrideBlocks);
-        if (m_hasBlockData)
-        {
-            //m_addedBlocks.insert(std::make_pair(position, block.getID()));
-        }
     }
 }
 
@@ -64,6 +62,11 @@ void Chunk::qSetBlock (const Block_Location& location, Block_t& block, bool over
     if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Air || overrideBlocks)
     {
         m_layers.at(location.y).setBlock(location.x, location.z, block);
+    }
+
+    if (m_hasBlockData)
+    {
+        m_addedBlocks.insert(std::make_pair(location, block.getID()));
     }
 }
 
@@ -160,6 +163,7 @@ const Model& Chunk::getWaterModel  () const
 void Chunk::giveDeleteFlag ()
 {
     m_hasDeleteFlag = true;
+    std::ofstream outFile ("Worlds/" + std::to_string(Height_Generator::getSeed());
 }
 
 

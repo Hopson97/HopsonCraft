@@ -10,6 +10,8 @@
 #include "Maths/Position_Converter_Maths.h"
 #include "Ray.h"
 #include "General_Maths.h"
+#include "Directory_Creator.h"
+#include "Height_Generator.h"
 
 namespace State
 {
@@ -26,6 +28,8 @@ namespace State
         crossHairSprite.setPosition(Display::get().getSize().x / 2 - crossHairSprite.getTexture()->getSize().x / 2,
                                     Display::get().getSize().y / 2 - crossHairSprite.getTexture()->getSize().y / 2);
 
+
+        Directory::create("Worlds/" + std::to_string(Height_Generator::getSeed()));
     }
 
     bool b;
