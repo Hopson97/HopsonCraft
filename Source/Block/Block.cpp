@@ -19,7 +19,6 @@ namespace Block
         return m_name;
     }
 
-
     Block_Base::~Block_Base ()
     { }
 

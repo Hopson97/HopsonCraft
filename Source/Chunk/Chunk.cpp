@@ -26,30 +26,34 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 
 void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool overrideBlocks)
 {
-   //if (position.y > HEIGHT - 1 || position.y < 0) return;
-/*
-    if ( position.x < 0 )
+    //if ( position.x < 0 )
     {
-        m_p_chunkMap->addChunk({-1, m_location.z});
-        m_p_chunkMap->getChunkAt({-1, m_location.z})->setBlock(SIZE - x, y, z);
+       // m_p_chunkMap->addChunk({-1, m_location.z});
+        //m_p_chunkMap->getChunkAt({-1, m_location.z})->setBlock(SIZE - x, y, z);
     }
-    else if ( position.z < 0 )
+    //else if ( position.z < 0 )
     {
 
     }
-    else if ( position.x >= SIZE )
+    //else if ( position.x >= SIZE )
     {
 
     }
-    else if ( position.z >= SIZE )
+    //else if ( position.z >= SIZE )
     {
 
 
     }
-    else
-    {*/
+    //else
+    {
         qSetBlock(position.x, position.y, position.z, block, overrideBlocks);
-    //}
+        if (m_hasBlockData)
+        {
+            //m_addedBlocks.insert(std::make_pair(position, block.getID()));
+        }
+    }
+
+
 }
 
 void Chunk::qSetBlock (GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks)
@@ -153,7 +157,7 @@ const Model& Chunk::getWaterModel  () const
 }
 
 
-void Chunk::setToDelete ()
+void Chunk::giveDeleteFlag ()
 {
     m_hasDeleteFlag = true;
 }

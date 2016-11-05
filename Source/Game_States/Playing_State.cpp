@@ -40,7 +40,6 @@ namespace State
 
         key.checkInput();
 
-
         //Block breaking and placing
         if (breakBlockClock.getElapsedTime().asSeconds() > 0.1)
         {

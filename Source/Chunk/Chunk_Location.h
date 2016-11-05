@@ -4,18 +4,16 @@
 #include <functional>
 #include <cmath>
 
-#include "OpenGL/Glm/glm_transformations.h"
-
 struct Chunk_Location
 {
-    Chunk_Location ( int x, int z );
+    Chunk_Location (int x, int z);
 
     int x = 0;
     int z = 0;
 
-    bool operator == ( const Chunk_Location& other ) const;
+    bool operator== (const Chunk_Location& other) const;
 
-    bool operator !=  ( const Chunk_Location& other ) const;
+    bool operator!=  (const Chunk_Location& other) const;
 };
 
 namespace std
@@ -24,7 +22,7 @@ namespace std
     struct hash<Chunk_Location>
     {
         template <typename T>
-        T hashInt( T key ) const
+        T hashInt(T key) const
         {
             key = ~key + (key << 15);
             key = key ^ (key >> 12);
@@ -37,8 +35,8 @@ namespace std
 
         size_t operator() ( Chunk_Location const& v ) const
         {
-            size_t h1 = std::hash<double>()( hashInt ( v.x >> v.z ) );
-            size_t h2 = std::hash<double>()( hashInt ( v.x << v.z ) );
+            size_t h1 = std::hash<double>{}(hashInt(v.x >> v.z));
+            size_t h2 = std::hash<double>{}(hashInt(v.x << v.z));
             return (h1 ^ (h2 << 1));
         }
     };

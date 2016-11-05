@@ -14,6 +14,7 @@
 #include "Block/Block.h"
 #include "Chunk/Chunk_Mesh.h"
 #include "Chunk_Layer.h"
+#include "Block_Location.h"
 
 class Texture_Atlas;
 class World;
@@ -51,7 +52,7 @@ class Chunk
         const Model& getWaterModel  () const;
         const Model& getFloraModel  () const;
 
-        void setToDelete    ();
+        void giveDeleteFlag    ();
         bool hasDeleteFlag  () const;
 
         void update         ();
@@ -79,8 +80,9 @@ class Chunk
 
     private:
         std::vector<Chunk_Layer> m_layers;
-
         std::vector<Vector3> m_treeLocations;
+
+        std::map<Block_Location, Block::ID> m_addedBlocks;
 
         Chunk_Location m_location; //Map coords
         Vector2  m_position; //GL coords

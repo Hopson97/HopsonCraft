@@ -334,7 +334,7 @@ void Chunk_Map::flagChunksForDelete( const Area& deleteArea )
             loc.z < deleteArea.minZ ||
             loc.z > deleteArea.maxZ)
         {
-            chunk.setToDelete();
+            chunk.giveDeleteFlag();
         }
     }
 }
