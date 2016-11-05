@@ -29,7 +29,7 @@ void Chunk::generateBlockData()
         }
     }
 
-    for (int y = 0; y < maxHeight ; y++)
+    for (int y = 0; y < maxHeight + 1 ; y++)
     {
         for (int x = 0 ; x < SIZE ; x++)
         {

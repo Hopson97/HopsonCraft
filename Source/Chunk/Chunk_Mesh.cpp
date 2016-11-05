@@ -126,7 +126,7 @@ bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block::Block_Base& bl
 
 void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block_Base& block)
 {
-    getPart(block).addVerticies
+    getPart(block.getID()).addVerticies
     (
     {
         x,      y + 1, z + 1,
@@ -136,12 +136,12 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
         x,      y + 1, z,
         x,      y + 1, z + 1,
     });
-    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureTop()));
+    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureTop()));
 }
 
 void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Block_Base& block)
 {
-    getPart(block).addVerticies
+    getPart(block.getID()).addVerticies
     (
     {
         x,      y, z,
@@ -151,12 +151,12 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Bl
         x,      y, z + 1,
         x,      y, z
     });
-    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureBottom()));
+    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureBottom()));
 }
 
 void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Block_Base& block)
 {
-    getPart(block).addVerticies
+    getPart(block.getID()).addVerticies
     (
     {
         x, y,       z,
@@ -166,12 +166,12 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Bloc
         x, y + 1,   z,
         x, y,       z,
     });
-    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
 
 void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Block_Base& block)
 {
-    getPart(block).addVerticies
+    getPart(block.getID()).addVerticies
     (
     {
         x + 1, y,       z + 1,
@@ -181,12 +181,12 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
         x + 1, y + 1,   z + 1,
         x + 1, y,       z + 1,
     });
-    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
 
 void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Block_Base& block)
 {
-    getPart(block).addVerticies
+    getPart(block.getID()).addVerticies
     (
     {
         x,      y,      z + 1,
@@ -196,12 +196,12 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
         x,      y + 1,  z + 1,
         x,      y,      z + 1,
     });
-    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
 
 void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Block_Base& block)
 {
-    getPart(block).addVerticies
+    getPart(block.getID()).addVerticies
     (
     {
         x + 1,  y,      z,
@@ -211,5 +211,5 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Bloc
         x + 1,  y + 1,  z,
         x + 1,  y,      z,
     });
-    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
