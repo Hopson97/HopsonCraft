@@ -79,11 +79,7 @@ namespace Height_Generator
             total += getInterpolatedNoise(  ( x + xOffset ) * frequency,
                                             ( z + zOffset ) * frequency ) * amps;
         }
-        int height = total + 20;
-
-        return height < Chunk::HEIGHT - 3 ?
-            height :
-            Chunk::HEIGHT - 3;
+        return total + 10;
     }
 
     int getSeed()

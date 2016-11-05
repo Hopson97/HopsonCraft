@@ -28,6 +28,9 @@ namespace State
 
     }
 
+    bool b;
+    Function_Toggle_Key key([&](){b = !b;}, sf::Keyboard::C, 0.5f);
+
     void Playing_State::input (float dt)
     {
         m_player.input();
@@ -35,10 +38,13 @@ namespace State
 
         static sf::Clock breakBlockClock;
 
+        key.checkInput();
+
+
         //Block breaking and placing
         if (breakBlockClock.getElapsedTime().asSeconds() > 0.1)
         {
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || b)
             {
 
                 auto oldRayEnd = m_player.getPosition();
@@ -68,7 +74,7 @@ namespace State
                             if (Maths::worldToBlockPosition(ray.getEndPoint()) != Maths::worldToBlockPosition(m_player.getPosition()))
                                 m_chunkMap.setBlock(Block::air, ray.getEndPoint());
                         }
-                        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) || b)
                         {
                             if (Maths::worldToBlockPosition(oldRayEnd) != Maths::worldToBlockPosition(m_player.getPosition()))
                                 m_chunkMap.setBlock(m_player.getHeldBlock(), oldRayEnd);

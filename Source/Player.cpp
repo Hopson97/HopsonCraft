@@ -8,13 +8,18 @@ Player::Player()
 :   m_rotationLock          ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, 0.5)
 ,   m_increaseBlockToggle   ([&](){m_canChangeBlock = !m_canChangeBlock;}, sf::Keyboard::Right, 0.2)
 ,   m_decreaseBlockToggle   ([&](){m_canChangeBlock = !m_canChangeBlock;}, sf::Keyboard::Left,  0.2)
-,   m_heldBlock             (&Block::grass)
+,   m_heldBlock             (&Block::getBlock(Block::ID::Glass))
 {
     m_camera.movePosition({500, 145, 500});
 }
 
+    bool b;
+    Function_Toggle_Key key([&](){b = !b;}, sf::Keyboard::C, 0.5f);
+
 void Player::input()
 {
+    key.checkInput();
+
     movementInput();
     toggleInput();
 }
@@ -57,7 +62,7 @@ void Player::movementInput()
     {
         velocityChange.y -= acceleration;
     }
-    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
+    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) || b )
     {
         velocityChange.y += acceleration;
     }

@@ -23,8 +23,8 @@ void Chunk_Renderer::render(const Camera& camera)
                               Settings::SKY_BLUE
                             });
 
-    glEnable    (GL_CULL_FACE);
-    glCullFace  (GL_BACK);
+    //glEnable    (GL_CULL_FACE);
+    //glCullFace  (GL_BACK);
 
     for (const Chunk* chunk : m_chunks)
     {

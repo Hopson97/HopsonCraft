@@ -38,14 +38,14 @@ class Chunk
 
         const Texture_Atlas& getAtlas () const;
 
-        const Block_t& getBlock ( int x, int y, int z )     const;
-        const Block_t& getBlock ( const Vector3& location ) const;
+        const Block_t& getBlock (int x, int y, int z)     const;
+        const Block_t& getBlock (const Vector3& location) const;
 
         const Chunk_Location& getLocation () const;
         const Vector2&  getPosition () const;
 
-        void setBlock   (   GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true );
-        void setBlock   ( const Vector3& position, Block::Block_Base& block, bool overrideBlocks = true );
+        void setBlock   (GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true);
+        void setBlock   (const Vector3& position, Block::Block_Base& block, bool overrideBlocks = true);
 
         const Model& getChunkModel  () const;
         const Model& getWaterModel  () const;
@@ -58,22 +58,24 @@ class Chunk
         void giveUpdateFlag ();
         bool hasUpdateFlag  () const;
 
-        static constexpr int SIZE  = 18,
-                             HEIGHT = 256,
+        static constexpr int SIZE  = 16,
+                             //HEIGHT = 256,
                              WATER_LEVEL = 115,
-                             BEACH_LEVEL = WATER_LEVEL + 2,
-                             BLOCKS = SIZE * SIZE * HEIGHT;
+                             BEACH_LEVEL = WATER_LEVEL + 2;
+                             //BLOCKS = SIZE * SIZE * HEIGHT;
 
     private:
         void generateStructureData  ();
 
-        void makeTree   (   GLuint x, GLuint y, GLuint z );
+        void makeTree   (GLuint x, GLuint y, GLuint z);
 
-        void qSetBlock   (   GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks = true );
+        void qSetBlock   (GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks = true);
 
-        const Block_t& getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const;
+        const Block_t& getAdjChunkBlock (int xChange, int zChange, int blockX, int blockY, int blockZ) const;
 
-        void genAdjChunks( const Chunk_Location& location );
+        void genAdjChunks(const Chunk_Location& location);
+
+        void addLayers (unsigned target);
 
     private:
         std::vector<Chunk_Layer> m_layers;

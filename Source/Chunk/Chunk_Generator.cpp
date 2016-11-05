@@ -12,25 +12,24 @@
 #include "Chunk_Map.h"
 #include "Debug_Display.h"
 
-
-
 void Chunk::generateBlockData()
 {
+    auto maxHeight = 0; //todo: assign to 0
     std::vector<int> m_heightMap;
     for (int x = 0; x < SIZE ; x ++)
     {
         for (int z = 0 ; z < SIZE ; z++)
         {
-            m_heightMap.push_back (Height_Generator::getHeight
-                                   (    x,
-                                        z,
-                                        m_location.x,
-                                        m_location.z )
-                                   );
+            auto height =  Height_Generator::getHeight (x,
+                                                        z,
+                                                        m_location.x,
+                                                        m_location.z );
+            if (height > maxHeight) maxHeight = height;
+            m_heightMap.push_back(height); //todo: assign to height
         }
     }
 
-    for (int y = 0; y < HEIGHT ; y++)
+    for (int y = 0; y < maxHeight ; y++)
     {
         for (int x = 0 ; x < SIZE ; x++)
         {
@@ -48,7 +47,9 @@ void Chunk::generateBlockData()
                     if (y > BEACH_LEVEL) //Top levels
                     {
                         qSetBlock( x, y, z, Block::grass );
-                        if ( Random::integer(1, 50) == 1 && (x > 4 && x < 13) && (z > 4 && z < 15))
+                        if ( Random::integer(1, 50) == 1  &&
+                           (x > SIZE + 3 && x < SIZE - 3) &&
+                           (z > SIZE + 3 && z < SIZE - 3))
                             m_treeLocations.emplace_back(x, y, z);    //Trees
                     }
                     else if (y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
@@ -94,7 +95,7 @@ void Chunk::generateMesh ()
     m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z - 1});
 
-    m_mesh.generateMesh();
+    m_mesh.generateMesh(m_layers.size());
 
     m_hasMesh       = true;
     m_hasBuffered   = false;

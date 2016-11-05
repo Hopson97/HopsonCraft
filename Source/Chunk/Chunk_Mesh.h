@@ -25,7 +25,7 @@ class Chunk_Mesh
     public:
         Chunk_Mesh (const Chunk& chunk);
 
-        void generateMesh ();
+        void generateMesh (int height);
         void bufferMesh   ();
 
         const Chunk_Mesh_Part& getSolidPart() const;

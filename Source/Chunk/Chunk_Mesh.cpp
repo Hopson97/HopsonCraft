@@ -41,9 +41,9 @@ const Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getWaterPart() const
     return m_waterPart;
 }
 
-void Chunk_Mesh::generateMesh()
+void Chunk_Mesh::generateMesh(int height)
 {
-    for (int y = 0 ; y < Chunk::HEIGHT ; y++)
+    for (int y = 0 ; y < height ; y++)
     {
         for (int z = 0 ; z < Chunk::SIZE ; z++)
         {
@@ -75,7 +75,6 @@ Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block::Block_Base& block)
 
 void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Base& block)
 {
-
     if (shouldMakeMesh(x, y + 1, z, block))
     {
         addBlockTopToMesh   (x, y, z, block);
@@ -84,6 +83,7 @@ void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Bas
     {
         addBlockBottomToMesh(x, y, z, block);
     }
+
     if (shouldMakeMesh(x - 1, y, z, block))
     {
         addBlockLeftToMesh  (x, y, z, block);
@@ -92,6 +92,7 @@ void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Bas
     {
         addBlockRightToMesh (x, y, z, block);
     }
+
     if (shouldMakeMesh(x, y, z + 1, block))
     {
         addBlockFrontToMesh (x, y, z, block);

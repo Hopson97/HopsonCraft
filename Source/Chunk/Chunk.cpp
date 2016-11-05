@@ -10,9 +10,10 @@
 #include "Random.h"
 #include "Block/D_Blocks.h"
 #include "Chunk_Map.h"
+#include "Function_Toggle_Key.h"
 
 Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas)
-:   m_layers        (HEIGHT)
+:   m_layers        (WATER_LEVEL)
 ,   m_location      (position)
 ,   m_position      (position.x * SIZE, position.z * SIZE)
 ,   m_p_chunkMap    (&chunkMap)
@@ -25,7 +26,7 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 
 void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool overrideBlocks)
 {
-    if (position.y > HEIGHT - 1 || position.y < 0) return;
+   //if (position.y > HEIGHT - 1 || position.y < 0) return;
 /*
     if ( position.x < 0 )
     {
@@ -53,10 +54,16 @@ void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool 
 
 void Chunk::qSetBlock (GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks)
 {
+    if (y > m_layers.size() - 2) addLayers(y);
     if (m_layers.at(y).getBlock(x, z).getID() == Block::ID::Air || overrideBlocks)
     {
         m_layers.at(y).setBlock(x, z, block);
     }
+}
+
+void Chunk::addLayers (unsigned target)
+{
+    while (m_layers.size() < target + 1 ) m_layers.emplace_back();
 }
 
 const Block_t& Chunk::getBlock (int x, int y, int z) const
@@ -78,28 +85,25 @@ const Block_t& Chunk::getBlock (int x, int y, int z) const
     {
         return getAdjChunkBlock(0, 1, z, y, 0);
     }
-    else if (y > HEIGHT - 1)
+    else if ((unsigned)y > m_layers.size() - 1)
     {
         return Block::air;
     }
     else if (y < 0)
     {
-        return Block::dirt;
+        return Block::air;
     }
     else
     {
         return m_layers.at(y).getBlock(x, z);
     }
-    return Block::dirt;    //This is for world edges
+    return Block::air;    //This is for world edges
 }
 
 const Block_t& Chunk::getBlock(const Vector3& location) const
 {
     return getBlock(location.x, location.y, location.z);
 }
-
-
-
 
 const Block_t& Chunk::getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const
 {
