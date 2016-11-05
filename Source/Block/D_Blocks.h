@@ -20,7 +20,7 @@ namespace Block
 
     void initBlockDatabase ();
 
-    Block::Block_Base& getBlock (Block::ID id);
+    Block::Block_Base& getBlockFromId (Block::ID id);
 }
 
 #endif // D_BLOCKS_H_INCLUDED

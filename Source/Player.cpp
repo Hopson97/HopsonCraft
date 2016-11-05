@@ -8,7 +8,7 @@ Player::Player()
 :   m_rotationLock          ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, 0.5)
 ,   m_increaseBlockToggle   ([&](){m_canChangeBlock = !m_canChangeBlock;}, sf::Keyboard::Right, 0.2)
 ,   m_decreaseBlockToggle   ([&](){m_canChangeBlock = !m_canChangeBlock;}, sf::Keyboard::Left,  0.2)
-,   m_heldBlock             (&Block::getBlock(Block::ID::Glass))
+,   m_heldBlock             (&Block::getBlockFromId(Block::ID::Glass))
 {
     m_camera.movePosition({500, 145, 500});
 }
@@ -123,7 +123,7 @@ void Player::switchBlock(int inc)
     if (currId == 0) currId = NUM_BLOCK_TYPES - 1;
     else if (currId == NUM_BLOCK_TYPES) currId = 1;
 
-    m_heldBlock = &Block::getBlock(static_cast<Block::ID>(currId));
+    m_heldBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
 
     std::cout << "Switching to block: " << m_heldBlock->getName() << std::endl;
 }

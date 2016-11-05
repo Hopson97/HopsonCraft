@@ -24,8 +24,6 @@ class Chunk
     public:
         Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas);
 
-        void generateBlockData ();
-
         bool hasBlockData   () const;
         bool hasMesh        () const;
         bool hasBuffered    () const;
@@ -53,12 +51,16 @@ class Chunk
         void giveUpdateFlag ();
         bool hasUpdateFlag  () const;
 
-        static constexpr int SIZE  = 5,
+        static constexpr int SIZE  = 20,
                              WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2;
 
     private:
+        void generateBlockData      ();
         void generateStructureData  ();
+        void loadBlockData          ();
+        std::string getFileString   ();
+
 
         void makeTree   (const Block_Location& location);
 

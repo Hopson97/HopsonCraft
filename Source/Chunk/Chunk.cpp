@@ -22,8 +22,11 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 ,   m_p_atlas       (&blockAtlas)
 ,   m_mesh          (*this)
 {
-    generateBlockData       ();
-    generateStructureData   ();
+    generateBlockData ();
+    generateStructureData ();
+    loadBlockData ();
+
+    m_hasBlockData = true;
 }
 
 void Chunk :: setBlock (const Block_Location& location, Block::Block_Base& block, bool overrideBlocks)
@@ -61,13 +64,11 @@ void Chunk::qSetBlock (const Block_Location& location, Block_t& block, bool over
 
     if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Air || overrideBlocks)
     {
+        if (m_hasBlockData)
+        {
+            m_addedBlocks[location] = static_cast<int>(block.getID());
+        }
         m_layers.at(location.y).setBlock(location.x, location.z, block);
-    }
-
-    if (m_hasBlockData)
-    {
-        m_addedBlocks.insert(std::make_pair(location, static_cast<int>(block.getID())));
-        std::cout << "Added blocks" << std::endl;
     }
 }
 
@@ -165,18 +166,17 @@ void Chunk::giveDeleteFlag ()
 {
     if(!m_addedBlocks.empty())
     {
-        std::cout << "Saving" << std::endl;
-        std::ofstream outFile ("Worlds/" + std::to_string(Height_Generator::getSeed()) + "/" +
-                                std::to_string(m_location.x) + " " + std::to_string(m_location.z));;
+        std::ofstream outFile (getFileString());
 
         for(auto& block : m_addedBlocks)
         {
-            Block_Location l = block.first;
+            const Block_Location& l = block.first;
 
             outFile << l.x << " " << l.y << " " << l.z << " ";
             outFile << block.second << std::endl;
         }
     }
+
     m_hasDeleteFlag = true;
 }
 
@@ -208,4 +208,13 @@ bool Chunk::hasUpdateFlag() const
     return m_hasUpdateFlag;
 }
 
+std::string Chunk::getFileString()
+{
+    return "Worlds/" +
+            std::to_string(Height_Generator::getSeed()) +
+            "/" +
+            std::to_string(m_location.x)
+            + " "
+            + std::to_string(m_location.z);
+}
 

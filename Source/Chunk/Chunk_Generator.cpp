@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 #include "Block/Block.h"
 #include "Texture/Texture_Atlas.h"
@@ -84,8 +86,30 @@ void Chunk::generateStructureData ()
         makeTree(location);
     }
     m_treeLocations.clear();
+}
 
-    m_hasBlockData = true;
+void Chunk::loadBlockData ()
+{
+    std::ifstream inFile(getFileString());
+
+    if(!inFile.is_open())
+        return;
+
+    int x, y, z, id;
+
+    while(inFile.peek() != EOF)
+    {
+        inFile >> x >> y >> z >> id;
+        m_addedBlocks[{x, y, z}] = id;
+    }
+
+    for (auto& block : m_addedBlocks)
+    {
+        int idNum = block.second;
+        Block::ID id = static_cast<Block::ID>(idNum);
+
+        qSetBlock(block.first, Block::getBlockFromId(id));
+    }
 }
 
 void Chunk::generateMesh ()

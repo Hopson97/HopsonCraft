@@ -38,7 +38,7 @@ namespace Block
         blockMap[Block::ID::Cobble_Stone] = &cobbleStone;
     }
 
-    Block::Block_Base& getBlock (Block::ID id)
+    Block::Block_Base& getBlockFromId (Block::ID id)
     {
         return *blockMap.at(id);
     }
