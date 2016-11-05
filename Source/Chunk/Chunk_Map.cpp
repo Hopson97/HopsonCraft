@@ -125,8 +125,8 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
         }
     };
 
-    Chunk_Location  position        (Maths::worldToChunkPosition(worldPosition));
-    Vector3         blockPosition   (Maths::worldToBlockPosition(worldPosition));
+    Chunk_Location position (Maths::worldToChunkPosition(worldPosition));
+    Block_Location blockPosition (Maths::worldToBlockPosition(worldPosition));
 
     auto* chunk = getChunkAt(position);
 
@@ -175,8 +175,8 @@ bool Chunk_Map::isSolidBlockAt(const Vector3& worldPosition)
 */
 const Block::Block_Base& Chunk_Map::getBlockAt(const Vector3& worldPosition)
 {
-    Chunk_Location  position        (Maths::worldToChunkPosition(worldPosition));
-    Vector3         blockPosition   (Maths::worldToBlockPosition(worldPosition));
+    Chunk_Location position (Maths::worldToChunkPosition(worldPosition));
+    Block_Location blockPosition (Maths::worldToBlockPosition(worldPosition));
 
     if (getChunkAt(position))
     {

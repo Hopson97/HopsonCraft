@@ -6,7 +6,7 @@
 
 namespace Maths
 {
-    Vector3 worldToBlockPosition(const Vector3& worldPosition)
+    Block_Location worldToBlockPosition(const Vector3& worldPosition)
     {
         int x = (int) worldPosition.x % Chunk::SIZE;
         int z = (int) worldPosition.z % Chunk::SIZE;

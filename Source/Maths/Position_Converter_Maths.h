@@ -3,10 +3,11 @@
 
 #include "Chunk/Chunk_Location.h"
 #include "OpenGL/GLM/glm_transformations.h"
+#include "Block_Location.h"
 
 namespace Maths
 {
-    Vector3 worldToBlockPosition(const Vector3& worldPosition);
+    Block_Location worldToBlockPosition(const Vector3& worldPosition);
 
     Chunk_Location worldToChunkPosition(const Vector3& worldPosition);
 

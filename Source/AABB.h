@@ -2,7 +2,7 @@
 #define AABB_H
 
 #include "OpenGL/Glm/glm_transformations.h"
-
+/*
 class AABB
 {
     public:
@@ -28,5 +28,5 @@ namespace Collision
 {
     bool pointInAABB ( const Vector3& point, const AABB& box );
 }
-
+*/
 #endif // AABB_H

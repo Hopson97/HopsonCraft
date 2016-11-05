@@ -1,5 +1,5 @@
 #include "AABB.h"
-
+/*
 AABB::AABB(const Vector3& size)
 :   m_size ( size )
 { }
@@ -24,7 +24,7 @@ namespace Collision
                 ( point.z >= box.minY && point.z <= box.maxZ );
     }
 }
-
+*/
 
 
 

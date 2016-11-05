@@ -39,14 +39,14 @@ void Chunk::generateBlockData()
                 if (y > h)
                 {
                     y <= WATER_LEVEL ?
-                        qSetBlock(x, y, z, Block::water) :
-                        qSetBlock(x, y, z, Block::air);
+                        qSetBlock({x, y, z}, Block::water) :
+                        qSetBlock({x, y, z}, Block::air);
                 }
                 else if (y == h)
                 {
                     if (y > BEACH_LEVEL) //Top levels
                     {
-                        qSetBlock( x, y, z, Block::grass );
+                        qSetBlock({x, y, z}, Block::grass );
                         if ( Random::integer(1, 50) == 1  &&
                            (x > SIZE + 3 && x < SIZE - 3) &&
                            (z > SIZE + 3 && z < SIZE - 3))
@@ -54,22 +54,22 @@ void Chunk::generateBlockData()
                     }
                     else if (y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
                     {
-                        qSetBlock(x, y, z, Block::sand);
+                        qSetBlock({x, y, z}, Block::sand);
                     }
                     else
                     {
                         Random::integer(0, 10) < 6 ?
-                            qSetBlock(x, y, z, Block::sand)   :
-                            qSetBlock(x, y, z, Block::dirt);
+                            qSetBlock({x, y, z}, Block::sand)   :
+                            qSetBlock({x, y, z}, Block::dirt);
                     }
                 }
                 else  if (y < h && y > h - 5)
                 {
-                    qSetBlock(x, y, z, Block::dirt);
+                    qSetBlock({x, y, z}, Block::dirt);
                 }
                 else
                 {
-                    qSetBlock(x, y, z, Block::stone);
+                    qSetBlock({x, y, z}, Block::stone);
                 }
             }
         }
@@ -79,9 +79,9 @@ void Chunk::generateBlockData()
 
 void Chunk::generateStructureData ()
 {
-    for (auto& loc : m_treeLocations)
+    for (auto& location : m_treeLocations)
     {
-        makeTree(loc.x, loc.y, loc.z);
+        makeTree(location);
     }
     m_treeLocations.clear();
 
@@ -90,6 +90,7 @@ void Chunk::generateStructureData ()
 
 void Chunk::generateMesh ()
 {
+    sf::Clock c;
     m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
     m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
@@ -99,6 +100,7 @@ void Chunk::generateMesh ()
 
     m_hasMesh       = true;
     m_hasBuffered   = false;
+    std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk::bufferMesh ()
@@ -108,22 +110,22 @@ void Chunk::bufferMesh ()
     m_hasBuffered = true;
 }
 
-void Chunk::makeTree (GLuint x, GLuint y, GLuint z)
+void Chunk::makeTree (const Block_Location& location)
 {
     auto trunkHeight = Random::integer(5, 8);
     //Make the trunk
     for (auto i = 1 ; i < trunkHeight + 1 ; i++)
     {
-        qSetBlock( x, y + i, z, Block::oakWood, false);
+        qSetBlock({location.x, location.y + i, location.z}, Block::oakWood, false);
     }
     //Make the crown
-    for (auto yLeaf = y + trunkHeight ; yLeaf < y + trunkHeight + 4 ; yLeaf++)
+    for (auto yLeaf = location.y + trunkHeight ; yLeaf < location.y + trunkHeight + 4 ; yLeaf++)
     {
-        for (auto xLeaf = x - 2 ; xLeaf < x + 3 ; xLeaf++)
+        for (auto xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
         {
-            for (auto zLeaf = z - 2 ; zLeaf < z + 3 ; zLeaf++)
+            for (auto zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
             {
-                qSetBlock( xLeaf, yLeaf, zLeaf, Block::oakLeaf, false );
+                qSetBlock({xLeaf, yLeaf, zLeaf}, Block::oakLeaf, false );
             }
         }
     }

@@ -3,6 +3,7 @@
 #include "Chunk.h"
 #include "Texture/Texture_Atlas.h"
 #include "Loader.h"
+#include "Block_Location.h"
 
 #include <iostream>
 
@@ -49,11 +50,11 @@ void Chunk_Mesh::generateMesh(int height)
         {
             for (int x = 0 ; x < Chunk::SIZE ; x++)
             {
-                if (m_p_chunk->getBlock(x, y, z).getPhysicalState() == Block::Physical_State::Gas)
+                if (m_p_chunk->getBlock({x, y, z}).getPhysicalState() == Block::Physical_State::Gas)
                 {
                     continue;
                 }
-                addBlockMesh (x, y, z, m_p_chunk->getBlock(x, y, z));
+                addBlockMesh (x, y, z, m_p_chunk->getBlock({x, y, z}));
             }
         }
     }
@@ -105,8 +106,9 @@ void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Bas
 
 bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block::Block_Base& block)
 {
-    return   ( m_p_chunk->getBlock(x, y, z).getID() == Block::ID::Air) ||
-             (!m_p_chunk->getBlock(x, y, z).isOpaque() && m_p_chunk->getBlock(x, y, z).getID() != block.getID());
+    Block_Location location(x, y, z);
+    return   ( m_p_chunk->getBlock(location).getID() == Block::ID::Air) ||
+             (!m_p_chunk->getBlock(location).isOpaque() && m_p_chunk->getBlock(location).getID() != block.getID());
 }
 
 

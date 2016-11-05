@@ -39,14 +39,12 @@ class Chunk
 
         const Texture_Atlas& getAtlas () const;
 
-        const Block_t& getBlock (int x, int y, int z)     const;
-        const Block_t& getBlock (const Vector3& location) const;
+        const Block_t& getBlock (const Block_Location& location) const;
 
         const Chunk_Location& getLocation () const;
         const Vector2&  getPosition () const;
 
-        void setBlock   (GLuint x, GLuint y, GLuint z, Block::ID id, bool overrideBlocks = true);
-        void setBlock   (const Vector3& position, Block::Block_Base& block, bool overrideBlocks = true);
+        void setBlock   (const Block_Location& location, Block::Block_Base& block, bool overrideBlocks = true);
 
         const Model& getChunkModel  () const;
         const Model& getWaterModel  () const;
@@ -68,11 +66,11 @@ class Chunk
     private:
         void generateStructureData  ();
 
-        void makeTree   (GLuint x, GLuint y, GLuint z);
+        void makeTree   (const Block_Location& location);
 
-        void qSetBlock   (GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks = true);
+        void qSetBlock  (const Block_Location& location, Block_t& block, bool overrideBlocks = true);
 
-        const Block_t& getAdjChunkBlock (int xChange, int zChange, int blockX, int blockY, int blockZ) const;
+        const Block_t& getAdjChunkBlock (int xChange, int zChange, const Block_Location& location) const;
 
         void genAdjChunks(const Chunk_Location& location);
 
@@ -80,7 +78,7 @@ class Chunk
 
     private:
         std::vector<Chunk_Layer> m_layers;
-        std::vector<Vector3> m_treeLocations;
+        std::vector<Block_Location> m_treeLocations;
 
         std::map<Block_Location, Block::ID> m_addedBlocks;
 

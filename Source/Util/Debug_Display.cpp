@@ -72,7 +72,7 @@ namespace Debug_Display
     void addPlayerPosition  (const Vector3& location)
     {
         Chunk_Location cl(Maths::worldToChunkPosition(location));
-        Vector3        bl(Maths::worldToBlockPosition(location));
+        Block_Location bl(Maths::worldToBlockPosition(location));
 
         t_chunkPosition.setString("Chunk Location: X: " + std::to_string(cl.x) +
                                                  " Z: " + std::to_string(cl.z));

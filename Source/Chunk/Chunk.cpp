@@ -24,7 +24,7 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
     generateStructureData   ();
 }
 
-void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool overrideBlocks)
+void Chunk :: setBlock (const Block_Location& location, Block::Block_Base& block, bool overrideBlocks)
 {
     //if ( position.x < 0 )
     {
@@ -46,7 +46,7 @@ void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool 
     }
     //else
     {
-        qSetBlock(position.x, position.y, position.z, block, overrideBlocks);
+        qSetBlock(location, block, overrideBlocks);
         if (m_hasBlockData)
         {
             //m_addedBlocks.insert(std::make_pair(position, block.getID()));
@@ -56,12 +56,16 @@ void Chunk :: setBlock (const Vector3& position, Block::Block_Base& block, bool 
 
 }
 
-void Chunk::qSetBlock (GLuint x, GLuint y, GLuint z, Block_t& block, bool overrideBlocks)
+void Chunk::qSetBlock (const Block_Location& location, Block_t& block, bool overrideBlocks)
 {
-    if (y > m_layers.size() - 2) addLayers(y);
-    if (m_layers.at(y).getBlock(x, z).getID() == Block::ID::Air || overrideBlocks)
+    if ((unsigned)location.y > m_layers.size() - 2)
     {
-        m_layers.at(y).setBlock(x, z, block);
+        addLayers(location.y);
+    }
+
+    if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Air || overrideBlocks)
+    {
+        m_layers.at(location.y).setBlock(location.x, location.z, block);
     }
 }
 
@@ -70,50 +74,48 @@ void Chunk::addLayers (unsigned target)
     while (m_layers.size() < target + 1 ) m_layers.emplace_back();
 }
 
-const Block_t& Chunk::getBlock (int x, int y, int z) const
+const Block_t& Chunk::getBlock (const Block_Location& location) const
 {
     //Check if trying to get a block from other chunk
-    if (x == -1 )
+    if (location.x == -1 )
     {
-        return getAdjChunkBlock(-1, 0, SIZE - 1, y, z);
+        return getAdjChunkBlock(-1, 0, {SIZE - 1, location.y, location.z});
     }
-    else if (z == -1 )
+    else if (location.z == -1 )
     {
-        return getAdjChunkBlock(0, -1, x, y, SIZE - 1);
+        return getAdjChunkBlock(0, -1, {location.x, location.y, SIZE - 1});
     }
-    else if (x == SIZE )
+    else if (location.x == SIZE )
     {
-        return getAdjChunkBlock(1, 0, 0, y, z);
+        return getAdjChunkBlock(1, 0, {0, location.y, location.z});
     }
-    else if (z == SIZE )
+    else if (location.z == SIZE )
     {
-        return getAdjChunkBlock(0, 1, z, y, 0);
+        return getAdjChunkBlock(0, 1, {location.z, location.y, 0});
     }
-    else if ((unsigned)y > m_layers.size() - 1)
+    else if ((unsigned)location.y > m_layers.size() - 1)
     {
         return Block::air;
     }
-    else if (y < 0)
+    else if (location.y < 0)
     {
         return Block::air;
     }
     else
     {
-        return m_layers.at(y).getBlock(x, z);
+        return m_layers.at(location.y).getBlock(location.x, location.z);
     }
     return Block::air;    //This is for world edges
 }
 
-const Block_t& Chunk::getBlock(const Vector3& location) const
+const Block_t& Chunk::getAdjChunkBlock (int xChange, int zChange, const Block_Location& location) const
 {
-    return getBlock(location.x, location.y, location.z);
-}
+    //Try dd a chunk incase it does not yet exist
+    Chunk_Location chunkLocation ( m_location.x + xChange, m_location.z + zChange);
+    m_p_chunkMap->addChunk(chunkLocation);
 
-const Block_t& Chunk::getAdjChunkBlock ( int xChange, int zChange, int blockX, int blockY, int blockZ ) const
-{
-    Chunk_Location location ( m_location.x + xChange, m_location.z + zChange);
-    m_p_chunkMap->addChunk(location);
-    return m_p_chunkMap->getChunkAt(location)->getBlock(blockX, blockY, blockZ);
+    //Return the respective block...
+    return m_p_chunkMap->getChunkAt(chunkLocation)->getBlock(location);
 }
 
 bool Chunk::hasMesh () const
