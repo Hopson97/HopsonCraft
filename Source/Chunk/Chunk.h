@@ -51,6 +51,8 @@ class Chunk
         void giveUpdateFlag ();
         bool hasUpdateFlag  () const;
 
+        void saveToFile     ();
+
         static constexpr int SIZE  = 20,
                              WATER_LEVEL = 115,
                              BEACH_LEVEL = WATER_LEVEL + 2;

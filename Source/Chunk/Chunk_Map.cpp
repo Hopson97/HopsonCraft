@@ -22,7 +22,13 @@ Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition)
 Chunk_Map::~Chunk_Map()
 {
     m_isRunning = false;
+
     std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    for (auto& chunk : m_chunks)
+    {
+        chunk.second->saveToFile();
+    }
 }
 
 Chunk* Chunk_Map::getChunkAt (const Chunk_Location& location)

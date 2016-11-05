@@ -32,9 +32,6 @@ namespace State
         Directory::create("Worlds/" + std::to_string(Height_Generator::getSeed()));
     }
 
-    bool b;
-    Function_Toggle_Key key([&](){b = !b;}, sf::Keyboard::C, 0.5f);
-
     void Playing_State::input (float dt)
     {
         m_player.input();
@@ -42,12 +39,10 @@ namespace State
 
         static sf::Clock breakBlockClock;
 
-        key.checkInput();
-
         //Block breaking and placing
         if (breakBlockClock.getElapsedTime().asSeconds() > 0.1)
         {
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || b)
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
 
                 auto oldRayEnd = m_player.getPosition();
@@ -77,7 +72,7 @@ namespace State
                             if (Maths::worldToBlockPosition(ray.getEndPoint()) != Maths::worldToBlockPosition(m_player.getPosition()))
                                 m_chunkMap.setBlock(Block::air, ray.getEndPoint());
                         }
-                        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) || b)
+                        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                         {
                             if (Maths::worldToBlockPosition(oldRayEnd) != Maths::worldToBlockPosition(m_player.getPosition()))
                                 m_chunkMap.setBlock(m_player.getHeldBlock(), oldRayEnd);

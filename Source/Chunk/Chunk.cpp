@@ -164,6 +164,12 @@ const Model& Chunk::getWaterModel  () const
 
 void Chunk::giveDeleteFlag ()
 {
+    saveToFile();
+    m_hasDeleteFlag = true;
+}
+
+void Chunk::saveToFile()
+{
     if(!m_addedBlocks.empty())
     {
         std::ofstream outFile (getFileString());
@@ -176,8 +182,6 @@ void Chunk::giveDeleteFlag ()
             outFile << block.second << std::endl;
         }
     }
-
-    m_hasDeleteFlag = true;
 }
 
 
