@@ -11,7 +11,7 @@ Player::Player()
 ,   m_decreaseBlockToggle   ([&](){m_canChangeBlock = !m_canChangeBlock;}, sf::Keyboard::Left,  0.2)
 ,   m_heldBlock             (&Block::getBlockFromId(Block::ID::Glass))
 {
-    m_camera.movePosition({2599, 200, 2599});
+    m_camera.movePosition({1000, 200, 1000});
     Debug_Display::addheldBlock(*m_heldBlock);
 }
 

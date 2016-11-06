@@ -63,7 +63,7 @@ namespace Noise_Generator
         for (int a = 0; a < octaves - 1; a++)//This loops trough the octaves.
         {
             double frequency = pow(2.0, a);//This increases the frequency with every loop of the octave.
-            double amplitude = pow(p, a) / 4;//This decreases the amplitude with every loop of the octave.
+            double amplitude = pow(p, a);//This decreases the amplitude with every loop of the octave.
             getnoise += noise(((double)x) * frequency / zoom, ((double)y) / zoom * frequency,seed) * amplitude;//This uses our perlin noise functions. It calculates all our zoom and frequency and amplitude
         }
 

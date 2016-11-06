@@ -50,11 +50,22 @@ void Chunk::generateBlockData()
                 {
                     if (y > BEACH_LEVEL) //Top levels
                     {
-                        qSetBlock({x, y, z}, Block::grass );
-                        if ( Random::integer(1, 50) == 1  &&
-                           (x > 3 && x < SIZE - 3) &&
-                           (z > 3 && z < SIZE - 3))
-                            m_treeLocations.emplace_back(x, y, z);    //Trees
+                        if ( y <= SNOW_LEVEL )
+                        {
+                            qSetBlock({x, y, z}, Block::grass );
+                            if ( Random::integer(1, 40) == 1  &&
+                               (x > 3 && x < SIZE - 3) &&
+                               (z > 3 && z < SIZE - 3)
+                                && y <= SNOW_LEVEL - 10)
+                            {
+                                m_treeLocations.emplace_back(x, y, z);    //Trees
+                            }
+                        }
+                        else
+                        {
+                            qSetBlock({x, y, z}, Block::snowGrass);
+                        }
+
                     }
                     else if (y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
                     {
