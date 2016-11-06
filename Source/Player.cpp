@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "Debug_Display.h"
 #include "Block/D_Blocks.h"
 
 Player::Player()
@@ -11,15 +12,11 @@ Player::Player()
 ,   m_heldBlock             (&Block::getBlockFromId(Block::ID::Glass))
 {
     m_camera.movePosition({500, 145, 500});
+    Debug_Display::addheldBlock(*m_heldBlock);
 }
-
-    bool b;
-    Function_Toggle_Key key([&](){b = !b;}, sf::Keyboard::C, 0.5f);
 
 void Player::input()
 {
-    key.checkInput();
-
     movementInput();
     toggleInput();
 }
@@ -58,11 +55,11 @@ void Player::movementInput()
     }
 
     //Up/ Down
-    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::LShift ) )
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
     {
         velocityChange.y -= acceleration;
     }
-    if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) || b )
+    if (sf::Keyboard::isKeyPressed( sf::Keyboard::Space ))
     {
         velocityChange.y += acceleration;
     }
@@ -125,7 +122,7 @@ void Player::switchBlock(int inc)
 
     m_heldBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
 
-    std::cout << "Switching to block: " << m_heldBlock->getName() << std::endl;
+    Debug_Display::addheldBlock(*m_heldBlock);
 }
 
 void Player::setPosition(const Vector3& position)

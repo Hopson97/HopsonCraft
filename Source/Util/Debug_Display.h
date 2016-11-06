@@ -4,6 +4,7 @@
 #include <string>
 
 #include "OpenGL/GLM/glm_transformations.h"
+#include "Block.h"
 
 namespace Debug_Display
 {
@@ -17,6 +18,7 @@ namespace Debug_Display
     void addChunkUpdates    (size_t numChunks);
     void addChunkAmounth    (size_t numChunks);
 
+    void addheldBlock       (const Block::Block_Base& block);
 
     void draw               ();
 }

@@ -27,6 +27,8 @@ namespace Debug_Display
         sf::Text t_chunkUpdates;
         sf::Text t_numChunks;
 
+        sf::Text t_heldBlock;
+
 
         void initText(sf::Text& text)
         {
@@ -53,6 +55,8 @@ namespace Debug_Display
         initText(t_chunkUpdates);
         initText(t_numChunks);
 
+        initText(t_heldBlock);
+
         t_chunkPosition.move(0, 40);
         t_blockPosition.move(0, 80);
         t_worldPosition.move(0, 120);
@@ -61,6 +65,8 @@ namespace Debug_Display
 
         t_chunkUpdates.move(300, 0);
         t_numChunks.move(300, 40);
+
+        t_heldBlock.move(500, 0);
 
     }
 
@@ -103,6 +109,14 @@ namespace Debug_Display
         t_numChunks.setString("Total Chunks: " + std::to_string(numChunks));
     }
 
+    void addheldBlock(const Block::Block_Base& block)
+    {
+        std::string name = block.getName();
+        std::string id   = std::to_string(static_cast<int>(block.getID()));
+
+        t_heldBlock.setString("Held block: " + name + "\tBlock ID: " + id);
+    }
+
 
     void draw()
     {
@@ -116,5 +130,7 @@ namespace Debug_Display
 
         Display::sfDraw(t_chunkUpdates);
         Display::sfDraw(t_numChunks);
+
+        Display::sfDraw(t_heldBlock);
     }
 }
