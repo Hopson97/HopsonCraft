@@ -12,7 +12,9 @@
 #include "Debug_Display.h"
 #include "Display.h"
 #include "Height_Generator.h"
+#include "Noise_Generator.h"
 #include "Block/D_Blocks.h"
+#include "Random.h"
 
 namespace
 {
@@ -28,7 +30,8 @@ int main()
     Display::create("MattCraft");
     Debug_Display::init();
 
-    Height_Generator::setUp();
+    //Height_Generator::setUp();
+    Noise_Generator::setSeed(Random::integer(0, 2147000000));
 
     Block::initBlockDatabase();
 

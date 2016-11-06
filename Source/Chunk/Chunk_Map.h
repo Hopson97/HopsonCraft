@@ -51,7 +51,7 @@ class Chunk_Map
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;
 
-        unsigned m_renderDistance        = 16;
+        unsigned m_renderDistance        = 20;
 
         unsigned m_generationDistance    = 1;
         unsigned m_loadingDistance       = 1;

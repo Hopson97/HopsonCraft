@@ -13,6 +13,7 @@
 #include "Block/D_Blocks.h"
 #include "Chunk_Map.h"
 #include "Debug_Display.h"
+#include "Noise_Generator.h"
 
 void Chunk::generateBlockData()
 {
@@ -22,7 +23,7 @@ void Chunk::generateBlockData()
     {
         for (int z = 0 ; z < SIZE ; z++)
         {
-            auto height =  Height_Generator::getHeight (x,
+            auto height =  Noise_Generator::getHeight (x,
                                                         z,
                                                         m_location.x,
                                                         m_location.z );
@@ -30,6 +31,8 @@ void Chunk::generateBlockData()
             m_heightMap.push_back(height);
         }
     }
+
+    if(maxHeight <= WATER_LEVEL) maxHeight = WATER_LEVEL + 1;
 
     for (int y = 0; y < maxHeight + 1 ; y++)
     {

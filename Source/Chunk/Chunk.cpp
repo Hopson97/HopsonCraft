@@ -13,9 +13,10 @@
 #include "Block/D_Blocks.h"
 #include "Chunk_Map.h"
 #include "Function_Toggle_Key.h"
+#include "Noise_Generator.h"
 
 Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas)
-:   m_layers        (WATER_LEVEL)
+:   m_layers        (WATER_LEVEL + 1)
 ,   m_location      (position)
 ,   m_position      (position.x * SIZE, position.z * SIZE)
 ,   m_p_chunkMap    (&chunkMap)
@@ -215,7 +216,7 @@ bool Chunk::hasUpdateFlag() const
 std::string Chunk::getFileString()
 {
     return "Worlds/" +
-            std::to_string(Height_Generator::getSeed()) +
+            std::to_string(Noise_Generator::getSeed()) +
             "/" +
             std::to_string(m_location.x)
             + " "
