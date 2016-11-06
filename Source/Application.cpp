@@ -20,7 +20,7 @@ namespace
 Application::Application()
 {
     srand(time(nullptr));
-    //resetSong();
+    resetSong();
     m_stateStack.push(std::make_unique<State::Playing_State>(*this));
 }
 
@@ -57,7 +57,7 @@ void Application::runMainLoop()
 
         if(m_songTimer.getElapsedTime() > m_songDuration )
         {
-            //resetSong();
+            resetSong();
         }
     }
 }
@@ -88,7 +88,8 @@ void Application::resetSong()
         "euk",
         "gm",
         "tbatw",
-        "uouat"
+        "uouat",
+        "rue"
     };
     static auto lastSong = songNames.size() - 1; //In terms of the index in the std::vector
     auto thisSong = lastSong;   //Get the Index of the last song

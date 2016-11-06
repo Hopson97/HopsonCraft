@@ -31,16 +31,14 @@ namespace State
 
 
         Directory::create("Worlds/" + std::to_string(Height_Generator::getSeed()));
-/*
+
         std::ifstream inFile("Worlds/" + std::to_string(Height_Generator::getSeed() ) + "/World_Info.data");
         if (inFile.is_open())
         {
-            int x, y, z, rx, ry, rz;
-            inFile >> x >> y >> z >> rx >> ry >> rz;
-            m_player.setPosition({x, y, z});
-            m_player.setRotation({rx, ry, rz});
+            int x, y, z;
+            inFile >> x >> y >> z;
+            m_player.setPosition({x + 0.5, y + 0.5, z + 0.5});
         }
-*/
     }
 
     void Playing_State::input (float dt)
@@ -53,7 +51,7 @@ namespace State
         //Block breaking and placing
         if (breakBlockClock.getElapsedTime().asSeconds() > 0.1)
         {
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right))
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::P))
             {
 
                 auto oldRayEnd = m_player.getPosition();
@@ -82,6 +80,11 @@ namespace State
                         {
                             if (Maths::worldToBlockPosition(ray.getEndPoint()) != Maths::worldToBlockPosition(m_player.getPosition()))
                                 m_chunkMap.setBlock(Block::air, ray.getEndPoint());
+                        }
+                        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+                        {
+                            if (Maths::worldToBlockPosition(ray.getEndPoint()) != Maths::worldToBlockPosition(m_player.getPosition()))
+                                m_chunkMap.makeExplosion(ray.getEndPoint(), 5);
                         }
                         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                         {
@@ -132,12 +135,9 @@ namespace State
     {
 
         m_chunkMap.saveChunks();
-/*
+
         std::ofstream outFile ("Worlds/" + std::to_string(Height_Generator::getSeed() ) + "/World_Info.data");
-        outFile << m_player.getPosition().x << " " << m_player.getPosition().y << " " << m_player.getPosition().z << std::endl;
-        outFile << m_player.getRotation().x << " " <<
-        m_player.getRotation().y << " " << m_player.getRotation().z << std::endl;
-*/
+        outFile << (int)m_player.getPosition().x << " " << (int)m_player.getPosition().y << " " << (int)m_player.getPosition().z << std::endl;
     }
 
 }

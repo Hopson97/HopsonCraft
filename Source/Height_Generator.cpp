@@ -64,6 +64,7 @@ namespace Height_Generator
         {
             setRandSeed();
         }
+        gen_seed = 374735075;
 
         double xOffset = gridX * ( Chunk::SIZE - 1 );
         double zOffset = gridZ * ( Chunk::SIZE - 1 );
