@@ -2,6 +2,7 @@
 
 #include <SFML/System/Clock.hpp>
 #include <iostream>
+#include <fstream>
 
 #include "Block/Block.h"
 #include "Display.h"
@@ -30,6 +31,16 @@ namespace State
 
 
         Directory::create("Worlds/" + std::to_string(Height_Generator::getSeed()));
+/*
+        std::ifstream inFile("Worlds/" + std::to_string(Height_Generator::getSeed() ) + "/World_Info.data");
+        if (inFile.is_open())
+        {
+            int x, y, z, rx, ry, rz;
+            inFile >> x >> y >> z >> rx >> ry >> rz;
+            m_player.setPosition({x, y, z});
+            m_player.setRotation({rx, ry, rz});
+        }
+*/
     }
 
     void Playing_State::input (float dt)
@@ -116,5 +127,18 @@ namespace State
         }
         Display::sfDraw(crossHairSprite);
     }
+
+    void Playing_State::exitState()
+    {
+
+        m_chunkMap.saveChunks();
+/*
+        std::ofstream outFile ("Worlds/" + std::to_string(Height_Generator::getSeed() ) + "/World_Info.data");
+        outFile << m_player.getPosition().x << " " << m_player.getPosition().y << " " << m_player.getPosition().z << std::endl;
+        outFile << m_player.getRotation().x << " " <<
+        m_player.getRotation().y << " " << m_player.getRotation().z << std::endl;
+*/
+    }
+
 }
 

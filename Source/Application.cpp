@@ -20,9 +20,18 @@ namespace
 Application::Application()
 {
     srand(time(nullptr));
-    resetSong();
+    //resetSong();
     m_stateStack.push(std::make_unique<State::Playing_State>(*this));
 }
+
+Application::~Application()
+{
+    while(!m_stateStack.empty())
+    {
+        popState();
+    }
+}
+
 
 
 void Application::runMainLoop()
@@ -48,7 +57,7 @@ void Application::runMainLoop()
 
         if(m_songTimer.getElapsedTime() > m_songDuration )
         {
-            resetSong();
+            //resetSong();
         }
     }
 }
@@ -61,7 +70,12 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
 
 void Application::popState()
 {
-    if (!m_stateStack.empty()) m_stateStack.pop();
+
+    if (!m_stateStack.empty())
+    {
+        m_stateStack.top()->exitState();
+        m_stateStack.pop();
+    }
 }
 
 void Application::resetSong()

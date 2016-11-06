@@ -86,6 +86,7 @@
 		<Unit filename="Data/Blocks/Oak_Wood.block" />
 		<Unit filename="Data/Blocks/Sand.block" />
 		<Unit filename="Data/Blocks/Stone.block" />
+		<Unit filename="Data/Blocks/Stone_Bricks.block" />
 		<Unit filename="Data/Blocks/Water.block" />
 		<Unit filename="Data/Images/cow.jpg" />
 		<Unit filename="Shaders/Ground_Fragment.glsl" />

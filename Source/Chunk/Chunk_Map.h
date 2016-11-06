@@ -33,6 +33,8 @@ class Chunk_Map
 
         const Block::Block_Base& getBlockAt(const Vector3& worldPosition);
 
+        void saveChunks();
+
     private:
         void updateChunks   ();
         void deleteChunks   ();

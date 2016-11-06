@@ -13,10 +13,11 @@ namespace State
             Game_State  (Application& application);
             virtual ~Game_State(){}
 
-            virtual void input  (float dt) = 0;
-            virtual void update (float dt) = 0;
-            virtual void draw   (float dt) = 0;
-            virtual void sfDraw (float dt) = 0;
+            virtual void input      (float dt)  = 0;
+            virtual void update     (float dt)  = 0;
+            virtual void draw       (float dt)  = 0;
+            virtual void sfDraw     (float dt)  = 0;
+            virtual void exitState  ()          = 0;
 
         protected:
             Application* m_application; //fuck da police

@@ -11,7 +11,8 @@
 class Application
 {
     public:
-        Application();
+        Application ();
+        ~Application();
 
         void runMainLoop();
 

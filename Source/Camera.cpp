@@ -21,9 +21,18 @@ void Camera::update ()
 
     if      (m_rotation.y < 0 ) m_rotation.y = 360;
     else if (m_rotation.y > 360) m_rotation.y = 0;
-
-    Debug_Display::addLookVector(m_rotation);
 }
+
+void Camera::setPosition(const Vector3& position)
+{
+    m_position = position;
+}
+
+void Camera::setRotation(const Vector3& rotation)
+{
+    m_rotation = rotation;
+}
+
 
 const Vector3& Camera::getPosition() const
 {

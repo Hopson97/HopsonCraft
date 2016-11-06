@@ -15,27 +15,30 @@ namespace Block
     Block::Block_Base oakPlank  ("Oak_Plank");
     Block::Block_Base glass     ("Glass");
     Block::Block_Base cobbleStone ("Cobblestone");
+    Block::Block_Base stoneBricks ("Stone_Bricks");
 
     std::map<Block::ID, Block::Block_Base*> blockMap;
 
     void initBlockDatabase()
     {
-        blockMap[Block::ID::Air]   = &air;
+        blockMap[Block::ID::Air]    = &air;
 
-        blockMap[Block::ID::Grass] = &grass;
-        blockMap[Block::ID::Dirt]  = &dirt;
-        blockMap[Block::ID::Stone] = &stone;
+        blockMap[Block::ID::Grass]  = &grass;
+        blockMap[Block::ID::Dirt]   = &dirt;
+        blockMap[Block::ID::Stone]  = &stone;
 
-        blockMap[Block::ID::Sand]  = &sand;
-        blockMap[Block::ID::Water] = &water;
+        blockMap[Block::ID::Sand]   = &sand;
+        blockMap[Block::ID::Water]  = &water;
 
-        blockMap[Block::ID::Oak_Leaf]  = &oakLeaf;
-        blockMap[Block::ID::Oak_Wood]  = &oakWood;
-        blockMap[Block::ID::Oak_Plank] = &oakPlank;
+        blockMap[Block::ID::Oak_Leaf]   = &oakLeaf;
+        blockMap[Block::ID::Oak_Wood]   = &oakWood;
+        blockMap[Block::ID::Oak_Plank]  = &oakPlank;
 
-        blockMap[Block::ID::Glass]  = &glass;
+        blockMap[Block::ID::Glass]      = &glass;
 
-        blockMap[Block::ID::Cobble_Stone] = &cobbleStone;
+        blockMap[Block::ID::Cobble_Stone]   = &cobbleStone;
+
+        blockMap[Block::ID::Stone_Brick]    = &stoneBricks;
     }
 
     Block::Block_Base& getBlockFromId (Block::ID id)

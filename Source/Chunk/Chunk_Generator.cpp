@@ -50,8 +50,8 @@ void Chunk::generateBlockData()
                     {
                         qSetBlock({x, y, z}, Block::grass );
                         if ( Random::integer(1, 50) == 1  &&
-                           (x > SIZE + 3 && x < SIZE - 3) &&
-                           (z > SIZE + 3 && z < SIZE - 3))
+                           (x > 3 && x < SIZE - 3) &&
+                           (z > 3 && z < SIZE - 3))
                             m_treeLocations.emplace_back(x, y, z);    //Trees
                     }
                     else if (y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
@@ -76,7 +76,6 @@ void Chunk::generateBlockData()
             }
         }
     }
-    m_hasBlockData = true;
 }
 
 void Chunk::generateStructureData ()

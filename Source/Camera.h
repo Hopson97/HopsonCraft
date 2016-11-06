@@ -10,6 +10,9 @@ class Camera
         const Vector3& getPosition () const;
         const Vector3& getRotation () const;
 
+        void setPosition (const Vector3& position);
+        void setRotation (const Vector3& rotation);
+
         void movePosition (const Vector3& position);
 
         void move (float dt);

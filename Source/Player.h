@@ -23,6 +23,9 @@ class Player
         const Vector3&  getPosition () const;
         const Vector3&  getRotation () const;
 
+        void setPosition (const Vector3& position);
+        void setRotation (const Vector3& rotation);
+
         Block::Block_Base& getHeldBlock ();
 
         constexpr static float ACC = 0.3;

@@ -18,10 +18,12 @@ namespace State
         public:
             Playing_State  (Application& application);
 
-            void input  (float dt) override;
-            void update (float dt) override;
-            void draw   (float dt) override;
-            void sfDraw (float dt) override;
+            void input      (float dt)  override;
+            void update     (float dt)  override;
+            void draw       (float dt)  override;
+            void sfDraw     (float dt)  override;
+
+            void exitState  ()          override;
 
         private:
             Player          m_player;

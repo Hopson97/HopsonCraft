@@ -23,12 +23,7 @@ Chunk_Map::~Chunk_Map()
 {
     m_isRunning = false;
 
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-
-    for (auto& chunk : m_chunks)
-    {
-        chunk.second->saveToFile();
-    }
+    std::this_thread::sleep_for(std::chrono::seconds(2)); //Allows threads to finish...
 }
 
 Chunk* Chunk_Map::getChunkAt (const Chunk_Location& location)
@@ -190,6 +185,18 @@ const Block::Block_Base& Chunk_Map::getBlockAt(const Vector3& worldPosition)
     }
     return Block::air;
 }
+
+void Chunk_Map::saveChunks()
+{
+    for (auto& chunk : m_chunks)
+    {
+        chunk.second->saveToFile();
+    }
+}
+
+
+
+
 /*
 makeEplosion:
 

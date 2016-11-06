@@ -128,6 +128,15 @@ void Player::switchBlock(int inc)
     std::cout << "Switching to block: " << m_heldBlock->getName() << std::endl;
 }
 
+void Player::setPosition(const Vector3& position)
+{
+    m_camera.setPosition(position);
+}
+
+void Player::setRotation(const Vector3& rotation)
+{
+    m_camera.setRotation(rotation);
+}
 
 
 
