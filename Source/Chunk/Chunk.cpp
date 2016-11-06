@@ -2,13 +2,9 @@
 
 #include <iostream>
 #include <fstream>
-#include <windows.h>
 
 #include "Block/Block.h"
-
 #include "Loader.h"
-#include "Height_Generator.h"
-
 #include "Random.h"
 #include "Block/D_Blocks.h"
 #include "Chunk_Map.h"
@@ -32,28 +28,27 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 
 void Chunk :: setBlock (const Block_Location& location, Block::Block_Base& block, bool overrideBlocks)
 {
-    //if ( position.x < 0 )
+    /*
+    if ( position.x < 0 )
     {
-       // m_p_chunkMap->addChunk({-1, m_location.z});
-        //m_p_chunkMap->getChunkAt({-1, m_location.z})->setBlock(SIZE - x, y, z);
+        m_p_chunkMap->addChunk({-1, m_location.z});
+        m_p_chunkMap->getChunkAt({-1, m_location.z})->setBlock(SIZE - x, y, z);
     }
-    //else if ( position.z < 0 )
-    {
-
-    }
-    //else if ( position.x >= SIZE )
+    else if ( position.z < 0 )
     {
 
     }
-    //else if ( position.z >= SIZE )
+    else if ( position.x >= SIZE )
+    {
+
+    }
+    else if ( position.z >= SIZE )
     {
 
 
     }
-    //else
-    {
-        qSetBlock(location, block, overrideBlocks);
-    }
+    */
+    qSetBlock(location, block, overrideBlocks);
 }
 
 void Chunk::qSetBlock (const Block_Location& location, Block_t& block, bool overrideBlocks)
@@ -95,7 +90,7 @@ const Block_t& Chunk::getBlock (const Block_Location& location) const
     }
     else if (location.z == SIZE )
     {
-        return getAdjChunkBlock(0, 1, {location.z, location.y, 0});
+        return getAdjChunkBlock(0, 1, {location.x, location.y, 0});
     }
     else if ((unsigned)location.y > m_layers.size() - 1)
     {

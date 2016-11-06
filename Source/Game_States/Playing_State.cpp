@@ -12,7 +12,6 @@
 #include "Ray.h"
 #include "General_Maths.h"
 #include "Directory_Creator.h"
-#include "Height_Generator.h"
 #include "Noise_Generator.h"
 
 namespace State
