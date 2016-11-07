@@ -14,6 +14,7 @@ obj/
 
 MattCraft/
 Worlds/
+old/
 
 #SFML Stuff
 *.dll

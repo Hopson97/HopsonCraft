@@ -84,7 +84,7 @@ namespace State
                         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                         {
                             if (Maths::worldToBlockPosition(ray.getEndPoint()) != Maths::worldToBlockPosition(m_player.getPosition()))
-                                m_chunkMap.makeExplosion(ray.getEndPoint(), 20);
+                                m_chunkMap.makeExplosion(ray.getEndPoint(), 5);
                         }
                         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                         {

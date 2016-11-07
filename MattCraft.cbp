@@ -85,6 +85,7 @@
 		<Unit filename="Data/Blocks/Oak_Plank.block" />
 		<Unit filename="Data/Blocks/Oak_Wood.block" />
 		<Unit filename="Data/Blocks/Sand.block" />
+		<Unit filename="Data/Blocks/Snow_Grass.block" />
 		<Unit filename="Data/Blocks/Stone.block" />
 		<Unit filename="Data/Blocks/Stone_Bricks.block" />
 		<Unit filename="Data/Blocks/Water.block" />
@@ -123,8 +124,6 @@
 		<Unit filename="Source/Game_States/Game_State.h" />
 		<Unit filename="Source/Game_States/Playing_State.cpp" />
 		<Unit filename="Source/Game_States/Playing_State.h" />
-		<Unit filename="Source/Height_Generator.cpp" />
-		<Unit filename="Source/Height_Generator.h" />
 		<Unit filename="Source/Input/Function_Toggle_Key.cpp" />
 		<Unit filename="Source/Input/Function_Toggle_Key.h" />
 		<Unit filename="Source/Loader.cpp" />
@@ -142,6 +141,8 @@
 		<Unit filename="Source/Maths/Viewing_Frustum.h" />
 		<Unit filename="Source/Model/Model.cpp" />
 		<Unit filename="Source/Model/Model.h" />
+		<Unit filename="Source/Noise_Generator.cpp" />
+		<Unit filename="Source/Noise_Generator.h" />
 		<Unit filename="Source/OpenGL/GLM/glm_transformations.h" />
 		<Unit filename="Source/OpenGL/Glew/glew.c">
 			<Option compilerVar="CC" />
