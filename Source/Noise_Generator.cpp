@@ -62,19 +62,20 @@ namespace Noise_Generator
 
         auto p          = 0.42;
         auto zoom       = 150.0;
-        auto getnoise   = 0.0;
         auto octaves    = 7;
+
+        auto totalValue   = 0.0;
 
         for (auto a = 0; a < octaves - 1; a++)      //This loops trough the octaves.
         {
             auto frequency = pow(2.0, a) / 1.3;     //This increases the frequency with every loop of the octave.
-            auto amplitude = pow(p, a) / 1.3;       //This decreases the amplitude with every loop of the octave.
-            getnoise += noise(((double)newX) * frequency / zoom,
-                              ((double)newZ) / zoom * frequency)
-                              * amplitude;
+            auto amplitude = pow(p, a)   / 1.3;       //This decreases the amplitude with every loop of the octave.
+            totalValue += noise(((double)newX) * frequency / zoom,
+                                ((double)newZ) / zoom * frequency)
+                                * amplitude;
         }
 
-        int height = (int)(((getnoise + 1) / 2.0) * (250));
+        int height = (int)(((totalValue + 1) / 2.0) * (250));
 
         if (height < 0) height = 0;
         return height;
