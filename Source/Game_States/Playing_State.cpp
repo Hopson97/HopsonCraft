@@ -81,8 +81,8 @@ namespace State
 
                     const auto& worldPoint = Maths::worldToBlockPosition(ray.getEndPoint());
 
-                    if (worldPoint.x <= 0.1) break;
-                    if (worldPoint.z <= 0.1) break;
+                    //if (worldPoint.x <= 0.1) break;
+                    //if (worldPoint.z <= 0.1) break;
 
                     if (m_chunkMap.isSolidBlockAt(ray.getEndPoint()))
                     {

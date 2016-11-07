@@ -53,7 +53,7 @@ void Chunk::generateBlockData()
                         if ( y <= SNOW_LEVEL )
                         {
                             qSetBlock({x, y, z}, Block::grass );
-                            if ( Random::integer(1, 40) == 1  &&
+                            if ( Random::integer(0, y) == 1  &&
                                (x > 3 && x < SIZE - 3) &&
                                (z > 3 && z < SIZE - 3)
                                 && y <= SNOW_LEVEL - 10)

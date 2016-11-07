@@ -1,6 +1,7 @@
 #include "noise_generator.h"
 
 #include <cmath>
+#include <iostream>
 
 #include "Chunk.h"
 
@@ -61,15 +62,15 @@ namespace Noise_Generator
         if (newX < 0 || newZ < 0) return Chunk::WATER_LEVEL - 1;
 
         auto p          = 0.42;
-        auto zoom       = 150.0;
-        auto octaves    = 7;
+        auto zoom       = 180.0;
+        auto octaves    = 9;
 
         auto totalValue   = 0.0;
 
         for (auto a = 0; a < octaves - 1; a++)      //This loops trough the octaves.
         {
-            auto frequency = pow(2.0, a) / 1.3;     //This increases the frequency with every loop of the octave.
-            auto amplitude = pow(p, a)   / 1.3;       //This decreases the amplitude with every loop of the octave.
+            auto frequency = pow(2.0, a) / 2;     //This increases the frequency with every loop of the octave.
+            auto amplitude = pow(p, a);       //This decreases the amplitude with every loop of the octave.
             totalValue += noise(((double)newX) * frequency / zoom,
                                 ((double)newZ) / zoom * frequency)
                                 * amplitude;
@@ -89,5 +90,6 @@ namespace Noise_Generator
     void setSeed(int newSeed)
     {
         seed = newSeed;
+        std::cout << "Seed: " << newSeed << std::endl;
     }
 }

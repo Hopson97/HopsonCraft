@@ -111,13 +111,6 @@ namespace Display
                 case sf::Event::Closed:
                     close();
                     break;
-
-                case sf::Event::KeyPressed:
-                    if (e.key.code == sf::Keyboard::E)
-                    {
-                        close();
-                        break;
-                    }
                 default:
                     break;
             }
