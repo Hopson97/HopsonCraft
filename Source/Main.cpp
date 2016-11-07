@@ -30,7 +30,7 @@ int main()
     Debug_Display::init();
 
     //Height_Generator::setUp();
-    Noise_Generator::setSeed(Random::integer(0, 2147000000));
+    Noise_Generator::setSeed(Random::integer(0, 32767 * 32676));
 
     Block::initBlockDatabase();
 

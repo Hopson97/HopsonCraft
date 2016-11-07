@@ -8,18 +8,8 @@ namespace Maths
 {
     Block_Location worldToBlockPosition(const Vector3& worldPosition)
     {
-        int x = (int) worldPosition.x % Chunk::SIZE;
-        int z = (int) worldPosition.z % Chunk::SIZE;
-
-        if ( worldPosition.x < 0 )
-        {
-            x = abs( Chunk::SIZE + (int) std::floor(worldPosition.x) % Chunk::SIZE ) - 1;
-        }
-
-        if ( worldPosition.z < 0 )
-        {
-            z = abs(Chunk::SIZE + (int) std::floor(worldPosition.z) % Chunk::SIZE) - 1;
-        }
+        auto x = (int) worldPosition.x % Chunk::SIZE;
+        auto z = (int) worldPosition.z % Chunk::SIZE;
 
         return  {x, (int)worldPosition.y, z};
     }
