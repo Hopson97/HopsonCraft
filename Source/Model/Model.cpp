@@ -2,17 +2,17 @@
 
 #include <iostream>
 
-Model_Data :: Model_Data (GLuint vao,
-                          GLuint vertexPosId,
-                          GLuint uvCoordsId,
-                          size_t vertexCount)
+Model_Data::Model_Data (GLuint vao,
+                        GLuint vertexPosId,
+                        GLuint uvCoordsId,
+                        size_t vertexCount)
 :   vao         (vao )
 ,   vertexPosId (vertexPosId)
 ,   uvCoordsId  (uvCoordsId)
 ,   vertexCount (vertexCount)
 { }
 
-Model :: Model(const Model_Data& data)
+Model::Model(const Model_Data& data)
 :   m_glData (data)
 { }
 
@@ -22,7 +22,7 @@ void Model::addData (const Model_Data& data)
     m_glData = data;
 }
 
-void Model::bind   () const
+void Model::bind () const
 {
     glBindVertexArray (m_glData.vao);
 }
@@ -33,17 +33,17 @@ void Model::unbind () const
 }
 
 
-GLuint Model :: getVertexCount() const
+GLuint Model::getVertexCount() const
 {
     return m_glData.vertexCount;
 }
 
-Model :: ~Model  ()
+Model::~Model  ()
 {
     deleteData ();
 }
 
-void Model :: deleteData ()
+void Model::deleteData ()
 {
     glDeleteVertexArrays (1, &m_glData.vao);
 
