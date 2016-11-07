@@ -61,22 +61,23 @@ namespace Noise_Generator
 
         if (newX < 0 || newZ < 0) return Chunk::WATER_LEVEL - 1;
 
-        auto p          = 0.42;
-        auto zoom       = 180.0;
-        auto octaves    = 9;
+        auto amplitudeMultiplier = Chunk::WATER_LEVEL * 2;
+        auto roughness  = 0.48;
+        auto zoom       = 190.0;
+        auto octaves    = 8;
 
         auto totalValue   = 0.0;
 
         for (auto a = 0; a < octaves - 1; a++)      //This loops trough the octaves.
         {
             auto frequency = pow(2.0, a) / 2;     //This increases the frequency with every loop of the octave.
-            auto amplitude = pow(p, a);       //This decreases the amplitude with every loop of the octave.
+            auto amplitude = pow(roughness, a);       //This decreases the amplitude with every loop of the octave.
             totalValue += noise(((double)newX) * frequency / zoom,
                                 ((double)newZ) / zoom * frequency)
                                 * amplitude;
         }
 
-        int height = (int)(((totalValue + 1) / 2.0) * (250));
+        int height = (int)(((totalValue + 1) / 2.0) * (amplitudeMultiplier));
 
         if (height < 0) height = 0;
         return height;

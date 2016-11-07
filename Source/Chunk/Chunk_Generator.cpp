@@ -63,7 +63,9 @@ void Chunk::generateBlockData()
                         }
                         else
                         {
-                            qSetBlock({x, y, z}, Block::snowGrass);
+                            Random::integer(y, maxHeight + 10) < y + 5?
+                                qSetBlock({x, y, z}, Block::snowGrass) :
+                                qSetBlock({x, y, z}, Block::grass );
                         }
 
                     }

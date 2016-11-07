@@ -20,7 +20,7 @@ namespace
 Application::Application()
 {
     srand(time(nullptr));
-    resetSong();
+    //resetSong();
     m_stateStack.push(std::make_unique<State::Playing_State>(*this));
 }
 
@@ -57,7 +57,7 @@ void Application::runMainLoop()
 
         if(m_songTimer.getElapsedTime() > m_songDuration )
         {
-            resetSong();
+            //resetSong();
         }
     }
 }

@@ -29,9 +29,7 @@ int main()
     Display::create("MattCraft");
     Debug_Display::init();
 
-    //Height_Generator::setUp();
-    Noise_Generator::setSeed(Random::integer(1, 24325325));
-
+    Noise_Generator::setSeed(50);
     Block::initBlockDatabase();
 
 
