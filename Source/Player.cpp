@@ -11,7 +11,7 @@ Player::Player()
 ,   m_decreaseBlockToggle   ([&](){m_canChangeBlock = !m_canChangeBlock;}, sf::Keyboard::Left,  0.2)
 ,   m_heldBlock             (&Block::getBlockFromId(Block::ID::Glass))
 {
-    m_camera.movePosition({2000, 200, 2000});
+    m_camera.movePosition({0.5, 200, 0.5});
     Debug_Display::addheldBlock(*m_heldBlock);
 }
 
@@ -82,6 +82,11 @@ void Player::update(float dt)
     m_velocity *= 0.95;
     m_camera.movePosition(m_velocity * dt);
     Debug_Display::addLookVector(m_camera.getRotation());
+
+    auto& pos = m_camera.getPosition();
+
+    if (pos.x <= 0.1 ) m_camera.setPosition({0.1,   pos.y, pos.z});
+    if (pos.z <= 0.1 ) m_camera.setPosition({pos.x, pos.y, 0.1});
 }
 
 const Camera& Player::getCamera() const

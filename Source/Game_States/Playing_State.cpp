@@ -74,16 +74,26 @@ namespace State
                         break;
                     }
 
+                    if (Maths::getLength({dx, dy, dz}) > 6.75) //Temp range of the ray cast
+                    {
+                        break;
+                    }
+
+                    const auto& worldPoint = Maths::worldToBlockPosition(ray.getEndPoint());
+
+                    if (worldPoint.x <= 0.1) break;
+                    if (worldPoint.z <= 0.1) break;
+
                     if (m_chunkMap.isSolidBlockAt(ray.getEndPoint()))
                     {
                         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                         {
-                            if (Maths::worldToBlockPosition(ray.getEndPoint()) != Maths::worldToBlockPosition(m_player.getPosition()))
+                            if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
                                 m_chunkMap.setBlock(Block::air, ray.getEndPoint());
                         }
                         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                         {
-                            if (Maths::worldToBlockPosition(ray.getEndPoint()) != Maths::worldToBlockPosition(m_player.getPosition()))
+                            if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
                                 m_chunkMap.makeExplosion(ray.getEndPoint(), 5);
                         }
                         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))

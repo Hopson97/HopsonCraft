@@ -3,7 +3,7 @@
 
 namespace Noise_Generator
 {
-    int getHeight(int x, int y, int tileX, int tileZ);
+    int getHeight(int x, int z, int tileX, int tileZ);
 
     int getSeed     ();
     void setSeed    (int newSeed);
