@@ -20,7 +20,7 @@ Noise_Generator::Data biomeNoise (10, 400, 0.1, 500);
 
 void Chunk::generateBlockData()
 {
-    auto maxHeight = 0;
+    auto maxHeight = WATER_LEVEL + 1;
     std::vector<int> heightMap;
     Noise_Generator::setNoiseFunction(terrainNoise);
     for (int x = 0; x < SIZE ; x ++)

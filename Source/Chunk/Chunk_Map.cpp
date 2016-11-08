@@ -42,7 +42,8 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
 {
     if (!getChunkAt(location))
     {
-        m_chunks[location] = std::make_unique<Chunk>(location, *this, m_blockTextures);
+        std::unique_ptr<Chunk> c = std::make_unique<Chunk>(location, *this, m_blockTextures);
+        m_chunks[location] = std::move(c);
     }
 }
 

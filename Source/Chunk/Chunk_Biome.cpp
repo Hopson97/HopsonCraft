@@ -21,9 +21,9 @@ namespace
 
     const Biome& getBiome (int biomeValue, Biome& forest, Biome& fields, Biome& desert, Biome& snow)
     {
-        if (biomeValue > 200) return snow;
-        else if (biomeValue <= 200 && biomeValue >= 170 ) return fields;
-        else if (biomeValue <= 170 && biomeValue >= 130) return forest;
+        if (biomeValue > 270) return snow;
+        else if (biomeValue <= 270 && biomeValue > 180 ) return fields;
+        else if (biomeValue <= 180 && biomeValue >= 135) return forest;
         else return desert;
     }
 }
@@ -31,13 +31,9 @@ namespace
 void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, const std::vector<int>& biomeMap)
 {
     Biome forest(Block::grass, 1, 70, m_treeLocations);
-    Biome desert(Block::sand, 5, 250, m_cactusLocations);
-    Biome fields(Block::grass, 1, 250, m_treeLocations);
-    Biome snow  (Block::snow, 3, 250, m_treeLocations);
-
-
-
-    if(maxHeight <= WATER_LEVEL) maxHeight = WATER_LEVEL + 1;
+    Biome desert(Block::sand, 5, 1000, m_cactusLocations);
+    Biome fields(Block::grass, 1, 1000, m_treeLocations);
+    Biome snow  (Block::snow, 3, 1000, m_treeLocations);
 
     for (int y = 0; y < maxHeight + 1 ; y++)
     {

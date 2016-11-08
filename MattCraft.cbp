@@ -26,6 +26,7 @@
 					<Add directory="Source/Input" />
 					<Add directory="Source/Chunk" />
 					<Add directory="Source/Block" />
+					<Add directory="Source/Chunk/Structure" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -55,6 +56,7 @@
 					<Add directory="Source/Input" />
 					<Add directory="Source/Chunk" />
 					<Add directory="Source/Block" />
+					<Add directory="Source/Chunk/Structure" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -77,6 +79,7 @@
 			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML MinGW/lib" />
 		</Linker>
 		<Unit filename="Data/Blocks/Air.block" />
+		<Unit filename="Data/Blocks/Cactus.block" />
 		<Unit filename="Data/Blocks/Cobblestone.block" />
 		<Unit filename="Data/Blocks/Dirt.block" />
 		<Unit filename="Data/Blocks/Glass.block" />
@@ -85,7 +88,7 @@
 		<Unit filename="Data/Blocks/Oak_Plank.block" />
 		<Unit filename="Data/Blocks/Oak_Wood.block" />
 		<Unit filename="Data/Blocks/Sand.block" />
-		<Unit filename="Data/Blocks/Snow_Grass.block" />
+		<Unit filename="Data/Blocks/Snow.block" />
 		<Unit filename="Data/Blocks/Stone.block" />
 		<Unit filename="Data/Blocks/Stone_Bricks.block" />
 		<Unit filename="Data/Blocks/Water.block" />
@@ -110,6 +113,8 @@
 		<Unit filename="Source/Camera.h" />
 		<Unit filename="Source/Chunk/Chunk.cpp" />
 		<Unit filename="Source/Chunk/Chunk.h" />
+		<Unit filename="Source/Chunk/Chunk_Biome.cpp" />
+		<Unit filename="Source/Chunk/Chunk_Biome.h" />
 		<Unit filename="Source/Chunk/Chunk_Generator.cpp" />
 		<Unit filename="Source/Chunk/Chunk_Layer.cpp" />
 		<Unit filename="Source/Chunk/Chunk_Layer.h" />
@@ -119,6 +124,8 @@
 		<Unit filename="Source/Chunk/Chunk_Map.h" />
 		<Unit filename="Source/Chunk/Chunk_Mesh.cpp" />
 		<Unit filename="Source/Chunk/Chunk_Mesh.h" />
+		<Unit filename="Source/Chunk/Structure/Tree.cpp" />
+		<Unit filename="Source/Chunk/Structure/Tree.h" />
 		<Unit filename="Source/D_Settings.h" />
 		<Unit filename="Source/Game_States/Game_State.cpp" />
 		<Unit filename="Source/Game_States/Game_State.h" />
