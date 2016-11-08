@@ -13,6 +13,7 @@
 #include "Chunk_Map.h"
 #include "Debug_Display.h"
 #include "Noise_Generator.h"
+#include "Tree.h"
 
 Noise_Generator::Data terrainNoise;
 Noise_Generator::Data biomeNoise (10, 400, 0.1, 500);
@@ -56,9 +57,15 @@ void Chunk::generateStructureData ()
 {
     for (auto& location : m_treeLocations)
     {
-        makeTree(location);
+        Tree::makeOakTree(*this, location);
     }
     m_treeLocations.clear();
+
+    for(auto& location : m_cactusLocations)
+    {
+        Tree::makeCactus(*this, location);
+    }
+    m_cactusLocations.clear();
 }
 
 void Chunk::loadBlockData ()
@@ -103,36 +110,5 @@ void Chunk::bufferMesh ()
     m_mesh.bufferMesh();
 
     m_hasBuffered = true;
-}
-
-void Chunk::makeTree (const Block_Location& location)
-{
-    auto trunkHeight = Random::integer(5, 8);
-    //Make the trunk
-    for (auto i = 1 ; i < trunkHeight + 1 ; i++)
-    {
-        qSetBlock({location.x, location.y + i, location.z}, Block::oakWood, false);
-    }
-    //Make the crown
-    for (auto yLeaf = location.y + trunkHeight ; yLeaf < location.y + trunkHeight + 4 ; yLeaf++)
-    {
-        for (auto xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
-        {
-            for (auto zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
-            {
-                qSetBlock({xLeaf, yLeaf, zLeaf}, Block::oakLeaf, false );
-            }
-        }
-    }
-}
-
-void Chunk::makeCactus(const Block_Location& location)
-{
-    auto cactusHeight = Random::integer(4, 6);
-
-    for (auto i = 1 ; i < cactusHeight + 1 ; i++)
-    {
-        qSetBlock({location.x, location.y + i, location.z}, Block::cactus, false);
-    }
 }
 

@@ -6,29 +6,37 @@ namespace
 {
     struct Biome
     {
-        Biome(Block::Block_Base& surface, int depth, bool hasTrees)
+        Biome(Block::Block_Base& surface, int depth, int treeChance, std::vector<Block_Location>& treeLocations)
         :   surfaceBlock    (&surface)
         ,   depth           (depth)
-        ,   hasTrees        (hasTrees)
+        ,   treeChance      (treeChance)
+        ,   treeLocations   (&treeLocations)
         {}
 
         Block::Block_Base* surfaceBlock;
         int depth;
-        bool hasTrees;
+        int treeChance;
+        std::vector<Block_Location>* treeLocations;
     };
 
-    Biome forest(Block::grass, 1, true);
-    Biome desert(Block::sand, 5, false);
-
-    const Biome& getBiome (int biomeValue)
+    const Biome& getBiome (int biomeValue, Biome& forest, Biome& fields, Biome& desert, Biome& snow)
     {
-        if (biomeValue > 100 ) return forest;
+        if (biomeValue > 200) return snow;
+        else if (biomeValue <= 200 && biomeValue >= 170 ) return fields;
+        else if (biomeValue <= 170 && biomeValue >= 130) return forest;
         else return desert;
     }
 }
 
 void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, const std::vector<int>& biomeMap)
 {
+    Biome forest(Block::grass, 1, 70, m_treeLocations);
+    Biome desert(Block::sand, 5, 250, m_cactusLocations);
+    Biome fields(Block::grass, 1, 250, m_treeLocations);
+    Biome snow  (Block::snow, 3, 250, m_treeLocations);
+
+
+
     if(maxHeight <= WATER_LEVEL) maxHeight = WATER_LEVEL + 1;
 
     for (int y = 0; y < maxHeight + 1 ; y++)
@@ -37,7 +45,7 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
         {
             for (int z = 0 ; z < SIZE ; z++)
             {
-                const Biome* biome = &getBiome(biomeMap.at(x * SIZE + z));
+                const Biome* biome = &getBiome(biomeMap.at(x * SIZE + z), forest, fields, desert, snow);
 
                 int h = heightMap.at (x * SIZE + z);
                 if (y > h)
@@ -53,15 +61,13 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                         if ( y <= SNOW_LEVEL )
                         {
                             qSetBlock({x, y, z}, *biome->surfaceBlock );
-                            if (biome->hasTrees)
+
+                            if ( Random::integer(0, biome->treeChance) == 1  &&
+                               (x > 3 && x < SIZE - 3) &&
+                               (z > 3 && z < SIZE - 3)
+                                && y <= SNOW_LEVEL - 10)
                             {
-                                if ( Random::integer(0, y) == 1  &&
-                                   (x > 3 && x < SIZE - 3) &&
-                                   (z > 3 && z < SIZE - 3)
-                                    && y <= SNOW_LEVEL - 10)
-                                {
-                                    m_treeLocations.emplace_back(x, y, z);    //Trees
-                                }
+                                biome->treeLocations->emplace_back(x, y, z);    //Trees
                             }
                         }
                         else
