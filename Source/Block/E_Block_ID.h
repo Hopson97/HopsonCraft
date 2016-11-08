@@ -16,7 +16,8 @@ namespace Block
         Glass           =   9,
         Cobble_Stone    =   10,
         Stone_Brick     =   11,
-        Snow_Grass      =   12,
+        Snow            =   12,
+        Cactus          =   13,
 
         NUM_BLOCK_TYPES
     };

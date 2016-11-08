@@ -18,7 +18,8 @@ namespace Block
     extern Block::Block_Base glass;
     extern Block::Block_Base cobbleStone;
     extern Block::Block_Base stoneBricks;
-    extern Block::Block_Base snowGrass;
+    extern Block::Block_Base snow;
+    extern Block::Block_Base cactus;
 
     void initBlockDatabase ();
 

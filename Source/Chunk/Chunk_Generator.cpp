@@ -14,10 +14,14 @@
 #include "Debug_Display.h"
 #include "Noise_Generator.h"
 
+Noise_Generator::Data terrainNoise;
+Noise_Generator::Data biomeNoise (10, 400, 0.1, 500);
+
 void Chunk::generateBlockData()
 {
     auto maxHeight = 0;
-    std::vector<int> m_heightMap;
+    std::vector<int> heightMap;
+    Noise_Generator::setNoiseFunction(terrainNoise);
     for (int x = 0; x < SIZE ; x ++)
     {
         for (int z = 0 ; z < SIZE ; z++)
@@ -27,70 +31,25 @@ void Chunk::generateBlockData()
                                                         m_location.x,
                                                         m_location.z );
             if (height > maxHeight) maxHeight = height;
-            m_heightMap.push_back(height);
+            heightMap.push_back(height);
         }
     }
 
-    if(maxHeight <= WATER_LEVEL) maxHeight = WATER_LEVEL + 1;
-
-    for (int y = 0; y < maxHeight + 1 ; y++)
+    std::vector<int> biomeMap;
+    Noise_Generator::setNoiseFunction(biomeNoise);
+    for (int x = 0; x < SIZE ; x ++)
     {
-        for (int x = 0 ; x < SIZE ; x++)
+        for (int z = 0 ; z < SIZE ; z++)
         {
-            for (int z = 0 ; z < SIZE ; z++)
-            {
-                int h = m_heightMap.at (x * SIZE + z);
-                if (y > h)
-                {
-                    y <= WATER_LEVEL ?
-                        qSetBlock({x, y, z}, Block::water) :
-                        qSetBlock({x, y, z}, Block::air);
-                }
-                else if (y == h)
-                {
-                    if (y > BEACH_LEVEL) //Top levels
-                    {
-                        if ( y <= SNOW_LEVEL )
-                        {
-                            qSetBlock({x, y, z}, Block::grass );
-                            if ( Random::integer(0, y) == 1  &&
-                               (x > 3 && x < SIZE - 3) &&
-                               (z > 3 && z < SIZE - 3)
-                                && y <= SNOW_LEVEL - 10)
-                            {
-                                m_treeLocations.emplace_back(x, y, z);    //Trees
-                            }
-                        }
-                        else
-                        {
-                            Random::integer(y, maxHeight + 10) < y + 5?
-                                qSetBlock({x, y, z}, Block::snowGrass) :
-                                qSetBlock({x, y, z}, Block::grass );
-                        }
-
-                    }
-                    else if (y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
-                    {
-                        qSetBlock({x, y, z}, Block::sand);
-                    }
-                    else
-                    {
-                        Random::integer(0, 10) < 6 ?
-                            qSetBlock({x, y, z}, Block::sand)   :
-                            qSetBlock({x, y, z}, Block::dirt);
-                    }
-                }
-                else  if (y < h && y > h - 5)
-                {
-                    qSetBlock({x, y, z}, Block::dirt);
-                }
-                else
-                {
-                    qSetBlock({x, y, z}, Block::stone);
-                }
-            }
+            auto value =  Noise_Generator::getHeight(x,
+                                                     z,
+                                                     m_location.x,
+                                                     m_location.z );
+            biomeMap.push_back(value);
         }
     }
+
+    this->generateChunk(maxHeight, heightMap, biomeMap);
 }
 
 void Chunk::generateStructureData ()
@@ -166,3 +125,14 @@ void Chunk::makeTree (const Block_Location& location)
         }
     }
 }
+
+void Chunk::makeCactus(const Block_Location& location)
+{
+    auto cactusHeight = Random::integer(4, 6);
+
+    for (auto i = 1 ; i < cactusHeight + 1 ; i++)
+    {
+        qSetBlock({location.x, location.y + i, location.z}, Block::cactus, false);
+    }
+}
+

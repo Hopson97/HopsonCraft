@@ -53,6 +53,8 @@ class Chunk
 
         void saveToFile     ();
 
+        void addLayers (unsigned target);
+
         static constexpr int SIZE  = 20,
                              WATER_LEVEL = 120,
                              BEACH_LEVEL = WATER_LEVEL + 2,
@@ -66,6 +68,7 @@ class Chunk
 
 
         void makeTree   (const Block_Location& location);
+        void makeCactus (const Block_Location& location);
 
         void qSetBlock  (const Block_Location& location, Block_t& block, bool overrideBlocks = true);
 
@@ -73,11 +76,13 @@ class Chunk
 
         void genAdjChunks(const Chunk_Location& location);
 
-        void addLayers (unsigned target);
+        void generateChunk(int maxHeight, const std::vector<int>& heightMap, const std::vector<int>& biomeMap);
 
     private:
         std::vector<Chunk_Layer> m_layers;
+
         std::vector<Block_Location> m_treeLocations;
+        std::vector<Block_Location> m_cactusLocation;
 
         std::unordered_map<Block_Location, int> m_addedBlocks;
 

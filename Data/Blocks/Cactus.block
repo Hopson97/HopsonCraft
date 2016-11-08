@@ -1,20 +1,20 @@
 id
-12
+6
 
 txrtop
-13 0
+14 0
 
 txrside
 14 0
 
 txrbottom
-2 0
+14 0
 
 opaque
 1
 
 blastres
-3
+4
 
 physstate
 0

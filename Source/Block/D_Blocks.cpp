@@ -16,7 +16,8 @@ namespace Block
     Block::Block_Base glass     ("Glass");
     Block::Block_Base cobbleStone   ("Cobblestone");
     Block::Block_Base stoneBricks   ("Stone_Bricks");
-    Block::Block_Base snowGrass     ("Snow_Grass");
+    Block::Block_Base snow          ("Snow");
+    Block::Block_Base cactus        ("Cactus");
 
     std::map<Block::ID, Block::Block_Base*> blockMap;
 
@@ -34,7 +35,8 @@ namespace Block
         blockMap[Block::ID::Glass]      = &glass;
         blockMap[Block::ID::Cobble_Stone]   = &cobbleStone;
         blockMap[Block::ID::Stone_Brick]    = &stoneBricks;
-        blockMap[Block::ID::Snow_Grass]     = &snowGrass;
+        blockMap[Block::ID::Snow]   = &snow;
+        blockMap[Block::ID::Cactus] = &cactus;
     }
 
     Block::Block_Base& getBlockFromId (Block::ID id)
