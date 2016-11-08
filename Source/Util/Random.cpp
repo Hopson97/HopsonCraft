@@ -24,4 +24,10 @@ namespace Random
 		return newNum / multiplier;
 	}
 
+    void setSeed(int seed)
+    {
+        srand(seed);
+    }
+
+
 }

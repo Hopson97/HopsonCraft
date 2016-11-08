@@ -182,6 +182,8 @@
 		<Unit filename="Source/Util/Directory_Creator.h" />
 		<Unit filename="Source/Util/Display.cpp" />
 		<Unit filename="Source/Util/Display.h" />
+		<Unit filename="Source/Util/Hasher.cpp" />
+		<Unit filename="Source/Util/Hasher.h" />
 		<Unit filename="Source/Util/Random.cpp" />
 		<Unit filename="Source/Util/Random.h" />
 		<Unit filename="libgcc_s_sjlj-1.dll" />

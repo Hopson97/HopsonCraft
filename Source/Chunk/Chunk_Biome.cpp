@@ -2,6 +2,9 @@
 
 #include "D_Blocks.h"
 #include "Random.h"
+#include "Hasher.h"
+#include "Noise_Generator.h"
+
 namespace
 {
     struct Biome
@@ -30,6 +33,8 @@ namespace
 
 void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, const std::vector<int>& biomeMap)
 {
+    static const auto noiseSeed = Noise_Generator::getSeed();
+
     Biome forest(Block::grass, 1, 70, m_treeLocations);
     Biome desert(Block::sand, 5, 1000, m_cactusLocations);
     Biome fields(Block::grass, 1, 1000, m_treeLocations);
@@ -41,7 +46,12 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
         {
             for (int z = 0 ; z < SIZE ; z++)
             {
-                const Biome* biome = &getBiome(biomeMap.at(x * SIZE + z), forest, fields, desert, snow);
+                Random::setSeed(Hasher::hash(x + noiseSeed,
+                                             y + noiseSeed,
+                                             z + noiseSeed)); //This for trees, so they gen in the same place
+
+
+                auto* biome = &getBiome(biomeMap.at(x * SIZE + z), forest, fields, desert, snow);
 
                 int h = heightMap.at (x * SIZE + z);
                 if (y > h)

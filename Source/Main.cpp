@@ -22,15 +22,16 @@ namespace
 
 int main()
 {
-    srand ( time ( nullptr ) );
+    Random::setSeed(time(nullptr));
+        //Noise_Generator::setSeed(Random::integer(0, 252525543));
+    Noise_Generator::setSeed(5520);
+
+    Block::initBlockDatabase();
 
     setConsoleLocation();
 
     Display::create("MattCraft");
     Debug_Display::init();
-
-    Noise_Generator::setSeed(Random::integer(0, 252525543));
-    Block::initBlockDatabase();
 
 
     Application app;
