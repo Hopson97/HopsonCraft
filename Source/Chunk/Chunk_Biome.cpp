@@ -28,7 +28,7 @@ namespace
     {
         if (biomeValue > 270) return snow;
         else if (biomeValue <= 270 && biomeValue > 180 ) return fields;
-        else if (biomeValue <= 180 && biomeValue >= 135) return forest;
+        else if (biomeValue <= 180 && biomeValue >= 110) return forest;
         else return desert;
     }
 }

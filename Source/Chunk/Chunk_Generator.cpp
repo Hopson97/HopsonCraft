@@ -15,8 +15,8 @@
 #include "Noise_Generator.h"
 #include "Tree.h"
 
-Noise_Generator::Data terrainNoise  (8, 240, 0.48, 220);
-Noise_Generator::Data biomeNoise    (10, 255, 0.5, 500);
+Noise_Generator::Data terrainNoise  (8, 240, 0.49, 220);
+Noise_Generator::Data biomeNoise    (10, 255, 0.61, 500);
 
 void Chunk::generateBlockData()
 {
