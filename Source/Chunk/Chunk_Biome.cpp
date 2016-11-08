@@ -9,17 +9,19 @@ namespace
 {
     struct Biome
     {
-        Biome(Block::Block_Base& surface, int depth, int treeChance, std::vector<Block_Location>& treeLocations)
+        Biome(Block::Block_Base& surface, int depth, int treeChance, std::vector<Block_Location>& treeLocations, bool isHot)
         :   surfaceBlock    (&surface)
         ,   depth           (depth)
         ,   treeChance      (treeChance)
         ,   treeLocations   (&treeLocations)
+        ,   isHot           (isHot)
         {}
 
         Block::Block_Base* surfaceBlock;
         int depth;
         int treeChance;
         std::vector<Block_Location>* treeLocations;
+        bool isHot;
     };
 
     const Biome& getBiome (int biomeValue, Biome& forest, Biome& fields, Biome& desert, Biome& snow)
@@ -35,10 +37,10 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
 {
     static const auto noiseSeed = Noise_Generator::getSeed();
 
-    Biome forest(Block::grass, 1, 70, m_treeLocations);
-    Biome desert(Block::sand, 5, 1000, m_cactusLocations);
-    Biome fields(Block::grass, 1, 1000, m_treeLocations);
-    Biome snow  (Block::snow, 3, 1000, m_treeLocations);
+    Biome forest(Block::grass, 1, 70, m_treeLocations, false);
+    Biome desert(Block::sand, 5, 1000, m_cactusLocations, true);
+    Biome fields(Block::grass, 1, 1000, m_treeLocations, false);
+    Biome snow  (Block::snow, 3, 1000, m_treeLocations, false);
 
     for (int y = 0; y < maxHeight + 1 ; y++)
     {
@@ -64,7 +66,7 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                 {
                     if (y > BEACH_LEVEL) //Top levels
                     {
-                        if ( y <= SNOW_LEVEL )
+                        if ( y <= SNOW_LEVEL || biome->isHot )
                         {
                             qSetBlock({x, y, z}, *biome->surfaceBlock );
 

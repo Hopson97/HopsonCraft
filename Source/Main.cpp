@@ -23,8 +23,7 @@ namespace
 int main()
 {
     Random::setSeed(time(nullptr));
-        //Noise_Generator::setSeed(Random::integer(0, 252525543));
-    Noise_Generator::setSeed(5520);
+    Noise_Generator::setSeed(Random::integer(0, 32000) * Random::integer(0, 32000));
 
     Block::initBlockDatabase();
 

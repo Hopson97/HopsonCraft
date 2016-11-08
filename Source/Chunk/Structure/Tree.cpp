@@ -30,7 +30,7 @@ namespace Tree
 
     void makeCactus(Chunk& chunk, const Block_Location& location)
     {
-        auto cactusHeight = Random::integer(4, 6);
+        auto cactusHeight = Random::integer(5, 7);
 
         for (auto i = 1 ; i < cactusHeight + 1 ; i++)
         {

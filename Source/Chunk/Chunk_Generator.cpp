@@ -15,11 +15,12 @@
 #include "Noise_Generator.h"
 #include "Tree.h"
 
-Noise_Generator::Data terrainNoise(8, 240, 0.48, 220);
-Noise_Generator::Data biomeNoise (10, 255, 0.1, 500);
+Noise_Generator::Data terrainNoise  (8, 240, 0.48, 220);
+Noise_Generator::Data biomeNoise    (10, 255, 0.5, 500);
 
 void Chunk::generateBlockData()
 {
+    //Create height map
     auto maxHeight = WATER_LEVEL + 1;
     std::vector<int> heightMap;
     Noise_Generator::setNoiseFunction(terrainNoise);
@@ -36,6 +37,7 @@ void Chunk::generateBlockData()
         }
     }
 
+    //Create biome map
     std::vector<int> biomeMap;
     Noise_Generator::setNoiseFunction(biomeNoise);
     for (int x = 0; x < SIZE ; x ++)
