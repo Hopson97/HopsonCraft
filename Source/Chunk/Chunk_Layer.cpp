@@ -14,12 +14,12 @@ Chunk_Layer::Chunk_Layer()
     }
 }
 
-void Chunk_Layer::setBlock(int x, int z, Block::Block_Base& block)
+void Chunk_Layer::setBlock(int x, int z, const Block_t& block)
 {
     m_blocks.at(Chunk::SIZE * z + x) = &block;
 }
 
-const Block::Block_Base& Chunk_Layer::getBlock(int x, int z) const
+const Block_t& Chunk_Layer::getBlock(int x, int z) const
 {
     return *m_blocks.at(Chunk::SIZE * z + x);
 }

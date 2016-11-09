@@ -12,6 +12,8 @@
 #include "Chunk_Layer.h"
 #include "Block_Location.h"
 
+#include "Chunk_Blocks.h"
+
 class Texture_Atlas;
 class World;
 class Chunk_Map;
@@ -33,12 +35,15 @@ class Chunk
 
         const Texture_Atlas& getAtlas () const;
 
-        const Block_t& getBlock (const Block_Location& location) const;
+        //const Block_t& getBlock (const Block_Location& location) const;
 
         const Chunk_Location& getLocation () const;
         const Vector2&  getPosition () const;
 
-        void setBlock   (const Block_Location& location, Block::Block_Base& block, bool overrideBlocks = true);
+        //void setBlock   (const Block_Location& location, Block_t& block, bool overrideBlocks = true);
+
+        Chunk_Blocks& getBlocks();
+        const Chunk_Blocks& getBlocks() const;
 
         const Model& getChunkModel  () const;
         const Model& getWaterModel  () const;
@@ -68,22 +73,15 @@ class Chunk
 
         void addLayers (unsigned target);
 
-        void qSetBlock  (const Block_Location& location, Block_t& block, bool overrideBlocks = true);
+        //void qSetBlock  (const Block_Location& location, Block_t& block, bool overrideBlocks = true);
 
-        const Block_t& getAdjChunkBlock (int xChange, int zChange, const Block_Location& location) const;
+        //const Block_t& getAdjChunkBlock (int xChange, int zChange, const Block_Location& location) const;
 
-        void genAdjChunks(const Chunk_Location& location);
+        //void genAdjChunks(const Chunk_Location& location);
 
         void generateChunk(int maxHeight, const std::vector<int>& heightMap, const std::vector<int>& biomeMap);
 
     private:
-        std::vector<Chunk_Layer> m_layers;
-
-        std::vector<Block_Location> m_treeLocations;
-        std::vector<Block_Location> m_cactusLocations;
-
-        std::unordered_map<Block_Location, int> m_addedBlocks;
-
         Chunk_Location m_location; //Map coords
         Vector2  m_position; //GL coords
 
@@ -99,6 +97,8 @@ class Chunk
         bool m_hasUpdateFlag    = false;
 
         Chunk_Mesh m_mesh;
+
+        Chunk_Blocks m_blocks;
 };
 
 

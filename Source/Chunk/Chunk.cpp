@@ -12,109 +12,19 @@
 #include "Noise_Generator.h"
 
 Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas)
-:   m_layers        (WATER_LEVEL + 1)
-,   m_location      (position)
+//:   m_layers        (WATER_LEVEL + 1)
+:   m_location      (position)
 ,   m_position      (position.x * SIZE, position.z * SIZE)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_p_atlas       (&blockAtlas)
 ,   m_mesh          (*this)
+,   m_blocks        (*this, m_location, *m_p_chunkMap)
 {
     generateBlockData ();
     generateStructureData ();
     loadBlockData ();
 
     m_hasBlockData = true;
-}
-
-void Chunk :: setBlock (const Block_Location& location, Block::Block_Base& block, bool overrideBlocks)
-{
-    if ( location.x < 0 )
-    {
-        return;
-    }
-    else if ( location.z < 0 )
-    {
-        return;
-    }
-    else if ( location.x >= SIZE )
-    {
-        return;
-    }
-    else if ( location.z >= SIZE )
-    {
-
-        return;
-    }
-    else
-    {
-        qSetBlock(location, block, overrideBlocks);
-    }
-}
-
-void Chunk::qSetBlock (const Block_Location& location, Block_t& block, bool overrideBlocks)
-{
-    if ((unsigned)location.y > m_layers.size() - 1)
-    {
-        addLayers(location.y);
-    }
-
-    if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Air || overrideBlocks)
-    {
-        if (m_hasBlockData)
-        {
-            m_addedBlocks[location] = static_cast<int>(block.getID());
-        }
-        m_layers.at(location.y).setBlock(location.x, location.z, block);
-    }
-}
-
-void Chunk::addLayers (unsigned target)
-{
-    while (m_layers.size() - 1 < target) m_layers.emplace_back();
-}
-
-const Block_t& Chunk::getBlock (const Block_Location& location) const
-{
-    //Check if trying to get a block from other chunk
-    if (location.x == -1 )
-    {
-        return getAdjChunkBlock(-1, 0, {SIZE - 1, location.y, location.z});
-    }
-    else if (location.z == -1 )
-    {
-        return getAdjChunkBlock(0, -1, {location.x, location.y, SIZE - 1});
-    }
-    else if (location.x == SIZE )
-    {
-        return getAdjChunkBlock(1, 0, {0, location.y, location.z});
-    }
-    else if (location.z == SIZE )
-    {
-        return getAdjChunkBlock(0, 1, {location.x, location.y, 0});
-    }
-    else if ((unsigned)location.y > m_layers.size() - 1)
-    {
-        return Block::air;
-    }
-    else if (location.y < 0)
-    {
-        return Block::air;
-    }
-    else
-    {
-        return m_layers.at(location.y).getBlock(location.x, location.z);
-    }
-    return Block::air;    //This is for world edges
-}
-
-const Block_t& Chunk::getAdjChunkBlock (int xChange, int zChange, const Block_Location& location) const
-{
-    //Try dd a chunk incase it does not yet exist
-    Chunk_Location chunkLocation ( m_location.x + xChange, m_location.z + zChange);
-    m_p_chunkMap->addChunk(chunkLocation);
-
-    //Return the respective block...
-    return m_p_chunkMap->getChunkAt(chunkLocation)->getBlock(location);
 }
 
 bool Chunk::hasMesh () const
@@ -166,11 +76,11 @@ void Chunk::giveDeleteFlag ()
 
 void Chunk::saveToFile()
 {
-    if(!m_addedBlocks.empty())
+    if(!m_blocks.getAddedBlocks().empty())
     {
         std::ofstream outFile (getFileString());
 
-        for(auto& block : m_addedBlocks)
+        for(auto& block : m_blocks.getAddedBlocks())
         {
             const Block_Location& l = block.first;
 
@@ -178,6 +88,7 @@ void Chunk::saveToFile()
             outFile << block.second << std::endl;
         }
     }
+
 }
 
 
@@ -218,3 +129,12 @@ std::string Chunk::getFileString()
             + std::to_string(m_location.z);
 }
 
+Chunk_Blocks& Chunk::getBlocks()
+{
+    return m_blocks;
+}
+
+const Chunk_Blocks& Chunk::getBlocks() const
+{
+    return m_blocks;
+}

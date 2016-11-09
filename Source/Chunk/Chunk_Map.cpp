@@ -112,7 +112,7 @@ void Chunk_Map::deleteChunks()
     }
 }
 
-void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition)
+void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
 {
     sf::Clock c;
     auto addToBatch = [&](int x, int y)
@@ -134,7 +134,7 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
 
     if (chunk)
     {
-        chunk->setBlock(blockPosition, block);
+        chunk->getBlocks().setBlock(blockPosition, block);
 
         addToBatch(position.x, position.z);
 
@@ -153,7 +153,7 @@ void Chunk_Map::setBlock (Block::Block_Base& block, const Vector3& worldPosition
     }
 }
 
-void Chunk_Map::setBlocks(Block::Block_Base& block, const std::vector<Vector3>worldPositions)
+void Chunk_Map::setBlocks(Block_t& block, const std::vector<Vector3>worldPositions)
 {
     for (auto& position : worldPositions)
     {
@@ -175,14 +175,14 @@ bool Chunk_Map::isSolidBlockAt(const Vector3& worldPosition)
 
     Obvious in use.
 */
-const Block::Block_Base& Chunk_Map::getBlockAt(const Vector3& worldPosition)
+const Block_t& Chunk_Map::getBlockAt(const Vector3& worldPosition)
 {
     Chunk_Location position (Maths::worldToChunkPosition(worldPosition));
     Block_Location blockPosition (Maths::worldToBlockPosition(worldPosition));
 
     if (getChunkAt(position))
     {
-        return getChunkAt(position)->getBlock(blockPosition);
+        return getChunkAt(position)->getBlocks().getBlock(blockPosition);
     }
     return Block::air;
 }

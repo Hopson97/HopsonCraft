@@ -4,22 +4,22 @@
 
 namespace Block
 {
-    Block::Block_Base air       ("Air");
-    Block::Block_Base grass     ("Grass");
-    Block::Block_Base dirt      ("Dirt");
-    Block::Block_Base stone     ("Stone");
-    Block::Block_Base water     ("Water");
-    Block::Block_Base sand      ("Sand");
-    Block::Block_Base oakLeaf   ("Oak_Leaf");
-    Block::Block_Base oakWood   ("Oak_Wood");
-    Block::Block_Base oakPlank  ("Oak_Plank");
-    Block::Block_Base glass     ("Glass");
-    Block::Block_Base cobbleStone   ("Cobblestone");
-    Block::Block_Base stoneBricks   ("Stone_Bricks");
-    Block::Block_Base snow          ("Snow");
-    Block::Block_Base cactus        ("Cactus");
+    Block_t air       ("Air");
+    Block_t grass     ("Grass");
+    Block_t dirt      ("Dirt");
+    Block_t stone     ("Stone");
+    Block_t water     ("Water");
+    Block_t sand      ("Sand");
+    Block_t oakLeaf   ("Oak_Leaf");
+    Block_t oakWood   ("Oak_Wood");
+    Block_t oakPlank  ("Oak_Plank");
+    Block_t glass     ("Glass");
+    Block_t cobbleStone   ("Cobblestone");
+    Block_t stoneBricks   ("Stone_Bricks");
+    Block_t snow          ("Snow");
+    Block_t cactus        ("Cactus");
 
-    std::map<Block::ID, Block::Block_Base*> blockMap;
+    std::map<Block::ID, Block_t*> blockMap;
 
     void initBlockDatabase()
     {
@@ -39,7 +39,7 @@ namespace Block
         blockMap[Block::ID::Cactus] = &cactus;
     }
 
-    Block::Block_Base& getBlockFromId (Block::ID id)
+    Block_t& getBlockFromId (Block::ID id)
     {
         return *blockMap.at(id);
     }

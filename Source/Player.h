@@ -4,13 +4,9 @@
 
 #include "OpenGL/Glm/glm_transformations.h"
 #include "Camera.h"
+#include "Block.h"
 #include "Function_Toggle_Key.h"
 #include <SFML/Graphics.hpp>
-
-namespace Block
-{
-    class Block_Base;
-}
 
 class Player
 {
@@ -26,7 +22,7 @@ class Player
         void setPosition (const Vector3& position);
         void setRotation (const Vector3& rotation);
 
-        Block::Block_Base& getHeldBlock ();
+        Block_t& getHeldBlock ();
 
         constexpr static float ACC = 0.4;
 
@@ -48,7 +44,7 @@ class Player
         Function_Toggle_Key m_decreaseBlockToggle;
 
 
-        Block::Block_Base* m_heldBlock;
+        Block_t* m_heldBlock;
 };
 
 #endif // PLAYER_H

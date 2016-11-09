@@ -53,11 +53,11 @@ void Chunk_Mesh::generateMesh(int height)
         {
             for (int x = 0 ; x < Chunk::SIZE ; x++)
             {
-                if (m_p_chunk->getBlock({x, y, z}).getPhysicalState() == Block::Physical_State::Gas)
+                if (m_p_chunk->getBlocks().getBlock({x, y, z}).getPhysicalState() == Block::Physical_State::Gas)
                 {
                     continue;
                 }
-                addBlockMesh (x, y, z, m_p_chunk->getBlock({x, y, z}));
+                addBlockMesh (x, y, z, m_p_chunk->getBlocks().getBlock({x, y, z}));
             }
         }
     }
@@ -77,7 +77,7 @@ Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(Block::ID id)
 }
 
 //Adds blocks to mesh if there is a adjacent air block to a block
-void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Base& block)
+void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block_t& block)
 {
     if (shouldMakeMesh(x, y + 1, z, block))
     {
@@ -107,24 +107,24 @@ void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Bas
     }
 }
 
-bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block::Block_Base& block)
+bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block_t& block)
 {
     Block_Location location(x, y, z); //This is so it does not construct this object 3 times, but rather just once.
 
-    return   ( m_p_chunk->getBlock(location).getID() == Block::ID::Air) ||
-             (!m_p_chunk->getBlock(location).isOpaque() && m_p_chunk->getBlock(location).getID() != block.getID());
+    return   ( m_p_chunk->getBlocks().getBlock(location).getID() == Block::ID::Air) ||
+             (!m_p_chunk->getBlocks().getBlock(location).isOpaque() &&
+               m_p_chunk->getBlocks().getBlock(location).getID() != block.getID());
 }
 
 
 //Some people are confused by this part so here we go:
-
 /*
     So the x, y or z variables refer to the block position, of which is passed into the function.
     The +1 refers to where the vertex is in respect to the block vertex array "origin", of which is the front bottom
     left of a block.
 */
 
-void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block_Base& block)
+void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& block)
 {
     getPart(block.getID()).addVerticies
     (
@@ -139,7 +139,7 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
     getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureTop()));
 }
 
-void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Block_Base& block)
+void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& block)
 {
     getPart(block.getID()).addVerticies
     (
@@ -154,7 +154,7 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Bl
     getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureBottom()));
 }
 
-void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Block_Base& block)
+void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& block)
 {
     getPart(block.getID()).addVerticies
     (
@@ -169,7 +169,7 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Bloc
     getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
 
-void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Block_Base& block)
+void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& block)
 {
     getPart(block.getID()).addVerticies
     (
@@ -184,7 +184,7 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
     getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
 
-void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Block_Base& block)
+void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& block)
 {
     getPart(block.getID()).addVerticies
     (
@@ -199,7 +199,7 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
     getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
 
-void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Block_Base& block)
+void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block_t& block)
 {
     getPart(block.getID()).addVerticies
     (

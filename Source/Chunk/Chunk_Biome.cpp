@@ -9,7 +9,7 @@ namespace
 {
     struct Biome
     {
-        Biome(Block::Block_Base& surface, int depth, int treeChance, std::vector<Block_Location>& treeLocations, bool isHot)
+        Biome(Block_t& surface, int depth, int treeChance, std::vector<Block_Location>& treeLocations, bool isHot)
         :   surfaceBlock    (&surface)
         ,   depth           (depth)
         ,   treeChance      (treeChance)
@@ -17,7 +17,7 @@ namespace
         ,   isHot           (isHot)
         {}
 
-        Block::Block_Base* surfaceBlock;
+        Block_t* surfaceBlock;
         int depth;
         int treeChance;
         std::vector<Block_Location>* treeLocations;
@@ -35,12 +35,13 @@ namespace
 
 void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, const std::vector<int>& biomeMap)
 {
+
     static const auto noiseSeed = Noise_Generator::getSeed();
 
-    Biome forest(Block::grass,  1,  70,     m_treeLocations,    false);
-    Biome desert(Block::sand,   5,  1000,   m_cactusLocations,  true);
-    Biome fields(Block::grass,  1,  1000,   m_treeLocations,    false);
-    Biome snow  (Block::snow,   3,  1000,   m_treeLocations,    false);
+    Biome forest(Block::grass,  1,  70,     m_blocks.m_treeLocations,    false);
+    Biome desert(Block::sand,   5,  1000,   m_blocks.m_cactusLocations,  true);
+    Biome fields(Block::grass,  1,  1000,   m_blocks.m_treeLocations,    false);
+    Biome snow  (Block::snow,   3,  1000,   m_blocks.m_treeLocations,    false);
 
     for (int y = 0; y < maxHeight + 1 ; y++)
     {
@@ -59,8 +60,8 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                 if (y > h)
                 {
                     y <= WATER_LEVEL ?
-                        qSetBlock({x, y, z}, Block::water) :
-                        qSetBlock({x, y, z}, Block::air);
+                        m_blocks.qSetBlock({x, y, z}, Block::water) :
+                        m_blocks.qSetBlock({x, y, z}, Block::air);
                 }
                 else if (y <= h && y >= h - biome->depth)
                 {
@@ -68,7 +69,7 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                     {
                         if ( y <= SNOW_LEVEL || biome->isHot )
                         {
-                            qSetBlock({x, y, z}, *biome->surfaceBlock );
+                            m_blocks.qSetBlock({x, y, z}, *biome->surfaceBlock );
 
                             if ( Random::integer(0, biome->treeChance) == 1  &&
                                (x > 4 && x < SIZE - 4) &&
@@ -81,29 +82,29 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                         else
                         {
                             Random::integer(y, maxHeight + 10) < y + 5?
-                                qSetBlock({x, y, z}, Block::snow) :
-                                qSetBlock({x, y, z}, *biome->surfaceBlock );
+                                m_blocks.qSetBlock({x, y, z}, Block::snow) :
+                                m_blocks.qSetBlock({x, y, z}, *biome->surfaceBlock );
                         }
 
                     }
                     else if (y <= BEACH_LEVEL && y >= WATER_LEVEL) //Beach
                     {
-                        qSetBlock({x, y, z}, Block::sand);
+                        m_blocks.qSetBlock({x, y, z}, Block::sand);
                     }
                     else
                     {
                         Random::integer(0, 10) < 6 ?
-                            qSetBlock({x, y, z}, Block::sand)   :
-                            qSetBlock({x, y, z}, Block::dirt);
+                            m_blocks.qSetBlock({x, y, z}, Block::sand)   :
+                            m_blocks.qSetBlock({x, y, z}, Block::dirt);
                     }
                 }
                 else  if (y < h && y > h - 5)
                 {
-                    qSetBlock({x, y, z}, Block::dirt);
+                    m_blocks.qSetBlock({x, y, z}, Block::dirt);
                 }
                 else
                 {
-                    qSetBlock({x, y, z}, Block::stone);
+                    m_blocks.qSetBlock({x, y, z}, Block::stone);
                 }
             }
         }

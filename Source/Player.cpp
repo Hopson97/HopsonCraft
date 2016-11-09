@@ -27,6 +27,7 @@ void Player::movementInput()
     auto acceleration = sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) ? ACC * 10 : ACC;
 
     //Forward/Back/Left/Right
+
     if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         auto yaw    = glm::radians(m_camera.getRotation().y + 90);
@@ -104,7 +105,7 @@ const Vector3& Player::getRotation() const
     return m_camera.getRotation();
 }
 
-Block::Block_Base& Player::getHeldBlock ()
+Block_t& Player::getHeldBlock ()
 {
     return *m_heldBlock;
 }

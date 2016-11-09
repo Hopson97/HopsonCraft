@@ -13,7 +13,7 @@ namespace Tree
         //Make the trunk
         for (auto i = 1 ; i < trunkHeight + 1 ; i++)
         {
-            chunk.setBlock({location.x, location.y + i, location.z}, Block::oakWood, false);
+            chunk.getBlocks().setBlock({location.x, location.y + i, location.z}, Block::oakWood, false);
         }
 
         //Make the crown
@@ -23,7 +23,7 @@ namespace Tree
             {
                 for (auto zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
                 {
-                    chunk.setBlock({xLeaf, yLeaf, zLeaf}, Block::oakLeaf, false );
+                    chunk.getBlocks().setBlock({xLeaf, yLeaf, zLeaf}, Block::oakLeaf, false );
                 }
             }
         }
@@ -35,7 +35,7 @@ namespace Tree
 
         for (auto i = 1 ; i < cactusHeight + 1 ; i++)
         {
-            chunk.setBlock({location.x, location.y + i, location.z}, Block::cactus, false);
+            chunk.getBlocks().setBlock({location.x, location.y + i, location.z}, Block::cactus, false);
         }
     }
 

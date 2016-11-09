@@ -24,14 +24,14 @@ class Chunk_Map
         void checkChunks ();
         void draw(Master_Renderer& renderer);
 
-        void setBlock (Block::Block_Base& block, const Vector3& worldPosition);
-        void setBlocks(Block::Block_Base& block, const std::vector<Vector3> worldPositions);
+        void setBlock (Block_t& block, const Vector3& worldPosition);
+        void setBlocks(Block_t& block, const std::vector<Vector3> worldPositions);
 
         bool isSolidBlockAt (const Vector3& worldPosition);
 
         void makeExplosion  (const Vector3& worldPosition, int power);
 
-        const Block::Block_Base& getBlockAt(const Vector3& worldPosition);
+        const Block_t& getBlockAt(const Vector3& worldPosition);
 
         void saveChunks();
 

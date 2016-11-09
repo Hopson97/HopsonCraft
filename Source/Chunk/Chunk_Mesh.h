@@ -35,18 +35,18 @@ class Chunk_Mesh
     private:
         Chunk_Mesh_Part& getPart (Block::ID id);
 
-        void addBlockMesh   (float x, float y, float z, const Block::Block_Base& block );
+        void addBlockMesh   (float x, float y, float z, const Block_t& block );
 
-        bool shouldMakeMesh (int x, int y, int z, const Block::Block_Base& block );
+        bool shouldMakeMesh (int x, int y, int z, const Block_t& block );
 
-        void addBlockTopToMesh      (float x, float y, float z, const Block::Block_Base& block);
-        void addBlockBottomToMesh   (float x, float y, float z, const Block::Block_Base& block);
+        void addBlockTopToMesh      (float x, float y, float z, const Block_t& block);
+        void addBlockBottomToMesh   (float x, float y, float z, const Block_t& block);
 
-        void addBlockLeftToMesh     (float x, float y, float z, const Block::Block_Base& block);
-        void addBlockRightToMesh    (float x, float y, float z, const Block::Block_Base& block);
+        void addBlockLeftToMesh     (float x, float y, float z, const Block_t& block);
+        void addBlockRightToMesh    (float x, float y, float z, const Block_t& block);
 
-        void addBlockFrontToMesh    (float x, float y, float z, const Block::Block_Base& block);
-        void addBlockBackToMesh     (float x, float y, float z, const Block::Block_Base& block);
+        void addBlockFrontToMesh    (float x, float y, float z, const Block_t& block);
+        void addBlockBackToMesh     (float x, float y, float z, const Block_t& block);
 
         Chunk_Mesh_Part m_solidPart;
         Chunk_Mesh_Part m_waterPart;
