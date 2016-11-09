@@ -58,10 +58,8 @@ class Chunk
 
         void saveToFile     ();
 
-
-
         static constexpr int SIZE  = 20,
-                             WATER_LEVEL = 120,
+                             WATER_LEVEL = 100,
                              BEACH_LEVEL = WATER_LEVEL + 2,
                              SNOW_LEVEL = 230;
 

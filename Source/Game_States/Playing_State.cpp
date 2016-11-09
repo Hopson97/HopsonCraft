@@ -64,25 +64,13 @@ namespace State
                 {
                     ray.step(dist);
 
+                    //Delta/ Difference
+                    auto d = ray.getEndPoint() - m_player.getPosition();
 
-                    auto dx = abs(ray.getEndPoint().x - m_player.getPosition().x);
-                    auto dy = abs(ray.getEndPoint().y - m_player.getPosition().y);
-                    auto dz = abs(ray.getEndPoint().z - m_player.getPosition().z);
-
-                    if (Maths::getLength({dx, dy, dz}) > 6.75) //Temp range of the ray cast
-                    {
-                        break;
-                    }
-
-                    if (Maths::getLength({dx, dy, dz}) > 6.75) //Temp range of the ray cast
-                    {
-                        break;
-                    }
+                    if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
+                    if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
 
                     const auto& worldPoint = Maths::worldToBlockPosition(ray.getEndPoint());
-
-                    //if (worldPoint.x <= 0.1) break;
-                    //if (worldPoint.z <= 0.1) break;
 
                     if (m_chunkMap.isSolidBlockAt(ray.getEndPoint()))
                     {
