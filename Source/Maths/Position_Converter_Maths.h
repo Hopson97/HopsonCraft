@@ -13,7 +13,8 @@ namespace Maths
 
     unsigned getChunkDistance (const Chunk_Location& l1, const Chunk_Location& l2);
 
-    Vector3 chunkBlockToWolrdCoords(const Vector3& blocks, const Chunk_Location& location);
+    Vector3 chunkBlockToWorldCoords(const Block_Location& bLocation,
+                                    const Chunk_Location& cLocation);
 }
 
 #endif // POSITION_CONVERTER_MATHS_H_INCLUDED

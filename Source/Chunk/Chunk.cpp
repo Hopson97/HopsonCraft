@@ -28,27 +28,27 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 
 void Chunk :: setBlock (const Block_Location& location, Block::Block_Base& block, bool overrideBlocks)
 {
-    /*
-    if ( position.x < 0 )
+    if ( location.x < 0 )
     {
-        m_p_chunkMap->addChunk({-1, m_location.z});
-        m_p_chunkMap->getChunkAt({-1, m_location.z})->setBlock(SIZE - x, y, z);
+        return;
     }
-    else if ( position.z < 0 )
+    else if ( location.z < 0 )
     {
-
+        return;
     }
-    else if ( position.x >= SIZE )
+    else if ( location.x >= SIZE )
     {
-
+        return;
     }
-    else if ( position.z >= SIZE )
+    else if ( location.z >= SIZE )
     {
 
-
+        return;
     }
-    */
-    qSetBlock(location, block, overrideBlocks);
+    else
+    {
+        qSetBlock(location, block, overrideBlocks);
+    }
 }
 
 void Chunk::qSetBlock (const Block_Location& location, Block_t& block, bool overrideBlocks)

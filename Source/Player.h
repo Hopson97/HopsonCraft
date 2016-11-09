@@ -28,7 +28,7 @@ class Player
 
         Block::Block_Base& getHeldBlock ();
 
-        constexpr static float ACC = 0.3;
+        constexpr static float ACC = 0.4;
 
     private:
         void movementInput();

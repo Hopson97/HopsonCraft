@@ -26,9 +26,9 @@ namespace
 
     const Biome& getBiome (int biomeValue, Biome& forest, Biome& fields, Biome& desert, Biome& snow)
     {
-        if (biomeValue > 270) return snow;
-        else if (biomeValue <= 270 && biomeValue > 180 ) return fields;
-        else if (biomeValue <= 180 && biomeValue >= 110) return forest;
+        if (biomeValue > 250) return snow;
+        else if (biomeValue <= 250 && biomeValue > 165 ) return fields;
+        else if (biomeValue <= 165 && biomeValue >= 90) return forest;
         else return desert;
     }
 }
@@ -37,10 +37,10 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
 {
     static const auto noiseSeed = Noise_Generator::getSeed();
 
-    Biome forest(Block::grass, 1, 70, m_treeLocations, false);
-    Biome desert(Block::sand, 5, 1000, m_cactusLocations, true);
-    Biome fields(Block::grass, 1, 1000, m_treeLocations, false);
-    Biome snow  (Block::snow, 3, 1000, m_treeLocations, false);
+    Biome forest(Block::grass,  1,  70,     m_treeLocations,    false);
+    Biome desert(Block::sand,   5,  1000,   m_cactusLocations,  true);
+    Biome fields(Block::grass,  1,  1000,   m_treeLocations,    false);
+    Biome snow  (Block::snow,   3,  1000,   m_treeLocations,    false);
 
     for (int y = 0; y < maxHeight + 1 ; y++)
     {
@@ -71,9 +71,9 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                             qSetBlock({x, y, z}, *biome->surfaceBlock );
 
                             if ( Random::integer(0, biome->treeChance) == 1  &&
-                               (x > 3 && x < SIZE - 3) &&
-                               (z > 3 && z < SIZE - 3)
-                                && y <= SNOW_LEVEL - 10)
+                               (x > 4 && x < SIZE - 4) &&
+                               (z > 4 && z < SIZE - 4)
+                                && (y <= SNOW_LEVEL - 10 || biome->isHot))
                             {
                                 biome->treeLocations->emplace_back(x, y, z);    //Trees
                             }

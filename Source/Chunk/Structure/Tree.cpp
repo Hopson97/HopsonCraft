@@ -15,6 +15,7 @@ namespace Tree
         {
             chunk.setBlock({location.x, location.y + i, location.z}, Block::oakWood, false);
         }
+
         //Make the crown
         for (auto yLeaf = location.y + trunkHeight ; yLeaf < location.y + trunkHeight + 4 ; yLeaf++)
         {

@@ -29,17 +29,19 @@ namespace Maths
 
         return std::sqrt(dx * dx + dz * dz );
     }
-/*
-    Vector3 chunkBlockToWolrdCoords(const Vector3& blocks, const Chunk_Location& location)
+
+    Vector3 chunkBlockToWorldCoords(const Block_Location& bLocation,
+                                    const Chunk_Location& cLocation)
     {
-        //int x;
-        //int y;
-        //int z;
+        int x = cLocation.x * Chunk::SIZE;
+        int z = cLocation.z * Chunk::SIZE;
 
-        //int cx = location.x * Chunk::SIZE;
-        //int cz = location.z * Chunk::SIZE;
+        x += bLocation.x;
+        z += bLocation.z;
+        int y = bLocation.y;
 
+        return {x, y, z};
     }
-    */
+
 
 }
