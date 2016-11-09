@@ -60,19 +60,17 @@ void Chunk::generateBlockData()
 
 void Chunk::generateStructureData ()
 {
-/*
-    for (auto& location : m_treeLocations)
+    for (auto& location : m_blocks.m_treeLocations)
     {
         Tree::makeOakTree(*this, location);
     }
-    m_treeLocations.clear();
+    m_blocks.m_treeLocations.clear();
 
-    for(auto& location : m_cactusLocations)
+    for(auto& location : m_blocks.m_cactusLocations)
     {
         Tree::makeCactus(*this, location);
     }
-    m_cactusLocations.clear();
-*/
+    m_blocks.m_cactusLocations.clear();
 }
 
 void Chunk::loadBlockData ()
