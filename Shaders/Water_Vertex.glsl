@@ -28,7 +28,8 @@ void calculateFog ( vec4 vertRelToCamera )
 void makeWaves ( vec4 worldPos )
 {
     gl_Position.y -= 0.18;
-    gl_Position.y += sin( time + worldPos.x * worldPos.z  ) / 8.3;
+    gl_Position.y += sin(time) / 8;
+    //gl_Position.y += sin( time + worldPos.x * worldPos.z  ) / 8.3;
 }
 
 void main()

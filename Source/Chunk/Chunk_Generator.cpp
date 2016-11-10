@@ -17,8 +17,8 @@
 
 namespace
 {
-    Noise_Generator::Data terrainNoise  (8, 240, 0.49, 220);
-    Noise_Generator::Data biomeNoise    (10, 255, 0.61, 500);
+    Noise_Generator::Data terrainNoise  (8, 200, 0.55, 320, 35);
+    Noise_Generator::Data biomeNoise    (10, 265, 0.61, 500);
 }
 
 void Chunk::generateBlockData()

@@ -49,7 +49,7 @@ namespace State
         static sf::Clock breakBlockClock;
 
         //Block breaking and placing
-        if (breakBlockClock.getElapsedTime().asSeconds() > 0.1)
+        if (breakBlockClock.getElapsedTime().asSeconds() > 0.35)
         {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::P))
             {
