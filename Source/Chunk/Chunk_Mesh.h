@@ -31,9 +31,10 @@ class Chunk_Mesh
 
         const Chunk_Mesh_Part& getSolidPart() const;
         const Chunk_Mesh_Part& getWaterPart() const;
+        const Chunk_Mesh_Part& getFloraPart() const;
 
     private:
-        Chunk_Mesh_Part& getPart (Block::ID id);
+        Chunk_Mesh_Part& getPart (const Block_t& block);
 
         void addBlockMesh   (float x, float y, float z, const Block_t& block );
 
@@ -41,15 +42,16 @@ class Chunk_Mesh
 
         void addBlockTopToMesh      (float x, float y, float z, const Block_t& block);
         void addBlockBottomToMesh   (float x, float y, float z, const Block_t& block);
-
         void addBlockLeftToMesh     (float x, float y, float z, const Block_t& block);
         void addBlockRightToMesh    (float x, float y, float z, const Block_t& block);
-
         void addBlockFrontToMesh    (float x, float y, float z, const Block_t& block);
         void addBlockBackToMesh     (float x, float y, float z, const Block_t& block);
 
+        void addPlantToMesh         (float x, float y, float z, const Block_t& block);
+
         Chunk_Mesh_Part m_solidPart;
         Chunk_Mesh_Part m_waterPart;
+        Chunk_Mesh_Part m_floraPart;
 
         const Chunk* m_p_chunk;
 };

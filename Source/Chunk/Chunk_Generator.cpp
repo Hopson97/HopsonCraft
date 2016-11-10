@@ -71,6 +71,11 @@ void Chunk::generateStructureData ()
         Tree::makeCactus(*this, location);
     }
     m_blocks.m_cactusLocations.clear();
+
+    for(auto& location : m_blocks.m_roseLocations)
+    {
+        m_blocks.qSetBlock(location, Block::rose);
+    }
 }
 
 void Chunk::loadBlockData ()
@@ -80,7 +85,8 @@ void Chunk::loadBlockData ()
     if(!inFile.is_open())
         return;
 
-    int x, y, z, id;
+    char x, z;
+    int y, id;
 
     while(inFile.peek() != EOF)
     {

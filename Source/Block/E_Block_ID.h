@@ -18,6 +18,7 @@ namespace Block
         Stone_Brick     =   11,
         Snow            =   12,
         Cactus          =   13,
+        Rose            =   14,
 
         NUM_BLOCK_TYPES
     };

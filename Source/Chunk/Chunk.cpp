@@ -56,15 +56,9 @@ const Vector2& Chunk::getPosition () const
     return m_position;
 }
 
-const Model& Chunk::getChunkModel  () const
+const Chunk_Mesh& Chunk::getMesh() const
 {
-    return m_mesh.getSolidPart().model;
-}
-
-
-const Model& Chunk::getWaterModel  () const
-{
-    return m_mesh.getWaterPart().model;
+    return m_mesh;
 }
 
 

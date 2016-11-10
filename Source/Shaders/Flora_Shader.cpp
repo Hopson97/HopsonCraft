@@ -1,12 +1,11 @@
-#include "Chunk_Shader.h"
+#include "Flora_Shader.h"
 
-#include "Maths/Matrix_Maths.h"
-#include "Camera.h"
+#include "Matrix_Maths.h"
 
 namespace Shader
 {
-    Ground_Chunk_Shader::Ground_Chunk_Shader()
-    :   Shader_Program ("Ground_Vertex", "Ground_Fragment")
+    Flora_Shader::Flora_Shader()
+    :   Shader_Program ("Flora_Vertex", "Flora_Fragment")
     {
         bindAttributes();
         getUniformLocations();
@@ -16,36 +15,32 @@ namespace Shader
         glUseProgram(0);
     }
 
-
-
-    void Ground_Chunk_Shader::loadCameraMatrix(const Camera& camera)
+    void Flora_Shader::loadCameraMatrix(const Camera& camera)
     {
         loadMatrix4(m_locationViewMatrix, Maths::createViewMatrix(camera));
     }
 
-    void Ground_Chunk_Shader::loadChunkMatrix(const Matrix4& matrix)
+    void Flora_Shader::loadChunkMatrix(const Matrix4& matrix)
     {
         loadMatrix4(m_locationModelMatrix, matrix);
     }
 
 
-    void Ground_Chunk_Shader::loadSkyColour (const Vector3& skyColour )
+    void Flora_Shader::loadSkyColour (const Vector3& skyColour )
     {
         loadVector3 ( m_skyColourLocation, skyColour );
     }
 
-    void Ground_Chunk_Shader::bindAttributes()
+    void Flora_Shader::bindAttributes()
     {
         bindAttribute(0, "inVertexCoords");
         bindAttribute(1, "inTextureCoords");
     }
 
-    void Ground_Chunk_Shader::getUniformLocations()
+    void Flora_Shader::getUniformLocations()
     {
         m_locationViewMatrix        = glGetUniformLocation ( getId(), "viewMatrix"          );
         m_locationModelMatrix       = glGetUniformLocation ( getId(), "modelMatrix"         );
         m_locationProjectionMatrix  = glGetUniformLocation ( getId(), "projectionMatrix"    );
-
-        m_skyColourLocation = glGetUniformLocation ( getId(), "skyColour" );
     }
 }

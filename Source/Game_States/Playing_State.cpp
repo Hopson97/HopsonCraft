@@ -72,7 +72,8 @@ namespace State
 
                     const auto& worldPoint = Maths::worldToBlockPosition(ray.getEndPoint());
 
-                    if (m_chunkMap.isSolidBlockAt(ray.getEndPoint()))
+                    if (m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Solid ||
+                        m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Flora)
                     {
                         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                         {

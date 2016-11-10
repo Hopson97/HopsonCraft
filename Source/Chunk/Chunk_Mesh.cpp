@@ -33,6 +33,7 @@ void Chunk_Mesh::bufferMesh()
 {
     m_solidPart.buffer();
     m_waterPart.buffer();
+    m_floraPart.buffer();
 }
 
 const Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getSolidPart() const
@@ -45,13 +46,19 @@ const Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getWaterPart() const
     return m_waterPart;
 }
 
+const Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getFloraPart() const
+{
+    return m_floraPart;
+}
+
+
 void Chunk_Mesh::generateMesh(int height)
 {
     for (int y = 0 ; y < height ; y++)
     {
-        for (int z = 0 ; z < Chunk::SIZE ; z++)
+        for (char z = 0 ; z < Chunk::SIZE ; z++)
         {
-            for (int x = 0 ; x < Chunk::SIZE ; x++)
+            for (char x = 0 ; x < Chunk::SIZE ; x++)
             {
                 if (m_p_chunk->getBlocks().getBlock({x, y, z}).getPhysicalState() == Block::Physical_State::Gas)
                 {
@@ -64,21 +71,34 @@ void Chunk_Mesh::generateMesh(int height)
 }
 //This is for the block vertex array generator.
 //It basically just determines which vertex array, water or ground, to add the verticies into.
-Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(Block::ID id)
+Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block_t& block)
 {
-    if (id == Block::ID::Water)
+    switch(block.getPhysicalState())
     {
-        return m_waterPart;
+        case Block::Physical_State::Solid:
+            return m_solidPart;
+
+        case Block::Physical_State::Liquid:
+            return m_waterPart;
+
+        case Block::Physical_State::Flora:
+            return m_floraPart;
+
+        default:
+            break;
     }
-    else
-    {
-        return m_solidPart;
-    }
+    return m_solidPart;
 }
 
 //Adds blocks to mesh if there is a adjacent air block to a block
 void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block_t& block)
 {
+    if (block.getPhysicalState() == Block::Physical_State::Flora)
+    {
+        addPlantToMesh(x, y, z, block);
+        return;
+    }
+
     if (shouldMakeMesh(x, y + 1, z, block))
     {
         addBlockTopToMesh   (x, y, z, block);
@@ -123,10 +143,9 @@ bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block_t& block)
     The +1 refers to where the vertex is in respect to the block vertex array "origin", of which is the front bottom
     left of a block.
 */
-
 void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& block)
 {
-    getPart(block.getID()).addVerticies
+    getPart(block).addVerticies
     (
     {
         x,      y + 1, z + 1,
@@ -136,12 +155,12 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& blo
         x,      y + 1, z,
         x,      y + 1, z + 1,
     });
-    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureTop()));
+    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureTop()));
 }
 
 void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& block)
 {
-    getPart(block.getID()).addVerticies
+    getPart(block).addVerticies
     (
     {
         x,      y, z,
@@ -151,12 +170,12 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& 
         x,      y, z + 1,
         x,      y, z
     });
-    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureBottom()));
+    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureBottom()));
 }
 
 void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& block)
 {
-    getPart(block.getID()).addVerticies
+    getPart(block).addVerticies
     (
     {
         x, y,       z,
@@ -166,12 +185,12 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& bl
         x, y + 1,   z,
         x, y,       z,
     });
-    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
 
 void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& block)
 {
-    getPart(block.getID()).addVerticies
+    getPart(block).addVerticies
     (
     {
         x + 1, y,       z + 1,
@@ -181,12 +200,12 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& b
         x + 1, y + 1,   z + 1,
         x + 1, y,       z + 1,
     });
-    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
 
 void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& block)
 {
-    getPart(block.getID()).addVerticies
+    getPart(block).addVerticies
     (
     {
         x,      y,      z + 1,
@@ -196,12 +215,12 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& b
         x,      y + 1,  z + 1,
         x,      y,      z + 1,
     });
-    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }
 
 void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block_t& block)
 {
-    getPart(block.getID()).addVerticies
+    getPart(block).addVerticies
     (
     {
         x + 1,  y,      z,
@@ -211,5 +230,29 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block_t& bl
         x + 1,  y + 1,  z,
         x + 1,  y,      z,
     });
-    getPart(block.getID()).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    getPart(block).addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+}
+
+//This makes a sorta X shape
+void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block_t& block)
+{
+    m_floraPart.addVerticies
+    (
+    {
+        x,      y,      z,
+        x + 1,  y,      z + 1,
+        x + 1,  y + 1,  z + 1,
+        x + 1,  y + 1,  z + 1,
+        x,      y + 1,  z,
+        x,      y,      z,
+
+        x,      y,      z + 1,
+        x + 1,  y,      z,
+        x + 1,  y + 1,  z,
+        x + 1,  y + 1,  z,
+        x,      y + 1,  z + 1,
+        x,      y,      z + 1
+    });
+    m_floraPart.addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    m_floraPart.addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 }

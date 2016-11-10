@@ -9,19 +9,21 @@ namespace
 {
     struct Biome
     {
-        Biome(Block_t& surface, int depth, int treeChance, std::vector<Block_Location>& treeLocations, bool isHot)
+        Biome(Block_t& surface, int depth, int treeChance, std::vector<Block_Location>& treeLocations, bool isHot, bool hasPlants)
         :   surfaceBlock    (&surface)
         ,   depth           (depth)
         ,   treeChance      (treeChance)
         ,   treeLocations   (&treeLocations)
         ,   isHot           (isHot)
+        ,   hasPlants       (hasPlants)
         {}
 
-        Block_t* surfaceBlock;
-        int depth;
-        int treeChance;
+        const Block_t* surfaceBlock;
+        const int depth;
+        const int treeChance;
         std::vector<Block_Location>* treeLocations;
-        bool isHot;
+        const bool isHot;
+        const bool hasPlants;
     };
 
     const Biome& getBiome (int biomeValue, Biome& forest, Biome& fields, Biome& desert, Biome& snow)
@@ -38,16 +40,16 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
 
     static const auto noiseSeed = Noise_Generator::getSeed();
 
-    Biome forest(Block::grass,  1,  70,     m_blocks.m_treeLocations,    false);
-    Biome desert(Block::sand,   5,  1000,   m_blocks.m_cactusLocations,  true);
-    Biome fields(Block::grass,  1,  1000,   m_blocks.m_treeLocations,    false);
-    Biome snow  (Block::snow,   3,  1000,   m_blocks.m_treeLocations,    false);
+    Biome forest(Block::grass,  0,  70,     m_blocks.m_treeLocations,    false, true);
+    Biome desert(Block::sand,   5,  1000,   m_blocks.m_cactusLocations,  true, false);
+    Biome fields(Block::grass,  0,  1000,   m_blocks.m_treeLocations,    false, true);
+    Biome snow  (Block::snow,   3,  1000,   m_blocks.m_treeLocations,    false, false);
 
     for (int y = 0; y < maxHeight + 1 ; y++)
     {
-        for (int x = 0 ; x < SIZE ; x++)
+        for (char x = 0 ; x < SIZE ; x++)
         {
-            for (int z = 0 ; z < SIZE ; z++)
+            for (char z = 0 ; z < SIZE ; z++)
             {
                 Random::setSeed(Hasher::hash(x + noiseSeed,
                                              y + noiseSeed,
@@ -78,6 +80,9 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                             {
                                 biome->treeLocations->emplace_back(x, y, z);    //Trees
                             }
+                            if(biome->hasPlants)
+                                if(Random::integer(1, 25) == 1)
+                                    m_blocks.m_roseLocations.emplace_back(x, y + 1, z);
                         }
                         else
                         {

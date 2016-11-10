@@ -8,7 +8,7 @@ namespace Block
         Solid   = 0,
         Liquid  = 1,
         Gas     = 2,
-        Other   = 3
+        Flora   = 3
     };
 }
 

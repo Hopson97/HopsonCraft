@@ -45,9 +45,7 @@ class Chunk
         Chunk_Blocks& getBlocks();
         const Chunk_Blocks& getBlocks() const;
 
-        const Model& getChunkModel  () const;
-        const Model& getWaterModel  () const;
-        const Model& getFloraModel  () const;
+        const Chunk_Mesh& getMesh() const;
 
         void giveDeleteFlag ();
         bool hasDeleteFlag  () const;
@@ -68,14 +66,6 @@ class Chunk
         void generateStructureData  ();
         void loadBlockData          ();
         std::string getFileString   ();
-
-        void addLayers (unsigned target);
-
-        //void qSetBlock  (const Block_Location& location, Block_t& block, bool overrideBlocks = true);
-
-        //const Block_t& getAdjChunkBlock (int xChange, int zChange, const Block_Location& location) const;
-
-        //void genAdjChunks(const Chunk_Location& location);
 
         void generateChunk(int maxHeight, const std::vector<int>& heightMap, const std::vector<int>& biomeMap);
 

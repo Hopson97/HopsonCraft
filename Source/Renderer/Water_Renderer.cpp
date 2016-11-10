@@ -24,11 +24,11 @@ void Water_Renderer :: render( const Camera& camera )
                             } );
 
     glDisable( GL_CULL_FACE );
+
     for ( const Chunk* chunk : m_chunks )
     {
         prepareWater( *chunk );
-
-        glDrawArrays( GL_TRIANGLES, 0, chunk->getWaterModel().getVertexCount() );
+        glDrawArrays( GL_TRIANGLES, 0, chunk->getMesh().getWaterPart().model.getVertexCount());
     }
 
     m_chunks.clear();
@@ -38,7 +38,7 @@ void Water_Renderer :: render( const Camera& camera )
 
 void Water_Renderer :: prepareWater ( const Chunk& chunk )
 {
-    chunk.getWaterModel().bind();
+    chunk.getMesh().getWaterPart().model.bind();
     m_shader.loadChunkMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
                                                                   { 0, 0, 0 },
                                                                   { 1, 1, 1 } ) );

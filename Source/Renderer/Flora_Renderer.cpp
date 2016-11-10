@@ -1,6 +1,4 @@
-#include "Chunk_Renderer.h"
-
-#include <iostream>
+#include "Flora_Renderer.h"
 
 #include "Chunk/Chunk.h"
 #include "Camera.h"
@@ -8,12 +6,14 @@
 #include "Display.h"
 #include "D_Settings.h"
 
-void Chunk_Renderer::addChunk (const Chunk& chunk)
+#include <iostream>
+
+void Flora_Renderer::addChunk (const Chunk& chunk)
 {
     m_chunks.push_back( &chunk );
 }
 
-void Chunk_Renderer::render(const Camera& camera)
+void Flora_Renderer::render(const Camera& camera)
 {
     m_shader.useProgram();
     m_shader.loadCameraMatrix(camera);
@@ -23,13 +23,12 @@ void Chunk_Renderer::render(const Camera& camera)
                               Settings::SKY_BLUE
                             });
 
-    glEnable    (GL_CULL_FACE);
-    glCullFace  (GL_BACK);
+    glDisable   (GL_CULL_FACE);
 
     for (const Chunk* chunk : m_chunks)
     {
         prepareChunk( *chunk );
-        glDrawArrays( GL_TRIANGLES, 0, chunk->getMesh().getSolidPart().model.getVertexCount() );
+        glDrawArrays( GL_TRIANGLES, 0, chunk->getMesh().getFloraPart().model.getVertexCount());
     }
 
     m_chunks.clear();
@@ -37,9 +36,9 @@ void Chunk_Renderer::render(const Camera& camera)
     glUseProgram(0);
 }
 
-void Chunk_Renderer::prepareChunk (const Chunk& chunk)
+void Flora_Renderer::prepareChunk (const Chunk& chunk)
 {
-    chunk.getMesh().getSolidPart().model.bind();
+    chunk.getMesh().getFloraPart().model.bind();
     m_shader.loadChunkMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
                                                         { 0, 0, 0 },
                                                         { 1, 1, 1 } ) );

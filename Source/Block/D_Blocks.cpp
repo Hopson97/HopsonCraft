@@ -14,10 +14,11 @@ namespace Block
     Block_t oakWood   ("Oak_Wood");
     Block_t oakPlank  ("Oak_Plank");
     Block_t glass     ("Glass");
-    Block_t cobbleStone   ("Cobblestone");
-    Block_t stoneBricks   ("Stone_Bricks");
-    Block_t snow          ("Snow");
-    Block_t cactus        ("Cactus");
+    Block_t cobbleStone ("Cobblestone");
+    Block_t stoneBricks ("Stone_Bricks");
+    Block_t snow        ("Snow");
+    Block_t cactus      ("Cactus");
+    Block_t rose        ("Rose");
 
     std::map<Block::ID, Block_t*> blockMap;
 
@@ -37,6 +38,7 @@ namespace Block
         blockMap[Block::ID::Stone_Brick]    = &stoneBricks;
         blockMap[Block::ID::Snow]   = &snow;
         blockMap[Block::ID::Cactus] = &cactus;
+        blockMap[Block::ID::Rose]   = &rose;
     }
 
     Block_t& getBlockFromId (Block::ID id)

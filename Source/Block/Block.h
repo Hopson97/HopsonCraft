@@ -46,7 +46,6 @@ namespace Block
             int m_blastRestistance = 0; //The "power" from a blast must be greater than this
 
             Physical_State m_state;
-
     };
 } //Namespace Block
 

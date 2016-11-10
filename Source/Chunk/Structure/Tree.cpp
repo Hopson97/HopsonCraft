@@ -19,9 +19,9 @@ namespace Tree
         //Make the crown
         for (auto yLeaf = location.y + trunkHeight ; yLeaf < location.y + trunkHeight + 4 ; yLeaf++)
         {
-            for (auto xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
+            for (char xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
             {
-                for (auto zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
+                for (char zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
                 {
                     chunk.getBlocks().setBlock({xLeaf, yLeaf, zLeaf}, Block::oakLeaf, false );
                 }
