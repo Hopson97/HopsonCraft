@@ -3,7 +3,8 @@
 #include <iostream>
 
 #include "Debug_Display.h"
-#include "Block/D_Blocks.h"
+#include "Block.h"
+#include "D_Blocks.h"
 
 Player::Player()
 :   m_rotationLock          ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, 0.5)
@@ -117,15 +118,18 @@ void Player::switchBlock(int inc)
     auto currId = static_cast<int>(m_heldBlock->getID());
     currId += inc;
 
-    //We don't want to place water, so skip over it!
-    if (static_cast<Block::ID>(currId) == Block::water.getID())
-    {
-        currId += inc;
-    }
-
     //Seeing as "0" is an air block, we just skip over it
     if (currId == 0) currId = NUM_BLOCK_TYPES - 1;
     else if (currId == NUM_BLOCK_TYPES) currId = 1;
+
+    auto* newBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
+
+    //We don't want to place liquid and gas as blocks, so skip.
+    if (newBlock->getPhysicalState() == Block::Physical_State::Liquid ||
+        newBlock->getPhysicalState() == Block::Physical_State::Gas)
+    {
+        currId += inc;
+    }
 
     m_heldBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
 

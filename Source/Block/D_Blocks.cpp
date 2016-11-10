@@ -25,22 +25,22 @@ namespace Block
 
     void initBlockDatabase()
     {
-        blockMap[Block::ID::Air]    = &air;
-        blockMap[Block::ID::Grass]  = &grass;
-        blockMap[Block::ID::Dirt]   = &dirt;
-        blockMap[Block::ID::Stone]  = &stone;
-        blockMap[Block::ID::Sand]   = &sand;
-        blockMap[Block::ID::Water]  = &water;
-        blockMap[Block::ID::Oak_Leaf]   = &oakLeaf;
-        blockMap[Block::ID::Oak_Wood]   = &oakWood;
-        blockMap[Block::ID::Oak_Plank]  = &oakPlank;
-        blockMap[Block::ID::Glass]      = &glass;
+        blockMap[Block::ID::Air]            = &air;
+        blockMap[Block::ID::Grass]          = &grass;
+        blockMap[Block::ID::Dirt]           = &dirt;
+        blockMap[Block::ID::Stone]          = &stone;
+        blockMap[Block::ID::Sand]           = &sand;
+        blockMap[Block::ID::Water]          = &water;
+        blockMap[Block::ID::Oak_Leaf]       = &oakLeaf;
+        blockMap[Block::ID::Oak_Wood]       = &oakWood;
+        blockMap[Block::ID::Oak_Plank]      = &oakPlank;
+        blockMap[Block::ID::Glass]          = &glass;
         blockMap[Block::ID::Cobble_Stone]   = &cobbleStone;
         blockMap[Block::ID::Stone_Brick]    = &stoneBricks;
-        blockMap[Block::ID::Snow]   = &snow;
-        blockMap[Block::ID::Cactus] = &cactus;
-        blockMap[Block::ID::Rose]   = &rose;
-        blockMap[Block::ID::Tall_Grass] = &tallGrass;
+        blockMap[Block::ID::Snow]           = &snow;
+        blockMap[Block::ID::Cactus]         = &cactus;
+        blockMap[Block::ID::Rose]           = &rose;
+        blockMap[Block::ID::Tall_Grass]     = &tallGrass;
     }
 
     Block_t& getBlockFromId (Block::ID id)
