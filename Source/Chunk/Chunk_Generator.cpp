@@ -72,9 +72,10 @@ void Chunk::generateStructureData ()
     }
     m_blocks.m_cactusLocations.clear();
 
-    for(auto& location : m_blocks.m_roseLocations)
+    for(auto& location : m_blocks.m_floraLocations)
     {
-        m_blocks.qSetBlock(location, Block::rose);
+        const Block_t* b = location.second;
+        m_blocks.qSetBlock(location.first, *b);
     }
 }
 

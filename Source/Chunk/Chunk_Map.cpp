@@ -138,7 +138,7 @@ void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
         {
             if (chunk->getBlocks().getBlock({blockPosition.x, blockPosition.y + 1, blockPosition.z}).getPhysicalState() == Block::Physical_State::Flora)
             {
-                setBlock(Block::air, {blockPosition.x, blockPosition.y + 1, blockPosition.z});
+                chunk->getBlocks().setBlock({blockPosition.x, blockPosition.y + 1, blockPosition.z}, Block::air);
             }
         }
         chunk->getBlocks().setBlock(blockPosition, block);

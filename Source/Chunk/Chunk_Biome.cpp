@@ -81,8 +81,13 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                                 biome->treeLocations->emplace_back(x, y, z);    //Trees
                             }
                             if(biome->hasPlants)
+                            {
                                 if(Random::integer(1, 25) == 1)
-                                    m_blocks.m_roseLocations.emplace_back(x, y + 1, z);
+                                    m_blocks.m_floraLocations.insert(std::make_pair(Block_Location{x, y + 1, z}, &Block::rose));
+                                if(Random::integer(1, 15) == 1)
+                                    m_blocks.m_floraLocations.insert(std::make_pair(Block_Location{x, y + 1, z}, &Block::tallGrass));
+                            }
+
                         }
                         else
                         {

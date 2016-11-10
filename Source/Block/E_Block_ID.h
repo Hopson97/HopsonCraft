@@ -19,6 +19,7 @@ namespace Block
         Snow            =   12,
         Cactus          =   13,
         Rose            =   14,
+        Tall_Grass      =   15,
 
         NUM_BLOCK_TYPES
     };

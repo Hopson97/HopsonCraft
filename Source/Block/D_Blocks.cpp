@@ -19,6 +19,7 @@ namespace Block
     Block_t snow        ("Snow");
     Block_t cactus      ("Cactus");
     Block_t rose        ("Rose");
+    Block_t tallGrass   ("Tall_Grass");
 
     std::map<Block::ID, Block_t*> blockMap;
 
@@ -39,6 +40,7 @@ namespace Block
         blockMap[Block::ID::Snow]   = &snow;
         blockMap[Block::ID::Cactus] = &cactus;
         blockMap[Block::ID::Rose]   = &rose;
+        blockMap[Block::ID::Tall_Grass] = &tallGrass;
     }
 
     Block_t& getBlockFromId (Block::ID id)

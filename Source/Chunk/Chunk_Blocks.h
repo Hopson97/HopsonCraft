@@ -35,7 +35,7 @@ class Chunk_Blocks
         //This is only public for testing purposes, will be private later
         std::vector<Block_Location> m_treeLocations;
         std::vector<Block_Location> m_cactusLocations;
-        std::vector<Block_Location> m_roseLocations;
+        std::unordered_map<Block_Location, const Block_t*> m_floraLocations;
         std::unordered_map<Block_Location, int> m_addedBlocks;
 
     private:
