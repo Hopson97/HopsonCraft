@@ -136,10 +136,11 @@ void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
     {
         if (block.getPhysicalState() == Block::Physical_State::Gas)
         {
-            if (chunk->getBlocks().getBlock({blockPosition.x, blockPosition.y + 1, blockPosition.z}).getPhysicalState() == Block::Physical_State::Flora)
-            {
-                chunk->getBlocks().setBlock({blockPosition.x, blockPosition.y + 1, blockPosition.z}, Block::air);
-            }
+            for (auto y = blockPosition.y + 1 ;
+                 chunk->getBlocks().getBlock({blockPosition.x, y, blockPosition.z}).getPhysicalState() == Block::Physical_State::Flora ;
+                 y++)
+                    chunk->getBlocks().setBlock({blockPosition.x, y, blockPosition.z}, Block::air);
+
         }
         chunk->getBlocks().setBlock(blockPosition, block);
 
