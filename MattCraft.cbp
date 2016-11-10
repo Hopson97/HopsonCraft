@@ -92,6 +92,7 @@
 		<Unit filename="Data/Blocks/Snow.block" />
 		<Unit filename="Data/Blocks/Stone.block" />
 		<Unit filename="Data/Blocks/Stone_Bricks.block" />
+		<Unit filename="Data/Blocks/Tall_Grass.block" />
 		<Unit filename="Data/Blocks/Water.block" />
 		<Unit filename="Data/Images/cow.jpg" />
 		<Unit filename="Shaders/Flora_Fragment.glsl" />

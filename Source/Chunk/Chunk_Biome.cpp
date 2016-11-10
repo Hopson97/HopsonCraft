@@ -82,9 +82,9 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                             }
                             if(biome->hasPlants)
                             {
-                                if(Random::integer(1, 25) == 1)
+                                if(Random::integer(1, 80) == 1)
                                     m_blocks.m_floraLocations.insert(std::make_pair(Block_Location{x, y + 1, z}, &Block::rose));
-                                if(Random::integer(1, 15) == 1)
+                                if(Random::integer(1, 50) == 1)
                                     m_blocks.m_floraLocations.insert(std::make_pair(Block_Location{x, y + 1, z}, &Block::tallGrass));
                             }
 

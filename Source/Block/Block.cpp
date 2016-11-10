@@ -57,6 +57,11 @@ namespace Block
         return m_state;
     }
 
+    Mesh_Type Block_Base::getMeshType() const
+    {
+        return m_meshType;
+    }
+
 
     void Block_Base::loadFromFile()
     {
@@ -101,6 +106,12 @@ namespace Block
                 int state;
                 inFile >> state;
                 m_state = static_cast<Physical_State>(state);
+            }
+            else if (line == "meshtype")
+            {
+                int type;
+                inFile >> type;
+                m_meshType = static_cast<Mesh_Type>(type);
             }
             else if (line == "") continue;
             else

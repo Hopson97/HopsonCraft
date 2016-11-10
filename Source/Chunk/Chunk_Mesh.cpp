@@ -93,7 +93,7 @@ Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block_t& block)
 //Adds blocks to mesh if there is a adjacent air block to a block
 void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block_t& block)
 {
-    if (block.getPhysicalState() == Block::Physical_State::Flora)
+    if (block.getMeshType() == Block::Mesh_Type::X_Style)
     {
         addPlantToMesh(x, y, z, block);
         return;

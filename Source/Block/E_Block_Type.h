@@ -1,14 +1,14 @@
 #ifndef E_BLOCK_TYPE_H_INCLUDED
 #define E_BLOCK_TYPE_H_INCLUDED
 
-class Block
+namespace Block
 {
-    enum class Type
+    enum class Mesh_Type
     {
-        Solid_Full,
-        Flora,
-        Liquid
+        Block   =   0,
+        X_Style =   1,
+        Special =   2
     };
-};
+}
 
 #endif // E_BLOCK_TYPE_H_INCLUDED

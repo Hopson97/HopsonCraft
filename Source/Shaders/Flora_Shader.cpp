@@ -42,5 +42,7 @@ namespace Shader
         m_locationViewMatrix        = glGetUniformLocation ( getId(), "viewMatrix"          );
         m_locationModelMatrix       = glGetUniformLocation ( getId(), "modelMatrix"         );
         m_locationProjectionMatrix  = glGetUniformLocation ( getId(), "projectionMatrix"    );
+
+        m_skyColourLocation         = glGetUniformLocation ( getId(), "skyColour" );
     }
 }
