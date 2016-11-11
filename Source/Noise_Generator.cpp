@@ -76,10 +76,10 @@ namespace Noise_Generator
                                 * amplitude;
         }
 
-        int height = (int)(((totalValue + 1) / 2.0) * (nf.amplitudeMultiplier)) + Chunk::WATER_LEVEL / 2.5;
+        int height = (int)((((totalValue + 1) / 2.0) * (nf.amplitudeMultiplier)) + nf.heightOffset);// + Chunk::WATER_LEVEL / 2.5;
 
         if (height < 0 ) height = 0;
-        return height;
+        return height + nf.heightOffset;
     }
 
     void setNoiseFunction (const Data& d)

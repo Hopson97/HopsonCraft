@@ -21,11 +21,15 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 ,   m_blocks        (*this, m_location, *m_p_chunkMap)
 ,   m_worldGenerator(*this)
 {
-    generateBlockData ();
-    generateStructureData ();
+    m_worldGenerator.generate();
     loadBlockData ();
 
     m_hasBlockData = true;
+}
+
+bool Chunk::hasBlockData () const
+{
+    return m_hasBlockData;
 }
 
 bool Chunk::hasMesh () const
@@ -33,16 +37,34 @@ bool Chunk::hasMesh () const
     return m_hasMesh;
 }
 
-
-bool Chunk::hasBlockData () const
-{
-    return m_hasBlockData;
-}
-
-
 bool Chunk::hasBuffered () const
 {
     return m_hasBuffered;
+}
+
+void Chunk::generateMesh ()
+{
+    m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
+    m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
+    m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
+    m_p_chunkMap->addChunk({m_location.x, m_location.z - 1});
+
+    m_mesh.generateMesh(m_blocks.getLayerCount());
+
+    m_hasMesh       = true;
+    m_hasBuffered   = false;
+}
+
+void Chunk::bufferMesh ()
+{
+    m_mesh.bufferMesh();
+
+    m_hasBuffered = true;
+}
+
+const Texture_Atlas& Chunk::getAtlas() const
+{
+    return *m_p_atlas;
 }
 
 
@@ -50,7 +72,6 @@ const Chunk_Location& Chunk::getLocation () const
 {
     return m_location;
 }
-
 
 const Vector2& Chunk::getPosition () const
 {
@@ -67,6 +88,28 @@ void Chunk::giveDeleteFlag ()
 {
     saveToFile();
     m_hasDeleteFlag = true;
+}
+
+bool Chunk::hasDeleteFlag () const
+{
+    return m_hasDeleteFlag;
+}
+
+void Chunk::update()
+{
+    generateMesh();
+    bufferMesh();
+    m_hasUpdateFlag = false;
+}
+
+void Chunk::giveUpdateFlag()
+{
+    m_hasUpdateFlag = true;
+}
+
+bool Chunk::hasUpdateFlag() const
+{
+    return m_hasUpdateFlag;
 }
 
 void Chunk::saveToFile()
@@ -86,33 +129,6 @@ void Chunk::saveToFile()
 
 }
 
-
-bool Chunk::hasDeleteFlag () const
-{
-    return m_hasDeleteFlag;
-}
-
-const Texture_Atlas& Chunk::getAtlas() const
-{
-    return *m_p_atlas;
-}
-
-void Chunk::update()
-{
-    generateMesh();
-    bufferMesh();
-    m_hasUpdateFlag = false;
-}
-
-void Chunk::giveUpdateFlag()
-{
-    m_hasUpdateFlag = true;
-}
-
-bool Chunk::hasUpdateFlag() const
-{
-    return m_hasUpdateFlag;
-}
 
 std::string Chunk::getFileString()
 {
@@ -159,27 +175,3 @@ void Chunk::loadBlockData ()
     }
 }
 
-void Chunk::generateMesh ()
-{
-    m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
-    m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
-    m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
-    m_p_chunkMap->addChunk({m_location.x, m_location.z - 1});
-
-    m_mesh.generateMesh(m_blocks.getLayerCount());
-
-    m_hasMesh       = true;
-    m_hasBuffered   = false;
-}
-
-void Chunk::bufferMesh ()
-{
-    m_mesh.bufferMesh();
-
-    m_hasBuffered = true;
-}
-
-void Chunk::generateBlockData()
-{
-    m_worldGenerator.generate();
-}

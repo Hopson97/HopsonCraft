@@ -1,5 +1,7 @@
 #include "World_Generator.h"
 
+#include <algorithm>
+
 #include "Chunk.h"
 #include "D_Blocks.h"
 #include "Noise_Generator.h"
@@ -17,7 +19,7 @@ void World_Generator::generate()
     generateHeightMap   ();
     generateBiomeMap    ();
 
-    generateMap();
+    generateBlockData();
 
     m_heightMap.clear();
     m_biomeMap.clear();
@@ -25,51 +27,58 @@ void World_Generator::generate()
 
 void World_Generator::generateHeightMap()
 {
-    static Noise_Generator::Data terrainNoise (8, 200, 0.55, 320);
+    static Noise_Generator::Data terrainNoise (10, 250, 0.5, 300, 0);
     Noise_Generator::setNoiseFunction(terrainNoise);
 
-    for (int x = 0 ; x < Chunk::SIZE ; x++)
-    for (int z = 0 ; z < Chunk::SIZE ; z++)
-    {
-        auto height =  Noise_Generator::getHeight (x,
-                                                   z,
-                                                   m_p_chunk->getLocation().x,
-                                                   m_p_chunk->getLocation().z);
-        if (height > m_maxHeight)
-            m_maxHeight = height;
+    generateMap(m_heightMap);
 
-        m_heightMap.push_back(height);
+    auto val = *std::max_element(m_heightMap.begin(), m_heightMap.end());
+    if (val > m_maxHeight)
+    {
+        m_maxHeight = val;
     }
+
 }
 
 void World_Generator::generateBiomeMap()
 {
-    static Noise_Generator::Data biomeNoise (10, 265, 0.61, 600);
+    static Noise_Generator::Data biomeNoise (10, 265, 0.61, 600, 0);
     Noise_Generator::setNoiseFunction(biomeNoise);
 
+    generateMap(m_biomeMap);
+}
+
+
+void World_Generator::generateMap(std::vector<int>& valueMap)
+{
     for (int x = 0 ; x < Chunk::SIZE ; x++)
-    for (int z = 0 ; z < Chunk::SIZE ; z++)
     {
-        auto value = Noise_Generator::getHeight (x,
-                                                 z,
-                                                 m_p_chunk->getLocation().x,
-                                                 m_p_chunk->getLocation().z);
-        m_biomeMap.push_back(value);
+        for (int z = 0 ; z < Chunk::SIZE ; z++)
+        {
+            auto value = Noise_Generator::getHeight (x,
+                                                     z,
+                                                     m_p_chunk->getLocation().x,
+                                                     m_p_chunk->getLocation().z);
+            valueMap.push_back(value);
+        }
     }
 }
 
-void World_Generator::generateMap()
+
+void World_Generator::generateBlockData()
 {
     for (int y = 0  ; y < m_maxHeight + 1 ; y++)
-    for (char x = 0 ; x < Chunk::SIZE ; x++)   //I hate seeing the pyrmid of death, so umma just do this
-    for (char z = 0 ; z < Chunk::SIZE ; z++)
     {
-        setRandomSeed(x, y, z);
-        auto h = m_heightMap.at(x * Chunk::SIZE + z);
-        setBlock({x, y, z}, h);
+        for (char x = 0 ; x < Chunk::SIZE ; x++)
+        {
+            for (char z = 0 ; z < Chunk::SIZE ; z++)
+            {
+                setRandomSeed(x, y, z);
+                auto h = m_heightMap.at(x * Chunk::SIZE + z);
+                setBlock({x, y, z}, h);
+            }
+        }
     }
-
-
 }
 
 void World_Generator::setRandomSeed(char x, int y, char z)

@@ -29,7 +29,7 @@ void Player::movementInput()
 
     //Forward/Back/Left/Right
 
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    //if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         auto yaw    = glm::radians(m_camera.getRotation().y + 90);
 

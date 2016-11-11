@@ -36,12 +36,8 @@ class Chunk
 
         const Texture_Atlas& getAtlas () const;
 
-        //const Block_t& getBlock (const Block_Location& location) const;
-
         const Chunk_Location& getLocation () const;
         const Vector2&  getPosition () const;
-
-        //void setBlock   (const Block_Location& location, Block_t& block, bool overrideBlocks = true);
 
         Chunk_Blocks& getBlocks();
         const Chunk_Blocks& getBlocks() const;
@@ -59,16 +55,12 @@ class Chunk
 
         static constexpr int SIZE  = 20,
                              WATER_LEVEL = 100,
-                             BEACH_LEVEL = WATER_LEVEL + 2,
+                             BEACH_LEVEL = WATER_LEVEL + 4,
                              SNOW_LEVEL = 230;
 
     private:
-        void generateBlockData      ();
-        void generateStructureData  ();
         void loadBlockData          ();
         std::string getFileString   ();
-
-        void generateChunk(int maxHeight, const std::vector<int>& heightMap, const std::vector<int>& biomeMap);
 
     private:
         Chunk_Location m_location; //Map coords

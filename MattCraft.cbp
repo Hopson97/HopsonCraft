@@ -121,10 +121,8 @@
 		<Unit filename="Source/Chunk/Chunk.cpp" />
 		<Unit filename="Source/Chunk/Chunk.h" />
 		<Unit filename="Source/Chunk/Chunk_Biome.cpp" />
-		<Unit filename="Source/Chunk/Chunk_Biome.h" />
 		<Unit filename="Source/Chunk/Chunk_Blocks.cpp" />
 		<Unit filename="Source/Chunk/Chunk_Blocks.h" />
-		<Unit filename="Source/Chunk/Chunk_Generator.cpp" />
 		<Unit filename="Source/Chunk/Chunk_Layer.cpp" />
 		<Unit filename="Source/Chunk/Chunk_Layer.h" />
 		<Unit filename="Source/Chunk/Chunk_Location.cpp" />

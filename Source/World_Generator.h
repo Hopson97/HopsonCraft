@@ -23,7 +23,9 @@ class World_Generator
     private:
         void generateHeightMap  ();
         void generateBiomeMap   ();
-        void generateMap        ();
+        void generateMap        (std::vector<int>& valueMap);
+
+        void generateBlockData  ();
 
         void setRandomSeed      (char x, int y, char z);
 
