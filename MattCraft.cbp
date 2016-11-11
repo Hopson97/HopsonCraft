@@ -105,6 +105,8 @@
 		<Unit filename="Source/AABB.h" />
 		<Unit filename="Source/Application.cpp" />
 		<Unit filename="Source/Application.h" />
+		<Unit filename="Source/Biome.cpp" />
+		<Unit filename="Source/Biome.h" />
 		<Unit filename="Source/Block/Block.cpp" />
 		<Unit filename="Source/Block/Block.h" />
 		<Unit filename="Source/Block/Block_Location.cpp" />
@@ -197,6 +199,8 @@
 		<Unit filename="Source/Util/Hasher.h" />
 		<Unit filename="Source/Util/Random.cpp" />
 		<Unit filename="Source/Util/Random.h" />
+		<Unit filename="Source/World_Generator.cpp" />
+		<Unit filename="Source/World_Generator.h" />
 		<Unit filename="Templates/Shader_template.txt" />
 		<Unit filename="Templates/State_template.txt" />
 		<Unit filename="libgcc_s_sjlj-1.dll" />

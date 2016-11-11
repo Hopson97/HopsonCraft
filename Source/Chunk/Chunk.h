@@ -11,6 +11,7 @@
 #include "Chunk/Chunk_Mesh.h"
 #include "Chunk_Layer.h"
 #include "Block_Location.h"
+#include "World_Generator.h"
 
 #include "Chunk_Blocks.h"
 
@@ -87,6 +88,8 @@ class Chunk
         Chunk_Mesh m_mesh;
 
         Chunk_Blocks m_blocks;
+
+        World_Generator m_worldGenerator;
 };
 
 

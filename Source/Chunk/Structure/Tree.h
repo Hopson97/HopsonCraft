@@ -7,6 +7,7 @@ class Block_Location;
 namespace Tree
 {
     void makeOakTree    (Chunk& chunk, const Block_Location& location);
+    void makeJungleTree (Chunk& chunk, const Block_Location& location);
     void makeCactus     (Chunk& chunk, const Block_Location& location);
 }
 

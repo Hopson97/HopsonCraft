@@ -4,7 +4,7 @@
 #include "Random.h"
 #include "Hasher.h"
 #include "Noise_Generator.h"
-
+/*
 namespace
 {
     struct Biome
@@ -26,13 +26,14 @@ namespace
         const bool hasPlants;
     };
 
-    const Biome& getBiome (int biomeValue, Biome& forest, Biome& fields, Biome& desert, Biome& snow)
+    const Biome& getBiome (int biomeValue, Biome& forest, Biome& fields, Biome& desert, Biome& snow, Biome& jungle)
     {
         auto add = Chunk::WATER_LEVEL / 2.5;
-        if (biomeValue > 220 + add) return snow;
-        else if (biomeValue <= 220 + add && biomeValue > 170 + add ) return fields;
-        else if (biomeValue <= 170 + add && biomeValue >= 90 + add) return forest;
-        else return desert;
+        if (biomeValue > 210 + add) return snow;
+        else if (biomeValue <= 210 + add && biomeValue > 180 + add ) return fields;
+        else if (biomeValue <= 180 + add && biomeValue >= 90 + add) return forest;
+        else if (biomeValue <= 90 + add && biomeValue >= 60 + add ) return desert;
+        else return jungle;
     }
 }
 
@@ -41,10 +42,11 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
 
     static const auto noiseSeed = Noise_Generator::getSeed();
 
-    Biome forest(Block::grass,  0,  70,     m_blocks.m_treeLocations,    false, true);
+    Biome forest(Block::grass,  0,  250,     m_blocks.m_treeLocations,    false, true);
     Biome desert(Block::sand,   5,  1000,   m_blocks.m_cactusLocations,  true, false);
     Biome fields(Block::grass,  0,  1000,   m_blocks.m_treeLocations,    false, true);
     Biome snow  (Block::snow,   3,  1000,   m_blocks.m_treeLocations,    false, false);
+    Biome jungle(Block::grass,  1,  200,     m_blocks.m_jungleTreeLocations, true, true);
 
     for (int y = 0; y < maxHeight + 1 ; y++)
     {
@@ -57,7 +59,7 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                                              z + noiseSeed)); //This for trees, so they gen in the same place
 
 
-                auto* biome = &getBiome(biomeMap.at(x * SIZE + z), forest, fields, desert, snow);
+                auto* biome = &getBiome(biomeMap.at(x * SIZE + z), forest, fields, desert, snow, jungle);
 
                 int h = heightMap.at (x * SIZE + z);
                 if (y > h)
@@ -74,9 +76,7 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
                         {
                             m_blocks.qSetBlock({x, y, z}, *biome->surfaceBlock );
 
-                            if ( Random::integer(0, biome->treeChance) == 1  &&
-                               (x > 4 && x < SIZE - 4) &&
-                               (z > 4 && z < SIZE - 4)
+                            if ( Random::integer(0, biome->treeChance) == 1
                                 && (y <= SNOW_LEVEL - 10 || biome->isHot))
                             {
                                 biome->treeLocations->emplace_back(x, y, z);    //Trees
@@ -121,3 +121,4 @@ void Chunk::generateChunk(int maxHeight, const std::vector<int>& heightMap, cons
         }
     }
 }
+*/

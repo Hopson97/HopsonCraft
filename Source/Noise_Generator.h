@@ -6,17 +6,15 @@ namespace Noise_Generator
     struct Data
     {
         Data() = default;
-        Data(int octaves, int ampMult, double rough, double smooth, int min = 0)
+        Data(int octaves, int ampMult, double rough, double smooth)
         :   octaves             (octaves)
         ,   amplitudeMultiplier (ampMult)
         ,   roughness           (rough)
-        ,   smoother            (smooth)
-        ,   min                 (min){}
+        ,   smoother            (smooth){}
         int octaves = 8;
         int amplitudeMultiplier = 240;
         double roughness = 0.48;
         double smoother = 190;
-        int min;
     };
 
     int getHeight(int x, int z, int tileX, int tileZ);

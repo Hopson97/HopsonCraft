@@ -29,6 +29,31 @@ namespace Tree
         }
     }
 
+    void makeJungleTree (Chunk& chunk, const Block_Location& location)
+    {
+        auto trunkHeight = Random::integer(10, 20);
+        //Make the trunk
+        for (auto i = 1 ; i < trunkHeight + 1 ; i++)
+        {
+            chunk.getBlocks().setBlock({location.x,     location.y + i, location.z      }, Block::oakWood, false);
+            chunk.getBlocks().setBlock({location.x + 1, location.y + i, location.z      }, Block::oakWood, false);
+            chunk.getBlocks().setBlock({location.x,     location.y + i, location.z + 1  }, Block::oakWood, false);
+            chunk.getBlocks().setBlock({location.x + 1, location.y + i, location.z + 1  }, Block::oakWood, false);
+        }
+
+        //Make the crown
+        for (auto yLeaf = location.y + trunkHeight ; yLeaf < location.y + trunkHeight + 6 ; yLeaf++)
+        {
+            for (char xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
+            {
+                for (char zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
+                {
+                    chunk.getBlocks().setBlock({xLeaf, yLeaf, zLeaf}, Block::oakLeaf, false );
+                }
+            }
+        }
+    }
+
     void makeCactus(Chunk& chunk, const Block_Location& location)
     {
         auto cactusHeight = Random::integer(5, 7);

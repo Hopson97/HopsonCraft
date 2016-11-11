@@ -19,6 +19,7 @@ Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_
 ,   m_p_atlas       (&blockAtlas)
 ,   m_mesh          (*this)
 ,   m_blocks        (*this, m_location, *m_p_chunkMap)
+,   m_worldGenerator(*this)
 {
     generateBlockData ();
     generateStructureData ();
@@ -131,4 +132,54 @@ Chunk_Blocks& Chunk::getBlocks()
 const Chunk_Blocks& Chunk::getBlocks() const
 {
     return m_blocks;
+}
+
+void Chunk::loadBlockData ()
+{
+    std::ifstream inFile(getFileString());
+
+    if(!inFile.is_open())
+        return;
+
+    char x, z;
+    int y, id;
+
+    while(inFile.peek() != EOF)
+    {
+        inFile >> x >> y >> z >> id;
+        m_blocks.m_addedBlocks[{x, y, z}] = id;
+    }
+
+    for (auto& block : m_blocks.m_addedBlocks)
+    {
+        int idNum = block.second;
+        Block::ID id = static_cast<Block::ID>(idNum);
+
+        m_blocks.qSetBlock(block.first, Block::getBlockFromId(id));
+    }
+}
+
+void Chunk::generateMesh ()
+{
+    m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
+    m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
+    m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
+    m_p_chunkMap->addChunk({m_location.x, m_location.z - 1});
+
+    m_mesh.generateMesh(m_blocks.getLayerCount());
+
+    m_hasMesh       = true;
+    m_hasBuffered   = false;
+}
+
+void Chunk::bufferMesh ()
+{
+    m_mesh.bufferMesh();
+
+    m_hasBuffered = true;
+}
+
+void Chunk::generateBlockData()
+{
+    m_worldGenerator.generate();
 }
