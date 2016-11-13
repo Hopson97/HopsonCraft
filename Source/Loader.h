@@ -17,7 +17,6 @@ namespace Loader
                                  const std::vector<GLfloat>& textureCoords,
                                  const std::vector<GLuint>&  indices );
 */
-    GLuint      loadTexture ( const std::string& file );
 }
 
 #endif // LOADER_H

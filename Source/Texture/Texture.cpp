@@ -1,29 +1,62 @@
 #include "Texture.h"
 
-#include "../Loader.h"
 
-#include <iostream>
+#include <SFML/Graphics/Image.hpp>
+#include <stdexcept>
+#include "../Util/Display.h"
 
-Texture :: Texture ( const std::string& file )
-:   m_textureID ( Loader::loadTexture ( file ) )
-{ }
-
-void Texture :: loadFromFile ( const std::string& file )
+Texture::Texture (const std::string& file)
 {
-    m_textureID = Loader::loadTexture ( file );
+    loadFromFile(file);
 }
 
-void Texture :: bind   ()
+void Texture::loadFromFile (const std::string& file)
 {
-    glBindTexture( GL_TEXTURE_2D, m_textureID );
+    sf::Image image;
+
+    if ( !image.loadFromFile( "Data/Images/" + file + ".png" ) )
+    {
+        throw std::runtime_error ( "Could not load texture file for " + file + "!" );
+    }
+
+    create(image.getSize().x, image.getSize().y, image.getPixelsPtr());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    float aniso = 0.0f;
+    glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &aniso);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
 }
 
-void Texture :: unbind ()
+void Texture::createEmpty()
 {
-    glBindTexture( GL_TEXTURE_2D, 0 );
+    create(Display::get().getSize().x, Display::get().getSize().y, nullptr);
 }
 
-Texture :: ~Texture()
+void Texture::create(int width, int height, const void* data)
 {
-    glDeleteTextures( 1, &m_textureID );
+    glGenTextures   ( 1, &m_textureID );
+
+    glBindTexture(GL_TEXTURE_2D, m_textureID);
+    glTexImage2D    ( GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
+                      GL_RGBA, GL_UNSIGNED_BYTE, data );
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+}
+
+
+void Texture::bind   ()
+{
+    glBindTexture(GL_TEXTURE_2D, m_textureID);
+}
+
+void Texture::unbind ()
+{
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+Texture::~Texture()
+{
+    glDeleteTextures(1, &m_textureID);
 }
