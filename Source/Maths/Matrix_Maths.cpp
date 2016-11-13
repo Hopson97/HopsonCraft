@@ -1,7 +1,7 @@
 #include "Matrix_Maths.h"
 
-#include "Camera.h"
-#include "Display.h"
+#include "../Player/Camera.h"
+#include "../Util/Display.h"
 
 namespace Maths
 {

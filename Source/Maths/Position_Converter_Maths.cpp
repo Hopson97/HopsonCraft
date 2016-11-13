@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "Chunk/Chunk.h"
+#include "../World/Chunk/Chunk.h"
 
 namespace Maths
 {

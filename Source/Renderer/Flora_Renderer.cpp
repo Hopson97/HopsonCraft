@@ -1,10 +1,10 @@
 #include "Flora_Renderer.h"
 
-#include "Chunk/Chunk.h"
-#include "Camera.h"
-#include "Maths/Matrix_Maths.h"
-#include "Display.h"
-#include "D_Settings.h"
+#include "../World/Chunk/Chunk.h"
+#include "../Player/Camera.h"
+#include "../Maths/Matrix_Maths.h"
+#include "../Util/Display.h"
+#include "../D_Settings.h"
 
 #include <iostream>
 

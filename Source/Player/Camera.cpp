@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-#include "Display.h"
-#include "Debug_Display.h"
+#include "../Util/Display.h"
+#include "../Util/Debug_Display.h"
 
-#include "Maths/Matrix_Maths.h"
+#include "../Maths/Matrix_Maths.h"
 
 void Camera::update ()
 {

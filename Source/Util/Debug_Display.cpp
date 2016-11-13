@@ -5,8 +5,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "Display.h"
-#include "Chunk/Chunk_Location.h"
-#include "Maths/Position_Converter_Maths.h"
+#include "../World/Chunk/Chunk_Location.h"
+#include "../Maths/Position_Converter_Maths.h"
 
 namespace Debug_Display
 {

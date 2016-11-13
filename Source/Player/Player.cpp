@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include "Debug_Display.h"
-#include "Block.h"
-#include "D_Blocks.h"
+#include "../Util/Debug_Display.h"
+#include "../World/Block/Block.h"
+#include "../World/Block/D_Blocks.h"
 
 Player::Player()
 :   m_rotationLock          ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, 0.5)
@@ -29,7 +29,7 @@ void Player::movementInput()
 
     //Forward/Back/Left/Right
 
-    //if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         auto yaw    = glm::radians(m_camera.getRotation().y + 90);
 

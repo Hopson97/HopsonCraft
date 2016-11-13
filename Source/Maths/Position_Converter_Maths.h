@@ -1,9 +1,10 @@
 #ifndef POSITION_CONVERTER_MATHS_H_INCLUDED
 #define POSITION_CONVERTER_MATHS_H_INCLUDED
 
-#include "Chunk/Chunk_Location.h"
-#include "OpenGL/GLM/glm_transformations.h"
-#include "Block_Location.h"
+#include "../World/Block/Block_Location.h"
+#include "../World/Chunk/Chunk_Location.h"
+
+#include "../OpenGL/GLM/glm_transformations.h"
 
 namespace Maths
 {

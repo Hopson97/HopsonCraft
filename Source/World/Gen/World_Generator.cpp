@@ -2,12 +2,12 @@
 
 #include <algorithm>
 
-#include "Chunk.h"
-#include "D_Blocks.h"
-#include "Noise_Generator.h"
+#include "../Chunk/Chunk.h"
+#include "../Block/D_Blocks.h"
 
-#include "Hasher.h"
-#include "Random.h"
+#include "../../Util/Noise_Generator.h"
+#include "../../Util/Hasher.h"
+#include "../../Util/Random.h"
 
 World_Generator::World_Generator(Chunk& chunk)
 :   m_p_chunk   (&chunk)
@@ -23,11 +23,12 @@ void World_Generator::generate()
 
     m_heightMap.clear();
     m_biomeMap.clear();
+
 }
 
 void World_Generator::generateHeightMap()
 {
-    static Noise_Generator::Data terrainNoise (10, 250, 0.5, 300, 0);
+    static Noise_Generator::Data terrainNoise (10, 120, 0.48535325, 280, 0);
     Noise_Generator::setNoiseFunction(terrainNoise);
 
     generateMap(m_heightMap);
@@ -79,6 +80,12 @@ void World_Generator::generateBlockData()
             }
         }
     }
+
+    for (auto& structure : m_structureLocations)
+    {
+        structure.create();
+    }
+
 }
 
 void World_Generator::setRandomSeed(char x, int y, char z)
@@ -107,6 +114,7 @@ void World_Generator::setBlock(const Block_Location& location, int h)
             if (y > Chunk::BEACH_LEVEL) //Surface/ main land area
             {
                 setBlock(location, Block::grass);
+                tryAddTree(location);
             }
             else if (y <= Chunk::BEACH_LEVEL && y >= Chunk::WATER_LEVEL) //Beach
             {
@@ -115,8 +123,8 @@ void World_Generator::setBlock(const Block_Location& location, int h)
             else // Underwater surface
             {
                 Random::integer(0, 3) < 1 ?
-                    setBlock(location, Block::sand) :
-                    setBlock(location, Block::dirt);
+                    setBlock(location, Block::dirt) :
+                    setBlock(location, Block::sand);
             }
         }
         else    //High mountains
@@ -130,7 +138,7 @@ void World_Generator::setBlock(const Block_Location& location, int h)
     {
         setBlock(location, Block::dirt);
     }
-    else
+    else    //Deep underground
     {
         setBlock(location, Block::stone);
     }
@@ -139,5 +147,14 @@ void World_Generator::setBlock(const Block_Location& location, int h)
 void World_Generator::setBlock(const Block_Location& location, const Block_t& block)
 {
     m_p_chunk->getBlocks().qSetBlock(location, block);
+}
+
+void World_Generator::tryAddTree(const Block_Location& location)
+{
+    if (location.y < 218)
+    if (Random::integer(1, 100) == 1)
+    {
+        m_structureLocations.emplace_back(*m_p_chunk, location, &Structure::createOak);
+    }
 }
 

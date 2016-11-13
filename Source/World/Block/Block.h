@@ -1,9 +1,9 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include "OpenGL/Glm/glm_transformations.h"
+#include "../../OpenGL/Glm/glm_transformations.h"
 #include "E_Block_ID.h"
-#include "Block/E_Block_Physical_State.h"
+#include "E_Block_Physical_State.h"
 #include "E_Block_Type.h"
 
 #include <string>

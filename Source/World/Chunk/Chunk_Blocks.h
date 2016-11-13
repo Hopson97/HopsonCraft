@@ -4,9 +4,10 @@
 #include <vector>
 #include <unordered_map>
 
-#include "Chunk_Layer.h"
-#include "Block_Location.h"
+#include "../Block/Block_Location.h"
+
 #include "Chunk_Location.h"
+#include "Chunk_Layer.h"
 
 class Chunk_Map;
 class Chunk;

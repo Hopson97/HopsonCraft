@@ -1,11 +1,10 @@
 #ifndef CHUNK_RENDERER_H
 #define CHUNK_RENDERER_H
 
-#include "Chunk_Shader.h"
-
 #include <vector>
 
-#include "Chunk/Chunk_Location.h"
+#include "../World/Chunk/Chunk_Location.h"
+#include "../Shaders/Chunk_Shader.h"
 
 class Chunk;
 class Camera;

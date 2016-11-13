@@ -4,15 +4,20 @@
 #include <iostream>
 #include <fstream>
 
-#include "Block/Block.h"
-#include "Display.h"
-#include "Block/D_Blocks.h"
-#include "Debug_Display.h"
-#include "Maths/Position_Converter_Maths.h"
-#include "Ray.h"
-#include "General_Maths.h"
-#include "Directory_Creator.h"
-#include "Noise_Generator.h"
+#include "../World/Block/D_Blocks.h"
+#include "../World/Block/Block.h"
+
+#include "../Util/Display.h"
+#include "../Util/Debug_Display.h"
+#include "../Util/Directory_Creator.h"
+#include "../Util/Noise_Generator.h"
+
+#include "../Maths/Position_Converter_Maths.h"
+#include "../Maths/Ray.h"
+#include "../Maths/General_Maths.h"
+
+
+
 
 namespace State
 {

@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "OpenGL/GLM/glm_transformations.h"
+#include "../OpenGL/GLM/glm_transformations.h"
 #include <SFML/Graphics.hpp>
 
 class Camera

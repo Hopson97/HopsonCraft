@@ -1,11 +1,11 @@
 #ifndef FLORA_RENDERER_H
 #define FLORA_RENDERER_H
 
-#include "Flora_Shader.h"
-
 #include <vector>
 
-#include "Chunk/Chunk_Location.h"
+#include "../World/Chunk/Chunk_Location.h"
+
+#include "../Shaders/Flora_Shader.h"
 
 class Chunk;
 class Camera;

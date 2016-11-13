@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "OpenGL/GLM/glm_transformations.h"
-#include "Block.h"
+#include "../OpenGL/Glew/glew.h"
+#include "../World/Block/Block.h"
 
 namespace Debug_Display
 {

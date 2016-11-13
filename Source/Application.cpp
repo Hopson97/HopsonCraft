@@ -1,16 +1,17 @@
 #include "Application.h"
 
-#include "Display.h"
+#include "Util/Display.h"
 #include "OpenGL/GLEW/glew.h"
 
 #include <cstdlib>
 #include <iostream>
 #include <string>
-
-#include "Debug_Display.h"
-#include "Game_States/Playing_State.h"
-#include "Random.h"
 #include <ctime>
+
+#include "Game_States/Playing_State.h"
+#include "Util/Random.h"
+#include "Util/Debug_Display.h"
+
 
 namespace
 {
@@ -20,7 +21,7 @@ namespace
 Application::Application()
 {
     srand(time(nullptr));
-    //resetSong();
+    resetSong();
     m_stateStack.push(std::make_unique<State::Playing_State>(*this));
 }
 
@@ -57,7 +58,7 @@ void Application::runMainLoop()
 
         if(m_songTimer.getElapsedTime() > m_songDuration )
         {
-            //resetSong();
+            resetSong();
         }
     }
 }

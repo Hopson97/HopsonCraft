@@ -6,8 +6,9 @@
 #include <mutex>
 #include <thread>
 
-#include "Chunk/Chunk.h"
-#include "Texture/Texture_Atlas.h"
+#include "Chunk.h"
+
+#include "../../Texture/Texture_Atlas.h"
 
 class Camera;
 class Master_Renderer;

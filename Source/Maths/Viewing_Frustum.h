@@ -1,7 +1,7 @@
 #ifndef VIEWING_FRUSTUM_H_INCLUDED
 #define VIEWING_FRUSTUM_H_INCLUDED
-
-#include "OpenGL/Glm/glm_transformations.h"
+/*
+#include "../OpenGL/Glm/glm_transformations.h"
 
 class Box
 {
@@ -28,5 +28,5 @@ namespace Frustum
 {
     bool boxInFrustum;
 }
-
+*/
 #endif // VIEWING_FRUSTUM_H_INCLUDED

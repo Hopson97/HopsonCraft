@@ -1,9 +1,9 @@
 #ifndef CHUNK_MESH_H
 #define CHUNK_MESH_H
 
-#include "Model.h"
-#include "OpenGL/GLEW/glew.h"
-#include "Block/Block.h"
+#include "../../Model/Model.h"
+#include "../../OpenGL/Glew/glew.h"
+#include "../Block/Block.h"
 
 #include <vector>
 

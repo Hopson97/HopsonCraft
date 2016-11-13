@@ -1,10 +1,12 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "OpenGL/GLEW/glew.h"
-#include "OpenGL/GLM/glm_transformations.h"
 
 #include <string>
+
+#include "../OpenGL/GLEW/glew.h"
+#include "../OpenGL/GLM/glm_transformations.h"
+
 
 namespace Shader
 {

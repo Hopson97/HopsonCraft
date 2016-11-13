@@ -1,8 +1,8 @@
 #ifndef D_BLOCKS_H_INCLUDED
 #define D_BLOCKS_H_INCLUDED
 
-#include "Block/Block.h"
-#include "Block/E_Block_ID.h"
+#include "Block.h"
+#include "E_Block_ID.h"
 
 namespace Block
 {

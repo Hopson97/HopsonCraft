@@ -1,6 +1,6 @@
 #include "Game_State.h"
 
-#include "Application.h"
+#include "../Application.h"
 
 namespace State
 {

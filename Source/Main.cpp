@@ -4,17 +4,18 @@
 
 #include "Application.h"
 
-#include "Debug_Display.h"
-#include "Display.h"
-#include "Noise_Generator.h"
-#include "Block/D_Blocks.h"
-#include "Random.h"
+#include "Util/Random.h"
+#include "Util/Debug_Display.h"
+#include "Util/Display.h"
+#include "Util/Noise_Generator.h"
+
+#include "World/Block/D_Blocks.h"
+
 
 int main()
 {
     Random::setSeed(time(nullptr));
     Noise_Generator::setSeed(Random::integer(0, 32000) * Random::integer(0, 32000));
-    //Noise_Generator::setSeed(5);
 
     Block::initBlockDatabase();
 

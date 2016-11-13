@@ -5,7 +5,7 @@
 #include <functional>
 #include <cmath>
 
-#include "Hasher.h"
+#include "../../Util/Hasher.h"
 
 struct Block_Location
 {

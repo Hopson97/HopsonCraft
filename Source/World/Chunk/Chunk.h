@@ -6,13 +6,15 @@
 #include <vector>
 
 #include "Chunk_Location.h"
-#include "Model.h"
-#include "Block/Block.h"
-#include "Chunk/Chunk_Mesh.h"
-#include "Chunk_Layer.h"
-#include "Block_Location.h"
-#include "World_Generator.h"
 
+#include "../Block/Block.h"
+#include "../Block/Block_Location.h"
+
+#include "../Gen/World_Generator.h"
+
+#include "Chunk_Location.h"
+#include "Chunk_Mesh.h"
+#include "Chunk_Layer.h"
 #include "Chunk_Blocks.h"
 
 class Texture_Atlas;
@@ -55,8 +57,8 @@ class Chunk
 
         static constexpr int SIZE  = 20,
                              WATER_LEVEL = 100,
-                             BEACH_LEVEL = WATER_LEVEL + 4,
-                             SNOW_LEVEL = 230;
+                             BEACH_LEVEL = WATER_LEVEL + 6,
+                             SNOW_LEVEL = 240;
 
     private:
         void loadBlockData          ();

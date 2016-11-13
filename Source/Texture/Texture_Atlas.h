@@ -2,8 +2,9 @@
 #define TEXTURE_ATLAS_H
 
 #include <vector>
-#include "OpenGL/Glew/glew.h"
-#include "OpenGL/Glm/glm_transformations.h"
+
+#include "../OpenGL/Glew/glew.h"
+#include "../OpenGL/Glm/glm_transformations.h"
 
 #include "Texture.h"
 

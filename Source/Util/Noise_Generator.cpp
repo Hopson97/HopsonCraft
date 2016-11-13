@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "Chunk.h"
+#include "../World/Chunk/Chunk.h"
 
 namespace Noise_Generator
 {
@@ -76,10 +76,13 @@ namespace Noise_Generator
                                 * amplitude;
         }
 
-        int height = (int)((((totalValue + 1) / 2.0) * (nf.amplitudeMultiplier)) + nf.heightOffset);// + Chunk::WATER_LEVEL / 2.5;
+        double height = ((totalValue + 1.1) / 2.0) * 2;
+
+        height *= nf.amplitudeMultiplier;
+        height += nf.heightOffset;
 
         if (height < 0 ) height = 0;
-        return height + nf.heightOffset;
+        return height;
     }
 
     void setNoiseFunction (const Data& d)

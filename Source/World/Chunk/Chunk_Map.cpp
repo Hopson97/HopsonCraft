@@ -2,14 +2,18 @@
 
 #include <iostream>
 
-#include "Maths/Position_Converter_Maths.h"
-#include "Maths/General_Maths.h"
+#include "../../Maths/Position_Converter_Maths.h"
+#include "../../Maths/General_Maths.h"
 
-#include "Camera.h"
-#include "Master_Renderer.h"
-#include "Debug_Display.h"
-#include "Block/D_Blocks.h"
-#include "Function_Toggle_Key.h"
+#include "../../Player/Camera.h"
+
+#include "../../Util/Debug_Display.h"
+
+#include "../../Input/Function_Toggle_Key.h"
+
+#include "../Block/D_Blocks.h"
+
+#include "../../Renderer/Master_Renderer.h"
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition)
 :   m_blockTextures     (1024, 16, "Block_Atlas")

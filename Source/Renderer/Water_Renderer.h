@@ -4,7 +4,7 @@
 #include <vector>
 #include <SFML/System/Clock.hpp>
 
-#include "Water_Shader.h"
+#include "../Shaders/Water_Shader.h"
 
 class Chunk;
 class Camera;

@@ -4,9 +4,9 @@
 #include <vector>
 #include <memory>
 
-#include "../OpenGL/Glew/glew.h"
+#include "OpenGL/Glew/glew.h"
 
-#include "Model.h"
+#include "Model/Model.h"
 
 namespace Loader
 {

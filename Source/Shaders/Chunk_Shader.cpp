@@ -1,7 +1,7 @@
 #include "Chunk_Shader.h"
 
-#include "Maths/Matrix_Maths.h"
-#include "Camera.h"
+#include "../Maths/Matrix_Maths.h"
+#include "../Player/Camera.h"
 
 namespace Shader
 {

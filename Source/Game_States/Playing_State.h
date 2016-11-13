@@ -1,13 +1,19 @@
 #ifndef PLAYING_STATE_H
 #define PLAYING_STATE_H
 
-#include "Game_State.h"
-#include "Player.h"
-#include "Chunk/Chunk_Map.h"
-#include "Master_Renderer.h"
-#include "Input/Function_Toggle_Key.h"
-
 #include <SFML/Graphics.hpp>
+
+#include "Game_State.h"
+
+#include "../Player/Player.h"
+
+#include "../Renderer/Master_Renderer.h"
+
+#include "../Input/Function_Toggle_Key.h"
+
+#include "../World/Chunk/Chunk_Map.h"
+#include "../World/Chunk/Chunk.h"
+
 
 class Application;
 

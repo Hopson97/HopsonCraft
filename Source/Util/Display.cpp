@@ -1,5 +1,6 @@
 #include "Display.h"
-#include "OpenGL/GLEW/glew.h"
+
+#include "../OpenGL/GLEW/glew.h"
 
 #include <memory>
 #include <iostream>

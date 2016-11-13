@@ -2,10 +2,12 @@
 #define PLAYER_H
 
 
-#include "OpenGL/Glm/glm_transformations.h"
+#include "../OpenGL/GLM/glm_transformations.h"
+#include "../World/Block/Block.h"
+#include "../Input/Function_Toggle_Key.h"
 #include "Camera.h"
-#include "Block.h"
-#include "Function_Toggle_Key.h"
+
+
 #include <SFML/Graphics.hpp>
 
 class Player

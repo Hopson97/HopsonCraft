@@ -1,7 +1,7 @@
 #ifndef SHADER_LOADER_H_INCLUDED
 #define SHADER_LOADER_H_INCLUDED
 
-#include "OpenGL/GLEW/glew.h"
+#include "../OpenGL/Glew/glew.h"
 
 #include <string>
 

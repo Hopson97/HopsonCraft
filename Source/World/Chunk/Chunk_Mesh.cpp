@@ -1,11 +1,12 @@
 #include "Chunk_Mesh.h"
 
 #include "Chunk.h"
-#include "Texture/Texture_Atlas.h"
-#include "Loader.h"
-#include "Block_Location.h"
 
-#include <iostream>
+#include "../../Texture/Texture_Atlas.h"
+#include "../../Loader.h"
+
+#include "../Block/Block_Location.h"
+
 
 void Chunk_Mesh::Chunk_Mesh_Part::addVerticies(const std::vector<GLfloat>& verticies )
 {

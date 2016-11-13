@@ -1,7 +1,7 @@
 #ifndef GENERAL_MATHS_H_INCLUDED
 #define GENERAL_MATHS_H_INCLUDED
 
-#include "OpenGL/GLM/glm_transformations.h"
+#include "../OpenGL/GLM/glm_transformations.h"
 
 namespace Maths
 {

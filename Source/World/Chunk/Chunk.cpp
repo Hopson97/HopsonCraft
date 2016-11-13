@@ -3,13 +3,14 @@
 #include <iostream>
 #include <fstream>
 
-#include "Block/Block.h"
-#include "Loader.h"
-#include "Random.h"
-#include "Block/D_Blocks.h"
+#include "../Block/D_Blocks.h"
+#include "../Block/Block.h"
+
+#include "../../Loader.h"
+#include "../../Input/Function_Toggle_Key.h"
+#include "../../Util/Noise_Generator.h"
+
 #include "Chunk_Map.h"
-#include "Function_Toggle_Key.h"
-#include "Noise_Generator.h"
 
 Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas)
 //:   m_layers        (WATER_LEVEL + 1)
