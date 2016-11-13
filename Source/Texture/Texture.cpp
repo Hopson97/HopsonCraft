@@ -56,6 +56,14 @@ void Texture::unbind ()
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+
+//This returns a reference so it does not get glDeleted
+const GLuint& Texture::getID() const
+{
+    return m_textureID;
+}
+
+
 Texture::~Texture()
 {
     glDeleteTextures(1, &m_textureID);

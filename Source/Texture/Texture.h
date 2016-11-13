@@ -17,6 +17,8 @@ class Texture
         void bind   ();
         void unbind ();
 
+        const GLuint& getID () const;
+
         ~Texture ();
 
     private:
