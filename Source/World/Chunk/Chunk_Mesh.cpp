@@ -132,9 +132,9 @@ bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block_t& block)
 {
     Block_Location location(x, y, z); //This is so it does not construct this object 3 times, but rather just once.
 
-    return   ( m_p_chunk->getBlocks().getBlock(location).getID() == Block::ID::Air) ||
-             (!m_p_chunk->getBlocks().getBlock(location).isOpaque() &&
-               m_p_chunk->getBlocks().getBlock(location).getID() != block.getID());
+    return      ( m_p_chunk->getBlocks().getBlock(location).getID() == Block::ID::Air) ||
+                (!m_p_chunk->getBlocks().getBlock(location).isOpaque() &&
+                  m_p_chunk->getBlocks().getBlock(location).getID() != block.getID());
 }
 
 

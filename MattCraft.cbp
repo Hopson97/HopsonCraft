@@ -55,6 +55,8 @@
 		<Unit filename="Data/Blocks/Air.block" />
 		<Unit filename="Data/Blocks/Cactus.block" />
 		<Unit filename="Data/Blocks/Cobblestone.block" />
+		<Unit filename="Data/Blocks/Coral.block" />
+		<Unit filename="Data/Blocks/Dead_Shrub.block" />
 		<Unit filename="Data/Blocks/Dirt.block" />
 		<Unit filename="Data/Blocks/Glass.block" />
 		<Unit filename="Data/Blocks/Grass.block" />
@@ -79,13 +81,6 @@
 		<Unit filename="Source/AABB.h" />
 		<Unit filename="Source/Application.cpp" />
 		<Unit filename="Source/Application.h" />
-		<Unit filename="Source/Chunk/Chunk.h" />
-		<Unit filename="Source/Chunk/Chunk_Blocks.h" />
-		<Unit filename="Source/Chunk/Chunk_Layer.h" />
-		<Unit filename="Source/Chunk/Chunk_Location.h" />
-		<Unit filename="Source/Chunk/Chunk_Map.h" />
-		<Unit filename="Source/Chunk/Chunk_Mesh.h" />
-		<Unit filename="Source/Chunk/Structure/Tree.h" />
 		<Unit filename="Source/D_Settings.h" />
 		<Unit filename="Source/Game_States/Game_State.cpp" />
 		<Unit filename="Source/Game_States/Game_State.h" />

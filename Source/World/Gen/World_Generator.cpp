@@ -139,13 +139,6 @@ void World_Generator::setBlock(const Block_Location& location, int h)
                 Random::integer(0, 3) < 1 ?
                     setBlock(location, Block::dirt) :
                     setBlock(location, Block::sand);
-                if (y < Chunk::WATER_LEVEL - 20)
-                {
-                    if (Random::integer(0, 50) == 1)
-                    {
-                        m_flora.insert(std::make_pair(location, &Block::coral));
-                    }
-                }
             }
         }
         else    //High mountains
@@ -201,13 +194,13 @@ void World_Generator::tryAddFlora(const Block_Location& location)
 
 void World_Generator::setActiveBiome(int value)
 {
-    if (value > 215)
+    if (value > 200)
         m_p_activeBiome = &m_snowBiome;
-    else if (value <= 215 && value > 165)
+    else if (value <= 200 && value > 150)
         m_p_activeBiome = &m_fieldsBiome;
-    else if ( value <= 165 && value > 60)
+    else if ( value <= 150 && value > 40)
         m_p_activeBiome = &m_forestBiome;
-    else if ( value <= 60 /*&& value > 0*/)
+    else if ( value <= 40 /*&& value > 0*/)
         m_p_activeBiome = &m_desertBiome;
 }
 
