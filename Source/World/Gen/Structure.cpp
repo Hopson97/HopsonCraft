@@ -41,17 +41,3 @@ namespace Structure
     }
 }
 
-
-
-Structure_Base::Structure_Base(Chunk& chunk, const Block_Location& location, Structure_Function function)
-:   m_p_chunk (&chunk)
-,   m_location (location)
-,   m_function (function)
-{
-
-}
-
-void Structure_Base::create()
-{
-    m_function(*m_p_chunk, m_location);
-}

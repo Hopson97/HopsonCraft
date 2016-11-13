@@ -15,7 +15,7 @@
 int main()
 {
     Random::setSeed(time(nullptr));
-    Noise_Generator::setSeed(Random::integer(0, 32000) * Random::integer(0, 32000));
+    Noise::setSeed(Random::integer(0, 32000) * Random::integer(0, 32000));
 
     Block::initBlockDatabase();
 

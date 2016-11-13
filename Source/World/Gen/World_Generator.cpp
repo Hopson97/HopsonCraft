@@ -12,7 +12,14 @@
 World_Generator::World_Generator(Chunk& chunk)
 :   m_p_chunk   (&chunk)
 ,   m_maxHeight (Chunk::WATER_LEVEL + 1)
-{ }
+{
+    m_terrainNoise.setNoiseFunction({10, 230, 0.5, 250, -25});
+    m_biomeNoise.setNoiseFunction({8, 250, 0.6, 325, 0});
+
+    m_terrainNoise.setSeed(Noise::getSeed());
+    m_biomeNoise.setSeed(Noise::getSeed() << 1);
+    setUpBiomes();
+}
 
 void World_Generator::generate()
 {
@@ -28,10 +35,7 @@ void World_Generator::generate()
 
 void World_Generator::generateHeightMap()
 {
-    static Noise_Generator::Data terrainNoise (10, 120, 0.48535325, 280, 0);
-    Noise_Generator::setNoiseFunction(terrainNoise);
-
-    generateMap(m_heightMap);
+    generateMap(m_heightMap, m_terrainNoise);
 
     auto val = *std::max_element(m_heightMap.begin(), m_heightMap.end());
     if (val > m_maxHeight)
@@ -43,23 +47,20 @@ void World_Generator::generateHeightMap()
 
 void World_Generator::generateBiomeMap()
 {
-    static Noise_Generator::Data biomeNoise (10, 265, 0.61, 600, 0);
-    Noise_Generator::setNoiseFunction(biomeNoise);
-
-    generateMap(m_biomeMap);
+    generateMap(m_biomeMap, m_biomeNoise);
 }
 
 
-void World_Generator::generateMap(std::vector<int>& valueMap)
+void World_Generator::generateMap(std::vector<int>& valueMap, const Noise::Generator& noiseGenerator)
 {
     for (int x = 0 ; x < Chunk::SIZE ; x++)
     {
         for (int z = 0 ; z < Chunk::SIZE ; z++)
         {
-            auto value = Noise_Generator::getHeight (x,
-                                                     z,
-                                                     m_p_chunk->getLocation().x,
-                                                     m_p_chunk->getLocation().z);
+            auto value = noiseGenerator.getHeight (x,
+                                                   z,
+                                                   m_p_chunk->getLocation().x,
+                                                   m_p_chunk->getLocation().z);
             valueMap.push_back(value);
         }
     }
@@ -75,22 +76,20 @@ void World_Generator::generateBlockData()
             for (char z = 0 ; z < Chunk::SIZE ; z++)
             {
                 setRandomSeed(x, y, z);
-                auto h = m_heightMap.at(x * Chunk::SIZE + z);
-                setBlock({x, y, z}, h);
+
+                auto index = (x * Chunk::SIZE + z);
+                auto height = m_heightMap.at(index);
+                setActiveBiome(m_biomeMap.at(index));
+
+                setBlock({x, y, z}, height);
             }
         }
     }
-
-    for (auto& structure : m_structureLocations)
-    {
-        structure.create();
-    }
-
 }
 
 void World_Generator::setRandomSeed(char x, int y, char z)
 {
-    auto seed = Noise_Generator::getSeed();
+    auto seed = Noise::getSeed();
 
     Random::setSeed(Hasher::hash(x + Chunk::SIZE * m_p_chunk->getLocation().x + seed,
                                  y + seed,
@@ -113,7 +112,7 @@ void World_Generator::setBlock(const Block_Location& location, int h)
         {
             if (y > Chunk::BEACH_LEVEL) //Surface/ main land area
             {
-                setBlock(location, Block::grass);
+                setBlock(location, m_p_activeBiome->getBlock());
                 tryAddTree(location);
             }
             else if (y <= Chunk::BEACH_LEVEL && y >= Chunk::WATER_LEVEL) //Beach
@@ -131,12 +130,18 @@ void World_Generator::setBlock(const Block_Location& location, int h)
         {
             Random::integer(1, 5) < 2 ?
                 setBlock(location, Block::snow) :
-                setBlock(location, Block::grass);
+                setBlock(location, m_p_activeBiome->getBlock());
         }
+    }
+    else if (h - y <= m_p_activeBiome->getDepth() && y > Chunk::BEACH_LEVEL) //Slightly underground (biomes)
+    {
+        setBlock(location, m_p_activeBiome->getBlock());
     }
     else if (y < h && y >= h - 4)   //Slighty underground
     {
-        setBlock(location, Block::dirt);
+            y > Chunk::BEACH_LEVEL ?
+                setBlock(location, Block::dirt) :
+                setBlock(location, Block::sand);
     }
     else    //Deep underground
     {
@@ -154,7 +159,33 @@ void World_Generator::tryAddTree(const Block_Location& location)
     if (location.y < 218)
     if (Random::integer(1, 100) == 1)
     {
-        m_structureLocations.emplace_back(*m_p_chunk, location, &Structure::createOak);
+        //m_structureLocations.emplace_back(*m_p_chunk, location, &Structure::createOak);
     }
 }
 
+void World_Generator::setActiveBiome(int value)
+{
+    if (value > 240)
+        m_p_activeBiome = &m_snowBiome;
+    else if ( value <= 240 && value > 110)
+        m_p_activeBiome = &m_forestBiome;
+    else if ( value <= 110 /*&& value > 0*/)
+        m_p_activeBiome = &m_desertBiome;
+}
+
+
+void World_Generator::setUpBiomes ()
+{
+    //forest
+    m_forestBiome.addBlock(Block::grass, 1);
+    m_forestBiome.setDepth(1);
+
+    //desert
+    m_desertBiome.addBlock(Block::sand, 1);
+    m_desertBiome.setDepth(3);
+
+    //snow
+    m_snowBiome.addBlock(Block::snow, 1);
+    m_snowBiome.setDepth(3);
+
+}

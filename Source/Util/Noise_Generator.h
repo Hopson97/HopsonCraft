@@ -1,7 +1,7 @@
 #ifndef NOISE_GENERATOR_H
 #define NOISE_GENERATOR_H
 
-namespace Noise_Generator
+namespace Noise
 {
     struct Data
     {
@@ -19,11 +19,23 @@ namespace Noise_Generator
         int heightOffset = 0;
     };
 
-    int getHeight(int x, int z, int tileX, int tileZ);
-
-    void setNoiseFunction (const Data& d);
-
     int getSeed     ();
     void setSeed    (int newSeed);
+
+    class Generator
+    {
+        public:
+            int getHeight(int x, int z, int tileX, int tileZ) const;
+
+            void setNoiseFunction(const Noise::Data& data);
+
+            int getSeed     ();
+            void setSeed    (int newSeed);
+
+        private:
+            Noise::Data m_noiseFunction;
+            int m_seed;
+
+    };
 }
 #endif // NOISE_GENERATOR_H

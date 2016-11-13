@@ -35,9 +35,9 @@ namespace State
                                     Display::get().getSize().y / 2 - crossHairSprite.getTexture()->getSize().y / 2);
 
 
-        Directory::create("Worlds/" + std::to_string(Noise_Generator::getSeed()));
+        Directory::create("Worlds/" + std::to_string(Noise::getSeed()));
 
-        std::ifstream inFile("Worlds/" + std::to_string(Noise_Generator::getSeed() ) + "/World_Info.data");
+        std::ifstream inFile("Worlds/" + std::to_string(Noise::getSeed() ) + "/World_Info.data");
         if (inFile.is_open())
         {
             int x, y, z;
@@ -140,7 +140,7 @@ namespace State
 
         m_chunkMap.saveChunks();
 
-        std::ofstream outFile ("Worlds/" + std::to_string(Noise_Generator::getSeed() ) + "/World_Info.data");
+        std::ofstream outFile ("Worlds/" + std::to_string(Noise::getSeed() ) + "/World_Info.data");
         outFile << (int)m_player.getPosition().x << " " << (int)m_player.getPosition().y << " " << (int)m_player.getPosition().z << std::endl;
     }
 

@@ -7,9 +7,9 @@ namespace Settings
     constexpr float NEAR_PLANE  = 0.01;
     constexpr float FAR_PLANE   = 1000;
 
-    constexpr float SKY_RED     = 0.12;
-    constexpr float SKY_GREEN   = 0.55;
-    constexpr float SKY_BLUE    = 0.76;
+    constexpr float SKY_RED     = 0.55;
+    constexpr float SKY_GREEN   = 0.0;
+    constexpr float SKY_BLUE    = 0.0;
 }
 
 #endif // D_SETTINGS_H_INCLUDED

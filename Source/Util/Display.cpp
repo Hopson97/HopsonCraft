@@ -5,6 +5,8 @@
 #include <memory>
 #include <iostream>
 
+#include "../D_Settings.h"
+
 namespace Display
 {
     namespace
@@ -51,7 +53,7 @@ namespace Display
     void clear()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(0.2, 0.5, 0.9, 1.0);
+        glClearColor(Settings::SKY_RED, Settings::SKY_GREEN, Settings::SKY_BLUE, 1.0);
     }
 
     void update()

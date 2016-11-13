@@ -57,8 +57,8 @@ class Chunk
 
         static constexpr int SIZE  = 20,
                              WATER_LEVEL = 100,
-                             BEACH_LEVEL = WATER_LEVEL + 6,
-                             SNOW_LEVEL = 240;
+                             BEACH_LEVEL = WATER_LEVEL + 5,
+                             SNOW_LEVEL = 225;
 
     private:
         void loadBlockData          ();

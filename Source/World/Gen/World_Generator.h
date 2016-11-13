@@ -6,6 +6,7 @@
 #include "../Block/Block.h"
 #include "Biome.h"
 #include "Structure.h"
+#include "../../Util/Noise_Generator.h"
 
 namespace Noise_Generator
 {
@@ -25,7 +26,7 @@ class World_Generator
     private:
         void generateHeightMap  ();
         void generateBiomeMap   ();
-        void generateMap        (std::vector<int>& valueMap);
+        void generateMap        (std::vector<int>& valueMap, const Noise::Generator& noiseGenerator);
 
         void generateBlockData  ();
 
@@ -36,14 +37,27 @@ class World_Generator
 
         void tryAddTree         (const Block_Location& location);
 
+        void setActiveBiome     (int value);
+        void setUpBiomes        ();
+
+
         Chunk* m_p_chunk;
 
         std::vector<int> m_heightMap;
         std::vector<int> m_biomeMap;
 
-        std::vector<Structure_Base> m_structureLocations;
-
         int m_maxHeight;
+        int terrainSeed;
+
+        Biome* m_p_activeBiome;
+        Biome m_forestBiome;
+        Biome m_desertBiome;
+        Biome m_snowBiome;
+
+        Noise::Generator m_terrainNoise;
+        Noise::Generator m_biomeNoise;
+
+
 };
 
 #endif // WORLD_GENERATOR_H

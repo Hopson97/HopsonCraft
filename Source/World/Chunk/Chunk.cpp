@@ -134,7 +134,7 @@ void Chunk::saveToFile()
 std::string Chunk::getFileString()
 {
     return "Worlds/" +
-            std::to_string(Noise_Generator::getSeed()) +
+            std::to_string(Noise::getSeed()) +
             "/" +
             std::to_string(m_location.x)
             + " "

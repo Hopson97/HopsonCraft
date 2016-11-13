@@ -2,13 +2,24 @@
 
 #include <cmath>
 #include <iostream>
+#include <mutex>
 
 #include "../World/Chunk/Chunk.h"
 
-namespace Noise_Generator
+namespace Noise
 {
     int seed;
-    Data currentNoiseFunction;
+
+    int getSeed()
+    {
+        return seed;
+    }
+
+    void setSeed(int newSeed)
+    {
+        seed = newSeed;
+        std::cout << "Seed: " << newSeed << std::endl;
+    }
 
     double FindNoise1(int n)
     {
@@ -55,7 +66,7 @@ namespace Noise_Generator
 
     // Here we get how terrain at X, Y is high. zoomget is only for some testing reasons.
     // Here you can edit maximum and minimum level of height.
-    int getHeight(int x, int z, int tileX, int tileZ)
+    int Generator::getHeight(int x, int z, int tileX, int tileZ) const
     {
         auto newX = (x + (tileX * Chunk::SIZE));
         auto newZ = (z + (tileZ * Chunk::SIZE));
@@ -65,39 +76,36 @@ namespace Noise_Generator
         auto totalValue   = 0.0;
 
         //Shorthand
-        Data& nf = currentNoiseFunction;
+        Data nf = m_noiseFunction;
 
         for (auto a = 0; a < nf.octaves - 1; a++)      //This loops trough the octaves.
         {
-            auto frequency = pow(2.0, a) / 2;     //This increases the frequency with every loop of the octave.
+            auto frequency = pow(2.0, a) / 2.0f;     //This increases the frequency with every loop of the octave.
             auto amplitude = pow(nf.roughness, a);       //This decreases the amplitude with every loop of the octave.
             totalValue += noise(((double)newX) * frequency / nf.smoother,
                                 ((double)newZ) / nf.smoother * frequency)
                                 * amplitude;
         }
 
-        double height = ((totalValue + 1.1) / 2.0) * 2;
-
-        height *= nf.amplitudeMultiplier;
-        height += nf.heightOffset;
+        int height = (int)((((totalValue + 1) / 2.0) * (nf.amplitudeMultiplier * 1.2)) + nf.heightOffset) / 1.005;
 
         if (height < 0 ) height = 0;
         return height;
     }
 
-    void setNoiseFunction (const Data& d)
+    void Generator::setNoiseFunction(const Noise::Data& data)
     {
-        currentNoiseFunction = d;
+        m_noiseFunction = data;
     }
 
-    int getSeed()
+    int Generator::getSeed()
     {
-        return seed;
+        return m_seed;
     }
 
-    void setSeed(int newSeed)
+    void Generator::setSeed(int newSeed)
     {
-        seed = newSeed;
-        std::cout << "Seed: " << newSeed << std::endl;
+        m_seed = newSeed;
     }
+
 }
