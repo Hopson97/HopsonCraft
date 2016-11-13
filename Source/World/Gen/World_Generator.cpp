@@ -148,7 +148,7 @@ void World_Generator::setBlock(const Block_Location& location, int h)
                 setBlock(location, m_p_activeBiome->getBlock());
         }
     }
-    else if (h - y <= m_p_activeBiome->getDepth() && y > Chunk::BEACH_LEVEL) //Slightly underground (biomes)
+    else if (h - y < m_p_activeBiome->getDepth() && y > Chunk::BEACH_LEVEL) //Slightly underground (biome)
     {
         setBlock(location, m_p_activeBiome->getBlock());
     }
