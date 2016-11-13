@@ -12,7 +12,7 @@ class Texture
         Texture     ( const std::string& filePath );
 
         void loadFromFile ( const std::string& file );
-        void createEmpty  ();
+        void createEmpty  (int width, int height);
 
         void bind   ();
         void unbind ();

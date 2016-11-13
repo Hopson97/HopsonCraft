@@ -1,8 +1,11 @@
 #include "Framebuffer_Object.h"
 
+#include "../Util/Display.h"
+
 Framebuffer_Object::Framebuffer_Object()
 {
     glGenFramebuffers(1, &m_fbo);
+    m_textureAttatchment.createEmpty(Display::get().getSize().x, Display::get().getSize().y);
 }
 
 Framebuffer_Object::~Framebuffer_Object()

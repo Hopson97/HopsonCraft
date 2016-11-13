@@ -2,6 +2,7 @@
 #define FRAMEBUFFER_OBJECT_H
 
 #include "../OpenGL/Glew/glew.h"
+#include "../Texture/Texture.h"
 
 class Framebuffer_Object
 {
@@ -13,7 +14,8 @@ class Framebuffer_Object
         void unbind();
 
     private:
-        GLuint m_fbo = 0;
+        GLuint  m_fbo = 0;
+        Texture m_textureAttatchment;
 };
 
 #endif // FRAMEBUFFER_OBJECT_H

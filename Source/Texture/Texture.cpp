@@ -28,9 +28,9 @@ void Texture::loadFromFile (const std::string& file)
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
 }
 
-void Texture::createEmpty()
+void Texture::createEmpty(int width, int height)
 {
-    create(Display::get().getSize().x, Display::get().getSize().y, nullptr);
+    create(width, height, nullptr);
 }
 
 void Texture::create(int width, int height, const void* data)
