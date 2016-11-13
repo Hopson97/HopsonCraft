@@ -20,6 +20,8 @@ namespace Block
         Cactus          =   13,
         Rose            =   14,
         Tall_Grass      =   15,
+        Dead_Shrub      =   16,
+        Coral           =   17,
 
         NUM_BLOCK_TYPES
     };

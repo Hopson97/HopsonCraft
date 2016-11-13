@@ -9,6 +9,7 @@
 #include "Util/Display.h"
 #include "Util/Noise_Generator.h"
 
+#include "World/Gen/World_Generator.h"
 #include "World/Block/D_Blocks.h"
 
 
@@ -16,7 +17,6 @@ int main()
 {
     Random::setSeed(time(nullptr));
     Noise::setSeed(Random::integer(0, 32000) * Random::integer(0, 32000));
-
     Block::initBlockDatabase();
 
     Display::create("MattCraft");

@@ -37,27 +37,33 @@ class World_Generator
         void setBlock           (const Block_Location& location, const Block_t& block);
 
         void tryAddTree         (const Block_Location& location);
+        void tryAddFlora        (const Block_Location& location);
 
         void setActiveBiome     (int value);
-        void setUpBiomes        ();
 
+        void setUpBiomes ();
 
         Chunk* m_p_chunk;
 
         std::vector<int> m_heightMap;
         std::vector<int> m_biomeMap;
 
-        std::unordered_map<Block_Location, Structure_Function> m_structures;
+        std::unordered_map<Block_Location, Structure_Function>  m_structures;
+        std::unordered_map<Block_Location, const Block_t*>      m_flora;
 
         int m_maxHeight;
         int terrainSeed;
 
         Biome* m_p_activeBiome;
+        Biome m_forestBiome;
+        Biome m_fieldsBiome;
+        Biome m_desertBiome;
+        Biome m_snowBiome;
 
         Noise::Generator m_terrainNoise;
         Noise::Generator m_biomeNoise;
-
-
 };
+
+
 
 #endif // WORLD_GENERATOR_H

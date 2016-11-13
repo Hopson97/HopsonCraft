@@ -9,28 +9,17 @@
 #include "../../Util/Hasher.h"
 #include "../../Util/Random.h"
 
-namespace
-{
-    Biome m_forestBiome;
-    Biome m_desertBiome;
-    Biome m_snowBiome;
-}
-
 World_Generator::World_Generator(Chunk& chunk)
 :   m_p_chunk   (&chunk)
 ,   m_maxHeight (Chunk::WATER_LEVEL + 1)
 {
-    static bool biomesSetup = false;
-    if (!biomesSetup)
-    {
-        biomesSetup = true;
-        setUpBiomes();
-    }
     m_terrainNoise.setNoiseFunction({10, 225, 0.5, 260, -25});  //DO NOT TOUCH PLEASE
-    m_biomeNoise.setNoiseFunction({7, 200, 0.65, 230, 0});
+    m_biomeNoise.setNoiseFunction({7, 220, 0.65, 240, 0});
 
     m_terrainNoise.setSeed(Noise::getSeed());
     m_biomeNoise.setSeed((Noise::getSeed() * 12) / 33);
+
+    setUpBiomes();
 }
 
 void World_Generator::generate()
@@ -103,6 +92,13 @@ void World_Generator::generateBlockData()
         s.second(*m_p_chunk, s.first);
     }
     m_structures.clear();
+
+    for (auto& s : m_flora)
+    {
+        auto& loc = s.first;
+        m_p_chunk->getBlocks().setBlock({loc.x, loc.y + 1, loc.z}, *s.second);
+    }
+    m_structures.clear();
 }
 
 void World_Generator::setRandomSeed(char x, int y, char z)
@@ -132,6 +128,7 @@ void World_Generator::setBlock(const Block_Location& location, int h)
             {
                 setBlock(location, m_p_activeBiome->getBlock());
                 tryAddTree(location);
+                tryAddFlora(location);
             }
             else if (y <= Chunk::BEACH_LEVEL && y >= Chunk::WATER_LEVEL) //Beach
             {
@@ -142,6 +139,13 @@ void World_Generator::setBlock(const Block_Location& location, int h)
                 Random::integer(0, 3) < 1 ?
                     setBlock(location, Block::dirt) :
                     setBlock(location, Block::sand);
+                if (y < Chunk::WATER_LEVEL - 20)
+                {
+                    if (Random::integer(0, 50) == 1)
+                    {
+                        m_flora.insert(std::make_pair(location, &Block::coral));
+                    }
+                }
             }
         }
         else    //High mountains
@@ -174,18 +178,34 @@ void World_Generator::setBlock(const Block_Location& location, const Block_t& bl
 
 void World_Generator::tryAddTree(const Block_Location& location)
 {
-    if (location.y < 218)
-    if (Random::integer(1, 100) == 1)
+    if (location.y < Chunk::SNOW_LEVEL - 15)
     {
-        m_structures.insert(std::make_pair(location, m_p_activeBiome->getTreeFunction()));
+        if (Random::integer(1, m_p_activeBiome->getTreeFrequency()) == 1)
+        {
+            m_structures.insert(std::make_pair(location, m_p_activeBiome->getTreeFunction()));
+        }
     }
 }
+
+void World_Generator::tryAddFlora(const Block_Location& location)
+{
+    if (location.y < Chunk::SNOW_LEVEL - 15)
+    {
+        if (Random::integer(1, m_p_activeBiome->getTreeFrequency() / 2) == 1)
+        {
+            m_flora.insert(std::make_pair(location, &m_p_activeBiome->getFlora()));
+        }
+    }
+}
+
 
 void World_Generator::setActiveBiome(int value)
 {
     if (value > 215)
         m_p_activeBiome = &m_snowBiome;
-    else if ( value <= 215 && value > 60)
+    else if (value <= 215 && value > 165)
+        m_p_activeBiome = &m_fieldsBiome;
+    else if ( value <= 165 && value > 60)
         m_p_activeBiome = &m_forestBiome;
     else if ( value <= 60 /*&& value > 0*/)
         m_p_activeBiome = &m_desertBiome;
@@ -198,16 +218,29 @@ void World_Generator::setUpBiomes ()
     m_forestBiome.addBlock(Block::grass, 1);
     m_forestBiome.setDepth(1);
     m_forestBiome.addTree(Structure::makeOak);
+    m_forestBiome.setTreeFrequency(45);
+    m_forestBiome.addFlora(Block::tallGrass);
+    m_forestBiome.addFlora(Block::rose);
+
+    //forest
+    m_fieldsBiome.addBlock(Block::grass, 1);
+    m_fieldsBiome.setDepth(1);
+    m_fieldsBiome.addTree(Structure::makeOak);
+    m_fieldsBiome.setTreeFrequency(100);
+    m_fieldsBiome.addFlora(Block::tallGrass);
+    m_fieldsBiome.addFlora(Block::rose);
 
     //desert
     m_desertBiome.addBlock(Block::sand, 1);
     m_desertBiome.setDepth(3);
     m_desertBiome.addTree(Structure::makeCactus);
+    m_desertBiome.setTreeFrequency(296);
+    m_desertBiome.addFlora(Block::deadShrub);
 
     //snow
     m_snowBiome.addBlock(Block::snow, 1);
     m_snowBiome.setDepth(3);
     m_snowBiome.addTree(Structure::makeOak);
-
-
+    m_snowBiome.setTreeFrequency(350);
+    m_snowBiome.addFlora(Block::tallGrass);
 }
