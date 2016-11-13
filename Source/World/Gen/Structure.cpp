@@ -8,6 +8,12 @@
 
 namespace Structure
 {
+    void createOak(Chunk& chunk, const Block_Location& location);
+    void createCactus(Chunk& chunk, const Block_Location& location);
+
+    Structure_Function makeOak     (&createOak);
+    Structure_Function makeCactus  (&createCactus);
+
     void createOak(Chunk& chunk, const Block_Location& location)
     {
         auto trunkHeight = Random::integer(5, 8);

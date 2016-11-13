@@ -21,21 +21,21 @@ namespace Noise
         std::cout << "Seed: " << newSeed << std::endl;
     }
 
-    double FindNoise1(int n)
+    double Generator::findNoise1(int n) const
     {
-        n += seed;
+        n += m_seed;
         n = (n << 13) ^ n;
         auto nn = (n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff; //wot
         return 1.0 - ((double)nn / 1073741824.0); //wot (part 2)
     }
 
-    double FindNoise2(double x, double z)
+    double Generator::findNoise2(double x, double z) const
     {
         auto n = (int)x + (int)z * 57;
-        return FindNoise1(n);
+        return findNoise1(n);
     }
 
-    double interpolate(double a, double b, double z)
+    double Generator::interpolate(double a, double b, double z) const
     {
         auto ft = z * 3.1415927;
         auto f = (1.0 - cos(ft)) * 0.5;
@@ -43,7 +43,7 @@ namespace Noise
         return a * (1.0 - f) + b * f;
     }
 
-    double noise(double x, double z)
+    double Generator::noise(double x, double z) const
     {
         auto floorX = (double)((int)x); //This is kinda a cheap way to floor a double integer.
         auto floorZ = (double)((int)z);
@@ -53,10 +53,10 @@ namespace Noise
                 u = 0.0,
                 v = 0.0;//Integer declaration
 
-        s = FindNoise2(floorX,      floorZ);
-        t = FindNoise2(floorX + 1,  floorZ);
-        u = FindNoise2(floorX,      floorZ + 1);//Get the surrounding values to calculate the transition.
-        v = FindNoise2(floorX + 1,  floorZ + 1);
+        s = findNoise2(floorX,      floorZ);
+        t = findNoise2(floorX + 1,  floorZ);
+        u = findNoise2(floorX,      floorZ + 1);//Get the surrounding values to calculate the transition.
+        v = findNoise2(floorX + 1,  floorZ + 1);
 
         auto rec1 = interpolate(s, t, x - floorX);//Interpolate between the values.
         auto rec2 = interpolate(u, v, x - floorX);//Here we use x-floorX, to get 1st dimension. Don't mind the x-floorX thingie, it's part of the cosine formula.

@@ -33,6 +33,12 @@ namespace Noise
             void setSeed    (int newSeed);
 
         private:
+            double findNoise1(int n) const;
+            double findNoise2(double x, double z) const;
+            double interpolate(double a, double b, double z) const;
+            double noise(double x, double z) const;
+
+
             Noise::Data m_noiseFunction;
             int m_seed;
 

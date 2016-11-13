@@ -20,6 +20,19 @@ const Block_t& Biome::getBlock() const
     return *m_blocks.at(0).block;
 }
 
+void Biome::addTree(Structure_Function function)
+{
+    m_treeCreators.push_back(function);
+}
+
+Structure_Function Biome::getTreeFunction()
+{
+    return m_treeCreators.at(0);
+}
+
+
+
+
 int Biome::getDepth() const
 {
     return m_depth;

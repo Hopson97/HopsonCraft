@@ -2,6 +2,7 @@
 #define WORLD_GENERATOR_H
 
 #include <vector>
+#include <unordered_map>
 
 #include "../Block/Block.h"
 #include "Biome.h"
@@ -46,13 +47,12 @@ class World_Generator
         std::vector<int> m_heightMap;
         std::vector<int> m_biomeMap;
 
+        std::unordered_map<Block_Location, Structure_Function> m_structures;
+
         int m_maxHeight;
         int terrainSeed;
 
         Biome* m_p_activeBiome;
-        Biome m_forestBiome;
-        Biome m_desertBiome;
-        Biome m_snowBiome;
 
         Noise::Generator m_terrainNoise;
         Noise::Generator m_biomeNoise;
