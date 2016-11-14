@@ -30,18 +30,48 @@ namespace
         1.0f, 0.0f,
         1.0f, 1.0f
     };
+
+GLuint generateAttachmentTexture(GLboolean depth, GLboolean stencil)
+{
+    // What enum to use?
+    GLenum attachment_type;
+    if(!depth && !stencil)
+        attachment_type = GL_RGB;
+    else if(depth && !stencil)
+        attachment_type = GL_DEPTH_COMPONENT;
+    else if(!depth && stencil)
+        attachment_type = GL_STENCIL_INDEX;
+
+    //Generate texture ID and load texture data
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    if(!depth && !stencil)
+        glTexImage2D(GL_TEXTURE_2D, 0, attachment_type, Display::get().getSize().x, Display::get().getSize().y, 0, attachment_type, GL_UNSIGNED_BYTE, NULL);
+    else // Using both a stencil and depth test, needs special format arguments
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, Display::get().getSize().x, Display::get().getSize().y, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    return textureID;
 }
+
+}
+
 
 Framebuffer_Object::Framebuffer_Object()
 {
     //FrameBuffer
     glGenFramebuffers(1, &m_fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-    m_textureAttatchment.createEmpty(Display::get().getSize().x, Display::get().getSize().y);
+
+    //Texture attachement
+    txr = generateAttachmentTexture(false, false);
     glFramebufferTexture2D(GL_FRAMEBUFFER,
                            GL_COLOR_ATTACHMENT0,
                            GL_TEXTURE_2D,
-                           m_textureAttatchment.getID(),
+                           txr,
                            0);
     //RenderBuffer
     glGenRenderbuffers(1, &m_rbo);
@@ -50,13 +80,13 @@ Framebuffer_Object::Framebuffer_Object()
                           GL_DEPTH24_STENCIL8,
                           Display::get().getSize().x,
                           Display::get().getSize().y);
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
     glFramebufferRenderbuffer(GL_FRAMEBUFFER,
                               GL_DEPTH_STENCIL_ATTACHMENT,
                               GL_RENDERBUFFER,
                               m_rbo);
     //Unbind
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	    std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
@@ -74,6 +104,7 @@ Framebuffer_Object::~Framebuffer_Object()
 
 void Framebuffer_Object::bind()
 {
+    glBindTexture(GL_TEXTURE_2D, 0);
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 }
 
@@ -85,7 +116,7 @@ void Framebuffer_Object::unbind()
 void Framebuffer_Object::draw()
 {
     m_quad.bind();
-    m_textureAttatchment.bind();
+    glBindTexture(GL_TEXTURE_2D, txr);
 
     glDrawArrays(GL_TRIANGLES, 0, m_quad.getVertexCount());
 }

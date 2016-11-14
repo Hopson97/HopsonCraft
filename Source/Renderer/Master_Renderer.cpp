@@ -50,5 +50,5 @@ void Master_Renderer::drawScene(const Camera& camera)
     m_floraRenderer.render  (camera);
 
     m_framebuffer.unbind();
-    //glDisable(GL_DEPTH_TEST);
+    glDisable(GL_DEPTH_TEST);
 }

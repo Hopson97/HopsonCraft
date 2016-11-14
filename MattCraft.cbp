@@ -15,6 +15,7 @@
 					<Add option="-g" />
 					<Add directory="Source/PostFX" />
 					<Add directory="Source/Renderer" />
+					<Add directory="Source/Shaders" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -35,6 +36,7 @@
 					<Add option="-O3" />
 					<Add directory="Source/PostFX" />
 					<Add directory="Source/Renderer" />
+					<Add directory="Source/Shaders" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -79,6 +81,8 @@
 		<Unit filename="Shaders/Flora_Vertex.glsl" />
 		<Unit filename="Shaders/Ground_Fragment.glsl" />
 		<Unit filename="Shaders/Ground_Vertex.glsl" />
+		<Unit filename="Shaders/Simple_Fragment.glsl" />
+		<Unit filename="Shaders/Simple_Vertex.glsl" />
 		<Unit filename="Shaders/Water_Fragment.glsl" />
 		<Unit filename="Shaders/Water_Vertex.glsl" />
 		<Unit filename="Source/AABB.cpp" />
@@ -133,6 +137,8 @@
 		<Unit filename="Source/Shaders/Chunk_Shader.h" />
 		<Unit filename="Source/Shaders/Flora_Shader.cpp" />
 		<Unit filename="Source/Shaders/Flora_Shader.h" />
+		<Unit filename="Source/Shaders/Screen_Shader.cpp" />
+		<Unit filename="Source/Shaders/Screen_Shader.h" />
 		<Unit filename="Source/Shaders/Shader.cpp" />
 		<Unit filename="Source/Shaders/Shader.h" />
 		<Unit filename="Source/Shaders/Shader_Loader.cpp" />

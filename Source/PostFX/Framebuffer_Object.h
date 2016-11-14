@@ -23,6 +23,8 @@ class Framebuffer_Object
         GLuint  m_rbo = 0;
         Texture m_textureAttatchment;
 
+        GLuint txr;
+
         Model m_quad;
 };
 
