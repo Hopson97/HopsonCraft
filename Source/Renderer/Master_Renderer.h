@@ -6,6 +6,8 @@
 #include "Flora_Renderer.h"
 #include "SFML_Renderer.h"
 
+#include "Screen_Shader.h"
+
 #include "Framebuffer_Object.h"
 
 class Chunk;
@@ -22,6 +24,8 @@ class Master_Renderer
         void render (const Camera& camera);
 
     private:
+        void drawScene(const Camera& camera);
+
         Chunk_Renderer m_chunkRenderer;
         Water_Renderer m_waterRenderer;
         Flora_Renderer m_floraRenderer;
@@ -29,7 +33,7 @@ class Master_Renderer
 
         Framebuffer_Object m_framebuffer;
 
-        std::vector<const sf::Drawable*> m_sfDrawcalls;
+        Shader::Screen_Shader m_mainShader;
 };
 
 #endif // MASTER_RENDERER_H

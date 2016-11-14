@@ -5,6 +5,7 @@
 
 #include "../Util/Display.h"
 #include "../D_Settings.h"
+#include "../Loader.h"
 
 namespace
 {
@@ -33,34 +34,36 @@ namespace
 
 Framebuffer_Object::Framebuffer_Object()
 {
+    //FrameBuffer
     glGenFramebuffers(1, &m_fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
     m_textureAttatchment.createEmpty(Display::get().getSize().x, Display::get().getSize().y);
-    m_textureAttatchment.bind();
     glFramebufferTexture2D(GL_FRAMEBUFFER,
                            GL_COLOR_ATTACHMENT0,
                            GL_TEXTURE_2D,
                            m_textureAttatchment.getID(),
                            0);
-
+    //RenderBuffer
     glGenRenderbuffers(1, &m_rbo);
-    glBindRenderbuffer(GL_RENDERBUFFER, m_fbo);
-
+    glBindRenderbuffer(GL_RENDERBUFFER, m_rbo);
     glRenderbufferStorage(GL_RENDERBUFFER,
                           GL_DEPTH24_STENCIL8,
                           Display::get().getSize().x,
                           Display::get().getSize().y);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
     glFramebufferRenderbuffer(GL_FRAMEBUFFER,
                               GL_DEPTH_STENCIL_ATTACHMENT,
                               GL_RENDERBUFFER,
                               m_rbo);
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    //Unbind
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	    std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    m_quad.addData(Loader::loadArrayMesh(quadVerticies, quadTextureCoords));
 }
 
 Framebuffer_Object::~Framebuffer_Object()
@@ -78,6 +81,15 @@ void Framebuffer_Object::unbind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
+
+void Framebuffer_Object::draw()
+{
+    m_quad.bind();
+    m_textureAttatchment.bind();
+
+    glDrawArrays(GL_TRIANGLES, 0, m_quad.getVertexCount());
+}
+
 
 void Framebuffer_Object::clear()
 {

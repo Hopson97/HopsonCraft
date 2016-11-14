@@ -3,6 +3,7 @@
 
 #include "../OpenGL/Glew/glew.h"
 #include "../Texture/Texture.h"
+#include "../Model/Model.h"
 
 class Framebuffer_Object
 {
@@ -15,10 +16,14 @@ class Framebuffer_Object
 
         void clear();
 
+        void draw();
+
     private:
         GLuint  m_fbo = 0;
         GLuint  m_rbo = 0;
         Texture m_textureAttatchment;
+
+        Model m_quad;
 };
 
 #endif // FRAMEBUFFER_OBJECT_H
