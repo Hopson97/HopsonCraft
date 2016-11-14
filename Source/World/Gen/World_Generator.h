@@ -55,13 +55,6 @@ class World_Generator
         int terrainSeed;
 
         Biome* m_p_activeBiome;
-        Biome m_forestBiome;
-        Biome m_fieldsBiome;
-        Biome m_desertBiome;
-        Biome m_snowBiome;
-
-        Noise::Generator m_terrainNoise;
-        Noise::Generator m_biomeNoise;
 };
 
 

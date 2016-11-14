@@ -3,7 +3,7 @@
 
 namespace Settings
 {
-    constexpr float FOV = 80;
+    constexpr float FOV = 100;
     constexpr float NEAR_PLANE  = 0.01;
     constexpr float FAR_PLANE   = 1000;
 

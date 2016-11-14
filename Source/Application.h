@@ -21,6 +21,7 @@ class Application
 
     private:
         void resetSong();
+        void init();
 
         std::stack<std::unique_ptr<State::Game_State>> m_stateStack;
 

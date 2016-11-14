@@ -15,13 +15,6 @@
 
 int main()
 {
-    Random::setSeed(time(nullptr));
-    Noise::setSeed(Random::integer(0, 32000) * Random::integer(0, 32000));
-    Block::initBlockDatabase();
-
-    Display::create("MattCraft");
-    Debug_Display::init();
-
     Application app;
     app.runMainLoop();
 

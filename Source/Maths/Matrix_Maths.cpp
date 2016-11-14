@@ -2,6 +2,7 @@
 
 #include "../Player/Camera.h"
 #include "../Util/Display.h"
+#include "../D_Settings.h"
 
 namespace Maths
 {
@@ -45,9 +46,9 @@ namespace Maths
 
     Matrix4 createPerspectiveMatrix ()
     {
-        return glm::perspective(glm::radians(90.0f),
+        return glm::perspective(glm::radians(Settings::FOV),
                                 Display::getAspect(),
-                                0.1f,
-                                1000.0f);
+                                Settings::NEAR_PLANE,
+                                Settings::FAR_PLANE);
     }
 }

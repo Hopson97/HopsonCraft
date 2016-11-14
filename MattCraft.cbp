@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="Source/PostFX" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -31,6 +32,7 @@
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
+					<Add directory="Source/PostFX" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -113,6 +115,8 @@
 		<Unit filename="Source/Player/Camera.h" />
 		<Unit filename="Source/Player/Player.cpp" />
 		<Unit filename="Source/Player/Player.h" />
+		<Unit filename="Source/PostFX/Framebuffer_Object.cpp" />
+		<Unit filename="Source/PostFX/Framebuffer_Object.h" />
 		<Unit filename="Source/Renderer/Chunk_Renderer.cpp" />
 		<Unit filename="Source/Renderer/Chunk_Renderer.h" />
 		<Unit filename="Source/Renderer/Flora_Renderer.cpp" />

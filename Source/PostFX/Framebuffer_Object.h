@@ -15,6 +15,7 @@ class Framebuffer_Object
 
     private:
         GLuint  m_fbo = 0;
+        GLuint  m_rbo = 0;
         Texture m_textureAttatchment;
 };
 

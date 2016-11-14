@@ -11,6 +11,9 @@
 #include "Game_States/Playing_State.h"
 #include "Util/Random.h"
 #include "Util/Debug_Display.h"
+#include "Util/Display.h"
+#include "Util/Noise_Generator.h"
+#include "World/Block/D_Blocks.h"
 
 
 namespace
@@ -20,8 +23,7 @@ namespace
 
 Application::Application()
 {
-    srand(time(nullptr));
-    resetSong();
+    init();
     m_stateStack.push(std::make_unique<State::Playing_State>(*this));
 }
 
@@ -103,6 +105,27 @@ void Application::resetSong()
     m_song.play();
     m_songDuration = m_song.getDuration();
     m_songTimer.restart();
+}
+
+void Application::init()
+{
+    //Generate the base random seed
+    Random::setSeed(time(nullptr));
+
+    //Start the music
+    resetSong();
+
+    //Create the OpenGL Context
+    Display::create("MattCraft");
+
+    //St up the global/ base seed for the noise functions
+    Noise::setSeed(Random::integer(0, 32000) * Random::integer(0, 32000));
+
+    //Initiate the block database
+    Block::initBlockDatabase();
+
+    //Initiate the debug information GUI
+    Debug_Display::init();
 }
 
 
