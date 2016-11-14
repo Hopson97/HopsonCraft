@@ -43,12 +43,12 @@ void Master_Renderer::render (const Camera& camera)
 void Master_Renderer::drawScene(const Camera& camera)
 {
     glEnable(GL_DEPTH_TEST);
-    m_framebuffer.bind();
+    //m_framebuffer.bind();
 
     m_chunkRenderer.render  (camera);
     m_waterRenderer.render  (camera);
     m_floraRenderer.render  (camera);
 
-    m_framebuffer.unbind();
+    //m_framebuffer.unbind();
     glDisable(GL_DEPTH_TEST);
 }

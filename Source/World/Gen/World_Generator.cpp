@@ -196,7 +196,7 @@ void World_Generator::tryAddFlora(const Block_Location& location)
 {
     if (location.y < Chunk::SNOW_LEVEL - 15)
     {
-        if (Random::integer(1, m_p_activeBiome->getTreeFrequency() / 2) == 1)
+        if (Random::integer(1, m_p_activeBiome->getFloraFrequency()) == 1)
         {
             m_flora.insert(std::make_pair(location, &m_p_activeBiome->getFlora()));
         }
@@ -247,7 +247,7 @@ void World_Generator::setUpBiomes ()
     m_dirtForest.addTree(Structure::makeOak);
     m_dirtForest.setTreeFrequency(150);
 
-    m_dirtForest.addFlora(Block::tallGrass, 1);
+    m_dirtForest.addFlora(Block::tallGrass, 2);
     m_dirtForest.addFlora(Block::rose, 1);
     m_dirtForest.setFloraFrequency(60);
 
@@ -272,6 +272,7 @@ void World_Generator::setUpBiomes ()
     m_grasslandBiome.addTree(Structure::makeOak);
     m_grasslandBiome.setTreeFrequency(750);
 
+    m_grasslandBiome.addFlora(Block::tallGrass, 3);
     m_grasslandBiome.addFlora(Block::tallGrass, 1);
-    m_grasslandBiome.setFloraFrequency(100);
+    m_grasslandBiome.setFloraFrequency(40);
 }

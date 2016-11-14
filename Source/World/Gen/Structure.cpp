@@ -23,17 +23,24 @@ namespace Structure
             chunk.getBlocks().setBlock({location.x, location.y + i, location.z}, Block::oakWood, false);
         }
 
-        //Make the crown
-        for (auto yLeaf = location.y + trunkHeight ; yLeaf < location.y + trunkHeight + 4 ; yLeaf++)
+        for (char xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
         {
-            for (char xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
+            for (char zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
             {
-                for (char zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
-                {
-                    chunk.getBlocks().setBlock({xLeaf, yLeaf, zLeaf}, Block::oakLeaf, false );
-                }
+                chunk.getBlocks().setBlock({xLeaf, location.y + trunkHeight, zLeaf}, Block::oakLeaf, false );
+                chunk.getBlocks().setBlock({xLeaf, location.y + trunkHeight + 1, zLeaf}, Block::oakLeaf, false );
             }
         }
+
+        for (char xLeaf = location.x - 1 ; xLeaf < location.x + 2 ; xLeaf++)
+        {
+            for (char zLeaf = location.z - 1 ; zLeaf < location.z + 2 ; zLeaf++)
+            {
+                chunk.getBlocks().setBlock({xLeaf, location.y + trunkHeight + 2, zLeaf}, Block::oakLeaf, false );
+                chunk.getBlocks().setBlock({xLeaf, location.y + trunkHeight + 3, zLeaf}, Block::oakLeaf, false );
+            }
+        }
+
     }
 
     void createCactus(Chunk& chunk, const Block_Location& location)
