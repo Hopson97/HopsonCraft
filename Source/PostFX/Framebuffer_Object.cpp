@@ -1,8 +1,35 @@
 #include "Framebuffer_Object.h"
 
-#include "../Util/Display.h"
+#include <iostream>
+#include <vector>
 
 #include "../Util/Display.h"
+#include "../D_Settings.h"
+
+namespace
+{
+    std::vector<GLfloat> quadVerticies =
+    {
+         1.0f,  1.0f,
+        -1.0f, -1.0f,
+         1.0f, -1.0f,
+
+        -1.0f,  1.0f,
+         1.0f, -1.0f,
+         1.0f,  1.0f,
+    };
+
+    std::vector<GLfloat> quadTextureCoords
+    {
+        0.0f, 1.0f,
+        0.0f, 0.0f,
+        1.0f, 0.0f,
+
+        0.0f, 1.0f,
+        1.0f, 0.0f,
+        1.0f, 1.0f
+    };
+}
 
 Framebuffer_Object::Framebuffer_Object()
 {
@@ -28,6 +55,12 @@ Framebuffer_Object::Framebuffer_Object()
                               GL_DEPTH_STENCIL_ATTACHMENT,
                               GL_RENDERBUFFER,
                               m_rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	    std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 Framebuffer_Object::~Framebuffer_Object()
@@ -45,3 +78,11 @@ void Framebuffer_Object::unbind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
+
+void Framebuffer_Object::clear()
+{
+    bind();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(Settings::SKY_RED, Settings::SKY_GREEN, Settings::SKY_BLUE, 1.0);
+}
+

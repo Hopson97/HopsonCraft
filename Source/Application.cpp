@@ -36,7 +36,7 @@ Application::~Application()
 }
 
 
-
+//Main loop!
 void Application::runMainLoop()
 {
     sf::Clock dtClock;
@@ -44,24 +44,21 @@ void Application::runMainLoop()
     while (Display::isOpen())
     {
         auto dt = dtClock.restart().asSeconds();
-        Display::clear();
+
+        m_renderer.prepare();
 
         m_stateStack.top()->input   (dt);
-        m_stateStack.top()->update  (dt);
-        m_stateStack.top()->draw    (dt);
+        m_stateStack.top()->update  (dt, m_camera);
+        m_stateStack.top()->draw    (dt, m_renderer);
 
-        Display::prepareSfDraw();
+        m_renderer.render(m_camera);
+
         checkFps();
-        m_stateStack.top()->sfDraw  (dt);
-        Display::endSfDraw();
-
-        Display::update();
-        Display::checkForClose();
 
         if(m_songTimer.getElapsedTime() > m_songDuration )
-        {
             resetSong();
-        }
+
+        Display::checkForClose();
     }
 }
 
@@ -88,7 +85,6 @@ void Application::resetSong()
     {
         "C418-Ward",
         "C418-Sweden(Caution and Crisis Remix)",
-        "euk",
         "gm",
         "tbatw",
         "uouat",
@@ -114,9 +110,6 @@ void Application::init()
 
     //Start the music
     resetSong();
-
-    //Create the OpenGL Context
-    Display::create("MattCraft");
 
     //St up the global/ base seed for the noise functions
     Noise::setSeed(Random::integer(0, 32000) * Random::integer(0, 32000));

@@ -4,6 +4,8 @@
 //this is the base class
 
 class Application;
+class Camera;
+class Master_Renderer;
 
 namespace State
 {
@@ -14,9 +16,8 @@ namespace State
             virtual ~Game_State(){}
 
             virtual void input      (float dt)  = 0;
-            virtual void update     (float dt)  = 0;
-            virtual void draw       (float dt)  = 0;
-            virtual void sfDraw     (float dt)  = 0;
+            virtual void update     (float dt, Camera& camera)  = 0;
+            virtual void draw       (float dt, Master_Renderer& renderer)  = 0;
             virtual void exitState  ()          = 0;
 
         protected:

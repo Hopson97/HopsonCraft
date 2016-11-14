@@ -6,6 +6,8 @@
 #include "../OpenGL/Glew/glew.h"
 #include "../World/Block/Block.h"
 
+class Master_Renderer;
+
 namespace Debug_Display
 {
     void init               ();
@@ -20,7 +22,7 @@ namespace Debug_Display
 
     void addheldBlock       (const Block_t& block);
 
-    void draw               ();
+    void draw               (Master_Renderer& renderer);
 }
 
 #endif // DEBUG_DISPLAY_H

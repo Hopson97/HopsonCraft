@@ -4,9 +4,10 @@
 #include <mutex>
 #include <SFML/Graphics.hpp>
 
-#include "Display.h"
 #include "../World/Chunk/Chunk_Location.h"
 #include "../Maths/Position_Converter_Maths.h"
+
+#include "Master_Renderer.h"
 
 namespace Debug_Display
 {
@@ -118,19 +119,19 @@ namespace Debug_Display
     }
 
 
-    void draw()
+    void draw(Master_Renderer& renderer)
     {
-        Display::sfDraw(t_fps);
+        renderer.processSfDrawable(t_fps);
 
-        Display::sfDraw(t_chunkPosition);
-        Display::sfDraw(t_blockPosition);
-        Display::sfDraw(t_worldPosition);
+        renderer.processSfDrawable(t_chunkPosition);
+        renderer.processSfDrawable(t_blockPosition);
+        renderer.processSfDrawable(t_worldPosition);
 
-        Display::sfDraw(t_lookVector);
+        renderer.processSfDrawable(t_lookVector);
 
-        Display::sfDraw(t_chunkUpdates);
-        Display::sfDraw(t_numChunks);
+        renderer.processSfDrawable(t_chunkUpdates);
+        renderer.processSfDrawable(t_numChunks);
 
-        Display::sfDraw(t_heldBlock);
+        renderer.processSfDrawable(t_heldBlock);
     }
 }

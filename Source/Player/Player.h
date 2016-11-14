@@ -15,7 +15,7 @@ class Player
     public:
         Player ();
         void input  ();
-        void update (float dt);
+        void update (float dt, Camera& camera);
 
         const Camera&   getCamera   () const;
         const Vector3&  getPosition () const;

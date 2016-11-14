@@ -25,9 +25,8 @@ namespace State
             Playing_State  (Application& application);
 
             void input      (float dt)  override;
-            void update     (float dt)  override;
-            void draw       (float dt)  override;
-            void sfDraw     (float dt)  override;
+            void update     (float dt, Camera& camera)  override;
+            void draw       (float dt, Master_Renderer& renderer)  override;
 
             void exitState  ()          override;
 
@@ -35,7 +34,7 @@ namespace State
             Player          m_player;
             Chunk_Location  m_playerPosition;
             Chunk_Map       m_chunkMap;
-            Master_Renderer m_renderer;
+
 
             bool m_debugDisplayActive = false;
 

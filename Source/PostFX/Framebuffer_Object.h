@@ -13,6 +13,8 @@ class Framebuffer_Object
         void bind();
         void unbind();
 
+        void clear();
+
     private:
         GLuint  m_fbo = 0;
         GLuint  m_rbo = 0;

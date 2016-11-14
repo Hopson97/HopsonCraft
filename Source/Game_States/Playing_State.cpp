@@ -16,6 +16,7 @@
 #include "../Maths/Ray.h"
 #include "../Maths/General_Maths.h"
 
+#include "../Renderer/Master_Renderer.h"
 
 
 
@@ -107,33 +108,28 @@ namespace State
         }
     }
 
-    void Playing_State::update (float dt)
+    void Playing_State::update  (float dt, Camera& camera)
     {
         Debug_Display::addPlayerPosition(m_player.getPosition());
 
-        m_player.update(dt);
+        m_player.update(dt, camera);
         m_playerPosition = {(int)m_player.getPosition().x / Chunk::SIZE,
                             (int)m_player.getPosition().z / Chunk::SIZE};
 
         m_chunkMap.checkChunks();//This must be the last thing to happen in the update function here!
     }
 
-    void Playing_State::draw (float dt)
+    void Playing_State::draw (float dt, Master_Renderer& renderer)
     {
-        m_chunkMap.draw(m_renderer);
+        m_chunkMap.draw(renderer);
 
-        m_renderer.render(m_player.getCamera());
 
-    }
-
-    void Playing_State::sfDraw(float dt)
-    {
         if (m_debugDisplayActive)
-        {
-            Debug_Display::draw();
-        }
-        Display::sfDraw(crossHairSprite);
+            Debug_Display::draw(renderer);
+
+        renderer.processSfDrawable(crossHairSprite);
     }
+
 
     void Playing_State::exitState()
     {

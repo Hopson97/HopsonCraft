@@ -7,6 +7,8 @@
 #include <SFML/Audio.hpp>
 
 #include "Game_States/Game_State.h"
+#include "Renderer/Master_Renderer.h"
+#include "Player/Camera.h"
 
 class Application
 {
@@ -28,6 +30,9 @@ class Application
         sf::Music m_song;
         sf::Time  m_songDuration;
         sf::Clock m_songTimer;
+
+        Master_Renderer m_renderer;
+        Camera          m_camera;
 };
 
 #endif // APPLICATION_H

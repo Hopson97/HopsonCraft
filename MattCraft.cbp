@@ -14,6 +14,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="Source/PostFX" />
+					<Add directory="Source/Renderer" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -33,6 +34,7 @@
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
 					<Add directory="Source/PostFX" />
+					<Add directory="Source/Renderer" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -123,6 +125,8 @@
 		<Unit filename="Source/Renderer/Flora_Renderer.h" />
 		<Unit filename="Source/Renderer/Master_Renderer.cpp" />
 		<Unit filename="Source/Renderer/Master_Renderer.h" />
+		<Unit filename="Source/Renderer/SFML_Renderer.cpp" />
+		<Unit filename="Source/Renderer/SFML_Renderer.h" />
 		<Unit filename="Source/Renderer/Water_Renderer.cpp" />
 		<Unit filename="Source/Renderer/Water_Renderer.h" />
 		<Unit filename="Source/Shaders/Chunk_Shader.cpp" />

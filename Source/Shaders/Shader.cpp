@@ -20,7 +20,6 @@ namespace Shader
 
     void Shader_Program::create(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
     {
-        glDeleteProgram (m_shaderProgram);
         m_shaderProgram = Shader::load(vertexShaderFile, fragmentShaderFile);
     }
 

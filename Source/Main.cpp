@@ -15,6 +15,9 @@
 
 int main()
 {
+    //Create the OpenGL Context
+    Display::create("MattCraft");
+
     Application app;
     app.runMainLoop();
 

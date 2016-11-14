@@ -79,7 +79,7 @@ void Player::toggleInput()
 }
 
 
-void Player::update(float dt)
+void Player::update(float dt, Camera& camera)
 {
     m_velocity *= 0.95;
     m_camera.movePosition(m_velocity * dt);
@@ -89,6 +89,8 @@ void Player::update(float dt)
 
     if (pos.x <= 0.1 ) m_camera.setPosition({0.1,   pos.y, pos.z});
     if (pos.z <= 0.1 ) m_camera.setPosition({pos.x, pos.y, 0.1});
+
+    camera = m_camera;
 }
 
 const Camera& Player::getCamera() const
