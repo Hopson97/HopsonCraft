@@ -59,7 +59,6 @@ void Chunk::generateMesh ()
 void Chunk::bufferMesh ()
 {
     m_mesh.bufferMesh();
-
     m_hasBuffered = true;
 }
 

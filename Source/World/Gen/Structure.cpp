@@ -22,24 +22,32 @@ namespace Structure
         {
             chunk.getBlocks().setBlock({location.x, location.y + i, location.z}, Block::oakWood, false);
         }
+        int y = trunkHeight + location.y;
 
         for (char xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
         {
             for (char zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
             {
-                chunk.getBlocks().setBlock({xLeaf, location.y + trunkHeight, zLeaf}, Block::oakLeaf, false );
-                chunk.getBlocks().setBlock({xLeaf, location.y + trunkHeight + 1, zLeaf}, Block::oakLeaf, false );
+                chunk.getBlocks().setBlock({xLeaf, y, zLeaf}, Block::oakLeaf, false );
+                chunk.getBlocks().setBlock({xLeaf, y + 1, zLeaf}, Block::oakLeaf, false );
             }
         }
+        y++;
 
         for (char xLeaf = location.x - 1 ; xLeaf < location.x + 2 ; xLeaf++)
         {
             for (char zLeaf = location.z - 1 ; zLeaf < location.z + 2 ; zLeaf++)
             {
-                chunk.getBlocks().setBlock({xLeaf, location.y + trunkHeight + 2, zLeaf}, Block::oakLeaf, false );
-                chunk.getBlocks().setBlock({xLeaf, location.y + trunkHeight + 3, zLeaf}, Block::oakLeaf, false );
+                chunk.getBlocks().setBlock({xLeaf, y, zLeaf}, Block::oakLeaf, false );
             }
         }
+        y++;
+
+        chunk.getBlocks().setBlock({location.x - 1, y,   location.z}, Block::oakLeaf, false );
+        chunk.getBlocks().setBlock({location.x + 1, y,   location.z}, Block::oakLeaf, false );
+        chunk.getBlocks().setBlock({location.x,     y,   location.z}, Block::oakLeaf, false );
+        chunk.getBlocks().setBlock({location.x,     y,   location.z + 1}, Block::oakLeaf, false );
+        chunk.getBlocks().setBlock({location.x,     y,   location.z - 1}, Block::oakLeaf, false );
 
     }
 

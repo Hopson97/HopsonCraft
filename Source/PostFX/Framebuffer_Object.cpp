@@ -11,24 +11,24 @@ namespace
 {
     std::vector<GLfloat> quadVerticies =
     {
-         1.0f,  1.0f,
-        -1.0f, -1.0f,
-         1.0f, -1.0f,
+         1, -1, 0,
+         1,  1, 0,
+        -1,  1, 0,
 
-        -1.0f,  1.0f,
-         1.0f, -1.0f,
-         1.0f,  1.0f,
+        -1,  1, 0,
+        -1, -1, 0,
+         1, -1, 0
     };
 
     std::vector<GLfloat> quadTextureCoords
     {
-        0.0f, 1.0f,
-        0.0f, 0.0f,
-        1.0f, 0.0f,
+        1, 0,
+        1, 1,
+        0, 1,
 
-        0.0f, 1.0f,
-        1.0f, 0.0f,
-        1.0f, 1.0f
+        0, 1,
+        0, 0,
+        1, 0
     };
 
 GLuint generateAttachmentTexture(GLboolean depth, GLboolean stencil)
@@ -104,7 +104,6 @@ Framebuffer_Object::~Framebuffer_Object()
 
 void Framebuffer_Object::bind()
 {
-    glBindTexture(GL_TEXTURE_2D, 0);
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 }
 

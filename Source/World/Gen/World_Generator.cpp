@@ -208,9 +208,9 @@ void World_Generator::setActiveBiome(int value)
 {
     if (value > 230)
         m_p_activeBiome = &m_grasslandBiome;
-    else if (value <= 230 && value > 200)
+    else if (value <= 230 && value > 170)
         m_p_activeBiome = &m_dirtForest;
-    else if ( value <= 200 && value > 65)
+    else if ( value <= 170 && value > 65)
         m_p_activeBiome = &m_forestBiome;
     else
         m_p_activeBiome = &m_desertBiome;
@@ -264,8 +264,7 @@ void World_Generator::setUpBiomes ()
 
     //===================================
     //Grassland
-    m_grasslandBiome.addBlock(Block::grass, 25);
-    m_grasslandBiome.addBlock(Block::dirt, 1);
+    m_grasslandBiome.addBlock(Block::grass, 1);
 
     m_grasslandBiome.setDepth(3);
 
@@ -273,6 +272,6 @@ void World_Generator::setUpBiomes ()
     m_grasslandBiome.setTreeFrequency(750);
 
     m_grasslandBiome.addFlora(Block::tallGrass, 3);
-    m_grasslandBiome.addFlora(Block::tallGrass, 1);
+    m_grasslandBiome.addFlora(Block::rose, 1);
     m_grasslandBiome.setFloraFrequency(40);
 }
