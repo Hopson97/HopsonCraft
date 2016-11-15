@@ -240,7 +240,7 @@ void World_Generator::setUpBiomes ()
     //===================================
     //Dirt Forest
     m_dirtForest.addBlock(Block::grass, 4);
-    m_dirtForest.addBlock(Block::dirt, 1);
+    //m_dirtForest.addBlock(Block::dirt, 1);
 
     m_dirtForest.setDepth(1);
 

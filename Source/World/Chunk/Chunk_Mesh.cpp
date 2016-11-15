@@ -20,7 +20,7 @@ void Chunk_Mesh::Chunk_Mesh_Part::addUvCoords (const std::vector<GLfloat>& coord
 
 void Chunk_Mesh::Chunk_Mesh_Part::buffer()
 {
-    model.addData(Loader::loadArrayMesh(vertexCoords, textureCoords));
+    model.addData(vertexCoords, textureCoords);
     vertexCoords.clear();
     textureCoords.clear();
 }

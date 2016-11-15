@@ -93,7 +93,7 @@ Framebuffer_Object::Framebuffer_Object()
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    m_quad.addData(Loader::loadArrayMesh(quadVerticies, quadTextureCoords));
+    m_quad.addData(quadVerticies, quadTextureCoords);
 }
 
 Framebuffer_Object::~Framebuffer_Object()

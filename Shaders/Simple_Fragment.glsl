@@ -1,15 +1,12 @@
 #version 330 core
-in vec2 TexCoords;
+in vec2 passTextureCoords;
 out vec4 color;
 
 uniform sampler2D screenTexture;
 
 void main()
 {
-    color = texture(screenTexture, TexCoords);
-    color.r = 1 - color.r;
-    color.g = 1 - color.g;
-    color.b = 1 - color.b;
+    color = texture(screenTexture, passTextureCoords);
 }
 
 

@@ -87,8 +87,9 @@ void Application::resetSong()
         "C418-Sweden(Caution and Crisis Remix)",
         "gm",
         "tbatw",
+        "rue",
         "uouat",
-        "rue"
+        "euk",
     };
     static auto lastSong = songNames.size() - 1; //In terms of the index in the std::vector
     auto thisSong = lastSong;   //Get the Index of the last song

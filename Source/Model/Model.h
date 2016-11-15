@@ -3,6 +3,8 @@
 
 #include "../OpenGL/Glew/glew.h"
 
+#include <vector>
+
 //The reason the data is seperate is so that when the loader returns the
 //model data, it doesn't have to it as a heap allocated object pointer.
 //It would have to do that as the copying of data would infact invoke the
@@ -26,15 +28,16 @@ class Model
 {
     public:
         Model   () = default;
-        Model   ( const Model_Data& data );
+        Model   (const Model_Data& data);
 
-        void addData ( const Model_Data& data );
+        void addData (const std::vector<GLfloat>& vertexCoords,
+                      const std::vector<GLfloat>& textureCoords);
 
         void bind   () const;
         void unbind () const;
 
 
-        GLuint getVertexCount   () const;
+        GLuint getVertexCount () const;
 
         ~Model  ();
 

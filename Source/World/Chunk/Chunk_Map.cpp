@@ -54,7 +54,7 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
 void Chunk_Map::checkChunks()
 {
     static Function_Toggle_Key key([&](){m_renderDistance++;}, sf::Keyboard::Up, 0.5);
-    static Function_Toggle_Key ke2y([&](){if(m_renderDistance > 5) m_renderDistance--;}, sf::Keyboard::Down, 0.5);
+    static Function_Toggle_Key ke2y([&](){if (m_renderDistance > 2) m_renderDistance--;}, sf::Keyboard::Down, 0.5);
 
     key.checkInput  ();
     ke2y.checkInput ();
