@@ -3,7 +3,6 @@
 #include "Chunk.h"
 
 #include "../../Texture/Texture_Atlas.h"
-#include "../../Loader.h"
 
 #include "../Block/Block_Location.h"
 

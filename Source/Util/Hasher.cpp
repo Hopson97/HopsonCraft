@@ -12,7 +12,7 @@ namespace Hasher
         integer = integer + (integer << 2);
         integer = integer ^ (integer >> 4);
         integer = integer * 2057;
-        return integer;
+        return std::hash<int>{}(integer);
     }
 
     size_t hash(int x, int y)

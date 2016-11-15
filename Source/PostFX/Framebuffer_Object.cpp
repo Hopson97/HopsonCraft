@@ -5,7 +5,6 @@
 
 #include "../Util/Display.h"
 #include "../D_Settings.h"
-#include "../Loader.h"
 
 namespace
 {

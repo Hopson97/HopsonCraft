@@ -6,7 +6,6 @@
 #include "../Block/D_Blocks.h"
 #include "../Block/Block.h"
 
-#include "../../Loader.h"
 #include "../../Input/Function_Toggle_Key.h"
 #include "../../Util/Noise_Generator.h"
 
