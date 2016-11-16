@@ -1,4 +1,4 @@
-# MattCraft
+# PureCraft
 
 A minecraft clone written using C++, SFML, OpenGL and GLEW. (Uses modern C++ and OpenGL).
 
