@@ -21,8 +21,3 @@ old/
 *.zip
 *.7z
 Project/
-
-#OpenGL Files
-glew.c
-wglew.h
-glew.h

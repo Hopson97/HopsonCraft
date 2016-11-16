@@ -25,11 +25,13 @@ void calculateFog ( vec4 vertRelToCamera )
     vis = clamp ( vis, 0.0, 1.0 );
 }
 
-void makeWaves ( vec4 worldPos )
+vec4 makeWaves ( vec4 worldPos )
 {
-    gl_Position.y -= 0.18;
+    worldPos.y -= 0.18;
     //gl_Position.y += sin(time) / 8;
-    gl_Position.y += sin( time + worldPos.x * worldPos.z  ) / 8.3;
+    worldPos.y += sin( time + worldPos.x * worldPos.z  ) / 8.3;
+
+    return worldPos;
 }
 
 void main()
@@ -37,10 +39,12 @@ void main()
     textureCoords = texturePosition;
 
     vec4 worldPosition = modelMatrix * vec4 ( vertexPosition, 1.0f );
+
+    worldPosition = makeWaves ( worldPosition );
+
     vec4 vertRelToCamera = viewMatrix * worldPosition;
     gl_Position = projectionMatrix * vertRelToCamera;
 
-    makeWaves ( worldPosition );
 
     calculateFog( vertRelToCamera );
 

@@ -257,10 +257,10 @@ void World_Generator::setUpBiomes ()
     m_desertBiome.setDepth(3);
 
     m_desertBiome.addTree(Structure::makeCactus);
-    m_desertBiome.setTreeFrequency(300);
+    m_desertBiome.setTreeFrequency(1200);
 
     m_desertBiome.addFlora(Block::deadShrub, 1);
-    m_desertBiome.setFloraFrequency(280);
+    m_desertBiome.setFloraFrequency(400);
 
     //===================================
     //Grassland
