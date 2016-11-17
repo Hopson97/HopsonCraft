@@ -80,7 +80,6 @@ void Model::unbind () const
     glBindVertexArray (0);
 }
 
-
 GLuint Model::getVertexCount() const
 {
     return m_glData.vertexCount;

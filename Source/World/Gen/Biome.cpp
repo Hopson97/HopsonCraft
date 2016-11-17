@@ -39,6 +39,17 @@ void Biome::addTree(Structure_Function function)
     m_treeCreators.push_back(function);
 }
 
+bool Biome::hasFlora()
+{
+    return !m_flora.empty();
+}
+
+bool Biome::hasTrees()
+{
+    return !m_treeCreators.empty();
+}
+
+
 Structure_Function Biome::getTreeFunction()
 {
     auto i = Random::integer(0, m_treeCreators.size() - 1);

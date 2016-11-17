@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <memory>
-#include "Chunk_Shader.h"
 
 #include "../World/Chunk/Chunk.h"
 #include "../Player/Camera.h"
@@ -13,7 +12,7 @@
 class Chunk;
 class Camera;
 
-template<class Shader_Type>
+template<typename Shader_Type>
 class Chunk_Renderer
 {
     public:

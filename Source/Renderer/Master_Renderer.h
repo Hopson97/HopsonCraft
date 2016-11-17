@@ -5,10 +5,11 @@
 #include "Water_Renderer.h"
 #include "Flora_Renderer.h"
 #include "SFML_Renderer.h"
-
 #include "Screen_Shader.h"
-
 #include "Framebuffer_Object.h"
+#include "Model/Model.h"
+
+#include <memory>
 
 class Chunk;
 class Camera;
@@ -16,6 +17,8 @@ class Camera;
 class Master_Renderer
 {
     public:
+        Master_Renderer();
+
         void prepare ();
 
         void processChunk       (const Chunk& chunk);
@@ -26,6 +29,8 @@ class Master_Renderer
     private:
         void drawScene(const Camera& camera);
 
+        void drawToQuad();
+
         Solid_Block_Renderer m_chunkRenderer;
         Water_Renderer m_waterRenderer;
         Flora_Renderer m_floraRenderer;
@@ -33,7 +38,9 @@ class Master_Renderer
 
         Framebuffer_Object m_framebuffer;
 
-        Shader::Screen_Shader m_mainShader;
+        Shader::Screen_Shader m_colourShader;
+
+        Model m_quad;
 };
 
 #endif // MASTER_RENDERER_H

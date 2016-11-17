@@ -38,7 +38,7 @@ class Chunk_Mesh
 
         void addBlockMesh   (float x, float y, float z, const Block_t& block );
 
-        bool shouldMakeMesh (int x, int y, int z, const Block_t& block );
+        inline bool shouldMakeMesh (int x, int y, int z, const Block_t& block );
 
         void addBlockTopToMesh      (float x, float y, float z, const Block_t& block);
         void addBlockBottomToMesh   (float x, float y, float z, const Block_t& block);

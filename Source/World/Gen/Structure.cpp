@@ -43,12 +43,11 @@ namespace Structure
         }
         y++;
 
-        chunk.getBlocks().setBlock({location.x - 1, y,   location.z}, Block::oakLeaf, false );
-        chunk.getBlocks().setBlock({location.x + 1, y,   location.z}, Block::oakLeaf, false );
-        chunk.getBlocks().setBlock({location.x,     y,   location.z}, Block::oakLeaf, false );
-        chunk.getBlocks().setBlock({location.x,     y,   location.z + 1}, Block::oakLeaf, false );
-        chunk.getBlocks().setBlock({location.x,     y,   location.z - 1}, Block::oakLeaf, false );
-
+        chunk.getBlocks().setBlock({location.x - 1, y,   location.z},       Block::oakLeaf, false );
+        chunk.getBlocks().setBlock({location.x + 1, y,   location.z},       Block::oakLeaf, false );
+        chunk.getBlocks().setBlock({location.x,     y,   location.z},       Block::oakLeaf, false );
+        chunk.getBlocks().setBlock({location.x,     y,   location.z + 1},   Block::oakLeaf, false );
+        chunk.getBlocks().setBlock({location.x,     y,   location.z - 1},   Block::oakLeaf, false );
     }
 
     void createCactus(Chunk& chunk, const Block_Location& location)

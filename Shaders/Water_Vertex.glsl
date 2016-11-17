@@ -18,7 +18,7 @@ uniform float time;
 const float density     = 0.0035;
 const float gradient    = 2.82;
 
-void calculateFog ( vec4 vertRelToCamera )
+void calculateFog (vec4 vertRelToCamera)
 {
     float dist = length ( vertRelToCamera.xyz );
     vis = exp( -pow ( dist * density , gradient ) );
@@ -27,9 +27,9 @@ void calculateFog ( vec4 vertRelToCamera )
 
 vec4 makeWaves ( vec4 worldPos )
 {
-    worldPos.y -= 0.18;
-    //gl_Position.y += sin(time) / 8;
-    worldPos.y += sin( time + worldPos.x * worldPos.z  ) / 8.3;
+    worldPos.y -= 0.2;
+    worldPos.y += sin((time + worldPos.z)) / 8.8f;
+    worldPos.y += cos((time + worldPos.x)) / 8.8f;
 
     return worldPos;
 }

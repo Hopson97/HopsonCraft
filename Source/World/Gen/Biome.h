@@ -19,6 +19,9 @@ class Biome
         void addFlora(const Block_t& block, int frequency);
         void addTree (Structure_Function function);
 
+        bool hasFlora();
+        bool hasTrees();
+
 
         Structure_Function getTreeFunction();
         const Block_t& getBlock() const;

@@ -15,6 +15,7 @@ namespace
     Biome m_dirtForest;
     Biome m_desertBiome;
     Biome m_grasslandBiome;
+    Biome m_stoneLands;
 
     Noise::Generator m_terrainNoise;
     Noise::Generator m_biomeNoise;
@@ -139,8 +140,10 @@ void World_Generator::setBlock(const Block_Location& location, int h)
             if (y > Chunk::BEACH_LEVEL) //Surface/ main land area
             {
                 setBlock(location, m_p_activeBiome->getBlock());
-                tryAddTree(location);
-                tryAddFlora(location);
+                if (m_p_activeBiome->hasTrees()) //Trees
+                    tryAddTree(location);
+                if (m_p_activeBiome->hasFlora()) //Flora eg Rose and tall grass
+                    tryAddFlora(location);
             }
             else if (y <= Chunk::BEACH_LEVEL && y >= Chunk::WATER_LEVEL) //Beach
             {
@@ -210,10 +213,12 @@ void World_Generator::setActiveBiome(int value)
         m_p_activeBiome = &m_grasslandBiome;
     else if (value <= 230 && value > 170)
         m_p_activeBiome = &m_dirtForest;
-    else if ( value <= 170 && value > 65)
+    else if ( value <= 170 && value > 70)
         m_p_activeBiome = &m_forestBiome;
-    else
+    else if ( value <= 70 && value > 40)
         m_p_activeBiome = &m_desertBiome;
+    else
+        m_p_activeBiome = &m_stoneLands;
 }
 
 
@@ -239,8 +244,8 @@ void World_Generator::setUpBiomes ()
 
     //===================================
     //Dirt Forest
-    m_dirtForest.addBlock(Block::grass, 4);
-    //m_dirtForest.addBlock(Block::dirt, 1);
+    m_dirtForest.addBlock(Block::grass, 40);
+    m_dirtForest.addBlock(Block::dirt, 1);
 
     m_dirtForest.setDepth(1);
 
@@ -253,7 +258,7 @@ void World_Generator::setUpBiomes ()
 
     //===================================
     //Desert
-    m_desertBiome.addBlock(Block::sand, 1);
+    m_desertBiome.addBlock(Block::sand, 100);
     m_desertBiome.setDepth(3);
 
     m_desertBiome.addTree(Structure::makeCactus);
@@ -264,9 +269,10 @@ void World_Generator::setUpBiomes ()
 
     //===================================
     //Grassland
-    m_grasslandBiome.addBlock(Block::grass, 1);
+    m_grasslandBiome.addBlock(Block::grass, 80);
+    m_grasslandBiome.addBlock(Block::dirt, 1);
 
-    m_grasslandBiome.setDepth(3);
+    m_grasslandBiome.setDepth(1);
 
     m_grasslandBiome.addTree(Structure::makeOak);
     m_grasslandBiome.setTreeFrequency(750);
@@ -274,4 +280,10 @@ void World_Generator::setUpBiomes ()
     m_grasslandBiome.addFlora(Block::tallGrass, 3);
     m_grasslandBiome.addFlora(Block::rose, 1);
     m_grasslandBiome.setFloraFrequency(40);
+
+    //StoneLands
+    m_stoneLands.addBlock(Block::stone, 1);
+    m_stoneLands.addBlock(Block::sand, 5);
+
+    m_stoneLands.setDepth(5);
 }

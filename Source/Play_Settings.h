@@ -1,0 +1,4 @@
+#ifndef PLAY_SETTINGS_H
+#define PLAY_SETTINGS_H
+
+#endif // PLAY_SETTINGS_H

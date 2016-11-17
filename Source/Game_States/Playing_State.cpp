@@ -81,7 +81,7 @@ namespace State
                     if (m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Solid ||
                         m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Flora)
                     {
-                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                         {
                             if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
                                 m_chunkMap.setBlock(Block::air, ray.getEndPoint());

@@ -30,31 +30,31 @@ namespace
         1, 0
     };
 
-GLuint generateAttachmentTexture(GLboolean depth, GLboolean stencil)
-{
-    // What enum to use?
-    GLenum attachment_type;
-    if(!depth && !stencil)
-        attachment_type = GL_RGB;
-    else if(depth && !stencil)
-        attachment_type = GL_DEPTH_COMPONENT;
-    else if(!depth && stencil)
-        attachment_type = GL_STENCIL_INDEX;
+    GLuint generateAttachmentTexture(GLboolean depth, GLboolean stencil)
+    {
+        // What enum to use?
+        GLenum attachment_type;
+        if(!depth && !stencil)
+            attachment_type = GL_RGB;
+        else if(depth && !stencil)
+            attachment_type = GL_DEPTH_COMPONENT;
+        else if(!depth && stencil)
+            attachment_type = GL_STENCIL_INDEX;
 
-    //Generate texture ID and load texture data
-    GLuint textureID;
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    if(!depth && !stencil)
-        glTexImage2D(GL_TEXTURE_2D, 0, attachment_type, Display::get().getSize().x, Display::get().getSize().y, 0, attachment_type, GL_UNSIGNED_BYTE, NULL);
-    else // Using both a stencil and depth test, needs special format arguments
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, Display::get().getSize().x, Display::get().getSize().y, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
+        //Generate texture ID and load texture data
+        GLuint textureID;
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        if(!depth && !stencil)
+            glTexImage2D(GL_TEXTURE_2D, 0, attachment_type, Display::get().getSize().x, Display::get().getSize().y, 0, attachment_type, GL_UNSIGNED_BYTE, NULL);
+        else // Using both a stencil and depth test, needs special format arguments
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, Display::get().getSize().x, Display::get().getSize().y, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
 
-    return textureID;
-}
+        return textureID;
+    }
 
 }
 
@@ -91,8 +91,6 @@ Framebuffer_Object::Framebuffer_Object()
 	    std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    m_quad.addData(quadVerticies, quadTextureCoords);
 }
 
 Framebuffer_Object::~Framebuffer_Object()
@@ -101,7 +99,7 @@ Framebuffer_Object::~Framebuffer_Object()
     glDeleteRenderbuffers(1, &m_rbo);
 }
 
-void Framebuffer_Object::bind()
+void Framebuffer_Object::bindFramebuffer()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 }
@@ -111,18 +109,15 @@ void Framebuffer_Object::unbind()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void Framebuffer_Object::draw()
+void Framebuffer_Object::bindTexture()
 {
-    m_quad.bind();
     glBindTexture(GL_TEXTURE_2D, txr);
-
-    glDrawArrays(GL_TRIANGLES, 0, m_quad.getVertexCount());
 }
 
 
 void Framebuffer_Object::clear()
 {
-    bind();
+    bindFramebuffer();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(Settings::SKY_RED, Settings::SKY_GREEN, Settings::SKY_BLUE, 1.0);
 }

@@ -11,12 +11,12 @@ class Framebuffer_Object
         Framebuffer_Object();
         ~Framebuffer_Object();
 
-        void bind();
+        void bindFramebuffer();
         void unbind();
 
         void clear();
 
-        void draw();
+        void bindTexture();
 
     private:
         GLuint  m_fbo = 0;
@@ -24,8 +24,6 @@ class Framebuffer_Object
         Texture m_textureAttatchment;
 
         GLuint txr;
-
-        Model m_quad;
 };
 
 #endif // FRAMEBUFFER_OBJECT_H
