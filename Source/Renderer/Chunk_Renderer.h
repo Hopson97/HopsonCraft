@@ -2,9 +2,7 @@
 #define CHUNK_RENDERER_H
 
 #include <vector>
-
-#include "../World/Chunk/Chunk_Location.h"
-#include "../Shaders/Chunk_Shader.h"
+#include "Chunk_Shader.h"
 
 class Chunk;
 class Camera;
@@ -12,14 +10,17 @@ class Camera;
 class Chunk_Renderer
 {
     public:
-        void addChunk   (const Chunk& chunk );
+        Chunk_Renderer(const Shader::Chunk_Shader& shader);
 
+        void addChunk   (const Chunk& chunk);
         void render     (const Camera& camera);
 
-    private:
-        void prepareChunk   (const Chunk& chunk);
+    protected:
+        virtual void prepareRender() = 0;
+        virtual void prepareChunk (const Chunk& chunk) = 0;
 
-        Shader::Ground_Chunk_Shader m_shader;
+    private:
+        Shader::Chunk_Shader m_shader;
 
         std::vector<const Chunk*> m_chunks;
 };

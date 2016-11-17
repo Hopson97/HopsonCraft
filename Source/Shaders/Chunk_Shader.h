@@ -1,5 +1,5 @@
-#ifndef GROUND_CHUNK_SHADER_H
-#define GROUND_CHUNK_SHADER_H
+#ifndef CHUNK_SHADER_H
+#define CHUNK_SHADER_H
 
 #include "Shader.h"
 
@@ -7,18 +7,20 @@ class Camera;
 
 namespace Shader
 {
-    class Ground_Chunk_Shader : public Shader_Program
+    class Chunk_Shader : public Shader_Program
     {
         public:
-            Ground_Chunk_Shader();
+            Chunk_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
 
             void loadCameraMatrix   (const Camera& camera);
             void loadChunkMatrix    (const Matrix4& matrix);
-            void loadSkyColour      ( const Vector3& skyColour );
+            void loadSkyColour      (const Vector3& skyColour);
+
+        protected:
+            virtual void bindAttributes     () override;
+            virtual void getUniformLocations() override;
 
         private:
-            void bindAttributes     () override;
-            void getUniformLocations() override;
 
             GLuint m_locationViewMatrix;
             GLuint m_locationModelMatrix;
@@ -27,4 +29,4 @@ namespace Shader
     };
 }
 
-#endif // GROUND_CHUNK_SHADER_H
+#endif // CHUNK_SHADER_H

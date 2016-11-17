@@ -1,7 +1,7 @@
 #ifndef MASTER_RENDERER_H
 #define MASTER_RENDERER_H
 
-#include "Chunk_Renderer.h"
+#include "Solid_Block_Renderer.h"
 #include "Water_Renderer.h"
 #include "Flora_Renderer.h"
 #include "SFML_Renderer.h"
@@ -26,7 +26,7 @@ class Master_Renderer
     private:
         void drawScene(const Camera& camera);
 
-        Chunk_Renderer m_chunkRenderer;
+        Solid_Block_Renderer m_chunkRenderer;
         Water_Renderer m_waterRenderer;
         Flora_Renderer m_floraRenderer;
         SFML_Renderer  m_sfmlRenderer;
