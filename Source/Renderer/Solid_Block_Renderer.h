@@ -1,28 +1,20 @@
-#ifndef CHUNK_RENDERER_H
-#define CHUNK_RENDERER_H
+#ifndef SOLID_GROUND_RENDERER_H
+#define SOLID_GROUND_RENDERER_H
 
-#include <vector>
-
-#include "../World/Chunk/Chunk_Location.h"
-
+#include "Chunk_Renderer.h"
 #include "Solid_Block_Shader.h"
 
 class Chunk;
-class Camera;
 
-class Solid_Block_Renderer
+class Solid_Block_Renderer : public Chunk_Renderer<Shader::Solid_Block_Shader>
 {
     public:
-        void addChunk   (const Chunk& chunk );
-
-        void render     (const Camera& camera);
+        Solid_Block_Renderer();
 
     private:
-        void prepareChunk   (const Chunk& chunk);
-
-        Shader::Solid_Block_Shader m_shader;
-
-        std::vector<const Chunk*> m_chunks;
+        void prepareRender  () override;
+        void prepareChunk   (const Chunk& chunk) override;
+        void drawChunk      (const Chunk& chunk) override;
 };
 
-#endif // CHUNK_RENDERER_H
+#endif // SOLID_GROUND_RENDERER_H

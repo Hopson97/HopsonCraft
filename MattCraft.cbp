@@ -129,6 +129,8 @@
 		<Unit filename="Source/Renderer/Master_Renderer.h" />
 		<Unit filename="Source/Renderer/SFML_Renderer.cpp" />
 		<Unit filename="Source/Renderer/SFML_Renderer.h" />
+		<Unit filename="Source/Renderer/Solid_Block_Renderer.cpp" />
+		<Unit filename="Source/Renderer/Solid_Block_Renderer.h" />
 		<Unit filename="Source/Renderer/Water_Renderer.cpp" />
 		<Unit filename="Source/Renderer/Water_Renderer.h" />
 		<Unit filename="Source/Shaders/Chunk_Shader.cpp" />
@@ -141,6 +143,8 @@
 		<Unit filename="Source/Shaders/Shader.h" />
 		<Unit filename="Source/Shaders/Shader_Loader.cpp" />
 		<Unit filename="Source/Shaders/Shader_Loader.h" />
+		<Unit filename="Source/Shaders/Solid_Block_Shader.cpp" />
+		<Unit filename="Source/Shaders/Solid_Block_Shader.h" />
 		<Unit filename="Source/Shaders/Water_Shader.cpp" />
 		<Unit filename="Source/Shaders/Water_Shader.h" />
 		<Unit filename="Source/Texture/Texture.cpp" />

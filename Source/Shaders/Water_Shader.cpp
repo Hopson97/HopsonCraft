@@ -11,7 +11,7 @@ namespace Shader
         getUniformLocations();
     }
 
-    void Water_Shader::loadTime (float time)
+    void Water_Shader::loadTime (float time) const
     {
         loadFloat(m_timeLocation, time);
     }

@@ -12,7 +12,7 @@ namespace Shader
         public:
             Water_Shader();
 
-            void loadTime           (float time);
+            void loadTime (float time) const;
 
         private:
             void bindAttributes     () override;

@@ -12,9 +12,9 @@ namespace Shader
         public:
             Chunk_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
 
-            void loadCameraMatrix   (const Camera& camera);
-            void loadChunkMatrix    (const Matrix4& matrix);
-            void loadSkyColour      (const Vector3& skyColour);
+            void loadCameraMatrix   (const Camera& camera) const;
+            void loadChunkMatrix    (const Matrix4& matrix) const;
+            void loadSkyColour      (const Vector3& skyColour) const;
 
         protected:
             virtual void bindAttributes     () override;

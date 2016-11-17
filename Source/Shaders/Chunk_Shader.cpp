@@ -18,17 +18,17 @@ namespace Shader
         glUseProgram(0);
     }
 
-    void Chunk_Shader::loadCameraMatrix(const Camera& camera)
+    void Chunk_Shader::loadCameraMatrix(const Camera& camera) const
     {
         loadMatrix4(m_locationViewMatrix, Maths::createViewMatrix(camera));
     }
 
-    void Chunk_Shader::loadChunkMatrix(const Matrix4& matrix)
+    void Chunk_Shader::loadChunkMatrix(const Matrix4& matrix) const
     {
         loadMatrix4(m_locationModelMatrix, matrix);
     }
 
-    void Chunk_Shader::loadSkyColour ( const Vector3& skyColour )
+    void Chunk_Shader::loadSkyColour ( const Vector3& skyColour ) const
     {
         loadVector3 (m_skyColourLocation, skyColour);
     }

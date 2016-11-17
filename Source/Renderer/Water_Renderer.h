@@ -4,24 +4,21 @@
 #include <vector>
 #include <SFML/System/Clock.hpp>
 
-#include "../Shaders/Water_Shader.h"
+#include "Chunk_Renderer.h"
+#include "Water_Shader.h"
 
 class Chunk;
-class Camera;
 
-class Water_Renderer
+
+class Water_Renderer : public Chunk_Renderer<Shader::Water_Shader>
 {
     public:
-        void addChunk       ( const Chunk& chunk );
-
-        void render         ( const Camera& camera );
+        Water_Renderer();
 
     private:
-        void prepareWater   ( const Chunk& chunk );
-
-        std::vector<const Chunk*> m_chunks;
-
-        Shader::Water_Shader m_shader;
+        void prepareRender  () override;
+        void prepareChunk   (const Chunk& chunk) override;
+        void drawChunk      (const Chunk& chunk) override;
 
         sf::Clock m_timer;
 };

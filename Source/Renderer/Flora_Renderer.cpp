@@ -1,45 +1,26 @@
 #include "Flora_Renderer.h"
 
 #include "../World/Chunk/Chunk.h"
-#include "../Player/Camera.h"
 #include "../Maths/Matrix_Maths.h"
-#include "../Util/Display.h"
-#include "../D_Settings.h"
+#include "../Shaders/Flora_Shader.h"
 
-#include <iostream>
+Flora_Renderer::Flora_Renderer()
+{ }
 
-void Flora_Renderer::addChunk (const Chunk& chunk)
+void Flora_Renderer::prepareRender()
 {
-    m_chunks.push_back( &chunk );
-}
-
-void Flora_Renderer::render(const Camera& camera)
-{
-    m_shader.useProgram();
-    m_shader.loadCameraMatrix(camera);
-
-    m_shader.loadSkyColour  ({Settings::SKY_RED,
-                              Settings::SKY_GREEN,
-                              Settings::SKY_BLUE
-                            });
-
-    glDisable   (GL_CULL_FACE);
-
-    for (const Chunk* chunk : m_chunks)
-    {
-        prepareChunk( *chunk );
-        glDrawArrays( GL_TRIANGLES, 0, chunk->getMesh().getFloraPart().model.getVertexCount());
-    }
-
-    m_chunks.clear();
-    glBindVertexArray ( 0 );
-    glUseProgram(0);
+    glDisable(GL_CULL_FACE);
 }
 
 void Flora_Renderer::prepareChunk (const Chunk& chunk)
 {
     chunk.getMesh().getFloraPart().model.bind();
-    m_shader.loadChunkMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
-                                                        { 0, 0, 0 },
+    getShader().loadChunkMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
+                                                           { 0, 0, 0 },
                                                         { 1, 1, 1 } ) );
+}
+
+void Flora_Renderer::drawChunk(const Chunk& chunk)
+{
+    glDrawArrays(GL_TRIANGLES, 0, chunk.getMesh().getFloraPart().model.getVertexCount());
 }
