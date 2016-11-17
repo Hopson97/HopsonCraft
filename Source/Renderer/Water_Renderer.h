@@ -4,8 +4,9 @@
 #include <vector>
 #include <SFML/System/Clock.hpp>
 
+#include "../Shaders/Water_Shader.h"
+
 #include "Chunk_Renderer.h"
-#include "Water_Shader.h"
 
 class Chunk;
 

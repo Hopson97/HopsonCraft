@@ -1,13 +1,14 @@
 #ifndef MASTER_RENDERER_H
 #define MASTER_RENDERER_H
 
+#include "../Shaders/Screen_Shader.h"
+#include "../PostFX/Framebuffer_Object.h"
+#include "../Model/Model.h"
+
 #include "Solid_Block_Renderer.h"
 #include "Water_Renderer.h"
 #include "Flora_Renderer.h"
 #include "SFML_Renderer.h"
-#include "Screen_Shader.h"
-#include "Framebuffer_Object.h"
-#include "Model/Model.h"
 
 #include <memory>
 

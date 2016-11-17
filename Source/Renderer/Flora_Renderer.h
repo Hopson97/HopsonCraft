@@ -1,8 +1,9 @@
 #ifndef FLORA_RENDERER_H
 #define FLORA_RENDERER_H
 
+#include "../Shaders/Flora_Shader.h"
+
 #include "Chunk_Renderer.h"
-#include "Flora_Shader.h"
 
 class Chunk;
 

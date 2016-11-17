@@ -2,7 +2,8 @@
 #define SOLID_GROUND_RENDERER_H
 
 #include "Chunk_Renderer.h"
-#include "Solid_Block_Shader.h"
+
+#include "../Shaders/Solid_Block_Shader.h"
 
 class Chunk;
 
