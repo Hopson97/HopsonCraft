@@ -44,7 +44,6 @@ bool Chunk::hasBuffered () const
 
 void Chunk::generateMesh ()
 {
-    sf::Clock clock;
     m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
     m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
@@ -54,7 +53,6 @@ void Chunk::generateMesh ()
 
     m_hasMesh       = true;
     m_hasBuffered   = false;
-    std::cout << clock.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk::bufferMesh ()

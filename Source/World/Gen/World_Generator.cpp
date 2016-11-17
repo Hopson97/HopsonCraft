@@ -11,14 +11,14 @@
 
 namespace
 {
-    Biome m_forestBiome;
-    Biome m_dirtForest;
-    Biome m_desertBiome;
-    Biome m_grasslandBiome;
-    Biome m_stoneLands;
+    Biome forestBiome;
+    Biome dirtForest;
+    Biome desertBiome;
+    Biome grasslandBiome;
+    Biome stoneLands;
 
-    Noise::Generator m_terrainNoise;
-    Noise::Generator m_biomeNoise;
+    Noise::Generator terrainNoise;
+    Noise::Generator biomeNoise;
 }
 
 World_Generator::World_Generator(Chunk& chunk)
@@ -47,7 +47,7 @@ void World_Generator::generate()
 
 void World_Generator::generateHeightMap()
 {
-    generateMap(m_heightMap, m_terrainNoise);
+    generateMap(m_heightMap, terrainNoise);
 
     auto val = *std::max_element(m_heightMap.begin(), m_heightMap.end());
     if (val > m_maxHeight)
@@ -59,7 +59,7 @@ void World_Generator::generateHeightMap()
 
 void World_Generator::generateBiomeMap()
 {
-    generateMap(m_biomeMap, m_biomeNoise);
+    generateMap(m_biomeMap, biomeNoise);
 }
 
 
@@ -210,80 +210,80 @@ void World_Generator::tryAddFlora(const Block_Location& location)
 void World_Generator::setActiveBiome(int value)
 {
     if (value > 230)
-        m_p_activeBiome = &m_grasslandBiome;
+        m_p_activeBiome = &grasslandBiome;
     else if (value <= 230 && value > 170)
-        m_p_activeBiome = &m_dirtForest;
+        m_p_activeBiome = &dirtForest;
     else if ( value <= 170 && value > 70)
-        m_p_activeBiome = &m_forestBiome;
+        m_p_activeBiome = &forestBiome;
     else if ( value <= 70 && value > 40)
-        m_p_activeBiome = &m_desertBiome;
+        m_p_activeBiome = &desertBiome;
     else
-        m_p_activeBiome = &m_stoneLands;
+        m_p_activeBiome = &stoneLands;
 }
 
 
 void World_Generator::setUpBiomes ()
 {
-    m_terrainNoise.setNoiseFunction({10, 225, 0.5, 260, -25});  //DO NOT TOUCH PLEASE
-    m_biomeNoise.setNoiseFunction({7, 250, 0.5, 240, 0});
+    terrainNoise.setNoiseFunction({10, 225, 0.5, 260, -25});  //DO NOT TOUCH PLEASE
+    biomeNoise.setNoiseFunction({7, 250, 0.5, 240, 0});
 
-    m_terrainNoise.setSeed(Noise::getSeed());
-    m_biomeNoise.setSeed((Noise::getSeed() * 12) / 33);
+    terrainNoise.setSeed(Noise::getSeed());
+    biomeNoise.setSeed((Noise::getSeed() * 12) / 33);
 
     //===================================
     //Forest
-    m_forestBiome.addBlock(Block::grass, 1);
-    m_forestBiome.setDepth(1);
+    forestBiome.addBlock(Block::grass, 1);
+    forestBiome.setDepth(1);
 
-    m_forestBiome.addTree(Structure::makeOak);
-    m_forestBiome.setTreeFrequency(45);
+    forestBiome.addTree(Structure::makeOak);
+    forestBiome.setTreeFrequency(45);
 
-    m_forestBiome.addFlora(Block::tallGrass, 1);
-    m_forestBiome.addFlora(Block::rose, 1);
-    m_forestBiome.setFloraFrequency(40);
+    forestBiome.addFlora(Block::tallGrass, 1);
+    forestBiome.addFlora(Block::rose, 1);
+    forestBiome.setFloraFrequency(40);
 
     //===================================
     //Dirt Forest
-    m_dirtForest.addBlock(Block::grass, 40);
-    m_dirtForest.addBlock(Block::dirt, 1);
+    dirtForest.addBlock(Block::grass, 40);
+    dirtForest.addBlock(Block::dirt, 1);
 
-    m_dirtForest.setDepth(1);
+    dirtForest.setDepth(1);
 
-    m_dirtForest.addTree(Structure::makeOak);
-    m_dirtForest.setTreeFrequency(150);
+    dirtForest.addTree(Structure::makeOak);
+    dirtForest.setTreeFrequency(150);
 
-    m_dirtForest.addFlora(Block::tallGrass, 2);
-    m_dirtForest.addFlora(Block::rose, 1);
-    m_dirtForest.setFloraFrequency(60);
+    dirtForest.addFlora(Block::tallGrass, 2);
+    dirtForest.addFlora(Block::rose, 1);
+    dirtForest.setFloraFrequency(60);
 
     //===================================
     //Desert
-    m_desertBiome.addBlock(Block::sand, 100);
-    m_desertBiome.setDepth(3);
+    desertBiome.addBlock(Block::sand, 100);
+    desertBiome.setDepth(3);
 
-    m_desertBiome.addTree(Structure::makeCactus);
-    m_desertBiome.setTreeFrequency(1200);
+    desertBiome.addTree(Structure::makeCactus);
+    desertBiome.setTreeFrequency(1200);
 
-    m_desertBiome.addFlora(Block::deadShrub, 1);
-    m_desertBiome.setFloraFrequency(400);
+    desertBiome.addFlora(Block::deadShrub, 1);
+    desertBiome.setFloraFrequency(400);
 
     //===================================
     //Grassland
-    m_grasslandBiome.addBlock(Block::grass, 80);
-    m_grasslandBiome.addBlock(Block::dirt, 1);
+    grasslandBiome.addBlock(Block::grass, 80);
+    grasslandBiome.addBlock(Block::dirt, 1);
 
-    m_grasslandBiome.setDepth(1);
+    grasslandBiome.setDepth(1);
 
-    m_grasslandBiome.addTree(Structure::makeOak);
-    m_grasslandBiome.setTreeFrequency(750);
+    grasslandBiome.addTree(Structure::makeOak);
+    grasslandBiome.setTreeFrequency(750);
 
-    m_grasslandBiome.addFlora(Block::tallGrass, 3);
-    m_grasslandBiome.addFlora(Block::rose, 1);
-    m_grasslandBiome.setFloraFrequency(40);
+    grasslandBiome.addFlora(Block::tallGrass, 3);
+    grasslandBiome.addFlora(Block::rose, 1);
+    grasslandBiome.setFloraFrequency(40);
 
     //StoneLands
-    m_stoneLands.addBlock(Block::stone, 1);
-    m_stoneLands.addBlock(Block::sand, 5);
+    stoneLands.addBlock(Block::stone, 1);
+    stoneLands.addBlock(Block::sand, 5);
 
-    m_stoneLands.setDepth(5);
+    stoneLands.setDepth(5);
 }
