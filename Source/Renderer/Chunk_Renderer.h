@@ -13,7 +13,7 @@
 class Chunk;
 class Camera;
 
-template<class T>
+template<class Shader_Type>
 class Chunk_Renderer
 {
     public:
@@ -44,7 +44,7 @@ class Chunk_Renderer
         }
 
     protected:
-        const T& getShader() const
+        const Shader_Type& getShader() const
         {
             return m_shader;
         }
@@ -54,7 +54,7 @@ class Chunk_Renderer
         virtual void drawChunk      (const Chunk& chunk) = 0;
 
     private:
-        T m_shader;
+        Shader_Type m_shader;
         std::vector<const Chunk*> m_chunks;
 };
 

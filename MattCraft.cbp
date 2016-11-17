@@ -121,7 +121,6 @@
 		<Unit filename="Source/Player/Player.h" />
 		<Unit filename="Source/PostFX/Framebuffer_Object.cpp" />
 		<Unit filename="Source/PostFX/Framebuffer_Object.h" />
-		<Unit filename="Source/Renderer/Chunk_Renderer.cpp" />
 		<Unit filename="Source/Renderer/Chunk_Renderer.h" />
 		<Unit filename="Source/Renderer/Flora_Renderer.cpp" />
 		<Unit filename="Source/Renderer/Flora_Renderer.h" />
