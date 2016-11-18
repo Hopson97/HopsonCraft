@@ -9,9 +9,18 @@ namespace Shader
     {
         getUniformLocations();
     }
+
+    void Flora_Shader::loadTime(float time) const
+    {
+        Shader::Shader_Program::loadFloat(m_locationTime, time);
+    }
+
+
     void Flora_Shader::bindAttributes()
     {}
 
     void Flora_Shader::getUniformLocations()
-    {}
+    {
+        m_locationTime = glGetUniformLocation(getId(), "time");
+    }
 }

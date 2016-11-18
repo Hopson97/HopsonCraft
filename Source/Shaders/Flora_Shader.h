@@ -12,9 +12,13 @@ namespace Shader
         public:
             Flora_Shader();
 
+            void loadTime (float time) const;
+
         private:
             void bindAttributes() override;
             void getUniformLocations() override;
+
+            GLuint m_locationTime;
     };
 }
 

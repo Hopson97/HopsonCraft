@@ -140,10 +140,13 @@ void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block_t& block)
 bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block_t& block)
 {
     Block_Location location(x, y, z); //This is so it does not construct this object 3 times, but rather just once.
+    auto& b = m_p_chunk->getBlocks().getBlock(location);
 
-    return      ( m_p_chunk->getBlocks().getBlock(location).getID() == Block::ID::Air) ||
-                (!m_p_chunk->getBlocks().getBlock(location).isOpaque() &&
-                  m_p_chunk->getBlocks().getBlock(location).getID() != block.getID());
+    return      ( b.getID() == Block::ID::Air) ||
+                (!b.isOpaque() &&
+                  b.getID() != block.getID()) ||
+                ( b.getPhysicalState() == Block::Physical_State::Flora &&
+                  b.getID() != block.getID());
 }
 
 

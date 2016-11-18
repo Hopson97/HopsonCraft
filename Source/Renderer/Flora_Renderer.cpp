@@ -15,9 +15,10 @@ void Flora_Renderer::prepareRender()
 void Flora_Renderer::prepareChunk (const Chunk& chunk)
 {
     chunk.getMesh().getFloraPart().model.bind();
-    getShader().loadChunkMatrix( Maths::createModelMatrix( { chunk.getPosition().x, 0, chunk.getPosition().y },
-                                                           { 0, 0, 0 },
-                                                        { 1, 1, 1 } ) );
+    getShader().loadChunkMatrix( Maths::createModelMatrix({ chunk.getPosition().x, 0, chunk.getPosition().y},
+                                                          { 0, 0, 0 },
+                                                          { 1, 1, 1 }));
+    getShader().loadTime(m_timer.getElapsedTime().asSeconds());
 }
 
 void Flora_Renderer::drawChunk(const Chunk& chunk)
