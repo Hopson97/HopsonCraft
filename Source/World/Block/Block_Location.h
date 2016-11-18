@@ -9,11 +9,11 @@
 
 struct Block_Location
 {
-    Block_Location (char x, int y, char z);
+    Block_Location (int x, int y, int z);
 
-    char x = 0;
+    int x = 0;
     int y = 0;
-    char z = 0;
+    int z = 0;
 
     bool operator== (const Block_Location& other) const;
 

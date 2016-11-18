@@ -31,7 +31,7 @@ class World_Generator
 
         void generateBlockData  ();
 
-        void setRandomSeed      (char x, int y, char z);
+        void setRandomSeed      (int x, int y, int z);
 
         void setBlock           (const Block_Location& location, int h);
         void setBlock           (const Block_Location& location, const Block_t& block);

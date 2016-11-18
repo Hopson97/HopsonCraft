@@ -17,10 +17,14 @@ class Chunk_Mesh
         Model model;
         std::vector<GLfloat> vertexCoords;
         std::vector<GLfloat> textureCoords;
+        std::vector<GLuint>  indices;
 
         void addVerticies   (const std::vector<GLfloat>& verticies);
         void addUvCoords    (const std::vector<GLfloat>& coords);
+        void addIndices     (const std::vector<GLuint>& index);
         void buffer         ();
+
+        GLuint indicesCount = 0;
     };
 
     public:
@@ -46,6 +50,8 @@ class Chunk_Mesh
         void addBlockRightToMesh    (float x, float y, float z, const Block_t& block);
         void addBlockFrontToMesh    (float x, float y, float z, const Block_t& block);
         void addBlockBackToMesh     (float x, float y, float z, const Block_t& block);
+
+        void addBlockIndices        (const Block_t& block);
 
         void addPlantToMesh         (float x, float y, float z, const Block_t& block);
 

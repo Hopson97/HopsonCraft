@@ -15,7 +15,6 @@ namespace
     Biome dirtForest;
     Biome desertBiome;
     Biome grasslandBiome;
-    Biome stoneLands;
 
     Noise::Generator terrainNoise;
     Noise::Generator biomeNoise;
@@ -83,9 +82,9 @@ void World_Generator::generateBlockData()
 {
     for (int y = 0  ; y < m_maxHeight + 1 ; y++)
     {
-        for (char x = 0 ; x < Chunk::SIZE ; x++)
+        for (int x = 0 ; x < Chunk::SIZE ; x++)
         {
-            for (char z = 0 ; z < Chunk::SIZE ; z++)
+            for (int z = 0 ; z < Chunk::SIZE ; z++)
             {
                 setRandomSeed(x, y, z);
 
@@ -114,7 +113,7 @@ void World_Generator::generateBlockData()
     m_structures.clear();
 }
 
-void World_Generator::setRandomSeed(char x, int y, char z)
+void World_Generator::setRandomSeed(int x, int y, int z)
 {
     auto seed = Noise::getSeed();
 
@@ -215,10 +214,8 @@ void World_Generator::setActiveBiome(int value)
         m_p_activeBiome = &dirtForest;
     else if ( value <= 170 && value > 70)
         m_p_activeBiome = &forestBiome;
-    else if ( value <= 70 && value > 40)
-        m_p_activeBiome = &desertBiome;
     else
-        m_p_activeBiome = &stoneLands;
+        m_p_activeBiome = &desertBiome;
 }
 
 
@@ -280,10 +277,4 @@ void World_Generator::setUpBiomes ()
     grasslandBiome.addFlora(Block::tallGrass, 3);
     grasslandBiome.addFlora(Block::rose, 1);
     grasslandBiome.setFloraFrequency(40);
-
-    //StoneLands
-    stoneLands.addBlock(Block::stone, 1);
-    stoneLands.addBlock(Block::sand, 5);
-
-    stoneLands.setDepth(5);
 }

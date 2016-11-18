@@ -28,8 +28,8 @@ void calculateFog (vec4 vertRelToCamera)
 vec4 makeWaves ( vec4 worldPos )
 {
     worldPos.y -= 0.2;
-    worldPos.y += sin((time + worldPos.z)) / 8.8f;
-    worldPos.y += cos((time + worldPos.x)) / 8.8f;
+    worldPos.y += sin((time + worldPos.z) * 2.5) / 8.8f;
+    worldPos.y += cos((time + worldPos.x) * 2.5) / 8.8f;
 
     return worldPos;
 }

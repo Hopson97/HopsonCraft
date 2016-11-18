@@ -1,6 +1,6 @@
 #include "Block_Location.h"
 
-Block_Location::Block_Location (char x, int y, char z)
+Block_Location::Block_Location (int x, int y, int z)
 :   x   (x)
 ,   y   (y)
 ,   z   (z)

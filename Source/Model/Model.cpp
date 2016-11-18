@@ -19,7 +19,7 @@ namespace
         glBindBuffer(GL_ARRAY_BUFFER, vbo );
 
         glBufferData(GL_ARRAY_BUFFER,
-                     data.size() * sizeof ( data.at( 0 ) ),
+                     data.size() * sizeof (data.at(0)),
                      data.data(),
                      GL_STATIC_DRAW);
 
@@ -35,14 +35,25 @@ namespace
     }
 
     Model_Data loadArrayMesh (const std::vector<GLfloat>& vertexCoords,
-                              const std::vector<GLfloat>& textureCoords)
+                              const std::vector<GLfloat>& textureCoords,
+                              const std::vector<GLuint>& indices)
     {
         GLuint vao = createVertexArray();
 
         GLuint vertexCoordVbo   = storeDataInAttribList(0, 3, vertexCoords);
         GLuint textureCoordVbo  = storeDataInAttribList(1, 2, textureCoords);
 
-        return {vao, vertexCoordVbo, textureCoordVbo, vertexCoords.size() / 3};
+        GLuint eboVbo;
+        glGenBuffers(1, &eboVbo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboVbo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                     indices.size() * sizeof (indices.at(0)),
+                     indices.data(),
+                     GL_STATIC_DRAW);
+
+        glBindVertexArray(0);
+
+        return {vao, vertexCoordVbo, textureCoordVbo, eboVbo, indices.size()};
     }
 } //Anon Namespace
 
@@ -50,11 +61,13 @@ namespace
 Model_Data::Model_Data (GLuint vao,
                         GLuint vertexPosId,
                         GLuint uvCoordsId,
-                        size_t vertexCount)
+                        GLuint eboId,
+                        size_t indicesCount)
 :   vao         (vao )
 ,   vertexPosId (vertexPosId)
 ,   uvCoordsId  (uvCoordsId)
-,   vertexCount (vertexCount)
+,   eboId       (eboId)
+,   indicesCount (indicesCount)
 { }
 
 
@@ -64,10 +77,11 @@ Model::Model(const Model_Data& data)
 { }
 
 void Model::addData (const std::vector<GLfloat>& vertexCoords,
-                     const std::vector<GLfloat>& textureCoords)
+                     const std::vector<GLfloat>& textureCoords,
+                     const std::vector<GLuint>& indices)
 {
     deleteData ();
-    m_glData = loadArrayMesh(vertexCoords, textureCoords);
+    m_glData = loadArrayMesh(vertexCoords, textureCoords, indices);
 }
 
 void Model::bind () const
@@ -82,7 +96,7 @@ void Model::unbind () const
 
 GLuint Model::getVertexCount() const
 {
-    return m_glData.vertexCount;
+    return m_glData.indicesCount;
 }
 
 Model::~Model  ()

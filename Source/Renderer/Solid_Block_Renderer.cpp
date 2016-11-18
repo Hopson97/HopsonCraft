@@ -28,6 +28,9 @@ void Solid_Block_Renderer::prepareChunk (const Chunk& chunk)
 
 void Solid_Block_Renderer::drawChunk(const Chunk& chunk)
 {
-    glDrawArrays(GL_TRIANGLES, 0, chunk.getMesh().getSolidPart().model.getVertexCount());
+    glDrawElements(GL_TRIANGLES,
+                   chunk.getMesh().getSolidPart().model.getVertexCount(),
+                   GL_UNSIGNED_INT,
+                   nullptr);
 }
 

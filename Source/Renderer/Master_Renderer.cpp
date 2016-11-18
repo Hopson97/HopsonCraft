@@ -10,10 +10,7 @@ namespace
          1, -1, 0,
          1,  1, 0,
         -1,  1, 0,
-
-        -1,  1, 0,
         -1, -1, 0,
-         1, -1, 0
     };
 
     std::vector<GLfloat> quadTextureCoords
@@ -21,16 +18,19 @@ namespace
         1, 0,
         1, 1,
         0, 1,
-
-        0, 1,
         0, 0,
-        1, 0
+    };
+
+    std::vector<GLuint> quadIndices
+    {
+        0, 1, 2,
+        2, 3, 0
     };
 }
 
 Master_Renderer::Master_Renderer()
 {
-    m_quad.addData(quadVerticies, quadTextureCoords);
+    m_quad.addData(quadVerticies, quadTextureCoords, quadIndices);
 }
 
 void Master_Renderer::prepare()
@@ -75,7 +75,10 @@ void Master_Renderer::drawToQuad()
     m_colourShader.useProgram();
     m_framebuffer.bindTexture();
     m_quad.bind();
-    glDrawArrays(GL_TRIANGLES, 0, m_quad.getVertexCount());
+    glDrawElements(GL_TRIANGLES,
+                   m_quad.getVertexCount(),
+                   GL_UNSIGNED_INT,
+                   nullptr);
 }
 
 void Master_Renderer::drawScene(const Camera& camera)

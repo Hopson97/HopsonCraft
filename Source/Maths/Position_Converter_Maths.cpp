@@ -8,8 +8,8 @@ namespace Maths
 {
     Block_Location worldToBlockPosition(const Vector3& worldPosition)
     {
-        char x = (int) worldPosition.x % Chunk::SIZE;
-        char z = (int) worldPosition.z % Chunk::SIZE;
+        int x = (int) worldPosition.x % Chunk::SIZE;
+        int z = (int) worldPosition.z % Chunk::SIZE;
 
         return  {x, (int)worldPosition.y, z};
     }

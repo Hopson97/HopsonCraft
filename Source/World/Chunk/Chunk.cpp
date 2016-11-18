@@ -156,7 +156,7 @@ void Chunk::loadBlockData ()
     if(!inFile.is_open())
         return;
 
-    char x, z;
+    int x, z;
     int y, id;
 
     while(inFile.peek() != EOF)

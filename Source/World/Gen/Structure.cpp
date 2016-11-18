@@ -24,9 +24,9 @@ namespace Structure
         }
         int y = trunkHeight + location.y;
 
-        for (char xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
+        for (int xLeaf = location.x - 2 ; xLeaf < location.x + 3 ; xLeaf++)
         {
-            for (char zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
+            for (int zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
             {
                 chunk.getBlocks().setBlock({xLeaf, y, zLeaf}, Block::oakLeaf, false );
                 chunk.getBlocks().setBlock({xLeaf, y + 1, zLeaf}, Block::oakLeaf, false );
@@ -34,9 +34,9 @@ namespace Structure
         }
         y++;
 
-        for (char xLeaf = location.x - 1 ; xLeaf < location.x + 2 ; xLeaf++)
+        for (int xLeaf = location.x - 1 ; xLeaf < location.x + 2 ; xLeaf++)
         {
-            for (char zLeaf = location.z - 1 ; zLeaf < location.z + 2 ; zLeaf++)
+            for (int zLeaf = location.z - 1 ; zLeaf < location.z + 2 ; zLeaf++)
             {
                 chunk.getBlocks().setBlock({xLeaf, y, zLeaf}, Block::oakLeaf, false );
             }
