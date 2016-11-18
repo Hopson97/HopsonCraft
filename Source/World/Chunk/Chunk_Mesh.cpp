@@ -103,7 +103,7 @@ void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block_t& block)
 {
     if (block.getMeshType() == Block::Mesh_Type::X_Style)
     {
-        //addPlantToMesh(x, y, z, block);
+        addPlantToMesh(x, y, z, block);
         return;
     }
 
@@ -267,17 +267,30 @@ void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block_t& block)
         x,      y,      z,
         x + 1,  y,      z + 1,
         x + 1,  y + 1,  z + 1,
-        x + 1,  y + 1,  z + 1,
         x,      y + 1,  z,
-        x,      y,      z,
 
         x,      y,      z + 1,
         x + 1,  y,      z,
         x + 1,  y + 1,  z,
-        x + 1,  y + 1,  z,
         x,      y + 1,  z + 1,
-        x,      y,      z + 1
     });
     m_floraPart.addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
     m_floraPart.addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+
+    GLuint& i = m_floraPart.indicesCount;
+
+
+    m_floraPart.addIndices
+    ({
+        0 + i, 1 + i, 2 + i,
+        2 + i, 3 + i, 0 + i
+    });
+    i += 4;
+
+    m_floraPart.addIndices
+    ({
+        0 + i, 1 + i, 2 + i,
+        2 + i, 3 + i, 0 + i
+    });
+    i += 4;
 }
