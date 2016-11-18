@@ -60,6 +60,8 @@ class Chunk_Mesh
         Chunk_Mesh_Part m_floraPart;
 
         const Chunk* m_p_chunk;
+
+        Chunk_Mesh_Part* m_activePart;
 };
 
 #endif // CHUNK_MESH_H
