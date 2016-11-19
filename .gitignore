@@ -21,3 +21,7 @@ old/
 *.zip
 *.7z
 Project/
+
+glew.h 
+glew.c
+wglew.h
