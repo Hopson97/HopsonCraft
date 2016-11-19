@@ -8,9 +8,9 @@ namespace GUI
     :   m_layout (layout)
     { }
 
-    void Base_Menu::addBackgroud(const std::string& name)
+    void Base_Menu::addBackgroud(const sf::Texture& texture)
     {
-        m_background = std::make_unique<Background>(name);
+        m_background = std::make_unique<Background>(texture);
     }
 
 

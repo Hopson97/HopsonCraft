@@ -17,8 +17,6 @@ namespace State
         public:
             Main_Menu_State(Application& application);
 
-            ~Main_Menu_State();
-
             void input  (const sf::Event& e);
             void input  ();
             void update (float dt, Camera& camera);
@@ -27,12 +25,21 @@ namespace State
             void exitState  ();
 
         private:
+            void initFrontMenu  ();
+            void initNewGameMenu();
+
             GUI::Base_Menu m_frontMenu;
+            GUI::Base_Menu m_newGameMenu;
 
             GUI::Base_Menu* m_activeMenu    = nullptr;
 
-            int*            m_seed          = nullptr;
-            std::string*    m_worldName     = nullptr;
+            int            m_seed;
+            std::string    m_seedString;
+            std::string    m_worldName;
+
+            sf::Texture     m_background;
+
+            bool m_makeWorld = false;
     };
 }
 

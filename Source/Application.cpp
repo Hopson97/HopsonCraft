@@ -61,6 +61,7 @@ void Application::runMainLoop()
 
             m_stateStack.top()->input (e);
         }
+        if (!Display::isOpen()) break;
         m_stateStack.top()->input   ();
         m_stateStack.top()->update  (dt, m_camera);
         m_stateStack.top()->draw    (dt, m_renderer);

@@ -22,8 +22,9 @@ namespace GUI
         public:
             Base_Menu (Layout layout);
 
-            void addBackgroud(const std::string& name);
+            void addBackgroud(const sf::Texture& texture);
             void addComponent(std::unique_ptr<Component> component);
+            void addPadding  (int amount) { m_currentY += amount; }
 
             void input  (const sf::Event& e);
             void update ();
@@ -38,7 +39,7 @@ namespace GUI
             Layout m_layout;
 
             int m_currentX = 0;
-            int m_currentY = 0;
+            int m_currentY = 15;
 
     };
 }

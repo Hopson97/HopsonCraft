@@ -22,6 +22,8 @@ namespace GUI
             virtual const sf::Vector2f& getSize () const = 0;
 
         protected:
+            bool touchingMouse (const sf::Shape& sprite) const;
+
             static sf::Texture guiTexture;
             static sf::Font    guiFont;
     };

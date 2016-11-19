@@ -24,11 +24,7 @@ namespace GUI
 
     void Button::input(const sf::Event& e)
     {
-        if (m_quad.getGlobalBounds().contains
-            (
-                sf::Mouse::getPosition(Display::get()).x,
-                sf::Mouse::getPosition(Display::get()).y)
-            )
+        if (touchingMouse(m_quad))
         {
             m_quad.setFillColor({Settings::SKY_RED   * 255,
                                  Settings::SKY_GREEN * 255,

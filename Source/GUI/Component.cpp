@@ -1,5 +1,7 @@
 #include "Component.h"
 
+#include "../Util/Display.h"
+
 namespace GUI
 {
     sf::Texture GUI::Component::guiTexture;
@@ -15,8 +17,19 @@ namespace GUI
             guiTexture.setRepeated(true);
 
             guiFont.loadFromFile("Data/Font/kongtext.ttf");    //monospace font
+            hasSetupResources = true;
         }
     }
+
+    bool Component::touchingMouse(const sf::Shape& sprite) const
+    {
+        return  sprite.getGlobalBounds().contains
+                (
+                    sf::Mouse::getPosition(Display::get()).x,
+                    sf::Mouse::getPosition(Display::get()).y
+                );
+    }
+
 }
 
 

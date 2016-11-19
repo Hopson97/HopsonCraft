@@ -5,13 +5,12 @@
 
 namespace GUI
 {
-    Background::Background(const std::string& name)
+    Background::Background(const sf::Texture& texture)
     {
-        m_texture.loadFromFile("Data/Images/" + name + ".png");
 
         m_quad.setSize({static_cast<float>(Display::get().getSize().x),
                         static_cast<float>(Display::get().getSize().y)});
-        m_quad.setTexture(&m_texture);
+        m_quad.setTexture(&texture);
     }
 
     void Background::draw(Master_Renderer& renderer)

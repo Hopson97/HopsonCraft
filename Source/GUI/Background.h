@@ -10,12 +10,11 @@ namespace GUI
     class Background
     {
         public:
-            Background(const std::string& name);
+            Background(const sf::Texture& texture);
 
             void draw (Master_Renderer& renderer);
 
         private:
-            sf::Texture         m_texture;
             sf::RectangleShape  m_quad;
     };
 

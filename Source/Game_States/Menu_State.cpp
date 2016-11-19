@@ -2,6 +2,7 @@
 
 #include "../GUI/Button.h"
 #include "../GUI/Image.h"
+#include "../GUI/Text_Box.h"
 
 #include "../Application.h"
 
@@ -13,34 +14,17 @@ namespace State
 {
     Main_Menu_State::Main_Menu_State(Application& application)
     :   Game_State  (application)
-    ,   m_frontMenu      (GUI::Layout::Center)
+    ,   m_frontMenu     (GUI::Layout::Center)
+    ,   m_newGameMenu   (GUI::Layout::Center)
     {
-        m_frontMenu.addComponent(std::make_unique<GUI::Image>("logo", sf::Vector2f{800, 250}));
-
-        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
-                            {
-                                m_application->changeState (std::make_unique<Playing_State>(
-                                                            *m_application,
-                                                            *m_worldName,
-                                                            *m_seed));
-                            }));
-
-        m_frontMenu.addBackgroud("bg");
-
+        m_background.loadFromFile("Data/Images/bg.png");
         Display::showMouse();
 
-        m_seed = new int(5000);
-        m_worldName = new std::string("Test");
+        initFrontMenu();
+        initNewGameMenu();
 
         m_activeMenu = &m_frontMenu;
     }
-
-    Main_Menu_State::~Main_Menu_State()
-    {
-        delete m_seed;
-        delete m_worldName;
-    }
-
 
     void Main_Menu_State::input(const sf::Event& e)
     {
@@ -48,13 +32,19 @@ namespace State
     }
 
     void Main_Menu_State::input()
-    {
-
-    }
+    { }
 
     void Main_Menu_State::update(float dt, Camera& camera)
     {
         m_activeMenu->update();
+
+        if (m_makeWorld)
+        {
+            m_application->changeState (std::make_unique<Playing_State>(
+                                        *m_application,
+                                        m_worldName,
+                                        std::stoi(m_seedString)));
+        }
     }
 
     void Main_Menu_State::draw(float dt, Master_Renderer& renderer)
@@ -63,9 +53,46 @@ namespace State
     }
 
     void Main_Menu_State::exitState()
+    { }
+
+
+    void Main_Menu_State::initFrontMenu()
     {
-        delete m_seed;
-        delete m_worldName;
+        m_frontMenu.addBackgroud(m_background);
+        m_frontMenu.addComponent(std::make_unique<GUI::Image>("logo", sf::Vector2f{800, 250}));
+
+        m_frontMenu.addComponent(std::make_unique<GUI::Button>("New Game", [&]()
+        {
+            m_activeMenu = &m_newGameMenu;
+        }));
+
+        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Load Game", [&]()
+        {
+            //m_makeWorld = true;
+        }));
+
+        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Exit Game", [&]()
+        {
+            Display::close();
+        }));
     }
 
+
+    void Main_Menu_State::initNewGameMenu()
+    {
+        m_newGameMenu.addPadding(150);
+        m_newGameMenu.addBackgroud(m_background);
+        m_newGameMenu.addComponent(std::make_unique<GUI::Text_Box>(15, sf::Vector2f{500, 100}, "World Name", m_worldName));
+        m_newGameMenu.addComponent(std::make_unique<GUI::Text_Box>(8, sf::Vector2f{500, 100}, "Seed", m_seedString));
+
+        m_newGameMenu.addComponent(std::make_unique<GUI::Button>("Create", [&]()
+        {
+            m_makeWorld = true;
+        }));
+
+        m_newGameMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
+        {
+            m_activeMenu = &m_frontMenu;
+        }));
+    }
 }
