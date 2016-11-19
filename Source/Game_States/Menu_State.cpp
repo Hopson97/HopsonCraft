@@ -1,8 +1,12 @@
 #include "Menu_State.h"
 
 #include "../GUI/Button.h"
+#include "../GUI/Image.h"
+
 #include "../Application.h"
+
 #include "../Util/Display.h"
+
 #include "Playing_State.h"
 
 namespace State
@@ -11,6 +15,8 @@ namespace State
     :   Game_State  (application)
     ,   m_menu      (GUI::Layout::Center)
     {
+        m_menu.addComponent(std::make_unique<GUI::Image>("logo"));
+
         m_menu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
                             {
                                 m_application->pushState (std::make_unique<Playing_State>(

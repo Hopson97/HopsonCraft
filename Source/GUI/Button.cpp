@@ -1,7 +1,6 @@
 #include "Button.h"
 
 #include "../Util/Display.h"
-
 #include "../Renderer/Master_Renderer.h"
 
 namespace GUI
