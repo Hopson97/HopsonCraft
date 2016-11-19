@@ -1,6 +1,7 @@
 #version 330 core
 in vec2 passTextureCoords;
-out vec4 color;
+
+out vec4 outColour;
 
 uniform sampler2D screenTexture;
 
@@ -34,7 +35,7 @@ float sharpenKernal[9] = float[](
 
 void main()
 {
-    color = texture(screenTexture, passTextureCoords);
+    outColour = texture(screenTexture, passTextureCoords);
     /*
     vec3 sampleTex[9];
     for(int i = 0; i < 9; i++)
@@ -45,9 +46,9 @@ void main()
     for(int i = 0; i < 9; i++)
         col += sampleTex[i] * blurKernal[i];
 
-    color = vec4(col, 1.0);
+    outColour = vec4(col, 1.0);
 
-    color.g /= 3;
-    color.r /= 3;
+    outColour.g /= 3;
+    outColour.r /= 3;
     */
 }

@@ -1,19 +1,19 @@
 #version 330 core
 
-out vec4 color;
+in vec2 passTextureCoords;
+in float passVis;
 
-in vec2 textureCoords;
-in float vis;
+out vec4 outColour;
 
 uniform sampler2D textureSampler;
 uniform vec3 skyColour;
 
 void main()
 {
-    color = texture(textureSampler, textureCoords);
-    if ( color.a == 0 )
+    outColour = texture(textureSampler, passTextureCoords);
+    if (outColour.a == 0)
     {
         discard;
     }
-    //color = mix ( vec4 ( skyColour, 1.0), color, vis );
+    outColour = mix (vec4 ( skyColour, 1.0), outColour, passVis);
 }

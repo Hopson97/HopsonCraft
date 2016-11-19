@@ -59,54 +59,59 @@ namespace State
         {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::P))
             {
-
-                auto oldRayEnd = m_player.getPosition();
-
-                Maths::Ray ray(m_player.getRotation().y + 90,
-                               m_player.getRotation().x,
-                               m_player.getPosition());
-
-                for (auto dist = 0.0f ; dist < 1.0f ; dist += 0.001f )
-                {
-                    ray.step(dist);
-
-                    //Delta/ Difference
-                    auto d = ray.getEndPoint() - m_player.getPosition();
-
-                    if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
-                    if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
-
-                    const auto& worldPoint = Maths::worldToBlockPosition(ray.getEndPoint());
-
-                    if (m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Solid ||
-                        m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Flora)
-                    {
-                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                        {
-                            if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
-                                m_chunkMap.setBlock(Block::air, ray.getEndPoint());
-                        }
-                        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-                        {
-                            if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
-                                m_chunkMap.makeExplosion(ray.getEndPoint(), 5);
-                        }
-                        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-                        {
-                            if (Maths::worldToBlockPosition(oldRayEnd) != Maths::worldToBlockPosition(m_player.getPosition()))
-                                m_chunkMap.setBlock(m_player.getHeldBlock(), oldRayEnd);
-                        }
-                        break;
-                    }
-                    else
-                    {
-                        oldRayEnd = ray.getEndPoint();
-                    }
-                }
+                blockEdit();
                 breakBlockClock.restart();
             }
         }
     }
+
+    void Playing_State::blockEdit()
+    {
+        auto oldRayEnd = m_player.getPosition();
+
+        Maths::Ray ray(m_player.getRotation().y + 90,
+                       m_player.getRotation().x,
+                       m_player.getPosition());
+
+        for (auto dist = 0.0f ; dist < 1.0f ; dist += 0.001f )
+        {
+            ray.step(dist);
+
+            //Delta/ Difference
+            auto d = ray.getEndPoint() - m_player.getPosition();
+
+            if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
+            if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
+
+            const auto& worldPoint = Maths::worldToBlockPosition(ray.getEndPoint());
+
+            if (m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Solid ||
+                m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Flora)
+            {
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                {
+                    if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
+                        m_chunkMap.setBlock(Block::air, ray.getEndPoint());
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+                {
+                    if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
+                        m_chunkMap.makeExplosion(ray.getEndPoint(), 5);
+                }
+                else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                {
+                    if (Maths::worldToBlockPosition(oldRayEnd) != Maths::worldToBlockPosition(m_player.getPosition()))
+                        m_chunkMap.setBlock(m_player.getHeldBlock(), oldRayEnd);
+                }
+                break;
+            }
+            else
+            {
+                oldRayEnd = ray.getEndPoint();
+            }
+        }
+    }
+
 
     void Playing_State::update  (float dt, Camera& camera)
     {

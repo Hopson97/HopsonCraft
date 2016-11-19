@@ -221,7 +221,7 @@ void World_Generator::setActiveBiome(int value)
 
 void World_Generator::setUpBiomes ()
 {
-    terrainNoise.setNoiseFunction({10, 225, 0.5, 260, -25});  //DO NOT TOUCH PLEASE
+    terrainNoise.setNoiseFunction({10, 225, 0.5, 260, -35});  //DO NOT TOUCH PLEASE
     biomeNoise.setNoiseFunction({7, 250, 0.5, 240, 0});
 
     terrainNoise.setSeed(Noise::getSeed());

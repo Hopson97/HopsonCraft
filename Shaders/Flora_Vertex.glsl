@@ -11,30 +11,31 @@ uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
 uniform float time;
 
-const float density     = 0.0035;
-const float gradient    = 2.82;
+const float density     = 0.0025;
+const float gradient    = 5.00;
 
-void calculateFog ( vec4 vertRelToCamera )
+void calculateFog (vec4 vertRelToCamera)
 {
-    float dist = length ( vertRelToCamera.xyz );
-    passVis = exp( -pow ( dist * density , gradient ) );
-    passVis = clamp ( passVis, 0.0, 1.0 );
+    float dist = length (vertRelToCamera.xyz);
+    passVis = exp       (-pow (dist * density , gradient));
+    passVis = clamp     (passVis, 0.0, 1.0);
 }
 
 vec4 getWorldPosition()
 {
     vec4 worldPosition = modelMatrix * vec4 ( vertexPosition, 1.0f );
 
-    worldPosition.x += sin((time + worldPosition.z + worldPosition.y)) * 10;
-    worldPosition.z -= cos((time + worldPosition.x + worldPosition.y)) * 10;
+    worldPosition.x += sin((time + worldPosition.z + worldPosition.y) * 1.8) / 15f;
+    worldPosition.z -= cos((time + worldPosition.x + worldPosition.y) * 1.8) / 15f;
 
     return worldPosition;
 }
 
 void main()
 {
-    vec4 worldPosition = getWorldPosition();
-    vec4 vertRelToCamera = viewMatrix * worldPosition;
+    vec4 worldPosition      =   getWorldPosition();
+    vec4 vertRelToCamera    =   viewMatrix * worldPosition;
+
     gl_Position = projectionMatrix * vertRelToCamera;
 
     calculateFog(vertRelToCamera);

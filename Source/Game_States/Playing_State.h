@@ -31,6 +31,8 @@ namespace State
             void exitState  ()          override;
 
         private:
+            void blockEdit();
+
             Player          m_player;
             Chunk_Location  m_playerPosition;
             Chunk_Map       m_chunkMap;
