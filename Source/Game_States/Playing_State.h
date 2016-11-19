@@ -26,14 +26,15 @@ namespace State
                             const std::string& worldName,
                             unsigned seed);
 
-            void input      (const sf::Event& e)  override;
-            void update     (float dt, Camera& camera)  override;
-            void draw       (float dt, Master_Renderer& renderer)  override;
+            void sfInput    (const sf::Event& e);
+            void input      ();
+            void update     (float dt, Camera& camera);
+            void draw       (float dt, Master_Renderer& renderer);
 
-            void exitState  ()          override;
+            void exitState  () override;
 
         private:
-            void blockEdit();
+            void blockEdit(const sf::Event& e);
 
             std::unique_ptr<Chunk_Map> m_chunkMap;
 

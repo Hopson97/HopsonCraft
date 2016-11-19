@@ -53,25 +53,31 @@ namespace State
         m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed);
     }
 
-    void Playing_State::input (const sf::Event& e)
+    void Playing_State::sfInput(const sf::Event& e)
     {
         m_chunkMap->input(e);
-        m_player.input(e);
+        m_player.toggleInput(e);
         m_debugDisplay.checkInput(e);
 
         static sf::Clock blockEditClock;
 
-        if (e.type == sf::Event::MouseButtonPressed)
+        if (e.type == sf::Event::MouseButtonPressed ||  e.type == sf::Event::KeyPressed)
         {
             if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
             {
-                blockEdit();
+                blockEdit(e);
                 blockEditClock.restart();
             }
         }
     }
 
-    void Playing_State::blockEdit()
+
+    void Playing_State::input ()
+    {
+        m_player.input();
+    }
+
+    void Playing_State::blockEdit(const sf::Event& e)
     {
         auto oldRayEnd = m_player.getPosition();
 
@@ -89,25 +95,28 @@ namespace State
             if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
             if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
 
-            const auto& worldPoint = Maths::worldToBlockPosition(ray.getEndPoint());
+            auto* block       = &m_chunkMap->getBlockAt(ray.getEndPoint());
+            auto worldPoint   = Maths::worldToBlockPosition(ray.getEndPoint());
+            auto playerPoint  = Maths::worldToBlockPosition(m_player.getPosition());
 
-            if (m_chunkMap->getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Solid ||
-                m_chunkMap->getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Flora)
+            if (block->getPhysicalState() == Block::Physical_State::Solid ||
+                block->getPhysicalState() == Block::Physical_State::Flora)
             {
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                if (e.mouseButton.button == sf::Mouse::Left)
                 {
-                    if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
+                    if (worldPoint != playerPoint)
                         m_chunkMap->setBlock(Block::air, ray.getEndPoint());
                 }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+                else if (e.mouseButton.button == sf::Mouse::Right)
                 {
-                    if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
-                        m_chunkMap->makeExplosion(ray.getEndPoint(), 5);
-                }
-                else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-                {
-                    if (Maths::worldToBlockPosition(oldRayEnd) != Maths::worldToBlockPosition(m_player.getPosition()))
+                    if (worldPoint != playerPoint)
                         m_chunkMap->setBlock(m_player.getHeldBlock(), oldRayEnd);
+                }
+                if (e.key.code == sf::Keyboard::P)
+                {
+                    std::cout << "P" << std::endl;
+                    if (worldPoint != playerPoint)
+                        m_chunkMap->makeExplosion(ray.getEndPoint(), 8);
                 }
                 break;
             }

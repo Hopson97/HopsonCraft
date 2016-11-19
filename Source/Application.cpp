@@ -56,8 +56,10 @@ void Application::runMainLoop()
         {
             if (Display::checkForClose(e))
                 return;
+
+            m_stateStack.top()->sfInput (e);
         }
-        m_stateStack.top()->input   (e);
+        m_stateStack.top()->input   ();
         m_stateStack.top()->update  (dt, m_camera);
         m_stateStack.top()->draw    (dt, m_renderer);
 

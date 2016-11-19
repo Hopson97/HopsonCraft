@@ -8,18 +8,17 @@
 
 Player::Player()
 :   m_rotationLock          ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, 0.5)
-,   m_increaseBlockToggle   ([&](){m_canChangeBlock = !m_canChangeBlock;}, sf::Keyboard::Right, 0.2)
-,   m_decreaseBlockToggle   ([&](){m_canChangeBlock = !m_canChangeBlock;}, sf::Keyboard::Left,  0.2)
+,   m_increaseBlockToggle   ([&](){switchBlock(1) ; }, sf::Keyboard::Right, 0.2)
+,   m_decreaseBlockToggle   ([&](){switchBlock(-1); }, sf::Keyboard::Left,  0.2)
 ,   m_heldBlock             (&Block::getBlockFromId(Block::ID::Glass))
 {
     m_camera.movePosition({20000, 250, 20000});
     Debug_Display::addheldBlock(*m_heldBlock);
 }
 
-void Player::input(const sf::Event& e)
+void Player::input()
 {
     movementInput();
-    toggleInput(e);
 }
 
 void Player::movementInput()
@@ -31,7 +30,7 @@ void Player::movementInput()
 
     if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        auto yaw    = glm::radians(m_camera.getRotation().y + 90);
+        auto yaw = glm::radians(m_camera.getRotation().y + 90);
 
         velocityChange.x -= cos (yaw) * acceleration;
         velocityChange.z -= sin (yaw) * acceleration;
@@ -74,8 +73,8 @@ void Player::toggleInput(const sf::Event& e)
     if (!m_isRotLocked)
         m_camera.update();
 
-    if (m_increaseBlockToggle.checkInput(e)) switchBlock(1);
-    if (m_decreaseBlockToggle.checkInput(e)) switchBlock(-1);
+    m_increaseBlockToggle.checkInput(e);
+    m_decreaseBlockToggle.checkInput(e);
 }
 
 

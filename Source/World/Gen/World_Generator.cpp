@@ -118,7 +118,7 @@ void World_Generator::generateBlockData()
 void World_Generator::setRandomSeed(int x, int y, int z)
 {
     Random::setSeed(Hasher::hash(x + Chunk::SIZE * m_p_chunk->getLocation().x + m_seed,
-                                 y + m_seed,
+                                 y + m_seed * x * z,
                                  z + Chunk::SIZE * m_p_chunk->getLocation().z + m_seed)); //This for trees, so they gen in the same place
 }
 

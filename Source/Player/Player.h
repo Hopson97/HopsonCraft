@@ -14,7 +14,10 @@ class Player
 {
     public:
         Player ();
-        void input  (const sf::Event& e);
+
+        void toggleInput(const sf::Event& e);
+
+        void input  ();
         void update (float dt, Camera& camera);
 
         const Camera&   getCamera   () const;
@@ -30,7 +33,6 @@ class Player
 
     private:
         void movementInput();
-        void toggleInput(const sf::Event& e);
 
         void switchBlock (int inc);
 
