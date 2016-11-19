@@ -12,9 +12,14 @@ namespace GUI
     {
         m_quad.setSize({500, 200});
         m_quad.setTexture(&Component::guiTexture);
+        m_quad.setOutlineColor(sf::Color::Black);
+        m_quad.setOutlineThickness(2);
 
         m_text.setFont(Component::guiFont);
         m_text.setString(text);
+        m_text.setOutlineColor(sf::Color::Black);
+        m_text.setOutlineThickness(2);
+        m_text.setCharacterSize(40);
     }
 
     void Button::input(const sf::Event& e)
@@ -48,6 +53,8 @@ namespace GUI
     {
         m_quad.setPosition(position);
         m_text.setPosition(position);
+        m_text.move(m_quad.getSize().x / 2 - m_text.getLocalBounds().width  / 2,
+                    m_quad.getSize().y / 2 - m_text.getLocalBounds().height / 2);
     }
 
     const sf::Vector2f& Button::getSize() const

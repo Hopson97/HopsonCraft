@@ -18,8 +18,6 @@
 
 #include "../Renderer/Master_Renderer.h"
 
-
-
 namespace State
 {
     Playing_State::Playing_State(Application& application,

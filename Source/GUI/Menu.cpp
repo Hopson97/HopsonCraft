@@ -8,6 +8,12 @@ namespace GUI
     :   m_layout (layout)
     { }
 
+    void Base_Menu::addBackgroud(const std::string& name)
+    {
+        m_background = std::make_unique<Background>(name);
+    }
+
+
     void Base_Menu::addComponent(std::unique_ptr<Component> component)
     {
         switch(m_layout)
@@ -38,6 +44,9 @@ namespace GUI
 
     void Base_Menu::draw(Master_Renderer& renderer)
     {
+        if(m_background)
+            m_background->draw(renderer);
+
         for (auto& c : m_components)
         {
             c->draw(renderer);
