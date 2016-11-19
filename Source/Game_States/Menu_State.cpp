@@ -24,6 +24,7 @@ namespace State
                                                       *m_worldName,
                                                       *m_seed));
                             }));
+
         m_menu.addBackgroud("bg");
 
         Display::showMouse();
