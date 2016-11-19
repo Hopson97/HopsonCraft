@@ -53,31 +53,31 @@ namespace State
         m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed);
     }
 
-    void Playing_State::sfInput(const sf::Event& e)
+    void Playing_State::input(const sf::Event& e)
     {
         m_chunkMap->input(e);
         m_player.toggleInput(e);
         m_debugDisplay.checkInput(e);
-
-        static sf::Clock blockEditClock;
-
-        if (e.type == sf::Event::MouseButtonPressed ||  e.type == sf::Event::KeyPressed)
-        {
-            if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
-            {
-                blockEdit(e);
-                blockEditClock.restart();
-            }
-        }
     }
 
 
     void Playing_State::input ()
     {
         m_player.input();
+        static sf::Clock blockEditClock;
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        {
+            if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
+            {
+                blockEdit();
+                blockEditClock.restart();
+            }
+        }
+
     }
 
-    void Playing_State::blockEdit(const sf::Event& e)
+    void Playing_State::blockEdit()
     {
         auto oldRayEnd = m_player.getPosition();
 
@@ -102,17 +102,17 @@ namespace State
             if (block->getPhysicalState() == Block::Physical_State::Solid ||
                 block->getPhysicalState() == Block::Physical_State::Flora)
             {
-                if (e.mouseButton.button == sf::Mouse::Left)
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 {
                     if (worldPoint != playerPoint)
                         m_chunkMap->setBlock(Block::air, ray.getEndPoint());
                 }
-                else if (e.mouseButton.button == sf::Mouse::Right)
+                else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                 {
                     if (worldPoint != playerPoint)
                         m_chunkMap->setBlock(m_player.getHeldBlock(), oldRayEnd);
                 }
-                if (e.key.code == sf::Keyboard::P)
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                 {
                     std::cout << "P" << std::endl;
                     if (worldPoint != playerPoint)
@@ -126,7 +126,6 @@ namespace State
             }
         }
     }
-
 
     void Playing_State::update  (float dt, Camera& camera)
     {
@@ -142,7 +141,6 @@ namespace State
     void Playing_State::draw (float dt, Master_Renderer& renderer)
     {
         m_chunkMap->draw(renderer);
-
 
         if (m_debugDisplayActive)
             Debug_Display::draw(renderer);

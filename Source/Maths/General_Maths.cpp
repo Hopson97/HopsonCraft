@@ -15,8 +15,9 @@ namespace Maths
 
     double getLength (const Vector3& vect)
     {
-        return std::abs (std::sqrt(vect.x * vect.x +
-                                   vect.y * vect.y +
-                                   vect.z * vect.z));
+        return std::abs (std::sqrt
+                        (vect.x * vect.x +
+                         vect.y * vect.y +
+                         vect.z * vect.z));
     }
 }//namespace maths

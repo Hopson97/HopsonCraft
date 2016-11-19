@@ -6,15 +6,11 @@
 #include "Game_State.h"
 
 #include "../Player/Player.h"
-
 #include "../Renderer/Master_Renderer.h"
-
 #include "../Input/Function_Toggle_Key.h"
-
 #include "../World/Chunk/Chunk_Map.h"
-#include "../World/Chunk/Chunk.h"
 
-
+class Camera;
 class Application;
 
 namespace State
@@ -26,15 +22,15 @@ namespace State
                             const std::string& worldName,
                             unsigned seed);
 
-            void sfInput    (const sf::Event& e);
-            void input      ();
-            void update     (float dt, Camera& camera);
-            void draw       (float dt, Master_Renderer& renderer);
+            void input  (const sf::Event& e);
+            void input  ();
+            void update (float dt, Camera& camera);
+            void draw   (float dt, Master_Renderer& renderer);
 
-            void exitState  () override;
+            void exitState  ();
 
         private:
-            void blockEdit(const sf::Event& e);
+            void blockEdit();
 
             std::unique_ptr<Chunk_Map> m_chunkMap;
 
