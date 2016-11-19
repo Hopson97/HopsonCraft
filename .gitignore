@@ -22,6 +22,6 @@ old/
 *.7z
 Project/
 
-glew.h 
-glew.c
-wglew.h
+#glew.h 
+#glew.c
+#wglew.h
