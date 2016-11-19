@@ -68,10 +68,10 @@ void World_Generator::generateMap(std::vector<int>& valueMap, const Noise::Gener
     {
         for (int z = 0 ; z < Chunk::SIZE ; z++)
         {
-            auto value = noiseGenerator.getHeight (x,
-                                                   z,
-                                                   m_p_chunk->getLocation().x,
-                                                   m_p_chunk->getLocation().z);
+            auto value = noiseGenerator.getValue(x,
+                                                 z,
+                                                 m_p_chunk->getLocation().x,
+                                                 m_p_chunk->getLocation().z);
             valueMap.push_back(value);
         }
     }

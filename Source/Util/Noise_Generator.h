@@ -25,7 +25,7 @@ namespace Noise
     class Generator
     {
         public:
-            int getHeight(int x, int z, int tileX, int tileZ) const;
+            int getValue(int x, int z, int tileX, int tileZ) const;
 
             void setNoiseFunction(const Noise::Data& data);
 

@@ -9,11 +9,15 @@
 #include <ctime>
 
 #include "Game_States/Playing_State.h"
+
 #include "Util/Random.h"
 #include "Util/Debug_Display.h"
 #include "Util/Display.h"
 #include "Util/Noise_Generator.h"
+#include "Util/Directory_Creator.h"
+
 #include "World/Block/D_Blocks.h"
+
 
 
 namespace
@@ -23,6 +27,7 @@ namespace
 
 Application::Application()
 {
+    Directory::create("Worlds");
     init();
     m_stateStack.push(std::make_unique<State::Playing_State>(*this));
 }

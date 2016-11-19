@@ -66,7 +66,7 @@ namespace Noise
 
     // Here we get how terrain at X, Y is high. zoomget is only for some testing reasons.
     // Here you can edit maximum and minimum level of height.
-    int Generator::getHeight(int x, int z, int tileX, int tileZ) const
+    int Generator::getValue(int x, int z, int tileX, int tileZ) const
     {
         auto newX = (x + (tileX * Chunk::SIZE));
         auto newZ = (z + (tileZ * Chunk::SIZE));
