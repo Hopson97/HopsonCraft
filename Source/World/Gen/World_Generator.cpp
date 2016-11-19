@@ -200,7 +200,9 @@ void World_Generator::tryAddFlora(const Block_Location& location)
     {
         if (Random::integer(1, m_p_activeBiome->getFloraFrequency()) == 1)
         {
-            m_flora.insert(std::make_pair(location, &m_p_activeBiome->getFlora()));
+            //Make sure plants are not placed where a structure is going to be.
+            if (m_structures.find(location) == m_structures.end())
+                m_flora.insert(std::make_pair(location, &m_p_activeBiome->getFlora()));
         }
     }
 }
