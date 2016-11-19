@@ -15,8 +15,8 @@ namespace Display
 
         void initGL (const sf::VideoMode& videoMode)
         {
-            glewInit();
             glewExperimental = GL_TRUE;
+            glewInit();
 
             glEnable    ( GL_DEPTH_TEST );
 
