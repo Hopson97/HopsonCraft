@@ -9,16 +9,27 @@ namespace State
 {
     Main_Menu_State::Main_Menu_State(Application& application)
     :   Game_State  (application)
+    ,   m_menu      (GUI::Layout::Center)
     {
         m_menu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
                             {
                                 m_application->pushState (std::make_unique<Playing_State>(
                                                       *m_application,
-                                                      "Test",
-                                                       99999));
+                                                      *m_worldName,
+                                                      *m_seed));
                             }));
         Display::showMouse();
+
+        m_seed = new int(5000);
+        m_worldName = new std::string("Test");
     }
+
+    Main_Menu_State::~Main_Menu_State()
+    {
+        delete m_seed;
+        delete m_worldName;
+    }
+
 
     void Main_Menu_State::input(const sf::Event& e)
     {
@@ -42,7 +53,8 @@ namespace State
 
     void Main_Menu_State::exitState()
     {
-
+        delete m_seed;
+        delete m_worldName;
     }
 
 }

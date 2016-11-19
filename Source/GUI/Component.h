@@ -11,10 +11,15 @@ namespace GUI
     {
         public:
             Component();
+            virtual ~Component(){}
 
             virtual void input  (const sf::Event& e) = 0;
             virtual void update () = 0;
             virtual void draw   (Master_Renderer& renderer) = 0;
+
+            virtual void setPosition    (const sf::Vector2f& position) = 0;
+
+            virtual const sf::Vector2f& getSize () const = 0;
 
         protected:
             static sf::Texture guiTexture;

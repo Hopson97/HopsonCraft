@@ -1,9 +1,22 @@
 #include "Menu.h"
 
+#include "../Util/Display.h"
+
 namespace GUI
 {
+    Base_Menu::Base_Menu(Layout layout)
+    :   m_layout (layout)
+    { }
+
     void Base_Menu::addComponent(std::unique_ptr<Component> component)
     {
+        switch(m_layout)
+        {
+            case Layout::Center:
+                addComponentCenter(component);
+                break;
+        }
+
         m_components.push_back(std::move(component));
     }
 
@@ -30,4 +43,11 @@ namespace GUI
             c->draw(renderer);
         }
     }
+
+    void Base_Menu::addComponentCenter(std::unique_ptr<Component>& component)
+    {
+        component->setPosition({Display::WIDTH / 2,
+                               100 + m_components.size() * component->getSize().y});
+    }
+
 }

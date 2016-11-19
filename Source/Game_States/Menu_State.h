@@ -17,6 +17,8 @@ namespace State
         public:
             Main_Menu_State(Application& application);
 
+            ~Main_Menu_State();
+
             void input  (const sf::Event& e);
             void input  ();
             void update (float dt, Camera& camera);
@@ -26,6 +28,9 @@ namespace State
 
         private:
             GUI::Base_Menu m_menu;
+
+            int*            m_seed;
+            std::string*    m_worldName;
     };
 }
 

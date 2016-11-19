@@ -43,4 +43,17 @@ namespace GUI
         renderer.processSfDrawable(m_quad);
         renderer.processSfDrawable(m_text);
     }
+
+    void Button::setPosition(const sf::Vector2f& position)
+    {
+        m_quad.setPosition(position);
+        m_text.setPosition(position);
+    }
+
+    const sf::Vector2f& Button::getSize() const
+    {
+        return m_quad.getSize();
+    }
+
+
 }
