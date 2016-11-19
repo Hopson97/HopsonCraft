@@ -10,28 +10,33 @@ Please use -O3 in release mode!
 
 ## How it works:
 
-####Rendering:
-  Only exposed faces are rendered, or actually added to the vertex array for each chunk.
-  So far, there is 2 draw calls per chunk; one for the water and one for the "ground/flora". This is so that the water can have a shader indepenant from the ground shader, which allows the water to have "waves".
+###Rendering:
+	For rendering, I have a few classes. The main one is the "Chunk_Renderer", which is actually a base class for different parts of the chunks: The solid parts, liqud, and flora. 
+	
+	The reason behind different renderers for different parts of the mesh is that they do it a bit different. For example, the water and flora shaders each have special shaders, thus need have a differet shader active for their draw calls.
+
+	A major optimization in terms of rendering is that when I generate vertex data for a chunk, I only add exposed faces (there are some cases where this isn't 100% true, but it is mostly) to the mesh. This saves memory, and makes draw calls faster than if I were to draw every single block.
+	
   
 ####World Generation:
-As world generation is slowish, it is done on a seperate thread.
+	This is all done on a seperate thread, and is done in a few stages.
+	
+	The first stage is creating the actual block data for a given chunk. This uses a noise algorithm in two stages. 
+	
+	Stage one is simply the creation of a height map, which gives each "collumn" of blocks within a chunk an initial maximum height. 
+	
+	Stage two is a bitome map. This uses a "smoother" input in the noise functions, and is also done for each column of blocks, giving them a "biome value". The biomes value is then used to determine the surface block there, as well as possible flora and structures.
 
-On this thread, there are two values used: The loading distance and render distance.
+####Breaking blocks
 
-The loading distance starts at a very small value. This will load chunks with "loading distance" distance from the player's current chunk location. Each iteration, the loading distance increases until it reaches the value of the render ditance, which is when it resets back to a small number.
-
-To generate a chunks, a simple value noise algorithim is used to calculate a height map, which is used to work out what type of blocks go where in a chunk.
-
+	The input for breaking blocks is a simple raycast from the ceneter of the screen, which returns a block at the end of it.
+	
 ## Screenshots:
 
-![Blocks](http://i.imgur.com/MsdCJbz.png "Blocks")
+![Valley](http://i.imgur.com/pDkpGmN.png "Valley")
 
-![Blocks](http://i.imgur.com/imAEdza.png "Blocks")
+![Mountain](http://i.imgur.com/HLMnOjZ.png "Mountain")
 
-![Blocks](http://i.imgur.com/KGxWgGw.png "Blocks")
+![View](http://i.imgur.com/Bl5CFdI.png "View")
 
-## Future:
-
-I hope to add collison detection, and make it for Minecraft-y, eg the ability to break and place blocks.
 
