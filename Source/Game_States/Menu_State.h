@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game_State.h"
+#include "../GUI/Menu.h"
 
 class Application;
 class Camera;
@@ -24,6 +25,7 @@ namespace State
             void exitState  ();
 
         private:
+            GUI::Base_Menu m_menu;
     };
 }
 

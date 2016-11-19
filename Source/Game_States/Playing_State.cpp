@@ -31,6 +31,7 @@ namespace State
     ,   m_worldName         (worldName)
     ,   m_worldSeed         (seed)
     {
+        Display::hideMouse();
         Directory::create("Worlds");
 
         crossHairTexture.loadFromFile("Data/Images/Crosshair.png");

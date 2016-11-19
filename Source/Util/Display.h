@@ -25,6 +25,9 @@ namespace Display
 
 	bool checkForClose(const sf::Event& e);
 	void close	();
+
+	void showMouse();
+	void hideMouse();
 }
 
 #endif

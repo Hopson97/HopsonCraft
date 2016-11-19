@@ -87,6 +87,8 @@
 		<Unit filename="Source/Application.cpp" />
 		<Unit filename="Source/Application.h" />
 		<Unit filename="Source/D_Settings.h" />
+		<Unit filename="Source/GUI/Button.cpp" />
+		<Unit filename="Source/GUI/Button.h" />
 		<Unit filename="Source/GUI/Component.cpp" />
 		<Unit filename="Source/GUI/Component.h" />
 		<Unit filename="Source/GUI/Menu.cpp" />

@@ -45,7 +45,6 @@ namespace Display
                                                     name,
                                                     sf::Style::Close,
                                                     settings);
-        window->setMouseCursorVisible(false);
         window->setPosition ({0, 0});
         initGL(videoMode);
     }
@@ -115,11 +114,21 @@ namespace Display
             default:
                 return false;
         }
-
     }
 
     void close()
     {
         window->close();
     }
+
+    void showMouse()
+    {
+        window->setMouseCursorVisible(true);
+    }
+
+    void hideMouse()
+    {
+        window->setMouseCursorVisible(false);
+    }
+
 }

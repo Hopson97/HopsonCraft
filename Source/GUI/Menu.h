@@ -14,6 +14,8 @@ namespace GUI
     class Base_Menu
     {
         public:
+            void addComponent(std::unique_ptr<Component> component);
+
             void input  (const sf::Event& e);
             void update ();
             void draw   (Master_Renderer& renderer);
