@@ -27,7 +27,11 @@ typedef std::unique_ptr<Chunk> Chunk_Ptr;
 class Chunk
 {
     public:
-        Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas);
+        Chunk(const Chunk_Location& position,
+              Chunk_Map& chunkMap,
+              const Texture_Atlas& blockAtlas,
+              unsigned seed,
+              const std::string& worldName);
 
         bool hasBlockData   () const;
         bool hasMesh        () const;
@@ -46,14 +50,14 @@ class Chunk
 
         const Chunk_Mesh& getMesh() const;
 
-        void giveDeleteFlag ();
+        void giveDeleteFlag (const std::string& worldName);
         bool hasDeleteFlag  () const;
 
         void update         ();
         void giveUpdateFlag ();
         bool hasUpdateFlag  () const;
 
-        void saveToFile     ();
+        void saveToFile     (const std::string& worldName);
 
         static constexpr int SIZE  = 20,
                              WATER_LEVEL = 90,
@@ -61,8 +65,8 @@ class Chunk
                              SNOW_LEVEL = 240;
 
     private:
-        void loadBlockData          ();
-        std::string getFileString   ();
+        void loadBlockData          (const std::string& worldName);
+        std::string getFileString   (const std::string& worldName);
 
     private:
         Chunk_Location m_location; //Map coords

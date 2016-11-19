@@ -22,7 +22,9 @@ namespace State
     class Playing_State : public Game_State
     {
         public:
-            Playing_State  (Application& application);
+            Playing_State  (Application& application,
+                            const std::string& worldName,
+                            unsigned seed);
 
             void input      (const sf::Event& e)  override;
             void update     (float dt, Camera& camera)  override;
@@ -33,17 +35,20 @@ namespace State
         private:
             void blockEdit();
 
+            std::unique_ptr<Chunk_Map> m_chunkMap;
+
             Player          m_player;
             Chunk_Location  m_playerPosition;
-            Chunk_Map       m_chunkMap;
-
 
             bool m_debugDisplayActive = false;
 
             Function_Toggle_Key m_debugDisplay;
 
             sf::Texture crossHairTexture;
-            sf::Sprite  crossHairSprite;
+            sf::Sprite crossHairSprite;
+
+            std::string m_worldName;
+            unsigned    m_worldSeed;
     };
 }
 

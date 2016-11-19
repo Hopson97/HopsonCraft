@@ -22,8 +22,12 @@ struct Area;
 class Chunk_Map
 {
     public:
-        Chunk_Map   (const Chunk_Location& playerPosition);
+        Chunk_Map   (const Chunk_Location& playerPosition,
+                     const std::string& worldName,
+                     unsigned seed);
+
         ~Chunk_Map  ();
+
         Chunk* getChunkAt (const Chunk_Location& location);
         void addChunk(const Chunk_Location& location);
 
@@ -67,6 +71,9 @@ class Chunk_Map
         const Chunk_Location* m_playerPosition;
 
         std::thread m_chunkManageThread;
+
+        std::string m_worldName;
+        unsigned    m_worldSeed;
 };
 
 #endif // CHUNK_MAP_H

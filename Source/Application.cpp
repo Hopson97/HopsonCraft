@@ -27,9 +27,8 @@ namespace
 
 Application::Application()
 {
-    Directory::create("Worlds");
     init();
-    m_stateStack.push(std::make_unique<State::Playing_State>(*this));
+    m_stateStack.push(std::make_unique<State::Playing_State>(*this, "Test World", Noise::getSeed() ));
 }
 
 Application::~Application()

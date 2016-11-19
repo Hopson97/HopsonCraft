@@ -22,13 +22,16 @@
 
 namespace State
 {
-    Playing_State::Playing_State(Application& application)
+    Playing_State::Playing_State(Application& application,
+                                const std::string& worldName,
+                                unsigned seed)
     :   Game_State          (application)
-    ,   m_playerPosition    ({(int)m_player.getPosition().x / Chunk::SIZE,
-                              (int)m_player.getPosition().z / Chunk::SIZE})
-    ,   m_chunkMap          (m_playerPosition)
+    ,   m_playerPosition    (Maths::worldToChunkPosition(m_player.getPosition()))
     ,   m_debugDisplay      ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, 0.5)
+    ,   m_worldName         (worldName)
+    ,   m_worldSeed         (seed)
     {
+        Directory::create("Worlds");
 
         crossHairTexture.loadFromFile("Data/Images/Crosshair.png");
         crossHairSprite.setTexture(crossHairTexture);
@@ -36,20 +39,23 @@ namespace State
                                     Display::get().getSize().y / 2 - crossHairSprite.getTexture()->getSize().y / 2);
 
 
-        Directory::create("Worlds/" + std::to_string(Noise::getSeed()));
+        Directory::create("Worlds/" + worldName);
 
-        std::ifstream inFile("Worlds/" + std::to_string(Noise::getSeed() ) + "/World_Info.data");
+        std::ifstream inFile("Worlds/" + worldName + "/World_Info.data");
         if (inFile.is_open())
         {
             int x, y, z;
             inFile >> x >> y >> z;
             m_player.setPosition({x + 0.5, y + 0.5, z + 0.5});
+            inFile >> m_worldSeed;
         }
+
+        m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed);
     }
 
     void Playing_State::input (const sf::Event& e)
     {
-        m_chunkMap.input(e);
+        m_chunkMap->input(e);
         m_player.input(e);
         m_debugDisplay.checkInput(e);
 
@@ -85,23 +91,23 @@ namespace State
 
             const auto& worldPoint = Maths::worldToBlockPosition(ray.getEndPoint());
 
-            if (m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Solid ||
-                m_chunkMap.getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Flora)
+            if (m_chunkMap->getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Solid ||
+                m_chunkMap->getBlockAt(ray.getEndPoint()).getPhysicalState() == Block::Physical_State::Flora)
             {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 {
                     if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
-                        m_chunkMap.setBlock(Block::air, ray.getEndPoint());
+                        m_chunkMap->setBlock(Block::air, ray.getEndPoint());
                 }
                 else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                 {
                     if (worldPoint != Maths::worldToBlockPosition(m_player.getPosition()))
-                        m_chunkMap.makeExplosion(ray.getEndPoint(), 5);
+                        m_chunkMap->makeExplosion(ray.getEndPoint(), 5);
                 }
                 else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                 {
                     if (Maths::worldToBlockPosition(oldRayEnd) != Maths::worldToBlockPosition(m_player.getPosition()))
-                        m_chunkMap.setBlock(m_player.getHeldBlock(), oldRayEnd);
+                        m_chunkMap->setBlock(m_player.getHeldBlock(), oldRayEnd);
                 }
                 break;
             }
@@ -121,12 +127,12 @@ namespace State
         m_playerPosition = {(int)m_player.getPosition().x / Chunk::SIZE,
                             (int)m_player.getPosition().z / Chunk::SIZE};
 
-        m_chunkMap.checkChunks();//This must be the last thing to happen in the update function here!
+        m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
     }
 
     void Playing_State::draw (float dt, Master_Renderer& renderer)
     {
-        m_chunkMap.draw(renderer);
+        m_chunkMap->draw(renderer);
 
 
         if (m_debugDisplayActive)
@@ -138,11 +144,11 @@ namespace State
 
     void Playing_State::exitState()
     {
+        m_chunkMap->saveChunks();
 
-        m_chunkMap.saveChunks();
-
-        std::ofstream outFile ("Worlds/" + std::to_string(Noise::getSeed() ) + "/World_Info.data");
+        std::ofstream outFile ("Worlds/" + m_worldName + "/World_Info.data");
         outFile << (int)m_player.getPosition().x << " " << (int)m_player.getPosition().y << " " << (int)m_player.getPosition().z << std::endl;
+        outFile << m_worldSeed << std::endl;
     }
 
 }

@@ -15,10 +15,14 @@
 
 #include "../../Renderer/Master_Renderer.h"
 
-Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition)
+Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition,
+                     const std::string& worldName,
+                     unsigned seed)
 :   m_blockTextures     (1024, 16, "Block_Atlas")
 ,   m_playerPosition    (&playerPosition)
 ,   m_chunkManageThread (&Chunk_Map::manageChunks, this)
+,   m_worldName         (worldName)
+,   m_worldSeed         (seed)
 {
     m_chunkManageThread.detach();
 }
@@ -46,7 +50,11 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
 {
     if (!getChunkAt(location))
     {
-        std::unique_ptr<Chunk> c = std::make_unique<Chunk>(location, *this, m_blockTextures);
+        std::unique_ptr<Chunk> c = std::make_unique<Chunk>(location,
+                                                           *this,
+                                                           m_blockTextures,
+                                                           m_worldSeed,
+                                                           m_worldName);
         m_chunks[location] = std::move(c);
     }
 }
@@ -207,12 +215,9 @@ void Chunk_Map::saveChunks()
 {
     for (auto& chunk : m_chunks)
     {
-        chunk.second->saveToFile();
+        chunk.second->saveToFile(m_worldName);
     }
 }
-
-
-
 
 /*
 makeEplosion:
@@ -364,7 +369,7 @@ void Chunk_Map::flagChunksForDelete( const Area& deleteArea )
             loc.z < deleteArea.minZ ||
             loc.z > deleteArea.maxZ)
         {
-            chunk.giveDeleteFlag();
+            chunk.giveDeleteFlag(m_worldName);
         }
     }
 }

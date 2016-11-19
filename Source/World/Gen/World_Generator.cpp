@@ -20,9 +20,11 @@ namespace
     Noise::Generator biomeNoise;
 }
 
-World_Generator::World_Generator(Chunk& chunk)
+World_Generator::World_Generator(Chunk& chunk,
+                                 unsigned seed)
 :   m_p_chunk   (&chunk)
 ,   m_maxHeight (Chunk::WATER_LEVEL + 1)
+,   m_seed      (seed)
 {
     static bool biomesSetUp = false;
     if (!biomesSetUp)
@@ -115,11 +117,9 @@ void World_Generator::generateBlockData()
 
 void World_Generator::setRandomSeed(int x, int y, int z)
 {
-    auto seed = Noise::getSeed();
-
-    Random::setSeed(Hasher::hash(x + Chunk::SIZE * m_p_chunk->getLocation().x + seed,
-                                 y + seed,
-                                 z + Chunk::SIZE * m_p_chunk->getLocation().z + seed)); //This for trees, so they gen in the same place
+    Random::setSeed(Hasher::hash(x + Chunk::SIZE * m_p_chunk->getLocation().x + m_seed,
+                                 y + m_seed,
+                                 z + Chunk::SIZE * m_p_chunk->getLocation().z + m_seed)); //This for trees, so they gen in the same place
 }
 
 void World_Generator::setBlock(const Block_Location& location, int h)
@@ -226,8 +226,8 @@ void World_Generator::setUpBiomes ()
     terrainNoise.setNoiseFunction({10, 225, 0.5, 260, -35});  //DO NOT TOUCH PLEASE
     biomeNoise.setNoiseFunction({7, 250, 0.5, 240, 0});
 
-    terrainNoise.setSeed(Noise::getSeed());
-    biomeNoise.setSeed((Noise::getSeed() * 12) / 33);
+    terrainNoise.setSeed(m_seed);
+    biomeNoise.setSeed((m_seed * 2) / 25);
 
     //===================================
     //Forest

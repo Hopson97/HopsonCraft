@@ -11,18 +11,21 @@
 
 #include "Chunk_Map.h"
 
-Chunk::Chunk(const Chunk_Location& position, Chunk_Map& chunkMap, const Texture_Atlas& blockAtlas)
-//:   m_layers        (WATER_LEVEL + 1)
+Chunk::Chunk(const Chunk_Location& position,
+              Chunk_Map& chunkMap,
+              const Texture_Atlas& blockAtlas,
+              unsigned seed,
+              const std::string& worldName)
 :   m_location      (position)
 ,   m_position      (position.x * SIZE, position.z * SIZE)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_p_atlas       (&blockAtlas)
 ,   m_mesh          (*this)
 ,   m_blocks        (*this, m_location, *m_p_chunkMap)
-,   m_worldGenerator(*this)
+,   m_worldGenerator(*this, seed)
 {
     m_worldGenerator.generate();
-    loadBlockData ();
+    loadBlockData (worldName);
 
     m_hasBlockData = true;
 }
@@ -83,9 +86,9 @@ const Chunk_Mesh& Chunk::getMesh() const
 }
 
 
-void Chunk::giveDeleteFlag ()
+void Chunk::giveDeleteFlag (const std::string& worldName)
 {
-    saveToFile();
+    saveToFile(worldName);
     m_hasDeleteFlag = true;
 }
 
@@ -111,28 +114,28 @@ bool Chunk::hasUpdateFlag() const
     return m_hasUpdateFlag;
 }
 
-void Chunk::saveToFile()
+void Chunk::saveToFile(const std::string& worldName)
 {
     if(!m_blocks.getAddedBlocks().empty())
     {
-        std::ofstream outFile (getFileString());
+        std::ofstream outFile (getFileString(worldName));
 
         for(auto& block : m_blocks.getAddedBlocks())
         {
             const Block_Location& l = block.first;
 
-            outFile << l.x << " " << l.y << " " << l.z << " ";
-            outFile << block.second << std::endl;
+            outFile << l.x << " " << l.y << " " << l.z << " ";  //Block location
+            outFile << block.second << std::endl;               //Block ID
         }
     }
 
 }
 
 
-std::string Chunk::getFileString()
+std::string Chunk::getFileString(const std::string& worldName)
 {
     return "Worlds/" +
-            std::to_string(Noise::getSeed()) +
+            worldName +
             "/" +
             std::to_string(m_location.x)
             + " "
@@ -149,9 +152,9 @@ const Chunk_Blocks& Chunk::getBlocks() const
     return m_blocks;
 }
 
-void Chunk::loadBlockData ()
+void Chunk::loadBlockData (const std::string& worldName)
 {
-    std::ifstream inFile(getFileString());
+    std::ifstream inFile(getFileString(worldName));
 
     if(!inFile.is_open())
         return;
