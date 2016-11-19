@@ -47,7 +47,13 @@ void Application::runMainLoop()
 
         m_renderer.prepare();
 
-        m_stateStack.top()->input   (dt);
+        sf::Event e;
+        while (Display::get().pollEvent(e))
+        {
+            if (Display::checkForClose(e))
+                return;
+        }
+        m_stateStack.top()->input   (e);
         m_stateStack.top()->update  (dt, m_camera);
         m_stateStack.top()->draw    (dt, m_renderer);
 
@@ -57,8 +63,6 @@ void Application::runMainLoop()
 
         if(m_songTimer.getElapsedTime() > m_songDuration )
             resetSong();
-
-        Display::checkForClose();
     }
 }
 

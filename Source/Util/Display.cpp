@@ -94,7 +94,7 @@ namespace Display
     }
     //End of SFML functions
 
-    const sf::RenderWindow& get()
+    sf::RenderWindow& get()
     {
         return *window;
     }
@@ -104,20 +104,18 @@ namespace Display
         return (float)window->getSize().x / (float)window->getSize().y;
     }
 
-    void checkForClose()
+    bool checkForClose(const sf::Event& e)
     {
-        sf::Event e;
-        while (window->pollEvent(e))
+        switch(e.type)
         {
-            switch(e.type)
-            {
-                case sf::Event::Closed:
-                    close();
-                    break;
-                default:
-                    break;
-            }
+            case sf::Event::Closed:
+                close();
+                return true;
+
+            default:
+                return false;
         }
+
     }
 
     void close()

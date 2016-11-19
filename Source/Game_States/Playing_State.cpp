@@ -47,20 +47,20 @@ namespace State
         }
     }
 
-    void Playing_State::input (float dt)
+    void Playing_State::input (const sf::Event& e)
     {
-        m_player.input();
-        m_debugDisplay.checkInput();
+        m_chunkMap.input(e);
+        m_player.input(e);
+        m_debugDisplay.checkInput(e);
 
-        static sf::Clock breakBlockClock;
+        static sf::Clock blockEditClock;
 
-        //Block breaking and placing
-        if (breakBlockClock.getElapsedTime().asSeconds() > 0.2)
+        if (e.type == sf::Event::MouseButtonPressed)
         {
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+            if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
             {
                 blockEdit();
-                breakBlockClock.restart();
+                blockEditClock.restart();
             }
         }
     }

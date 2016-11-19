@@ -19,11 +19,11 @@ namespace Display
 	void sfDraw         (const sf::Drawable& drawable);
 	void endSfDraw      ();
 
-	const sf::RenderWindow& get();
+    sf::RenderWindow& get();
 
 	float getAspect();
 
-	void checkForClose();
+	bool checkForClose(const sf::Event& e);
 	void close	();
 }
 

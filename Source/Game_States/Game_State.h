@@ -3,6 +3,11 @@
 
 //this is the base class
 
+namespace sf
+{
+    class Event;
+}
+
 class Application;
 class Camera;
 class Master_Renderer;
@@ -15,7 +20,7 @@ namespace State
             Game_State  (Application& application);
             virtual ~Game_State(){}
 
-            virtual void input      (float dt)  = 0;
+            virtual void input      (const sf::Event& e)  = 0;
             virtual void update     (float dt, Camera& camera)  = 0;
             virtual void draw       (float dt, Master_Renderer& renderer)  = 0;
             virtual void exitState  ()          = 0;

@@ -16,10 +16,10 @@ Player::Player()
     Debug_Display::addheldBlock(*m_heldBlock);
 }
 
-void Player::input()
+void Player::input(const sf::Event& e)
 {
     movementInput();
-    toggleInput();
+    toggleInput(e);
 }
 
 void Player::movementInput()
@@ -68,14 +68,14 @@ void Player::movementInput()
     m_velocity += velocityChange;
 }
 
-void Player::toggleInput()
+void Player::toggleInput(const sf::Event& e)
 {
-    m_rotationLock.checkInput();
+    m_rotationLock.checkInput(e);
     if (!m_isRotLocked)
         m_camera.update();
 
-    if (m_increaseBlockToggle.checkInput()) switchBlock(1);
-    if (m_decreaseBlockToggle.checkInput()) switchBlock(-1);
+    if (m_increaseBlockToggle.checkInput(e)) switchBlock(1);
+    if (m_decreaseBlockToggle.checkInput(e)) switchBlock(-1);
 }
 
 

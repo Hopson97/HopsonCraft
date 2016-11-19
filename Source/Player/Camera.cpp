@@ -9,9 +9,6 @@
 
 #include "../Input/Function_Toggle_Key.h"
 
-bool kekpressed = false;
-
-
 void Camera::update ()
 {
     auto mouseMove = m_lastMosuePos - sf::Mouse::getPosition(Display::get());
@@ -20,15 +17,6 @@ void Camera::update ()
     m_rotation.x -= (float)mouseMove.y / 0.9;
 
     m_lastMosuePos = sf::Mouse::getPosition(Display::get());
-
-    static Function_Toggle_Key key([&](){ kekpressed = !kekpressed; }, sf::Keyboard::R, 0.5);
-
-    key.checkInput();
-
-    if(kekpressed)
-    {
-        m_rotation.y += 0.1;
-    }
 
     if      (m_rotation.x > 80 ) m_rotation.x = 80;
     else if (m_rotation.x < -80) m_rotation.x = -80;

@@ -10,6 +10,11 @@
 
 #include "../../Texture/Texture_Atlas.h"
 
+namespace sf
+{
+    class Event;
+}
+
 class Camera;
 class Master_Renderer;
 struct Area;
@@ -21,6 +26,8 @@ class Chunk_Map
         ~Chunk_Map  ();
         Chunk* getChunkAt (const Chunk_Location& location);
         void addChunk(const Chunk_Location& location);
+
+        void input(const sf::Event& e); //temp
 
         void checkChunks ();
         void draw(Master_Renderer& renderer);

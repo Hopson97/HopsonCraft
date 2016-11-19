@@ -24,7 +24,7 @@ namespace State
         public:
             Playing_State  (Application& application);
 
-            void input      (float dt)  override;
+            void input      (const sf::Event& e)  override;
             void update     (float dt, Camera& camera)  override;
             void draw       (float dt, Master_Renderer& renderer)  override;
 
