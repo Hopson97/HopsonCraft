@@ -20,7 +20,7 @@ namespace GUI
 
     void Image::draw(Master_Renderer& renderer)
     {
-        renderer.processSfDrawable(m_quad);
+        renderer.draw(m_quad);
     }
 
     void Image::setPosition(const sf::Vector2f& position)

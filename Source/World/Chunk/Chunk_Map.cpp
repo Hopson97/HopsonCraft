@@ -86,7 +86,7 @@ void Chunk_Map::draw(Master_Renderer& renderer)
         {
             //if ((Maths::getChunkDistance(c->getLocation(), *m_playerPosition) <= m_renderDistance))
             {
-                renderer.processChunk(*c);
+                renderer.draw(*c);
             }
             itr++;
         }

@@ -144,7 +144,7 @@ namespace State
         if (m_debugDisplayActive)
             Debug_Display::draw(renderer);
 
-        renderer.processSfDrawable(crossHairSprite);
+        renderer.draw(crossHairSprite);
     }
 
 

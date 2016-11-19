@@ -121,17 +121,17 @@ namespace Debug_Display
 
     void draw(Master_Renderer& renderer)
     {
-        renderer.processSfDrawable(t_fps);
+        renderer.draw(t_fps);
 
-        renderer.processSfDrawable(t_chunkPosition);
-        renderer.processSfDrawable(t_blockPosition);
-        renderer.processSfDrawable(t_worldPosition);
+        renderer.draw(t_chunkPosition);
+        renderer.draw(t_blockPosition);
+        renderer.draw(t_worldPosition);
 
-        renderer.processSfDrawable(t_lookVector);
+        renderer.draw(t_lookVector);
 
-        renderer.processSfDrawable(t_chunkUpdates);
-        renderer.processSfDrawable(t_numChunks);
+        renderer.draw(t_chunkUpdates);
+        renderer.draw(t_numChunks);
 
-        renderer.processSfDrawable(t_heldBlock);
+        renderer.draw(t_heldBlock);
     }
 }

@@ -20,12 +20,12 @@ class Master_Renderer
     public:
         Master_Renderer();
 
-        void prepare ();
+        void clear ();
 
-        void processChunk       (const Chunk& chunk);
-        void processSfDrawable  (const sf::Drawable& sfDrawable);
+        void draw (const Chunk& chunk);
+        void draw (const sf::Drawable& sfDrawable);
 
-        void render (const Camera& camera);
+        void update (const Camera& camera);
 
     private:
         void drawScene(const Camera& camera);

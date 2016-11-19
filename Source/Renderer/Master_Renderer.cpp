@@ -33,7 +33,7 @@ Master_Renderer::Master_Renderer()
     m_quad.addData(quadVerticies, quadTextureCoords, quadIndices);
 }
 
-void Master_Renderer::prepare()
+void Master_Renderer::clear()
 {
     m_framebuffer.clear();
 
@@ -43,19 +43,19 @@ void Master_Renderer::prepare()
 }
 
 
-void Master_Renderer::processChunk(const Chunk& chunk)
+void Master_Renderer::draw(const Chunk& chunk)
 {
     m_chunkRenderer.addChunk    (chunk);
     m_waterRenderer.addChunk    (chunk);
     m_floraRenderer.addChunk    (chunk);
 }
 
-void Master_Renderer::processSfDrawable(const sf::Drawable& sfDrawable)
+void Master_Renderer::draw(const sf::Drawable& sfDrawable)
 {
     m_sfmlRenderer.addSfDrawable(sfDrawable);
 }
 
-void Master_Renderer::render (const Camera& camera)
+void Master_Renderer::update (const Camera& camera)
 {
     //Draw the scene (to the FBO)
     drawScene(camera);

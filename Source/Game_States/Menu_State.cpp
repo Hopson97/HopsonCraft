@@ -19,10 +19,10 @@ namespace State
 
         m_menu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
                             {
-                                m_application->pushState (std::make_unique<Playing_State>(
-                                                      *m_application,
-                                                      *m_worldName,
-                                                      *m_seed));
+                                m_application->changeState (std::make_unique<Playing_State>(
+                                                            *m_application,
+                                                            *m_worldName,
+                                                            *m_seed));
                             }));
 
         m_menu.addBackgroud("bg");

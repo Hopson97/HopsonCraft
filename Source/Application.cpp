@@ -51,7 +51,7 @@ void Application::runMainLoop()
     {
         auto dt = dtClock.restart().asSeconds();
 
-        m_renderer.prepare();
+        m_renderer.clear();
 
         sf::Event e;
         while (Display::get().pollEvent(e))
@@ -65,13 +65,19 @@ void Application::runMainLoop()
         m_stateStack.top()->update  (dt, m_camera);
         m_stateStack.top()->draw    (dt, m_renderer);
 
-        m_renderer.render(m_camera);
+        m_renderer.update(m_camera);
 
         checkFps();
 
         if(m_songTimer.getElapsedTime() > m_songDuration )
             resetSong();
     }
+}
+
+void Application::changeState(std::unique_ptr<State::Game_State> state)
+{
+    popState();
+    pushState(std::move(state));
 }
 
 

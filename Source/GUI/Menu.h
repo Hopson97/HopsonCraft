@@ -37,6 +37,9 @@ namespace GUI
 
             Layout m_layout;
 
+            int m_currentX = 0;
+            int m_currentY = 0;
+
     };
 }
 

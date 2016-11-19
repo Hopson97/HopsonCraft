@@ -20,7 +20,7 @@ class Camera
 
     private:
         Vector3 m_position;
-        Vector3 m_rotation = {0, 180, 0};
+        Vector3 m_rotation = {0, 0, 0};
 
         sf::Vector2i m_lastMosuePos;
 };

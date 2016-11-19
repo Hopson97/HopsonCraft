@@ -16,6 +16,6 @@ namespace GUI
 
     void Background::draw(Master_Renderer& renderer)
     {
-        renderer.processSfDrawable(m_quad);
+        renderer.draw(m_quad);
     }
 }

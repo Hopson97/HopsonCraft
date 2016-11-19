@@ -44,8 +44,8 @@ namespace GUI
 
     void Button::draw(Master_Renderer& renderer)
     {
-        renderer.processSfDrawable(m_quad);
-        renderer.processSfDrawable(m_text);
+        renderer.draw(m_quad);
+        renderer.draw(m_text);
     }
 
     void Button::setPosition(const sf::Vector2f& position)
