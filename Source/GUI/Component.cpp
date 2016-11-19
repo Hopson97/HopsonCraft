@@ -12,6 +12,8 @@ namespace GUI
         if (!hasSetupResources)
         {
             guiTexture.loadFromFile("Data/Images/GUITexture.png");
+            guiTexture.setRepeated(true);
+
             guiFont.loadFromFile("Data/Font/kongtext.ttf");    //monospace font
         }
     }

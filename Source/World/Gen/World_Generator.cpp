@@ -223,7 +223,7 @@ void World_Generator::setActiveBiome(int value)
 
 void World_Generator::setUpBiomes ()
 {
-    terrainNoise.setNoiseFunction({10, 225, 0.5, 260, -35});  //DO NOT TOUCH PLEASE
+    terrainNoise.setNoiseFunction({9, 225, 0.515, 260, -35});  //DO NOT TOUCH PLEASE
     biomeNoise.setNoiseFunction({7, 250, 0.5, 240, 0});
 
     terrainNoise.setSeed(m_seed);
@@ -243,13 +243,11 @@ void World_Generator::setUpBiomes ()
 
     //===================================
     //Dirt Forest
-    dirtForest.addBlock(Block::grass, 40);
-    dirtForest.addBlock(Block::dirt, 1);
-
+    dirtForest.addBlock(Block::grass, 1);
     dirtForest.setDepth(1);
 
     dirtForest.addTree(Structure::makeOak);
-    dirtForest.setTreeFrequency(150);
+    dirtForest.setTreeFrequency(250);
 
     dirtForest.addFlora(Block::tallGrass, 2);
     dirtForest.addFlora(Block::rose, 1);
@@ -257,7 +255,7 @@ void World_Generator::setUpBiomes ()
 
     //===================================
     //Desert
-    desertBiome.addBlock(Block::sand, 100);
+    desertBiome.addBlock(Block::sand, 1);
     desertBiome.setDepth(3);
 
     desertBiome.addTree(Structure::makeCactus);
@@ -268,13 +266,12 @@ void World_Generator::setUpBiomes ()
 
     //===================================
     //Grassland
-    grasslandBiome.addBlock(Block::grass, 80);
-    grasslandBiome.addBlock(Block::dirt, 1);
+    grasslandBiome.addBlock(Block::grass, 1);
 
     grasslandBiome.setDepth(1);
 
     grasslandBiome.addTree(Structure::makeOak);
-    grasslandBiome.setTreeFrequency(750);
+    grasslandBiome.setTreeFrequency(1000);
 
     grasslandBiome.addFlora(Block::tallGrass, 3);
     grasslandBiome.addFlora(Block::rose, 1);

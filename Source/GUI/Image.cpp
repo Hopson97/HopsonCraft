@@ -4,11 +4,11 @@
 
 namespace GUI
 {
-    Image::Image(const std::string& name)
+    Image::Image(const std::string& name, const sf::Vector2f& size)
     {
         m_texture.loadFromFile("Data/Images/" + name + ".png");
 
-        m_quad.setSize({500, 200});
+        m_quad.setSize(size);
         m_quad.setTexture(&m_texture);
     }
 

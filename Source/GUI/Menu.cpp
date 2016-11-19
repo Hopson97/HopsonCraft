@@ -55,8 +55,10 @@ namespace GUI
 
     void Base_Menu::addComponentCenter(std::unique_ptr<Component>& component)
     {
-        component->setPosition({Display::WIDTH / 2,
-                               (100 + m_components.size() * component->getSize().y)});
+        component->setPosition({Display::get().getSize().x / 2 - component->getSize().x / 2,
+                                float(m_currentY) });
+
+        m_currentY += component->getSize().y + 10;
     }
 
-}
+}   //namespace GUI

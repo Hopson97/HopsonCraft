@@ -27,10 +27,12 @@ namespace State
             void exitState  ();
 
         private:
-            GUI::Base_Menu m_menu;
+            GUI::Base_Menu m_frontMenu;
 
-            int*            m_seed;
-            std::string*    m_worldName;
+            GUI::Base_Menu* m_activeMenu    = nullptr;
+
+            int*            m_seed          = nullptr;
+            std::string*    m_worldName     = nullptr;
     };
 }
 

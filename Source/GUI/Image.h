@@ -8,7 +8,7 @@ namespace GUI
     class Image : public Component
     {
         public:
-            Image(const std::string& name);
+            Image(const std::string& name, const sf::Vector2f& size = {500, 200});
 
             void input  (const sf::Event& e);
             void update ();
