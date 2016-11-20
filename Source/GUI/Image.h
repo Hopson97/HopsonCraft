@@ -15,7 +15,7 @@ namespace GUI
             void draw   (Master_Renderer& renderer);
 
             void setPosition (const sf::Vector2f& position);
-            const sf::Vector2f& getSize () const;
+            const sf::Vector2f getSize () const;
 
         private:
             sf::Texture m_texture;

@@ -21,7 +21,13 @@ namespace GUI
         m_text.setFont(Component::guiFont);
         m_text.setOutlineColor(sf::Color::Black);
         m_text.setOutlineThickness(2);
-        m_text.setCharacterSize(25);
+        m_text.setCharacterSize(30);
+
+        m_label.setFont(Component::guiFont);
+        m_label.setOutlineColor(sf::Color::Black);
+        m_label.setOutlineThickness(2);
+        m_label.setCharacterSize(10);
+        m_label.setString(labelText);
     }
 
     void Text_Box::input(const sf::Event& e)
@@ -31,7 +37,10 @@ namespace GUI
             if (m_isActive)
             {
                 char code = e.text.unicode;
-                if ((code >= 32 && code <= 126) && m_inputtedText->length() <= m_maxLength)    //Lowercase
+                if ((code >= 32 && code <= 126) &&
+                    (code != 47) && //Back slash
+                    (code != 92) && //Forward slash
+                    m_inputtedText->length() <= m_maxLength)    //Lowercase
                 {
                     *m_inputtedText += (static_cast<char>(e.text.unicode));
                 }
@@ -68,19 +77,22 @@ namespace GUI
     {
         renderer.draw(m_quad);
         renderer.draw(m_text);
+        renderer.draw(m_label);
     }
 
     void Text_Box::setPosition(const sf::Vector2f& position)
     {
-        m_quad.setPosition(position);
+        m_label.setPosition(position);
 
-        m_text.setPosition(position);
+        m_quad.setPosition(position.x, position.y + 12);
+        m_text.setPosition(position.x, position.y + 12);
         m_text.move(10, m_quad.getSize().y / 2 - m_text.getGlobalBounds().height / 2);
     }
 
-    const sf::Vector2f& Text_Box::getSize() const
+    const sf::Vector2f Text_Box::getSize() const
     {
-        return m_quad.getSize();
+        return  {m_quad.getSize().x,
+                m_quad.getSize().y + 15};
     }
 
 }

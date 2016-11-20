@@ -62,6 +62,18 @@ namespace Block
         return m_meshType;
     }
 
+    bool Block_Base::canBePlacedOn (const Block_t& block) const
+    {
+        if (m_blocksCanBePlacedOn.empty()) return true;
+        else
+        {
+            for (auto& id : m_blocksCanBePlacedOn)
+            {
+                if (block.getID() == id) return true;
+            }
+        }
+        return false;
+    }
 
     void Block_Base::loadFromFile()
     {
@@ -112,6 +124,16 @@ namespace Block
                 int type;
                 inFile >> type;
                 m_meshType = static_cast<Mesh_Type>(type);
+            }
+            else if(line == "placeon")
+            {
+                std::getline(inFile, line);
+                while (line != "end")
+                {
+                    auto block = std::stoi(line);
+                    m_blocksCanBePlacedOn.push_back(static_cast<ID>(block));
+                    std::getline(inFile, line);
+                }
             }
             else if (line == "") continue;
             else

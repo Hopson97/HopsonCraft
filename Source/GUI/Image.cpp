@@ -28,7 +28,7 @@ namespace GUI
         m_quad.setPosition(position);
     }
 
-    const sf::Vector2f& Image::getSize() const
+    const sf::Vector2f Image::getSize() const
     {
         return m_quad.getSize();
     }

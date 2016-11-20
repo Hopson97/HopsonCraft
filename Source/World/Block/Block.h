@@ -7,6 +7,7 @@
 #include "E_Block_Type.h"
 
 #include <string>
+#include <vector>
 
 namespace Block
 {
@@ -32,6 +33,8 @@ namespace Block
             Physical_State  getPhysicalState()  const;
             Mesh_Type       getMeshType()       const;
 
+            bool canBePlacedOn (const Block_Base& block) const;
+
         private:
             void loadFromFile();
 
@@ -49,6 +52,8 @@ namespace Block
 
             Physical_State m_state;
             Mesh_Type m_meshType;
+
+            std::vector<ID> m_blocksCanBePlacedOn;
     };
 } //Namespace Block
 

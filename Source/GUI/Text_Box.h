@@ -18,11 +18,12 @@ namespace GUI
             void draw   (Master_Renderer& renderer);
 
             void setPosition (const sf::Vector2f& position);
-            const sf::Vector2f& getSize () const;
+            const sf::Vector2f getSize () const;
 
         private:
             sf::RectangleShape  m_quad;
             sf::Text            m_text;
+            sf::Text            m_label;
 
             std::string* m_inputtedText;
 

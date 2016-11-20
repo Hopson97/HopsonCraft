@@ -26,9 +26,9 @@ namespace GUI
     {
         if (touchingMouse(m_quad))
         {
-            m_quad.setFillColor({Settings::SKY_RED   * 255,
-                                 Settings::SKY_GREEN * 255,
-                                 Settings::SKY_BLUE  * 255});
+            m_quad.setFillColor({(sf::Uint8)Settings::SKY_RED   * (sf::Uint8)255,
+                                 (sf::Uint8)Settings::SKY_GREEN * (sf::Uint8)255,
+                                 (sf::Uint8)Settings::SKY_BLUE  * (sf::Uint8)255});
 
             if (e.type == sf::Event::MouseButtonPressed)
             {
@@ -62,7 +62,7 @@ namespace GUI
                     m_quad.getSize().y / 2 - m_text.getLocalBounds().height / 2);
     }
 
-    const sf::Vector2f& Button::getSize() const
+    const sf::Vector2f Button::getSize() const
     {
         return m_quad.getSize();
     }

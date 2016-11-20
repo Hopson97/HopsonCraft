@@ -141,13 +141,15 @@ void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
         }
     };
 
-    Chunk_Location position (Maths::worldToChunkPosition(worldPosition));
-    Block_Location blockPosition (Maths::worldToBlockPosition(worldPosition));
+    Chunk_Location position         (Maths::worldToChunkPosition(worldPosition));
+    Block_Location blockPosition    (Maths::worldToBlockPosition(worldPosition));
+    Block_Location underBlock       (blockPosition.x, blockPosition.y - 1, blockPosition.z);
 
     Chunk* chunk = getChunkAt(position);
 
     if (chunk)
     {
+        //If breaking a block eg replacing it with a "gas" block
         if (block.getPhysicalState() == Block::Physical_State::Gas)
         {
             for (auto y = blockPosition.y + 1 ;
@@ -156,6 +158,8 @@ void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
                     chunk->getBlocks().setBlock({blockPosition.x, y, blockPosition.z}, Block::air);
 
         }
+        if (!block.canBePlacedOn(chunk->getBlocks().getBlock(underBlock))) return;//Some blocks can only be placed on certain blocks
+
         chunk->getBlocks().setBlock(blockPosition, block);
 
         addToBatch(position.x, position.z);
@@ -172,6 +176,7 @@ void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
 
         if (blockPosition.z == Chunk::SIZE - 1)
             addToBatch(position.x, position.z + 1);
+
     }
 }
 
