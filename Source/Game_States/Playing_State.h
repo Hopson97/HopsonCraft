@@ -10,6 +10,8 @@
 #include "../Input/Function_Toggle_Key.h"
 #include "../World/Chunk/Chunk_Map.h"
 
+#include "Menu.h"
+
 class Camera;
 class Application;
 
@@ -17,6 +19,12 @@ namespace State
 {
     class Playing_State : public Game_State
     {
+        enum class State_t
+        {
+            Play,
+            Pause
+        };
+
         public:
             Playing_State  (Application& application,
                             const std::string& worldName,
@@ -31,6 +39,7 @@ namespace State
 
         private:
             void blockEdit();
+            void setUpPauseMenu();
 
             std::unique_ptr<Chunk_Map> m_chunkMap;
 
@@ -46,6 +55,12 @@ namespace State
 
             std::string m_worldName;
             uint32_t   m_worldSeed;
+
+            GUI::Base_Menu m_pauseMenu;
+
+
+            State_t m_state = State_t::Play;
+            bool exitGame = false;
     };
 }
 

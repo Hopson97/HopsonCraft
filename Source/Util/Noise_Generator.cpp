@@ -18,7 +18,6 @@ namespace Noise
     void setSeed(uint32_t newSeed)
     {
         seed = newSeed;
-        std::cout << "Seed: " << newSeed << std::endl;
     }
 
     double Generator::findNoise1(int n) const

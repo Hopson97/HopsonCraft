@@ -1,5 +1,7 @@
 #include "Menu_State.h"
 
+#include <iostream>
+
 #include "../GUI/Button.h"
 #include "../GUI/Image.h"
 #include "../GUI/Text_Box.h"

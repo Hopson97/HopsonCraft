@@ -18,6 +18,12 @@
 
 #include "../Renderer/Master_Renderer.h"
 
+#include "Button.h"
+
+#include "../Application.h"
+
+#include "Menu_State.h"
+
 namespace State
 {
     Playing_State::Playing_State(Application& application,
@@ -28,6 +34,7 @@ namespace State
     ,   m_debugDisplay      ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, sf::seconds(0.5))
     ,   m_worldName         (worldName)
     ,   m_worldSeed         (seed)
+    ,   m_pauseMenu         (GUI::Layout::Center)
     {
         Display::hideMouse();
         Directory::create("Worlds");
@@ -49,31 +56,61 @@ namespace State
             inFile >> m_worldSeed;
         }
 
+        setUpPauseMenu();
         m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed);
     }
 
     void Playing_State::input(const sf::Event& e)
     {
-        m_chunkMap->input(e);
-        m_player.toggleInput(e);
-        m_debugDisplay.checkInput(e);
+        static sf::Clock c;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && c.getElapsedTime().asSeconds() > 1)
+        {
+            switch (m_state)
+            {
+                case State_t::Play:
+                    m_state = State_t::Pause;
+                    Display::showMouse();
+                    break;
+
+                case State_t::Pause:
+                    m_state = State_t::Play;
+                    Display::hideMouse();
+                    break;
+
+            }
+            c.restart().asSeconds();
+        }
+
+        if (m_state == State_t::Play)
+        {
+            m_chunkMap->input(e);
+            m_player.toggleInput(e);
+            m_debugDisplay.checkInput(e);
+        }
+        else if (m_state == State_t::Pause)
+        {
+            m_pauseMenu.input(e);
+        }
     }
 
 
     void Playing_State::input ()
     {
-        m_player.input();
         static sf::Clock blockEditClock;
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        if (m_state == State_t::Play)
         {
-            if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::P))
             {
-                blockEdit();
-                blockEditClock.restart();
+                if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
+                {
+                    blockEdit();
+                    blockEditClock.restart();
+                }
             }
-        }
 
+            m_player.input();
+        }
     }
 
     void Playing_State::blockEdit()
@@ -127,13 +164,25 @@ namespace State
 
     void Playing_State::update  (float dt, Camera& camera)
     {
-        Debug_Display::addPlayerPosition(m_player.getPosition());
+        if (m_state == State_t::Play)
+        {
+            m_player.update(dt, camera);
+            m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
+        }
+        else if (m_state == State_t::Pause)
+        {
+            m_pauseMenu.update();
+        }
 
-        m_player.update(dt, camera);
         m_playerPosition = {(int)m_player.getPosition().x / Chunk::SIZE,
                             (int)m_player.getPosition().z / Chunk::SIZE};
+        Debug_Display::addPlayerPosition(m_player.getPosition());
 
-        m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
+        if (exitGame)
+        {
+            Display::showMouse();
+            m_application->changeState(std::make_unique<Main_Menu_State>(*m_application));
+        }
     }
 
     void Playing_State::draw (float dt, Master_Renderer& renderer)
@@ -143,7 +192,10 @@ namespace State
         if (m_debugDisplayActive)
             Debug_Display::draw(renderer);
 
-        renderer.draw(crossHairSprite);
+        if (m_state == State_t::Play)
+            renderer.draw(crossHairSprite);
+        else if (m_state == State_t::Pause)
+            m_pauseMenu.draw(renderer);
     }
 
 
@@ -156,5 +208,19 @@ namespace State
         outFile << m_worldSeed << std::endl;
     }
 
+    void Playing_State::setUpPauseMenu()
+    {
+        m_pauseMenu.addPadding(150);
+        m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Resume", [&]()
+        {
+            m_state = State_t::Play;
+            Display::hideMouse();
+        }));
+
+        m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
+        {
+            exitGame = true;
+        }));
+    }
 }
 

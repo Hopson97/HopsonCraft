@@ -43,7 +43,7 @@ namespace Display
 
         window = std::make_unique<sf::RenderWindow>(videoMode,
                                                     name,
-                                                    sf::Style::Close,
+                                                    sf::Style::Fullscreen,
                                                     settings);
         window->setPosition ({0, 0});
         initGL(videoMode);

@@ -99,6 +99,7 @@ void Application::popState()
     }
 }
 
+
 void Application::resetSong()
 {
     static std::string songFilesPath = "Data/Music/";
