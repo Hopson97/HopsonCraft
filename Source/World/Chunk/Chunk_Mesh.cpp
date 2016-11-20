@@ -22,7 +22,6 @@ void Chunk_Mesh::Chunk_Mesh_Part::addIndices(const std::vector<GLuint>& index)
     indices.insert(indices.end(), index.begin(), index.end());
 }
 
-
 void Chunk_Mesh::Chunk_Mesh_Part::buffer()
 {
     model.addData(vertexCoords, textureCoords, indices);
@@ -160,7 +159,7 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& blo
 {
     m_activePart->addVerticies
     ({
-        x,      y + 1, z + 1,
+        x,      y + 1, z + 1,   //
         x + 1,  y + 1, z + 1,
         x + 1,  y + 1, z,
         x,      y + 1, z,
