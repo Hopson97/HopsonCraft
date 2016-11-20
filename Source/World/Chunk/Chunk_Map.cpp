@@ -77,7 +77,6 @@ void Chunk_Map::checkChunks()
 
 void Chunk_Map::draw(Master_Renderer& renderer)
 {
-    //sf::Clock c;
     m_blockTextures.bind();
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
@@ -99,7 +98,6 @@ void Chunk_Map::draw(Master_Renderer& renderer)
             itr++;
         }
     }
-    //std::cout << c.getElapsedTime().asMicroseconds() << std::endl;
 }
 
 void Chunk_Map::updateChunks()

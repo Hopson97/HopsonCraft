@@ -59,6 +59,8 @@ class Chunk
 
         void saveToFile     (const std::string& worldName);
 
+        const Matrix4& getModelMatrix () const;
+
         static constexpr int SIZE  = 20,
                              WATER_LEVEL = 90,
                              BEACH_LEVEL = WATER_LEVEL + 3,
@@ -88,6 +90,8 @@ class Chunk
         Chunk_Blocks m_blocks;
 
         World_Generator m_worldGenerator;
+
+        Matrix4 m_modelMatrix;
 };
 
 

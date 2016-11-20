@@ -21,9 +21,7 @@ void Solid_Block_Renderer::prepareRender()
 void Solid_Block_Renderer::prepareChunk (const Chunk& chunk)
 {
     chunk.getMesh().getSolidPart().model.bind();
-    getShader().loadChunkMatrix( Maths::createModelMatrix({chunk.getPosition().x, 0, chunk.getPosition().y},
-                                                          {0, 0, 0},
-                                                          {1, 1, 1}));
+    getShader().loadChunkMatrix(chunk.getModelMatrix());
 }
 
 void Solid_Block_Renderer::drawChunk(const Chunk& chunk)

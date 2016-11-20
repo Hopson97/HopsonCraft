@@ -5,6 +5,7 @@
 
 #include "../Block/D_Blocks.h"
 #include "../Block/Block.h"
+#include "../../Maths/Matrix_Maths.h"
 
 #include "../../Input/Function_Toggle_Key.h"
 #include "../../Util/Noise_Generator.h"
@@ -23,6 +24,9 @@ Chunk::Chunk(const Chunk_Location& position,
 ,   m_mesh          (*this)
 ,   m_blocks        (*this, m_location, *m_p_chunkMap)
 ,   m_worldGenerator(*this, seed)
+,   m_modelMatrix   (Maths::createModelMatrix({m_position.x, 0, m_position.y},
+                                              { 0, 0, 0 },
+                                              { 1, 1, 1 }))
 {
     m_worldGenerator.generate();
     loadBlockData (worldName);
@@ -129,6 +133,11 @@ void Chunk::saveToFile(const std::string& worldName)
         }
     }
 
+}
+
+const Matrix4& Chunk::getModelMatrix() const
+{
+    return m_modelMatrix;
 }
 
 
