@@ -7,9 +7,9 @@
 #include "../World/Block/D_Blocks.h"
 
 Player::Player()
-:   m_rotationLock          ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, 0.5)
-,   m_increaseBlockToggle   ([&](){switchBlock(1) ; }, sf::Keyboard::Right, 0.2)
-,   m_decreaseBlockToggle   ([&](){switchBlock(-1); }, sf::Keyboard::Left,  0.2)
+:   m_rotationLock          ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, sf::seconds(0.5))
+,   m_increaseBlockToggle   ([&](){switchBlock(1) ; }, sf::Keyboard::Right, sf::seconds(0.2))
+,   m_decreaseBlockToggle   ([&](){switchBlock(-1); }, sf::Keyboard::Left,  sf::seconds(0.2))
 ,   m_heldBlock             (&Block::getBlockFromId(Block::ID::Glass))
 {
     m_camera.movePosition({20000, 250, 20000});

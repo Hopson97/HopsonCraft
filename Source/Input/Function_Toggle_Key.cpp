@@ -1,6 +1,6 @@
 #include "function_toggle_key.h"
 
-Function_Toggle_Key::Function_Toggle_Key (std::function<void(void)> func, sf::Keyboard::Key key, float seconds)
+Function_Toggle_Key::Function_Toggle_Key (std::function<void(void)> func, sf::Keyboard::Key key, sf::Time seconds)
 :   m_func          (func)
 ,   m_key           (key)
 ,   m_toggleTime    (seconds)
@@ -8,8 +8,7 @@ Function_Toggle_Key::Function_Toggle_Key (std::function<void(void)> func, sf::Ke
 
 bool Function_Toggle_Key::checkInput(const sf::Event& e)
 {
-    if (e.type == sf::Event::KeyPressed &&
-        m_toggleClock.getElapsedTime().asSeconds() > m_toggleTime)
+    if (e.type == sf::Event::KeyPressed && m_toggleClock.getElapsedTime().asSeconds() > m_toggleTime.asSeconds())
     {
         if (e.key.code == m_key)
             m_func();

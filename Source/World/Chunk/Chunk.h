@@ -62,7 +62,7 @@ class Chunk
         static constexpr int SIZE  = 20,
                              WATER_LEVEL = 90,
                              BEACH_LEVEL = WATER_LEVEL + 3,
-                             SNOW_LEVEL = 240;
+                             SNOW_LEVEL = 260;
 
     private:
         void loadBlockData          (const std::string& worldName);

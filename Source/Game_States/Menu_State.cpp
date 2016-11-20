@@ -65,7 +65,6 @@ namespace State
         {
             m_activeMenu = &m_newGameMenu;
         }));
-
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Load Game", [&]()
         {
             //m_makeWorld = true;
@@ -87,7 +86,8 @@ namespace State
 
         m_newGameMenu.addComponent(std::make_unique<GUI::Button>("Create", [&]()
         {
-            m_makeWorld = true;
+            if (m_seedString.length() > 0 && m_worldName.length() > 0)
+                m_makeWorld = true;
         }));
 
         m_newGameMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
