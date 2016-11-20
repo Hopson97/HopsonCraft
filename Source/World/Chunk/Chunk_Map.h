@@ -24,7 +24,7 @@ class Chunk_Map
     public:
         Chunk_Map   (const Chunk_Location& playerPosition,
                      const std::string& worldName,
-                     unsigned seed);
+                     long long seed);
 
         ~Chunk_Map  ();
 
@@ -73,7 +73,7 @@ class Chunk_Map
         std::thread m_chunkManageThread;
 
         std::string m_worldName;
-        unsigned    m_worldSeed;
+        long long   m_worldSeed;
 };
 
 #endif // CHUNK_MAP_H

@@ -40,10 +40,11 @@ namespace State
 
         if (m_makeWorld)
         {
+            m_seed = getSeed();
             m_application->changeState (std::make_unique<Playing_State>(
                                         *m_application,
                                         m_worldName,
-                                        std::stoi(m_seedString)));
+                                        m_seed));
         }
     }
 
@@ -54,6 +55,27 @@ namespace State
 
     void Main_Menu_State::exitState()
     { }
+
+    long long Main_Menu_State::getSeed()
+    {
+        std::string newString;
+        for(auto& ch : m_seedString)
+        {
+            if (isalpha(ch))
+            {
+                newString += "5";
+            }
+            else
+            {
+                newString += ch;
+            }
+        }
+
+        //while(newString.length() > 8) newString.pop_back();
+
+        return std::stol(newString);
+    }
+
 
 
     void Main_Menu_State::initFrontMenu()
@@ -81,7 +103,7 @@ namespace State
     {
         m_newGameMenu.addPadding(150);
         m_newGameMenu.addBackgroud(m_background);
-        m_newGameMenu.addComponent(std::make_unique<GUI::Text_Box>(15, sf::Vector2f{500, 100}, "World Name", m_worldName));
+        m_newGameMenu.addComponent(std::make_unique<GUI::Text_Box>(18, sf::Vector2f{500, 100}, "World Name", m_worldName));
         m_newGameMenu.addComponent(std::make_unique<GUI::Text_Box>(8, sf::Vector2f{500, 100}, "Seed", m_seedString));
 
         m_newGameMenu.addComponent(std::make_unique<GUI::Button>("Create", [&]()

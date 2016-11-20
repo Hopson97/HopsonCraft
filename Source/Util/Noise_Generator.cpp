@@ -8,14 +8,14 @@
 
 namespace Noise
 {
-    int seed;
+    long long seed;
 
-    int getSeed()
+    long long getSeed()
     {
         return seed;
     }
 
-    void setSeed(int newSeed)
+    void setSeed(long long newSeed)
     {
         seed = newSeed;
         std::cout << "Seed: " << newSeed << std::endl;
@@ -98,12 +98,12 @@ namespace Noise
         m_noiseFunction = data;
     }
 
-    int Generator::getSeed()
+    long long Generator::getSeed()
     {
         return m_seed;
     }
 
-    void Generator::setSeed(int newSeed)
+    void Generator::setSeed(long long newSeed)
     {
         m_seed = newSeed;
     }

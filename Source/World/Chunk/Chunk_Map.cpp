@@ -17,7 +17,7 @@
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition,
                      const std::string& worldName,
-                     unsigned seed)
+                     long long seed)
 :   m_blockTextures     (1024, 16, "Block_Atlas")
 ,   m_playerPosition    (&playerPosition)
 ,   m_chunkManageThread (&Chunk_Map::manageChunks, this)

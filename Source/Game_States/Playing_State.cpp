@@ -22,7 +22,7 @@ namespace State
 {
     Playing_State::Playing_State(Application& application,
                                 const std::string& worldName,
-                                unsigned seed)
+                                long long seed)
     :   Game_State          (application)
     ,   m_playerPosition    (Maths::worldToChunkPosition(m_player.getPosition()))
     ,   m_debugDisplay      ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, sf::seconds(0.5))

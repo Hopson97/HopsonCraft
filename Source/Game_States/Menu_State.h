@@ -25,6 +25,8 @@ namespace State
             void exitState  ();
 
         private:
+            long long  getSeed();
+
             void initFrontMenu  ();
             void initNewGameMenu();
 
@@ -33,11 +35,11 @@ namespace State
 
             GUI::Base_Menu* m_activeMenu    = nullptr;
 
-            int            m_seed;
-            std::string    m_seedString;
-            std::string    m_worldName;
+            long long   m_seed;
+            std::string m_seedString;
+            std::string m_worldName;
 
-            sf::Texture     m_background;
+            sf::Texture m_background;
 
             bool m_makeWorld = false;
     };

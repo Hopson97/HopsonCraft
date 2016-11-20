@@ -21,7 +21,7 @@ namespace
 }
 
 World_Generator::World_Generator(Chunk& chunk,
-                                 unsigned seed)
+                                 long long seed)
 :   m_p_chunk   (&chunk)
 ,   m_maxHeight (Chunk::WATER_LEVEL + 1)
 ,   m_seed      (seed)

@@ -19,8 +19,8 @@ namespace Noise
         int heightOffset = 0;
     };
 
-    int getSeed     ();
-    void setSeed    (int newSeed);
+    long long getSeed     ();
+    void setSeed    (long long newSeed);
 
     class Generator
     {
@@ -29,8 +29,8 @@ namespace Noise
 
             void setNoiseFunction(const Noise::Data& data);
 
-            int getSeed     ();
-            void setSeed    (int newSeed);
+            long long getSeed     ();
+            void setSeed    (long long newSeed);
 
         private:
             double findNoise1(int n) const;
@@ -40,7 +40,7 @@ namespace Noise
 
 
             Noise::Data m_noiseFunction;
-            int m_seed;
+            long long m_seed;
 
     };
 }

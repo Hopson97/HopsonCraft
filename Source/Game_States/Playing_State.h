@@ -20,7 +20,7 @@ namespace State
         public:
             Playing_State  (Application& application,
                             const std::string& worldName,
-                            unsigned seed);
+                            long long seed);
 
             void input  (const sf::Event& e);
             void input  ();
@@ -45,7 +45,7 @@ namespace State
             sf::Sprite crossHairSprite;
 
             std::string m_worldName;
-            unsigned    m_worldSeed;
+            long long   m_worldSeed;
     };
 }
 
