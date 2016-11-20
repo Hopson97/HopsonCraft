@@ -10,15 +10,12 @@ namespace GUI
         public:
             Image(const std::string& name, const sf::Vector2f& size = {500, 200});
 
-            void input  (const sf::Event& e) override;
-
-            void update () override;
-
-            void draw   (Master_Renderer& renderer) override;
+            void input  (const sf::Event& e)                override;
+            void update ()                                  override;
+            void draw   (Master_Renderer& renderer)         override;
 
             void setPosition (const sf::Vector2f& position) override;
-
-            const sf::Vector2f getSize () const override;
+            const sf::Vector2f getSize () const             override;
 
         private:
             sf::Texture m_texture;
