@@ -113,7 +113,6 @@ namespace State
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                 {
-                    std::cout << "P" << std::endl;
                     if (worldPoint != playerPoint)
                         m_chunkMap->makeExplosion(ray.getEndPoint(), 8);
                 }

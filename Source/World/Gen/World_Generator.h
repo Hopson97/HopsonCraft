@@ -58,6 +58,4 @@ class World_Generator
         Biome* m_p_activeBiome;
 };
 
-
-
 #endif // WORLD_GENERATOR_H

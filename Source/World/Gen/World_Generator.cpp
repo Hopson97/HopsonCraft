@@ -106,7 +106,7 @@ void World_Generator::generateBlockData()
     }
     m_structures.clear();
 
-    //Generate flowers and tall grass
+    //Generate flora
     for (auto& s : m_flora)
     {
         auto& loc = s.first;
@@ -223,7 +223,7 @@ void World_Generator::setActiveBiome(int value)
 
 void World_Generator::setUpBiomes ()
 {
-    terrainNoise.setNoiseFunction({9, 225, 0.515, 260, -35});  //DO NOT TOUCH PLEASE
+    terrainNoise.setNoiseFunction({9, 225, 0.5, 260, -30});  //DO NOT TOUCH PLEASE
     biomeNoise.setNoiseFunction({7, 250, 0.5, 240, 0});
 
     terrainNoise.setSeed(m_seed);
