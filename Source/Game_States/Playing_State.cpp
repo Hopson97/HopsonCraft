@@ -63,7 +63,7 @@ namespace State
     void Playing_State::input(const sf::Event& e)
     {
         static sf::Clock c;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && c.getElapsedTime().asSeconds() > 1)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && c.getElapsedTime().asSeconds() > 0.1)
         {
             switch (m_state)
             {
