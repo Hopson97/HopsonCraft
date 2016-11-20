@@ -24,7 +24,7 @@ class Chunk_Map
     public:
         Chunk_Map   (const Chunk_Location& playerPosition,
                      const std::string& worldName,
-                     long long seed);
+                     uint32_t seed);
 
         ~Chunk_Map  ();
 
@@ -63,7 +63,7 @@ class Chunk_Map
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;
 
-        unsigned m_renderDistance        = 20;
+        unsigned m_renderDistance;
 
         unsigned m_generationDistance    = 1;
         unsigned m_loadingDistance       = 1;
@@ -73,7 +73,7 @@ class Chunk_Map
         std::thread m_chunkManageThread;
 
         std::string m_worldName;
-        long long   m_worldSeed;
+        uint32_t   m_worldSeed;
 };
 
 #endif // CHUNK_MAP_H

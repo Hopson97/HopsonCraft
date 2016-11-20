@@ -1,5 +1,0 @@
-World size: 17
-Amplitude: 172
-Roughness: 0.604
-Octaves:   6
-Seed:      159660963

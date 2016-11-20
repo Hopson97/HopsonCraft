@@ -1,5 +1,0 @@
-World size: 25
-Amplitude: 250
-Roughness: 0.467
-Octaves:   5
-Seed:      281059928

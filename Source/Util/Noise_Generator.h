@@ -1,6 +1,8 @@
 #ifndef NOISE_GENERATOR_H
 #define NOISE_GENERATOR_H
 
+#include <cstdint>
+
 namespace Noise
 {
     struct Data
@@ -19,8 +21,8 @@ namespace Noise
         int heightOffset = 0;
     };
 
-    long long getSeed     ();
-    void setSeed    (long long newSeed);
+    uint32_t getSeed     ();
+    void setSeed    (uint32_t newSeed);
 
     class Generator
     {
@@ -29,8 +31,8 @@ namespace Noise
 
             void setNoiseFunction(const Noise::Data& data);
 
-            long long getSeed     ();
-            void setSeed    (long long newSeed);
+            uint32_t getSeed     ();
+            void setSeed    (uint32_t newSeed);
 
         private:
             double findNoise1(int n) const;
@@ -40,7 +42,7 @@ namespace Noise
 
 
             Noise::Data m_noiseFunction;
-            long long m_seed;
+            uint32_t m_seed;
 
     };
 }

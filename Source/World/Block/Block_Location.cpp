@@ -8,11 +8,15 @@ Block_Location::Block_Location (int x, int y, int z)
 
 bool Block_Location::operator== (const Block_Location& other) const
 {
-    return (x == other.x) && (y == other.y) && (z == other.z);
+    return  (x == other.x) &&
+            (y == other.y) &&
+            (z == other.z);
 }
 
 
 bool Block_Location::operator!= (const Block_Location& other) const
 {
-    return !((x == other.x) && (y == other.y) && (z == other.z));
+    return  (x != other.x) &&
+            (y != other.y) &&
+            (z != other.z);
 }

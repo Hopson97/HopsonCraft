@@ -22,7 +22,7 @@ namespace State
 {
     Playing_State::Playing_State(Application& application,
                                 const std::string& worldName,
-                                long long seed)
+                                uint32_t seed)
     :   Game_State          (application)
     ,   m_playerPosition    (Maths::worldToChunkPosition(m_player.getPosition()))
     ,   m_debugDisplay      ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, sf::seconds(0.5))
@@ -103,17 +103,17 @@ namespace State
             {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 {
-                    if (worldPoint != playerPoint)
+                   //if (worldPoint != playerPoint)
                         m_chunkMap->setBlock(Block::air, ray.getEndPoint());
                 }
                 else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                 {
-                    if (worldPoint != playerPoint)
+                    //if (worldPoint != playerPoint)
                         m_chunkMap->setBlock(m_player.getHeldBlock(), oldRayEnd);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                 {
-                    if (worldPoint != playerPoint)
+                    //if (worldPoint != playerPoint)
                         m_chunkMap->makeExplosion(ray.getEndPoint(), 8);
                 }
                 break;

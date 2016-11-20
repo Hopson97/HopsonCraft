@@ -21,7 +21,7 @@ class World_Generator
 {
     public:
         World_Generator(Chunk& chunk,
-                        long long seed);
+                        uint32_t seed);
 
         void generate();
 
@@ -53,7 +53,7 @@ class World_Generator
         std::unordered_map<Block_Location, const Block_t*>      m_flora;
 
         int m_maxHeight;
-        long long m_seed;
+        uint32_t m_seed;
 
         Biome* m_p_activeBiome;
 };

@@ -56,14 +56,15 @@ namespace State
     void Main_Menu_State::exitState()
     { }
 
-    long long Main_Menu_State::getSeed()
+    uint32_t Main_Menu_State::getSeed()
     {
         std::string newString;
         for(auto& ch : m_seedString)
         {
             if (isalpha(ch))
             {
-                newString += "5";
+                int x = ch;
+                newString += std::to_string(x);
             }
             else
             {
@@ -71,9 +72,9 @@ namespace State
             }
         }
 
-        //while(newString.length() > 8) newString.pop_back();
+        while (newString.length() > 8) newString.pop_back();
 
-        return std::stol(newString);
+        return std::stoi(newString);
     }
 
 

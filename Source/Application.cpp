@@ -19,6 +19,8 @@
 
 #include "World/Block/D_Blocks.h"
 
+#include "Play_Settings.h"
+
 
 
 namespace
@@ -139,6 +141,9 @@ void Application::init()
 
     //Initiate the debug information GUI
     Debug_Display::init();
+
+    //Load up the settings
+    Settings::init();
 }
 
 

@@ -1,5 +1,0 @@
-World size: 21
-Amplitude: 198
-Roughness: 0.532
-Octaves:   6
-Seed:      525785784
