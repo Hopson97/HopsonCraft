@@ -13,12 +13,15 @@ namespace GUI
                      const std::string& labelText,
                      std::string& inputString);
 
-            void input  (const sf::Event& e);
-            void update ();
-            void draw   (Master_Renderer& renderer);
+            void input  (const sf::Event& e) override;
 
-            void setPosition (const sf::Vector2f& position);
-            const sf::Vector2f getSize () const;
+            void update () override;
+
+            void draw   (Master_Renderer& renderer) override;
+
+            void setPosition (const sf::Vector2f& position) override;
+
+            const sf::Vector2f getSize () const override;
 
         private:
             sf::RectangleShape  m_quad;
