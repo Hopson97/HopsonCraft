@@ -53,8 +53,6 @@ void Application::runMainLoop()
     {
         auto dt = dtClock.restart().asSeconds();
 
-        m_renderer.clear();
-
         sf::Event e;
         while (Display::get().pollEvent(e))
         {
@@ -68,6 +66,7 @@ void Application::runMainLoop()
         m_stateStack.top()->update  (dt, m_camera);
         m_stateStack.top()->draw    (dt, m_renderer);
 
+        m_renderer.clear();
         m_renderer.update(m_camera);
 
         checkFps();
@@ -98,6 +97,19 @@ void Application::popState()
         m_stateStack.pop();
     }
 }
+
+void Application::takeScreenshot(const std::string& path)
+{
+    auto windowSize = Display::get().getSize();
+    sf::Texture texture;
+
+    texture.create(windowSize.x, windowSize.y);
+    texture.update(Display::get());
+
+    sf::Image screenshot = texture.copyToImage();
+    screenshot.saveToFile(path);
+}
+
 
 
 void Application::resetSong()

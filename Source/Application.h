@@ -22,6 +22,8 @@ class Application
         void pushState      (std::unique_ptr<State::Game_State> state);
         void popState       ();
 
+        void takeScreenshot (const std::string& path);
+
     private:
         void resetSong();
         void init();

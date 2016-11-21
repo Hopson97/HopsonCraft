@@ -10,6 +10,6 @@ void main()
 {
     outColour = texture(screenTexture, passTextureCoords);
 
-    outColour.r = 0;
-    outColour.g = 0;
+    outColour.r /= 8;
+    outColour.g /= 8;
 }

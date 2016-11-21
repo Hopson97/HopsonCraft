@@ -18,6 +18,7 @@ namespace State
     :   Game_State  (application)
     ,   m_frontMenu     (GUI::Layout::Center)
     ,   m_newGameMenu   (GUI::Layout::Center)
+    ,   m_loadmenu      (GUI::Layout::Center)
     {
         m_background.loadFromFile("Data/Images/bg.png");
         Display::showMouse();

@@ -32,6 +32,7 @@ namespace State
 
             GUI::Base_Menu m_frontMenu;
             GUI::Base_Menu m_newGameMenu;
+            GUI::Base_Menu m_loadmenu;
 
             GUI::Base_Menu* m_activeMenu    = nullptr;
 

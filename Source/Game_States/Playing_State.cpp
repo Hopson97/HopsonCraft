@@ -24,6 +24,8 @@
 
 #include "Menu_State.h"
 
+#include "../Util/Time.h"
+
 namespace State
 {
     Playing_State::Playing_State(Application& application,
@@ -177,29 +179,41 @@ namespace State
         m_playerPosition = {(int)m_player.getPosition().x / Chunk::SIZE,
                             (int)m_player.getPosition().z / Chunk::SIZE};
         Debug_Display::addPlayerPosition(m_player.getPosition());
-
-        if (exitGame)
-        {
-            Display::showMouse();
-            m_application->changeState(std::make_unique<Main_Menu_State>(*m_application));
-        }
     }
 
     void Playing_State::draw (float dt, Master_Renderer& renderer)
     {
-        m_chunkMap->draw(renderer);
+        if(!exitGame)
+        {
+            m_chunkMap->draw(renderer);
 
-        //renderer.addPostFX(Post_FX::Blue);
-        renderer.addPostFX(Post_FX::Blur);
-        renderer.addPostFX(Post_FX::Blue);
+            auto wp = m_player.getPosition();
+            auto bp = Maths::worldToBlockPosition(wp);
+            auto cp = Maths::worldToChunkPosition(wp);
 
-        if (m_debugDisplayActive)
-            Debug_Display::draw(renderer);
+            if (m_chunkMap->getChunkAt(cp))
+            {
+                if (m_chunkMap->getChunkAt(cp)->getBlocks().getBlock(bp).getID() == Block::ID::Water)
+                {
+                    renderer.addPostFX(Post_FX::Blue);
+                }
+            }
 
-        if (m_state == State_t::Play)
-            renderer.draw(crossHairSprite);
-        else if (m_state == State_t::Pause)
-            m_pauseMenu.draw(renderer);
+            if (m_debugDisplayActive)
+                Debug_Display::draw(renderer);
+
+            if (m_state == State_t::Play)
+                renderer.draw(crossHairSprite);
+            else if (m_state == State_t::Pause)
+                m_pauseMenu.draw(renderer);
+        }
+        else    //Render all chunks so a thumbnail can made
+        {
+            renderer.clear();
+            m_chunkMap->draw(renderer);
+            renderer.update(m_player.getCamera());
+            m_application->changeState(std::make_unique<Main_Menu_State>(*m_application));
+        }
     }
 
 
@@ -210,6 +224,11 @@ namespace State
         std::ofstream outFile ("Worlds/" + m_worldName + "/World_Info.data");
         outFile << (int)m_player.getPosition().x << " " << (int)m_player.getPosition().y << " " << (int)m_player.getPosition().z << std::endl;
         outFile << m_worldSeed << std::endl;
+        outFile << Time::getTimeString() << std::endl;
+        outFile << Time::getDateString() << std::endl;
+
+        Display::showMouse();
+        m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail.png");
     }
 
     void Playing_State::setUpPauseMenu()

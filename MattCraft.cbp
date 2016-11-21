@@ -72,6 +72,10 @@
 		<Unit filename="Data/Blocks/Stone_Bricks.block" />
 		<Unit filename="Data/Blocks/Tall_Grass.block" />
 		<Unit filename="Data/Blocks/Water.block" />
+		<Unit filename="Shaders/Blue_Fragment.glsl" />
+		<Unit filename="Shaders/Blue_Vertex.glsl" />
+		<Unit filename="Shaders/Blur_Fragment.glsl" />
+		<Unit filename="Shaders/Blur_Vertex.glsl" />
 		<Unit filename="Shaders/Flora_Fragment.glsl" />
 		<Unit filename="Shaders/Flora_Vertex.glsl" />
 		<Unit filename="Shaders/Ground_Fragment.glsl" />

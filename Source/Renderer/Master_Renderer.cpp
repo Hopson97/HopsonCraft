@@ -90,9 +90,8 @@ void Master_Renderer::addPostFX(Post_FX postFx)
 
 void Master_Renderer::drawToQuad()
 {
-    m_framebuffer.bindTexture();
     m_quad.bind();
-
+    m_framebuffer.bindTexture();
     for(auto& shader : m_postFXPasses)
     {
         shader->useProgram();
@@ -102,7 +101,6 @@ void Master_Renderer::drawToQuad()
                        nullptr);
     }
     m_postFXPasses.clear();
-
 
     //Draw to the default context
     m_framebuffer.unbind();
