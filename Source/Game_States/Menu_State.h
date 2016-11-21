@@ -45,6 +45,9 @@ namespace State
             sf::Texture m_background;
 
             bool m_makeWorld = false;
+
+            std::vector<std::string> m_worldFileNames;
+            std::map<std::string*, int> m_worldSeeds;
     };
 }
 

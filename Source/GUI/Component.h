@@ -37,7 +37,7 @@ namespace GUI
 
             void setPosition (const sf::Vector2f& position){}
 
-            const sf::Vector2f getSize () const{}
+            const sf::Vector2f getSize () const { return {0,0}; }
     };
 }
 

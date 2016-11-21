@@ -21,6 +21,10 @@ namespace GUI
             case Layout::Center:
                 addComponentCenter(component);
                 break;
+
+            case Layout::Grid2x:
+                addComponentGrid2x(component);
+                break;
         }
 
         m_components.push_back(std::move(component));
@@ -60,6 +64,12 @@ namespace GUI
 
         m_currentY += component->getSize().y + 10;
     }
+
+    void Base_Menu::addComponentGrid2x(std::unique_ptr<Component>& component)
+    {
+
+    }
+
 
     void Base_Menu::clear()
     {

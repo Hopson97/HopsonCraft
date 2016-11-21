@@ -15,7 +15,7 @@ namespace GUI
     enum class Layout
     {
         Center,
-        Grid2x2
+        Grid2x
     };
 
     class Base_Menu
@@ -35,6 +35,7 @@ namespace GUI
 
         private:
             void addComponentCenter(std::unique_ptr<Component>& component);
+            void addComponentGrid2x(std::unique_ptr<Component>& component);
 
             std::vector<std::unique_ptr<Component>> m_components;
             std::unique_ptr<Background> m_background;

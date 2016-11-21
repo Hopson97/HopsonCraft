@@ -2,6 +2,7 @@
 
 #include <SFML/System/Clock.hpp>
 #include <fstream>
+#include <iostream>
 
 #include "../World/Block/D_Blocks.h"
 #include "../World/Block/Block.h"
@@ -37,8 +38,16 @@ namespace State
     ,   m_worldSeed         (seed)
     ,   m_pauseMenu         (GUI::Layout::Center)
     {
+
         Display::hideMouse();
         Directory::create("Worlds");
+        std::ifstream worldsFile("Worlds/World_Names.txt");
+        std::string line;
+        m_worldFileNames.push_back(worldName + "\n");
+        while (std::getline(worldsFile, line))
+        {
+            m_worldFileNames.push_back(line + "\n");
+        }
 
         crossHairTexture.loadFromFile("Data/Images/Crosshair.png");
         crossHairSprite.setTexture(crossHairTexture);
@@ -49,12 +58,15 @@ namespace State
         Directory::create("Worlds/" + worldName);
 
         std::ifstream inFile("Worlds/" + worldName + "/World_Info.data");
+        std::string line2;
         if (inFile.is_open())
         {
-            int x, y, z;
-            inFile >> x >> y >> z;
-            m_player.setPosition({x + 0.5, y + 0.5, z + 0.5});
-            inFile >> m_worldSeed;
+            if (line == "pos")
+            {
+                int x, y, z;
+                inFile >> x >> y >> z;
+                m_player.setPosition({x, y, z});
+            }
         }
 
         setUpPauseMenu();
@@ -223,10 +235,18 @@ namespace State
         m_chunkMap->saveChunks();
 
         std::ofstream outFile ("Worlds/" + m_worldName + "/World_Info.data");
-        outFile << (int)m_player.getPosition().x << " " << (int)m_player.getPosition().y << " " << (int)m_player.getPosition().z << std::endl;
-        outFile << m_worldSeed << std::endl;
-        outFile << Time::getTimeString() << std::endl;
-        outFile << Time::getDateString() << std::endl;
+        outFile << "pos\n" << (int)m_player.getPosition().x << " " << (int)m_player.getPosition().y << " " << (int)m_player.getPosition().z << std::endl;
+        outFile << "seed\n" << m_worldSeed << std::endl;
+        outFile << "time\n" << Time::getTimeString() << std::endl;
+        outFile << "date\n" << Time::getDateString() << std::endl;
+        outFile.close();
+
+        std::ofstream worldFileNameOut ("Worlds/World_Names.txt");
+        for (auto& world : m_worldFileNames)
+        {
+            worldFileNameOut << world;
+        }
+        worldFileNameOut.close();
 
         Display::showMouse();
         m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail.png");

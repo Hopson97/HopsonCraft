@@ -61,6 +61,8 @@ namespace State
 
             State_t m_state = State_t::Play;
             bool exitGame = false;
+
+            std::vector<std::string> m_worldFileNames;
     };
 }
 

@@ -26,6 +26,11 @@ World_Generator::World_Generator(Chunk& chunk,
 ,   m_maxHeight (Chunk::WATER_LEVEL + 1)
 ,   m_seed      (seed)
 {
+    terrainNoise.setNoiseFunction({9, 225, 0.5, 260, -30});  //DO NOT TOUCH PLEASE
+    biomeNoise.setNoiseFunction({7, 250, 0.5, 240, 0});
+    terrainNoise.setSeed(m_seed);
+    biomeNoise.setSeed((m_seed * 2) / 25);
+
     static bool biomesSetUp = false;
     if (!biomesSetUp)
     {
@@ -226,12 +231,6 @@ void World_Generator::setActiveBiome(int value)
 
 void World_Generator::setUpBiomes ()
 {
-    terrainNoise.setNoiseFunction({9, 225, 0.5, 260, -30});  //DO NOT TOUCH PLEASE
-    biomeNoise.setNoiseFunction({7, 250, 0.5, 240, 0});
-
-    terrainNoise.setSeed(m_seed);
-    biomeNoise.setSeed((m_seed * 2) / 25);
-
     //===================================
     //Forest
     forestBiome.addBlock(Block::grass, 1);

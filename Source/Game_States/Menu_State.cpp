@@ -1,8 +1,9 @@
 #include "Menu_State.h"
 
-#include "../GUI/Button.h"
-#include "../GUI/Image.h"
-#include "../GUI/Text_Box.h"
+#include <fstream>
+#include <iostream>
+
+#include "GUI.h"
 
 #include "../Application.h"
 
@@ -41,11 +42,10 @@ namespace State
 
         if (m_makeWorld)
         {
-            m_seed = getSeed();
             m_application->changeState (std::make_unique<Playing_State>(
                                         *m_application,
                                         m_worldName,
-                                        m_seed));
+                                        getSeed()));
         }
     }
 
@@ -91,7 +91,8 @@ namespace State
         }));
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Load Game", [&]()
         {
-            //m_makeWorld = true;
+            genLoadMenu();
+             m_activeMenu = &m_loadmenu;
         }));
 
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Exit Game", [&]()
@@ -117,6 +118,57 @@ namespace State
         m_newGameMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
         {
             m_activeMenu = &m_frontMenu;
+            m_seedString.clear();
+            m_worldName.clear();
         }));
     }
+
+    void Main_Menu_State::genLoadMenu()
+    {
+        m_worldFileNames.clear();
+        m_loadmenu.clear();
+        m_loadmenu.addPadding(150);
+        m_loadmenu.addBackgroud(m_background);
+        m_worldSeeds.clear();
+
+        std::ifstream worldsFile("Worlds/World_Names.txt");
+        std::string line;
+        while (std::getline(worldsFile, line))
+        {
+            m_worldFileNames.push_back(line);
+        }
+
+        for (auto& world : m_worldFileNames)
+        {
+            std::fstream inFile("Worlds/" + world + "/World_Info.data");
+            std::string line;
+            int seed;
+            while(std::getline(inFile, line))
+            {
+                if(line == "seed")
+                {
+                    inFile >> seed;
+                    break;
+                }
+            }
+
+            m_worldSeeds.insert(std::make_pair(&world, seed));
+
+            m_loadmenu.addComponent(std::make_unique<GUI::Imaged_Button>("Worlds/" + world + "/thumbnail", world,[&]()
+            {
+                m_worldName = world;
+                m_seedString = std::to_string(m_worldSeeds.at(&world));
+                m_makeWorld = true;
+            }));
+            inFile.close();
+        }
+
+
+
+        m_loadmenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
+        {
+            m_activeMenu = &m_frontMenu;
+        }));
+    }
+
 }
