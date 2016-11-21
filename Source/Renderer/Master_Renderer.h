@@ -51,6 +51,7 @@ class Master_Renderer
 
         Shader::Screen_Shader m_simpleShader;
         Shader::Screen_Shader m_blueShader;
+        Shader::Screen_Shader m_blurShader;
 
         Model m_quad;
 };

@@ -3,6 +3,8 @@
 #include "../D_Settings.h"
 #include "../Util/Display.h"
 
+#include <iostream>
+
 namespace
 {
     std::vector<GLfloat> quadVerticies =
@@ -31,6 +33,7 @@ namespace
 Master_Renderer::Master_Renderer()
 :   m_simpleShader  ("Simple_Vertex",   "Simple_Fragment")
 ,   m_blueShader    ("Blue_Vertex",     "Blue_Fragment")
+,   m_blurShader    ("Blur_Vertex",     "Blur_Fragment")
 {
     m_quad.addData(quadVerticies, quadTextureCoords, quadIndices);
 }
@@ -78,11 +81,12 @@ void Master_Renderer::addPostFX(Post_FX postFx)
         case Post_FX::Blue:
             m_postFXPasses.push_back(&m_blueShader);
             break;
+
+        case Post_FX::Blur:
+            m_postFXPasses.push_back(&m_blurShader);
+            break;
     }
 }
-
-
-
 
 void Master_Renderer::drawToQuad()
 {
@@ -92,8 +96,6 @@ void Master_Renderer::drawToQuad()
     for(auto& shader : m_postFXPasses)
     {
         shader->useProgram();
-        m_framebuffer.unbind();
-        m_simpleShader.useProgram();
         glDrawElements(GL_TRIANGLES,
                        6,
                        GL_UNSIGNED_INT,
