@@ -185,14 +185,16 @@ namespace State
     {
         if(!exitGame)
         {
+            //Draw the chunks
             m_chunkMap->draw(renderer);
 
             auto wp = m_player.getPosition();
             auto bp = Maths::worldToBlockPosition(wp);
             auto cp = Maths::worldToChunkPosition(wp);
-
+            //Add postFX
             if (m_chunkMap->getChunkAt(cp))
             {
+                //Player underwater
                 if (m_chunkMap->getChunkAt(cp)->getBlocks().getBlock(bp).getID() == Block::ID::Water)
                 {
                     renderer.addPostFX(Post_FX::Blue);

@@ -177,6 +177,8 @@
 		<Unit filename="Source/Util/Noise_Generator.h" />
 		<Unit filename="Source/Util/Random.cpp" />
 		<Unit filename="Source/Util/Random.h" />
+		<Unit filename="Source/Util/Time.cpp" />
+		<Unit filename="Source/Util/Time.h" />
 		<Unit filename="Source/World/Block/Block.cpp" />
 		<Unit filename="Source/World/Block/Block.h" />
 		<Unit filename="Source/World/Block/Block_Location.cpp" />
