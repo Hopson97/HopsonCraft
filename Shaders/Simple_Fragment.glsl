@@ -1,4 +1,5 @@
 #version 330 core
+
 in vec2 passTextureCoords;
 
 out vec4 outColour;

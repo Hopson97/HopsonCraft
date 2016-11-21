@@ -189,6 +189,8 @@ namespace State
     {
         m_chunkMap->draw(renderer);
 
+        renderer.addPostFX(Post_FX::Blue);
+
         if (m_debugDisplayActive)
             Debug_Display::draw(renderer);
 

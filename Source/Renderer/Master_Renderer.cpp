@@ -29,6 +29,8 @@ namespace
 }
 
 Master_Renderer::Master_Renderer()
+:   m_simpleShader  ("Simple_Vertex",   "Simple_Fragment")
+,   m_blueShader    ("Blue_Vertex",     "Blue_Fragment")
 {
     m_quad.addData(quadVerticies, quadTextureCoords, quadIndices);
 }
@@ -69,27 +71,51 @@ void Master_Renderer::update (const Camera& camera)
     Display::update();
 }
 
+void Master_Renderer::addPostFX(Post_FX postFx)
+{
+    switch(postFx)
+    {
+        case Post_FX::Blue:
+            m_postFXPasses.push_back(&m_blueShader);
+            break;
+    }
+}
+
+
+
+
 void Master_Renderer::drawToQuad()
 {
-    //Draw to the default context
-    m_colourShader.useProgram();
     m_framebuffer.bindTexture();
     m_quad.bind();
+
+    for(auto& shader : m_postFXPasses)
+    {
+        shader->useProgram();
+        m_framebuffer.unbind();
+        m_simpleShader.useProgram();
+        glDrawElements(GL_TRIANGLES,
+                       6,
+                       GL_UNSIGNED_INT,
+                       nullptr);
+    }
+    m_postFXPasses.clear();
+
+
+    //Draw to the default context
+    m_framebuffer.unbind();
+    m_simpleShader.useProgram();
     glDrawElements(GL_TRIANGLES,
-                   m_quad.getVertexCount(),
+                   6,
                    GL_UNSIGNED_INT,
                    nullptr);
 }
 
 void Master_Renderer::drawScene(const Camera& camera)
 {
-    glEnable(GL_DEPTH_TEST);
     m_framebuffer.bindFramebuffer();
 
     m_chunkRenderer.render  (camera);
     m_waterRenderer.render  (camera);
     m_floraRenderer.render  (camera);
-
-    m_framebuffer.unbind();
-    glDisable(GL_DEPTH_TEST);
 }

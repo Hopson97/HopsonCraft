@@ -8,7 +8,7 @@ namespace Shader
     class Screen_Shader : public Shader_Program
     {
         public:
-            Screen_Shader();
+            Screen_Shader(const std::string& vertexFile, const std::string& fragmentFile);
 
         private:
             void bindAttributes() override;

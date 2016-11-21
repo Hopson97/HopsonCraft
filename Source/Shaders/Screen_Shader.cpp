@@ -2,8 +2,8 @@
 
 namespace Shader
 {
-    Screen_Shader::Screen_Shader()
-    :   Shader_Program ("Simple_Vertex", "Simple_Fragment")
+    Screen_Shader::Screen_Shader(const std::string& vertexFile, const std::string& fragmentFile)
+    :   Shader_Program (vertexFile, fragmentFile)
     {
         bindAttributes();
     }

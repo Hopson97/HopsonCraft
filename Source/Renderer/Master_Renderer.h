@@ -1,6 +1,8 @@
 #ifndef MASTER_RENDERER_H
 #define MASTER_RENDERER_H
 
+#include <memory>
+
 #include "../Shaders/Screen_Shader.h"
 #include "../PostFX/Framebuffer_Object.h"
 #include "../Model/Model.h"
@@ -10,10 +12,14 @@
 #include "Flora_Renderer.h"
 #include "SFML_Renderer.h"
 
-#include <memory>
-
 class Chunk;
 class Camera;
+
+enum class Post_FX
+{
+    Blue,
+    Blur
+};
 
 class Master_Renderer
 {
@@ -27,10 +33,14 @@ class Master_Renderer
 
         void update (const Camera& camera);
 
+        void addPostFX(Post_FX postFx);
+
     private:
         void drawScene(const Camera& camera);
 
         void drawToQuad();
+
+        std::vector<Shader::Screen_Shader*> m_postFXPasses;
 
         Solid_Block_Renderer m_chunkRenderer;
         Water_Renderer m_waterRenderer;
@@ -39,7 +49,8 @@ class Master_Renderer
 
         Framebuffer_Object m_framebuffer;
 
-        Shader::Screen_Shader m_colourShader;
+        Shader::Screen_Shader m_simpleShader;
+        Shader::Screen_Shader m_blueShader;
 
         Model m_quad;
 };

@@ -29,6 +29,11 @@ void Chunk_Mesh::Chunk_Mesh_Part::buffer()
     textureCoords.clear();
     indices.clear();
     indicesCount = 0;
+
+    //Fully clear the vectors
+    vertexCoords.shrink_to_fit();
+    textureCoords.shrink_to_fit();
+    indices.shrink_to_fit();
 }
 
 

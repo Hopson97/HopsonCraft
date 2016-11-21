@@ -44,6 +44,9 @@ void World_Generator::generate()
     m_heightMap.clear();
     m_biomeMap.clear();
 
+    m_heightMap.shrink_to_fit();
+    m_biomeMap.shrink_to_fit();
+
 }
 
 void World_Generator::generateHeightMap()
