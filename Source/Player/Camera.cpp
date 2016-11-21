@@ -1,7 +1,5 @@
 #include "Camera.h"
 
-#include <iostream>
-
 #include "../Util/Display.h"
 #include "../Util/Debug_Display.h"
 

@@ -1,7 +1,5 @@
 #include "Model.h"
 
-#include <iostream>
-
 namespace
 {
     GLuint createVertexArray()

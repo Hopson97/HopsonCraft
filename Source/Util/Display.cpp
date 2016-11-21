@@ -1,10 +1,8 @@
 #include "Display.h"
 
-#include "../OpenGL/GLEW/glew.h"
-
 #include <memory>
-#include <iostream>
 
+#include "../OpenGL/GLEW/glew.h"
 #include "../D_Settings.h"
 
 namespace Display

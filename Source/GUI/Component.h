@@ -27,6 +27,18 @@ namespace GUI
             static sf::Texture guiTexture;
             static sf::Font    guiFont;
     };
+
+    class Empty_Component : public Component
+    {
+        public:
+            void input  (const sf::Event& e){}
+            void update (){}
+            void draw   (Master_Renderer& renderer){}
+
+            void setPosition (const sf::Vector2f& position){}
+
+            const sf::Vector2f getSize () const{}
+    };
 }
 
 #endif // COMPONENT_GUI_H

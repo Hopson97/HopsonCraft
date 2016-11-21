@@ -1,7 +1,5 @@
 #include "Player.h"
 
-#include <iostream>
-
 #include "../Util/Debug_Display.h"
 #include "../World/Block/Block.h"
 #include "../World/Block/D_Blocks.h"

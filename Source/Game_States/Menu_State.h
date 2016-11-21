@@ -30,6 +30,8 @@ namespace State
             void initFrontMenu  ();
             void initNewGameMenu();
 
+            void genLoadMenu    ();
+
             GUI::Base_Menu m_frontMenu;
             GUI::Base_Menu m_newGameMenu;
             GUI::Base_Menu m_loadmenu;

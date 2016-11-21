@@ -1,8 +1,6 @@
 #include "noise_generator.h"
 
 #include <cmath>
-#include <iostream>
-#include <mutex>
 
 #include "../World/Chunk/Chunk.h"
 

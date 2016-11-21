@@ -1,6 +1,5 @@
 #include "Framebuffer_Object.h"
 
-#include <iostream>
 #include <vector>
 
 #include "../Util/Display.h"
@@ -86,10 +85,6 @@ Framebuffer_Object::Framebuffer_Object()
                               m_rbo);
     //Unbind
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-	    std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 

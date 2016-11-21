@@ -1,6 +1,5 @@
 #include "block.h"
 
-#include <iostream>
 #include <fstream>
 #include <stdexcept>
 

@@ -1,7 +1,5 @@
 #include "Solid_Block_Renderer.h"
 
-#include <iostream>
-
 #include "../World/Chunk/Chunk.h"
 #include "../Player/Camera.h"
 #include "../Maths/Matrix_Maths.h"

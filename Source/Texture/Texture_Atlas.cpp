@@ -1,8 +1,4 @@
-
 #include "Texture_Atlas.h"
-
-#include <cmath>
-#include <iostream>
 
 Texture_Atlas::Texture_Atlas (float imageSize, float textureSize, const std::string& file)
 :   Texture         (file)

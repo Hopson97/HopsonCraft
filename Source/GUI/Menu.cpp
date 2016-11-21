@@ -61,4 +61,13 @@ namespace GUI
         m_currentY += component->getSize().y + 10;
     }
 
+    void Base_Menu::clear()
+    {
+        m_components.clear();
+        m_components.shrink_to_fit();
+        m_currentX = 0;
+        m_currentY = 0;
+    }
+
+
 }   //namespace GUI

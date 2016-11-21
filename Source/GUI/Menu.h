@@ -14,7 +14,8 @@ namespace GUI
 {
     enum class Layout
     {
-        Center
+        Center,
+        Grid2x2
     };
 
     class Base_Menu
@@ -29,6 +30,8 @@ namespace GUI
             void input  (const sf::Event& e);
             void update ();
             void draw   (Master_Renderer& renderer);
+
+            void clear  ();
 
         private:
             void addComponentCenter(std::unique_ptr<Component>& component);

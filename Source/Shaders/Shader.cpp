@@ -2,8 +2,6 @@
 
 #include "Shader_Loader.h"
 
-#include <stdexcept>
-#include <iostream>
 
 namespace Shader
 {

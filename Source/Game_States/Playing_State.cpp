@@ -1,7 +1,6 @@
 #include "playing_state.h"
 
 #include <SFML/System/Clock.hpp>
-#include <iostream>
 #include <fstream>
 
 #include "../World/Block/D_Blocks.h"
@@ -134,8 +133,8 @@ namespace State
             if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
 
             auto* block       = &m_chunkMap->getBlockAt(ray.getEndPoint());
-            auto worldPoint   = Maths::worldToBlockPosition(ray.getEndPoint());
-            auto playerPoint  = Maths::worldToBlockPosition(m_player.getPosition());
+            //auto worldPoint   = Maths::worldToBlockPosition(ray.getEndPoint());
+            //auto playerPoint  = Maths::worldToBlockPosition(m_player.getPosition());
 
             if (block->getPhysicalState() == Block::Physical_State::Solid ||
                 block->getPhysicalState() == Block::Physical_State::Flora)

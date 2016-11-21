@@ -4,7 +4,6 @@
 #include "OpenGL/GLEW/glew.h"
 
 #include <cstdlib>
-#include <iostream>
 #include <string>
 #include <ctime>
 

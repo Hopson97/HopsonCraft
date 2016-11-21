@@ -1,7 +1,5 @@
 #include "Menu_State.h"
 
-#include <iostream>
-
 #include "../GUI/Button.h"
 #include "../GUI/Image.h"
 #include "../GUI/Text_Box.h"
@@ -85,7 +83,7 @@ namespace State
     void Main_Menu_State::initFrontMenu()
     {
         m_frontMenu.addBackgroud(m_background);
-        m_frontMenu.addComponent(std::make_unique<GUI::Image>("logo", sf::Vector2f{800, 250}));
+        m_frontMenu.addComponent(std::make_unique<GUI::Image>("Data/Images/logo", sf::Vector2f{800, 250}));
 
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("New Game", [&]()
         {
