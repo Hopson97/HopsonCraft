@@ -3,8 +3,8 @@
 #include "Chunk.h"
 
 #include "../../Texture/Texture_Atlas.h"
-
 #include "../Block/Block_Location.h"
+#include "../World_Constants.h"
 
 
 void Chunk_Mesh::Chunk_Mesh_Part::addVerticies(const std::vector<GLfloat>& verticies )
@@ -68,9 +68,9 @@ void Chunk_Mesh::generateMesh(int height)
 {
     for (int y = 0 ; y < height ; y++)
     {
-        for (int z = 0 ; z < Chunk::SIZE ; z++)
+        for (int z = 0 ; z < World::CHUNK_SIZE ; z++)
         {
-            for (int x = 0 ; x < Chunk::SIZE ; x++)
+            for (int x = 0 ; x < World::CHUNK_SIZE ; x++)
             {
                 if (m_p_chunk->getBlocks().getBlock({x, y, z}).getPhysicalState() == Block::Physical_State::Gas)
                 {

@@ -18,7 +18,6 @@
 #include "Chunk_Blocks.h"
 
 class Texture_Atlas;
-class World;
 class Chunk_Map;
 
 class Chunk;
@@ -60,11 +59,6 @@ class Chunk
         void saveToFile     (const std::string& worldName);
 
         const Matrix4& getModelMatrix () const;
-
-        static constexpr int SIZE  = 20,
-                             WATER_LEVEL = 90,
-                             BEACH_LEVEL = WATER_LEVEL + 3,
-                             SNOW_LEVEL = 260;
 
     private:
         void loadBlockData          (const std::string& worldName);

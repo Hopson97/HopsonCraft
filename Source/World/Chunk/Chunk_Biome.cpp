@@ -25,7 +25,7 @@ namespace
 
     const Biome& getBiome (int biomeValue, Biome& forest, Biome& fields, Biome& desert, Biome& snow, Biome& jungle)
     {
-        auto add = Chunk::WATER_LEVEL / 2.5;
+        auto add = World::WATER_LEVEL / 2.5;
         if (biomeValue > 210 + add) return snow;
         else if (biomeValue <= 210 + add && biomeValue > 180 + add ) return fields;
         else if (biomeValue <= 180 + add && biomeValue >= 90 + add) return forest;

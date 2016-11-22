@@ -23,7 +23,7 @@ namespace Block
     extern Block_t rose;
     extern Block_t tallGrass;
     extern Block_t deadShrub;
-    extern Block_t coral;
+    extern Block_t bedrock;
 
     void initBlockDatabase ();
 

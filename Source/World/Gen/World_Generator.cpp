@@ -9,6 +9,8 @@
 #include "../../Util/Hasher.h"
 #include "../../Util/Random.h"
 
+#include "../World_Constants.h"
+
 namespace
 {
     Biome forestBiome;
@@ -23,7 +25,7 @@ namespace
 World_Generator::World_Generator(Chunk& chunk,
                                  uint32_t seed)
 :   m_p_chunk   (&chunk)
-,   m_maxHeight (Chunk::WATER_LEVEL + 1)
+,   m_maxHeight (World::WATER_LEVEL + 1)
 ,   m_seed      (seed)
 {
     terrainNoise.setNoiseFunction({9, 225, 0.5, 260, -30});  //DO NOT TOUCH PLEASE
@@ -74,9 +76,9 @@ void World_Generator::generateBiomeMap()
 
 void World_Generator::generateMap(std::vector<int>& valueMap, const Noise::Generator& noiseGenerator)
 {
-    for (int x = 0 ; x < Chunk::SIZE ; x++)
+    for (int x = 0 ; x < World::CHUNK_SIZE ; x++)
     {
-        for (int z = 0 ; z < Chunk::SIZE ; z++)
+        for (int z = 0 ; z < World::CHUNK_SIZE ; z++)
         {
             auto value = noiseGenerator.getValue(x,
                                                  z,
@@ -92,13 +94,13 @@ void World_Generator::generateBlockData()
 {
     for (int y = 0  ; y < m_maxHeight + 1 ; y++)
     {
-        for (int x = 0 ; x < Chunk::SIZE ; x++)
+        for (int x = 0 ; x < World::CHUNK_SIZE ; x++)
         {
-            for (int z = 0 ; z < Chunk::SIZE ; z++)
+            for (int z = 0 ; z < World::CHUNK_SIZE ; z++)
             {
                 setRandomSeed(x, y, z);
 
-                auto index = (x * Chunk::SIZE + z);
+                auto index = (x * World::CHUNK_SIZE + z);
                 auto height = m_heightMap.at(index);
                 setActiveBiome(m_biomeMap.at(index));
 
@@ -125,26 +127,27 @@ void World_Generator::generateBlockData()
 
 void World_Generator::setRandomSeed(int x, int y, int z)
 {
-    Random::setSeed(Hasher::hash(x + Chunk::SIZE * m_p_chunk->getLocation().x + m_seed,
+    Random::setSeed(Hasher::hash(x + World::CHUNK_SIZE * m_p_chunk->getLocation().x + m_seed,
                                  y + m_seed * x * z,
-                                 z + Chunk::SIZE * m_p_chunk->getLocation().z + m_seed)); //This for trees, so they gen in the same place
+                                 z + World::CHUNK_SIZE * m_p_chunk->getLocation().z + m_seed)); //This for trees, so they gen in the same place
 }
 
+//Generates all the blocks in a given chunk.
 void World_Generator::setBlock(const Block_Location& location, int h)
 {
     auto y = location.y;
 
     if (y > h)  //Above the ground
     {
-        y > Chunk::WATER_LEVEL ?
+        y > World::WATER_LEVEL ?
             setBlock(location, Block::air)  :
             setBlock(location, Block::water);
     }
     else if (y == h)    //Surface levels
     {
-        if (y < Chunk::SNOW_LEVEL)
+        if (y < World::SNOW_LEVEL)
         {
-            if (y > Chunk::BEACH_LEVEL) //Surface/ main land area
+            if (y > World::BEACH_LEVEL) //Surface/ main land area
             {
                 setBlock(location, m_p_activeBiome->getBlock());
                 if (m_p_activeBiome->hasTrees()) //Trees
@@ -152,7 +155,7 @@ void World_Generator::setBlock(const Block_Location& location, int h)
                 if (m_p_activeBiome->hasFlora()) //Flora eg Rose and tall grass
                     tryAddFlora(location);
             }
-            else if (y <= Chunk::BEACH_LEVEL && y >= Chunk::WATER_LEVEL) //Beach
+            else if (y <= World::BEACH_LEVEL && y >= World::WATER_LEVEL) //Beach
             {
                 setBlock(location, Block::sand);
             }
@@ -170,15 +173,19 @@ void World_Generator::setBlock(const Block_Location& location, int h)
                 setBlock(location, m_p_activeBiome->getBlock());
         }
     }
-    else if (h - y < m_p_activeBiome->getDepth() && y > Chunk::BEACH_LEVEL) //Slightly underground (biome)
+    else if (h - y < m_p_activeBiome->getDepth() && y > World::BEACH_LEVEL) //Slightly underground (biome)
     {
         setBlock(location, m_p_activeBiome->getBlock());
     }
     else if (y < h && y >= h - 4)   //Slighty underground
     {
-            y > Chunk::BEACH_LEVEL ?
+            y > World::BEACH_LEVEL ?
                 setBlock(location, Block::dirt) :
                 setBlock(location, Block::sand);
+    }
+    else if (y < 2)
+    {
+        setBlock(location, Block::bedrock);
     }
     else    //Deep underground
     {
@@ -193,7 +200,7 @@ void World_Generator::setBlock(const Block_Location& location, const Block_t& bl
 
 void World_Generator::tryAddTree(const Block_Location& location)
 {
-    if (location.y < Chunk::SNOW_LEVEL - 15)
+    if (location.y < World::SNOW_LEVEL - 15)
     {
         if (Random::integer(1, m_p_activeBiome->getTreeFrequency()) == 1)
         {
@@ -204,7 +211,7 @@ void World_Generator::tryAddTree(const Block_Location& location)
 
 void World_Generator::tryAddFlora(const Block_Location& location)
 {
-    if (location.y < Chunk::SNOW_LEVEL - 15)
+    if (location.y < World::SNOW_LEVEL - 15)
     {
         if (Random::integer(1, m_p_activeBiome->getFloraFrequency()) == 1)
         {

@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "../World/Chunk/Chunk.h"
+#include "../World/World_Constants.h"
 
 namespace Noise
 {
@@ -65,10 +65,10 @@ namespace Noise
     // Here you can edit maximum and minimum level of height.
     int Generator::getValue(int x, int z, int tileX, int tileZ) const
     {
-        auto newX = (x + (tileX * Chunk::SIZE));
-        auto newZ = (z + (tileZ * Chunk::SIZE));
+        auto newX = (x + (tileX * World::CHUNK_SIZE));
+        auto newZ = (z + (tileZ * World::CHUNK_SIZE));
 
-        if (newX < 0 || newZ < 0) return Chunk::WATER_LEVEL - 1;
+        if (newX < 0 || newZ < 0) return World::WATER_LEVEL - 1;
 
         auto totalValue   = 0.0;
 

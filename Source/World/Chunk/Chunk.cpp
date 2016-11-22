@@ -11,13 +11,17 @@
 
 #include "Chunk_Map.h"
 
+#include "../World_Constants.h"
+
+
 Chunk::Chunk(const Chunk_Location& position,
               Chunk_Map& chunkMap,
               const Texture_Atlas& blockAtlas,
               unsigned seed,
               const std::string& worldName)
 :   m_location      (position)
-,   m_position      (position.x * SIZE, position.z * SIZE)
+,   m_position      (position.x * World::CHUNK_SIZE,
+                     position.z * World::CHUNK_SIZE)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_p_atlas       (&blockAtlas)
 ,   m_mesh          (*this)

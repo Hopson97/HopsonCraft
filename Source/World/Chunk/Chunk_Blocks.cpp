@@ -1,6 +1,7 @@
 #include "Chunk_Blocks.h"
 
 #include "../Block/D_Blocks.h"
+#include "../World_Constants.h"
 
 #include "Chunk.h"
 #include "Chunk_Map.h"
@@ -11,7 +12,7 @@ Chunk_Blocks::Chunk_Blocks(const Chunk& chunk,
 :   m_p_chunk       (&chunk)
 ,   m_location      (location)
 ,   m_p_chunkMap    (&chunkMap)
-,   m_layers        (Chunk::WATER_LEVEL + 1)
+,   m_layers        (World::WATER_LEVEL + 1)
 { }
 
 void Chunk_Blocks::setBlock(const Block_Location& location,
@@ -20,8 +21,8 @@ void Chunk_Blocks::setBlock(const Block_Location& location,
 {
     if ( location.x < 0 )           return;
     else if ( location.z < 0 )      return;
-    else if ( location.x >= Chunk::SIZE )  return;
-    else if ( location.z >= Chunk::SIZE )  return;
+    else if ( location.x >= World::CHUNK_SIZE )  return;
+    else if ( location.z >= World::CHUNK_SIZE )  return;
     else
         qSetBlock(location, block, overrideBlocks);
 
@@ -31,8 +32,9 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
                              const Block_t& block,
                              bool overrideBlocks)
 {
-    if ((unsigned)location.y > m_layers.size() - 1) addLayers(location.y);
+    if (location.y == 0) return; //Cannot break bedrock
 
+    if ((unsigned)location.y > m_layers.size() - 1) addLayers(location.y);
 
     if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Air || overrideBlocks)
     {
@@ -47,17 +49,17 @@ const Block_t& Chunk_Blocks::getBlock (const Block_Location& location) const
 {
     if (location.x == -1 )
     {
-        return getAdjacentChunkBlock(-1, 0, {Chunk::SIZE - 1, location.y, location.z});
+        return getAdjacentChunkBlock(-1, 0, {World::CHUNK_SIZE - 1, location.y, location.z});
     }
     else if (location.z == -1 )
     {
-        return getAdjacentChunkBlock(0, -1, {location.x, location.y, Chunk::SIZE - 1});
+        return getAdjacentChunkBlock(0, -1, {location.x, location.y, World::CHUNK_SIZE - 1});
     }
-    else if (location.x == Chunk::SIZE )
+    else if (location.x == World::CHUNK_SIZE )
     {
         return getAdjacentChunkBlock(1, 0, {0, location.y, location.z});
     }
-    else if (location.z == Chunk::SIZE )
+    else if (location.z == World::CHUNK_SIZE )
     {
         return getAdjacentChunkBlock(0, 1, {location.x, location.y, 0});
     }

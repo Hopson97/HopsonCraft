@@ -21,7 +21,7 @@ namespace Block
         Rose            =   14,
         Tall_Grass      =   15,
         Dead_Shrub      =   16,
-        Coral           =   17,
+        Bedrock         =   17,
 
         NUM_BLOCK_TYPES
     };

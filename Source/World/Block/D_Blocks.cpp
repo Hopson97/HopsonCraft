@@ -21,7 +21,7 @@ namespace Block
     Block_t rose        ("Rose");
     Block_t tallGrass   ("Tall_Grass");
     Block_t deadShrub   ("Dead_Shrub");
-    Block_t coral       ("Coral");
+    Block_t bedrock     ("Bedrock");
 
     std::map<Block::ID, Block_t*> blockMap;
 
@@ -44,7 +44,7 @@ namespace Block
         blockMap[Block::ID::Rose]           = &rose;
         blockMap[Block::ID::Tall_Grass]     = &tallGrass;
         blockMap[Block::ID::Dead_Shrub]     = &deadShrub;
-        blockMap[Block::ID::Coral]          = &coral;
+        blockMap[Block::ID::Bedrock]        = &bedrock;
     }
 
     Block_t& getBlockFromId (Block::ID id)

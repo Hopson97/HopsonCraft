@@ -30,14 +30,14 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
+					<Add option="-pg" />
 					<Add directory="Source/GUI" />
 					<Add directory="Source" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
+					<Add option="-pg -lgmon" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-audio" />
@@ -57,6 +57,7 @@
 			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML MinGW/lib" />
 		</Linker>
 		<Unit filename="Data/Blocks/Air.block" />
+		<Unit filename="Data/Blocks/Bedrock.block" />
 		<Unit filename="Data/Blocks/Cactus.block" />
 		<Unit filename="Data/Blocks/Cobblestone.block" />
 		<Unit filename="Data/Blocks/Coral.block" />
@@ -214,7 +215,6 @@
 		<Unit filename="Source/World/Gen/Structure.h" />
 		<Unit filename="Source/World/Gen/World_Generator.cpp" />
 		<Unit filename="Source/World/Gen/World_Generator.h" />
-		<Unit filename="Source/World/Structure.h" />
 		<Unit filename="Templates/Shader_template.txt" />
 		<Unit filename="Templates/State_template.txt" />
 		<Unit filename="libgcc_s_sjlj-1.dll" />

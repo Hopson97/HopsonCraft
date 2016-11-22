@@ -2,18 +2,13 @@
 
 #include "../../Maths/Position_Converter_Maths.h"
 #include "../../Maths/General_Maths.h"
-
 #include "../../Player/Camera.h"
-
 #include "../../Util/Debug_Display.h"
-
 #include "../../Input/Function_Toggle_Key.h"
-
 #include "../Block/D_Blocks.h"
-
 #include "../../Renderer/Master_Renderer.h"
-
 #include "../../Play_Settings.h"
+#include "../World_Constants.h"
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition,
                      const std::string& worldName,
@@ -172,10 +167,10 @@ void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
         if (blockPosition.z == 0)
             addToBatch(position.x, position.z - 1);
 
-        if (blockPosition.x == Chunk::SIZE - 1)
+        if (blockPosition.x == World::CHUNK_SIZE - 1)
             addToBatch(position.x + 1, position.z);
 
-        if (blockPosition.z == Chunk::SIZE - 1)
+        if (blockPosition.z == World::CHUNK_SIZE - 1)
             addToBatch(position.x, position.z + 1);
 
     }

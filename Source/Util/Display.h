@@ -5,9 +5,6 @@
 
 namespace Display
 {
-	constexpr static float HEIGHT = 720;
-	constexpr static float WIDTH = 1280;
-
 	void create	(const std::string& name = "My Window");
 
 	void update ();

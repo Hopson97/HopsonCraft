@@ -6,6 +6,7 @@
 
 #include "../World/Block/D_Blocks.h"
 #include "../World/Block/Block.h"
+#include "World/World_Constants.h"
 
 #include "../Util/Display.h"
 #include "../Util/Debug_Display.h"
@@ -162,8 +163,8 @@ namespace State
         {
             m_player.update(dt, camera);
             m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
-            m_playerPosition = {(int)m_player.getPosition().x / Chunk::SIZE,
-                                (int)m_player.getPosition().z / Chunk::SIZE};
+            m_playerPosition = {(int)m_player.getPosition().x / World::CHUNK_SIZE,
+                                (int)m_player.getPosition().z / World::CHUNK_SIZE};
             Debug_Display::addPlayerPosition(m_player.getPosition());
         }
         else if (m_state == State_t::Pause)
