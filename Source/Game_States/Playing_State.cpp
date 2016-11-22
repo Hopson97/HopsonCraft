@@ -190,11 +190,11 @@ namespace State
             if (m_debugDisplayActive)   Debug_Display::draw(renderer);
             renderer.draw(crossHairSprite);
         }
-        else if (m_state == State_t::Pause)
+        else if (m_state == State_t::Pause && !m_isExitGame)
             m_activeMenu->draw(renderer);
 
 
-        if(exitGame)
+        if(m_isExitGame)
             prepareExit(renderer);
     }
 
@@ -305,7 +305,7 @@ namespace State
 
         m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
         {
-            exitGame = true;
+            m_isExitGame = true;
         }));
     }
 
