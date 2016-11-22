@@ -32,7 +32,6 @@ Application::Application()
     m_stateStack.push(std::make_unique<State::Main_Menu_State>(*this));
 }
 
-//
 Application::~Application()
 {
     while(!m_stateStack.empty())

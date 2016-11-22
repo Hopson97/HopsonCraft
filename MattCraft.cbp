@@ -192,7 +192,6 @@
 		<Unit filename="Source/World/Block/E_Block_Type.h" />
 		<Unit filename="Source/World/Chunk/Chunk.cpp" />
 		<Unit filename="Source/World/Chunk/Chunk.h" />
-		<Unit filename="Source/World/Chunk/Chunk_Biome.cpp" />
 		<Unit filename="Source/World/Chunk/Chunk_Blocks.cpp" />
 		<Unit filename="Source/World/Chunk/Chunk_Blocks.h" />
 		<Unit filename="Source/World/Chunk/Chunk_Layer.cpp" />

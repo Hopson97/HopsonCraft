@@ -268,11 +268,11 @@ struct Area
     int maxZ;
 };
 
-
 void Chunk_Map :: manageChunks()
 {
     while (m_isRunning)
     {
+        //Load chunks (eg from a file)
         {
             Area loadArea
             (
@@ -286,6 +286,7 @@ void Chunk_Map :: manageChunks()
             if (!m_isRunning) return;
         }
 
+        //Flag chunks for deleting
         {
             Area deleteArea
             (
@@ -300,6 +301,7 @@ void Chunk_Map :: manageChunks()
             if (!m_isRunning) return;
         }
 
+        //Generate meshes for chunks
         {
             Area generationArea
             (
