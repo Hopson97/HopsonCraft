@@ -35,7 +35,7 @@ namespace Display
         settings.stencilBits = 8;
         settings.antialiasingLevel = 8;
         settings.majorVersion = 3;
-        settings.minorVersion = 0;
+        settings.minorVersion = 3;
 
         sf::VideoMode videoMode (sf::VideoMode::getDesktopMode());
 
