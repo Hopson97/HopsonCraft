@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <string>
 #include <ctime>
+#include <stdexcept>
 
 #include "Game_States/Playing_State.h"
 #include "Game_States/Menu_State.h"
@@ -42,7 +43,6 @@ Application::~Application()
     }
 }
 
-
 //Main loop!
 void Application::runMainLoop()
 {
@@ -51,16 +51,15 @@ void Application::runMainLoop()
     while (Display::isOpen())
     {
         auto dt = dtClock.restart().asSeconds();
-
         sf::Event e;
         while (Display::get().pollEvent(e))
         {
             if (Display::checkForClose(e))
                 return;
-
             m_stateStack.top()->input (e);
         }
         if (!Display::isOpen()) break;
+
         m_stateStack.top()->input   ();
         m_stateStack.top()->update  (dt, m_camera);
         m_stateStack.top()->draw    (dt, m_renderer);
@@ -69,7 +68,6 @@ void Application::runMainLoop()
         m_renderer.update(m_camera);
 
         checkFps();
-
         if(m_songTimer.getElapsedTime() > m_songDuration )
             resetSong();
     }

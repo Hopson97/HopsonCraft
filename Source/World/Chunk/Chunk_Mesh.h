@@ -51,7 +51,7 @@ class Chunk_Mesh
         void addBlockFrontToMesh    (float x, float y, float z, const Block_t& block);
         void addBlockBackToMesh     (float x, float y, float z, const Block_t& block);
 
-        void addBlockIndices        (const Block_t& block);
+        void addBlockIndices        ();
 
         void addPlantToMesh         (float x, float y, float z, const Block_t& block);
 

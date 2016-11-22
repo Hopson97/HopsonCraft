@@ -171,7 +171,7 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& blo
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureTop()));
 
-    addBlockIndices(block);
+    addBlockIndices();
 }
 
 void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& block)
@@ -185,7 +185,7 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& 
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureBottom()));
 
-    addBlockIndices(block);
+    addBlockIndices();
 }
 
 void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& block)
@@ -199,7 +199,7 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& bl
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 
-    addBlockIndices(block);
+    addBlockIndices();
 }
 
 void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& block)
@@ -213,7 +213,7 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& b
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 
-    addBlockIndices(block);
+    addBlockIndices();
 }
 
 void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& block)
@@ -227,7 +227,7 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& b
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 
-    addBlockIndices(block);
+    addBlockIndices();
 }
 
 void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block_t& block)
@@ -241,11 +241,11 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block_t& bl
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 
-    addBlockIndices(block);
+    addBlockIndices();
 }
 
 
-void Chunk_Mesh::addBlockIndices(const Block_t& block)
+void Chunk_Mesh::addBlockIndices()
 {
     GLuint& i = m_activePart->indicesCount;
 
@@ -261,7 +261,8 @@ void Chunk_Mesh::addBlockIndices(const Block_t& block)
 //This makes a sorta X shape
 void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block_t& block)
 {
-    m_floraPart.addVerticies
+    m_activePart = &m_floraPart;
+    m_activePart->addVerticies
     ({
         x,      y,      z,
         x + 1,  y,      z + 1,
@@ -273,23 +274,9 @@ void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block_t& block)
         x + 1,  y + 1,  z,
         x,      y + 1,  z + 1,
     });
-    m_floraPart.addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
-    m_floraPart.addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 
-    GLuint& i = m_floraPart.indicesCount;
-
-
-    m_floraPart.addIndices
-    ({
-        0 + i, 1 + i, 2 + i,
-        2 + i, 3 + i, 0 + i
-    });
-    i += 4;
-
-    m_floraPart.addIndices
-    ({
-        0 + i, 1 + i, 2 + i,
-        2 + i, 3 + i, 0 + i
-    });
-    i += 4;
+    addBlockIndices();
+    addBlockIndices();
 }

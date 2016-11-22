@@ -22,7 +22,7 @@ void Flora_Renderer::prepareChunk (const Chunk& chunk)
 void Flora_Renderer::drawChunk(const Chunk& chunk)
 {
     glDrawElements(GL_TRIANGLES,
-                   chunk.getMesh().getSolidPart().model.getVertexCount(),
+                   chunk.getMesh().getFloraPart().model.getVertexCount(),
                    GL_UNSIGNED_INT,
                    nullptr);
 }
