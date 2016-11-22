@@ -3,16 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Game_State.h"
-
-#include "../Player/Player.h"
-#include "../Renderer/Master_Renderer.h"
 #include "../Input/Function_Toggle_Key.h"
+#include "../Renderer/Master_Renderer.h"
 #include "../World/Chunk/Chunk_Map.h"
-
-#include "Crosshair.h"
-
-#include "Menu.h"
+#include "../Player/Player.h"
+#include "../GUI/Menu.h"
+#include "../Crosshair.h"
+#include "Game_State.h"
 
 class Camera;
 class Application;

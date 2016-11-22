@@ -3,12 +3,9 @@
 #include <fstream>
 #include <iostream>
 
-#include "GUI.h"
-
-#include "../Application.h"
-
 #include "../Util/Display.h"
-
+#include "../Application.h"
+#include "../GUI/GUI.h"
 #include "Playing_State.h"
 
 namespace State

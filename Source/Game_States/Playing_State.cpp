@@ -4,28 +4,25 @@
 #include <fstream>
 #include <iostream>
 
+#include "../World/World_Constants.h"
 #include "../World/Block/D_Blocks.h"
 #include "../World/Block/Block.h"
-#include "World/World_Constants.h"
 
-#include "../Util/Display.h"
-#include "../Util/Debug_Display.h"
 #include "../Util/Directory_Creator.h"
 #include "../Util/Noise_Generator.h"
+#include "../Util/Debug_Display.h"
+#include "../Util/Display.h"
+#include "../Util/Time.h"
 
 #include "../Maths/Position_Converter_Maths.h"
-#include "../Maths/Ray.h"
 #include "../Maths/General_Maths.h"
+#include "../Maths/Ray.h"
 
 #include "../Renderer/Master_Renderer.h"
-
-#include "Button.h"
-
 #include "../Application.h"
+#include "../GUI/GUI.h"
 
 #include "Menu_State.h"
-
-#include "../Util/Time.h"
 
 namespace State
 {
