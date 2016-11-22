@@ -37,17 +37,18 @@ namespace State
     ,   m_worldName         (worldName)
     ,   m_worldSeed         (seed)
     ,   m_pauseMenu         (GUI::Layout::Center)
+    ,   m_settingsMenu      (GUI::Layout::Center)
     {
 
         Display::hideMouse();
         Directory::create("Worlds");
-        std::ifstream worldsFile("Worlds/World_Names.txt");
-        std::string line;
-        m_worldFileNames.push_back(worldName + "\n");
-        while (std::getline(worldsFile, line))
-        {
-            m_worldFileNames.push_back(line + "\n");
-        }
+        Directory::create("Worlds/" + m_worldName);
+
+        loadWorldFile();
+        loadWorldList();
+
+        setUpPauseMenu();
+        setUpSettingsMenu();
 
         crossHairTexture.loadFromFile("Data/Images/Crosshair.png");
         crossHairSprite.setTexture(crossHairTexture);
@@ -55,21 +56,6 @@ namespace State
                                     Display::get().getSize().y / 2 - crossHairSprite.getTexture()->getSize().y / 2);
 
 
-        Directory::create("Worlds/" + worldName);
-
-        std::ifstream inFile("Worlds/" + worldName + "/World_Info.data");
-        std::string line2;
-        if (inFile.is_open())
-        {
-            if (line == "pos")
-            {
-                int x, y, z;
-                inFile >> x >> y >> z;
-                m_player.setPosition({x, y, z});
-            }
-        }
-
-        setUpPauseMenu();
         m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed);
     }
 
@@ -82,6 +68,7 @@ namespace State
             {
                 case State_t::Play:
                     m_state = State_t::Pause;
+                    m_activeMenu = &m_pauseMenu;
                     Display::showMouse();
                     break;
 
@@ -102,7 +89,7 @@ namespace State
         }
         else if (m_state == State_t::Pause)
         {
-            m_pauseMenu.input(e);
+            m_activeMenu->input(e);
         }
     }
 
@@ -181,76 +168,125 @@ namespace State
         {
             m_player.update(dt, camera);
             m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
+            m_playerPosition = {(int)m_player.getPosition().x / Chunk::SIZE,
+                                (int)m_player.getPosition().z / Chunk::SIZE};
+            Debug_Display::addPlayerPosition(m_player.getPosition());
         }
         else if (m_state == State_t::Pause)
         {
-            m_pauseMenu.update();
+            m_activeMenu->update();
         }
-
-        m_playerPosition = {(int)m_player.getPosition().x / Chunk::SIZE,
-                            (int)m_player.getPosition().z / Chunk::SIZE};
-        Debug_Display::addPlayerPosition(m_player.getPosition());
     }
 
     void Playing_State::draw (float dt, Master_Renderer& renderer)
     {
-        if(!exitGame)
+        //Draw the chunks
+        m_chunkMap->draw(renderer);
+
+        tryAddPostFX(renderer);
+
+        if (m_state == State_t::Play)
         {
-            //Draw the chunks
-            m_chunkMap->draw(renderer);
-
-            auto wp = m_player.getPosition();
-            auto bp = Maths::worldToBlockPosition(wp);
-            auto cp = Maths::worldToChunkPosition(wp);
-            //Add postFX
-            if (m_chunkMap->getChunkAt(cp))
-            {
-                //Player underwater
-                if (m_chunkMap->getChunkAt(cp)->getBlocks().getBlock(bp).getID() == Block::ID::Water)
-                {
-                    renderer.addPostFX(Post_FX::Blue);
-                }
-            }
-
-            if (m_debugDisplayActive)
-                Debug_Display::draw(renderer);
-
-            if (m_state == State_t::Play)
-                renderer.draw(crossHairSprite);
-            else if (m_state == State_t::Pause)
-                m_pauseMenu.draw(renderer);
+            if (m_debugDisplayActive)   Debug_Display::draw(renderer);
+            renderer.draw(crossHairSprite);
         }
-        else    //Render all chunks so a thumbnail can made
+        else if (m_state == State_t::Pause)
+            m_activeMenu->draw(renderer);
+
+
+        if(exitGame)
+            prepareExit(renderer);
+    }
+
+    void Playing_State::tryAddPostFX(Master_Renderer& renderer)
+    {
+        //Get player position
+        auto wp = m_player.getPosition();
+        auto bp = Maths::worldToBlockPosition(wp);
+        auto cp = Maths::worldToChunkPosition(wp);
+
+        if (m_chunkMap->getChunkAt(cp))
         {
+           //Player underwater
+           if (m_chunkMap->getChunkAt(cp)->getBlocks().getBlock(bp).getID() == Block::ID::Water)
+           {
+               renderer.addPostFX(Post_FX::Blue);
+           }
+        }
+    }
+
+    void Playing_State::prepareExit(Master_Renderer& renderer)
+    {
             renderer.clear();
             m_chunkMap->draw(renderer);
             renderer.update(m_player.getCamera());
             m_application->changeState(std::make_unique<Main_Menu_State>(*m_application));
-        }
     }
+
 
 
     void Playing_State::exitState()
     {
         m_chunkMap->saveChunks();
 
+        saveWorldFile();
+        saveWorldList();
+
+        Display::showMouse();
+        m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail.png");
+    }
+
+
+    void Playing_State::loadWorldFile()
+    {
+        std::ifstream inFile("Worlds/" + m_worldName + "/World_Info.data");
+        std::string line;
+        if (std::getline(inFile, line))
+        {
+            if (line == "pos")
+            {
+                int x, y, z;
+                inFile >> x >> y >> z;
+                m_player.setPosition({x + 0.5,
+                                      y,            //Offset by 0.5 as the exact numbers put the player on a block corner
+                                      z + 0.5});
+            }
+        }
+    }
+
+    void Playing_State::loadWorldList()
+    {
+        std::ifstream inFile("Worlds/World_Names.txt");
+        std::string line;
+        m_worldFileNames.push_back(worldName + "\n");
+        while (std::getline(inFile, line))
+        {
+            if (line == m_worldName)    //Avoid getting multiple copies of a world
+                continue;
+            else
+                m_worldFileNames.push_back(line + "\n");
+        }
+    }
+
+
+    void Playing_State::saveWorldFile()
+    {
         std::ofstream outFile ("Worlds/" + m_worldName + "/World_Info.data");
         outFile << "pos\n" << (int)m_player.getPosition().x << " " << (int)m_player.getPosition().y << " " << (int)m_player.getPosition().z << std::endl;
         outFile << "seed\n" << m_worldSeed << std::endl;
         outFile << "time\n" << Time::getTimeString() << std::endl;
         outFile << "date\n" << Time::getDateString() << std::endl;
-        outFile.close();
+    }
 
-        std::ofstream worldFileNameOut ("Worlds/World_Names.txt");
+    void Playing_State::saveWorldList()
+    {
+        std::ofstream outFile ("Worlds/World_Names.txt");
         for (auto& world : m_worldFileNames)
         {
-            worldFileNameOut << world;
+            outFile << world;
         }
-        worldFileNameOut.close();
-
-        Display::showMouse();
-        m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail.png");
     }
+
 
     void Playing_State::setUpPauseMenu()
     {
@@ -261,10 +297,25 @@ namespace State
             Display::hideMouse();
         }));
 
+        m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Settings", [&]()
+        {
+            m_activeMenu = &m_settingsMenu;
+        }));
+
         m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
         {
             exitGame = true;
         }));
     }
+
+    void Playing_State::setUpSettingsMenu()
+    {
+        m_settingsMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
+        {
+            m_activeMenu = &m_pauseMenu;
+        }));
+    }
+
+
 }
 

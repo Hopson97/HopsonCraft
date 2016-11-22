@@ -106,7 +106,7 @@ namespace State
     {
         m_newGameMenu.addPadding(150);
         m_newGameMenu.addBackgroud(m_background);
-        m_newGameMenu.addComponent(std::make_unique<GUI::Text_Box>(18, sf::Vector2f{500, 100}, "World Name", m_worldName));
+        m_newGameMenu.addComponent(std::make_unique<GUI::Text_Box>(15, sf::Vector2f{500, 100}, "World Name", m_worldName));
         m_newGameMenu.addComponent(std::make_unique<GUI::Text_Box>(8, sf::Vector2f{500, 100}, "Seed", m_seedString));
 
         m_newGameMenu.addComponent(std::make_unique<GUI::Button>("Create", [&]()

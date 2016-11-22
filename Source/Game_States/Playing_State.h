@@ -25,6 +25,14 @@ namespace State
             Pause
         };
 
+        enum class RenderDistance
+        {
+            Tiny = 3,
+            Small = 8,
+            Medium = 15,
+            Far = 20,
+        };
+
         public:
             Playing_State  (Application& application,
                             const std::string& worldName,
@@ -39,7 +47,19 @@ namespace State
 
         private:
             void blockEdit();
+
+            void tryAddPostFX(Master_Renderer& renderer);
+
+            void prepareExit(Master_Renderer& renderer);
+
             void setUpPauseMenu();
+            void setUpSettingsMenu();
+
+            void loadWorldFile();
+            void loadWorldList();
+
+            void saveWorldFile();
+            void saveWorldList();
 
             std::unique_ptr<Chunk_Map> m_chunkMap;
 
@@ -57,6 +77,9 @@ namespace State
             uint32_t   m_worldSeed;
 
             GUI::Base_Menu m_pauseMenu;
+            GUI::Base_Menu m_settingsMenu;
+
+            GUI::Base_Menu* m_activeMenu;
 
 
             State_t m_state = State_t::Play;

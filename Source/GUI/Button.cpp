@@ -10,7 +10,7 @@ namespace GUI
                    std::function<void(void)> function)
     :   m_function  (function)
     {
-        m_quad.setSize({500, 150});
+        m_quad.setSize({800, 150});
         m_quad.setTexture(&Component::guiTexture);
         m_quad.setOutlineColor(sf::Color::Black);
         m_quad.setOutlineThickness(2);
