@@ -256,9 +256,10 @@ namespace State
 
     void Playing_State::loadWorldList()
     {
+        m_worldFileNames.push_back(m_worldName + "\n");
+
         std::ifstream inFile("Worlds/World_Names.txt");
         std::string line;
-        m_worldFileNames.push_back(worldName + "\n");
         while (std::getline(inFile, line))
         {
             if (line == m_worldName)    //Avoid getting multiple copies of a world

@@ -92,7 +92,7 @@ namespace State
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Load Game", [&]()
         {
             genLoadMenu();
-             m_activeMenu = &m_loadmenu;
+            m_activeMenu = &m_loadmenu;
         }));
 
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Exit Game", [&]()
