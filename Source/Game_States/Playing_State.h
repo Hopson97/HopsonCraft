@@ -57,6 +57,7 @@ namespace State
             void loadWorldFile();
             void loadWorldList();
 
+            void save();
             void saveWorldFile();
             void saveWorldList();
 
@@ -84,6 +85,8 @@ namespace State
             std::vector<std::string> m_worldFileNames;
 
             Crosshair m_crosshair;
+
+            sf::Clock m_autoSaveTimer;
     };
 }
 

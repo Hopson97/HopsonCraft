@@ -156,6 +156,12 @@ namespace State
 
     void Playing_State::update  (float dt, Camera& camera)
     {
+        if (m_autoSaveTimer.getElapsedTime().asSeconds() >= 60)
+        {
+            save();
+            m_autoSaveTimer.restart();
+        }
+
         if (m_state == State_t::Play)
         {
             m_player.update(dt, camera);
@@ -219,15 +225,11 @@ namespace State
 
     void Playing_State::exitState()
     {
-        m_chunkMap->saveChunks();
-
-        saveWorldFile();
-        saveWorldList();
+        save();
 
         Display::showMouse();
         m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail.png");
     }
-
 
     void Playing_State::loadWorldFile()
     {
@@ -261,6 +263,12 @@ namespace State
         }
     }
 
+    void Playing_State::save()
+    {
+        m_chunkMap->saveChunks();
+        saveWorldFile();
+        saveWorldList();
+    }
 
     void Playing_State::saveWorldFile()
     {
