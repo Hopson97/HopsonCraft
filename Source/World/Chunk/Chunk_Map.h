@@ -60,6 +60,8 @@ class Chunk_Map
         std::unordered_map<Chunk_Location, std::unique_ptr<Chunk>> m_chunks;
         std::vector<Chunk*> m_chunksToUpdate;
 
+        std::vector<Chunk_Location> m_chunksToDelete;
+
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;
 

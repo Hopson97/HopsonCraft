@@ -109,17 +109,11 @@ void Chunk_Map::updateChunks()
 
 void Chunk_Map::deleteChunks()
 {
-    for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
+    for(auto& location : m_chunksToDelete)
     {
-        if (itr->second->hasDeleteFlag())
-        {
-            itr = m_chunks.erase(itr);
-        }
-        else
-        {
-            itr++;
-        }
+        m_chunks.erase(location);
     }
+    m_chunksToDelete.clear();
 }
 
 void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
@@ -368,7 +362,7 @@ void Chunk_Map::flagChunksForDelete( const Area& deleteArea )
             loc.z < deleteArea.minZ ||
             loc.z > deleteArea.maxZ)
         {
-            chunk.giveDeleteFlag(m_worldName);
+            m_chunksToDelete.emplace_back(chunk.getLocation());
         }
     }
 }

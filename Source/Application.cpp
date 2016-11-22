@@ -21,8 +21,6 @@
 
 #include "Play_Settings.h"
 
-
-
 namespace
 {
     void checkFps ();
@@ -31,10 +29,10 @@ namespace
 Application::Application()
 {
     init();
-    //m_stateStack.push(std::make_unique<State::Playing_State>(*this, "Test World", Noise::getSeed() ));
     m_stateStack.push(std::make_unique<State::Main_Menu_State>(*this));
 }
 
+//
 Application::~Application()
 {
     while(!m_stateStack.empty())
