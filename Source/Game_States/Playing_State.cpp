@@ -50,12 +50,6 @@ namespace State
         setUpPauseMenu();
         setUpSettingsMenu();
 
-        crossHairTexture.loadFromFile("Data/Images/Crosshair.png");
-        crossHairSprite.setTexture(crossHairTexture);
-        crossHairSprite.setPosition(Display::get().getSize().x / 2 - crossHairSprite.getTexture()->getSize().x / 2,
-                                    Display::get().getSize().y / 2 - crossHairSprite.getTexture()->getSize().y / 2);
-
-
         m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed);
     }
 
@@ -188,7 +182,7 @@ namespace State
         if (m_state == State_t::Play)
         {
             if (m_debugDisplayActive)   Debug_Display::draw(renderer);
-            renderer.draw(crossHairSprite);
+            m_crosshair.draw(renderer);
         }
         else if (m_state == State_t::Pause && !m_isExitGame)
             m_activeMenu->draw(renderer);

@@ -117,23 +117,6 @@ bool Chunk::hasUpdateFlag() const
     return m_hasUpdateFlag;
 }
 
-void Chunk::saveToFile(const std::string& worldName)
-{
-    if(!m_blocks.getAddedBlocks().empty())
-    {
-        std::ofstream outFile (getFileString(worldName));
-
-        for(auto& block : m_blocks.getAddedBlocks())
-        {
-            const Block_Location& l = block.first;
-
-            outFile << l.x << " " << l.y << " " << l.z << " ";  //Block location
-            outFile << block.second << std::endl;               //Block ID
-        }
-    }
-
-}
-
 const Matrix4& Chunk::getModelMatrix() const
 {
     return m_modelMatrix;
@@ -158,6 +141,23 @@ Chunk_Blocks& Chunk::getBlocks()
 const Chunk_Blocks& Chunk::getBlocks() const
 {
     return m_blocks;
+}
+
+void Chunk::saveToFile(const std::string& worldName)
+{
+    if(!m_blocks.getAddedBlocks().empty())
+    {
+        std::ofstream outFile (getFileString(worldName));
+
+        for(auto& block : m_blocks.getAddedBlocks())
+        {
+            const Block_Location& l = block.first;
+
+            outFile << l.x << " " << l.y << " " << l.z << " ";  //Block location
+            outFile << block.second << std::endl;               //Block ID
+        }
+    }
+
 }
 
 void Chunk::loadBlockData (const std::string& worldName)

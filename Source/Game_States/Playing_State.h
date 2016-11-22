@@ -10,6 +10,8 @@
 #include "../Input/Function_Toggle_Key.h"
 #include "../World/Chunk/Chunk_Map.h"
 
+#include "Crosshair.h"
+
 #include "Menu.h"
 
 class Camera;
@@ -70,9 +72,6 @@ namespace State
 
             Function_Toggle_Key m_debugDisplay;
 
-            sf::Texture crossHairTexture;
-            sf::Sprite crossHairSprite;
-
             std::string m_worldName;
             uint32_t   m_worldSeed;
 
@@ -86,6 +85,8 @@ namespace State
             bool m_isExitGame = false;
 
             std::vector<std::string> m_worldFileNames;
+
+            Crosshair m_crosshair;
     };
 }
 
