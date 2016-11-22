@@ -12,10 +12,15 @@ class Crosshair
 
         void draw(Master_Renderer& renderer);
 
+        void showMiningTexture();
+        void showRegularTexture();
+
     private:
         void loadTextures();
 
-        sf::Texture         m_crossTexture;
+        sf::Texture     m_crossTexture;
+        sf::Texture     m_miningTexture;
+
         sf::RectangleShape  m_quad;
 
         constexpr static int SIZE = 15;
