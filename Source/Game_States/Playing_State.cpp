@@ -113,15 +113,15 @@ namespace State
                        m_player.getRotation().x,
                        m_player.getPosition());
 
-        for (auto dist = 0.0f ; dist < 1.0f ; dist += 0.001f )
+        while(true)
         {
-            ray.step(dist);
+            ray.step(0.1);
 
             //Delta/ Difference
             auto d = ray.getEndPoint() - m_player.getPosition();
 
-            if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
-            if (Maths::getLength({d.x, d.y, d.z}) > 6.75) break;
+            if (Maths::getLength({d.x, d.y, d.z}) > 6.0) break;
+            if (Maths::getLength({d.x, d.y, d.z}) > 6.0) break;
 
             auto* block       = &m_chunkMap->getBlockAt(ray.getEndPoint());
             //auto worldPoint   = Maths::worldToBlockPosition(ray.getEndPoint());
@@ -156,12 +156,6 @@ namespace State
 
     void Playing_State::update  (float dt, Camera& camera)
     {
-        if (m_autoSaveTimer.getElapsedTime().asSeconds() >= 60)
-        {
-            save();
-            m_autoSaveTimer.restart();
-        }
-
         if (m_state == State_t::Play)
         {
             m_player.update(dt, camera);
@@ -174,10 +168,19 @@ namespace State
         {
             m_activeMenu->update();
         }
+
+        if (m_autoSaveTimer.getElapsedTime().asSeconds() >= 60)
+        {
+            save();
+            m_autoSaveTimer.restart();
+        }
     }
 
     void Playing_State::draw (float dt, Master_Renderer& renderer)
     {
+        if(m_isExitGame)
+            prepareExit(renderer);
+
         //Draw the chunks
         m_chunkMap->draw(renderer);
 
@@ -190,10 +193,6 @@ namespace State
         }
         else if (m_state == State_t::Pause && !m_isExitGame)
             m_activeMenu->draw(renderer);
-
-
-        if(m_isExitGame)
-            prepareExit(renderer);
     }
 
     void Playing_State::tryAddPostFX(Master_Renderer& renderer)
@@ -218,6 +217,7 @@ namespace State
             renderer.clear();
             m_chunkMap->draw(renderer);
             renderer.update(m_player.getCamera());
+            m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail.png");
             m_application->changeState(std::make_unique<Main_Menu_State>(*m_application));
     }
 
@@ -226,9 +226,7 @@ namespace State
     void Playing_State::exitState()
     {
         save();
-
         Display::showMouse();
-        m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail.png");
     }
 
     void Playing_State::loadWorldFile()
