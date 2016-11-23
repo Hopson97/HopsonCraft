@@ -61,6 +61,9 @@ void Application::runMainLoop()
         m_stateStack.top()->update  (dt, m_camera);
         m_stateStack.top()->draw    (dt, m_renderer);
 
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::F5))
+            takeScreenshot();
+
         m_renderer.clear();
         m_renderer.update(m_camera);
 
@@ -95,6 +98,13 @@ void Application::popState()
 
 void Application::takeScreenshot(const std::string& path)
 {
+    std::string filePathName = path;
+    if (filePathName == "-1")
+    {
+
+    }
+    filePathName += ".png";
+
     auto windowSize = Display::get().getSize();
     sf::Texture texture;
 
@@ -102,7 +112,7 @@ void Application::takeScreenshot(const std::string& path)
     texture.update(Display::get());
 
     sf::Image screenshot = texture.copyToImage();
-    screenshot.saveToFile(path);
+    screenshot.saveToFile(filePathName);
 }
 
 

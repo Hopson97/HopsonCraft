@@ -22,7 +22,7 @@ class Application
         void pushState      (std::unique_ptr<State::Game_State> state);
         void popState       ();
 
-        void takeScreenshot (const std::string& path);
+        void takeScreenshot (const std::string& path = "-1");
 
     private:
         void resetSong();

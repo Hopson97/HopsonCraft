@@ -214,11 +214,11 @@ namespace State
 
     void Playing_State::prepareExit(Master_Renderer& renderer)
     {
-            renderer.clear();
-            m_chunkMap->draw(renderer);
-            renderer.update(m_player.getCamera());
-            m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail.png");
-            m_application->changeState(std::make_unique<Main_Menu_State>(*m_application));
+         renderer.clear();
+         m_chunkMap->draw(renderer);
+         renderer.update(m_player.getCamera());
+         m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail");
+         m_application->changeState(std::make_unique<Main_Menu_State>(*m_application));
     }
 
 

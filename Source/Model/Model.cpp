@@ -5,12 +5,12 @@ namespace
     GLuint createVertexArray()
     {
         GLuint vao;
-        glGenVertexArrays( 1, &vao );
-        glBindVertexArray ( vao );
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray (vao);
         return vao;
     }
 
-    GLuint storeDataInAttribList ( GLuint location, GLuint vertexSize, const std::vector<GLfloat>& data )
+    GLuint storeDataInAttribList (GLuint location, GLuint vertexSize, const std::vector<GLfloat>& data)
     {
         GLuint vbo;
         glGenBuffers(1, &vbo);
@@ -26,9 +26,9 @@ namespace
                               GL_FLOAT,
                               GL_FALSE,
                               0,
-                              (GLvoid*) 0 );
+                              (GLvoid*) 0);
 
-        glEnableVertexAttribArray ( location );
+        glEnableVertexAttribArray (location);
         return vbo;
     }
 
