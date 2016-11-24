@@ -24,7 +24,7 @@ class Player
 
         const Block_t& getBlock() const;
 
-        constexpr static double SPEED = 0.5;
+        constexpr static double SPEED = 0.45;
 
     private:
         void translationInput   ();

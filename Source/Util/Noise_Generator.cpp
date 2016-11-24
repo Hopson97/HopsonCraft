@@ -86,7 +86,7 @@ namespace Noise
 
         int height = (int)((((totalValue + 1) / 2.0) * (nf.amplitudeMultiplier * 1.2)) + nf.heightOffset) / 1.005;
 
-        if (height < 0 ) height = 0;
+        if (height < 3 ) height = 3;
         return height;
     }
 

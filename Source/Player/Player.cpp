@@ -46,7 +46,7 @@ void Player::update(float dt, Camera& camera)
 {
     m_camera.position += m_velocity * dt;
 
-    m_velocity *= 0.0f; //Change to 0?
+    m_velocity *= 0.95;
     camera = m_camera;
 
     Debug_Display::addLookVector(camera.rotation);

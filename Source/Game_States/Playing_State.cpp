@@ -347,7 +347,5 @@ namespace State
             m_activeMenu = &m_pauseMenu;
         }));
     }
-
-
 }
 
