@@ -92,7 +92,11 @@ namespace State
 
         if (m_state == State_t::Play)
         {
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)     ||
+                sf::Mouse::isButtonPressed(sf::Mouse::Right)    ||
+                sf::Keyboard::isKeyPressed(sf::Keyboard::P)     ||
+                sf::Keyboard::isKeyPressed(sf::Keyboard::U)     ||
+                sf::Keyboard::isKeyPressed(sf::Keyboard::I))
             {
                 if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
                 {
@@ -139,6 +143,24 @@ namespace State
                 {
                     //if (worldPoint != playerPoint)
                         m_chunkMap->setBlock(m_player.getHeldBlock(), oldRayEnd);
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+                {
+                    m_chunkMap->setBlocks(m_player.getHeldBlock(), {oldRayEnd,
+                                                                    {oldRayEnd.x, oldRayEnd.y + 1, oldRayEnd.z},
+                                                                    {oldRayEnd.x, oldRayEnd.y + 2, oldRayEnd.z},
+                                                                    {oldRayEnd.x, oldRayEnd.y + 3, oldRayEnd.z},
+                                                                    {oldRayEnd.x, oldRayEnd.y + 4, oldRayEnd.z},
+                                                                    {oldRayEnd.x, oldRayEnd.y + 5, oldRayEnd.z}});
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+                {
+                    m_chunkMap->setBlocks(m_player.getHeldBlock(), {oldRayEnd,
+                                                                    {oldRayEnd.x, oldRayEnd.y - 1, oldRayEnd.z},
+                                                                    {oldRayEnd.x, oldRayEnd.y - 2, oldRayEnd.z},
+                                                                    {oldRayEnd.x, oldRayEnd.y - 3, oldRayEnd.z},
+                                                                    {oldRayEnd.x, oldRayEnd.y - 4, oldRayEnd.z},
+                                                                    {oldRayEnd.x, oldRayEnd.y - 5, oldRayEnd.z}});
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                 {

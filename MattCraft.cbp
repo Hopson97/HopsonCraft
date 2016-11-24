@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="Source/GUI" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -31,6 +32,7 @@
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
+					<Add directory="Source/GUI" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics" />
@@ -94,6 +96,8 @@
 		<Unit filename="Source/GUI/Button.h" />
 		<Unit filename="Source/GUI/Component.cpp" />
 		<Unit filename="Source/GUI/Component.h" />
+		<Unit filename="Source/GUI/Dropdown.cpp" />
+		<Unit filename="Source/GUI/Dropdown.h" />
 		<Unit filename="Source/GUI/GUI.h" />
 		<Unit filename="Source/GUI/Image.cpp" />
 		<Unit filename="Source/GUI/Image.h" />

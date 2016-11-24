@@ -16,6 +16,7 @@
 #include "Util/Display.h"
 #include "Util/Noise_Generator.h"
 #include "Util/Directory_Creator.h"
+#include "Util/Time.h"
 
 #include "World/Block/D_Blocks.h"
 
@@ -98,10 +99,12 @@ void Application::popState()
 
 void Application::takeScreenshot(const std::string& path)
 {
+    Directory::create("Screenshots");
     std::string filePathName = path;
     if (filePathName == "-1")
     {
-
+        filePathName.clear();
+        filePathName += "Screenshots/Screenshot: " + Time::getTimeString() + "..." + Time::getDateString();
     }
     filePathName += ".png";
 

@@ -32,9 +32,11 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
                              const Block_t& block,
                              bool overrideBlocks)
 {
-    if (location.y == 0) return; //Cannot break bedrock
-
     if ((unsigned)location.y > m_layers.size() - 1) addLayers(location.y);
+
+    if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Bedrock)
+        return;
+
 
     if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Air || overrideBlocks)
     {

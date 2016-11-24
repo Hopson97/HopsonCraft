@@ -161,9 +161,11 @@ void World_Generator::setBlock(const Block_Location& location, int h)
             }
             else // Underwater surface
             {
-                Random::integer(0, 3) < 1 ?
-                    setBlock(location, Block::dirt) :
-                    setBlock(location, Block::sand);
+                 (y < 2) ?
+                    setBlock(location, Block::bedrock) :
+                    Random::integer(0, 3) < 1 ?
+                        setBlock(location, Block::dirt) :
+                        setBlock(location, Block::sand);
             }
         }
         else    //High mountains

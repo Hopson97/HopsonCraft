@@ -34,8 +34,8 @@ namespace Time
             auto month  = now->tm_mon   + 1;
             auto day    = now->tm_mday;
 
-        return  std::to_string (day)   + "/" +
-                std::to_string (month)  + "/" +
+        return  std::to_string (day)   + ":" +
+                std::to_string (month)  + ":" +
                 std::to_string (year)    + " ";
     }
 }

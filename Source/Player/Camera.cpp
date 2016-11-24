@@ -11,8 +11,8 @@ void Camera::update ()
 {
     auto mouseMove = m_lastMosuePos - sf::Mouse::getPosition(Display::get());
 
-    m_rotation.y -= (float)mouseMove.x / 0.9;
-    m_rotation.x -= (float)mouseMove.y / 0.9;
+    m_rotation.y -= (float)mouseMove.x;// / 0.9;
+    m_rotation.x -= (float)mouseMove.y;// / 0.9;
 
     m_lastMosuePos = sf::Mouse::getPosition(Display::get());
 

@@ -276,6 +276,12 @@ void Chunk_Map :: manageChunks()
         {
             Area loadArea
             (
+/*
+                m_playerPosition->x - 2,
+                m_playerPosition->z - 2,
+                m_playerPosition->x + 2,
+                m_playerPosition->z + 2
+*/
                 m_playerPosition->x - m_loadingDistance,
                 m_playerPosition->z - m_loadingDistance,
                 m_playerPosition->x + m_loadingDistance,
