@@ -116,7 +116,7 @@ void Chunk_Map::deleteChunks()
     m_chunksToDelete.clear();
 }
 
-void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
+void Chunk_Map::setBlock (const Block_t& block, const Vector3& worldPosition)
 {
     sf::Clock c;
     auto addToBatch = [&](int x, int y)
@@ -170,7 +170,7 @@ void Chunk_Map::setBlock (Block_t& block, const Vector3& worldPosition)
     }
 }
 
-void Chunk_Map::setBlocks(Block_t& block, const std::vector<Vector3>worldPositions)
+void Chunk_Map::setBlocks(const Block_t& block, const std::vector<Vector3>worldPositions)
 {
     for (auto& position : worldPositions)
     {

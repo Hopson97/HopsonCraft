@@ -30,7 +30,7 @@ namespace State
                                 const std::string& worldName,
                                 uint32_t seed)
     :   Game_State          (application)
-    ,   m_playerPosition    (Maths::worldToChunkPosition(m_player.getPosition()))
+    ,   m_playerPosition    (Maths::worldToChunkPosition(m_player.getCamera().position))
     ,   m_debugDisplay      ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, sf::seconds(0.5))
     ,   m_worldName         (worldName)
     ,   m_worldSeed         (seed)
@@ -76,7 +76,7 @@ namespace State
         if (m_state == State_t::Play)
         {
             m_chunkMap->input(e);
-            m_player.toggleInput(e);
+            m_player.input(e);
             m_debugDisplay.checkInput(e);
         }
         else if (m_state == State_t::Pause)
@@ -111,18 +111,22 @@ namespace State
 
     void Playing_State::blockEdit()
     {
-        auto oldRayEnd = m_player.getPosition();
+        auto& rotation    = m_player.getCamera().rotation;
+        auto& position    = m_player.getCamera().position;
 
-        Maths::Ray ray(m_player.getRotation().y + 90,
-                       m_player.getRotation().x,
-                       m_player.getPosition());
+        auto        lastRayPos  = m_player.getCamera().position;
+
+
+        Maths::Ray ray(rotation.y + 90,
+                       rotation.x,
+                       position);
 
         while(true)
         {
             ray.step(0.1);
 
             //Delta/ Difference
-            auto d = ray.getEndPoint() - m_player.getPosition();
+            auto d = ray.getEndPoint() - position;
 
             if (Maths::getLength({d.x, d.y, d.z}) > 6.0) break;
             if (Maths::getLength({d.x, d.y, d.z}) > 6.0) break;
@@ -139,28 +143,29 @@ namespace State
                    //if (worldPoint != playerPoint)
                         m_chunkMap->setBlock(Block::air, ray.getEndPoint());
                 }
+
                 else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
                 {
                     //if (worldPoint != playerPoint)
-                        m_chunkMap->setBlock(m_player.getHeldBlock(), oldRayEnd);
+                        m_chunkMap->setBlock(m_player.getBlock(), lastRayPos);
                 }
                 else if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
                 {
-                    m_chunkMap->setBlocks(m_player.getHeldBlock(), {oldRayEnd,
-                                                                    {oldRayEnd.x, oldRayEnd.y + 1, oldRayEnd.z},
-                                                                    {oldRayEnd.x, oldRayEnd.y + 2, oldRayEnd.z},
-                                                                    {oldRayEnd.x, oldRayEnd.y + 3, oldRayEnd.z},
-                                                                    {oldRayEnd.x, oldRayEnd.y + 4, oldRayEnd.z},
-                                                                    {oldRayEnd.x, oldRayEnd.y + 5, oldRayEnd.z}});
+                    m_chunkMap->setBlocks(m_player.getBlock(), {lastRayPos,
+                                                               {lastRayPos.x, lastRayPos.y + 1, lastRayPos.z},
+                                                               {lastRayPos.x, lastRayPos.y + 2, lastRayPos.z},
+                                                               {lastRayPos.x, lastRayPos.y + 3, lastRayPos.z},
+                                                               {lastRayPos.x, lastRayPos.y + 4, lastRayPos.z},
+                                                               {lastRayPos.x, lastRayPos.y + 5, lastRayPos.z}});
                 }
                 else if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
                 {
-                    m_chunkMap->setBlocks(m_player.getHeldBlock(), {oldRayEnd,
-                                                                    {oldRayEnd.x, oldRayEnd.y - 1, oldRayEnd.z},
-                                                                    {oldRayEnd.x, oldRayEnd.y - 2, oldRayEnd.z},
-                                                                    {oldRayEnd.x, oldRayEnd.y - 3, oldRayEnd.z},
-                                                                    {oldRayEnd.x, oldRayEnd.y - 4, oldRayEnd.z},
-                                                                    {oldRayEnd.x, oldRayEnd.y - 5, oldRayEnd.z}});
+                    m_chunkMap->setBlocks(m_player.getBlock(), {lastRayPos,
+                                                               {lastRayPos.x, lastRayPos.y - 1, lastRayPos.z},
+                                                               {lastRayPos.x, lastRayPos.y - 2, lastRayPos.z},
+                                                               {lastRayPos.x, lastRayPos.y - 3, lastRayPos.z},
+                                                               {lastRayPos.x, lastRayPos.y - 4, lastRayPos.z},
+                                                               {lastRayPos.x, lastRayPos.y - 5, lastRayPos.z}});
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                 {
@@ -171,7 +176,7 @@ namespace State
             }
             else
             {
-                oldRayEnd = ray.getEndPoint();
+                lastRayPos = ray.getEndPoint();
             }
         }
     }
@@ -180,11 +185,13 @@ namespace State
     {
         if (m_state == State_t::Play)
         {
+            const auto& position    = m_player.getCamera().position;
+
             m_player.update(dt, camera);
             m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
-            m_playerPosition = {(int)m_player.getPosition().x / World::CHUNK_SIZE,
-                                (int)m_player.getPosition().z / World::CHUNK_SIZE};
-            Debug_Display::addPlayerPosition(m_player.getPosition());
+            m_playerPosition = {(int)position.x / World::CHUNK_SIZE,
+                                (int)position.z / World::CHUNK_SIZE};
+            Debug_Display::addPlayerPosition(position);
         }
         else if (m_state == State_t::Pause)
         {
@@ -220,9 +227,9 @@ namespace State
     void Playing_State::tryAddPostFX(Master_Renderer& renderer)
     {
         //Get player position
-        auto wp = m_player.getPosition();
-        auto bp = Maths::worldToBlockPosition(wp);
-        auto cp = Maths::worldToChunkPosition(wp);
+        auto& wp    = m_player.getCamera().position;
+        auto bp     = Maths::worldToBlockPosition(wp);
+        auto cp     = Maths::worldToChunkPosition(wp);
 
         if (m_chunkMap->getChunkAt(cp))
         {
@@ -292,11 +299,15 @@ namespace State
 
     void Playing_State::saveWorldFile()
     {
+        auto& position = m_player.getCamera().position;
+
         std::ofstream outFile ("Worlds/" + m_worldName + "/World_Info.data");
-        outFile << "pos\n" << (int)m_player.getPosition().x << " " << (int)m_player.getPosition().y << " " << (int)m_player.getPosition().z << std::endl;
-        outFile << "seed\n" << m_worldSeed << std::endl;
-        outFile << "time\n" << Time::getTimeString() << std::endl;
-        outFile << "date\n" << Time::getDateString() << std::endl;
+
+        outFile << "pos\n"  << (int)position.x << " " << (int)position.y << " " << (int)position.z << std::endl;
+
+        outFile << "seed\n" << m_worldSeed              << std::endl;
+        outFile << "time\n" << Time::getTimeString()    << std::endl;
+        outFile << "date\n" << Time::getDateString()    << std::endl;
     }
 
     void Playing_State::saveWorldList()

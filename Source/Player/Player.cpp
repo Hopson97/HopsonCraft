@@ -1,93 +1,17 @@
 #include "Player.h"
 
-#include "../Util/Debug_Display.h"
-#include "../World/Block/Block.h"
+#include <SFML/Graphics.hpp>
+
+#include "../Maths/General_Maths.h"
 #include "../World/Block/D_Blocks.h"
 
+#include "../Util/Debug_Display.h"
+
 Player::Player()
-:   m_rotationLock          ([&](){m_isRotLocked = !m_isRotLocked;}, sf::Keyboard::L, sf::seconds(0.5))
-,   m_increaseBlockToggle   ([&](){switchBlock(1) ; }, sf::Keyboard::Right, sf::seconds(0.2))
-,   m_decreaseBlockToggle   ([&](){switchBlock(-1); }, sf::Keyboard::Left,  sf::seconds(0.2))
-,   m_heldBlock             (&Block::getBlockFromId(Block::ID::Glass))
+:   m_p_heldBlock (&Block::grass)
 {
-    m_camera.movePosition({20000, 250, 20000});
-    Debug_Display::addheldBlock(*m_heldBlock);
-}
-
-void Player::input()
-{
-    movementInput();
-}
-
-void Player::movementInput()
-{
-    Vector3 velocityChange;
-    auto acceleration = sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) ? ACC * 10 : ACC;
-
-    //Forward/Back/Left/Right
-
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        auto yaw = glm::radians(m_camera.getRotation().y + 90);
-
-        velocityChange.x -= cos (yaw) * acceleration;
-        velocityChange.z -= sin (yaw) * acceleration;
-    }
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        auto yaw = glm::radians(m_camera.getRotation().y);
-        velocityChange.x += cos (yaw) * acceleration;
-        velocityChange.z += sin (yaw) * acceleration;
-    }
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        auto yaw = glm::radians(m_camera.getRotation().y);
-        velocityChange.x -= cos (yaw) * acceleration;
-        velocityChange.z -= sin (yaw) * acceleration;
-    }
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        auto yaw    = glm::radians(m_camera.getRotation().y + 90);
-
-        velocityChange.x += cos (yaw) * acceleration;
-        velocityChange.z += sin (yaw) * acceleration;
-    }
-
-    //Up/ Down
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
-    {
-        velocityChange.y -= acceleration;
-    }
-    if (sf::Keyboard::isKeyPressed( sf::Keyboard::Space ))
-    {
-        velocityChange.y += acceleration;
-    }
-    m_velocity += velocityChange;
-}
-
-void Player::toggleInput(const sf::Event& e)
-{
-    m_rotationLock.checkInput(e);
-    if (!m_isRotLocked)
-        m_camera.update();
-
-    m_increaseBlockToggle.checkInput(e);
-    m_decreaseBlockToggle.checkInput(e);
-}
-
-
-void Player::update(float dt, Camera& camera)
-{
-    m_velocity *= 0.95;
-    m_camera.movePosition(m_velocity * dt);
-    Debug_Display::addLookVector(m_camera.getRotation());
-
-    auto& pos = m_camera.getPosition();
-
-    if (pos.x <= 0.1 ) m_camera.setPosition({0.1,   pos.y, pos.z});
-    if (pos.z <= 0.1 ) m_camera.setPosition({pos.x, pos.y, 0.1});
-
-    camera = m_camera;
+    m_camera.position = {20000, 250, 20000};
+    Debug_Display::addheldBlock (*m_p_heldBlock);
 }
 
 const Camera& Player::getCamera() const
@@ -95,27 +19,132 @@ const Camera& Player::getCamera() const
     return m_camera;
 }
 
-const Vector3& Player::getPosition() const
+
+void Player::setPosition(const Vector3& position)
 {
-    return m_camera.getPosition();
+    m_camera.position = position;
 }
 
-const Vector3& Player::getRotation() const
+void Player::input (const sf::Event& e)
 {
-    return m_camera.getRotation();
+    if (e.type == sf::Event::KeyPressed)
+    {
+        if (e.key.code == sf::Keyboard::Left)
+            changeBlock(-1);
+        if (e.key.code == sf::Keyboard::Right)
+            changeBlock(1);
+    }
 }
 
-Block_t& Player::getHeldBlock ()
+void Player::input()
 {
-    return *m_heldBlock;
+    translationInput ();
+    rotationInput();
 }
 
-void Player::switchBlock(int inc)
+void Player::update(float dt, Camera& camera)
+{
+    m_camera.position += m_velocity * dt;
+
+    m_velocity *= 0.0f; //Change to 0?
+    camera = m_camera;
+
+    Debug_Display::addLookVector(camera.rotation);
+    Debug_Display::addheldBlock (*m_p_heldBlock);
+}
+
+const Block_t& Player::getBlock() const
+{
+    return *m_p_heldBlock;
+}
+
+void Player::translationInput()
+{
+    Vector3 change;
+    auto yaw = glm::radians (m_camera.rotation.y);
+
+    walkingInput(change, yaw);
+    upDownInput(change);
+
+    m_velocity += change;
+}
+
+void Player::walkingInput(Vector3& change, float yaw)
+{
+    //Speed variables
+    float acc;
+    sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ?
+        acc = SPEED * 10 :
+        acc = SPEED;
+
+    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        change.x -= cos (yaw + Maths::PI / 2) * acc;
+        change.z -= sin (yaw + Maths::PI / 2) * acc;
+    }
+    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        change.x += cos (yaw + Maths::PI / 2) * acc;
+        change.z += sin (yaw + Maths::PI / 2) * acc;
+    }
+    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        change.x += cos (yaw) * acc;
+        change.z += sin (yaw) * acc;
+    }
+    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+        change.x -= cos (yaw) * acc;
+        change.z -= sin (yaw) * acc;
+    }
+}
+
+void Player::upDownInput(Vector3& change)
+{
+    //Speed variables
+    float acc;
+    sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ?
+        acc = SPEED * 10 :
+        acc = SPEED;
+
+    //Up/ Down
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+    {
+        change.y -= acc;
+    }
+    if (sf::Keyboard::isKeyPressed( sf::Keyboard::Space ))
+    {
+        change.y += acc;
+    }
+}
+
+void Player::rotationInput()
+{
+    static auto lastMousePos = sf::Mouse::getPosition();
+    auto moveAmount = lastMousePos - sf::Mouse::getPosition();
+
+    m_camera.rotation.y -= (float)moveAmount.x;// / 0.9;
+    m_camera.rotation.x -= (float)moveAmount.y;// / 0.9;
+
+    if (m_camera.rotation.x > 80 )
+        m_camera.rotation.x = 80;
+    else if (m_camera.rotation.x < -80)
+        m_camera.rotation.x = -80;
+
+    if (m_camera.rotation.y < 0 )
+        m_camera.rotation.y = 360;
+    else if (m_camera.rotation.y > 360)
+        m_camera.rotation.y = 0;
+
+    lastMousePos = sf::Mouse::getPosition();
+}
+
+void Player::changeBlock(int increment)
 {
     constexpr static auto NUM_BLOCK_TYPES = static_cast<int>(Block::ID::NUM_BLOCK_TYPES);
 
-    auto currId = static_cast<int>(m_heldBlock->getID());
-    currId += inc;
+    auto currId = static_cast<int>(m_p_heldBlock->getID());
+    currId += increment;
 
     //Seeing as "0" is an air block, we just skip over it
     if (currId == 0) currId = NUM_BLOCK_TYPES - 1;
@@ -127,23 +156,14 @@ void Player::switchBlock(int inc)
     if (newBlock->getPhysicalState() == Block::Physical_State::Liquid ||
         newBlock->getPhysicalState() == Block::Physical_State::Gas)
     {
-        currId += inc;
+        currId += increment;
     }
 
-    m_heldBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
-
-    Debug_Display::addheldBlock(*m_heldBlock);
+    m_p_heldBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
 }
 
-void Player::setPosition(const Vector3& position)
-{
-    m_camera.setPosition(position);
-}
 
-void Player::setRotation(const Vector3& rotation)
-{
-    m_camera.setRotation(rotation);
-}
+
 
 
 

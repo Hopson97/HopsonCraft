@@ -167,7 +167,6 @@ void Application::init()
     Settings::init();
 }
 
-
 namespace
 {
     void checkFps ()

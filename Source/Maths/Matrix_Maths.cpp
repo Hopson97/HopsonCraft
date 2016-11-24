@@ -4,44 +4,31 @@
 #include "../Util/Display.h"
 #include "../D_Settings.h"
 
+#include "../Entity/Entity.h"
+
 namespace Maths
 {
     Matrix4 createViewMatrix (const Camera& camera)
     {
         Matrix4  viewMatrix;
-        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.getRotation().x), {1, 0, 0});
-        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.getRotation().y), {0, 1, 0});
-        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.getRotation().z), {0, 0, 1});
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.x), {1, 0, 0});
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.y), {0, 1, 0});
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.z), {0, 0, 1});
 
-        return glm::translate(viewMatrix, -camera.getPosition());
+        return glm::translate(viewMatrix, -camera.position);
     }
 
-
-
-    Matrix4 createViewRotatationMatrix(const Vector3& rotation)
-    {
-        Matrix4  viewMatrix;
-        viewMatrix = glm::rotate(viewMatrix, glm::radians(rotation.x), {1, 0, 0});
-        viewMatrix = glm::rotate(viewMatrix, glm::radians(rotation.y), {0, 1, 0});
-        viewMatrix = glm::rotate(viewMatrix, glm::radians(rotation.z), {0, 0, 1});
-        return viewMatrix;
-    }
-
-
-
-    Matrix4 createModelMatrix(const Vector3& translation,
-                              const Vector3& rotation,
-                              const Vector3& scale)
+    Matrix4 createModelMatrix(const Entity& entity)
     {
         Matrix4 transform;
 
-        transform = glm::translate(transform, translation);
+        transform = glm::translate(transform, entity.position);
 
-        transform = glm::rotate(transform, glm::radians(rotation.x), {1, 0, 0});
-        transform = glm::rotate(transform, glm::radians(rotation.y), {0, 1, 0});
-        transform = glm::rotate(transform, glm::radians(rotation.z), {1, 0, 1});
+        transform = glm::rotate(transform, glm::radians(entity.rotation.x), {1, 0, 0});
+        transform = glm::rotate(transform, glm::radians(entity.rotation.y), {0, 1, 0});
+        transform = glm::rotate(transform, glm::radians(entity.rotation.z), {1, 0, 1});
 
-        return glm::scale(transform, {1,1,1});
+        return glm::scale(transform, entity.scale);
     }
 
     Matrix4 createPerspectiveMatrix ()

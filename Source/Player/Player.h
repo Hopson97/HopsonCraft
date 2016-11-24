@@ -1,54 +1,43 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-
-#include "../OpenGL/GLM/glm_transformations.h"
-#include "../World/Block/Block.h"
-#include "../Input/Function_Toggle_Key.h"
 #include "Camera.h"
+#include "../World/Block/Block.h"
 
-
-#include <SFML/Graphics.hpp>
+namespace sf
+{
+    class Event;
+}
 
 class Player
 {
     public:
-        Player ();
+        Player();
 
-        void toggleInput(const sf::Event& e);
+        const Camera& getCamera () const;
 
-        void input  ();
+        void setPosition(const Vector3& position);
+
+        void input (const sf::Event& e);
+        void input ();
         void update (float dt, Camera& camera);
 
-        const Camera&   getCamera   () const;
-        const Vector3&  getPosition () const;
-        const Vector3&  getRotation () const;
+        const Block_t& getBlock() const;
 
-        void setPosition (const Vector3& position);
-        void setRotation (const Vector3& rotation);
-
-        Block_t& getHeldBlock ();
-
-        constexpr static float ACC = 0.4;
+        constexpr static double SPEED = 0.5;
 
     private:
-        void movementInput();
+        void translationInput   ();
+        void walkingInput (Vector3& change, float yaw);
+        void upDownInput (Vector3& change);
 
-        void switchBlock (int inc);
+        void rotationInput ();
 
+        void changeBlock (int increment);
+
+        Camera  m_camera;
         Vector3 m_velocity;
-
-        Camera m_camera;
-
-        Function_Toggle_Key m_rotationLock;
-        bool m_isRotLocked = false;
-
-        bool m_canChangeBlock = true;
-        Function_Toggle_Key m_increaseBlockToggle;
-        Function_Toggle_Key m_decreaseBlockToggle;
-
-
-        Block_t* m_heldBlock;
+        const Block_t* m_p_heldBlock;
 };
 
 #endif // PLAYER_H

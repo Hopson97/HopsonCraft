@@ -19,17 +19,15 @@ Chunk::Chunk(const Chunk_Location& position,
               const Texture_Atlas& blockAtlas,
               unsigned seed,
               const std::string& worldName)
-:   m_location      (position)
-,   m_position      (position.x * World::CHUNK_SIZE,
-                     position.z * World::CHUNK_SIZE)
+:   Entity          ({0, 0, 0}, {position.x * World::CHUNK_SIZE, 0,
+                                 position.z * World::CHUNK_SIZE})
+,   m_location      (position)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_p_atlas       (&blockAtlas)
 ,   m_mesh          (*this)
 ,   m_blocks        (*this, m_location, *m_p_chunkMap)
 ,   m_worldGenerator(*this, seed)
-,   m_modelMatrix   (Maths::createModelMatrix({m_position.x, 0, m_position.y},
-                                              { 0, 0, 0 },
-                                              { 1, 1, 1 }))
+,   m_modelMatrix   (Maths::createModelMatrix(*this))
 {
     m_worldGenerator.generate();
     loadBlockData (worldName);
@@ -82,9 +80,9 @@ const Chunk_Location& Chunk::getLocation () const
     return m_location;
 }
 
-const Vector2& Chunk::getPosition () const
+const Vector2 Chunk::getPosition () const
 {
-    return m_position;
+    return {position.x, position.z};
 }
 
 const Chunk_Mesh& Chunk::getMesh() const
