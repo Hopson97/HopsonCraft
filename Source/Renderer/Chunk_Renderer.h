@@ -42,6 +42,8 @@ class Chunk_Renderer
             glUseProgram(0);
         }
 
+        virtual ~Chunk_Renderer() = default;
+
     protected:
         const Shader_Type& getShader() const
         {

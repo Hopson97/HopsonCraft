@@ -22,6 +22,7 @@ namespace GUI
     {
         public:
             Base_Menu (Layout layout);
+            virtual ~Base_Menu() = default;
 
             void addBackgroud(const sf::Texture& texture);
             void addComponent(std::unique_ptr<Component> component);

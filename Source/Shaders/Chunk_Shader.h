@@ -11,6 +11,7 @@ namespace Shader
     {
         public:
             Chunk_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
+            virtual ~Chunk_Shader() = default;
 
             void loadCameraMatrix   (const Camera& camera) const;
             void loadChunkMatrix    (const Matrix4& matrix) const;
