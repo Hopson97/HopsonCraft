@@ -371,6 +371,7 @@ void Chunk_Map::flagChunksForDelete( const Area& deleteArea )
             loc.z > deleteArea.maxZ)
         {
             m_chunksToDelete.emplace_back(chunk.getLocation());
+            chunk.giveDeleteFlag(m_worldName);
         }
     }
 }
