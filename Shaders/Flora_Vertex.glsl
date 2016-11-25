@@ -1,7 +1,7 @@
 #version 330 core
 
-layout ( location = 0 ) in vec3 vertexPosition;
-layout ( location = 1 ) in vec2 texturePosition;
+layout (location = 0) in vec3 vertexPosition;
+layout (location = 1) in vec2 texturePosition;
 
 out vec2 passTextureCoords;
 out float passVis;

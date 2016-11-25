@@ -123,8 +123,8 @@ void Player::rotationInput()
     static auto lastMousePos = sf::Mouse::getPosition();
     auto moveAmount = lastMousePos - sf::Mouse::getPosition();
 
-    m_camera.rotation.y -= (float)moveAmount.x;// / 0.9;
-    m_camera.rotation.x -= (float)moveAmount.y;// / 0.9;
+    m_camera.rotation.y -= (float)moveAmount.x / 1.5f;// / 0.9;
+    m_camera.rotation.x -= (float)moveAmount.y / 1.5f;// / 0.9;
 
     if (m_camera.rotation.x > 80 )
         m_camera.rotation.x = 80;

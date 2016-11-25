@@ -23,9 +23,9 @@ class Application
         void popState       ();
 
         void takeScreenshot (const std::string& path = "-1");
+        void resetSong();
 
     private:
-        void resetSong();
         void init();
 
         std::stack<std::unique_ptr<State::Game_State>> m_stateStack;

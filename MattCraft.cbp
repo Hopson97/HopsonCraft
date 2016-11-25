@@ -14,6 +14,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="Source/GUI" />
+					<Add directory="Entity" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -29,10 +30,10 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
 					<Add directory="Source/GUI" />
+					<Add directory="Entity" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics" />
@@ -90,6 +91,8 @@
 		<Unit filename="Source/Crosshair.cpp" />
 		<Unit filename="Source/Crosshair.h" />
 		<Unit filename="Source/D_Settings.h" />
+		<Unit filename="Source/Entity/Entity.cpp" />
+		<Unit filename="Source/Entity/Entity.h" />
 		<Unit filename="Source/GUI/Background.cpp" />
 		<Unit filename="Source/GUI/Background.h" />
 		<Unit filename="Source/GUI/Button.cpp" />

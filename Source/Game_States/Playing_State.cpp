@@ -342,6 +342,16 @@ namespace State
 
     void Playing_State::setUpSettingsMenu()
     {
+        m_settingsMenu.addComponent(std::make_unique<GUI::Button>("Change Song", [&]()
+        {
+            m_application->resetSong();
+        }));
+
+        m_settingsMenu.addComponent(std::make_unique<GUI::Button>("Save", [&]()
+        {
+            save();
+        }));
+
         m_settingsMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
         {
             m_activeMenu = &m_pauseMenu;
