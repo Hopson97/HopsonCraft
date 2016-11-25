@@ -37,18 +37,15 @@ namespace GUI
             m_quad.setFillColor({(sf::Uint8)Settings::SKY_RED   * (sf::Uint8)255,
                                  (sf::Uint8)Settings::SKY_GREEN * (sf::Uint8)255,
                                  (sf::Uint8)Settings::SKY_BLUE  * (sf::Uint8)255});
-
-            if (e.type == sf::Event::MouseButtonPressed)
-            {
-                if (e.mouseButton.button == sf::Mouse::Left)
-                {
-                    m_function();
-                }
-            }
         }
         else
         {
             m_quad.setFillColor(sf::Color::White);
+        }
+
+        if(clicked(m_quad, e))
+        {
+            m_function();
         }
     }
 

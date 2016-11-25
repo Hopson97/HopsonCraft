@@ -17,6 +17,8 @@ Chunk_Layer::Chunk_Layer()
 
 void Chunk_Layer::setBlock(int x, int z, const Block_t& block)
 {
+
+
     m_blocks.at(World::CHUNK_SIZE * z + x) = &block;
 }
 

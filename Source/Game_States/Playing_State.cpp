@@ -188,20 +188,15 @@ namespace State
             const auto& position    = m_player.getCamera().position;
 
             m_player.update(dt, camera);
-            m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
+
             m_playerPosition = {(int)position.x / World::CHUNK_SIZE,
                                 (int)position.z / World::CHUNK_SIZE};
             Debug_Display::addPlayerPosition(position);
+            m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
         }
         else if (m_state == State_t::Pause)
         {
             m_activeMenu->update();
-        }
-
-        if (m_autoSaveTimer.getElapsedTime().asSeconds() >= 60)
-        {
-            save();
-            m_autoSaveTimer.restart();
         }
     }
 
@@ -224,6 +219,11 @@ namespace State
             m_activeMenu->draw(renderer);
     }
 
+    /*
+        Sometimes, the player will be in such as place where there needs to be some kind of Post FX
+        For exmaple:
+            Player underwater -> Blueness
+    */
     void Playing_State::tryAddPostFX(Master_Renderer& renderer)
     {
         //Get player position
@@ -236,7 +236,8 @@ namespace State
            //Player underwater
            if (m_chunkMap->getChunkAt(cp)->getBlocks().getBlock(bp).getID() == Block::ID::Water)
            {
-               renderer.addPostFX(Post_FX::Blue);
+              // renderer.addPostFX(Post_FX::Blue);
+               renderer.addPostFX(Post_FX::Blur);
            }
         }
     }
@@ -249,7 +250,6 @@ namespace State
          m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail");
          m_application->changeState(std::make_unique<Main_Menu_State>(*m_application));
     }
-
 
 
     void Playing_State::exitState()

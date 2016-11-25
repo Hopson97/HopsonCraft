@@ -30,6 +30,17 @@ namespace GUI
                 );
     }
 
+    bool Component::clicked (const sf::Shape& sprite, const sf::Event& e) const
+    {
+        if(touchingMouse(sprite))
+        {
+            if (e.type == sf::Event::MouseButtonPressed)
+                return (e.mouseButton.button == sf::Mouse::Left);
+        }
+        return false;
+
+    }
+
 }
 
 
