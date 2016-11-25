@@ -362,7 +362,6 @@ void Chunk_Map::flagChunksForDelete( const Area& deleteArea )
         if (!m_isRunning) return; //Safety
 
         Chunk& chunk = *chunkPair.second;
-        if (chunk.hasDeleteFlag()) continue;
 
         Chunk_Location loc = chunk.getLocation();
         if (loc.x < deleteArea.minX ||
