@@ -50,6 +50,13 @@ namespace GUI
         text.setCharacterSize(size);
     }
 
+    sf::Text Component::initText   (int size, const std::string& title)
+    {
+        sf::Text t;
+        initText(t, size, title);
+        return t;
+    }
+
 
 }
 

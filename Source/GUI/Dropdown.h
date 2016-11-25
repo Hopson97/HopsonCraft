@@ -7,13 +7,6 @@ namespace GUI
 {
     class Dropdown : public Component
     {
-        struct Option
-        {
-            Option();
-            sf::Text    text;
-            std::string name;
-        };
-
         public:
             Dropdown(int& optionPtr,
                      const std::string& label,
@@ -33,7 +26,7 @@ namespace GUI
             sf::RectangleShape  m_quad;
             sf::Text            m_label;
 
-            std::vector<Option> m_options;
+            std::vector<sf::Text> m_options;
     };
 }
 
