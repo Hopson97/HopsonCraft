@@ -4,14 +4,17 @@
 
 namespace GUI
 {
-    Dropdown::Dropdown(int& optionPtr, const std::vector<std::string>& options)
+    Dropdown::Dropdown(int& optionPtr,
+                       const std::string& label,
+                       const std::vector<std::string>& options)
+    :   m_optionPtr (optionPtr)
     {
-
+        initText(m_label, 10, label);
     }
 
     void Dropdown::input(const sf::Event& e)
     {
-
+        if (clicked(m_))
     }
 
     void Dropdown::update()

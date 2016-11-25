@@ -24,6 +24,7 @@ namespace GUI
         protected:
             bool touchingMouse  (const sf::Shape& sprite) const;
             bool clicked        (const sf::Shape& sprite, const sf::Event& e) const;
+            void initText       (sf::Text& text, int size, const std::string& title);
 
             static sf::Texture guiTexture;
             static sf::Font    guiFont;

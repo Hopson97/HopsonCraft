@@ -41,6 +41,16 @@ namespace GUI
 
     }
 
+    void Component::initText(sf::Text& text, int size, const std::string& title)
+    {
+        text.setFont(Component::guiFont);
+        text.setString(title);
+        text.setOutlineColor(sf::Color::Black);
+        text.setOutlineThickness(2);
+        text.setCharacterSize(size);
+    }
+
+
 }
 
 

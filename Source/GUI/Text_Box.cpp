@@ -18,16 +18,8 @@ namespace GUI
         m_quad.setOutlineColor(sf::Color::Black);
         m_quad.setOutlineThickness(2);
 
-        m_text.setFont(Component::guiFont);
-        m_text.setOutlineColor(sf::Color::Black);
-        m_text.setOutlineThickness(2);
-        m_text.setCharacterSize(30);
-
-        m_label.setFont(Component::guiFont);
-        m_label.setOutlineColor(sf::Color::Black);
-        m_label.setOutlineThickness(2);
-        m_label.setCharacterSize(10);
-        m_label.setString(labelText);
+        initText(m_text, 30, "");
+        initText(m_label, 10, labelText);
     }
 
     void Text_Box::input(const sf::Event& e)

@@ -16,11 +16,7 @@ namespace GUI
         m_quad.setOutlineColor(sf::Color::Black);
         m_quad.setOutlineThickness(2);
 
-        m_text.setFont(Component::guiFont);
-        m_text.setString(text);
-        m_text.setOutlineColor(sf::Color::Black);
-        m_text.setOutlineThickness(2);
-        m_text.setCharacterSize(40);
+        initText(m_text, 40, text);
 
         m_image.loadFromFile(name + ".png");
         m_imageRect.setSize({144, 144});
