@@ -13,6 +13,8 @@ struct Entity
     Vector3 rotation;
     Vector3 position;
     Vector3 scale       = {1, 1, 1};
+
+    virtual ~Entity() = default;
 };
 
 #endif // ENTITY_H
