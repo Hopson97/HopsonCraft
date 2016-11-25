@@ -202,9 +202,6 @@ namespace State
 
     void Playing_State::draw (float dt, Master_Renderer& renderer)
     {
-        if(m_isExitGame)
-            prepareExit(renderer);
-
         //Draw the chunks
         m_chunkMap->draw(renderer);
 
@@ -217,6 +214,9 @@ namespace State
         }
         else if (m_state == State_t::Pause && !m_isExitGame)
             m_activeMenu->draw(renderer);
+
+        if(m_isExitGame)
+            prepareExit(renderer);
     }
 
     /*

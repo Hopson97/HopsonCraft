@@ -10,6 +10,22 @@
 #include "../../Play_Settings.h"
 #include "../World_Constants.h"
 
+struct Area
+{
+    Area(int minX, int minZ, int maxX, int maxZ)
+    :   minX (minX)
+    ,   minZ (minZ)
+    ,   maxX (maxX)
+    ,   maxZ (maxZ)
+    { }
+
+    int minX;
+    int minZ;
+
+    int maxX;
+    int maxZ;
+};
+
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition,
                      const std::string& worldName,
                      uint32_t seed)
@@ -251,23 +267,6 @@ void Chunk_Map::makeExplosion(const Vector3& worldPosition, int power)
     setBlocks(Block::air, positions);
 }
 
-
-struct Area
-{
-    Area(int minX, int minZ, int maxX, int maxZ)
-    :   minX (minX)
-    ,   minZ (minZ)
-    ,   maxX (maxX)
-    ,   maxZ (maxZ)
-    { }
-
-    int minX;
-    int minZ;
-
-    int maxX;
-    int maxZ;
-};
-
 void Chunk_Map :: manageChunks()
 {
     while (m_isRunning)
@@ -276,12 +275,6 @@ void Chunk_Map :: manageChunks()
         {
             Area loadArea
             (
-/*
-                m_playerPosition->x - 2,
-                m_playerPosition->z - 2,
-                m_playerPosition->x + 2,
-                m_playerPosition->z + 2
-*/
                 m_playerPosition->x - m_loadingDistance,
                 m_playerPosition->z - m_loadingDistance,
                 m_playerPosition->x + m_loadingDistance,
@@ -349,7 +342,8 @@ void Chunk_Map::generateChunks (const Area& createArea)
         if (!m_isRunning) return; //Safety
         for (auto z = createArea.minZ ; z < createArea.maxZ ; z++)
         {
-            if (!m_isRunning ) return; //Safety
+            if (!m_isRunning )
+                return; //Safety
             addChunk({x, z});
         }
     }
@@ -359,7 +353,8 @@ void Chunk_Map::flagChunksForDelete( const Area& deleteArea )
 {
     for (auto& chunkPair : m_chunks)
     {
-        if (!m_isRunning) return; //Safety
+        if (!m_isRunning)
+            return; //Safety
 
         Chunk& chunk = *chunkPair.second;
 
@@ -379,10 +374,13 @@ void Chunk_Map::generateMeshes(const Area& generationArea)
 {
     for (auto x = generationArea.minX ; x < generationArea.maxX ; x++)
     {
-        if (!m_isRunning) return; //Safety
+        if (!m_isRunning)
+            return; //Safety
         for (auto z = generationArea.minZ ; z < generationArea.maxZ ; z++)
         {
-            if (!m_isRunning) return; //Safety
+            if (!m_isRunning)
+                return; //Safety
+
             Chunk* chunk = getChunkAt({x, z});
             if (chunk)
             {
