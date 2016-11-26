@@ -6,6 +6,9 @@
 #include "../Block/Block_Location.h"
 #include "../World_Constants.h"
 
+constexpr static float TOP_LIGHT_VALUE      = 1.0f;
+constexpr static float SIDE_LIGHT_VALUE     = 0.6f;
+constexpr static float BOTTOM_LIGHT_VALUE   = 0.2f;
 
 void Chunk_Mesh::Chunk_Mesh_Part::addVerticies(const std::vector<GLfloat>& verticies )
 {
@@ -17,6 +20,14 @@ void Chunk_Mesh::Chunk_Mesh_Part::addUvCoords (const std::vector<GLfloat>& coord
     textureCoords.insert(textureCoords.end(), coords.begin(), coords.end());
 }
 
+void Chunk_Mesh::Chunk_Mesh_Part::addLight(float value)
+{
+    light.push_back(value);
+    light.push_back(value);
+    light.push_back(value);
+    light.push_back(value);
+}
+
 void Chunk_Mesh::Chunk_Mesh_Part::addIndices(const std::vector<GLuint>& index)
 {
     indices.insert(indices.end(), index.begin(), index.end());
@@ -24,15 +35,17 @@ void Chunk_Mesh::Chunk_Mesh_Part::addIndices(const std::vector<GLuint>& index)
 
 void Chunk_Mesh::Chunk_Mesh_Part::buffer()
 {
-    model.addData(vertexCoords, textureCoords, indices);
+    model.addData(vertexCoords, textureCoords, light, indices);
     vertexCoords.clear();
     textureCoords.clear();
+    light.clear();
     indices.clear();
     indicesCount = 0;
 
     //Fully clear the vectors
     vertexCoords.shrink_to_fit();
     textureCoords.shrink_to_fit();
+    light.shrink_to_fit();
     indices.shrink_to_fit();
 }
 
@@ -170,6 +183,7 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& blo
         x,      y + 1, z,
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureTop()));
+    m_activePart->addLight(TOP_LIGHT_VALUE);
 
     addBlockIndices();
 }
@@ -184,6 +198,7 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& 
         x,      y, z + 1,
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureBottom()));
+    m_activePart->addLight(BOTTOM_LIGHT_VALUE);
 
     addBlockIndices();
 }
@@ -198,6 +213,7 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& bl
         x, y + 1,   z,
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    m_activePart->addLight(SIDE_LIGHT_VALUE);
 
     addBlockIndices();
 }
@@ -212,6 +228,7 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& b
         x + 1, y + 1,   z + 1,
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    m_activePart->addLight(SIDE_LIGHT_VALUE);
 
     addBlockIndices();
 }
@@ -226,6 +243,7 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& b
         x,      y + 1,  z + 1,
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    m_activePart->addLight(SIDE_LIGHT_VALUE);
 
     addBlockIndices();
 }
@@ -240,6 +258,7 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block_t& bl
         x + 1,  y + 1,  z,
     });
     m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
+    m_activePart->addLight(SIDE_LIGHT_VALUE);
 
     addBlockIndices();
 }
@@ -279,4 +298,7 @@ void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block_t& block)
 
     addBlockIndices();
     addBlockIndices();
+
+    m_activePart->addLight(SIDE_LIGHT_VALUE);
+    m_activePart->addLight(SIDE_LIGHT_VALUE);
 }

@@ -35,6 +35,7 @@ namespace Shader
     {
         bindAttribute(0, "inVertexCoords");
         bindAttribute(1, "inTextureCoords");
+        bindAttribute(2, "inLightValue");
     }
 
     void Chunk_Shader::getUniformLocations()

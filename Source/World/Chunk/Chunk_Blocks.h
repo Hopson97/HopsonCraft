@@ -41,7 +41,6 @@ class Chunk_Blocks
         std::unordered_map<Block_Location, int> m_addedBlocks;
 
     private:
-
         const Block_t& getAdjacentChunkBlock (int xChange,
                                               int zChange,
                                               const Block_Location& location) const;

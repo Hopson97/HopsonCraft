@@ -107,4 +107,3 @@ size_t Chunk_Blocks::getLayerCount() const
 {
     return m_layers.size();
 }
-

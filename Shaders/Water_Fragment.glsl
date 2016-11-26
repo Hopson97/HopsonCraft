@@ -2,6 +2,7 @@
 
 in vec2 passTextureCoords;
 in float passVis;
+in float passLightValue;
 
 out vec4 outColour;
 
@@ -11,6 +12,8 @@ uniform vec3 skyColour;
 void main()
 {
     outColour = texture(textureSampler, passTextureCoords);
+    outColour *= vec4(passLightValue, passLightValue, passLightValue, 1.0);
+
     if (outColour.a == 0)
     {
         discard;

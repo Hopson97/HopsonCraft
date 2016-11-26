@@ -1,4 +1,4 @@
-#include "Model.h"
+#include "Chunk_Model.h"
 
 namespace
 {
@@ -32,14 +32,16 @@ namespace
         return vbo;
     }
 
-    Model_Data load (const std::vector<GLfloat>& vertexCoords,
-                     const std::vector<GLfloat>& textureCoords,
-                     const std::vector<GLuint>& indices)
+    Chunk_Model_Data load (const std::vector<GLfloat>& vertexCoords,
+                           const std::vector<GLfloat>& textureCoords,
+                           const std::vector<GLfloat>& lightValues,
+                           const std::vector<GLuint>& indices)
     {
         GLuint vao = createVertexArray();
 
         GLuint vertexCoordVbo   = storeDataInAttribList(0, 3, vertexCoords);
         GLuint textureCoordVbo  = storeDataInAttribList(1, 2, textureCoords);
+        GLuint lightCoordVbo    = storeDataInAttribList(2, 1, lightValues);
 
         GLuint eboVbo;
         glGenBuffers(1, &eboVbo);
@@ -51,62 +53,57 @@ namespace
 
         glBindVertexArray(0);
 
-        return {vao, vertexCoordVbo, textureCoordVbo, eboVbo, indices.size()};
+        return {vao, vertexCoordVbo, textureCoordVbo, lightCoordVbo, eboVbo, indices.size()};
     }
 } //Anon Namespace
 
 //Model Data
-Model_Data::Model_Data (GLuint vao,
-                        GLuint vertexPosId,
-                        GLuint uvCoordsId,
-                        GLuint eboId,
-                        size_t indicesCount)
+Chunk_Model_Data::Chunk_Model_Data (    GLuint vao,
+                    GLuint vertexPosId,
+                    GLuint uvCoordsId,
+                    GLuint lightId,
+                    GLuint eboId,
+                    size_t indicesCount )
 :   vao         (vao )
 ,   vertexPosId (vertexPosId)
 ,   uvCoordsId  (uvCoordsId)
+,   lightID     (lightId)
 ,   eboId       (eboId)
 ,   indicesCount (indicesCount)
 { }
 
-
-//Model
-Model::Model(const Model_Data& data)
-:   m_glData (data)
-{ }
-
-void Model::addData (const std::vector<GLfloat>& vertexCoords,
-                     const std::vector<GLfloat>& textureCoords,
-                     const std::vector<GLuint>& indices)
+void Chunk_Model::addData(const std::vector<GLfloat>& vertexCoords, const std::vector<GLfloat>& textureCoords, const std::vector<GLfloat>& colour, const std::vector<GLuint>& indices)
 {
     deleteData ();
-    m_glData = load(vertexCoords, textureCoords, indices);
+    m_glData = load(vertexCoords, textureCoords, colour, indices);
 }
 
-void Model::bind () const
+void Chunk_Model::bind() const
 {
     glBindVertexArray (m_glData.vao);
 }
 
-void Model::unbind () const
+void Chunk_Model::unbind() const
 {
     glBindVertexArray (0);
 }
 
-GLuint Model::getVertexCount() const
+GLuint Chunk_Model::getVertexCount() const
 {
     return m_glData.indicesCount;
 }
 
-Model::~Model  ()
+Chunk_Model::~Chunk_Model()
 {
-    deleteData ();
+    deleteData();
 }
 
-void Model::deleteData ()
+void Chunk_Model::deleteData()
 {
     glDeleteVertexArrays (1, &m_glData.vao);
 
     glDeleteBuffers (1, &m_glData.vertexPosId);
     glDeleteBuffers (1, &m_glData.uvCoordsId);
     glDeleteBuffers (1, &m_glData.eboId);
+    glDeleteBuffers (1, &m_glData.lightID);
 }
