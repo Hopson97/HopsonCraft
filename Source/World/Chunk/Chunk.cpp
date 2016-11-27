@@ -175,10 +175,10 @@ void Chunk::loadBlockData (const std::string& worldName)
     while(inFile.peek() != EOF)
     {
         inFile >> x >> y >> z >> id;
-        m_blocks.m_addedBlocks[{x, y, z}] = id;
+        m_blocks.addBlock({x, y, z}, id);
     }
 
-    for (auto& block : m_blocks.m_addedBlocks)
+    for (auto& block : m_blocks.getAddedBlocks())
     {
         int idNum = block.second;
         Block::ID id = static_cast<Block::ID>(idNum);

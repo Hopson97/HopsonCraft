@@ -8,6 +8,7 @@
 
 #include "Chunk_Location.h"
 #include "Chunk_Layer.h"
+#include "../Block/E_Block_ID.h"
 
 class Chunk_Map;
 class Chunk;
@@ -29,16 +30,11 @@ class Chunk_Blocks
 
         const Block_t& getBlock (const Block_Location& location) const;
 
+
+        void addBlock(const Block_Location& location, int block);
         const std::unordered_map<Block_Location, int>& getAddedBlocks() const;
 
-        size_t getLayerCount () const;
-
-        //This is only public for testing purposes, will be private later
-        std::vector<Block_Location> m_treeLocations;
-        std::vector<Block_Location> m_cactusLocations;
-        std::vector<Block_Location> m_jungleTreeLocations;
-        std::unordered_map<Block_Location, const Block_t*> m_floraLocations;
-        std::unordered_map<Block_Location, int> m_addedBlocks;
+        size_t getLayerCount() const;
 
     private:
         const Block_t& getAdjacentChunkBlock (int xChange,
@@ -52,6 +48,7 @@ class Chunk_Blocks
         Chunk_Map* m_p_chunkMap;
 
         std::vector<Chunk_Layer> m_layers;
+        std::unordered_map<Block_Location, int> m_addedBlocks;
 };
 
 #endif // CHUNK_BLOCKS_H

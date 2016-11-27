@@ -129,6 +129,8 @@
 		<Unit filename="Source/Maths/Ray.h" />
 		<Unit filename="Source/Maths/Viewing_Frustum.cpp" />
 		<Unit filename="Source/Maths/Viewing_Frustum.h" />
+		<Unit filename="Source/Model/Chunk_Model.cpp" />
+		<Unit filename="Source/Model/Chunk_Model.h" />
 		<Unit filename="Source/Model/Model.cpp" />
 		<Unit filename="Source/Model/Model.h" />
 		<Unit filename="Source/OpenGL/GLM/glm_transformations.h" />

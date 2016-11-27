@@ -80,6 +80,12 @@ const Block_t& Chunk_Blocks::getBlock (const Block_Location& location) const
     return Block::air;    //This is for world edges
 }
 
+void Chunk_Blocks::addBlock(const Block_Location& location, int block)
+{
+    m_addedBlocks.insert(std::make_pair(location, block));
+}
+
+
 const std::unordered_map<Block_Location, int>& Chunk_Blocks::getAddedBlocks() const
 {
     return m_addedBlocks;
