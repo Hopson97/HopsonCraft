@@ -1,7 +1,8 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "../OpenGL/Glew/glew.h"
+//#include "../OpenGL/Glew/glew.h"
+#include <GL/glew.h>
 
 #include <vector>
 

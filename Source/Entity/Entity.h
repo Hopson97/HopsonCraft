@@ -1,7 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "../OpenGL/GLM/glm_transformations.h"
+#include "../OpenGL/GL_Maths.h"
 
 struct Entity
 {

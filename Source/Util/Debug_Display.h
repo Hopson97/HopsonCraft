@@ -1,9 +1,10 @@
 #ifndef DEBUG_DISPLAY_H
 #define DEBUG_DISPLAY_H
 
+#include <GL/glew.h>
 #include <string>
 
-#include "../OpenGL/Glew/glew.h"
+//#include "../OpenGL/Glew/glew.h"
 #include "../World/Block/Block.h"
 
 class Master_Renderer;

@@ -1,7 +1,10 @@
 #ifndef FRAMEBUFFER_OBJECT_H
 #define FRAMEBUFFER_OBJECT_H
 
-#include "../OpenGL/Glew/glew.h"
+//#include "../OpenGL/Glew/glew.h"
+
+#include <GL/glew.h>
+
 #include "../Texture/Texture.h"
 #include "../Model/Model.h"
 

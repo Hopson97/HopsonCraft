@@ -1,7 +1,7 @@
 #ifndef MATRIX_MATH_H_INCLUDED
 #define MATRIX_MATH_H_INCLUDED
 
-#include "../OpenGL/GLM/glm_transformations.h"
+#include "../OpenGL/GL_Maths.h"
 
 class Camera;
 class Entity;

@@ -36,6 +36,9 @@ class Chunk_Blocks
 
         size_t getLayerCount() const;
 
+        int getMaxheightAt (int x, int z);
+        void setMaxHeight  (const Block_Location& location);
+
     private:
         const Block_t& getAdjacentChunkBlock (int xChange,
                                               int zChange,
@@ -49,6 +52,8 @@ class Chunk_Blocks
 
         std::vector<Chunk_Layer> m_layers;
         std::unordered_map<Block_Location, int> m_addedBlocks;
+
+        std::vector<int> m_maxHeights;
 };
 
 #endif // CHUNK_BLOCKS_H

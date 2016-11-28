@@ -1,7 +1,7 @@
 #ifndef RAY_H
 #define RAY_H
 
-#include "../OpenGL/GLM/glm_transformations.h"
+#include "../OpenGL/GL_Maths.h"
 
 namespace Maths
 {

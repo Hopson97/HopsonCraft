@@ -13,6 +13,7 @@ Chunk_Blocks::Chunk_Blocks(const Chunk& chunk,
 ,   m_location      (location)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_layers        (World::WATER_LEVEL + 1)
+,   m_maxHeights    (World::CHUNK_SIZE * World::CHUNK_SIZE)
 { }
 
 void Chunk_Blocks::setBlock(const Block_Location& location,
@@ -113,3 +114,14 @@ size_t Chunk_Blocks::getLayerCount() const
 {
     return m_layers.size();
 }
+
+int Chunk_Blocks::getMaxheightAt(int x, int z)
+{
+    return m_maxHeights[x * World::CHUNK_SIZE + z];
+}
+
+void Chunk_Blocks::setMaxHeight(const Block_Location& location)
+{
+    m_maxHeights[location.x * World::CHUNK_SIZE + location.z] = location.y;
+}
+

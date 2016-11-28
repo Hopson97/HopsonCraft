@@ -13,8 +13,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="Source/GUI" />
-					<Add directory="Entity" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -30,10 +28,9 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
-					<Add directory="Source/GUI" />
-					<Add directory="Entity" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics" />
@@ -48,11 +45,14 @@
 			<Add option="-Wall" />
 			<Add option="-std=c++14" />
 			<Add option="-DGLEW_STATIC" />
-			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML MinGW/include" />
+			<Add directory="D:/_Programming Libraries/C++/SFML-2.4.1/include" />
 		</Compiler>
 		<Linker>
+			<Add library="glew32s" />
+			<Add library="glu32" />
 			<Add library="opengl32" />
-			<Add directory="D:/_Programming Libraries/C++/SFML Libraries/SFML MinGW/lib" />
+			<Add directory="D:/_Programming Libraries/C++/SFML-2.4.1/lib" />
+			<Add directory="D:/_Programming Libraries/C++/glew-2.0.0/lib/Release/Win32" />
 		</Linker>
 		<Unit filename="Data/Blocks/Air.block" />
 		<Unit filename="Data/Blocks/Bedrock.block" />
@@ -134,11 +134,6 @@
 		<Unit filename="Source/Model/Model.cpp" />
 		<Unit filename="Source/Model/Model.h" />
 		<Unit filename="Source/OpenGL/GLM/glm_transformations.h" />
-		<Unit filename="Source/OpenGL/Glew/glew.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Source/OpenGL/Glew/glew.h" />
-		<Unit filename="Source/OpenGL/Glew/wglew.h" />
 		<Unit filename="Source/Play_Settings.cpp" />
 		<Unit filename="Source/Play_Settings.h" />
 		<Unit filename="Source/Player/Camera.cpp" />
@@ -218,8 +213,6 @@
 		<Unit filename="Source/World/Gen/World_Generator.cpp" />
 		<Unit filename="Source/World/Gen/World_Generator.h" />
 		<Unit filename="Source/World/World_Constants.h" />
-		<Unit filename="Templates/Shader_template.txt" />
-		<Unit filename="Templates/State_template.txt" />
 		<Unit filename="libgcc_s_sjlj-1.dll" />
 		<Unit filename="libstdc++-6.dll" />
 		<Unit filename="openal32.dll" />

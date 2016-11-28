@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "../OpenGL/GLEW/glew.h"
+#include <GL/glew.h>
 #include "../D_Settings.h"
 
 namespace Display

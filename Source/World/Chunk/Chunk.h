@@ -66,7 +66,6 @@ class Chunk : public Entity
         void loadBlockData          (const std::string& worldName);
         std::string getFileString   (const std::string& worldName);
 
-    private:
         Chunk_Location m_location; //Map coords
 
         Chunk_Map* m_p_chunkMap;

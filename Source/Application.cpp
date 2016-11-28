@@ -1,7 +1,7 @@
 #include "Application.h"
 
 #include "Util/Display.h"
-#include "OpenGL/GLEW/glew.h"
+#include <GL/glew.h>
 
 #include <cstdlib>
 #include <string>
