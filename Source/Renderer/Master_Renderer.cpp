@@ -61,13 +61,15 @@ void Master_Renderer::draw(const sf::Drawable& sfDrawable)
 void Master_Renderer::update (const Camera& camera)
 {
     //Draw the scene (to the FBO)
-    drawScene(camera);
+    glEnable    (GL_DEPTH_TEST);
+    drawScene   (camera);
+    glDisable   (GL_DEPTH_TEST);
 
     //Draw to the window wide quad
     drawToQuad();
 
     //Finally, draw SFML stuff.
-    m_sfmlRenderer .render  ();
+    m_sfmlRenderer.render ();
 
     Display::update();
 }

@@ -133,7 +133,7 @@
 		<Unit filename="Source/Model/Chunk_Model.h" />
 		<Unit filename="Source/Model/Model.cpp" />
 		<Unit filename="Source/Model/Model.h" />
-		<Unit filename="Source/OpenGL/GLM/glm_transformations.h" />
+		<Unit filename="Source/OpenGL/GL_Maths.h" />
 		<Unit filename="Source/Play_Settings.cpp" />
 		<Unit filename="Source/Play_Settings.h" />
 		<Unit filename="Source/Player/Camera.cpp" />

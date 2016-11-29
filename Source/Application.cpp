@@ -83,7 +83,6 @@ void Application::changeState(std::unique_ptr<State::Game_State> state)
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)
 {
-
     m_stateStack.push(std::move(state));
 }
 
