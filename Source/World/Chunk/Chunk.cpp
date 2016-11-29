@@ -149,7 +149,7 @@ void Chunk::saveToFile(const std::string& worldName)
 {
     if(!m_blocks.getAddedBlocks().empty())
     {
-        std::ofstream outFile (getFileString(worldName));
+        std::ofstream outFile (getFileString(worldName) + ".chunk");
 
         for(auto& block : m_blocks.getAddedBlocks())
         {
@@ -164,7 +164,7 @@ void Chunk::saveToFile(const std::string& worldName)
 
 void Chunk::loadBlockData (const std::string& worldName)
 {
-    std::ifstream inFile(getFileString(worldName));
+    std::ifstream inFile(getFileString(worldName) + ".chunk");
 
     if(!inFile.is_open())
         return;
