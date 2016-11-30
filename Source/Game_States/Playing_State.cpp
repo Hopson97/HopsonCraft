@@ -185,6 +185,7 @@ namespace State
     {
         if (m_state == State_t::Play)
         {
+            m_player.collision(*m_chunkMap);
             const auto& position    = m_player.getCamera().position;
 
             m_player.update(dt, camera);

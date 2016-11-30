@@ -4,7 +4,6 @@
 #include "../../Model/Chunk_Model.h"
 
 #include <GL/glew.h>
-//#include "../../OpenGL/Glew/glew.h"
 #include "../Block/Block.h"
 
 #include <vector>

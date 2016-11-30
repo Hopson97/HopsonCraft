@@ -1,15 +1,10 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-//#include "../OpenGL/Glew/glew.h"
 #include <GL/glew.h>
 
 #include <vector>
 
-//The reason the data is seperate is so that when the loader returns the
-//model data, it doesn't have to it as a heap allocated object pointer.
-//It would have to do that as the copying of data would infact invoke the
-//destructor of the Model class, thus deleting the model.
 struct Model_Data
 {
     Model_Data () = default;

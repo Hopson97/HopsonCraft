@@ -4,6 +4,8 @@
 #include "Camera.h"
 #include "../World/Block/Block.h"
 
+class Chunk_Map;
+
 namespace sf
 {
     class Event;
@@ -25,6 +27,8 @@ class Player
         const Block_t& getBlock() const;
 
         constexpr static double SPEED = 0.45;
+
+        void collision(Chunk_Map& chunkMap);
 
     private:
         void translationInput   ();

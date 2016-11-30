@@ -4,6 +4,7 @@
 
 #include "../Maths/General_Maths.h"
 #include "../World/Block/D_Blocks.h"
+#include "../World/Chunk/Chunk_Map.h"
 
 #include "../Util/Debug_Display.h"
 
@@ -162,11 +163,46 @@ void Player::changeBlock(int increment)
     m_p_heldBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
 }
 
+double  width = 0.3;
+double  height = 1.65;
+
+void Player::collision(Chunk_Map& chunkMap)
+{
+    auto pos = m_camera.position;
+
+    for (double  x = pos.x - width ; x < pos.x + width ; x += 0.2)
+    {
+        for (double  y = pos.y - height ; y < pos.y ; y += 0.2)
+        {
+            for (double  z = pos.z - width ; z < pos.z + width ; z += 0.2)
+            {
+                if (chunkMap.isSolidBlockAt({x, y, z}))
+                {
+                    if(m_velocity.x > 0) m_velocity.x = 0;
+                    if(m_velocity.x < 0) m_velocity.x = 0;
+                }
+            }
+        }
+    }
+}
 
 
-
-
-
+/*
+  void collision(float Dx,float Dy,float Dz)
+  {
+    for (int X=(x-w)/size;X<(x+w)/size;X++)
+    for (int Y=(y-h)/size;Y<(y+h)/size;Y++)
+    for (int Z=(z-d)/size;Z<(z+d)/size;Z++)
+      if (check(X,Y,Z))  {
+        if (Dx>0)  x = X*size-w;
+        if (Dx<0)  x = X*size+size+w;
+		if (Dy>0)  y = Y*size-h;
+        if (Dy<0) {y = Y*size+size+h; onGround=true; dy=0;}
+		if (Dz>0)  z = Z*size-d;
+        if (Dz<0)  z = Z*size+size+d;
+                          }
+  }
+*/
 
 
 
