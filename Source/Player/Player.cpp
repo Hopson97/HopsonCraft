@@ -7,6 +7,7 @@
 #include "../World/Chunk/Chunk_Map.h"
 
 #include "../Util/Debug_Display.h"
+#include "../Util/Display.h"
 
 Player::Player()
 :   m_p_heldBlock (&Block::grass)
@@ -121,11 +122,11 @@ void Player::upDownInput(Vector3& change)
 
 void Player::rotationInput()
 {
-    static auto lastMousePos = sf::Mouse::getPosition();
-    auto moveAmount = lastMousePos - sf::Mouse::getPosition();
+    static sf::Vector2i lastMousePos;
+    auto mouseMove = lastMousePos - sf::Mouse::getPosition();
 
-    m_camera.rotation.y -= (float)moveAmount.x / 1.5f;// / 0.9;
-    m_camera.rotation.x -= (float)moveAmount.y / 1.5f;// / 0.9;
+    m_camera.rotation.y -= (float)mouseMove.x / 1.5f;// / 0.9;
+    m_camera.rotation.x -= (float)mouseMove.y / 1.5f;// / 0.9;
 
     if (m_camera.rotation.x > 80 )
         m_camera.rotation.x = 80;
@@ -136,6 +137,9 @@ void Player::rotationInput()
         m_camera.rotation.y = 360;
     else if (m_camera.rotation.y > 360)
         m_camera.rotation.y = 0;
+
+    auto windowSize = Display::get().getSize();
+    sf::Mouse::setPosition(sf::Vector2i(windowSize.x / 2, windowSize.y / 2), Display::get());
 
     lastMousePos = sf::Mouse::getPosition();
 }
@@ -167,7 +171,7 @@ double  width = 0.3;
 double  height = 1.65;
 
 void Player::collision(Chunk_Map& chunkMap)
-{
+{/*
     auto pos = m_camera.position;
 
     for (double  x = pos.x - width ; x < pos.x + width ; x += 0.2)
@@ -183,7 +187,7 @@ void Player::collision(Chunk_Map& chunkMap)
                 }
             }
         }
-    }
+    }*/
 }
 
 
