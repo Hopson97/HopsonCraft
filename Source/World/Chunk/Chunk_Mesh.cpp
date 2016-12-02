@@ -36,9 +36,7 @@ void Chunk_Mesh::Chunk_Mesh_Part::addIndices(const std::vector<GLuint>& index)
 void Chunk_Mesh::Chunk_Mesh_Part::buffer()
 {
     model.addData   (vertexCoords, textureCoords, indices);
-    model.bind();
     model.addVBO    (1, light);
-    model.unbind();
 
     vertexCoords.clear();
     textureCoords.clear();

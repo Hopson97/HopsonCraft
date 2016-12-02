@@ -10,10 +10,10 @@ void Model::addData (const std::vector<GLfloat>& vertexCoords,
 
     glGenVertexArrays(1, &m_vao);
     bind();
-        addVBO(3, vertexCoords);
-        addVBO(2, textureCoords);
-        addEBO(indices);
-    unbind();
+
+    addVBO(3, vertexCoords);
+    addVBO(2, textureCoords);
+    addEBO(indices);
 
     m_indicesCount = indices.size();
 }
