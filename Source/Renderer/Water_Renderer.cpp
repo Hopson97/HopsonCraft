@@ -23,7 +23,7 @@ void Water_Renderer::prepareChunk(const Chunk& chunk)
 void Water_Renderer::drawChunk(const Chunk& chunk)
 {
     glDrawElements(GL_TRIANGLES,
-                   chunk.getMesh().getWaterPart().model.getVertexCount(),
+                   chunk.getMesh().getWaterPart().model.getIndicesCount(),
                    GL_UNSIGNED_INT,
                    nullptr);
 }

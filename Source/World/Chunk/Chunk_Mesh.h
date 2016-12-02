@@ -1,7 +1,7 @@
 #ifndef CHUNK_MESH_H
 #define CHUNK_MESH_H
 
-#include "../../Model/Chunk_Model.h"
+#include "../../Model/Model.h"
 
 #include <GL/glew.h>
 #include "../Block/Block.h"
@@ -15,7 +15,7 @@ class Chunk_Mesh
     struct Chunk_Mesh_Part
     {
         ~Chunk_Mesh_Part(){};
-        Chunk_Model model;
+        Model model;
         std::vector<GLfloat> vertexCoords;
         std::vector<GLfloat> textureCoords;
         std::vector<GLfloat> light;
