@@ -10,10 +10,6 @@ constexpr static float TOP_LIGHT_VALUE      = 1.0f;
 constexpr static float SIDE_LIGHT_VALUE     = 0.6f;
 constexpr static float BOTTOM_LIGHT_VALUE   = 0.2f;
 
-void Chunk_Mesh::Chunk_Mesh_Part::addVerticies(const std::vector<GLfloat>& verticies )
-{
-    vertexCoords.insert(vertexCoords.end(), verticies.begin(), verticies.end());
-}
 
 void Chunk_Mesh::Chunk_Mesh_Part::addUvCoords (const std::vector<GLfloat>& coords)
 {
@@ -26,11 +22,6 @@ void Chunk_Mesh::Chunk_Mesh_Part::addLight(float value)
     light.push_back(value);
     light.push_back(value);
     light.push_back(value);
-}
-
-void Chunk_Mesh::Chunk_Mesh_Part::addIndices(const std::vector<GLuint>& index)
-{
-    indices.insert(indices.end(), index.begin(), index.end());
 }
 
 void Chunk_Mesh::Chunk_Mesh_Part::buffer()
@@ -177,8 +168,8 @@ bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block_t& block)
 */
 void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& block)
 {
-    m_activePart->addVerticies
-    ({
+    m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
+    {
         x,      y + 1, z + 1,   //
         x + 1,  y + 1, z + 1,
         x + 1,  y + 1, z,
@@ -192,8 +183,8 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& blo
 
 void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& block)
 {
-    m_activePart->addVerticies
-    ({
+    m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
+    {
         x,      y, z,
         x + 1,  y, z,
         x + 1,  y, z + 1,
@@ -207,8 +198,8 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& 
 
 void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& block)
 {
-    m_activePart->addVerticies
-    ({
+    m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
+    {
         x, y,       z,
         x, y,       z + 1,
         x, y + 1,   z + 1,
@@ -222,8 +213,8 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& bl
 
 void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& block)
 {
-    m_activePart->addVerticies
-    ({
+    m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
+    {
         x + 1, y,       z + 1,
         x + 1, y,       z,
         x + 1, y + 1,   z,
@@ -237,8 +228,8 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& b
 
 void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& block)
 {
-    m_activePart->addVerticies
-    ({
+    m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
+    {
         x,      y,      z + 1,
         x + 1,  y,      z + 1,
         x + 1,  y + 1,  z + 1,
@@ -252,8 +243,8 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& b
 
 void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block_t& block)
 {
-    m_activePart->addVerticies
-    ({
+    m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
+    {
         x + 1,  y,      z,
         x,      y,      z,
         x,      y + 1,  z,
@@ -270,8 +261,8 @@ void Chunk_Mesh::addBlockIndices()
 {
     GLuint& i = m_activePart->indicesCount;
 
-    m_activePart->addIndices
-    ({
+    m_activePart->indices.insert(m_activePart->indices.end(),
+    {
         0 + i, 1 + i, 2 + i,
         2 + i, 3 + i, 0 + i
     });
@@ -283,8 +274,8 @@ void Chunk_Mesh::addBlockIndices()
 void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block_t& block)
 {
     m_activePart = &m_floraPart;
-    m_activePart->addVerticies
-    ({
+    m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
+    {
         x,      y,      z,
         x + 1,  y,      z + 1,
         x + 1,  y + 1,  z + 1,

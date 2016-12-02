@@ -1,6 +1,7 @@
 #include "Chunk.h"
 
 #include <fstream>
+#include <iostream>
 
 #include "../Block/D_Blocks.h"
 #include "../Block/Block.h"
@@ -13,6 +14,7 @@
 
 #include "../World_Constants.h"
 
+static std::ofstream chunkTimeTest;
 
 Chunk::Chunk(const Chunk_Location& position,
               Chunk_Map& chunkMap,
@@ -29,6 +31,9 @@ Chunk::Chunk(const Chunk_Location& position,
 ,   m_worldGenerator(*this, seed)
 ,   m_modelMatrix   (Maths::createModelMatrix(*this))
 {
+    if(!chunkTimeTest.is_open())
+        chunkTimeTest.open("Chunk_Test.txt");
+
     m_worldGenerator.generate();
     loadBlockData (worldName);
 
@@ -52,6 +57,7 @@ bool Chunk::hasBuffered () const
 
 void Chunk::generateMesh ()
 {
+    //sf::Clock c;
     m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
     m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
@@ -61,6 +67,7 @@ void Chunk::generateMesh ()
 
     m_hasMesh       = true;
     m_hasBuffered   = false;
+    //std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk::bufferMesh ()

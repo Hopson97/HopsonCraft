@@ -21,10 +21,9 @@ class Chunk_Mesh
         std::vector<GLfloat> light;
         std::vector<GLuint>  indices;
 
-        void addVerticies   (const std::vector<GLfloat>& verticies);
+
         void addUvCoords    (const std::vector<GLfloat>& coords);
         void addLight       (float value);
-        void addIndices     (const std::vector<GLuint>& index);
         void buffer         ();
 
         GLuint indicesCount = 0;
