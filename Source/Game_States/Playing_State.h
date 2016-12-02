@@ -7,7 +7,7 @@
 #include "../Renderer/Master_Renderer.h"
 #include "../World/Chunk/Chunk_Map.h"
 #include "../Player/Player.h"
-#include "../GUI/Menu.h"
+#include "../GUI/Panel.h"
 #include "../Crosshair.h"
 #include "Game_State.h"
 
@@ -73,10 +73,10 @@ namespace State
             std::string m_worldName;
             uint32_t   m_worldSeed;
 
-            GUI::Base_Menu m_pauseMenu;
-            GUI::Base_Menu m_settingsMenu;
+            GUI::Panel m_pauseMenu;
+            GUI::Panel m_settingsMenu;
 
-            GUI::Base_Menu* m_activeMenu;
+            GUI::Panel* m_activeMenu;
 
 
             State_t m_state = State_t::Play;

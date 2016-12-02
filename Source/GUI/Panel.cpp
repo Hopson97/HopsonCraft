@@ -1,20 +1,20 @@
-#include "Menu.h"
+#include "Panel.h"
 
 #include "../Util/Display.h"
 
 namespace GUI
 {
-    Base_Menu::Base_Menu(Layout layout)
+    Panel::Panel(Layout layout)
     :   m_layout (layout)
     { }
 
-    void Base_Menu::addBackgroud(const sf::Texture& texture)
+    void Panel::addBackgroud(const sf::Texture& texture)
     {
         m_background = std::make_unique<Background>(texture);
     }
 
 
-    void Base_Menu::addComponent(std::unique_ptr<Component> component)
+    void Panel::addComponent(std::unique_ptr<Component> component)
     {
         switch(m_layout)
         {
@@ -30,7 +30,7 @@ namespace GUI
         m_components.push_back(std::move(component));
     }
 
-    void Base_Menu::input(const sf::Event& e)
+    void Panel::input(const sf::Event& e)
     {
         for (auto& c : m_components)
         {
@@ -38,7 +38,7 @@ namespace GUI
         }
     }
 
-    void Base_Menu::update()
+    void Panel::update()
     {
         for (auto& c : m_components)
         {
@@ -46,7 +46,7 @@ namespace GUI
         }
     }
 
-    void Base_Menu::draw(Master_Renderer& renderer)
+    void Panel::draw(Master_Renderer& renderer)
     {
         if(m_background)
             m_background->draw(renderer);
@@ -57,7 +57,7 @@ namespace GUI
         }
     }
 
-    void Base_Menu::addComponentCenter(std::unique_ptr<Component>& component)
+    void Panel::addComponentCenter(std::unique_ptr<Component>& component)
     {
         component->setPosition({Display::get().getSize().x / 2 - component->getSize().x / 2,
                                 float(m_currentY) });
@@ -65,13 +65,13 @@ namespace GUI
         m_currentY += component->getSize().y + 10;
     }
 
-    void Base_Menu::addComponentGrid2x(std::unique_ptr<Component>& component)
+    void Panel::addComponentGrid2x(std::unique_ptr<Component>& component)
     {
 
     }
 
 
-    void Base_Menu::clear()
+    void Panel::clear()
     {
         m_components.clear();
         m_components.shrink_to_fit();

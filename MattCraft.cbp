@@ -106,8 +106,8 @@
 		<Unit filename="Source/GUI/Image.h" />
 		<Unit filename="Source/GUI/Imaged_Button.cpp" />
 		<Unit filename="Source/GUI/Imaged_Button.h" />
-		<Unit filename="Source/GUI/Menu.cpp" />
-		<Unit filename="Source/GUI/Menu.h" />
+		<Unit filename="Source/GUI/Panel.cpp" />
+		<Unit filename="Source/GUI/Panel.h" />
 		<Unit filename="Source/GUI/Text_Box.cpp" />
 		<Unit filename="Source/GUI/Text_Box.h" />
 		<Unit filename="Source/Game_States/Game_State.cpp" />

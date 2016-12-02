@@ -1,7 +1,7 @@
 #ifndef GUI_H_INCLUDED
 #define GUI_H_INCLUDED
 
-#include "Menu.h"
+#include "Panel.h"
 #include "Component.h"
 #include "Button.h"
 #include "Image.h"

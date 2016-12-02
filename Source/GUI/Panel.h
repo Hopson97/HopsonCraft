@@ -1,5 +1,5 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef PANEL_H_INCLUDED
+#define PANEL_H_INCLUDED
 
 #include <memory>
 #include <vector>
@@ -18,11 +18,11 @@ namespace GUI
         Grid2x
     };
 
-    class Base_Menu
+    class Panel
     {
         public:
-            Base_Menu (Layout layout);
-            virtual ~Base_Menu() = default;
+            Panel (Layout layout);
+            virtual ~Panel() = default;
 
             void addBackgroud(const sf::Texture& texture);
             void addComponent(std::unique_ptr<Component> component);
@@ -49,4 +49,4 @@ namespace GUI
     };
 }
 
-#endif // MENU_H
+#endif // PANEL_H_INCLUDED

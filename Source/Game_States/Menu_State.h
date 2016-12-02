@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game_State.h"
-#include "../GUI/Menu.h"
+#include "../GUI/Panel.h"
 
 class Application;
 class Camera;
@@ -32,11 +32,11 @@ namespace State
 
             void genLoadMenu    ();
 
-            GUI::Base_Menu m_frontMenu;
-            GUI::Base_Menu m_newGameMenu;
-            GUI::Base_Menu m_loadmenu;
+            GUI::Panel m_frontMenu;
+            GUI::Panel m_newGameMenu;
+            GUI::Panel m_loadmenu;
 
-            GUI::Base_Menu* m_activeMenu    = nullptr;
+            GUI::Panel* m_activeMenu    = nullptr;
 
             uint32_t   m_seed;
             std::string m_seedString;
