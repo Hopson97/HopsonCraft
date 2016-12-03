@@ -14,8 +14,6 @@
 
 #include "../World_Constants.h"
 
-static std::ofstream chunkTimeTest;
-
 Chunk::Chunk(const Chunk_Location& position,
               Chunk_Map& chunkMap,
               const Texture_Atlas& blockAtlas,
@@ -31,9 +29,6 @@ Chunk::Chunk(const Chunk_Location& position,
 ,   m_worldGenerator(*this, seed)
 ,   m_modelMatrix   (Maths::createModelMatrix(*this))
 {
-    if(!chunkTimeTest.is_open())
-        chunkTimeTest.open("Chunk_Test.txt");
-
     m_worldGenerator.generate();
     loadBlockData (worldName);
 
