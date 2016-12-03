@@ -114,7 +114,7 @@ namespace State
         auto& rotation    = m_player.getCamera().rotation;
         auto& position    = m_player.getCamera().position;
 
-        auto        lastRayPos  = m_player.getCamera().position;
+        auto lastRayPos  = m_player.getCamera().position;
 
 
         Maths::Ray ray(rotation.y + 90,
@@ -319,7 +319,6 @@ namespace State
             outFile << world;
         }
     }
-
 
     void Playing_State::setUpPauseMenu()
     {

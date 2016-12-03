@@ -16,6 +16,7 @@ namespace Maths
         viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.z), {0, 0, 1});
 
         return glm::translate(viewMatrix, -camera.position);
+        Maths::
     }
 
     Matrix4 createModelMatrix(const Entity& entity)

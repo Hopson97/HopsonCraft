@@ -31,8 +31,6 @@ void Crosshair::showRegularTexture()
     m_quad.setTexture(&m_crossTexture);
 }
 
-
-
 void Crosshair::loadTextures()
 {
     static const std::string path = "Data/Images/Crosshairs/";

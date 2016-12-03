@@ -34,6 +34,7 @@ class Chunk : public Entity
               unsigned seed,
               const std::string& worldName);
 
+
         bool hasBlockData   () const;
         bool hasMesh        () const;
         bool hasBuffered    () const;
