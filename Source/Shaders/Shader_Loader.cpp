@@ -7,70 +7,67 @@
 
 namespace Shader
 {
-    namespace
+    void checkErrors(GLuint shaderId, GLenum statusType, const std::string& errorType)
     {
-        void checkErrors(GLuint shaderId, GLenum statusType, const std::string& errorType)
+        auto bufferSize = 512;
+
+        GLint isSuccess;
+        GLchar infoLog[bufferSize];
+
+        glGetShaderiv (shaderId, statusType, &isSuccess);
+        if (!isSuccess)
         {
-            auto bufferSize = 512;
+            glGetShaderInfoLog (shaderId, bufferSize, nullptr, infoLog);
+            throw std::runtime_error ("Shader loading error.\nType: " + errorType + "\nWhat: " + infoLog);
+        }
+    }
 
-            GLint isSuccess;
-            GLchar infoLog[bufferSize];
+    std::string getSource (const std::string& shaderFile)
+    {
+        std::ifstream shaderSourceFile ("Shaders/" + shaderFile + ".glsl");
+        if (!shaderSourceFile.is_open())
+        {
+            throw std::runtime_error ("Unable to open the shader file: " + shaderFile + ".glsl");
+        }
+        shaderSourceFile.exceptions(std::ifstream::badbit);
 
-            glGetShaderiv (shaderId, statusType, &isSuccess);
-            if (!isSuccess)
-            {
-                glGetShaderInfoLog (shaderId, bufferSize, nullptr, infoLog);
-                throw std::runtime_error ("Shader loading error.\nType: " + errorType + "\nWhat: " + infoLog);
-            }
+        std::string source;
+        std::stringstream stream;
+
+        try
+        {
+            stream << shaderSourceFile.rdbuf();
+            source = stream.str();
+        }
+        catch ( std::ifstream::failure& e)
+        {
+            throw std::runtime_error ("Unable to read the shader file: " + shaderFile + ".glsl");
         }
 
-        std::string getSource (const std::string& shaderFile)
-        {
-            std::ifstream shaderSourceFile ("Shaders/" + shaderFile + ".glsl");
-            if (!shaderSourceFile.is_open())
-            {
-                throw std::runtime_error ("Unable to open the shader file: " + shaderFile + ".glsl");
-            }
-            shaderSourceFile.exceptions(std::ifstream::badbit);
+        return source;
+    }
 
-            std::string source;
-            std::stringstream stream;
+    GLuint compileShader (const char* source, GLenum type)
+    {
+        auto shaderId = glCreateShader(type);
 
-            try
-            {
-                stream << shaderSourceFile.rdbuf();
-                source = stream.str();
-            }
-            catch ( std::ifstream::failure& e)
-            {
-                throw std::runtime_error ("Unable to read the shader file: " + shaderFile + ".glsl");
-            }
+        glShaderSource  (shaderId, 1, &source, nullptr);
+        glCompileShader (shaderId);
 
-            return source;
-        }
+        checkErrors(shaderId, GL_COMPILE_STATUS, "Error compiling shader!");
 
-        GLuint compileShader (const char* source, GLenum type)
-        {
-            auto shaderId = glCreateShader(type);
+        return shaderId;
+    }
 
-            glShaderSource  (shaderId, 1, &source, nullptr);
-            glCompileShader (shaderId);
+    GLuint createProgram(GLuint vertexShaderId, GLuint fragmentShaderId)
+    {
+        auto shaderProgrsm = glCreateProgram();
 
-            checkErrors(shaderId, GL_COMPILE_STATUS, "Error compiling shader!");
+        glAttachShader (shaderProgrsm, vertexShaderId);
+        glAttachShader (shaderProgrsm, fragmentShaderId);
+        glLinkProgram  (shaderProgrsm);
 
-            return shaderId;
-        }
-
-        GLuint createProgram(GLuint vertexShaderId, GLuint fragmentShaderId)
-        {
-            auto shaderProgrsm = glCreateProgram();
-
-            glAttachShader (shaderProgrsm, vertexShaderId);
-            glAttachShader (shaderProgrsm, fragmentShaderId);
-            glLinkProgram  (shaderProgrsm);
-
-            return shaderProgrsm;
-        }
+        return shaderProgrsm;
     }
 
     GLuint load (const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
