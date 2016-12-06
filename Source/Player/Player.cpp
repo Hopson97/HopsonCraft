@@ -44,8 +44,13 @@ void Player::input()
     rotationInput();
 }
 
-void Player::update(float dt, Camera& camera)
+void Player::update(float dt, Camera& camera, Chunk_Map& chunkMap)
 {
+    if (!m_isOnGround)
+        m_velocity.y -= 10 * dt;
+    //m_isOnGround = false;
+    collision(chunkMap);
+
     m_camera.position += m_velocity * dt;
 
     m_velocity *= 0.95;
@@ -114,9 +119,10 @@ void Player::upDownInput(Vector3& change)
     {
         change.y -= acc;
     }
-    if (sf::Keyboard::isKeyPressed( sf::Keyboard::Space ))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_isOnGround)
     {
         change.y += acc;
+        //m_isOnGround = false;
     }
 }
 
@@ -168,12 +174,12 @@ void Player::changeBlock(int increment)
 }
 
 double  width = 0.3;
-double  height = 1.65;
+double  height = 1.0;
 
 void Player::collision(Chunk_Map& chunkMap)
-{/*
+{
     auto pos = m_camera.position;
-
+/*
     for (double  x = pos.x - width ; x < pos.x + width ; x += 0.2)
     {
         for (double  y = pos.y - height ; y < pos.y ; y += 0.2)
@@ -183,7 +189,18 @@ void Player::collision(Chunk_Map& chunkMap)
                 if (chunkMap.isSolidBlockAt({x, y, z}))
                 {
                     if(m_velocity.x > 0) m_velocity.x = 0;
-                    if(m_velocity.x < 0) m_velocity.x = 0;
+                    else if(m_velocity.x < 0) m_velocity.x = 0;
+
+                    if(m_velocity.z < 0) m_velocity.z = 0;
+                    else if(m_velocity.z > 0) m_velocity.z = 0;
+
+                    if(m_velocity.y < 0)
+                    {
+                        m_velocity.y = 0;
+                        m_isOnGround = true;
+                    }
+                    else if ( m_velocity.y > 0) m_velocity.y = 0;
+
                 }
             }
         }

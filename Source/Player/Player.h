@@ -22,13 +22,12 @@ class Player
 
         void input (const sf::Event& e);
         void input ();
-        void update (float dt, Camera& camera);
+        void update (float dt, Camera& camera, Chunk_Map& chunkMap);
 
         const Block_t& getBlock() const;
 
         constexpr static double SPEED = 0.45;
 
-        void collision(Chunk_Map& chunkMap);
 
     private:
         void translationInput   ();
@@ -39,9 +38,13 @@ class Player
 
         void changeBlock (int increment);
 
+        void collision(Chunk_Map& chunkMap);
+
         Camera  m_camera;
         Vector3 m_velocity;
         const Block_t* m_p_heldBlock;
+
+        bool m_isOnGround = true;
 };
 
 #endif // PLAYER_H

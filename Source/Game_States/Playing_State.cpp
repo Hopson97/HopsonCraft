@@ -185,14 +185,14 @@ namespace State
     {
         if (m_state == State_t::Play)
         {
-            m_player.collision(*m_chunkMap);
-            const auto& position    = m_player.getCamera().position;
-
-            m_player.update(dt, camera);
+            m_player.update(dt, camera, *m_chunkMap);
+            const auto& position = m_player.getCamera().position;
 
             m_playerPosition = {(int)position.x / World::CHUNK_SIZE,
                                 (int)position.z / World::CHUNK_SIZE};
+
             Debug_Display::addPlayerPosition(position);
+
             m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
         }
         else if (m_state == State_t::Pause)
