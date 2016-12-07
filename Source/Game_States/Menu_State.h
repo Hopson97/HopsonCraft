@@ -7,7 +7,7 @@
 #include "../GUI/Panel.h"
 
 class Application;
-class Camera;
+class Entity;
 class Master_Renderer;
 
 namespace State
@@ -19,7 +19,7 @@ namespace State
 
             void input  (const sf::Event& e);
             void input  ();
-            void update (float dt, Camera& camera);
+            void update (float dt, Entity& camera);
             void draw   (float dt, Master_Renderer& renderer);
 
             void exitState  ();

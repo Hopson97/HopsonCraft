@@ -73,6 +73,13 @@
 		<Unit filename="Data/Blocks/Stone_Bricks.block" />
 		<Unit filename="Data/Blocks/Tall_Grass.block" />
 		<Unit filename="Data/Blocks/Water.block" />
+		<Unit filename="Data/Music/C418-Sweden(Caution and Crisis Remix).ogg" />
+		<Unit filename="Data/Music/C418-Ward.ogg" />
+		<Unit filename="Data/Music/euk.ogg" />
+		<Unit filename="Data/Music/gm.ogg" />
+		<Unit filename="Data/Music/rue.ogg" />
+		<Unit filename="Data/Music/tbatw.ogg" />
+		<Unit filename="Data/Music/uouat.ogg" />
 		<Unit filename="Shaders/Blue_Fragment.glsl" />
 		<Unit filename="Shaders/Blue_Vertex.glsl" />
 		<Unit filename="Shaders/Blur_Fragment.glsl" />
@@ -135,8 +142,6 @@
 		<Unit filename="Source/OpenGL/GL_Maths.h" />
 		<Unit filename="Source/Play_Settings.cpp" />
 		<Unit filename="Source/Play_Settings.h" />
-		<Unit filename="Source/Player/Camera.cpp" />
-		<Unit filename="Source/Player/Camera.h" />
 		<Unit filename="Source/Player/Player.cpp" />
 		<Unit filename="Source/Player/Player.h" />
 		<Unit filename="Source/PostFX/Framebuffer_Object.cpp" />

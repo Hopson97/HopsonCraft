@@ -13,7 +13,7 @@
 #include "SFML_Renderer.h"
 
 class Chunk;
-class Camera;
+class Entity;
 
 enum class Post_FX
 {
@@ -31,12 +31,12 @@ class Master_Renderer
         void draw (const Chunk& chunk);
         void draw (const sf::Drawable& sfDrawable);
 
-        void update (const Camera& camera);
+        void update (const Entity& Entity);
 
         void addPostFX(Post_FX postFx);
 
     private:
-        void drawScene(const Camera& camera);
+        void drawScene(const Entity& Entity);
 
         void drawToQuad();
 

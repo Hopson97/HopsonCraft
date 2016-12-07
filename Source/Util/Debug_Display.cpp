@@ -84,13 +84,13 @@ namespace Debug_Display
         t_chunkPosition.setString("Chunk Location: X: " + std::to_string(cl.x) +
                                                  " Z: " + std::to_string(cl.z));
 
-        t_blockPosition.setString("Block Location: X: " + std::to_string((int)bl.x) +
-                                                 " Y: " + std::to_string((int)bl.y) +
-                                                 " Z: " + std::to_string((int)bl.z));
+        t_blockPosition.setString("Block Location: X: " + std::to_string((float)bl.x) +
+                                                 " Y: " + std::to_string((float)bl.y) +
+                                                 " Z: " + std::to_string((float)bl.z));
 
-        t_worldPosition.setString("World Location: X: " + std::to_string((int)location.x) +
-                                                 " Y: " + std::to_string((int)location.y) +
-                                                 " Z: " + std::to_string((int)location.z));
+        t_worldPosition.setString("World Location: X: " + std::to_string((float)location.x) +
+                                                 " Y: " + std::to_string((float)location.y) +
+                                                 " Z: " + std::to_string((float)location.z));
     }
 
     void addLookVector(const Vector3& rotation)

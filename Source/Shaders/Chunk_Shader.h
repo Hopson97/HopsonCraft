@@ -3,7 +3,7 @@
 
 #include "Shader.h"
 
-class Camera;
+class Entity;
 
 namespace Shader
 {
@@ -13,7 +13,7 @@ namespace Shader
             Chunk_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
             virtual ~Chunk_Shader() = default;
 
-            void loadCameraMatrix   (const Camera& camera) const;
+            void loadCameraMatrix   (const Entity& camera) const;
             void loadChunkMatrix    (const Matrix4& matrix) const;
             void loadSkyColour      (const Vector3& skyColour) const;
 

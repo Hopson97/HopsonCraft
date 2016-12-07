@@ -2,7 +2,7 @@
 
 #include "../../Maths/Position_Converter_Maths.h"
 #include "../../Maths/General_Maths.h"
-#include "../../Player/Camera.h"
+#include "../../Entity/Entity.h"
 #include "../../Util/Debug_Display.h"
 #include "../../Input/Function_Toggle_Key.h"
 #include "../Block/D_Blocks.h"

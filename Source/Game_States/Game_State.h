@@ -9,7 +9,7 @@ namespace sf
 }
 
 class Application;
-class Camera;
+class Entity;
 class Master_Renderer;
 
 namespace State
@@ -22,7 +22,7 @@ namespace State
 
             virtual void input  (const sf::Event& e) = 0;
             virtual void input  () = 0;
-            virtual void update (float dt, Camera& camera)  = 0;
+            virtual void update (float dt, Entity& camera)  = 0;
             virtual void draw   (float dt, Master_Renderer& renderer)  = 0;
             virtual void exitState  () = 0;
 

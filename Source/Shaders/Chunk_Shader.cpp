@@ -1,7 +1,7 @@
 #include "Chunk_Shader.h"
 
 #include "../Maths/Matrix_Maths.h"
-#include "../Player/Camera.h"
+#include "../Entity/Entity.h"
 
 namespace Shader
 {
@@ -16,7 +16,7 @@ namespace Shader
         glUseProgram(0);
     }
 
-    void Chunk_Shader::loadCameraMatrix(const Camera& camera) const
+    void Chunk_Shader::loadCameraMatrix(const Entity& camera) const
     {
         loadMatrix4(m_locationViewMatrix, Maths::createViewMatrix(camera));
     }

@@ -11,7 +11,7 @@
 #include "../Crosshair.h"
 #include "Game_State.h"
 
-class Camera;
+class Entity;
 class Application;
 
 namespace State
@@ -39,7 +39,7 @@ namespace State
 
             void input  (const sf::Event& e);
             void input  ();
-            void update (float dt, Camera& camera);
+            void update (float dt, Entity& camera);
             void draw   (float dt, Master_Renderer& renderer);
 
             void exitState  ();

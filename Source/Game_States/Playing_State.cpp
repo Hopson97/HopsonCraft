@@ -181,7 +181,7 @@ namespace State
         }
     }
 
-    void Playing_State::update  (float dt, Camera& camera)
+    void Playing_State::update  (float dt, Entity& camera)
     {
         if (m_state == State_t::Play)
         {

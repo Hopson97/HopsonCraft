@@ -3,7 +3,7 @@
 
 #include "Chunk_Shader.h"
 
-class Camera;
+class Entity;
 
 namespace Shader
 {

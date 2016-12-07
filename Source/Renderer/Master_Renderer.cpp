@@ -58,7 +58,7 @@ void Master_Renderer::draw(const sf::Drawable& sfDrawable)
     m_sfmlRenderer.addSfDrawable(sfDrawable);
 }
 
-void Master_Renderer::update (const Camera& camera)
+void Master_Renderer::update (const Entity& camera)
 {
     //Draw the scene (to the FBO)
     glEnable    (GL_DEPTH_TEST);
@@ -111,7 +111,7 @@ void Master_Renderer::drawToQuad()
                    nullptr);
 }
 
-void Master_Renderer::drawScene(const Camera& camera)
+void Master_Renderer::drawScene(const Entity& camera)
 {
     m_framebuffer.bindFramebuffer();
 

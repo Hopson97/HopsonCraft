@@ -16,17 +16,28 @@ Player::Player()
     Debug_Display::addheldBlock (*m_p_heldBlock);
 }
 
-const Camera& Player::getCamera() const
+
+/**
+
+*/
+const Entity& Player::getCamera() const
 {
     return m_camera;
 }
 
 
+/**
+
+*/
 void Player::setPosition(const Vector3& position)
 {
     m_camera.position = position;
 }
 
+
+/**
+
+*/
 void Player::input (const sf::Event& e)
 {
     if (e.type == sf::Event::KeyPressed)
@@ -38,19 +49,27 @@ void Player::input (const sf::Event& e)
     }
 }
 
+
+/**
+
+*/
 void Player::input()
 {
     translationInput ();
     rotationInput();
 }
 
-void Player::update(float dt, Camera& camera, Chunk_Map& chunkMap)
+
+/**
+
+*/
+void Player::update(float dt, Entity& camera, Chunk_Map& chunkMap)
 {
     if (!m_isOnGround)
         m_velocity.y -= 10 * dt;
     //m_isOnGround = false;
-    collision(chunkMap);
 
+    collision(chunkMap, dt);
     m_camera.position += m_velocity * dt;
 
     m_velocity *= 0.95;
@@ -60,11 +79,19 @@ void Player::update(float dt, Camera& camera, Chunk_Map& chunkMap)
     Debug_Display::addheldBlock (*m_p_heldBlock);
 }
 
+
+/**
+
+*/
 const Block_t& Player::getBlock() const
 {
     return *m_p_heldBlock;
 }
 
+
+/**
+
+*/
 void Player::translationInput()
 {
     Vector3 change;
@@ -76,6 +103,10 @@ void Player::translationInput()
     m_velocity += change;
 }
 
+
+/**
+
+*/
 void Player::walkingInput(Vector3& change, float yaw)
 {
     //Speed variables
@@ -106,6 +137,10 @@ void Player::walkingInput(Vector3& change, float yaw)
     }
 }
 
+
+/**
+
+*/
 void Player::upDownInput(Vector3& change)
 {
     //Speed variables
@@ -126,6 +161,10 @@ void Player::upDownInput(Vector3& change)
     }
 }
 
+
+/**
+
+*/
 void Player::rotationInput()
 {
     static sf::Vector2i lastMousePos;
@@ -150,6 +189,10 @@ void Player::rotationInput()
     lastMousePos = sf::Mouse::getPosition();
 }
 
+
+/**
+
+*/
 void Player::changeBlock(int increment)
 {
     constexpr static auto NUM_BLOCK_TYPES = static_cast<int>(Block::ID::NUM_BLOCK_TYPES);
@@ -176,31 +219,28 @@ void Player::changeBlock(int increment)
 double  width = 0.3;
 double  height = 1.0;
 
-void Player::collision(Chunk_Map& chunkMap)
+
+/**
+
+*/
+void Player::collision(Chunk_Map& chunkMap, float dt)
 {
-    auto pos = m_camera.position;
-/*
-    for (double  x = pos.x - width ; x < pos.x + width ; x += 0.2)
+    /*
+    auto pos = m_camera.position + m_velocity * dt;
+
+    for (double  x = pos.x - width ; x < pos.x + width ; x += width)
     {
-        for (double  y = pos.y - height ; y < pos.y ; y += 0.2)
+        for (double  y = pos.y - height ; y < pos.y ; y += 0.4)
         {
-            for (double  z = pos.z - width ; z < pos.z + width ; z += 0.2)
+            for (double  z = pos.z - width ; z < pos.z + width ; z += width)
             {
                 if (chunkMap.isSolidBlockAt({x, y, z}))
                 {
-                    if(m_velocity.x > 0) m_velocity.x = 0;
-                    else if(m_velocity.x < 0) m_velocity.x = 0;
-
-                    if(m_velocity.z < 0) m_velocity.z = 0;
-                    else if(m_velocity.z > 0) m_velocity.z = 0;
-
-                    if(m_velocity.y < 0)
+                    //if(m_velocity.x > 0)
                     {
-                        m_velocity.y = 0;
-                        m_isOnGround = true;
+                        m_camera.position.x = x - width;
+                        m_velocity.x = 0;
                     }
-                    else if ( m_velocity.y > 0) m_velocity.y = 0;
-
                 }
             }
         }

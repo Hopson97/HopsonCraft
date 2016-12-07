@@ -6,12 +6,12 @@
 #include <iostream>
 
 #include "../World/Chunk/Chunk.h"
-#include "../Player/Camera.h"
+#include "../Entity/Entity.h"
 #include "../Maths/Matrix_Maths.h"
 #include "../D_Settings.h"
 
 class Chunk;
-class Camera;
+class Entity;
 
 template<typename Shader_Type>
 class Chunk_Renderer
@@ -22,7 +22,7 @@ class Chunk_Renderer
                 m_chunks.push_back(&chunk);
         }
 
-        void render (const Camera& camera)
+        void render (const Entity& camera)
         {
             m_shader.useProgram();
             m_shader.loadCameraMatrix(camera);

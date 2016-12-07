@@ -8,7 +8,6 @@
 
 #include "Game_States/Game_State.h"
 #include "Renderer/Master_Renderer.h"
-#include "Player/Camera.h"
 
 class Application
 {
@@ -35,7 +34,7 @@ class Application
         sf::Clock m_songTimer;
 
         Master_Renderer m_renderer;
-        Camera          m_camera;
+        Entity          m_camera;
 };
 
 #endif // APPLICATION_H

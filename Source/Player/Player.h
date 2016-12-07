@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "Camera.h"
+#include "../Entity/Entity.h"
 #include "../World/Block/Block.h"
 
 class Chunk_Map;
@@ -16,13 +16,13 @@ class Player
     public:
         Player();
 
-        const Camera& getCamera () const;
+        const Entity& getCamera () const;
 
         void setPosition(const Vector3& position);
 
         void input (const sf::Event& e);
         void input ();
-        void update (float dt, Camera& camera, Chunk_Map& chunkMap);
+        void update (float dt, Entity& camera, Chunk_Map& chunkMap);
 
         const Block_t& getBlock() const;
 
@@ -38,9 +38,9 @@ class Player
 
         void changeBlock (int increment);
 
-        void collision(Chunk_Map& chunkMap);
+        void collision(Chunk_Map& chunkMap, float dt);
 
-        Camera  m_camera;
+        Entity  m_camera;
         Vector3 m_velocity;
         const Block_t* m_p_heldBlock;
 

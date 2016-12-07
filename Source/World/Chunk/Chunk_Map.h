@@ -15,7 +15,7 @@ namespace sf
     class Event;
 }
 
-class Camera;
+class Entity;
 class Master_Renderer;
 struct Area;
 
