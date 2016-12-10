@@ -24,6 +24,8 @@
 
 #include "Menu_State.h"
 
+#include "../Input/Key_Binds.h"
+
 namespace State
 {
     /**

@@ -9,6 +9,8 @@
 #include "../Util/Debug_Display.h"
 #include "../Util/Display.h"
 
+#include "../Input/Key_Binds.h"
+
 Player::Player()
 :   m_p_heldBlock (&Block::grass)
 {
@@ -115,22 +117,22 @@ void Player::walkingInput(Vector3& change, float yaw)
         acc = SPEED * 10 :
         acc = SPEED;
 
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
         change.x -= cos (yaw + Maths::PI / 2) * acc;
         change.z -= sin (yaw + Maths::PI / 2) * acc;
     }
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Back)))
     {
         change.x += cos (yaw + Maths::PI / 2) * acc;
         change.z += sin (yaw + Maths::PI / 2) * acc;
     }
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Right)))
     {
         change.x += cos (yaw) * acc;
         change.z += sin (yaw) * acc;
     }
-    if  (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Left)))
     {
         change.x -= cos (yaw) * acc;
         change.z -= sin (yaw) * acc;
