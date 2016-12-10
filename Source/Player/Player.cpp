@@ -67,7 +67,7 @@ void Player::update(float dt, Entity& camera, Chunk_Map& chunkMap)
 {
     if (!m_isOnGround)
         m_velocity.y -= 10 * dt;
-    //m_isOnGround = false;
+   // m_isOnGround = false;
 
     collision(chunkMap, dt);
     m_camera.position += m_velocity * dt;
@@ -216,55 +216,18 @@ void Player::changeBlock(int increment)
     m_p_heldBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
 }
 
-double  width = 0.3;
+double  width = 0.25;
 double  height = 1.0;
 
-
+#include <iostream>
 /**
 
 */
 void Player::collision(Chunk_Map& chunkMap, float dt)
 {
-    /*
-    auto pos = m_camera.position + m_velocity * dt;
-
-    for (double  x = pos.x - width ; x < pos.x + width ; x += width)
-    {
-        for (double  y = pos.y - height ; y < pos.y ; y += 0.4)
-        {
-            for (double  z = pos.z - width ; z < pos.z + width ; z += width)
-            {
-                if (chunkMap.isSolidBlockAt({x, y, z}))
-                {
-                    //if(m_velocity.x > 0)
-                    {
-                        m_camera.position.x = x - width;
-                        m_velocity.x = 0;
-                    }
-                }
-            }
-        }
-    }*/
+    auto pos    = m_camera.position + m_velocity * dt;
+    auto diff   = pos - m_camera.position;
 }
-
-
-/*
-  void collision(float Dx,float Dy,float Dz)
-  {
-    for (int X=(x-w)/size;X<(x+w)/size;X++)
-    for (int Y=(y-h)/size;Y<(y+h)/size;Y++)
-    for (int Z=(z-d)/size;Z<(z+d)/size;Z++)
-      if (check(X,Y,Z))  {
-        if (Dx>0)  x = X*size-w;
-        if (Dx<0)  x = X*size+size+w;
-		if (Dy>0)  y = Y*size-h;
-        if (Dy<0) {y = Y*size+size+h; onGround=true; dy=0;}
-		if (Dz>0)  z = Z*size-d;
-        if (Dz<0)  z = Z*size+size+d;
-                          }
-  }
-*/
-
 
 
 

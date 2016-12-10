@@ -18,10 +18,11 @@ namespace State
 {
     class Playing_State : public Game_State
     {
-        enum class State_t
+        enum class PS_State //Playing State State xD
         {
             Play,
-            Pause
+            Pause,
+            Block_Menu,
         };
 
         enum class RenderDistance
@@ -79,7 +80,7 @@ namespace State
             GUI::Panel* m_activeMenu;
 
 
-            State_t m_state = State_t::Play;
+            PS_State m_state = PS_State::Play;
             bool m_isExitGame = false;
 
             std::vector<std::string> m_worldFileNames;

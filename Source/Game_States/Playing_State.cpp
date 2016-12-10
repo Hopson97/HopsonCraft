@@ -26,6 +26,9 @@
 
 namespace State
 {
+    /**
+
+    */
     Playing_State::Playing_State(Application& application,
                                 const std::string& worldName,
                                 uint32_t seed)
@@ -51,6 +54,10 @@ namespace State
         m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed);
     }
 
+
+    /**
+        Input for SFML events
+    */
     void Playing_State::input(const sf::Event& e)
     {
         static sf::Clock c;
@@ -58,57 +65,70 @@ namespace State
         {
             switch (m_state)
             {
-                case State_t::Play:
-                    m_state = State_t::Pause;
+                case PS_State::Play:
+                    m_state = PS_State::Pause;
                     m_activeMenu = &m_pauseMenu;
                     Display::showMouse();
                     break;
 
-                case State_t::Pause:
-                    m_state = State_t::Play;
+                case PS_State::Pause:
+                    m_state = PS_State::Play;
                     Display::hideMouse();
                     break;
-
+                default:
+                    break;
             }
             c.restart().asSeconds();
         }
 
-        if (m_state == State_t::Play)
+        if (m_state == PS_State::Play)
         {
             m_chunkMap->input(e);
             m_player.input(e);
             m_debugDisplay.checkInput(e);
         }
-        else if (m_state == State_t::Pause)
+        else if (m_state == PS_State::Pause)
         {
             m_activeMenu->input(e);
         }
     }
 
 
+    /**
+        Real-Time input
+    */
     void Playing_State::input ()
     {
         static sf::Clock blockEditClock;
 
-        if (m_state == State_t::Play)
+        switch (m_state)
         {
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)     ||
-                sf::Mouse::isButtonPressed(sf::Mouse::Right)    ||
-                sf::Keyboard::isKeyPressed(sf::Keyboard::P)     ||
-                sf::Keyboard::isKeyPressed(sf::Keyboard::U)     ||
-                sf::Keyboard::isKeyPressed(sf::Keyboard::I))
-            {
-                if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
+            case PS_State::Play:
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left)     ||
+                    sf::Mouse::isButtonPressed(sf::Mouse::Right)    ||
+                    sf::Keyboard::isKeyPressed(sf::Keyboard::P)     ||
+                    sf::Keyboard::isKeyPressed(sf::Keyboard::U)     ||
+                    sf::Keyboard::isKeyPressed(sf::Keyboard::I))
                 {
-                    blockEdit();
-                    blockEditClock.restart();
+                    if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
+                    {
+                        blockEdit();
+                        blockEditClock.restart();
+                    }
                 }
-            }
 
-            m_player.input();
+                m_player.input();
+                break;
+
+            default:
+                break;
         }
     }
 
+
+    /**
+        Removing/ Placing Blocks
+    */
     void Playing_State::blockEdit()
     {
         auto& rotation    = m_player.getCamera().rotation;
@@ -181,26 +201,39 @@ namespace State
         }
     }
 
+
+    /**
+        Update the state
+    */
     void Playing_State::update  (float dt, Entity& camera)
     {
-        if (m_state == State_t::Play)
+        switch (m_state)
         {
-            m_player.update(dt, camera, *m_chunkMap);
-            const auto& position = m_player.getCamera().position;
+            case PS_State::Play: {
+                m_player.update(dt, camera, *m_chunkMap);
 
-            m_playerPosition = {(int)position.x / World::CHUNK_SIZE,
-                                (int)position.z / World::CHUNK_SIZE};
+                auto& position = m_player.getCamera().position;
+                m_playerPosition = Maths::worldToChunkPosition(position);
+                Debug_Display::addPlayerPosition(position);
 
-            Debug_Display::addPlayerPosition(position);
+                m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
+                break;
+            }
 
-            m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
-        }
-        else if (m_state == State_t::Pause)
-        {
-            m_activeMenu->update();
+            case PS_State::Pause:
+                m_activeMenu->update();
+                break;
+
+            default:
+                break;
+
         }
     }
 
+
+    /**
+
+    */
     void Playing_State::draw (float dt, Master_Renderer& renderer)
     {
         //Draw the chunks
@@ -208,13 +241,21 @@ namespace State
 
         tryAddPostFX(renderer);
 
-        if (m_state == State_t::Play)
+        switch (m_state)
         {
-            if (m_debugDisplayActive)   Debug_Display::draw(renderer);
-            m_crosshair.draw(renderer);
+            case PS_State::Play:
+                if (m_debugDisplayActive)   Debug_Display::draw(renderer);
+                m_crosshair.draw(renderer);
+                break;
+
+            case PS_State::Pause:
+                if (!m_isExitGame)
+                    m_activeMenu->draw(renderer);
+                break;
+
+            default:
+                break;
         }
-        else if (m_state == State_t::Pause && !m_isExitGame)
-            m_activeMenu->draw(renderer);
 
         if(m_isExitGame)
             prepareExit(renderer);
@@ -243,6 +284,10 @@ namespace State
         }
     }
 
+
+    /**
+
+    */
     void Playing_State::prepareExit(Master_Renderer& renderer)
     {
          renderer.clear();
@@ -253,12 +298,19 @@ namespace State
     }
 
 
+    /**
+
+    */
     void Playing_State::exitState()
     {
         save();
         Display::showMouse();
     }
 
+
+    /**
+
+    */
     void Playing_State::loadWorldFile()
     {
         std::ifstream inFile("Worlds/" + m_worldName + "/World_Info.data");
@@ -276,6 +328,10 @@ namespace State
         }
     }
 
+
+    /**
+
+    */
     void Playing_State::loadWorldList()
     {
         m_worldFileNames.push_back(m_worldName + "\n");
@@ -291,6 +347,10 @@ namespace State
         }
     }
 
+
+    /**
+
+    */
     void Playing_State::save()
     {
         m_chunkMap->saveChunks();
@@ -298,6 +358,10 @@ namespace State
         saveWorldList();
     }
 
+
+    /**
+
+    */
     void Playing_State::saveWorldFile()
     {
         auto& position = m_player.getCamera().position;
@@ -311,6 +375,10 @@ namespace State
         outFile << "date\n" << Time::getDateString()    << std::endl;
     }
 
+
+    /**
+
+    */
     void Playing_State::saveWorldList()
     {
         std::ofstream outFile ("Worlds/World_Names.txt");
@@ -320,12 +388,16 @@ namespace State
         }
     }
 
+
+    /**
+
+    */
     void Playing_State::setUpPauseMenu()
     {
         m_pauseMenu.addPadding(150);
         m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Resume", [&]()
         {
-            m_state = State_t::Play;
+            m_state = PS_State::Play;
             Display::hideMouse();
         }));
 
@@ -340,6 +412,10 @@ namespace State
         }));
     }
 
+
+    /**
+
+    */
     void Playing_State::setUpSettingsMenu()
     {
         m_settingsMenu.addComponent(std::make_unique<GUI::Button>("Change Song", [&]()

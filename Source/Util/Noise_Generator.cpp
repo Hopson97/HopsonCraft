@@ -61,12 +61,12 @@ namespace Noise
         return rec3;
     }
 
-    int Generator::getValue(int x, int z, int tileX, int tileZ) const
+    double Generator::getValue(int x, int z, int tileX, int tileZ) const
     {
         auto newX = (x + (tileX * World::CHUNK_SIZE));
         auto newZ = (z + (tileZ * World::CHUNK_SIZE));
 
-        if (newX < 0 || newZ < 0) return World::WATER_LEVEL - 1;
+        //if (newX < 0 || newZ < 0) return World::WATER_LEVEL - 1;
 
         auto totalValue   = 0.0;
 
