@@ -8,7 +8,7 @@
 
 #include "Chunk_Location.h"
 #include "Chunk_Layer.h"
-#include "../Block/E_Block_ID.h"
+#include "../Block/Block_Enums.h"
 
 class Chunk_Map;
 class Chunk;

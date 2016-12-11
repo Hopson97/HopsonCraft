@@ -5,9 +5,7 @@
 #include <vector>
 
 #include "../../OpenGL/GL_Maths.h"
-#include "E_Block_ID.h"
-#include "E_Block_Physical_State.h"
-#include "E_Block_Type.h"
+#include "Block_Enums.h"
 
 namespace Block
 {

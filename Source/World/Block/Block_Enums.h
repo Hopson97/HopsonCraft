@@ -2,7 +2,7 @@
 #define E_BLOCK_ID_H_INCLUDED
 namespace Block
 {
-        enum class ID
+    enum class ID
     {
         Air             =   0,
         Grass           =   1,
@@ -24,6 +24,21 @@ namespace Block
         Bedrock         =   17,
 
         NUM_BLOCK_TYPES
+    };
+
+    enum class Mesh_Type
+    {
+        Block   =   0,
+        X_Style =   1,
+        Special =   2
+    };
+
+    enum class Physical_State
+    {
+        Solid   = 0,
+        Liquid  = 1,
+        Gas     = 2,
+        Flora   = 3
     };
 }
 

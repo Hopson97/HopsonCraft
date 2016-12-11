@@ -2,7 +2,7 @@
 #define D_BLOCKS_H_INCLUDED
 
 #include "Block.h"
-#include "E_Block_ID.h"
+#include "Block_Enums.h"
 
 namespace Block
 {

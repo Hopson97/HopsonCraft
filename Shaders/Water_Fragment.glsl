@@ -18,5 +18,5 @@ void main()
     {
         discard;
     }
-    outColour = mix (vec4 ( skyColour, 1.0), outColour, passVis);
+    //outColour = mix (vec4 ( skyColour, 1.0), outColour, passVis);
 }
