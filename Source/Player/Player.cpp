@@ -218,17 +218,12 @@ void Player::changeBlock(int increment)
     m_p_heldBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
 }
 
-double  width = 0.25;
-double  height = 1.0;
-
-#include <iostream>
 /**
 
 */
 void Player::collision(Chunk_Map& chunkMap, float dt)
 {
-    auto pos    = m_camera.position + m_velocity * dt;
-    auto diff   = pos - m_camera.position;
+
 }
 
 

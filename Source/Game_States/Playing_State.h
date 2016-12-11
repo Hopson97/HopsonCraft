@@ -22,7 +22,6 @@ namespace State
         {
             Play,
             Pause,
-            Block_Menu,
         };
 
         enum class RenderDistance
@@ -46,7 +45,8 @@ namespace State
             void exitState  ();
 
         private:
-            void blockEdit();
+            void blockRayHit();
+            void blockEdit(const Vector3& lastRayPos, const Vector3& rayPos);
 
             void tryAddPostFX(Master_Renderer& renderer);
 
@@ -76,9 +76,9 @@ namespace State
 
             GUI::Panel m_pauseMenu;
             GUI::Panel m_settingsMenu;
+            GUI::Panel m_blockMenu;
 
             GUI::Panel* m_activeMenu;
-
 
             PS_State m_state = PS_State::Play;
             bool m_isExitGame = false;

@@ -41,6 +41,7 @@ namespace State
     ,   m_worldSeed         (seed)
     ,   m_pauseMenu         (GUI::Layout::Center)
     ,   m_settingsMenu      (GUI::Layout::Center)
+    ,   m_blockMenu         (GUI::Layout::Grid2x)
     {
 
         Display::hideMouse();
@@ -62,26 +63,55 @@ namespace State
     */
     void Playing_State::input(const sf::Event& e)
     {
-        static sf::Clock c;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && c.getElapsedTime().asSeconds() > 0.1)
+        auto switchToMenu = [&](GUI::Panel& menu)
         {
-            switch (m_state)
-            {
-                case PS_State::Play:
-                    m_state = PS_State::Pause;
-                    m_activeMenu = &m_pauseMenu;
-                    Display::showMouse();
-                    break;
+            m_state = PS_State::Pause;
+            m_activeMenu = &menu;
+            Display::showMouse();
+        };
+        auto exitMenu = [&]()
+        {
+            m_state = PS_State::Play;
+            Display::hideMouse();
+        };
 
-                case PS_State::Pause:
-                    m_state = PS_State::Play;
-                    Display::hideMouse();
-                    break;
-                default:
-                    break;
-            }
-            c.restart().asSeconds();
+        switch (e.type)
+        {
+            case sf::Event::KeyPressed:
+                if (e.key.code == sf::Keyboard::Escape)
+                {
+                    switch (m_state)
+                    {
+                        case PS_State::Play:
+                            switchToMenu(m_pauseMenu);
+                            break;
+
+                        case PS_State::Pause:
+                            exitMenu();
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                else if (e.key.code == sf::Keyboard::I)
+                {
+                    switch (m_state)
+                    {
+                        case PS_State::Play:
+                            switchToMenu(m_blockMenu);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                break;
+
+            default:
+                break;
         }
+
 
         if (m_state == PS_State::Play)
         {
@@ -105,20 +135,9 @@ namespace State
 
         switch (m_state)
         {
-            case PS_State::Play:
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left)     ||
-                    sf::Mouse::isButtonPressed(sf::Mouse::Right)    ||
-                    sf::Keyboard::isKeyPressed(sf::Keyboard::P)     ||
-                    sf::Keyboard::isKeyPressed(sf::Keyboard::U)     ||
-                    sf::Keyboard::isKeyPressed(sf::Keyboard::I))
-                {
-                    if (blockEditClock.getElapsedTime().asSeconds() > 0.2)
-                    {
-                        blockEdit();
-                        blockEditClock.restart();
-                    }
-                }
 
+            case PS_State::Play:
+                blockRayHit();
                 m_player.input();
                 break;
 
@@ -127,12 +146,9 @@ namespace State
         }
     }
 
-
-    /**
-        Removing/ Placing Blocks
-    */
-    void Playing_State::blockEdit()
+    void Playing_State::blockRayHit()
     {
+        static sf::Clock blockEditTimer;
         auto& rotation    = m_player.getCamera().rotation;
         auto& position    = m_player.getCamera().position;
 
@@ -143,63 +159,45 @@ namespace State
                        rotation.x,
                        position);
 
-        while(true)
+        for (int s = 0 ; s < 6 / 0.1 ; s++)
         {
             ray.step(0.1);
-
-            //Delta/ Difference
-            auto d = ray.getEndPoint() - position;
-
-            if (Maths::getLength({d.x, d.y, d.z}) > 6.0) break;
-            if (Maths::getLength({d.x, d.y, d.z}) > 6.0) break;
-
             auto* block       = &m_chunkMap->getBlockAt(ray.getEndPoint());
-            //auto worldPoint   = Maths::worldToBlockPosition(ray.getEndPoint());
-            //auto playerPoint  = Maths::worldToBlockPosition(m_player.getPosition());
 
             if (block->getPhysicalState() == Block::Physical_State::Solid ||
                 block->getPhysicalState() == Block::Physical_State::Flora)
             {
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                m_crosshair.showMiningTexture();
+                if ((sf::Mouse::isButtonPressed(sf::Mouse::Left)        ||
+                     sf::Mouse::isButtonPressed(sf::Mouse::Right))      &&
+                     blockEditTimer.getElapsedTime().asSeconds() > 0.2)
                 {
-                   //if (worldPoint != playerPoint)
-                        m_chunkMap->setBlock(Block::air, ray.getEndPoint());
-                }
-
-                else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-                {
-                    //if (worldPoint != playerPoint)
-                        m_chunkMap->setBlock(m_player.getBlock(), lastRayPos);
-                }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
-                {
-                    m_chunkMap->setBlocks(m_player.getBlock(), {lastRayPos,
-                                                               {lastRayPos.x, lastRayPos.y + 1, lastRayPos.z},
-                                                               {lastRayPos.x, lastRayPos.y + 2, lastRayPos.z},
-                                                               {lastRayPos.x, lastRayPos.y + 3, lastRayPos.z},
-                                                               {lastRayPos.x, lastRayPos.y + 4, lastRayPos.z},
-                                                               {lastRayPos.x, lastRayPos.y + 5, lastRayPos.z}});
-                }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
-                {
-                    m_chunkMap->setBlocks(m_player.getBlock(), {lastRayPos,
-                                                               {lastRayPos.x, lastRayPos.y - 1, lastRayPos.z},
-                                                               {lastRayPos.x, lastRayPos.y - 2, lastRayPos.z},
-                                                               {lastRayPos.x, lastRayPos.y - 3, lastRayPos.z},
-                                                               {lastRayPos.x, lastRayPos.y - 4, lastRayPos.z},
-                                                               {lastRayPos.x, lastRayPos.y - 5, lastRayPos.z}});
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-                {
-                    //if (worldPoint != playerPoint)
-                        m_chunkMap->makeExplosion(ray.getEndPoint(), 8);
+                    blockEdit(lastRayPos, ray.getEndPoint());
+                    blockEditTimer.restart();
                 }
                 break;
             }
             else
             {
-                lastRayPos = ray.getEndPoint();
+                m_crosshair.showRegularTexture();
             }
+            lastRayPos = ray.getEndPoint();
+        }
+    }
+
+
+    /**
+        Removing/ Placing Blocks
+    */
+    void Playing_State::blockEdit(const Vector3& lastRayPos, const Vector3& rayPos)
+    {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            m_chunkMap->setBlock(Block::air, rayPos);
+        }
+        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+        {
+            m_chunkMap->setBlock(m_player.getBlock(), lastRayPos);
         }
     }
 

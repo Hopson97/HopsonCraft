@@ -126,6 +126,8 @@
 		<Unit filename="Source/Game_States/Playing_State.h" />
 		<Unit filename="Source/Input/Function_Toggle_Key.cpp" />
 		<Unit filename="Source/Input/Function_Toggle_Key.h" />
+		<Unit filename="Source/Input/Key_Binds.cpp" />
+		<Unit filename="Source/Input/Key_Binds.h" />
 		<Unit filename="Source/Main.cpp" />
 		<Unit filename="Source/Maths/General_Maths.cpp" />
 		<Unit filename="Source/Maths/General_Maths.h" />
