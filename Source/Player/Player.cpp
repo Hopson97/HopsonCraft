@@ -87,7 +87,7 @@ void Player::update(float dt, Entity& camera, Chunk_Map& chunkMap)
 /**
 
 */
-const Block_t& Player::getBlock() const
+const Block::Block_Data& Player::getBlock() const
 {
     return *m_p_heldBlock;
 }
@@ -199,14 +199,14 @@ void Player::rotationInput()
 */
 void Player::changeBlock(int increment)
 {
-    constexpr static auto NUM_BLOCK_TYPES = (uint32_t)(Block::ID::NUM_BLOCK_TYPES);
+    constexpr static auto BLOCK_TYPES = (uint32_t)(Block::ID::NUM_BLOCK_TYPES);
 
     auto currId = (uint32_t)(m_p_heldBlock->getID());
     currId += increment;
 
     //Seeing as "0" is an air block, we just skip over it
-    if (currId == 0) currId = NUM_BLOCK_TYPES - 1;
-    else if (currId == NUM_BLOCK_TYPES) currId = 1;
+    if (currId == 0) currId = BLOCK_TYPES - 1;
+    else if (currId == BLOCK_TYPES) currId = 1;
 
     auto* newBlock = &Block::get(static_cast<Block::ID>(currId));
 

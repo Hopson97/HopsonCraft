@@ -89,7 +89,7 @@ void Chunk_Mesh::generateMesh(int height)
 }
 //This is for the block vertex array generator.
 //It basically just determines which vertex array, water or ground, to add the verticies into.
-Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block_t& block)
+Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block::Block_Data& block)
 {
     switch(block.getPhysicalState())
     {
@@ -109,7 +109,7 @@ Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block_t& block)
 }
 
 //Adds blocks to mesh if there is a adjacent air block to a block
-void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block_t& block)
+void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart = &getPart(block);
 
@@ -147,7 +147,7 @@ void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block_t& block)
     }
 }
 
-bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block_t& block)
+bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block::Block_Data& block)
 {
     Block_Location location(x, y, z); //This is so it does not construct this object 3 times, but rather just once.
     auto& b = m_p_chunk->getBlocks().getBlock(location);
@@ -166,7 +166,7 @@ bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block_t& block)
     The +1 refers to where the vertex is in respect to the block vertex array "origin", of which is the front bottom
     left of a block.
 */
-void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& block)
+void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
@@ -181,7 +181,7 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block_t& blo
     addBlockIndices();
 }
 
-void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& block)
+void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
@@ -196,7 +196,7 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block_t& 
     addBlockIndices();
 }
 
-void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& block)
+void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
@@ -211,7 +211,7 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block_t& bl
     addBlockIndices();
 }
 
-void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& block)
+void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
@@ -226,7 +226,7 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block_t& b
     addBlockIndices();
 }
 
-void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& block)
+void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
@@ -241,7 +241,7 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block_t& b
     addBlockIndices();
 }
 
-void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block_t& block)
+void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
@@ -271,7 +271,7 @@ void Chunk_Mesh::addBlockIndices()
 }
 
 //This makes a sorta X shape
-void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block_t& block)
+void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart = &m_floraPart;
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),

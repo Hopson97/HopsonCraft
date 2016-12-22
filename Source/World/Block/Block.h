@@ -9,11 +9,11 @@
 
 namespace Block
 {
-    class Block_Base
+    class Block_Data
     {
         public:
-            Block_Base  (const std::string& name = "Air");
-            virtual ~Block_Base ();
+            Block_Data  (const std::string& name = "Air");
+            virtual ~Block_Data ();
 
             const std::string& getName() const;
 
@@ -31,7 +31,7 @@ namespace Block
             Physical_State  getPhysicalState()  const;
             Mesh_Type       getMeshType()       const;
 
-            bool canBePlacedOn (const Block_Base& block) const;
+            bool canBePlacedOn (const Block_Data& block) const;
 
         private:
             void loadFromFile();
@@ -54,7 +54,5 @@ namespace Block
             std::vector<ID> m_blocksCanBePlacedOn;
     };
 } //Namespace Block
-
-typedef Block::Block_Base Block_t;
 
 #endif // BLOCK_H

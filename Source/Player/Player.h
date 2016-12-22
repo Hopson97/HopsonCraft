@@ -24,7 +24,7 @@ class Player
         void input ();
         void update (float dt, Entity& camera, Chunk_Map& chunkMap);
 
-        const Block_t& getBlock() const;
+        const Block::Block_Data& getBlock() const;
 
         constexpr static double SPEED = 0.45;
 
@@ -42,7 +42,7 @@ class Player
 
         Entity  m_camera;
         Vector3 m_velocity;
-        const Block_t* m_p_heldBlock;
+        const Block::Block_Data* m_p_heldBlock;
 
         bool m_isOnGround = true;
 };

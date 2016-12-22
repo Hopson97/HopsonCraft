@@ -7,26 +7,26 @@ using u32 = uint32_t;
 
 namespace Block
 {
-    Block_t air         ("Air");
-    Block_t grass       ("Grass");
-    Block_t dirt        ("Dirt");
-    Block_t stone       ("Stone");
-    Block_t water       ("Water");
-    Block_t sand        ("Sand");
-    Block_t oakLeaf     ("Oak_Leaf");
-    Block_t oakWood     ("Oak_Wood");
-    Block_t oakPlank    ("Oak_Plank");
-    Block_t glass       ("Glass");
-    Block_t cobbleStone ("Cobblestone");
-    Block_t stoneBricks ("Stone_Bricks");
-    Block_t snow        ("Snow");
-    Block_t cactus      ("Cactus");
-    Block_t rose        ("Rose");
-    Block_t tallGrass   ("Tall_Grass");
-    Block_t deadShrub   ("Dead_Shrub");
-    Block_t bedrock     ("Bedrock");
+    Block::Block_Data air         ("Air");
+    Block::Block_Data grass       ("Grass");
+    Block::Block_Data dirt        ("Dirt");
+    Block::Block_Data stone       ("Stone");
+    Block::Block_Data water       ("Water");
+    Block::Block_Data sand        ("Sand");
+    Block::Block_Data oakLeaf     ("Oak_Leaf");
+    Block::Block_Data oakWood     ("Oak_Wood");
+    Block::Block_Data oakPlank    ("Oak_Plank");
+    Block::Block_Data glass       ("Glass");
+    Block::Block_Data cobbleStone ("Cobblestone");
+    Block::Block_Data stoneBricks ("Stone_Bricks");
+    Block::Block_Data snow        ("Snow");
+    Block::Block_Data cactus      ("Cactus");
+    Block::Block_Data rose        ("Rose");
+    Block::Block_Data tallGrass   ("Tall_Grass");
+    Block::Block_Data deadShrub   ("Dead_Shrub");
+    Block::Block_Data bedrock     ("Bedrock");
 
-    std::vector<Block_t*> blocks((u32)Block::ID::NUM_BLOCK_TYPES);
+    std::vector<Block::Block_Data*> blocks((u32)Block::ID::NUM_BLOCK_TYPES);
 
     void initBlockDatabase()
     {
@@ -50,7 +50,7 @@ namespace Block
         blocks[(u32)Block::ID::Bedrock]        = &bedrock;
     }
 
-    Block_t& get (Block::ID id)
+    Block::Block_Data& get (Block::ID id)
     {
         return *blocks.at((u32)id);
     }

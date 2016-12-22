@@ -110,7 +110,7 @@ namespace Debug_Display
         t_numChunks.setString("Total Chunks: " + std::to_string(numChunks));
     }
 
-    void addheldBlock(const Block_t& block)
+    void addheldBlock(const Block::Block_Data& block)
     {
         std::string name = block.getName();
         std::string id   = std::to_string((uint32_t)(block.getID()));

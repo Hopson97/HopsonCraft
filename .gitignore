@@ -10,17 +10,18 @@
 bin/
 obj/
 
+#SFML Stuff
+*.dll
 
-Test\ World/
+#Zips
+*.zip
+*.7z
+
+#Builds
+Project/
 MattCraft/
 old/
 
-#SFML Stuff
-*.dll
-*.zip
-*.7z
-Project/
-
-#glew.h 
-#glew.c
-#wglew.h
+#Test Worlds
+Test\ World/
+Terrain_

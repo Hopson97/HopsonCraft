@@ -18,7 +18,7 @@ void Biome::setFloraFrequency(int frequency)
     m_floraFrequency = frequency;
 }
 
-void Biome::addBlock(const Block_t& block, int frequency)
+void Biome::addBlock(const Block::Block_Data& block, int frequency)
 {
     for (int i = 0 ; i <= frequency ; i++)
     {
@@ -26,7 +26,7 @@ void Biome::addBlock(const Block_t& block, int frequency)
     }
 }
 
-void Biome::addFlora(const Block_t& block, int frequency)
+void Biome::addFlora(const Block::Block_Data& block, int frequency)
 {
     for (int i = 0 ; i <= frequency ; i++)
     {
@@ -56,13 +56,13 @@ Structure_Function Biome::getTreeFunction()
     return m_treeCreators.at(i);
 }
 
-const Block_t& Biome::getBlock() const
+const Block::Block_Data& Biome::getBlock() const
 {
     auto i = Random::integer(0, m_blocks.size() - 1);
     return *m_blocks.at(i);
 }
 
-const Block_t& Biome::getFlora() const
+const Block::Block_Data& Biome::getFlora() const
 {
     auto i = Random::integer(0, m_flora.size() - 1);
     return *m_flora.at(i);

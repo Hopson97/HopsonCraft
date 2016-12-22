@@ -40,22 +40,22 @@ class Chunk_Mesh
         const Chunk_Mesh_Part& getFloraPart() const;
 
     private:
-        Chunk_Mesh_Part& getPart (const Block_t& block);
+        Chunk_Mesh_Part& getPart (const Block::Block_Data& block);
 
-        void addBlockMesh   (float x, float y, float z, const Block_t& block );
+        void addBlockMesh   (float x, float y, float z, const Block::Block_Data& block );
 
-        inline bool shouldMakeMesh (int x, int y, int z, const Block_t& block );
+        inline bool shouldMakeMesh (int x, int y, int z, const Block::Block_Data& block );
 
-        void addBlockTopToMesh      (float x, float y, float z, const Block_t& block);
-        void addBlockBottomToMesh   (float x, float y, float z, const Block_t& block);
-        void addBlockLeftToMesh     (float x, float y, float z, const Block_t& block);
-        void addBlockRightToMesh    (float x, float y, float z, const Block_t& block);
-        void addBlockFrontToMesh    (float x, float y, float z, const Block_t& block);
-        void addBlockBackToMesh     (float x, float y, float z, const Block_t& block);
+        void addBlockTopToMesh      (float x, float y, float z, const Block::Block_Data& block);
+        void addBlockBottomToMesh   (float x, float y, float z, const Block::Block_Data& block);
+        void addBlockLeftToMesh     (float x, float y, float z, const Block::Block_Data& block);
+        void addBlockRightToMesh    (float x, float y, float z, const Block::Block_Data& block);
+        void addBlockFrontToMesh    (float x, float y, float z, const Block::Block_Data& block);
+        void addBlockBackToMesh     (float x, float y, float z, const Block::Block_Data& block);
 
         void addBlockIndices        ();
 
-        void addPlantToMesh         (float x, float y, float z, const Block_t& block);
+        void addPlantToMesh         (float x, float y, float z, const Block::Block_Data& block);
 
         Chunk_Mesh_Part m_solidPart;
         Chunk_Mesh_Part m_waterPart;

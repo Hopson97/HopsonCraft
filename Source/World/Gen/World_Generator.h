@@ -36,7 +36,7 @@ class World_Generator
         void setRandomSeed      (int x, int y, int z);
 
         void setBlock           (const Block_Location& location, int h);
-        void setBlock           (const Block_Location& location, const Block_t& block);
+        void setBlock           (const Block_Location& location, const Block::Block_Data& block);
 
         void tryAddTree         (const Block_Location& location);
         void tryAddFlora        (const Block_Location& location);
@@ -51,7 +51,7 @@ class World_Generator
         std::vector<int> m_biomeMap;
 
         std::unordered_map<Block_Location, Structure_Function>  m_structures;
-        std::unordered_map<Block_Location, const Block_t*>      m_flora;
+        std::unordered_map<Block_Location, const Block::Block_Data*>      m_flora;
 
         int m_maxHeight;
         uint32_t m_seed;

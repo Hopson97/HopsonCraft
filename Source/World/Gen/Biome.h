@@ -15,8 +15,8 @@ class Biome
         void setTreeFrequency(int frequency);
         void setFloraFrequency(int frequency);
 
-        void addBlock(const Block_t& block, int frequency);
-        void addFlora(const Block_t& block, int frequency);
+        void addBlock(const Block::Block_Data& block, int frequency);
+        void addFlora(const Block::Block_Data& block, int frequency);
         void addTree (Structure_Function function);
 
         bool hasFlora();
@@ -24,16 +24,16 @@ class Biome
 
 
         Structure_Function getTreeFunction();
-        const Block_t& getBlock() const;
-        const Block_t& getFlora() const;
+        const Block::Block_Data& getBlock() const;
+        const Block::Block_Data& getFlora() const;
         int getDepth() const;
 
         int getTreeFrequency() const;
         int getFloraFrequency() const;
 
     private:
-        std::vector<const Block_t*>         m_blocks;
-        std::vector<const Block_t*>         m_flora;
+        std::vector<const Block::Block_Data*>         m_blocks;
+        std::vector<const Block::Block_Data*>         m_flora;
         std::vector<Structure_Function>     m_treeCreators;
 
 

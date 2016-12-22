@@ -6,28 +6,28 @@
 
 namespace Block
 {
-    extern Block_t air;
-    extern Block_t grass;
-    extern Block_t dirt;
-    extern Block_t stone;
-    extern Block_t water;
-    extern Block_t sand;
-    extern Block_t oakLeaf;
-    extern Block_t oakWood;
-    extern Block_t oakPlank;
-    extern Block_t glass;
-    extern Block_t cobbleStone;
-    extern Block_t stoneBricks;
-    extern Block_t snow;
-    extern Block_t cactus;
-    extern Block_t rose;
-    extern Block_t tallGrass;
-    extern Block_t deadShrub;
-    extern Block_t bedrock;
+    extern Block::Block_Data air;
+    extern Block::Block_Data grass;
+    extern Block::Block_Data dirt;
+    extern Block::Block_Data stone;
+    extern Block::Block_Data water;
+    extern Block::Block_Data sand;
+    extern Block::Block_Data oakLeaf;
+    extern Block::Block_Data oakWood;
+    extern Block::Block_Data oakPlank;
+    extern Block::Block_Data glass;
+    extern Block::Block_Data cobbleStone;
+    extern Block::Block_Data stoneBricks;
+    extern Block::Block_Data snow;
+    extern Block::Block_Data cactus;
+    extern Block::Block_Data rose;
+    extern Block::Block_Data tallGrass;
+    extern Block::Block_Data deadShrub;
+    extern Block::Block_Data bedrock;
 
     void initBlockDatabase ();
 
-    Block_t& get (Block::ID id);
+    Block::Block_Data& get (Block::ID id);
 }
 
 #endif // D_BLOCKS_H_INCLUDED

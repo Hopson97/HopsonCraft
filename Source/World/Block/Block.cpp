@@ -7,61 +7,61 @@
 
 namespace Block
 {
-    Block_Base::Block_Base(const std::string& name)
+    Block_Data::Block_Data(const std::string& name)
     :   m_name (name)
     {
         loadFromFile();
     }
 
-    const std::string& Block_Base::getName() const
+    const std::string& Block_Data::getName() const
     {
         return m_name;
     }
 
-    Block_Base::~Block_Base ()
+    Block_Data::~Block_Data ()
     { }
 
-    ID Block_Base::getID () const
+    ID Block_Data::getID () const
     {
         return m_id;
     }
 
-    const Vector2& Block_Base::getTextureTop () const
+    const Vector2& Block_Data::getTextureTop () const
     {
         return m_topTexture;
     }
 
-    const Vector2& Block_Base::getTextureSide () const
+    const Vector2& Block_Data::getTextureSide () const
     {
         return m_sideTexture;
     }
 
-    const Vector2& Block_Base ::getTextureBottom () const
+    const Vector2& Block_Data ::getTextureBottom () const
     {
         return m_bottomTexture;
     }
 
-    bool Block_Base::isOpaque () const
+    bool Block_Data::isOpaque () const
     {
         return m_isOpaque;
     }
 
-    int Block_Base::getBlastRestistance() const
+    int Block_Data::getBlastRestistance() const
     {
         return m_blastRestistance;
     }
 
-    Physical_State Block_Base::getPhysicalState() const
+    Physical_State Block_Data::getPhysicalState() const
     {
         return m_state;
     }
 
-    Mesh_Type Block_Base::getMeshType() const
+    Mesh_Type Block_Data::getMeshType() const
     {
         return m_meshType;
     }
 
-    bool Block_Base::canBePlacedOn (const Block_t& block) const
+    bool Block_Data::canBePlacedOn (const Block::Block_Data& block) const
     {
         if (m_blocksCanBePlacedOn.empty()) return true;
         else
@@ -74,7 +74,7 @@ namespace Block
         return false;
     }
 
-    void Block_Base::loadFromFile()
+    void Block_Data::loadFromFile()
     {
         std::ifstream inFile ("Data/Blocks/" + m_name + ".block");
         if (!inFile.is_open())

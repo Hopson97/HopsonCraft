@@ -195,7 +195,7 @@ void World_Generator::setBlock(const Block_Location& location, int h)
     }
 }
 
-void World_Generator::setBlock(const Block_Location& location, const Block_t& block)
+void World_Generator::setBlock(const Block_Location& location, const Block::Block_Data& block)
 {
     m_p_chunk->getBlocks().qSetBlock(location, block);
 }

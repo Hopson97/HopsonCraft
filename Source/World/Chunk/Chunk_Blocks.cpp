@@ -17,7 +17,7 @@ Chunk_Blocks::Chunk_Blocks(const Chunk& chunk,
 { }
 
 void Chunk_Blocks::setBlock(const Block_Location& location,
-                            const Block_t& block,
+                            const Block::Block_Data& block,
                             bool overrideBlocks)
 {
     if ( location.x < 0 )           return;
@@ -30,7 +30,7 @@ void Chunk_Blocks::setBlock(const Block_Location& location,
 }
 
 void Chunk_Blocks::qSetBlock(const Block_Location& location,
-                             const Block_t& block,
+                             const Block::Block_Data& block,
                              bool overrideBlocks)
 {
     if ((unsigned)location.y > m_layers.size() - 1) addLayers(location.y);
@@ -48,7 +48,7 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
     }
 }
 
-const Block_t& Chunk_Blocks::getBlock (const Block_Location& location) const
+const Block::Block_Data& Chunk_Blocks::getBlock (const Block_Location& location) const
 {
     if (location.x == -1 )
     {
@@ -93,7 +93,7 @@ const std::unordered_map<Block_Location, int>& Chunk_Blocks::getAddedBlocks() co
 }
 
 
-const Block_t& Chunk_Blocks::getAdjacentChunkBlock (int xChange,
+const Block::Block_Data& Chunk_Blocks::getAdjacentChunkBlock (int xChange,
                                                     int zChange,
                                                     const Block_Location& location) const
 {

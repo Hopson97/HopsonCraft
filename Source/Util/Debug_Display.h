@@ -21,7 +21,7 @@ namespace Debug_Display
     void addChunkUpdates    (size_t numChunks);
     void addChunkAmounth    (size_t numChunks);
 
-    void addheldBlock       (const Block_t& block);
+    void addheldBlock       (const Block::Block_Data& block);
 
     void draw               (Master_Renderer& renderer);
 }

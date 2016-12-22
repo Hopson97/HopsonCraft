@@ -22,9 +22,9 @@ class Chunk_Layer
     public:
         Chunk_Layer();
 
-        void setBlock(int x, int z, const Block_t& block);
+        void setBlock(int x, int z, const Block::Block_Data& block);
 
-        const Block_t& getBlock (int x, int z) const;
+        const Block::Block_Data& getBlock (int x, int z) const;
 
     private:
         std::vector<Block_Pointer> m_blocks;
