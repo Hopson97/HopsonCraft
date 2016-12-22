@@ -18,9 +18,6 @@ namespace Block
         return m_name;
     }
 
-    Block_Data::~Block_Data ()
-    { }
-
     ID Block_Data::getID () const
     {
         return m_id;

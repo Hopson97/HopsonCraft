@@ -16,8 +16,7 @@ namespace Block
     class Block_Data
     {
         public:
-            Block_Data  (const std::string& name = "Air");
-            virtual ~Block_Data ();
+            Block_Data  (const std::string& name);
 
             const std::string& getName() const;
 
