@@ -43,7 +43,7 @@ void main()
 
     gl_Position = projectionMatrix * vertRelToCamera;
 
-    calculateFog( vertRelToCamera );
+    calculateFog(vertRelToCamera);
     passTextureCoords = texturePosition;
 
     passLightValue = inLightValue;

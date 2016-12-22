@@ -32,6 +32,7 @@ namespace Display
         settings.depthBits = 24;
         settings.majorVersion = 3;
         settings.minorVersion = 3;
+        settings.attributeFlags = settings.Attribute::Core;
 
         sf::VideoMode videoMode (sf::VideoMode::getDesktopMode());
 

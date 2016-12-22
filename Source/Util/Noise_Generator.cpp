@@ -1,4 +1,4 @@
-#include "noise_generator.h"
+#include "Noise_Generator.h"
 
 #include <cmath>
 

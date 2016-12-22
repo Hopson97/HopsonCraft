@@ -3,12 +3,12 @@ project(MattCraft)
 
 set (CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
-file(GLOB src_files Source/Game_States/*.cpp Source/Input/*.cpp Source/Maths/*.cpp Source/Model/*.cpp Source/OpenGL/*.cpp Source/Player/*.cpp Source/PostFX/*.cpp Source/Renderer/*.cpp Source/Shaders/*.cpp Source/Texture/*.cpp Source/World/*.cpp Source/Util/*.cpp Source/*.cpp Source/World/Chunk/*.cpp Source/World/Block/*.cpp Source/World/Gen/*.cpp)
+file(GLOB src_files Source/Entity/*.cpp Source/Game_States/*.cpp Source/GUI/*.cpp Source/Input/*.cpp Source/Maths/*.cpp Source/Model/*.cpp Source/OpenGL/*.cpp Source/Player/*.cpp Source/PostFX/*.cpp Source/Renderer/*.cpp Source/Shaders/*.cpp Source/Texture/*.cpp Source/World/*.cpp Source/Util/*.cpp Source/*.cpp Source/World/Chunk/*.cpp Source/World/Block/*.cpp Source/World/Gen/*.cpp)
 
 find_package(OpenGL REQUIRED)
 if (OPENGL_FOUND)
-	include_directories(${OPENGL_INCLUDE_DIRS})
-	link_libraries(${OPENGL_LIBRARIES})
+    include_directories(${OPENGL_INCLUDE_DIRS})
+    link_libraries(${OPENGL_LIBRARIES})
 endif()
 
 find_package(GLEW REQUIRED)
@@ -23,4 +23,11 @@ if (SFML_FOUND)
     link_libraries(${SFML_LIBRARIES})
 endif()
 
+find_package(Threads REQUIRED)
+if (THREADS_FOUND)
+    link_libraries(Threads::Threads)
+endif()
+
 add_executable(game ${src_files})
+
+set_target_properties(game PROPERTIES POSITION_INDEPENDENT_CODE ON)

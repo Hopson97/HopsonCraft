@@ -1,4 +1,4 @@
-#include "playing_state.h"
+#include "Playing_State.h"
 
 #include <SFML/System/Clock.hpp>
 #include <fstream>
