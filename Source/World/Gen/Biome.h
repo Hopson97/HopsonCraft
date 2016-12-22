@@ -3,9 +3,8 @@
 
 #include <vector>
 
-#include "../Block/Block.h"
 #include "Structure.h"
-#include "../Block/Block.h"
+#include "../Block/Block_Data.h"
 #include "../../Util/Random.h"
 
 class Biome

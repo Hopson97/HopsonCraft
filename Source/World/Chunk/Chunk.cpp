@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "../Block/D_Blocks.h"
-#include "../Block/Block.h"
+#include "../Block/Block_Data.h"
 #include "../../Maths/Matrix_Maths.h"
 
 #include "../../Input/Function_Toggle_Key.h"
@@ -52,7 +52,7 @@ bool Chunk::hasBuffered () const
 
 void Chunk::generateMesh ()
 {
-    //sf::Clock c;
+    sf::Clock c;
     m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
     m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
@@ -62,7 +62,7 @@ void Chunk::generateMesh ()
 
     m_hasMesh       = true;
     m_hasBuffered   = false;
-    //std::cout << c.getElapsedTime().asSeconds() << std::endl;
+    std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk::bufferMesh ()

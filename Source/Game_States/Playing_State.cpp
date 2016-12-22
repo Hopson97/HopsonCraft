@@ -6,7 +6,7 @@
 
 #include "../World/World_Constants.h"
 #include "../World/Block/D_Blocks.h"
-#include "../World/Block/Block.h"
+#include "../World/Block/Block_Data.h"
 
 #include "../Util/Directory_Creator.h"
 #include "../Util/Noise_Generator.h"

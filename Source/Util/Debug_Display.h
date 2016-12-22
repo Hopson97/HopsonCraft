@@ -4,8 +4,7 @@
 #include <GL/glew.h>
 #include <string>
 
-//#include "../OpenGL/Glew/glew.h"
-#include "../World/Block/Block.h"
+#include "../World/Block/Block_Data.h"
 
 class Master_Renderer;
 

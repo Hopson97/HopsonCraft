@@ -30,24 +30,24 @@ namespace Block
 
     void initBlockDatabase()
     {
-        blocks[(u32)Block::ID::Air]            = &air;
-        blocks[(u32)Block::ID::Grass]          = &grass;
-        blocks[(u32)Block::ID::Dirt]           = &dirt;
-        blocks[(u32)Block::ID::Stone]          = &stone;
-        blocks[(u32)Block::ID::Sand]           = &sand;
-        blocks[(u32)Block::ID::Water]          = &water;
-        blocks[(u32)Block::ID::Oak_Leaf]       = &oakLeaf;
-        blocks[(u32)Block::ID::Oak_Wood]       = &oakWood;
-        blocks[(u32)Block::ID::Oak_Plank]      = &oakPlank;
-        blocks[(u32)Block::ID::Glass]          = &glass;
-        blocks[(u32)Block::ID::Cobble_Stone]   = &cobbleStone;
-        blocks[(u32)Block::ID::Stone_Brick]    = &stoneBricks;
-        blocks[(u32)Block::ID::Snow]           = &snow;
-        blocks[(u32)Block::ID::Cactus]         = &cactus;
-        blocks[(u32)Block::ID::Rose]           = &rose;
-        blocks[(u32)Block::ID::Tall_Grass]     = &tallGrass;
-        blocks[(u32)Block::ID::Dead_Shrub]     = &deadShrub;
-        blocks[(u32)Block::ID::Bedrock]        = &bedrock;
+        blocks[(u32)Block::ID::Air      ]   = &air;
+        blocks[(u32)Block::ID::Grass    ]   = &grass;
+        blocks[(u32)Block::ID::Dirt     ]   = &dirt;
+        blocks[(u32)Block::ID::Stone    ]   = &stone;
+        blocks[(u32)Block::ID::Sand     ]   = &sand;
+        blocks[(u32)Block::ID::Water    ]   = &water;
+        blocks[(u32)Block::ID::Oak_Leaf ]   = &oakLeaf;
+        blocks[(u32)Block::ID::Oak_Wood ]   = &oakWood;
+        blocks[(u32)Block::ID::Oak_Plank]   = &oakPlank;
+        blocks[(u32)Block::ID::Glass    ]   = &glass;
+        blocks[(u32)Block::ID::Cobble_Stone ]   = &cobbleStone;
+        blocks[(u32)Block::ID::Stone_Brick  ]   = &stoneBricks;
+        blocks[(u32)Block::ID::Snow     ]   = &snow;
+        blocks[(u32)Block::ID::Cactus   ]   = &cactus;
+        blocks[(u32)Block::ID::Rose     ]   = &rose;
+        blocks[(u32)Block::ID::Tall_Grass   ]   = &tallGrass;
+        blocks[(u32)Block::ID::Dead_Shrub   ]   = &deadShrub;
+        blocks[(u32)Block::ID::Bedrock      ]   = &bedrock;
     }
 
     Block::Block_Data& get (Block::ID id)

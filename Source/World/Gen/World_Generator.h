@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <cstdint>
 
-#include "../Block/Block.h"
+#include "../Block/Block_Data.h"
 #include "Biome.h"
 #include "Structure.h"
 #include "../../Util/Noise_Generator.h"

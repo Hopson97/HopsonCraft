@@ -2,7 +2,7 @@
 #define PLAYER_H
 
 #include "../Entity/Entity.h"
-#include "../World/Block/Block.h"
+#include "../World/Block/Block_Data.h"
 
 class Chunk_Map;
 

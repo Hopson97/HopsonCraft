@@ -7,6 +7,10 @@
 #include "../../OpenGL/GL_Maths.h"
 #include "Block_Enums.h"
 
+/*
+    General Block Data Stuff
+*/
+
 namespace Block
 {
     class Block_Data

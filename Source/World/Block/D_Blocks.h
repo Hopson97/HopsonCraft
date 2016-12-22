@@ -1,7 +1,7 @@
 #ifndef D_BLOCKS_H_INCLUDED
 #define D_BLOCKS_H_INCLUDED
 
-#include "Block.h"
+#include "Block_Data.h"
 #include "Block_Enums.h"
 
 namespace Block

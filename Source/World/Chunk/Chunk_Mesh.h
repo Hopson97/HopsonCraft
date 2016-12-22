@@ -4,7 +4,8 @@
 #include "../../Model/Model.h"
 
 #include <GL/glew.h>
-#include "../Block/Block.h"
+
+#include "../Block/Block_Data.h"
 
 #include <vector>
 

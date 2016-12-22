@@ -7,7 +7,7 @@
 
 #include "Chunk_Location.h"
 
-#include "../Block/Block.h"
+#include "../Block/Block_Data.h"
 #include "../Block/Block_Location.h"
 
 #include "../Gen/World_Generator.h"
