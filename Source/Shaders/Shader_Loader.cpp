@@ -4,6 +4,7 @@
 #include <vector>
 #include <sstream>
 #include <stdexcept>
+#include <iostream>
 
 namespace Shader
 {
@@ -18,7 +19,7 @@ namespace Shader
         if (!isSuccess)
         {
             glGetShaderInfoLog (shaderId, bufferSize, nullptr, infoLog);
-            throw std::runtime_error ("Shader loading error.\nType: " + errorType + "\nWhat: " + infoLog);
+            throw std::runtime_error ("Shader loading error.\nshaderId: " + std::to_string(shaderId) + "\nType: " + errorType + "\nWhat: " + infoLog);
         }
     }
 
@@ -73,9 +74,9 @@ namespace Shader
     GLuint load (const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
     {
         auto vertexSource    = getSource (vertexShaderFile);
-        auto fragmentSource  = getSource (fragmentShaderFile);
-
         auto vertexId   = compileShader(vertexSource.c_str(),   GL_VERTEX_SHADER);
+
+        auto fragmentSource  = getSource (fragmentShaderFile);
         auto fragmentId = compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
 
         auto shaderProgramId = createProgram(vertexId, fragmentId);

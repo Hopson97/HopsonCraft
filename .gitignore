@@ -9,11 +9,13 @@
 # generated directories
 bin/
 obj/
+build/
 
 
 Test\ World/
 MattCraft/
 old/
+tags
 
 #SFML Stuff
 *.dll
@@ -24,3 +26,5 @@ Project/
 #glew.h 
 #glew.c
 #wglew.h
+
+game
