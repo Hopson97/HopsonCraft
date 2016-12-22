@@ -5,24 +5,23 @@
 #include "../World_Constants.h"
 
 Chunk_Layer::Chunk_Layer()
+:   m_blocks(World::CHUNK_SIZE * World::CHUNK_SIZE)
 {
     for (auto x = 0 ; x < World::CHUNK_SIZE ; x++)
     {
         for (auto z = 0 ; z < World::CHUNK_SIZE ; z++)
         {
-            m_blocks.push_back(&Block::air);
+            m_blocks[World::CHUNK_SIZE * z + x] = Block_Pointer();
         }
     }
 }
 
 void Chunk_Layer::setBlock(int x, int z, const Block_t& block)
 {
-
-
-    m_blocks.at(World::CHUNK_SIZE * z + x) = &block;
+    m_blocks[World::CHUNK_SIZE * z + x] = {block.getID()};
 }
 
 const Block_t& Chunk_Layer::getBlock(int x, int z) const
 {
-    return *m_blocks.at(World::CHUNK_SIZE * z + x);
+    return Block::get((Block::ID)(m_blocks[World::CHUNK_SIZE * z + x].id));
 }

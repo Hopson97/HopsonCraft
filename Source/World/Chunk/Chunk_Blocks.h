@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <unordered_map>
-
+#include <cstdint>
 #include "../Block/Block_Location.h"
 
 #include "Chunk_Location.h"

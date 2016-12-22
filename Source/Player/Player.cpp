@@ -226,9 +226,11 @@ void Player::changeBlock(int increment)
 */
 void Player::collision(Chunk_Map& chunkMap, float dt)
 {
+/*
     static auto width     = 0.3;
     static auto height    = 1.5;
     auto pos = m_camera.position + m_velocity;
+*/
 }
 
 
