@@ -104,21 +104,21 @@ bool Chunk::hasDeleteFlag () const
     return m_hasDeleteFlag;
 }
 
-void Chunk::update()
+void Chunk::regenMesh()
 {
     generateMesh();
     bufferMesh();
-    m_hasUpdateFlag = false;
+    m_hasregenMeshFlag = false;
 }
 
-void Chunk::giveUpdateFlag()
+void Chunk::giveRegenMeshFlag()
 {
-    m_hasUpdateFlag = true;
+    m_hasregenMeshFlag = true;
 }
 
-bool Chunk::hasUpdateFlag() const
+bool Chunk::hasRegenMeshFlag() const
 {
-    return m_hasUpdateFlag;
+    return m_hasregenMeshFlag;
 }
 
 const Matrix4& Chunk::getModelMatrix() const
@@ -185,7 +185,7 @@ void Chunk::loadBlockData (const std::string& worldName)
         int idNum = block.second;
         Block::ID id = static_cast<Block::ID>(idNum);
 
-        m_blocks.qSetBlock(block.first, Block::getBlockFromId(id));
+        m_blocks.qSetBlock(block.first, Block::get(id));
     }
 }
 

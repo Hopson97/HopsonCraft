@@ -76,6 +76,8 @@ class Chunk_Map
 
         std::string m_worldName;
         uint32_t   m_worldSeed;
+
+        std::mutex test;
 };
 
 #endif // CHUNK_MAP_H

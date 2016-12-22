@@ -22,11 +22,13 @@ namespace Maths
     {
         Matrix4 transform;
 
-        transform = glm::translate(transform, entity.position);
+
 
         transform = glm::rotate(transform, glm::radians(entity.rotation.x), {1, 0, 0});
         transform = glm::rotate(transform, glm::radians(entity.rotation.y), {0, 1, 0});
         transform = glm::rotate(transform, glm::radians(entity.rotation.z), {1, 0, 1});
+
+        transform = glm::translate(transform, entity.position);
 
         return glm::scale(transform, entity.scale);
     }

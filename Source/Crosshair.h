@@ -2,6 +2,7 @@
 #define CROSSHAIR_H
 
 #include <SFML/Graphics.hpp>
+#include <cstdint>
 
 class Master_Renderer;
 
@@ -23,7 +24,7 @@ class Crosshair
 
         sf::RectangleShape  m_quad;
 
-        constexpr static int SIZE = 15;
+        constexpr static uint8_t SIZE = 15;
 };
 
 #endif // CROSSHAIR_H

@@ -55,9 +55,9 @@ class Chunk : public Entity
         void giveDeleteFlag (const std::string& worldName);
         bool hasDeleteFlag  () const;
 
-        void update         ();
-        void giveUpdateFlag ();
-        bool hasUpdateFlag  () const;
+        void regenMesh         ();
+        void giveRegenMeshFlag ();
+        bool hasRegenMeshFlag  () const;
 
         void saveToFile     (const std::string& worldName);
 
@@ -78,7 +78,7 @@ class Chunk : public Entity
         bool m_hasBuffered      = false;
 
         bool m_hasDeleteFlag    = false;
-        bool m_hasUpdateFlag    = false;
+        bool m_hasregenMeshFlag    = false;
 
         Chunk_Mesh m_mesh;
         Chunk_Blocks m_blocks;

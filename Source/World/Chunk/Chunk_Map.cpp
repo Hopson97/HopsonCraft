@@ -118,7 +118,7 @@ void Chunk_Map::updateChunks()
     Debug_Display::addChunkAmounth(m_chunks.size());
     for ( auto itr = m_chunksToUpdate.begin() ; itr != m_chunksToUpdate.end() ; )
     {
-        (*itr)->update();
+        (*itr)->regenMesh();
         itr = m_chunksToUpdate.erase( itr );
     }
 }
@@ -127,7 +127,7 @@ void Chunk_Map::deleteChunks()
 {
     for (auto itr = m_chunks.begin() ; itr != m_chunks.end() ;)
     {
-        if ((*itr).second->hasDeleteFlag())
+        if (itr->second->hasDeleteFlag())
         {
             itr = m_chunks.erase(itr);
         }
@@ -146,8 +146,8 @@ void Chunk_Map::setBlock (const Block_t& block, const Vector3& worldPosition)
         auto* c = getChunkAt({x, y});
         if (c)
         {
-            if(!c->hasUpdateFlag()){
-                c->giveUpdateFlag();
+            if(!c->hasRegenMeshFlag()){
+                c->giveRegenMeshFlag();
                 m_chunksToUpdate.push_back(c);
             }
         }

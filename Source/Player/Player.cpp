@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <cstdint>
+
 #include "../Maths/General_Maths.h"
 #include "../World/Block/D_Blocks.h"
 #include "../World/Chunk/Chunk_Map.h"
@@ -193,20 +195,20 @@ void Player::rotationInput()
 
 
 /**
-
+    Tempory way of switching blocks I guess
 */
 void Player::changeBlock(int increment)
 {
-    constexpr static auto NUM_BLOCK_TYPES = static_cast<int>(Block::ID::NUM_BLOCK_TYPES);
+    constexpr static auto NUM_BLOCK_TYPES = (uint32_t)(Block::ID::NUM_BLOCK_TYPES);
 
-    auto currId = static_cast<int>(m_p_heldBlock->getID());
+    auto currId = (uint32_t)(m_p_heldBlock->getID());
     currId += increment;
 
     //Seeing as "0" is an air block, we just skip over it
     if (currId == 0) currId = NUM_BLOCK_TYPES - 1;
     else if (currId == NUM_BLOCK_TYPES) currId = 1;
 
-    auto* newBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
+    auto* newBlock = &Block::get(static_cast<Block::ID>(currId));
 
     //We don't want to place liquid and gas as blocks, so skip.
     if (newBlock->getPhysicalState() == Block::Physical_State::Liquid ||
@@ -215,15 +217,18 @@ void Player::changeBlock(int increment)
         currId += increment;
     }
 
-    m_p_heldBlock = &Block::getBlockFromId(static_cast<Block::ID>(currId));
+    m_p_heldBlock = &Block::get(static_cast<Block::ID>(currId));
 }
 
+#include <iostream>
 /**
 
 */
 void Player::collision(Chunk_Map& chunkMap, float dt)
 {
-
+    static auto width     = 0.3;
+    static auto height    = 1.5;
+    auto pos = m_camera.position + m_velocity;
 }
 
 

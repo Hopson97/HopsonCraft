@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <cstdint>
 
 #include "../Block/Block.h"
 #include "Biome.h"

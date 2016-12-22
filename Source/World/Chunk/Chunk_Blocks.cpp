@@ -42,7 +42,7 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
     if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Air || overrideBlocks)
     {
         if (m_p_chunk->hasBlockData())
-            m_addedBlocks[location] = static_cast<int>(block.getID());
+            m_addedBlocks[location] = (uint32_t)(block.getID());
 
         m_layers.at(location.y).setBlock(location.x, location.z, block);
     }

@@ -113,7 +113,7 @@ namespace Debug_Display
     void addheldBlock(const Block_t& block)
     {
         std::string name = block.getName();
-        std::string id   = std::to_string(static_cast<int>(block.getID()));
+        std::string id   = std::to_string((uint32_t)(block.getID()));
 
         t_heldBlock.setString("Held block: " + name + "\tBlock ID: " + id);
     }

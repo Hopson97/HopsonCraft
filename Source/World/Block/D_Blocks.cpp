@@ -1,6 +1,9 @@
 #include "D_Blocks.h"
 
-#include <map>
+#include <vector>
+#include <cstdint>
+
+using u32 = uint32_t;
 
 namespace Block
 {
@@ -23,32 +26,32 @@ namespace Block
     Block_t deadShrub   ("Dead_Shrub");
     Block_t bedrock     ("Bedrock");
 
-    std::map<Block::ID, Block_t*> blockMap;
+    std::vector<Block_t*> blocks((u32)Block::ID::NUM_BLOCK_TYPES);
 
     void initBlockDatabase()
     {
-        blockMap[Block::ID::Air]            = &air;
-        blockMap[Block::ID::Grass]          = &grass;
-        blockMap[Block::ID::Dirt]           = &dirt;
-        blockMap[Block::ID::Stone]          = &stone;
-        blockMap[Block::ID::Sand]           = &sand;
-        blockMap[Block::ID::Water]          = &water;
-        blockMap[Block::ID::Oak_Leaf]       = &oakLeaf;
-        blockMap[Block::ID::Oak_Wood]       = &oakWood;
-        blockMap[Block::ID::Oak_Plank]      = &oakPlank;
-        blockMap[Block::ID::Glass]          = &glass;
-        blockMap[Block::ID::Cobble_Stone]   = &cobbleStone;
-        blockMap[Block::ID::Stone_Brick]    = &stoneBricks;
-        blockMap[Block::ID::Snow]           = &snow;
-        blockMap[Block::ID::Cactus]         = &cactus;
-        blockMap[Block::ID::Rose]           = &rose;
-        blockMap[Block::ID::Tall_Grass]     = &tallGrass;
-        blockMap[Block::ID::Dead_Shrub]     = &deadShrub;
-        blockMap[Block::ID::Bedrock]        = &bedrock;
+        blocks[(u32)Block::ID::Air]            = &air;
+        blocks[(u32)Block::ID::Grass]          = &grass;
+        blocks[(u32)Block::ID::Dirt]           = &dirt;
+        blocks[(u32)Block::ID::Stone]          = &stone;
+        blocks[(u32)Block::ID::Sand]           = &sand;
+        blocks[(u32)Block::ID::Water]          = &water;
+        blocks[(u32)Block::ID::Oak_Leaf]       = &oakLeaf;
+        blocks[(u32)Block::ID::Oak_Wood]       = &oakWood;
+        blocks[(u32)Block::ID::Oak_Plank]      = &oakPlank;
+        blocks[(u32)Block::ID::Glass]          = &glass;
+        blocks[(u32)Block::ID::Cobble_Stone]   = &cobbleStone;
+        blocks[(u32)Block::ID::Stone_Brick]    = &stoneBricks;
+        blocks[(u32)Block::ID::Snow]           = &snow;
+        blocks[(u32)Block::ID::Cactus]         = &cactus;
+        blocks[(u32)Block::ID::Rose]           = &rose;
+        blocks[(u32)Block::ID::Tall_Grass]     = &tallGrass;
+        blocks[(u32)Block::ID::Dead_Shrub]     = &deadShrub;
+        blocks[(u32)Block::ID::Bedrock]        = &bedrock;
     }
 
-    Block_t& getBlockFromId (Block::ID id)
+    Block_t& get (Block::ID id)
     {
-        return *blockMap.at(id);
+        return *blocks.at((u32)id);
     }
 }

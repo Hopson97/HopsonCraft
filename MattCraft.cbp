@@ -128,6 +128,7 @@
 		<Unit filename="Source/Input/Function_Toggle_Key.h" />
 		<Unit filename="Source/Input/Key_Binds.cpp" />
 		<Unit filename="Source/Input/Key_Binds.h" />
+		<Unit filename="Source/Inventory/Inventory.h" />
 		<Unit filename="Source/Main.cpp" />
 		<Unit filename="Source/Maths/General_Maths.cpp" />
 		<Unit filename="Source/Maths/General_Maths.h" />
@@ -193,13 +194,11 @@
 		<Unit filename="Source/Util/Time.h" />
 		<Unit filename="Source/World/Block/Block.cpp" />
 		<Unit filename="Source/World/Block/Block.h" />
+		<Unit filename="Source/World/Block/Block_Enums.h" />
 		<Unit filename="Source/World/Block/Block_Location.cpp" />
 		<Unit filename="Source/World/Block/Block_Location.h" />
 		<Unit filename="Source/World/Block/D_Blocks.cpp" />
 		<Unit filename="Source/World/Block/D_Blocks.h" />
-		<Unit filename="Source/World/Block/E_Block_ID.h" />
-		<Unit filename="Source/World/Block/E_Block_Physical_State.h" />
-		<Unit filename="Source/World/Block/E_Block_Type.h" />
 		<Unit filename="Source/World/Chunk/Chunk.cpp" />
 		<Unit filename="Source/World/Chunk/Chunk.h" />
 		<Unit filename="Source/World/Chunk/Chunk_Blocks.cpp" />
