@@ -83,8 +83,8 @@ void Chunk_Map::input(const sf::Event& e)
 
 void Chunk_Map::checkChunks()
 {
-    deleteChunks();
-    updateChunks();
+    deleteChunks    ();
+    regenChunks     ();
 }
 
 void Chunk_Map::draw(Master_Renderer& renderer)
@@ -112,7 +112,7 @@ void Chunk_Map::draw(Master_Renderer& renderer)
     }
 }
 
-void Chunk_Map::updateChunks()
+void Chunk_Map::regenChunks()
 {
     Debug_Display::addChunkUpdates(m_chunksToUpdate.size());
     Debug_Display::addChunkAmounth(m_chunks.size());
@@ -120,6 +120,14 @@ void Chunk_Map::updateChunks()
     {
         (*itr)->regenMesh();
         itr = m_chunksToUpdate.erase( itr );
+    }
+}
+
+void Chunk_Map::updateChunks()
+{
+    for(auto& chunk : m_chunks)
+    {
+        chunk.second->update();
     }
 }
 

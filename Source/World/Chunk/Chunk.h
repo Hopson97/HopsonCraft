@@ -21,6 +21,7 @@
 
 class Texture_Atlas;
 class Chunk_Map;
+class Updatable_Block {public: void update(){} };;
 
 class Chunk;
 typedef std::unique_ptr<Chunk> Chunk_Ptr;
@@ -34,6 +35,7 @@ class Chunk : public Entity
               unsigned seed,
               const std::string& worldName);
 
+        bool update();
 
         bool hasBlockData   () const;
         bool hasMesh        () const;
@@ -67,6 +69,8 @@ class Chunk : public Entity
         void loadBlockData          (const std::string& worldName);
         std::string getFileString   (const std::string& worldName);
 
+        std::unordered_map<Block_Location, std::unique_ptr<Updatable_Block>> m_updatableBlocks;
+
         Chunk_Location m_location; //Map coords
 
         Chunk_Map* m_p_chunkMap;
@@ -84,6 +88,7 @@ class Chunk : public Entity
         Chunk_Blocks m_blocks;
         World_Generator m_worldGenerator;
         Matrix4 m_modelMatrix;
+
 };
 
 

@@ -35,6 +35,18 @@ Chunk::Chunk(const Chunk_Location& position,
     m_hasBlockData = true;
 }
 
+bool Chunk::update()
+{
+    bool hasChanged = false;
+
+    for (auto& block : m_updatableBlocks)
+    {
+        block.second->update();
+    }
+
+    return hasChanged;
+}
+
 bool Chunk::hasBlockData () const
 {
     return m_hasBlockData;
@@ -52,7 +64,7 @@ bool Chunk::hasBuffered () const
 
 void Chunk::generateMesh ()
 {
-    sf::Clock c;
+    //sf::Clock c;
     m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
     m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
     m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
@@ -62,7 +74,7 @@ void Chunk::generateMesh ()
 
     m_hasMesh       = true;
     m_hasBuffered   = false;
-    std::cout << c.getElapsedTime().asSeconds() << std::endl;
+    //std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk::bufferMesh ()
@@ -161,7 +173,6 @@ void Chunk::saveToFile(const std::string& worldName)
             outFile << block.second << std::endl;               //Block ID
         }
     }
-
 }
 
 void Chunk::loadBlockData (const std::string& worldName)
@@ -171,8 +182,11 @@ void Chunk::loadBlockData (const std::string& worldName)
     if(!inFile.is_open())
         return;
 
-    int x, z;
-    int y, id;
+    int x,
+        z,
+        y;
+
+    int   id;
 
     while(inFile.peek() != EOF)
     {
@@ -184,6 +198,7 @@ void Chunk::loadBlockData (const std::string& worldName)
     {
         int idNum = block.second;
         Block::ID id = static_cast<Block::ID>(idNum);
+
 
         m_blocks.qSetBlock(block.first, Block::get(id));
     }

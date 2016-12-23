@@ -71,6 +71,10 @@ namespace Block
         return false;
     }
 
+
+    /*
+        Every block has its constant data loaded from a file.
+    */
     void Block_Data::loadFromFile()
     {
         std::ifstream inFile ("Data/Blocks/" + m_name + ".block");
@@ -89,39 +93,39 @@ namespace Block
                 inFile >> id;
                 m_id = static_cast<ID>(id);
             }
-            else if (line == "txrtop")
+            else if (line == "txrtop") //Coords of the texture top from the texture atlas
             {
                 inFile >> m_topTexture.x >> m_topTexture.y;
             }
-            else if (line == "txrside")
+            else if (line == "txrside") //Coords of the texture side from the texture atlas
             {
                 inFile >> m_sideTexture.x >> m_sideTexture.y;
             }
-            else if (line == "txrbottom")
+            else if (line == "txrbottom") //Coords of the texture bottom from the texture atlas
             {
                 inFile >> m_bottomTexture.x >> m_bottomTexture.y;
             }
-            else if (line == "opaque")
+            else if (line == "opaque") //Is the block opaque or nah
             {
                 inFile >> m_isOpaque;
             }
-            else if (line == "blastres")
+            else if (line == "blastres")    //"resistance" from "explositions"
             {
                 inFile >> m_blastRestistance;
             }
-            else if (line == "physstate")
+            else if (line == "physstate")   //The physical state
             {
                 int state;
                 inFile >> state;
                 m_state = static_cast<Physical_State>(state);
             }
-            else if (line == "meshtype")
+            else if (line == "meshtype")    //Mesh type, cube or X shaped
             {
                 int type;
                 inFile >> type;
                 m_meshType = static_cast<Mesh_Type>(type);
             }
-            else if(line == "placeon")
+            else if(line == "placeon")  //Some blocks can only be placed on specific blocks, so this is where it gets listed
             {
                 std::getline(inFile, line);
                 while (line != "end")

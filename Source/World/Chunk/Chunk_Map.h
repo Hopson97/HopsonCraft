@@ -48,10 +48,11 @@ class Chunk_Map
         void saveChunks();
 
     private:
-        void updateChunks   ();
         void deleteChunks   ();
+        void updateChunks   ();
+        void regenChunks    ();
 
-        void manageChunks  ();
+        void manageChunks   ();
         void generateChunks         (const Area& createArea);
         void flagChunksForDelete    (const Area& deleteArea);
         void generateMeshes         (const Area& generationArea);

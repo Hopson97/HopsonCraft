@@ -45,6 +45,7 @@ Application::~Application()
 void Application::runMainLoop()
 {
     sf::Clock dtClock;
+    sf::Clock updateClock;
 
     while (Display::isOpen())
     {
@@ -59,7 +60,11 @@ void Application::runMainLoop()
         if (!Display::isOpen()) break;
 
         m_stateStack.top()->input   ();
-        m_stateStack.top()->update  (dt, m_camera);
+        //if (updateClock.getElapsedTime().asSeconds() > 0.05)
+        {
+            m_stateStack.top()->update  (dt, m_camera);
+            //updateClock.restart();
+        }
         m_stateStack.top()->draw    (dt, m_renderer);
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::F5))

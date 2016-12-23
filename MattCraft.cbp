@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="Source/World/Block/Block_Type" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -31,6 +32,7 @@
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
+					<Add directory="Source/World/Block/Block_Type" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -192,11 +194,13 @@
 		<Unit filename="Source/Util/Random.h" />
 		<Unit filename="Source/Util/Time.cpp" />
 		<Unit filename="Source/Util/Time.h" />
-		<Unit filename="Source/World/Block/Block.cpp" />
-		<Unit filename="Source/World/Block/Block.h" />
+		<Unit filename="Source/World/Block/Block_Data.cpp" />
+		<Unit filename="Source/World/Block/Block_Data.h" />
 		<Unit filename="Source/World/Block/Block_Enums.h" />
 		<Unit filename="Source/World/Block/Block_Location.cpp" />
 		<Unit filename="Source/World/Block/Block_Location.h" />
+		<Unit filename="Source/World/Block/Block_Type/Block_Type.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Block_Type.h" />
 		<Unit filename="Source/World/Block/D_Blocks.cpp" />
 		<Unit filename="Source/World/Block/D_Blocks.h" />
 		<Unit filename="Source/World/Chunk/Chunk.cpp" />
@@ -217,6 +221,7 @@
 		<Unit filename="Source/World/Gen/Structure.h" />
 		<Unit filename="Source/World/Gen/World_Generator.cpp" />
 		<Unit filename="Source/World/Gen/World_Generator.h" />
+		<Unit filename="Source/World/World.h" />
 		<Unit filename="Source/World/World_Constants.h" />
 		<Unit filename="libgcc_s_sjlj-1.dll" />
 		<Unit filename="libstdc++-6.dll" />
