@@ -13,7 +13,6 @@ namespace GUI
         m_background = std::make_unique<Background>(texture);
     }
 
-
     void Panel::addComponent(std::unique_ptr<Component> component)
     {
         switch(m_layout)

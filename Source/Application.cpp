@@ -30,7 +30,7 @@ namespace
 Application::Application()
 {
     init();
-    m_stateStack.push(std::make_unique<State::Main_Menu_State>(*this));
+    m_stateStack.push(std::make_unique<State::Playing_State>(*this, "Terrain_", 00));
 }
 
 Application::~Application()

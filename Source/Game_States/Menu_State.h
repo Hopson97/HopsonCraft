@@ -19,7 +19,7 @@ namespace State
 
             void input  (const sf::Event& e);
             void input  ();
-            void update (float dt, Entity& camera);
+            void update (float dt, Camera& camera);
             void draw   (float dt, Master_Renderer& renderer);
 
             void exitState  ();

@@ -33,7 +33,7 @@ namespace State
     void Main_Menu_State::input()
     { }
 
-    void Main_Menu_State::update(float dt, Entity& camera)
+    void Main_Menu_State::update(float dt, Camera& camera)
     {
         m_activeMenu->update();
 

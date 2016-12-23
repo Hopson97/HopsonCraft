@@ -24,7 +24,7 @@ Player::Player()
 /**
 
 */
-const Entity& Player::getCamera() const
+const Camera& Player::getCamera() const
 {
     return m_camera;
 }
@@ -60,14 +60,14 @@ void Player::input (const sf::Event& e)
 void Player::input()
 {
     translationInput ();
-    rotationInput();
+    m_camera.mouseInput();
 }
 
 
 /**
 
 */
-void Player::update(float dt, Entity& camera, Chunk_Map& chunkMap)
+void Player::update(float dt, Camera& camera, Chunk_Map& chunkMap)
 {
     if (!m_isOnGround)
         m_velocity.y -= 10 * dt;
@@ -164,35 +164,6 @@ void Player::upDownInput(Vector3& change)
         //m_isOnGround = false;
     }
 }
-
-
-/**
-
-*/
-void Player::rotationInput()
-{
-    static sf::Vector2i lastMousePos;
-    auto mouseMove = lastMousePos - sf::Mouse::getPosition();
-
-    m_camera.rotation.y -= (float)mouseMove.x / 1.5f;// / 0.9;
-    m_camera.rotation.x -= (float)mouseMove.y / 1.5f;// / 0.9;
-
-    if (m_camera.rotation.x > 80 )
-        m_camera.rotation.x = 80;
-    else if (m_camera.rotation.x < -80)
-        m_camera.rotation.x = -80;
-
-    if (m_camera.rotation.y < 0 )
-        m_camera.rotation.y = 360;
-    else if (m_camera.rotation.y > 360)
-        m_camera.rotation.y = 0;
-
-    auto windowSize = Display::get().getSize();
-    sf::Mouse::setPosition(sf::Vector2i(windowSize.x / 2, windowSize.y / 2), Display::get());
-
-    lastMousePos = sf::Mouse::getPosition();
-}
-
 
 /**
     Tempory way of switching blocks I guess

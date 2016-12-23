@@ -98,6 +98,8 @@
 		<Unit filename="Source/AABB.h" />
 		<Unit filename="Source/Application.cpp" />
 		<Unit filename="Source/Application.h" />
+		<Unit filename="Source/Camera.cpp" />
+		<Unit filename="Source/Camera.h" />
 		<Unit filename="Source/Crosshair.cpp" />
 		<Unit filename="Source/Crosshair.h" />
 		<Unit filename="Source/D_Settings.h" />

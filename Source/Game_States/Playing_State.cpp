@@ -205,7 +205,7 @@ namespace State
     /**
         Update the state
     */
-    void Playing_State::update  (float dt, Entity& camera)
+    void Playing_State::update  (float dt, Camera& camera)
     {
         switch (m_state)
         {
