@@ -19,7 +19,7 @@ namespace State
 
             void input  (const sf::Event& e);
             void input  ();
-            void update (float dt, Entity& camera);
+            void update (float dt, Camera& camera);
             void draw   (float dt, Master_Renderer& renderer);
 
             void exitState  ();
@@ -32,11 +32,11 @@ namespace State
 
             void genLoadMenu    ();
 
-            GUI::Panel m_frontMenu;
-            GUI::Panel m_newGameMenu;
-            GUI::Panel m_loadmenu;
+            //GUI::Panel m_frontMenu;
+            //GUI::Panel m_newGameMenu;
+            //GUI::Panel m_loadmenu;
 
-            GUI::Panel* m_activeMenu    = nullptr;
+            //GUI::Panel* m_activeMenu    = nullptr;
 
             uint32_t   m_seed;
             std::string m_seedString;

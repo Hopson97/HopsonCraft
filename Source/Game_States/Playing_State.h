@@ -11,7 +11,7 @@
 #include "../Crosshair.h"
 #include "Game_State.h"
 
-class Entity;
+class Camera;
 class Application;
 
 namespace State
@@ -39,7 +39,7 @@ namespace State
 
             void input  (const sf::Event& e);
             void input  ();
-            void update (float dt, Entity& camera);
+            void update (float dt, Camera& camera);
             void draw   (float dt, Master_Renderer& renderer);
 
             void exitState  ();
@@ -52,8 +52,8 @@ namespace State
 
             void prepareExit(Master_Renderer& renderer);
 
-            void setUpPauseMenu();
-            void setUpSettingsMenu();
+            //void setUpPauseMenu();
+            //void setUpSettingsMenu();
 
             void loadWorldFile();
             void loadWorldList();
@@ -74,11 +74,11 @@ namespace State
             std::string m_worldName;
             uint32_t   m_worldSeed;
 
-            GUI::Panel m_pauseMenu;
-            GUI::Panel m_settingsMenu;
-            GUI::Panel m_blockMenu;
+            //GUI::Panel m_pauseMenu;
+            //GUI::Panel m_settingsMenu;
+            //GUI::Panel m_blockMenu;
 
-            GUI::Panel* m_activeMenu;
+            //GUI::Panel* m_activeMenu;
 
             PS_State m_state = PS_State::Play;
             bool m_isExitGame = false;

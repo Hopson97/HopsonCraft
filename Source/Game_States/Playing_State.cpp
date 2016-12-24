@@ -39,9 +39,9 @@ namespace State
     ,   m_debugDisplay      ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, sf::seconds(0.5))
     ,   m_worldName         (worldName)
     ,   m_worldSeed         (seed)
-    ,   m_pauseMenu         (GUI::Layout::Center)
-    ,   m_settingsMenu      (GUI::Layout::Center)
-    ,   m_blockMenu         (GUI::Layout::Grid2x)
+    //,   m_pauseMenu         (GUI::Layout::Center)
+    //,   m_settingsMenu      (GUI::Layout::Center)
+    //,   m_blockMenu         (GUI::Layout::Grid2x)
     {
 
         Display::hideMouse();
@@ -51,8 +51,8 @@ namespace State
         loadWorldFile();
         loadWorldList();
 
-        setUpPauseMenu();
-        setUpSettingsMenu();
+        //setUpPauseMenu();
+        //setUpSettingsMenu();
 
         m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed);
     }
@@ -63,10 +63,10 @@ namespace State
     */
     void Playing_State::input(const sf::Event& e)
     {
-        auto switchToMenu = [&](GUI::Panel& menu)
+        auto switchToMenu = [&](/*GUI::Panel& menu*/)
         {
             m_state = PS_State::Pause;
-            m_activeMenu = &menu;
+            //m_activeMenu = &menu;
             Display::showMouse();
         };
         auto exitMenu = [&]()
@@ -83,7 +83,9 @@ namespace State
                     switch (m_state)
                     {
                         case PS_State::Play:
-                            switchToMenu(m_pauseMenu);
+                            //switchToMenu(m_pauseMenu);
+                             m_state = PS_State::Pause;
+                             Display::showMouse();
                             break;
 
                         case PS_State::Pause:
@@ -99,7 +101,8 @@ namespace State
                     switch (m_state)
                     {
                         case PS_State::Play:
-                            switchToMenu(m_blockMenu);
+                            //switchToMenu(m_blockMenu);
+                             m_state = PS_State::Pause;
                             break;
 
                         default:
@@ -121,7 +124,7 @@ namespace State
         }
         else if (m_state == PS_State::Pause)
         {
-            m_activeMenu->input(e);
+            //m_activeMenu->input(e);
         }
     }
 
@@ -205,7 +208,7 @@ namespace State
     /**
         Update the state
     */
-    void Playing_State::update  (float dt, Entity& camera)
+    void Playing_State::update  (float dt, Camera& camera)
     {
         switch (m_state)
         {
@@ -221,7 +224,7 @@ namespace State
             }
 
             case PS_State::Pause:
-                m_activeMenu->update();
+                //m_activeMenu->update();
                 break;
 
             default:
@@ -250,7 +253,7 @@ namespace State
 
             case PS_State::Pause:
                 if (!m_isExitGame)
-                    m_activeMenu->draw(renderer);
+                    //m_activeMenu->draw(renderer);
                 break;
 
             default:
@@ -389,9 +392,9 @@ namespace State
     }
 
 
-    /**
+    /*
 
-    */
+
     void Playing_State::setUpPauseMenu()
     {
         m_pauseMenu.addPadding(150);
@@ -412,10 +415,6 @@ namespace State
         }));
     }
 
-
-    /**
-
-    */
     void Playing_State::setUpSettingsMenu()
     {
         m_settingsMenu.addComponent(std::make_unique<GUI::Button>("Change Song", [&]()
@@ -433,5 +432,6 @@ namespace State
             m_activeMenu = &m_pauseMenu;
         }));
     }
+    */
 }
 

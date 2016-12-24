@@ -1,6 +1,6 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
-
+/*
 #include <memory>
 #include <cstdint>
 
@@ -39,5 +39,5 @@ class World
                                     BEACH_LEVEL     = WATER_LEVEL + 4,
                                     SNOW_LEVEL      = 250;
 };
-
+*/
 #endif // WORLD_H_INCLUDED

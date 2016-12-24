@@ -12,6 +12,23 @@ class Master_Renderer;
 
 namespace GUI
 {
+    class Panel
+    {
+        public:
+            void input  (const sf::Event& e);
+            void update ();
+            void draw   (Master_Renderer& renderer);
+
+        protected:
+            virtual void onInput    () {}
+            virtual void onUpdate   () {}
+            virtual void onDraw     () {}
+
+        private:
+
+    };
+
+/*
     enum class Layout
     {
         Center,
@@ -47,6 +64,7 @@ namespace GUI
             int m_currentY = 15;
 
     };
+*/
 }
 
 #endif // PANEL_H_INCLUDED

@@ -1,10 +1,11 @@
 #ifndef CHUNK_LAYER_H
 #define CHUNK_LAYER_H
 
-#include <vector>
+#include <array>
 
 #include "../Block/Block_Data.h"
 #include "../Block/D_Blocks.h"
+#include "../World_Constants.h"
 
 class Chunk_Layer
 {
@@ -27,7 +28,7 @@ class Chunk_Layer
         const Block::Block_Data& getBlock (int x, int z) const;
 
     private:
-        std::vector<Block_Pointer> m_blocks;
+        std::array<Block_Pointer, World::CHUNK_SIZE * World::CHUNK_SIZE> m_blocks;
 };
 
 #endif // CHUNK_LAYER_H

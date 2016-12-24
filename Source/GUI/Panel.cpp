@@ -4,6 +4,9 @@
 
 namespace GUI
 {
+
+
+/*
     Panel::Panel(Layout layout)
     :   m_layout (layout)
     { }
@@ -12,7 +15,6 @@ namespace GUI
     {
         m_background = std::make_unique<Background>(texture);
     }
-
 
     void Panel::addComponent(std::unique_ptr<Component> component)
     {
@@ -79,5 +81,5 @@ namespace GUI
         m_currentY = 0;
     }
 
-
+*/
 }   //namespace GUI
