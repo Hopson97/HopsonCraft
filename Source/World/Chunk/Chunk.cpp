@@ -65,10 +65,14 @@ bool Chunk::hasBuffered () const
 void Chunk::generateMesh ()
 {
     //sf::Clock c;
-    m_p_chunkMap->addChunk({m_location.x + 1, m_location.z});
-    m_p_chunkMap->addChunk({m_location.x, m_location.z + 1});
-    m_p_chunkMap->addChunk({m_location.x - 1, m_location.z});
-    m_p_chunkMap->addChunk({m_location.x, m_location.z - 1});
+
+    //This is so the chunk mesh generator can know about the blocks in neighbouring chunks
+    //This is so that the blocks don't have missing faces, or random underground faces etc
+    //The chunk will only be added if there already is not a chunk there.
+    m_p_chunkMap->addChunk({m_location.x + 1,   m_location.z        });
+    m_p_chunkMap->addChunk({m_location.x,       m_location.z + 1    });
+    m_p_chunkMap->addChunk({m_location.x - 1,   m_location.z        });
+    m_p_chunkMap->addChunk({m_location.x,       m_location.z - 1    });
 
     m_mesh.generateMesh(m_blocks.getLayerCount());
 
@@ -184,9 +188,8 @@ void Chunk::loadBlockData (const std::string& worldName)
 
     int x,
         z,
-        y;
-
-    int   id;
+        y,
+        id;
 
     while(inFile.peek() != EOF)
     {
