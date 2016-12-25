@@ -243,6 +243,8 @@
 		<Unit filename="Source/World/Block/Block_Type/Water.h" />
 		<Unit filename="Source/World/Block/D_Blocks.cpp" />
 		<Unit filename="Source/World/Block/D_Blocks.h" />
+		<Unit filename="Source/World/Block/Updateable/U_Cactus.cpp" />
+		<Unit filename="Source/World/Block/Updateable/U_Cactus.h" />
 		<Unit filename="Source/World/Block/Updateable/U_Oak_Sapling.cpp" />
 		<Unit filename="Source/World/Block/Updateable/U_Oak_Sapling.h" />
 		<Unit filename="Source/World/Block/Updateable/Updatable_Block.cpp" />

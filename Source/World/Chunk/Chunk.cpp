@@ -222,7 +222,7 @@ void Chunk::loadBlockData (const std::string& worldName)
     while(inFile.peek() != EOF)
     {
         inFile >> x >> y >> z >> id;
-        m_blocks.addBlock({x, y, z}, id);
+        addBlock({x, y, z}, Block::get(id));
     }
 
     for (auto& block : m_blocks.getAddedBlocks())

@@ -218,8 +218,6 @@ namespace State
                 auto& position = m_player.getCamera().position;
                 m_playerPosition = Maths::worldToChunkPosition(position);
                 Debug_Display::addPlayerPosition(position);
-
-                m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
                 break;
             }
 
@@ -231,6 +229,8 @@ namespace State
                 break;
 
         }
+
+        m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
     }
 
 

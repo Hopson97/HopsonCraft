@@ -9,6 +9,8 @@ namespace Block
     {
         public:
             Cactus();
+
+            std::unique_ptr<Updatable_Block> getUpdatableBlock() const;
     };
 }
 
