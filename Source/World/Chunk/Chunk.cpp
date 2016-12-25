@@ -56,15 +56,30 @@ void Chunk::addBlock( const Block_Location& location,
     m_blocks.setBlock(location, block, overrideBlocks);
 }
 
+bool Chunk::tick()
+{
+    bool chunkHasChanged = false;
+
+    //Regular blocks can tick
+    for (int i = 0 ; i < 5 ; i++)
+    {
+        auto location = Block_Location::getRandom(m_blocks.getLayerCount());
+
+        chunkHasChanged = m_blocks.getBlock(location).tick(location, this) | chunkHasChanged;
+    }
+    return chunkHasChanged;
+}
+
 bool Chunk::update()
 {
-    bool hasChanged = false;
+    bool chunkHasChanged = false;
 
+    //Some blocks, eg furnaces and saplings, have state and update over time
     for (auto itr = m_updatableBlocks.begin() ; itr != m_updatableBlocks.end() ;)
     {
         auto& block = itr->second;
 
-        hasChanged = block->update(itr->first);
+        chunkHasChanged= block->update(itr->first) | chunkHasChanged;
 
         if(block->isDestroyed())
         {
@@ -75,8 +90,7 @@ bool Chunk::update()
             itr++;
         }
     }
-
-    return hasChanged;
+    return chunkHasChanged;
 }
 
 bool Chunk::hasBlockData () const

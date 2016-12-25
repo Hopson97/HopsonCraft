@@ -1,6 +1,7 @@
 #include "Play_Settings.h"
 
 #include <fstream>
+#include <iostream>
 
 Settings::Settings()
 {
@@ -18,5 +19,6 @@ Settings::Settings()
 
 uint8_t Settings::getRenderDistance()
 {
-    return m_renderDistance;
+    //return m_renderDistance;
+    return 18;
 }

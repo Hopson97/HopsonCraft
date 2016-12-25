@@ -31,8 +31,10 @@ namespace Block
             Block_Type(const std::string& name);
             virtual ~Block_Type() = default;
 
-            virtual std::vector<Temp_Item_ID>           getLoot             () const;
-            virtual std::unique_ptr<Updatable_Block>    getUpdatableBlock   () const;
+            virtual std::vector<Temp_Item_ID>           getLoot             ()  const;
+            virtual std::unique_ptr<Updatable_Block>    getUpdatableBlock   ()  const;
+
+            virtual bool tick(const Block_Location& location, Chunk* chunk)     const;
 
             virtual Interaction_Type interact(Chunk& chunk, const Block_Location& location, Temp_Item_ID id) const;
 

@@ -1,5 +1,8 @@
 #include "Block_Location.h"
 
+#include "../../Util/Random.h"
+#include "../World_Constants.h"
+
 Block_Location::Block_Location (int x, int y, int z)
 :   x   (x)
 ,   y   (y)
@@ -19,4 +22,14 @@ bool Block_Location::operator!= (const Block_Location& other) const
     return  (x != other.x) &&
             (y != other.y) &&
             (z != other.z);
+}
+
+Block_Location Block_Location::getRandom(int maxY)
+{
+    return
+    {
+        Random::integer(0, World::CHUNK_SIZE - 1),
+        Random::integer(0, maxY),
+        Random::integer(0, World::CHUNK_SIZE - 1)
+    };
 }

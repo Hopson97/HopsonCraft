@@ -36,7 +36,8 @@ class Chunk : public Entity
                       const Block::Block_Type& block,
                       bool overrideBlocks = true);
 
-        bool update();
+        bool tick   ();
+        bool update ();
 
         bool hasBlockData   () const;
         bool hasMesh        () const;

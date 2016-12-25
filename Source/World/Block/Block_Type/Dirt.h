@@ -3,6 +3,9 @@
 
 #include "Block_Type.h"
 
+class Chunk;
+class Block_Location;
+
 namespace Block
 {
     class Dirt : public Block_Type

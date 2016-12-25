@@ -20,9 +20,9 @@ namespace GUI
             void draw   (Master_Renderer& renderer);
 
         protected:
-            virtual void onInput    () {}
-            virtual void onUpdate   () {}
-            virtual void onDraw     () {}
+            virtual void onInput    (const sf::Event& e)        {}
+            virtual void onUpdate   ()                          {}
+            virtual void onDraw     (Master_Renderer& renderer) {}
 
         private:
 

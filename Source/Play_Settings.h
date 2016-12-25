@@ -19,7 +19,7 @@ class Settings
         constexpr static float SKY_BLUE    = 1;
 
     private:
-        uint8_t m_renderDistance;
+        uint8_t m_renderDistance = 20;
 };
 
 #endif // PLAY_SETTINGS_H

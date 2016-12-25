@@ -18,6 +18,8 @@ struct Block_Location
     bool operator== (const Block_Location& other) const;
 
     bool operator!=  (const Block_Location& other) const;
+
+    static Block_Location getRandom(int maxY);
 };
 
 namespace std
