@@ -101,10 +101,9 @@ void World_Generator::generateBlockData()
                 setRandomSeed(x, y, z);
 
                 auto index = (x * World::CHUNK_SIZE + z);
-                auto height = m_heightMap.at(index);
-                setActiveBiome(m_biomeMap.at(index));
 
-                setBlock({x, y, z}, height);
+                setActiveBiome(m_biomeMap[index]);
+                setBlock({x, y, z}, m_heightMap[index]);
             }
         }
     }

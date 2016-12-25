@@ -53,19 +53,19 @@ bool Biome::hasTrees()
 Structure_Function Biome::getTreeFunction()
 {
     auto i = Random::integer(0, m_treeCreators.size() - 1);
-    return m_treeCreators.at(i);
+    return m_treeCreators[i];
 }
 
 const Block::Block_Type& Biome::getBlock() const
 {
     auto i = Random::integer(0, m_blocks.size() - 1);
-    return *m_blocks.at(i);
+    return *m_blocks[i];
 }
 
 const Block::Block_Type& Biome::getFlora() const
 {
     auto i = Random::integer(0, m_flora.size() - 1);
-    return *m_flora.at(i);
+    return *m_flora[i];
 }
 
 int Biome::getDepth() const

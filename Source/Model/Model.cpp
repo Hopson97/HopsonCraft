@@ -45,7 +45,7 @@ void Model::addVBO (GLuint vertexSize, const std::vector<GLfloat>& data)
     glBindBuffer(GL_ARRAY_BUFFER, vbo );
 
     glBufferData(GL_ARRAY_BUFFER,
-                 data.size() * sizeof (data.at(0)),
+                 data.size() * sizeof (data[0]),
                  data.data(),
                  GL_STATIC_DRAW);
 

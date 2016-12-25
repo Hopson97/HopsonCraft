@@ -144,7 +144,7 @@ void Application::resetSong()
         thisSong = Random::integer(0, songNames.size() - 1);
 
     lastSong = thisSong; //The new song playing is now technically the last song
-    m_song.openFromFile(songFilesPath + songNames.at(thisSong) + ".ogg");
+    m_song.openFromFile(songFilesPath + songNames[thisSong] + ".ogg");
     m_song.play();
     m_songDuration = m_song.getDuration();
     m_songTimer.restart();

@@ -50,7 +50,7 @@ void Chunk::addBlock( const Block_Location& location,
     if (block.getData().isUpdatable())
     {
         m_updatableBlocks.insert(std::make_pair(location, std::move(block.getUpdatableBlock())));
-        m_updatableBlocks.at(location)->setChunk(*this);
+        m_updatableBlocks[location]->setChunk(*this);
     }
 
     m_blocks.setBlock(location, block, overrideBlocks);

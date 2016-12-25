@@ -64,18 +64,11 @@ namespace State
     */
     void Playing_State::input(const sf::Event& e)
     {
-        auto switchToMenu = [&](/*GUI::Panel& menu*/)
-        {
-            m_state = PS_State::Pause;
-            //m_activeMenu = &menu;
-            Display::showMouse();
-        };
-        auto exitMenu = [&]()
-        {
-            m_state = PS_State::Play;
-            Display::hideMouse();
-        };
+        m_chunkMap->input(e);
+        m_player.input(e);
+        m_debugDisplay.checkInput(e);
 
+/*
         switch (e.type)
         {
             case sf::Event::KeyPressed:
@@ -123,10 +116,12 @@ namespace State
             m_player.input(e);
             m_debugDisplay.checkInput(e);
         }
+
         else if (m_state == PS_State::Pause)
         {
             //m_activeMenu->input(e);
         }
+*/
     }
 
 
@@ -135,8 +130,9 @@ namespace State
     */
     void Playing_State::input ()
     {
-        static sf::Clock blockEditClock;
-
+        blockRayHit();
+        m_player.input();
+/*
         switch (m_state)
         {
 
@@ -148,6 +144,7 @@ namespace State
             default:
                 break;
         }
+*/
     }
 
     void Playing_State::blockRayHit()
@@ -223,6 +220,15 @@ namespace State
     */
     void Playing_State::update  (float dt, Camera& camera)
     {
+        m_player.update(dt, camera, *m_chunkMap);
+
+        auto& position = m_player.getCamera().position;
+        m_playerPosition = Maths::worldToChunkPosition(position);
+        Debug_Display::addPlayerPosition(position);
+
+        m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
+
+        /*
         switch (m_state)
         {
             case PS_State::Play: {
@@ -242,8 +248,7 @@ namespace State
                 break;
 
         }
-
-        m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
+        */
     }
 
 
@@ -257,6 +262,11 @@ namespace State
 
         tryAddPostFX(renderer);
 
+        if (m_debugDisplayActive)
+            Debug_Display::draw(renderer);
+
+        m_crosshair.draw(renderer);
+/*
         switch (m_state)
         {
             case PS_State::Play:
@@ -275,6 +285,7 @@ namespace State
 
         if(m_isExitGame)
             prepareExit(renderer);
+*/
     }
 
     /*

@@ -24,7 +24,7 @@ void Camera::mouseInput()
         rotation.y = 0;
 
     auto windowSize = Display::get().getSize();
-    sf::Mouse::setPosition(sf::Vector2i(windowSize.x / 2, windowSize.y / 2), Display::get());
+    //sf::Mouse::setPosition(sf::Vector2i(windowSize.x / 2, windowSize.y / 2), Display::get());
 
     lastMousePos = sf::Mouse::getPosition();
 }

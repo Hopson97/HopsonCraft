@@ -52,7 +52,7 @@ Chunk* Chunk_Map::getChunkAt (const Chunk_Location& location)
 {
     if (m_chunks.find(location) != m_chunks.end())
     {
-        return &*m_chunks.at(location);
+        return &*m_chunks[location];
     }
     else
     {
