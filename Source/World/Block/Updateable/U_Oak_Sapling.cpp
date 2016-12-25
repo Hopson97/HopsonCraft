@@ -10,13 +10,13 @@
 namespace Block
 {
     U_Oak_Sapling::U_Oak_Sapling()
-    :   m_timeToGrow    (sf::seconds(3))
+    :   m_timeToGrow    (sf::seconds(8))
     { }
 
     bool U_Oak_Sapling::update(const Block_Location& location)
     {
         if (m_growClock.getElapsedTime() > m_timeToGrow)
-        {;
+        {
             Structure::createOak(*m_p_chunk, Block_Location{location.x, location.y - 1, location.z}, true);
             m_isDestroyed = true;
         }

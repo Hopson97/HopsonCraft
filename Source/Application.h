@@ -9,6 +9,7 @@
 #include "Game_States/Game_State.h"
 #include "Renderer/Master_Renderer.h"
 #include "Camera.h"
+#include "Play_Settings.h"
 
 class Application
 {
@@ -24,6 +25,8 @@ class Application
 
         void takeScreenshot (const std::string& path = "-1");
         void resetSong();
+
+        Settings gameSettings;
 
     private:
         void init();

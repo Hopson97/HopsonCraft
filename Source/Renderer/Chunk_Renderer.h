@@ -8,7 +8,7 @@
 #include "../World/Chunk/Chunk.h"
 #include "../Entity/Entity.h"
 #include "../Maths/Matrix_Maths.h"
-#include "../D_Settings.h"
+#include "../Play_Settings.h"
 
 class Chunk;
 class Entity;

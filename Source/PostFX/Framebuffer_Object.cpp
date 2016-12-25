@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "../Util/Display.h"
-#include "../D_Settings.h"
+#include "../Play_Settings.h"
 
 namespace
 {

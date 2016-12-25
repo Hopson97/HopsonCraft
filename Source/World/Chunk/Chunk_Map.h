@@ -15,16 +15,18 @@ namespace sf
     class Event;
 }
 
-class Entity;
-class Master_Renderer;
-struct Area;
+class   Entity;
+class   Master_Renderer;
+class   Area;
+class   Settings;
 
 class Chunk_Map
 {
     public:
         Chunk_Map   (const Chunk_Location& playerPosition,
                      const std::string& worldName,
-                     uint32_t seed);
+                     uint32_t seed,
+                     Settings& settings);
 
         ~Chunk_Map  ();
 
@@ -68,8 +70,6 @@ class Chunk_Map
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;
 
-        unsigned m_renderDistance;
-
         unsigned m_generationDistance    = 1;
         unsigned m_loadingDistance       = 1;
 
@@ -80,7 +80,9 @@ class Chunk_Map
         std::string m_worldName;
         uint32_t   m_worldSeed;
 
-        std::mutex test;
+        Settings* m_p_settings;
+
+
 };
 
 #endif // CHUNK_MAP_H

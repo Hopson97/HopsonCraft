@@ -2,7 +2,7 @@
 
 #include "../Entity/Entity.h"
 #include "../Util/Display.h"
-#include "../D_Settings.h"
+#include "../Play_Settings.h"
 
 #include "../Entity/Entity.h"
 

@@ -55,7 +55,7 @@ namespace State
         //setUpPauseMenu();
         //setUpSettingsMenu();
 
-        m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed);
+        m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed, m_application->gameSettings);
     }
 
 

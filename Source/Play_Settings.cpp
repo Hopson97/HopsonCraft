@@ -2,26 +2,21 @@
 
 #include <fstream>
 
-namespace Settings
+Settings::Settings()
 {
-    int renderDistance = 0;
+    std::ifstream inFile("Data/Settings.txt");
 
-    void init()
+    std::string line;
+    while (std::getline(inFile, line))
     {
-        std::ifstream inFile("Data/Settings.txt");
-
-        std::string line;
-        while (std::getline(inFile, line))
+        if (line == "rd")
         {
-            if (line == "rd")
-            {
-                inFile >> renderDistance;
-            }
+            inFile >> m_renderDistance;
         }
     }
+}
 
-    int getRenderDistance()
-    {
-        return renderDistance;
-    }
+uint8_t Settings::getRenderDistance()
+{
+    return m_renderDistance;
 }

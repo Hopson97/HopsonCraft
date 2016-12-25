@@ -9,6 +9,7 @@
 #include "../../Renderer/Master_Renderer.h"
 #include "../../Play_Settings.h"
 #include "../World_Constants.h"
+#include "../../Play_Settings.h"
 
 struct Area
 {
@@ -28,13 +29,14 @@ struct Area
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition,
                      const std::string& worldName,
-                     uint32_t seed)
+                     uint32_t seed,
+                     Settings& settings)
 :   m_blockTextures     (1024, 16, "Block_Atlas")
-,   m_renderDistance    (Settings::getRenderDistance())
 ,   m_playerPosition    (&playerPosition)
 ,   m_chunkManageThread (&Chunk_Map::manageChunks, this)
 ,   m_worldName         (worldName)
 ,   m_worldSeed         (seed)
+,   m_p_settings        (&settings)
 {
     m_chunkManageThread.detach();
 }
@@ -72,13 +74,7 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
 }
 
 void Chunk_Map::input(const sf::Event& e)
-{
-    static Function_Toggle_Key renderDistanceIncreaser  ([&](){m_renderDistance++;}, sf::Keyboard::Up, sf::seconds(0.5));
-    static Function_Toggle_Key renderDistanceDecreaser ([&](){if (m_renderDistance > 2) m_renderDistance--;}, sf::Keyboard::Down, sf::seconds(0.5));
-
-    renderDistanceIncreaser.checkInput (e);
-    renderDistanceDecreaser.checkInput (e);
-}
+{ }
 
 
 void Chunk_Map::checkChunks()
@@ -318,10 +314,10 @@ void Chunk_Map :: manageChunks()
         {
             Area deleteArea
             (
-                m_playerPosition->x - m_renderDistance,
-                m_playerPosition->z - m_renderDistance,
-                m_playerPosition->x + m_renderDistance,
-                m_playerPosition->z + m_renderDistance
+                m_playerPosition->x - m_p_settings->getRenderDistance(),
+                m_playerPosition->z - m_p_settings->getRenderDistance(),
+                m_playerPosition->x + m_p_settings->getRenderDistance(),
+                m_playerPosition->z + m_p_settings->getRenderDistance()
             );
 
 
@@ -344,20 +340,20 @@ void Chunk_Map :: manageChunks()
         }
 
 
-        if (m_loadingDistance < m_renderDistance)
+        if (m_loadingDistance < m_p_settings->getRenderDistance())
         {
             m_loadingDistance++;
         }
-        else if (m_loadingDistance >= m_renderDistance)
+        else if (m_loadingDistance >= m_p_settings->getRenderDistance())
         {
             m_loadingDistance = 2;
         }
 
-        if (m_generationDistance < m_renderDistance)
+        if (m_generationDistance < m_p_settings->getRenderDistance())
         {
             m_generationDistance++;
         }
-        else if (m_generationDistance >= m_renderDistance)
+        else if (m_generationDistance >= m_p_settings->getRenderDistance())
         {
             m_generationDistance = 2;
         }

@@ -3,7 +3,7 @@
 #include <memory>
 
 #include <GL/glew.h>
-#include "../D_Settings.h"
+#include "../Play_Settings.h"
 
 namespace Display
 {
