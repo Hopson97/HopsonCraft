@@ -7,6 +7,7 @@
 #include "../World/World_Constants.h"
 #include "../World/Block/D_Blocks.h"
 #include "../World/Block/Block_Type/Block_Type.h"
+#include "../World/Block/Block_Enums.h"
 
 #include "../Util/Directory_Creator.h"
 #include "../Util/Noise_Generator.h"
@@ -200,7 +201,19 @@ namespace State
         }
         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
-            m_chunkMap->setBlock(m_player.getBlock(), lastRayPos);
+            Chunk* chunk = m_chunkMap->getChunkAt(Maths::worldToChunkPosition(rayPos));
+            auto interaction = chunk->getBlocks().getBlock(Maths::worldToBlockPosition(rayPos)).interact(*chunk, Maths::worldToBlockPosition(rayPos), Empty());
+
+            switch (interaction)
+            {
+                case Block::Interaction_Type::Chunk_Block_Change:
+                    m_chunkMap->addChangedChunk(chunk);
+                    break;
+
+                case Block::Interaction_Type::None:
+                    m_chunkMap->setBlock(m_player.getBlock(), lastRayPos);
+                    break;
+            }
         }
     }
 

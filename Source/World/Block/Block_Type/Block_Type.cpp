@@ -21,4 +21,8 @@ namespace Block
         return nullptr;
     }
 
+    Interaction_Type Block_Type::interact(Chunk& chunk, const Block_Location& location, Temp_Item_ID id) const
+    {
+        return Interaction_Type::None;
+    }
 }

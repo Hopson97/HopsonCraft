@@ -16,8 +16,7 @@ namespace Block
     bool U_Oak_Sapling::update(const Block_Location& location)
     {
         if (m_growClock.getElapsedTime() > m_timeToGrow)
-        {
-            m_p_chunk->giveRegenMeshFlag();
+        {;
             Structure::createOak(*m_p_chunk, Block_Location{location.x, location.y - 1, location.z}, true);
             m_isDestroyed = true;
         }

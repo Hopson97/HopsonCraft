@@ -10,6 +10,9 @@
 #include "../Block_Data.h"
 #include "../Updateable/Updatable_Block.h"
 
+class Chunk;
+class Block_Location;
+
 //This will be moved eventually
 struct Temp_Item_ID {};
 struct Empty : Temp_Item_ID {};
@@ -30,6 +33,8 @@ namespace Block
 
             virtual std::vector<Temp_Item_ID>           getLoot             () const;
             virtual std::unique_ptr<Updatable_Block>    getUpdatableBlock   () const;
+
+            virtual Interaction_Type interact(Chunk& chunk, const Block_Location& location, Temp_Item_ID id) const;
 
             const Block_Data& getData() const;
 

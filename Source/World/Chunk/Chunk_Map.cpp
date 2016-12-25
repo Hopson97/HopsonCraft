@@ -130,7 +130,7 @@ void Chunk_Map::updateChunks()
     {
         if(chunk.second->update())
         {
-             m_chunksToUpdate.push_back(chunk.second.get());
+            addChangedChunk(&*chunk.second);
         }
     }
 }
@@ -156,13 +156,7 @@ void Chunk_Map::setBlock (const Block::Block_Type& block, const Vector3& worldPo
     auto addToBatch = [&](int x, int y)
     {
         auto* c = getChunkAt({x, y});
-        if (c)
-        {
-            if(!c->hasRegenMeshFlag()){
-                c->giveRegenMeshFlag();
-                m_chunksToUpdate.push_back(c);
-            }
-        }
+        addChangedChunk(c);
     };
 
     Chunk_Location position         (Maths::worldToChunkPosition(worldPosition));
@@ -250,6 +244,18 @@ void Chunk_Map::saveChunks()
         chunk.second->saveToFile(m_worldName);
     }
 }
+
+void Chunk_Map::addChangedChunk(Chunk* chunk)
+{
+    if (!chunk)
+        return;
+    if (chunk->hasRegenMeshFlag())
+        return;
+
+    chunk->giveRegenMeshFlag();
+    m_chunksToUpdate.push_back(chunk);
+}
+
 
 /*
 makeEplosion:

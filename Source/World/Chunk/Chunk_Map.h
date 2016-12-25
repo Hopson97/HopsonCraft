@@ -47,6 +47,8 @@ class Chunk_Map
 
         void saveChunks();
 
+        void addChangedChunk(Chunk* chunk);
+
     private:
         void deleteChunks   ();
         void updateChunks   ();

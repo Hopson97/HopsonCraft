@@ -41,6 +41,12 @@ namespace Block
         Gas     = 2,
         Flora   = 3
     };
+
+    enum class Interaction_Type
+    {
+        None,
+        Chunk_Block_Change,
+    };
 }
 
 #endif // E_BLOCK_ID_H_INCLUDED
