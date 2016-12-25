@@ -52,6 +52,12 @@ namespace Block
 
     Block::Block_Data& get (Block::ID id)
     {
-        return *blocks.at((u32)id);
+        return *blocks[(u32)id];
     }
+
+    Block::Block_Data& get(uint8_t id)
+    {
+        return *blocks[(u32)id];
+    }
+
 }

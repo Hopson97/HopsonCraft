@@ -167,20 +167,25 @@ void Chunk_Map::setBlock (const Block::Block_Data& block, const Vector3& worldPo
 
     Chunk* chunk = getChunkAt(position);
 
-    if (chunk)
+    if (chunk) //If the chunk exists
     {
-        //If breaking a block eg replacing it with a "gas" block
+        //If breaking a block eg replacing it with a "gas" block.
+        //The long part of this for loop is for flora blocks, as it keeps breaking blocks until the block above is no longer flora
+        //(eg cactus breaks when bottomof it broken)
         if (block.getPhysicalState() == Block::Physical_State::Gas)
         {
             for (auto y = blockPosition.y + 1 ;
                  chunk->getBlocks().getBlock({blockPosition.x, y, blockPosition.z}).getPhysicalState() == Block::Physical_State::Flora ;
                  y++)
-                    chunk->getBlocks().setBlock({blockPosition.x, y, blockPosition.z}, Block::air);
-
+            {
+                chunk->addBlock({blockPosition.x, y, blockPosition.z}, Block::air);
+            }
         }
-        if (!block.canBePlacedOn(chunk->getBlocks().getBlock(underBlock))) return;//Some blocks can only be placed on certain blocks
 
-        chunk->getBlocks().setBlock(blockPosition, block);
+        if (!block.canBePlacedOn(chunk->getBlocks().getBlock(underBlock)))
+            return; //Some blocks can only be placed on certain blocks
+
+        chunk->addBlock(blockPosition, block);
 
         addToBatch(position.x, position.z);
 

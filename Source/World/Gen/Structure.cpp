@@ -20,7 +20,7 @@ namespace Structure
         //Make the trunk
         for (auto i = 1 ; i < trunkHeight + 1 ; i++)
         {
-            chunk.getBlocks().setBlock({location.x, location.y + i, location.z}, Block::oakWood, false);
+            chunk.addBlock({location.x, location.y + i, location.z}, Block::oakWood, false);
         }
         int y = trunkHeight + location.y;
 
@@ -28,8 +28,8 @@ namespace Structure
         {
             for (int zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
             {
-                chunk.getBlocks().setBlock({xLeaf, y, zLeaf}, Block::oakLeaf, false );
-                chunk.getBlocks().setBlock({xLeaf, y + 1, zLeaf}, Block::oakLeaf, false );
+                chunk.addBlock({xLeaf, y, zLeaf}, Block::oakLeaf, false );
+                chunk.addBlock({xLeaf, y + 1, zLeaf}, Block::oakLeaf, false );
             }
         }
         y++;
@@ -38,16 +38,16 @@ namespace Structure
         {
             for (int zLeaf = location.z - 1 ; zLeaf < location.z + 2 ; zLeaf++)
             {
-                chunk.getBlocks().setBlock({xLeaf, y, zLeaf}, Block::oakLeaf, false );
+                chunk.addBlock({xLeaf, y, zLeaf}, Block::oakLeaf, false );
             }
         }
         y++;
 
-        chunk.getBlocks().setBlock({location.x - 1, y,   location.z},       Block::oakLeaf, false );
-        chunk.getBlocks().setBlock({location.x + 1, y,   location.z},       Block::oakLeaf, false );
-        chunk.getBlocks().setBlock({location.x,     y,   location.z},       Block::oakLeaf, false );
-        chunk.getBlocks().setBlock({location.x,     y,   location.z + 1},   Block::oakLeaf, false );
-        chunk.getBlocks().setBlock({location.x,     y,   location.z - 1},   Block::oakLeaf, false );
+        chunk.addBlock({location.x - 1, y,   location.z},       Block::oakLeaf, false );
+        chunk.addBlock({location.x + 1, y,   location.z},       Block::oakLeaf, false );
+        chunk.addBlock({location.x,     y,   location.z},       Block::oakLeaf, false );
+        chunk.addBlock({location.x,     y,   location.z + 1},   Block::oakLeaf, false );
+        chunk.addBlock({location.x,     y,   location.z - 1},   Block::oakLeaf, false );
     }
 
     void createCactus(Chunk& chunk, const Block_Location& location)
@@ -56,7 +56,7 @@ namespace Structure
 
         for (auto i = 1 ; i < cactusHeight + 1 ; i++)
         {
-            chunk.getBlocks().setBlock({location.x, location.y + i, location.z}, Block::cactus, false);
+            chunk.addBlock({location.x, location.y + i, location.z}, Block::cactus, false);
         }
     }
 }

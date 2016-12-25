@@ -120,7 +120,7 @@ void World_Generator::generateBlockData()
     for (auto& s : m_flora)
     {
         auto& loc = s.first;
-        m_p_chunk->getBlocks().setBlock({loc.x, loc.y + 1, loc.z}, *s.second);
+        m_p_chunk->addBlock({loc.x, loc.y + 1, loc.z}, *s.second);
     }
     m_structures.clear();
 }
@@ -197,7 +197,7 @@ void World_Generator::setBlock(const Block_Location& location, int h)
 
 void World_Generator::setBlock(const Block_Location& location, const Block::Block_Data& block)
 {
-    m_p_chunk->getBlocks().qSetBlock(location, block);
+    m_p_chunk->addBlock(location, block);
 }
 
 void World_Generator::tryAddTree(const Block_Location& location)

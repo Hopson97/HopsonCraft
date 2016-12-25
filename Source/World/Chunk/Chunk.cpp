@@ -5,6 +5,7 @@
 
 #include "../Block/D_Blocks.h"
 #include "../Block/Block_Data.h"
+
 #include "../../Maths/Matrix_Maths.h"
 
 #include "../../Input/Function_Toggle_Key.h"
@@ -33,6 +34,19 @@ Chunk::Chunk(const Chunk_Location& position,
     loadBlockData (worldName);
 
     m_hasBlockData = true;
+}
+
+void Chunk::addBlock( const Block_Location& location,
+                      const Block::Block_Data& block,
+                      bool overrideBlocks)
+{
+    /*
+        if (block.isUpdatable())
+        {
+            m_updatableBlocks.push_back(std::move(block.getUpdatableBlock));
+        }
+    */
+    m_blocks.setBlock(location, block, overrideBlocks);
 }
 
 bool Chunk::update()
@@ -153,15 +167,11 @@ std::string Chunk::getFileString(const std::string& worldName)
             + std::to_string(m_location.z);
 }
 
-Chunk_Blocks& Chunk::getBlocks()
-{
-    return m_blocks;
-}
-
 const Chunk_Blocks& Chunk::getBlocks() const
 {
     return m_blocks;
 }
+
 
 void Chunk::saveToFile(const std::string& worldName)
 {
@@ -205,5 +215,8 @@ void Chunk::loadBlockData (const std::string& worldName)
 
         m_blocks.qSetBlock(block.first, Block::get(id));
     }
+
+    //upda
+
 }
 

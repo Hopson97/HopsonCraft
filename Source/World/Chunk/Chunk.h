@@ -9,6 +9,7 @@
 
 #include "../Block/Block_Data.h"
 #include "../Block/Block_Location.h"
+#include "../Block/Updateable/Updatable_Block.h"
 
 #include "../Gen/World_Generator.h"
 
@@ -21,19 +22,21 @@
 
 class Texture_Atlas;
 class Chunk_Map;
-class Updatable_Block {public: void update(){} };;
-
-class Chunk;
-typedef std::unique_ptr<Chunk> Chunk_Ptr;
 
 class Chunk : public Entity
 {
+    //friend class World_Generator;
+
     public:
         Chunk(const Chunk_Location& position,
               Chunk_Map& chunkMap,
               const Texture_Atlas& blockAtlas,
               unsigned seed,
               const std::string& worldName);
+
+        void addBlock(const Block_Location& location,
+                      const Block::Block_Data& block,
+                      bool overrideBlocks = true);
 
         bool update();
 
@@ -44,30 +47,29 @@ class Chunk : public Entity
         void generateMesh   ();
         void bufferMesh     ();
 
-        const Texture_Atlas& getAtlas () const;
+        const Texture_Atlas& getAtlas       () const;
 
-        const Chunk_Location& getLocation () const;
-        const Vector2  getPosition () const;
+        const Chunk_Location& getLocation   () const;
+        const Vector2  getPosition          () const;
 
-        Chunk_Blocks& getBlocks();
-        const Chunk_Blocks& getBlocks() const;
+        const Chunk_Blocks& getBlocks   () const;
 
-        const Chunk_Mesh& getMesh() const;
+        const Chunk_Mesh& getMesh   () const;
 
         void giveDeleteFlag (const std::string& worldName);
         bool hasDeleteFlag  () const;
 
-        void regenMesh         ();
-        void giveRegenMeshFlag ();
-        bool hasRegenMeshFlag  () const;
+        void regenMesh          ();
+        void giveRegenMeshFlag  ();
+        bool hasRegenMeshFlag   () const;
 
-        void saveToFile     (const std::string& worldName);
+        void saveToFile         (const std::string& worldName);
 
-        const Matrix4& getModelMatrix () const;
+        const Matrix4& getModelMatrix   () const;
 
     private:
-        void loadBlockData          (const std::string& worldName);
-        std::string getFileString   (const std::string& worldName);
+        void loadBlockData              (const std::string& worldName);
+        std::string getFileString       (const std::string& worldName);
 
         std::unordered_map<Block_Location, std::unique_ptr<Updatable_Block>> m_updatableBlocks;
 
@@ -91,5 +93,6 @@ class Chunk : public Entity
 
 };
 
+typedef std::unique_ptr<Chunk> Chunk_Ptr;
 
 #endif // CHUNK_H

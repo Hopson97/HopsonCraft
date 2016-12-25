@@ -7,17 +7,20 @@
 
 #include "../Block_Data.h"
 
+struct Floor_Item {};
+
 namespace Block
 {
     class Block_Type
     {
         public:
 
-
         public:
             virtual ~Block_Type() = default;
 
             const Block_Data& getData() const;
+
+            virtual void        getUpdatableBlock   ();
 
         protected:
             Block_Type(const std::string& name);

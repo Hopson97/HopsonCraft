@@ -205,6 +205,8 @@
 		<Unit filename="Source/World/Block/Block_Type/Block_Type.h" />
 		<Unit filename="Source/World/Block/D_Blocks.cpp" />
 		<Unit filename="Source/World/Block/D_Blocks.h" />
+		<Unit filename="Source/World/Block/Updateable/Updatable_Block.cpp" />
+		<Unit filename="Source/World/Block/Updateable/Updatable_Block.h" />
 		<Unit filename="Source/World/Chunk/Chunk.cpp" />
 		<Unit filename="Source/World/Chunk/Chunk.h" />
 		<Unit filename="Source/World/Chunk/Chunk_Blocks.cpp" />
