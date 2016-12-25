@@ -78,11 +78,11 @@ void Chunk_Mesh::generateMesh(int height)
         {
             for (int x = 0 ; x < World::CHUNK_SIZE ; x++)
             {
-                if (m_p_chunk->getBlocks().getBlock({x, y, z}).getPhysicalState() == Block::Physical_State::Gas)
+                if (m_p_chunk->getBlocks().getBlock({x, y, z}).getData().getPhysicalState() == Block::Physical_State::Gas)
                 {
                     continue;
                 }
-                addBlockMesh (x, y, z, m_p_chunk->getBlocks().getBlock({x, y, z}));
+                addBlockMesh (x, y, z, m_p_chunk->getBlocks().getBlock({x, y, z}).getData());
             }
         }
     }
@@ -150,7 +150,7 @@ void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Dat
 bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block::Block_Data& block)
 {
     Block_Location location(x, y, z); //This is so it does not construct this object 3 times, but rather just once.
-    auto& b = m_p_chunk->getBlocks().getBlock(location);
+    auto& b = m_p_chunk->getBlocks().getBlock(location).getData();
 
     return      ( b.getID() == Block::ID::Air) ||
                 (!b.isOpaque() &&

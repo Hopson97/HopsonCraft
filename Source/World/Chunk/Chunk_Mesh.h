@@ -5,7 +5,7 @@
 
 #include <GL/glew.h>
 
-#include "../Block/Block_Data.h"
+#include "../Block/Block_Type/Block_Type.h"
 
 #include <vector>
 

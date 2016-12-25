@@ -17,7 +17,7 @@ Chunk_Blocks::Chunk_Blocks(const Chunk& chunk,
 { }
 
 void Chunk_Blocks::setBlock(const Block_Location& location,
-                            const Block::Block_Data& block,
+                            const Block::Block_Type& block,
                             bool overrideBlocks)
 {
     if ( location.x < 0 )           return;
@@ -30,25 +30,26 @@ void Chunk_Blocks::setBlock(const Block_Location& location,
 }
 
 void Chunk_Blocks::qSetBlock(const Block_Location& location,
-                             const Block::Block_Data& block,
+                             const Block::Block_Type& block,
                              bool overrideBlocks)
 {
     if ((unsigned)location.y > m_layers.size() - 1) addLayers(location.y);
 
-    if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Bedrock)
+
+    if (m_layers.at(location.y).getBlock(location.x, location.z).getData().getID() == Block::ID::Bedrock)
         return;
 
 
-    if (m_layers.at(location.y).getBlock(location.x, location.z).getID() == Block::ID::Air || overrideBlocks)
+    if (m_layers.at(location.y).getBlock(location.x, location.z).getData().getID() == Block::ID::Air || overrideBlocks)
     {
         if (m_p_chunk->hasBlockData())
-            m_addedBlocks[location] = (uint32_t)(block.getID());
+            m_addedBlocks[location] = (uint32_t)(block.getData().getID());
 
         m_layers.at(location.y).setBlock(location.x, location.z, block);
     }
 }
 
-const Block::Block_Data& Chunk_Blocks::getBlock (const Block_Location& location) const
+const Block::Block_Type& Chunk_Blocks::getBlock (const Block_Location& location) const
 {
     if (location.x == -1 )
     {
@@ -93,7 +94,7 @@ const std::unordered_map<Block_Location, int>& Chunk_Blocks::getAddedBlocks() co
 }
 
 
-const Block::Block_Data& Chunk_Blocks::getAdjacentChunkBlock (int xChange,
+const Block::Block_Type& Chunk_Blocks::getAdjacentChunkBlock (int xChange,
                                                     int zChange,
                                                     const Block_Location& location) const
 {

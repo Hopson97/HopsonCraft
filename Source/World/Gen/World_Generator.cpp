@@ -112,7 +112,7 @@ void World_Generator::generateBlockData()
     //Generate strucutres eg trees
     for (auto& s : m_structures)
     {
-        s.second(*m_p_chunk, s.first);
+        s.second(*m_p_chunk, s.first, false);
     }
     m_structures.clear();
 
@@ -195,7 +195,7 @@ void World_Generator::setBlock(const Block_Location& location, int h)
     }
 }
 
-void World_Generator::setBlock(const Block_Location& location, const Block::Block_Data& block)
+void World_Generator::setBlock(const Block_Location& location, const Block::Block_Type& block)
 {
     m_p_chunk->addBlock(location, block);
 }

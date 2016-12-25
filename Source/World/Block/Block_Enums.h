@@ -22,6 +22,7 @@ namespace Block
         Tall_Grass      =   15,
         Dead_Shrub      =   16,
         Bedrock         =   17,
+        Oak_Sapling     =   18,
 
         NUM_BLOCK_TYPES
     };

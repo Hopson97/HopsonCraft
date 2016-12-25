@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "../Block/D_Blocks.h"
-#include "../Block/Block_Data.h"
+#include "../Block/Block_Type/Block_Type.h"
 
 #include "../../Maths/Matrix_Maths.h"
 
@@ -37,15 +37,22 @@ Chunk::Chunk(const Chunk_Location& position,
 }
 
 void Chunk::addBlock( const Block_Location& location,
-                      const Block::Block_Data& block,
+                      const Block::Block_Type& block,
                       bool overrideBlocks)
 {
-    /*
-        if (block.isUpdatable())
-        {
-            m_updatableBlocks.push_back(std::move(block.getUpdatableBlock));
-        }
-    */
+    //Loot loot = getBlocks().getBlock(location).getLoot();
+
+    if(m_updatableBlocks.find(location) != m_updatableBlocks.end())
+    {
+        m_updatableBlocks[location]->breakBlock();
+    }
+
+    if (block.getData().isUpdatable())
+    {
+        m_updatableBlocks.insert(std::make_pair(location, std::move(block.getUpdatableBlock())));
+        m_updatableBlocks.at(location)->setChunk(*this);
+    }
+
     m_blocks.setBlock(location, block, overrideBlocks);
 }
 
@@ -53,9 +60,20 @@ bool Chunk::update()
 {
     bool hasChanged = false;
 
-    for (auto& block : m_updatableBlocks)
+    for (auto itr = m_updatableBlocks.begin() ; itr != m_updatableBlocks.end() ;)
     {
-        block.second->update();
+        auto& block = itr->second;
+
+        hasChanged = block->update(itr->first);
+
+        if(block->isDestroyed())
+        {
+            itr = m_updatableBlocks.erase(itr);
+        }
+        else
+        {
+            itr++;
+        }
     }
 
     return hasChanged;

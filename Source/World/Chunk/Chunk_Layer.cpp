@@ -17,12 +17,12 @@ Chunk_Layer::Chunk_Layer()
     }
 }
 
-void Chunk_Layer::setBlock(int x, int z, const Block::Block_Data& block)
+void Chunk_Layer::setBlock(int x, int z, const Block::Block_Type& block)
 {
-    m_blocks[World::CHUNK_SIZE * z + x] = {block.getID()};
+    m_blocks[World::CHUNK_SIZE * z + x] = {block.getData().getID()};
 }
 
-const Block::Block_Data& Chunk_Layer::getBlock(int x, int z) const
+const Block::Block_Type& Chunk_Layer::getBlock(int x, int z) const
 {
     return Block::get((Block::ID)(m_blocks[World::CHUNK_SIZE * z + x].id));
 }

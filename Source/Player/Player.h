@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "../World/Block/Block_Data.h"
+#include "../World/Block/Block_Type/Block_Type.h"
 #include "../Camera.h"
 
 class Chunk_Map;
@@ -24,7 +24,7 @@ class Player
         void input ();
         void update (float dt, Camera& camera, Chunk_Map& chunkMap);
 
-        const Block::Block_Data& getBlock() const;
+        const Block::Block_Type& getBlock() const;
 
         constexpr static double SPEED = 0.45;
 
@@ -41,7 +41,7 @@ class Player
         void collision(Chunk_Map& chunkMap, float dt);
 
         Vector3 m_velocity;
-        const Block::Block_Data* m_p_heldBlock;
+        const Block::Block_Type* m_p_heldBlock;
 
         bool m_isOnGround = true;
 

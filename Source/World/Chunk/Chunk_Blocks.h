@@ -21,14 +21,14 @@ class Chunk_Blocks
                      Chunk_Map& chunkMap);
 
         void setBlock   (const Block_Location& location,
-                         const Block::Block_Data& block,
+                         const Block::Block_Type& block,
                          bool overrideBlocks = true);
 
         void qSetBlock  (const Block_Location& location,
-                         const Block::Block_Data& block,
+                         const Block::Block_Type& block,
                          bool overrideBlocks = true);
 
-        const Block::Block_Data& getBlock (const Block_Location& location) const;
+        const Block::Block_Type& getBlock (const Block_Location& location) const;
 
 
         void addBlock(const Block_Location& location, int block);
@@ -40,7 +40,7 @@ class Chunk_Blocks
         void setMaxHeight  (const Block_Location& location);
 
     private:
-        const Block::Block_Data& getAdjacentChunkBlock (int xChange,
+        const Block::Block_Type& getAdjacentChunkBlock (int xChange,
                                               int zChange,
                                               const Block_Location& location) const;
 

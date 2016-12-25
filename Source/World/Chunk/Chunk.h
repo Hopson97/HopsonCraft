@@ -7,7 +7,7 @@
 
 #include "Chunk_Location.h"
 
-#include "../Block/Block_Data.h"
+#include "../Block/Block_Type/Block_Type.h"
 #include "../Block/Block_Location.h"
 #include "../Block/Updateable/Updatable_Block.h"
 
@@ -25,8 +25,6 @@ class Chunk_Map;
 
 class Chunk : public Entity
 {
-    //friend class World_Generator;
-
     public:
         Chunk(const Chunk_Location& position,
               Chunk_Map& chunkMap,
@@ -35,7 +33,7 @@ class Chunk : public Entity
               const std::string& worldName);
 
         void addBlock(const Block_Location& location,
-                      const Block::Block_Data& block,
+                      const Block::Block_Type& block,
                       bool overrideBlocks = true);
 
         bool update();

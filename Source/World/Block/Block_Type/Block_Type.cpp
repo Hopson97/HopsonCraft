@@ -10,4 +10,15 @@ namespace Block
     {
         return m_data;
     }
+
+    std::vector<Temp_Item_ID> Block_Type::getLoot() const
+    {
+        return {Empty()};
+    }
+
+    std::unique_ptr<Updatable_Block> Block_Type::getUpdatableBlock() const
+    {
+        return nullptr;
+    }
+
 }

@@ -87,7 +87,7 @@ void Player::update(float dt, Camera& camera, Chunk_Map& chunkMap)
 /**
 
 */
-const Block::Block_Data& Player::getBlock() const
+const Block::Block_Type& Player::getBlock() const
 {
     return *m_p_heldBlock;
 }
@@ -172,7 +172,7 @@ void Player::changeBlock(int increment)
 {
     constexpr static auto BLOCK_TYPES = (uint32_t)(Block::ID::NUM_BLOCK_TYPES);
 
-    auto currId = (uint32_t)(m_p_heldBlock->getID());
+    auto currId = (uint32_t)(m_p_heldBlock->getData().getID());
     currId += increment;
 
     //Seeing as "0" is an air block, we just skip over it
@@ -182,8 +182,8 @@ void Player::changeBlock(int increment)
     auto* newBlock = &Block::get(static_cast<Block::ID>(currId));
 
     //We don't want to place liquid and gas as blocks, so skip.
-    if (newBlock->getPhysicalState() == Block::Physical_State::Liquid ||
-        newBlock->getPhysicalState() == Block::Physical_State::Gas)
+    if (newBlock->getData().getPhysicalState() == Block::Physical_State::Liquid ||
+        newBlock->getData().getPhysicalState() == Block::Physical_State::Gas)
     {
         currId += increment;
     }

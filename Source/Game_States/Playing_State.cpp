@@ -6,7 +6,7 @@
 
 #include "../World/World_Constants.h"
 #include "../World/Block/D_Blocks.h"
-#include "../World/Block/Block_Data.h"
+#include "../World/Block/Block_Type/Block_Type.h"
 
 #include "../Util/Directory_Creator.h"
 #include "../Util/Noise_Generator.h"
@@ -167,8 +167,8 @@ namespace State
             ray.step(0.1);
             auto* block       = &m_chunkMap->getBlockAt(ray.getEndPoint());
 
-            if (block->getPhysicalState() == Block::Physical_State::Solid ||
-                block->getPhysicalState() == Block::Physical_State::Flora)
+            if (block->getData().getPhysicalState() == Block::Physical_State::Solid ||
+                block->getData().getPhysicalState() == Block::Physical_State::Flora)
             {
                 m_crosshair.showMiningTexture();
                 if ((sf::Mouse::isButtonPressed(sf::Mouse::Left)        ||
@@ -279,7 +279,7 @@ namespace State
         if (m_chunkMap->getChunkAt(cp))
         {
            //Player underwater
-           if (m_chunkMap->getChunkAt(cp)->getBlocks().getBlock(bp).getID() == Block::ID::Water)
+           if (m_chunkMap->getChunkAt(cp)->getBlocks().getBlock(bp).getData().getID() == Block::ID::Water)
            {
               // renderer.addPostFX(Post_FX::Blue);
                renderer.addPostFX(Post_FX::Blur);

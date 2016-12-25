@@ -4,26 +4,34 @@
 //Base class for the single-instance blocks
 
 #include <string>
+#include <vector>
+#include <memory>
 
 #include "../Block_Data.h"
+#include "../Updateable/Updatable_Block.h"
 
-struct Floor_Item {};
+//This will be moved eventually
+struct Temp_Item_ID {};
+struct Empty : Temp_Item_ID {};
+class Lootable
+{
+    public:
+        virtual std::vector<Temp_Item_ID> getLoot() const = 0;
+};
+//But for now, they be here.
 
 namespace Block
 {
-    class Block_Type
+    class Block_Type : public Lootable
     {
         public:
-
-        public:
+            Block_Type(const std::string& name);
             virtual ~Block_Type() = default;
 
+            virtual std::vector<Temp_Item_ID>           getLoot             () const;
+            virtual std::unique_ptr<Updatable_Block>    getUpdatableBlock   () const;
+
             const Block_Data& getData() const;
-
-            virtual void        getUpdatableBlock   ();
-
-        protected:
-            Block_Type(const std::string& name);
 
         private:
             Block_Data m_data;

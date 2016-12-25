@@ -71,6 +71,10 @@ namespace Block
         return false;
     }
 
+    bool Block_Data::isUpdatable() const
+    {
+        return m_isUpdatable;
+    }
 
     /*
         Every block has its constant data loaded from a file.
@@ -134,6 +138,10 @@ namespace Block
                     m_blocksCanBePlacedOn.push_back(static_cast<ID>(block));
                     std::getline(inFile, line);
                 }
+            }
+            else if (line == "upt")
+            {
+                inFile >> m_isUpdatable;
             }
             else if (line == "") continue;
             else

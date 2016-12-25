@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <cstdint>
 
-#include "../Block/Block_Data.h"
+#include "../Block/Block_Type/Block_Type.h"
 #include "Biome.h"
 #include "Structure.h"
 #include "../../Util/Noise_Generator.h"
@@ -36,7 +36,7 @@ class World_Generator
         void setRandomSeed      (int x, int y, int z);
 
         void setBlock           (const Block_Location& location, int h);
-        void setBlock           (const Block_Location& location, const Block::Block_Data& block);
+        void setBlock           (const Block_Location& location, const Block::Block_Type& block);
 
         void tryAddTree         (const Block_Location& location);
         void tryAddFlora        (const Block_Location& location);
@@ -51,7 +51,7 @@ class World_Generator
         std::vector<int> m_biomeMap;
 
         std::unordered_map<Block_Location, Structure_Function>  m_structures;
-        std::unordered_map<Block_Location, const Block::Block_Data*>      m_flora;
+        std::unordered_map<Block_Location, const Block::Block_Type*>      m_flora;
 
         int m_maxHeight;
         uint32_t m_seed;

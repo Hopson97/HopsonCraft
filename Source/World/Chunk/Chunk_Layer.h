@@ -3,7 +3,7 @@
 
 #include <array>
 
-#include "../Block/Block_Data.h"
+#include "../Block/Block_Type/Block_Type.h"
 #include "../Block/D_Blocks.h"
 #include "../World_Constants.h"
 
@@ -23,9 +23,9 @@ class Chunk_Layer
     public:
         Chunk_Layer();
 
-        void setBlock(int x, int z, const Block::Block_Data& block);
+        void setBlock(int x, int z, const Block::Block_Type& block);
 
-        const Block::Block_Data& getBlock (int x, int z) const;
+        const Block::Block_Type& getBlock (int x, int z) const;
 
     private:
         std::array<Block_Pointer, World::CHUNK_SIZE * World::CHUNK_SIZE> m_blocks;

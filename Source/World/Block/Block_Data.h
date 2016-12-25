@@ -34,7 +34,8 @@ namespace Block
             Physical_State  getPhysicalState()  const;
             Mesh_Type       getMeshType()       const;
 
-            bool canBePlacedOn (const Block_Data& block) const;
+            bool canBePlacedOn  (const Block_Data& block) const;
+            bool isUpdatable    () const;
 
         private:
             void loadFromFile();
@@ -47,7 +48,8 @@ namespace Block
             Vector2 m_sideTexture;
             Vector2 m_bottomTexture;
 
-            bool m_isOpaque = false;
+            bool m_isOpaque     = false;
+            bool m_isUpdatable  = false;
 
             int m_blastRestistance = 0; //The "power" from a blast must be greater than this
 

@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Structure.h"
-#include "../Block/Block_Data.h"
+#include "../Block/Block_Type/Block_Type.h"
 #include "../../Util/Random.h"
 
 class Biome
@@ -14,8 +14,8 @@ class Biome
         void setTreeFrequency(int frequency);
         void setFloraFrequency(int frequency);
 
-        void addBlock(const Block::Block_Data& block, int frequency);
-        void addFlora(const Block::Block_Data& block, int frequency);
+        void addBlock(const Block::Block_Type& block, int frequency);
+        void addFlora(const Block::Block_Type& block, int frequency);
         void addTree (Structure_Function function);
 
         bool hasFlora();
@@ -23,16 +23,16 @@ class Biome
 
 
         Structure_Function getTreeFunction();
-        const Block::Block_Data& getBlock() const;
-        const Block::Block_Data& getFlora() const;
+        const Block::Block_Type& getBlock() const;
+        const Block::Block_Type& getFlora() const;
         int getDepth() const;
 
         int getTreeFrequency() const;
         int getFloraFrequency() const;
 
     private:
-        std::vector<const Block::Block_Data*>         m_blocks;
-        std::vector<const Block::Block_Data*>         m_flora;
+        std::vector<const Block::Block_Type*>         m_blocks;
+        std::vector<const Block::Block_Type*>         m_flora;
         std::vector<Structure_Function>     m_treeCreators;
 
 

@@ -13,7 +13,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="Source/World/Block/Block_Type" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -32,7 +31,6 @@
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
-					<Add directory="Source/World/Block/Block_Type" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -67,6 +65,7 @@
 		<Unit filename="Data/Blocks/Grass.block" />
 		<Unit filename="Data/Blocks/Oak_Leaf.block" />
 		<Unit filename="Data/Blocks/Oak_Plank.block" />
+		<Unit filename="Data/Blocks/Oak_Sapling.block" />
 		<Unit filename="Data/Blocks/Oak_Wood.block" />
 		<Unit filename="Data/Blocks/Rose.block" />
 		<Unit filename="Data/Blocks/Sand.block" />
@@ -201,10 +200,51 @@
 		<Unit filename="Source/World/Block/Block_Enums.h" />
 		<Unit filename="Source/World/Block/Block_Location.cpp" />
 		<Unit filename="Source/World/Block/Block_Location.h" />
+		<Unit filename="Source/World/Block/Block_Type/Air.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Air.h" />
+		<Unit filename="Source/World/Block/Block_Type/Bedrock.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Bedrock.h" />
 		<Unit filename="Source/World/Block/Block_Type/Block_Type.cpp" />
 		<Unit filename="Source/World/Block/Block_Type/Block_Type.h" />
+		<Unit filename="Source/World/Block/Block_Type/Block_Types.h" />
+		<Unit filename="Source/World/Block/Block_Type/Cactus.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Cactus.h" />
+		<Unit filename="Source/World/Block/Block_Type/Cobblestone.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Cobblestone.h" />
+		<Unit filename="Source/World/Block/Block_Type/Dead_Shrub.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Dead_Shrub.h" />
+		<Unit filename="Source/World/Block/Block_Type/Dirt.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Dirt.h" />
+		<Unit filename="Source/World/Block/Block_Type/Glass.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Glass.h" />
+		<Unit filename="Source/World/Block/Block_Type/Grass.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Grass.h" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Leaf.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Leaf.h" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Plank.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Plank.h" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Sapling.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Sapling.h" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Wood.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Wood.h" />
+		<Unit filename="Source/World/Block/Block_Type/Rose.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Rose.h" />
+		<Unit filename="Source/World/Block/Block_Type/Sand.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Sand.h" />
+		<Unit filename="Source/World/Block/Block_Type/Snow.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Snow.h" />
+		<Unit filename="Source/World/Block/Block_Type/Stone.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Stone.h" />
+		<Unit filename="Source/World/Block/Block_Type/Stone_Brick.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Stone_Brick.h" />
+		<Unit filename="Source/World/Block/Block_Type/Tall_Grass.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Tall_Grass.h" />
+		<Unit filename="Source/World/Block/Block_Type/Water.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Water.h" />
 		<Unit filename="Source/World/Block/D_Blocks.cpp" />
 		<Unit filename="Source/World/Block/D_Blocks.h" />
+		<Unit filename="Source/World/Block/Updateable/U_Oak_Sapling.cpp" />
+		<Unit filename="Source/World/Block/Updateable/U_Oak_Sapling.h" />
 		<Unit filename="Source/World/Block/Updateable/Updatable_Block.cpp" />
 		<Unit filename="Source/World/Block/Updateable/Updatable_Block.h" />
 		<Unit filename="Source/World/Chunk/Chunk.cpp" />
