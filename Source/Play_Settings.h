@@ -8,7 +8,7 @@ class Settings
     public:
         Settings();
 
-        uint8_t getRenderDistance();
+        uint32_t getRenderDistance();
 
         constexpr static float FOV = 100;
         constexpr static float NEAR_PLANE  = 0.01;
@@ -19,7 +19,7 @@ class Settings
         constexpr static float SKY_BLUE    = 1;
 
     private:
-        uint8_t m_renderDistance = 20;
+        uint32_t m_renderDistance = 20;
 };
 
 #endif // PLAY_SETTINGS_H

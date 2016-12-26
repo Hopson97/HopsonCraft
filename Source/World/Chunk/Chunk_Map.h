@@ -68,8 +68,8 @@ class Chunk_Map
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;
 
-        unsigned m_generationDistance    = 1;
-        unsigned m_loadingDistance       = 1;
+        uint32_t m_generationDistance    = 1;
+        uint32_t m_loadingDistance       = 1;
 
         const Chunk_Location* m_playerPosition;
 

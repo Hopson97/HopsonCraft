@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <memory>
+#include <vector>
 
 #include "Chunk/Chunk_Map.h"
 #include "../Crosshair.h"
@@ -43,13 +45,15 @@ class World
 
         void loadWorldFile();
 
-        Player          m_player;
+        std::shared_ptr<Player> m_player;
         Chunk_Location  m_playerLocation;
 
         std::string     m_name;
         Chunk_Map       m_chunkMap;
         Crosshair       m_crosshair;
         uint32_t        m_seed;
+
+        std::vector<Entity*>    m_entities;
 
     public:
         constexpr static uint16_t   CHUNK_SIZE      = 20,    //Width/ depth of a chunk, height is infinite

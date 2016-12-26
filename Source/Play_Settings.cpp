@@ -17,8 +17,7 @@ Settings::Settings()
     }
 }
 
-uint8_t Settings::getRenderDistance()
+uint32_t Settings::getRenderDistance()
 {
-    //return m_renderDistance;
-    return 18;
+    return m_renderDistance;
 }
