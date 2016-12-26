@@ -33,7 +33,6 @@ World::World(   uint32_t seed,
 {
     loadWorldFile();
 
-    m_player = std::make_shared<Player>();
     //m_entities.push_back(m_player);
 }
 
@@ -45,6 +44,7 @@ void World::input(const sf::Event& e)
 void World::input()
 {
     m_player->input();
+    blockRayHit();
 }
 
 void World::update(float dt, Camera& camera)
@@ -157,10 +157,10 @@ void World::save() const
     auto& position = m_player->getCamera().position;
 
     std::ofstream outFile ("Worlds/" + m_name + "/World_Info.data");
-
+    std::cout << "Worlds/" << m_name << "/World_Info.data" << std::endl;
     outFile << "pos\n"  << (int)position.x << " " << (int)position.y << " " << (int)position.z << std::endl;
 
-    outFile << "seed\n" << m_seed              << std::endl;
+    outFile << "seed\n" << m_seed                   << std::endl;
     outFile << "time\n" << Time::getTimeString()    << std::endl;
     outFile << "date\n" << Time::getDateString()    << std::endl;
 }
