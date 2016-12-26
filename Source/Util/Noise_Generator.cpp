@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "../World/World_Constants.h"
+#include "../World/World.h"
 
 namespace Noise
 {

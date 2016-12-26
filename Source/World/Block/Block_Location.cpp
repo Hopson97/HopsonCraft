@@ -1,7 +1,7 @@
 #include "Block_Location.h"
 
 #include "../../Util/Random.h"
-#include "../World_Constants.h"
+#include "../World.h"
 
 Block_Location::Block_Location (int x, int y, int z)
 :   x   (x)

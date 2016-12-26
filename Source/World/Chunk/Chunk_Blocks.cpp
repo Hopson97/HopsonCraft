@@ -1,7 +1,7 @@
 #include "Chunk_Blocks.h"
 
 #include "../Block/D_Blocks.h"
-#include "../World_Constants.h"
+#include "../World.h"
 
 #include "Chunk.h"
 #include "Chunk_Map.h"

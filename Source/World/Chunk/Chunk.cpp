@@ -13,7 +13,7 @@
 
 #include "Chunk_Map.h"
 
-#include "../World_Constants.h"
+#include "../World.h"
 
 Chunk::Chunk(const Chunk_Location& position,
               Chunk_Map& chunkMap,
@@ -47,6 +47,8 @@ void Chunk::addBlock( const Block_Location& location,
         m_updatableBlocks[location]->breakBlock();
     }
 
+    //We have to request the block data if it is updatable, and then we get the actual updatable block instance from the
+    //block type
     if (block.getData().isUpdatable())
     {
         m_updatableBlocks.insert(std::make_pair(location, std::move(block.getUpdatableBlock())));

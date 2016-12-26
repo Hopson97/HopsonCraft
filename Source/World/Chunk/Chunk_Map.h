@@ -3,11 +3,9 @@
 
 #include <unordered_map>
 #include <memory>
-#include <mutex>
 #include <thread>
 
 #include "Chunk.h"
-
 #include "../../Texture/Texture_Atlas.h"
 
 namespace sf
@@ -31,9 +29,9 @@ class Chunk_Map
         ~Chunk_Map  ();
 
         Chunk* getChunkAt (const Chunk_Location& location);
-        void addChunk(const Chunk_Location& location);
+        const Chunk* getChunkAt (const Chunk_Location& location) const;
 
-        void input(const sf::Event& e); //temp
+        void addChunk(const Chunk_Location& location);
 
         void checkChunks ();
         void draw(Master_Renderer& renderer);
@@ -47,7 +45,7 @@ class Chunk_Map
 
         const Block::Block_Type& getBlockAt(const Vector3& worldPosition);
 
-        void saveChunks();
+        void saveChunks() const;
 
         void addChangedChunk(Chunk* chunk);
 

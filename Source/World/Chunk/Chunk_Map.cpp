@@ -8,7 +8,7 @@
 #include "../Block/D_Blocks.h"
 #include "../../Renderer/Master_Renderer.h"
 #include "../../Play_Settings.h"
-#include "../World_Constants.h"
+#include "../World.h"
 #include "../../Play_Settings.h"
 
 struct Area
@@ -60,6 +60,18 @@ Chunk* Chunk_Map::getChunkAt (const Chunk_Location& location)
     }
 }
 
+const Chunk* Chunk_Map::getChunkAt (const Chunk_Location& location) const
+{
+    if (m_chunks.find(location) != m_chunks.end())
+    {
+        return &*m_chunks.at(location);
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
 void Chunk_Map::addChunk(const Chunk_Location& location)
 {
     if (!getChunkAt(location))
@@ -72,10 +84,6 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
         m_chunks[location] = std::move(c);
     }
 }
-
-void Chunk_Map::input(const sf::Event& e)
-{ }
-
 
 void Chunk_Map::checkChunks()
 {
@@ -234,7 +242,7 @@ const Block::Block_Type& Chunk_Map::getBlockAt(const Vector3& worldPosition)
     return Block::air;
 }
 
-void Chunk_Map::saveChunks()
+void Chunk_Map::saveChunks() const
 {
     for (auto& chunk : m_chunks)
     {

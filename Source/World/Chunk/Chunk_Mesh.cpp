@@ -4,7 +4,7 @@
 
 #include "../../Texture/Texture_Atlas.h"
 #include "../Block/Block_Location.h"
-#include "../World_Constants.h"
+#include "../World.h"
 
 constexpr static float TOP_LIGHT_VALUE      = 1.0f;
 constexpr static float SIDE_LIGHT_VALUE     = 0.6f;

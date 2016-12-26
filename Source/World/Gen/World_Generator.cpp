@@ -7,7 +7,7 @@
 #include "../../Util/Hasher.h"
 #include "../../Util/Random.h"
 
-#include "../World_Constants.h"
+#include "../World.h"
 #include "../Block/D_Blocks.h"
 #include "../Chunk/Chunk.h"
 

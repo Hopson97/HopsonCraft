@@ -5,7 +5,6 @@
 
 #include "../Block/Block_Type/Block_Type.h"
 #include "../Block/D_Blocks.h"
-#include "../World_Constants.h"
 
 class Chunk_Layer
 {
@@ -28,7 +27,7 @@ class Chunk_Layer
         const Block::Block_Type& getBlock (int x, int z) const;
 
     private:
-        std::array<Block_Pointer, World::CHUNK_SIZE * World::CHUNK_SIZE> m_blocks;
+        std::array<Block_Pointer, 20 * 20> m_blocks;
 };
 
 #endif // CHUNK_LAYER_H

@@ -4,16 +4,13 @@
 #include <fstream>
 #include <iostream>
 
-#include "../World/World_Constants.h"
 #include "../World/Block/D_Blocks.h"
 #include "../World/Block/Block_Type/Block_Type.h"
 #include "../World/Block/Block_Enums.h"
 
 #include "../Util/Directory_Creator.h"
-#include "../Util/Noise_Generator.h"
 #include "../Util/Debug_Display.h"
 #include "../Util/Display.h"
-#include "../Util/Time.h"
 
 #include "../Maths/Position_Converter_Maths.h"
 #include "../Maths/General_Maths.h"
@@ -21,11 +18,10 @@
 
 #include "../Renderer/Master_Renderer.h"
 #include "../Application.h"
-#include "../GUI/GUI.h"
 
 #include "Menu_State.h"
 
-#include "../Input/Key_Binds.h"
+#include "../World/World.h"
 
 namespace State
 {
@@ -35,93 +31,27 @@ namespace State
     Playing_State::Playing_State(Application& application,
                                 const std::string& worldName,
                                 uint32_t seed)
-    :   Game_State          (application)
-    ,   m_playerPosition    (Maths::worldToChunkPosition(m_player.getCamera().position))
-    ,   m_debugDisplay      ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, sf::seconds(0.5))
-    ,   m_worldName         (worldName)
-    ,   m_worldSeed         (seed)
-    //,   m_pauseMenu         (GUI::Layout::Center)
-    //,   m_settingsMenu      (GUI::Layout::Center)
-    //,   m_blockMenu         (GUI::Layout::Grid2x)
+    :   Game_State      (application)
+    ,   m_debugDisplay  ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, sf::seconds(0.5))
+    ,   m_worldName     (worldName)
+    ,   m_worldSeed   (seed)
     {
-
         Display::hideMouse();
         Directory::create("Worlds");
         Directory::create("Worlds/" + m_worldName);
 
-        loadWorldFile();
         loadWorldList();
 
-        //setUpPauseMenu();
-        //setUpSettingsMenu();
-
-        m_chunkMap = std::make_unique<Chunk_Map>(m_playerPosition, worldName, m_worldSeed, m_application->gameSettings);
+        m_world = std::make_unique<World>(seed, worldName, m_application->gameSettings);
     }
-
 
     /**
         Input for SFML events
     */
     void Playing_State::input(const sf::Event& e)
     {
-        m_chunkMap->input(e);
-        m_player.input(e);
         m_debugDisplay.checkInput(e);
-
-/*
-        switch (e.type)
-        {
-            case sf::Event::KeyPressed:
-                if (e.key.code == sf::Keyboard::Escape)
-                {
-                    switch (m_state)
-                    {
-                        case PS_State::Play:
-                            //switchToMenu(m_pauseMenu);
-                             m_state = PS_State::Pause;
-                             Display::showMouse();
-                            break;
-
-                        case PS_State::Pause:
-                            exitMenu();
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-                else if (e.key.code == sf::Keyboard::I)
-                {
-                    switch (m_state)
-                    {
-                        case PS_State::Play:
-                            //switchToMenu(m_blockMenu);
-                             m_state = PS_State::Pause;
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-                break;
-
-            default:
-                break;
-        }
-
-
-        if (m_state == PS_State::Play)
-        {
-            m_chunkMap->input(e);
-            m_player.input(e);
-            m_debugDisplay.checkInput(e);
-        }
-
-        else if (m_state == PS_State::Pause)
-        {
-            //m_activeMenu->input(e);
-        }
-*/
+        m_world->input(e);
     }
 
 
@@ -130,125 +60,15 @@ namespace State
     */
     void Playing_State::input ()
     {
-        blockRayHit();
-        m_player.input();
-/*
-        switch (m_state)
-        {
-
-            case PS_State::Play:
-                blockRayHit();
-                m_player.input();
-                break;
-
-            default:
-                break;
-        }
-*/
+        m_world->input();
     }
-
-    void Playing_State::blockRayHit()
-    {
-        static sf::Clock blockEditTimer;
-        auto& rotation    = m_player.getCamera().rotation;
-        auto& position    = m_player.getCamera().position;
-
-        auto lastRayPos  = m_player.getCamera().position;
-
-
-        Maths::Ray ray(rotation.y + 90,
-                       rotation.x,
-                       position);
-
-        for (int s = 0 ; s < 6 / 0.1 ; s++)
-        {
-            ray.step(0.1);
-            auto* block       = &m_chunkMap->getBlockAt(ray.getEndPoint());
-
-            if (block->getData().getPhysicalState() == Block::Physical_State::Solid ||
-                block->getData().getPhysicalState() == Block::Physical_State::Flora)
-            {
-                m_crosshair.showMiningTexture();
-                if ((sf::Mouse::isButtonPressed(sf::Mouse::Left)        ||
-                     sf::Mouse::isButtonPressed(sf::Mouse::Right))      &&
-                     blockEditTimer.getElapsedTime().asSeconds() > 0.2)
-                {
-                    blockEdit(lastRayPos, ray.getEndPoint());
-                    blockEditTimer.restart();
-                }
-                break;
-            }
-            else
-            {
-                m_crosshair.showRegularTexture();
-            }
-            lastRayPos = ray.getEndPoint();
-        }
-    }
-
-
-    /**
-        Removing/ Placing Blocks
-    */
-    void Playing_State::blockEdit(const Vector3& lastRayPos, const Vector3& rayPos)
-    {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            m_chunkMap->setBlock(Block::air, rayPos);
-        }
-        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-        {
-            Chunk* chunk = m_chunkMap->getChunkAt(Maths::worldToChunkPosition(rayPos));
-            auto interaction = chunk->getBlocks().getBlock(Maths::worldToBlockPosition(rayPos)).interact(*chunk, Maths::worldToBlockPosition(rayPos), Empty());
-
-            switch (interaction)
-            {
-                case Block::Interaction_Type::Chunk_Block_Change:
-                    m_chunkMap->addChangedChunk(chunk);
-                    break;
-
-                case Block::Interaction_Type::None:
-                    m_chunkMap->setBlock(m_player.getBlock(), lastRayPos);
-                    break;
-            }
-        }
-    }
-
 
     /**
         Update the state
     */
     void Playing_State::update  (float dt, Camera& camera)
     {
-        m_player.update(dt, camera, *m_chunkMap);
-
-        auto& position = m_player.getCamera().position;
-        m_playerPosition = Maths::worldToChunkPosition(position);
-        Debug_Display::addPlayerPosition(position);
-
-        m_chunkMap->checkChunks();//This must be the last thing to happen in the update function here!
-
-        /*
-        switch (m_state)
-        {
-            case PS_State::Play: {
-                m_player.update(dt, camera, *m_chunkMap);
-
-                auto& position = m_player.getCamera().position;
-                m_playerPosition = Maths::worldToChunkPosition(position);
-                Debug_Display::addPlayerPosition(position);
-                break;
-            }
-
-            case PS_State::Pause:
-                //m_activeMenu->update();
-                break;
-
-            default:
-                break;
-
-        }
-        */
+        m_world->update(dt, camera);
     }
 
 
@@ -257,35 +77,14 @@ namespace State
     */
     void Playing_State::draw (float dt, Master_Renderer& renderer)
     {
-        //Draw the chunks
-        m_chunkMap->draw(renderer);
+        m_world->draw(dt, renderer);
 
         tryAddPostFX(renderer);
 
         if (m_debugDisplayActive)
             Debug_Display::draw(renderer);
 
-        m_crosshair.draw(renderer);
-/*
-        switch (m_state)
-        {
-            case PS_State::Play:
-                if (m_debugDisplayActive)   Debug_Display::draw(renderer);
-                m_crosshair.draw(renderer);
-                break;
-
-            case PS_State::Pause:
-                if (!m_isExitGame)
-                    //m_activeMenu->draw(renderer);
-                break;
-
-            default:
-                break;
-        }
-
-        if(m_isExitGame)
-            prepareExit(renderer);
-*/
+        m_world->drawXHair(renderer);
     }
 
     /*
@@ -296,14 +95,16 @@ namespace State
     void Playing_State::tryAddPostFX(Master_Renderer& renderer)
     {
         //Get player position
-        auto& wp    = m_player.getCamera().position;
+        auto& wp    = m_world->getPlayer().getCamera().position;
         auto bp     = Maths::worldToBlockPosition(wp);
         auto cp     = Maths::worldToChunkPosition(wp);
 
-        if (m_chunkMap->getChunkAt(cp))
+        const Chunk* chunk = m_world->getChunkMap().getChunkAt(cp);
+
+        if (chunk)
         {
            //Player underwater
-           if (m_chunkMap->getChunkAt(cp)->getBlocks().getBlock(bp).getData().getID() == Block::ID::Water)
+           if (chunk->getBlocks().getBlock(bp).getData().getID() == Block::ID::Water)
            {
               // renderer.addPostFX(Post_FX::Blue);
                renderer.addPostFX(Post_FX::Blur);
@@ -317,10 +118,10 @@ namespace State
     */
     void Playing_State::prepareExit(Master_Renderer& renderer)
     {
-         renderer.clear();
-         m_chunkMap->draw(renderer);
-         renderer.update(m_player.getCamera());
-         m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail");
+         //renderer.clear();
+         //m_chunkMap->draw(renderer);
+         //renderer.update(m_player.getCamera());
+         //m_application->takeScreenshot("Worlds/" + m_worldName + "/thumbnail");
          m_application->changeState(std::make_unique<Main_Menu_State>(*m_application));
     }
 
@@ -332,27 +133,6 @@ namespace State
     {
         save();
         Display::showMouse();
-    }
-
-
-    /**
-
-    */
-    void Playing_State::loadWorldFile()
-    {
-        std::ifstream inFile("Worlds/" + m_worldName + "/World_Info.data");
-        std::string line;
-        if (std::getline(inFile, line))
-        {
-            if (line == "pos")
-            {
-                int x, y, z;
-                inFile >> x >> y >> z;
-                m_player.setPosition({x + 0.5,
-                                      y,            //Offset by 0.5 as the exact numbers put the player on a block corner
-                                      z + 0.5});
-            }
-        }
     }
 
 
@@ -380,27 +160,10 @@ namespace State
     */
     void Playing_State::save()
     {
-        m_chunkMap->saveChunks();
-        saveWorldFile();
+        m_world->save();
         saveWorldList();
     }
 
-
-    /**
-
-    */
-    void Playing_State::saveWorldFile()
-    {
-        auto& position = m_player.getCamera().position;
-
-        std::ofstream outFile ("Worlds/" + m_worldName + "/World_Info.data");
-
-        outFile << "pos\n"  << (int)position.x << " " << (int)position.y << " " << (int)position.z << std::endl;
-
-        outFile << "seed\n" << m_worldSeed              << std::endl;
-        outFile << "time\n" << Time::getTimeString()    << std::endl;
-        outFile << "date\n" << Time::getDateString()    << std::endl;
-    }
 
 
     /**
