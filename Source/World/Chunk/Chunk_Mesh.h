@@ -10,6 +10,7 @@
 #include <vector>
 
 class Chunk;
+class Chunk_Blocks;
 
 class Chunk_Mesh
 {
@@ -20,6 +21,7 @@ class Chunk_Mesh
         std::vector<GLfloat> vertexCoords;
         std::vector<GLfloat> textureCoords;
         std::vector<GLfloat> light;
+        std::vector<GLfloat> ambientOcclusion;
         std::vector<GLuint>  indices;
 
 
@@ -47,7 +49,8 @@ class Chunk_Mesh
 
         void addBlockMesh   (float x, float y, float z, const Block::Block_Data& block );
 
-        inline bool shouldMakeMesh (int x, int y, int z, const Block::Block_Data& block );
+        inline bool shouldCreateLayer(int y) const;
+        inline bool shouldMakeMesh  (int x, int y, int z, const Block::Block_Data& block );
 
         void addBlockTopToMesh      (float x, float y, float z, const Block::Block_Data& block);
         void addBlockBottomToMesh   (float x, float y, float z, const Block::Block_Data& block);
@@ -56,7 +59,8 @@ class Chunk_Mesh
         void addBlockFrontToMesh    (float x, float y, float z, const Block::Block_Data& block);
         void addBlockBackToMesh     (float x, float y, float z, const Block::Block_Data& block);
 
-        void finishBlockFace        (const Vector2& textureLocation, float lightValue);
+        void    finishBlockFace        (const Vector2& textureLocation, float lightValue);
+        uint8_t getVertexAmbientOcc    (bool side1, bool side2, bool corner);
 
         void addBlockIndices        ();
 
@@ -66,7 +70,8 @@ class Chunk_Mesh
         Chunk_Mesh_Part m_waterPart;
         Chunk_Mesh_Part m_floraPart;
 
-        const Chunk* m_p_chunk;
+        const Chunk*        m_p_chunk;
+        const Chunk_Blocks* m_p_chunkBlocks;
 
         Chunk_Mesh_Part* m_activePart;
 };

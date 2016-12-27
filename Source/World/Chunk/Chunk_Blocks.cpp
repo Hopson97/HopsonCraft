@@ -126,3 +126,17 @@ void Chunk_Blocks::setMaxHeight(const Block_Location& location)
     m_maxHeights[location.x * World::CHUNK_SIZE + location.z] = location.y;
 }
 
+const Chunk_Layer& Chunk_Blocks::getLayer(uint32_t layer) const
+{
+    return m_layers[layer];
+}
+
+bool Chunk_Blocks::layerHasAir(uint32_t layer) const
+{
+    if (layer > m_layers.size() - 1)
+        return true;
+    else
+        return getLayer(layer).hasAirBlocks();
+}
+
+

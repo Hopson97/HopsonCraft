@@ -126,7 +126,7 @@ void Chunk::generateMesh ()
 
     m_hasMesh       = true;
     m_hasBuffered   = false;
-    //std::cout << c.getElapsedTime().asSeconds() << std::endl;
+   // std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 void Chunk::bufferMesh ()
@@ -205,6 +205,17 @@ const Chunk_Blocks& Chunk::getBlocks() const
 {
     return m_blocks;
 }
+
+const Chunk_Blocks* Chunk::getAdjBlocks(int yd, int xd) const
+{
+    Chunk* chunk = m_p_chunkMap->getChunkAt({m_location.x + yd, m_location.z + xd});
+    if (chunk)
+    {
+        return &chunk->getBlocks();
+    }
+    return nullptr;
+}
+
 
 
 void Chunk::saveToFile(const std::string& worldName)

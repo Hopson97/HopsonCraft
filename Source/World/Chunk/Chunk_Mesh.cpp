@@ -1,6 +1,8 @@
 #include "Chunk_Mesh.h"
 
 #include "Chunk.h"
+#include "Chunk_Blocks.h"
+
 
 #include "../../Texture/Texture_Atlas.h"
 #include "../Block/Block_Location.h"
@@ -8,9 +10,20 @@
 
 namespace
 {
-    constexpr static float TOP_LIGHT_VALUE      = 1.0f;
-    constexpr static float SIDE_LIGHT_VALUE     = 0.6f;
-    constexpr static float BOTTOM_LIGHT_VALUE   = 0.2f;
+    namespace Light_Value
+    {
+        constexpr float TOP      = 1.0f;
+        constexpr float SIDE     = 0.6f;
+        constexpr float BOTTOM   = 0.4f;
+    }
+
+    namespace Ambient_Occulsion
+    {
+        constexpr float AO_0 = 0.1f;
+        constexpr float AO_1 = 0.4f;
+        constexpr float AO_2 = 0.7f;
+        constexpr float AO_3 = 1.0f;
+    }
 
     const Texture_Atlas* p_atlas = nullptr;
 }
@@ -50,6 +63,7 @@ void Chunk_Mesh::Chunk_Mesh_Part::buffer()
 
 Chunk_Mesh::Chunk_Mesh(const Chunk& chunk)
 :   m_p_chunk (&chunk)
+,   m_p_chunkBlocks (&chunk.getBlocks())
 {
     if(!p_atlas) p_atlas = &chunk.getAtlas();
 }
@@ -81,19 +95,48 @@ void Chunk_Mesh::generateMesh(int height)
 {
     for (int y = 0 ; y < height ; y++)
     {
-        for (int z = 0 ; z < World::CHUNK_SIZE ; z++)
+        if(shouldCreateLayer(y))
         {
-            for (int x = 0 ; x < World::CHUNK_SIZE ; x++)
+            for (int z = 0 ; z < World::CHUNK_SIZE ; z++)
             {
-                if (m_p_chunk->getBlocks().getBlock({x, y, z}).getData().getPhysicalState() == Block::Physical_State::Gas)
+                for (int x = 0 ; x < World::CHUNK_SIZE ; x++)
                 {
-                    continue;
+                    if (m_p_chunkBlocks->getBlock({x, y, z}).getData().getPhysicalState() == Block::Physical_State::Gas)
+                    {
+                        continue;
+                    }
+                    addBlockMesh (x, y, z, m_p_chunkBlocks->getBlock({x, y, z}).getData());
                 }
-                addBlockMesh (x, y, z, m_p_chunk->getBlocks().getBlock({x, y, z}).getData());
             }
         }
     }
 }
+
+bool Chunk_Mesh::shouldCreateLayer(int y) const
+{
+    auto adjacentBlockLayerHasAir = [&](int xd, int zd)
+    {
+        const auto& blocks = m_p_chunk->getAdjBlocks (xd, zd);
+
+        if(blocks)
+        {
+            return blocks->layerHasAir (y);
+        }
+        else
+            return true;
+    };
+
+    return
+                m_p_chunkBlocks->layerHasAir(y)     ||
+                m_p_chunkBlocks->layerHasAir(y - 1) ||
+                m_p_chunkBlocks->layerHasAir(y + 1) ||
+                adjacentBlockLayerHasAir    (1, 0 ) ||
+                adjacentBlockLayerHasAir    (0, 1 ) ||
+                adjacentBlockLayerHasAir    (-1, 0) ||
+                adjacentBlockLayerHasAir    (0, -1);
+}
+
+
 //This is for the block vertex array generator.
 //It basically just determines which vertex array, water or ground, to add the verticies into.
 Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block::Block_Data& block)
@@ -173,19 +216,22 @@ bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block::Block_Data& bl
     The +1 refers to where the vertex is in respect to the block vertex array "origin", of which is the front bottom
     left of a block.
 */
+
+//The top part of a block face, aka the floor
 void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
-        x,      y + 1, z + 1,   //
-        x + 1,  y + 1, z + 1,
-        x + 1,  y + 1, z,
-        x,      y + 1, z,
+        x,      y + 1, z + 1,   //Front-Left
+        x + 1,  y + 1, z + 1,   //Front-Right
+        x + 1,  y + 1, z,       //Back-Right
+        x,      y + 1, z,       //Back-Left
     });
 
-    finishBlockFace(block.getTextureTop(), TOP_LIGHT_VALUE);
+    finishBlockFace(block.getTextureTop(), Light_Value::TOP);
 }
 
+//"Ceiling"
 void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
@@ -196,7 +242,7 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Bl
         x,      y, z + 1,
     });
 
-    finishBlockFace(block.getTextureBottom(), BOTTOM_LIGHT_VALUE);
+    finishBlockFace(block.getTextureBottom(), Light_Value::BOTTOM);
 }
 
 void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -209,7 +255,7 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Bloc
         x, y + 1,   z,
     });
 
-    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
+    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
 }
 
 void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -222,7 +268,7 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
         x + 1, y + 1,   z + 1,
     });
 
-    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
+    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
 }
 
 void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -235,7 +281,7 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
         x,      y + 1,  z + 1,
     });
 
-    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
+    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
 }
 
 void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -248,7 +294,7 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Bloc
         x + 1,  y + 1,  z,
     });
 
-    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
+    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
 }
 
 void Chunk_Mesh::finishBlockFace(const Vector2& textureLocation, float lightValue)
@@ -257,6 +303,22 @@ void Chunk_Mesh::finishBlockFace(const Vector2& textureLocation, float lightValu
     m_activePart->addLight(lightValue);
     addBlockIndices();
 }
+
+//Ambient Occlusion algorithm as seen here on this website:
+//https://0fps.net/2013/07/03/ambient-occlusion-for-minecraft-like-worlds/
+uint8_t Chunk_Mesh::getVertexAmbientOcc(bool side1, bool side2, bool corner)
+{
+    if (side1 && side2)
+    {
+        return 0;
+    }
+    else
+    {
+        return 3 - (side1 + side2 + corner);
+    }
+}
+
+
 
 void Chunk_Mesh::addBlockIndices()
 {
@@ -288,6 +350,6 @@ void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block::Block_Da
         x,      y + 1,  z + 1,
     });
 
-    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
-    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
+    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
+    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
 }

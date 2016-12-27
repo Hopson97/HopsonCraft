@@ -19,6 +19,15 @@ Chunk_Layer::Chunk_Layer()
 
 void Chunk_Layer::setBlock(int x, int z, const Block::Block_Type& block)
 {
+    if(block.getData().getID() == Block::ID::Air)
+    {
+        m_airBlockCount++;
+    }
+    else
+    {
+        m_airBlockCount--;
+    }
+
     m_blocks[World::CHUNK_SIZE * z + x] = (uint8_t)block.getData().getID();
 }
 
@@ -26,3 +35,9 @@ const Block::Block_Type& Chunk_Layer::getBlock(int x, int z) const
 {
     return Block::get((Block::ID)(m_blocks[World::CHUNK_SIZE * z + x]));
 }
+
+bool Chunk_Layer::hasAirBlocks() const
+{
+    return m_airBlockCount > 0;
+}
+

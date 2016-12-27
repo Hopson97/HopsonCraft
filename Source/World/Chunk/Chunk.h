@@ -51,7 +51,8 @@ class Chunk : public Entity
         const Chunk_Location& getLocation   () const;
         const Vector2  getPosition          () const;
 
-        const Chunk_Blocks& getBlocks   () const;
+        const Chunk_Blocks& getBlocks       () const;
+        const Chunk_Blocks* getAdjBlocks    (int yd, int xd) const;
 
         const Chunk_Mesh& getMesh   () const;
 
@@ -78,12 +79,12 @@ class Chunk : public Entity
 
         const Texture_Atlas* m_p_atlas;
 
-        bool m_hasBlockData     = false;
-        bool m_hasMesh          = false;
-        bool m_hasBuffered      = false;
+        bool m_hasBlockData         = false;
+        bool m_hasMesh              = false;
+        bool m_hasBuffered          = false;
 
-        bool m_hasDeleteFlag    = false;
-        bool m_hasregenMeshFlag    = false;
+        bool m_hasDeleteFlag        = false;
+        bool m_hasregenMeshFlag     = false;
 
         Chunk_Mesh m_mesh;
         Chunk_Blocks m_blocks;

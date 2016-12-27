@@ -179,8 +179,6 @@ namespace State
 
 
     /*
-
-
     void Playing_State::setUpPauseMenu()
     {
         m_pauseMenu.addPadding(150);
