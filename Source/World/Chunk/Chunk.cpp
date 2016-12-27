@@ -206,6 +206,7 @@ const Chunk_Blocks& Chunk::getBlocks() const
     return m_blocks;
 }
 
+//This function is mostly for the sake of generating chunk meshes
 const Chunk_Blocks* Chunk::getAdjBlocks(int yd, int xd) const
 {
     Chunk* chunk = m_p_chunkMap->getChunkAt({m_location.x + yd, m_location.z + xd});

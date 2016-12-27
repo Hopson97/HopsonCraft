@@ -39,13 +39,13 @@ class Chunk_Blocks
         int getMaxheightAt (int x, int z);
         void setMaxHeight  (const Block_Location& location);
 
-        const Chunk_Layer& getLayer (uint32_t layer) const;
-        bool layerHasAir            (uint32_t layer) const;
+        const Chunk_Layer& getLayer     (uint32_t layer) const;
+        bool layerHasTranslucentBlocks  (uint32_t layer) const;
 
     private:
         const Block::Block_Type& getAdjacentChunkBlock (int xChange,
-                                              int zChange,
-                                              const Block_Location& location) const;
+                                                        int zChange,
+                                                        const Block_Location& location) const;
 
         void addLayers (unsigned target);
 

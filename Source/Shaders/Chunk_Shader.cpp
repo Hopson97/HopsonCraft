@@ -6,7 +6,7 @@
 namespace Shader
 {
     Chunk_Shader::Chunk_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
-    :   Shader_Program  (vertexShaderFile, fragmentShaderFile)
+    :   Shader_Program  ("Chunk_Shaders/" + vertexShaderFile, "Chunk_Shaders/" + fragmentShaderFile)
     {
         getUniformLocations();
         bindAttributes();

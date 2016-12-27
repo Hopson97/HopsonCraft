@@ -16,12 +16,12 @@ class Chunk_Layer
 
         const Block::Block_Type& getBlock (int x, int z) const;
 
-        bool hasAirBlocks() const;
+        bool hasTranslucentBlocks() const;
 
     private:
         std::array<uint8_t, 20 * 20> m_blocks;
 
-        uint16_t m_airBlockCount = 20 * 20;
+        uint16_t m_translucentCount = 20 * 20;
 };
 
 #endif // CHUNK_LAYER_H

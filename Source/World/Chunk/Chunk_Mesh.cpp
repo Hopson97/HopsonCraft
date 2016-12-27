@@ -120,16 +120,16 @@ bool Chunk_Mesh::shouldCreateLayer(int y) const
 
         if(blocks)
         {
-            return blocks->layerHasAir (y);
+            return blocks->layerHasTranslucentBlocks (y);
         }
         else
             return true;
     };
 
     return
-                m_p_chunkBlocks->layerHasAir(y)     ||
-                m_p_chunkBlocks->layerHasAir(y - 1) ||
-                m_p_chunkBlocks->layerHasAir(y + 1) ||
+                m_p_chunkBlocks->layerHasTranslucentBlocks(y)     ||
+                m_p_chunkBlocks->layerHasTranslucentBlocks(y - 1) ||
+                m_p_chunkBlocks->layerHasTranslucentBlocks(y + 1) ||
                 adjacentBlockLayerHasAir    (1, 0 ) ||
                 adjacentBlockLayerHasAir    (0, 1 ) ||
                 adjacentBlockLayerHasAir    (-1, 0) ||

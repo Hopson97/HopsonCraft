@@ -131,12 +131,12 @@ const Chunk_Layer& Chunk_Blocks::getLayer(uint32_t layer) const
     return m_layers[layer];
 }
 
-bool Chunk_Blocks::layerHasAir(uint32_t layer) const
+bool Chunk_Blocks::layerHasTranslucentBlocks(uint32_t layer) const
 {
     if (layer > m_layers.size() - 1)
         return true;
     else
-        return getLayer(layer).hasAirBlocks();
+        return getLayer(layer).hasTranslucentBlocks();
 }
 
 
