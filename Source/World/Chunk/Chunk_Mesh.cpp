@@ -6,9 +6,14 @@
 #include "../Block/Block_Location.h"
 #include "../World.h"
 
-constexpr static float TOP_LIGHT_VALUE      = 1.0f;
-constexpr static float SIDE_LIGHT_VALUE     = 0.6f;
-constexpr static float BOTTOM_LIGHT_VALUE   = 0.2f;
+namespace
+{
+    constexpr static float TOP_LIGHT_VALUE      = 1.0f;
+    constexpr static float SIDE_LIGHT_VALUE     = 0.6f;
+    constexpr static float BOTTOM_LIGHT_VALUE   = 0.2f;
+
+    const Texture_Atlas* p_atlas = nullptr;
+}
 
 
 void Chunk_Mesh::Chunk_Mesh_Part::addUvCoords (const std::vector<GLfloat>& coords)
@@ -45,7 +50,9 @@ void Chunk_Mesh::Chunk_Mesh_Part::buffer()
 
 Chunk_Mesh::Chunk_Mesh(const Chunk& chunk)
 :   m_p_chunk (&chunk)
-{}
+{
+    if(!p_atlas) p_atlas = &chunk.getAtlas();
+}
 
 void Chunk_Mesh::bufferMesh()
 {
@@ -175,10 +182,8 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
         x + 1,  y + 1, z,
         x,      y + 1, z,
     });
-    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureTop()));
-    m_activePart->addLight(TOP_LIGHT_VALUE);
 
-    addBlockIndices();
+    finishBlockFace(block.getTextureTop(), TOP_LIGHT_VALUE);
 }
 
 void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -190,10 +195,8 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Bl
         x + 1,  y, z + 1,
         x,      y, z + 1,
     });
-    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureBottom()));
-    m_activePart->addLight(BOTTOM_LIGHT_VALUE);
 
-    addBlockIndices();
+    finishBlockFace(block.getTextureBottom(), BOTTOM_LIGHT_VALUE);
 }
 
 void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -205,10 +208,8 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Bloc
         x, y + 1,   z + 1,
         x, y + 1,   z,
     });
-    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
-    m_activePart->addLight(SIDE_LIGHT_VALUE);
 
-    addBlockIndices();
+    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
 }
 
 void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -220,10 +221,8 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
         x + 1, y + 1,   z,
         x + 1, y + 1,   z + 1,
     });
-    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
-    m_activePart->addLight(SIDE_LIGHT_VALUE);
 
-    addBlockIndices();
+    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
 }
 
 void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -235,10 +234,8 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
         x + 1,  y + 1,  z + 1,
         x,      y + 1,  z + 1,
     });
-    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
-    m_activePart->addLight(SIDE_LIGHT_VALUE);
 
-    addBlockIndices();
+    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
 }
 
 void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -250,12 +247,16 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Bloc
         x,      y + 1,  z,
         x + 1,  y + 1,  z,
     });
-    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
-    m_activePart->addLight(SIDE_LIGHT_VALUE);
 
-    addBlockIndices();
+    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
 }
 
+void Chunk_Mesh::finishBlockFace(const Vector2& textureLocation, float lightValue)
+{
+    m_activePart->addUvCoords(p_atlas->getTextureCoords(textureLocation));
+    m_activePart->addLight(lightValue);
+    addBlockIndices();
+}
 
 void Chunk_Mesh::addBlockIndices()
 {
@@ -286,12 +287,7 @@ void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block::Block_Da
         x + 1,  y + 1,  z,
         x,      y + 1,  z + 1,
     });
-    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
-    m_activePart->addUvCoords(m_p_chunk->getAtlas().getTextureCoords(block.getTextureSide()));
 
-    addBlockIndices();
-    addBlockIndices();
-
-    m_activePart->addLight(SIDE_LIGHT_VALUE);
-    m_activePart->addLight(SIDE_LIGHT_VALUE);
+    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
+    finishBlockFace(block.getTextureSide(), SIDE_LIGHT_VALUE);
 }

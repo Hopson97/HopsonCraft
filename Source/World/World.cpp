@@ -132,7 +132,7 @@ void World::blockEdit(const Vector3& lastRayPos, const Vector3& rayPos)
         }
     }
 }
-
+//Saving a loading...
 void World::loadWorldFile()
 {
     std::ifstream inFile("Worlds/" + m_name + "/World_Info.data");
@@ -166,6 +166,7 @@ void World::save() const
 }
 
 
+//Getters...
 const Chunk_Map& World::getChunkMap() const
 {
     return m_chunkMap;

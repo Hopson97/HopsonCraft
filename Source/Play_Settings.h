@@ -10,7 +10,7 @@ class Settings
 
         uint32_t getRenderDistance();
 
-        constexpr static float FOV = 100;
+        constexpr static float FOV = 95;
         constexpr static float NEAR_PLANE  = 0.01;
         constexpr static float FAR_PLANE   = 1000;
 

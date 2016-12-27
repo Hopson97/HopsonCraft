@@ -8,17 +8,6 @@
 
 class Chunk_Layer
 {
-    struct Block_Pointer
-    {
-        Block_Pointer() = default;
-        Block_Pointer(Block::ID id)
-        :   id ((uint8_t) id)
-        {}
-
-        uint8_t id = (uint8_t) Block::ID::Air;
-    };
-
-
     public:
         Chunk_Layer();
 
@@ -27,7 +16,7 @@ class Chunk_Layer
         const Block::Block_Type& getBlock (int x, int z) const;
 
     private:
-        std::array<Block_Pointer, 20 * 20> m_blocks;
+        std::array<uint8_t, 20 * 20> m_blocks;
 };
 
 #endif // CHUNK_LAYER_H

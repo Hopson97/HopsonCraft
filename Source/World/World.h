@@ -53,8 +53,6 @@ class World
         Crosshair       m_crosshair;
         uint32_t        m_seed;
 
-        std::vector<Entity*>    m_entities;
-
     public:
         constexpr static uint16_t   CHUNK_SIZE      = 20,    //Width/ depth of a chunk, height is infinite
                                     WATER_LEVEL     = 90,

@@ -33,7 +33,6 @@
 					<Add option="-O3" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-audio" />
@@ -81,6 +80,7 @@
 		<Unit filename="Data/Music/rue.ogg" />
 		<Unit filename="Data/Music/tbatw.ogg" />
 		<Unit filename="Data/Music/uouat.ogg" />
+		<Unit filename="Data/Settings.txt" />
 		<Unit filename="Shaders/Blue_Fragment.glsl" />
 		<Unit filename="Shaders/Blue_Vertex.glsl" />
 		<Unit filename="Shaders/Blur_Fragment.glsl" />
@@ -267,8 +267,9 @@
 		<Unit filename="Source/World/Gen/Structure.h" />
 		<Unit filename="Source/World/Gen/World_Generator.cpp" />
 		<Unit filename="Source/World/Gen/World_Generator.h" />
+		<Unit filename="Source/World/World.cpp" />
 		<Unit filename="Source/World/World.h" />
-		<Unit filename="Source/World/World_Constants.h" />
+		<Unit filename="Worlds/Terrain_/World_Info.data" />
 		<Unit filename="libgcc_s_sjlj-1.dll" />
 		<Unit filename="libstdc++-6.dll" />
 		<Unit filename="openal32.dll" />

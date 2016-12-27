@@ -40,6 +40,8 @@ class Chunk_Mesh
         const Chunk_Mesh_Part& getWaterPart() const;
         const Chunk_Mesh_Part& getFloraPart() const;
 
+        constexpr static float BLOCK_SIZE = 1.5;
+
     private:
         Chunk_Mesh_Part& getPart (const Block::Block_Data& block);
 
@@ -53,6 +55,8 @@ class Chunk_Mesh
         void addBlockRightToMesh    (float x, float y, float z, const Block::Block_Data& block);
         void addBlockFrontToMesh    (float x, float y, float z, const Block::Block_Data& block);
         void addBlockBackToMesh     (float x, float y, float z, const Block::Block_Data& block);
+
+        void finishBlockFace        (const Vector2& textureLocation, float lightValue);
 
         void addBlockIndices        ();
 

@@ -133,7 +133,7 @@ void Chunk_Map::updateChunks()
     for(auto& chunk : m_chunks)
     {
         //These functions return true if the chunk update/ tick changes the mesh of the chunk
-        if(chunk.second->update() || chunk.second->tick())
+        if(chunk.second->update() /*|| chunk.second->tick()*/)
         {
             addChangedChunk(&*chunk.second);
         }
