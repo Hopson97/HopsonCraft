@@ -27,7 +27,6 @@ namespace GUI
         private:
 
     };
-
 /*
     enum class Layout
     {

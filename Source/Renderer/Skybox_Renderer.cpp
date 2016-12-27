@@ -8,44 +8,45 @@
 
 namespace
 {
-    constexpr GLfloat SIZE = 450.0f;
+    constexpr GLfloat SIZE = 5.0f;
 
     std::vector<GLfloat> vertexPositions =
     {
-        //Bottom
-        -SIZE,  SIZE  -SIZE,
-        -SIZE, -SIZE  -SIZE,
-         SIZE, -SIZE  -SIZE,
-         SIZE,  SIZE, -SIZE
-
-         //Back
-        -SIZE, -SIZE,  SIZE,
-        -SIZE, -SIZE, -SIZE,
-        -SIZE,  SIZE, -SIZE,
-        -SIZE,  SIZE,  SIZE,
-
-        //
+        //Back
         SIZE, -SIZE, -SIZE,
-        SIZE, -SIZE,  SIZE,
-        SIZE,  SIZE,  SIZE,
-        SIZE,  SIZE, -SIZE,
-
-        //
-        -SIZE, -SIZE, SIZE,
-        -SIZE,  SIZE, SIZE,
-         SIZE,  SIZE, SIZE,
-         SIZE, -SIZE, SIZE,
-
-        //
-        -SIZE, SIZE, -SIZE,
-         SIZE, SIZE, -SIZE,
-         SIZE, SIZE,  SIZE,
-        -SIZE, SIZE,  SIZE,
-
         -SIZE, -SIZE, -SIZE,
-        -SIZE, -SIZE,  SIZE,
-         SIZE, -SIZE, -SIZE,
-        -SIZE, -SIZE,  SIZE,
+        -SIZE, SIZE, -SIZE,
+        SIZE, SIZE, -SIZE,
+
+        //Right-Side
+        SIZE, -SIZE, SIZE,
+        SIZE, -SIZE, -SIZE,
+        SIZE, SIZE, -SIZE,
+        SIZE, SIZE, SIZE,
+
+        //Front
+        -SIZE, -SIZE, SIZE,
+        SIZE, -SIZE, SIZE,
+        SIZE, SIZE, SIZE,
+        -SIZE, SIZE, SIZE,
+
+        //Left
+        -SIZE, -SIZE, -SIZE,
+        -SIZE, -SIZE, SIZE,
+        -SIZE, SIZE, SIZE,
+        -SIZE, SIZE, -SIZE,
+
+        //Top
+        -SIZE, SIZE, SIZE,
+        SIZE, SIZE, SIZE,
+        SIZE, SIZE, -SIZE,
+        -SIZE, SIZE, -SIZE,
+
+        //Bottom
+        -SIZE, -SIZE, -SIZE,
+        SIZE, -SIZE, -SIZE,
+        SIZE, -SIZE, SIZE,
+        -SIZE, -SIZE, SIZE
     };
 
     std::vector<GLuint> indices =
@@ -53,22 +54,21 @@ namespace
         0, 1, 2,
         2, 3, 0,
 
+        4, 5, 6,
+        6, 7, 4,
 
+        8, 9, 10,
+        10, 1, 8,
+
+        12, 13, 14,
+        14, 15, 12,
+
+        16, 17, 18,
+        18, 19, 16,
+
+        20, 21, 22,
+        22, 23, 20
     };
-
-    std::vector<GLuint> getIndices()
-    {
-        std::vector<GLuint> indices(6 * 6);
-        for (GLuint i = 0 ; i < 4 * 6 ; i += 4)
-        {
-            indices.insert(indices.end(),
-            {
-                0 + i, 1 + i, 2 + i,
-                2 + i, 3 + i, 0 + i
-            });
-        }
-        return indices;
-    }
 }
 
 std::vector<std::string> files =
@@ -84,13 +84,12 @@ std::vector<std::string> files =
 Skybox_Renderer::Skybox_Renderer()
 :   m_texture(files)
 {
-    m_model.addData(vertexPositions, {}, getIndices());
+    m_model.addData(vertexPositions, {}, indices);
 }
 
 
 void Skybox_Renderer::render(const Camera& camera)
 {
-    std::cout << "Drawing" << std::endl;
     m_shader.useProgram();
     m_model.bind();
     m_texture.bind();

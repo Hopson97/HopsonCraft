@@ -16,7 +16,7 @@ namespace Shader
 
     void Skybox_Shader::loadCameraMatrix(const Camera& camera) const
     {
-        loadMatrix4(m_locationViewMatrix, Maths::createViewMatrix(camera));
+        loadMatrix4(m_locationViewMatrix, Maths::createViewRotationMatrix(camera));
     }
 
     void Skybox_Shader::bindAttributes()

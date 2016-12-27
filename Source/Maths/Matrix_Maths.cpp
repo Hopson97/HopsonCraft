@@ -19,6 +19,15 @@ namespace Maths
         return glm::translate(viewMatrix, -camera.position);
     }
 
+    Matrix4 createViewRotationMatrix(const Camera& camera)
+    {
+        Matrix4  viewMatrix;
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.x), {1, 0, 0});
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.y), {0, 1, 0});
+        return       glm::rotate(viewMatrix, glm::radians(camera.rotation.z), {0, 0, 1});
+    }
+
+
     Matrix4 createModelMatrix(const Entity& entity)
     {
         Matrix4 transform;

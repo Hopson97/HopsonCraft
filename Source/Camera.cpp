@@ -2,11 +2,29 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <iostream>
 
 #include "Util/Display.h"
+#include "Input/Function_Toggle_Key.h"
+
+namespace
+{
+    bool locked = false;
+    static Function_Toggle_Key lock([&]()
+    {
+        locked = !locked;
+        std::cout << "PL" << std::endl;
+    },
+    sf::Keyboard::L,
+    sf::seconds(1.5));
+}
 
 void Camera::mouseInput()
-{
+{/*
+    lock.checkInput();
+    if (locked)
+        return;
+*/
     static sf::Vector2i lastMousePos;
     auto mouseMove = lastMousePos - sf::Mouse::getPosition();
 
@@ -24,7 +42,7 @@ void Camera::mouseInput()
         rotation.y = 0;
 
     auto windowSize = Display::get().getSize();
-    //sf::Mouse::setPosition(sf::Vector2i(windowSize.x / 2, windowSize.y / 2), Display::get());
+    sf::Mouse::setPosition(sf::Vector2i(windowSize.x / 2, windowSize.y / 2), Display::get());
 
     lastMousePos = sf::Mouse::getPosition();
 }

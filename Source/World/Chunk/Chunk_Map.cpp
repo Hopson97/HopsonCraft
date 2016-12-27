@@ -232,12 +232,14 @@ bool Chunk_Map::isSolidBlockAt(const Vector3& worldPosition)
 */
 const Block::Block_Type& Chunk_Map::getBlockAt(const Vector3& worldPosition)
 {
-    Chunk_Location position (Maths::worldToChunkPosition(worldPosition));
-    Block_Location blockPosition (Maths::worldToBlockPosition(worldPosition));
+    Chunk_Location position         (Maths::worldToChunkPosition(worldPosition));
+    Block_Location blockPosition    (Maths::worldToBlockPosition(worldPosition));
 
-    if (getChunkAt(position))
+    Chunk* chunk = getChunkAt(position);
+
+    if (chunk)
     {
-        return getChunkAt(position)->getBlocks().getBlock(blockPosition);
+        return chunk->getBlocks().getBlock(blockPosition);
     }
     return Block::air;
 }

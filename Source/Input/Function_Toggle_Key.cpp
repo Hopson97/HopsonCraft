@@ -6,14 +6,13 @@ Function_Toggle_Key::Function_Toggle_Key (std::function<void(void)> func, sf::Ke
 ,   m_toggleTime    (seconds)
 { }
 
-bool Function_Toggle_Key::checkInput(const sf::Event& e)
+bool Function_Toggle_Key::checkInput()
 {
-    if (e.type == sf::Event::KeyPressed && m_toggleClock.getElapsedTime().asSeconds() > m_toggleTime.asSeconds())
+    if (sf::Keyboard::isKeyPressed(m_key) && m_toggleClock.getElapsedTime().asSeconds() > m_toggleTime.asSeconds())
     {
-        if (e.key.code == m_key)
-            m_func();
-                m_toggleClock.restart();
-            return true;
+        m_func();
+        m_toggleClock.restart();
+        return true;
     }
     return false;
 }

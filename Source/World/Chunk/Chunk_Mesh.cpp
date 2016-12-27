@@ -17,13 +17,13 @@ namespace
         constexpr float BOTTOM   = 0.4f;
     }
 
-    namespace Ambient_Occulsion
+    const std::vector<GLfloat> ambientOcculsionValues
     {
-        constexpr float AO_0 = 0.1f;
-        constexpr float AO_1 = 0.4f;
-        constexpr float AO_2 = 0.7f;
-        constexpr float AO_3 = 1.0f;
-    }
+        0.1f,
+        0.4f,
+        0.7f,
+        1.0f
+    };
 
     const Texture_Atlas* p_atlas = nullptr;
 }
@@ -227,7 +227,12 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
         x + 1,  y + 1, z,       //Back-Right
         x,      y + 1, z,       //Back-Left
     });
-
+/*
+    bool v1s1 = m_p_chunk.getBlocks().getBlock({x - 1, y + 1, z     ).getData().isOpaque();
+    bool v1c  = m_p_chunk.getBlocks().getBlock({x - 1, y + 1, z + 1}).getData().isOpaque();
+    bool v1s2 = m_p_chunk.getBlocks().getBlock({x,     y + 1, z + 1}).getData().isOpaque();
+    m_activePart->ambientOcclusion.push_back(ambientOcculsionValues[getVertexAmbientOcc(v1s1, v1s2, v1c)]);
+*/
     finishBlockFace(block.getTextureTop(), Light_Value::TOP);
 }
 

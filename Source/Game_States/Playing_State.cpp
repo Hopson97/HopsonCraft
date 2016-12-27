@@ -50,7 +50,7 @@ namespace State
     */
     void Playing_State::input(const sf::Event& e)
     {
-        m_debugDisplay.checkInput(e);
+        m_debugDisplay.checkInput();
         m_world->input(e);
     }
 

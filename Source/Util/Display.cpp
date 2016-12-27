@@ -41,6 +41,8 @@ namespace Display
                                                     settings);
         window->setPosition ({0, 0});
         initGL(videoMode);
+
+        window->setVerticalSyncEnabled(true);
     }
 
     void clear()
@@ -104,6 +106,18 @@ namespace Display
             case sf::Event::Closed:
                 close();
                 return true;
+                break;
+
+            case sf::Event::KeyPressed:
+                switch(e.key.code)
+                {
+                    case sf::Keyboard::Escape:
+                        close();
+                        return true;
+                        break;
+                    default:
+                        break;
+                }
 
             default:
                 return false;

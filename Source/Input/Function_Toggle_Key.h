@@ -9,7 +9,7 @@ class Function_Toggle_Key
     public:
         Function_Toggle_Key(std::function<void(void)> f, sf::Keyboard::Key k, sf::Time seconds);
 
-        bool checkInput(const sf::Event& e);
+        bool checkInput();
 
     private:
         std::function<void(void)>   m_func;

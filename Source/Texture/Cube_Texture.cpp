@@ -31,6 +31,7 @@ Cube_Texture::~Cube_Texture()
     glDeleteTextures(1, &m_id);
 }
 
+
 void Cube_Texture::bind()
 {
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_id);
