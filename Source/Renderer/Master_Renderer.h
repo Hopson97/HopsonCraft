@@ -11,6 +11,7 @@
 #include "Water_Renderer.h"
 #include "Flora_Renderer.h"
 #include "SFML_Renderer.h"
+#include "Skybox_Renderer.h"
 
 class Chunk;
 class Entity;
@@ -31,21 +32,22 @@ class Master_Renderer
         void draw (const Chunk& chunk);
         void draw (const sf::Drawable& sfDrawable);
 
-        void update (const Entity& Entity);
+        void update (const Camera& camera);
 
         void addPostFX(Post_FX postFx);
 
     private:
-        void drawScene(const Entity& Entity);
+        void drawScene(const Camera& camera);
 
         void drawToQuad();
 
         std::vector<Shader::Screen_Shader*> m_postFXPasses;
 
-        Solid_Block_Renderer m_chunkRenderer;
-        Water_Renderer m_waterRenderer;
-        Flora_Renderer m_floraRenderer;
-        SFML_Renderer  m_sfmlRenderer;
+        Solid_Block_Renderer    m_chunkRenderer;
+        Water_Renderer          m_waterRenderer;
+        Flora_Renderer          m_floraRenderer;
+        SFML_Renderer           m_sfmlRenderer;
+        Skybox_Renderer         m_skyboxRenderer;
 
         Framebuffer_Object m_framebuffer;
 

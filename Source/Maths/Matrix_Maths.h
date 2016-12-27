@@ -4,6 +4,7 @@
 #include "../OpenGL/GL_Maths.h"
 
 class Entity;
+class Camera;
 
 namespace Maths
 {
@@ -17,7 +18,7 @@ namespace Maths
     *   The matrix makes all verticies in the world transform
     *   relative to the player's position
     */
-    Matrix4 createViewMatrix    (const Entity& camera);
+    Matrix4 createViewMatrix    (const Camera& camera);
 
     /**
     *  @brief  Generates a transformation matrix

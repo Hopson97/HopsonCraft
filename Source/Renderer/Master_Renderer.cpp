@@ -58,7 +58,7 @@ void Master_Renderer::draw(const sf::Drawable& sfDrawable)
     m_sfmlRenderer.addSfDrawable(sfDrawable);
 }
 
-void Master_Renderer::update (const Entity& camera)
+void Master_Renderer::update (const Camera& camera)
 {
     //Draw the scene (to the FBO)
     glEnable    (GL_DEPTH_TEST);
@@ -111,11 +111,13 @@ void Master_Renderer::drawToQuad()
                    nullptr);
 }
 
-void Master_Renderer::drawScene(const Entity& camera)
+void Master_Renderer::drawScene(const Camera& camera)
 {
     m_framebuffer.bindFramebuffer();
 
     m_chunkRenderer.render  (camera);
     m_waterRenderer.render  (camera);
     m_floraRenderer.render  (camera);
+
+    m_skyboxRenderer.render(camera);
 }

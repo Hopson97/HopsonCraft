@@ -15,7 +15,7 @@ uniform mat4 projectionMatrix;
 uniform float time;
 
 //Fog
-const float density     = 0.0025;
+const float density     = 0.00325;
 const float gradient    = 5.00;
 
 void calculateFog (vec4 vertRelToCamera)

@@ -5,10 +5,11 @@
 #include "../Play_Settings.h"
 
 #include "../Entity/Entity.h"
+#include "../Camera.h"
 
 namespace Maths
 {
-    Matrix4 createViewMatrix (const Entity& camera)
+    Matrix4 createViewMatrix (const Camera& camera)
     {
         Matrix4  viewMatrix;
         viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.x), {1, 0, 0});

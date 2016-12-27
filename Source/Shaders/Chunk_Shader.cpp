@@ -16,7 +16,7 @@ namespace Shader
         glUseProgram(0);
     }
 
-    void Chunk_Shader::loadCameraMatrix(const Entity& camera) const
+    void Chunk_Shader::loadCameraMatrix(const Camera& camera) const
     {
         loadMatrix4(m_locationViewMatrix, Maths::createViewMatrix(camera));
     }

@@ -22,7 +22,7 @@ class Chunk_Renderer
                 m_chunks.push_back(&chunk);
         }
 
-        void render (const Entity& camera)
+        void render (const Camera& camera)
         {
             m_shader.useProgram();
             m_shader.loadCameraMatrix(camera);
