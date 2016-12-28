@@ -21,7 +21,11 @@ obj/
 Project/
 MattCraft/
 old/
+build/
 
 #Test Worlds
 Test\ World/
 Terrain_
+
+#Exe
+game

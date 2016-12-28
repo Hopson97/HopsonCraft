@@ -7,6 +7,7 @@
 
 namespace GUI
 {
+    /*
     Imaged_Button::Imaged_Button(const std::string& name, const std::string& text,
                                  std::function<void(void)>function)
     : m_function  (function)
@@ -75,4 +76,5 @@ namespace GUI
     {
         return m_quad.getSize();
     }
+    */
 }

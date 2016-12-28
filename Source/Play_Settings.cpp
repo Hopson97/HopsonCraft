@@ -3,6 +3,12 @@
 #include <fstream>
 #include <iostream>
 
+const float Settings::NEAR_PLANE  = 0.01;
+const float Settings::FAR_PLANE   = 1000;
+
+const float Settings::SKY_RED     = 0.12;
+const float Settings::SKY_GREEN   = 0.56;
+const float Settings::SKY_BLUE    = 1;
 
 namespace Settings
 {
@@ -11,6 +17,7 @@ namespace Settings
 
     uint32_t getRenderDistance()
     {
+        //std::cout << renderDistance << std::endl;
         return renderDistance;
     }
 

@@ -27,12 +27,12 @@ namespace Settings
     uint32_t    getRenderDistance();
     float       getFOV();
 
-    constexpr static float NEAR_PLANE  = 0.01;
-    constexpr static float FAR_PLANE   = 1000;
+    extern const float NEAR_PLANE;
+    extern const float FAR_PLANE;
 
-    constexpr static float SKY_RED     = 0.12;
-    constexpr static float SKY_GREEN   = 0.56;
-    constexpr static float SKY_BLUE    = 1;
+    extern const float SKY_RED;
+    extern const float SKY_GREEN;
+    extern const float SKY_BLUE;
 };
 
 #endif // PLAY_SETTINGS_H

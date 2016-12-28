@@ -5,7 +5,7 @@
 #include "../D_Settings.h"
 
 namespace GUI
-{
+{/*
     Button::Button(const std::string& text,
                    std::function<void(void)> function)
     :   m_function  (function)
@@ -60,5 +60,5 @@ namespace GUI
         return m_quad.getSize();
     }
 
-
+*/
 }
