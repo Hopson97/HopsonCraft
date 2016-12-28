@@ -17,7 +17,7 @@ Chunk_Blocks::Chunk_Blocks(const Chunk& chunk,
 { }
 
 void Chunk_Blocks::setBlock(const Block_Location& location,
-                            const Block::Block_Type& block,
+                            uint8_t block,
                             bool overrideBlocks)
 {
     if ( location.x < 0 )           return;
@@ -30,7 +30,7 @@ void Chunk_Blocks::setBlock(const Block_Location& location,
 }
 
 void Chunk_Blocks::qSetBlock(const Block_Location& location,
-                             const Block::Block_Type& block,
+                             uint8_t block,
                              bool overrideBlocks)
 {
     if ((unsigned)location.y > m_layers.size() - 1) addLayers(location.y);
@@ -43,9 +43,9 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
     if (m_layers[location.y].getBlock(location.x, location.z).getData().getID() == Block::ID::Air || overrideBlocks)
     {
         if (m_p_chunk->hasBlockData())
-            m_addedBlocks[location] = (uint32_t)(block.getData().getID());
+            m_addedBlocks[location] = block;
 
-        m_layers[location.y].setBlock(location.x, location.z, block);
+        m_layers[location.y].setBlock(location.x, location.z, Block::get(block));
     }
 }
 
@@ -82,13 +82,13 @@ const Block::Block_Type& Chunk_Blocks::getBlock (const Block_Location& location)
     return Block::air;    //This is for world edges
 }
 
-void Chunk_Blocks::addBlock(const Block_Location& location, int block)
+void Chunk_Blocks::addBlock(const Block_Location& location, uint8_t block)
 {
     m_addedBlocks.insert(std::make_pair(location, block));
 }
 
 
-const std::unordered_map<Block_Location, int>& Chunk_Blocks::getAddedBlocks() const
+const std::unordered_map<Block_Location, uint8_t>& Chunk_Blocks::getAddedBlocks() const
 {
     return m_addedBlocks;
 }

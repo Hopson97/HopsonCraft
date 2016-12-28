@@ -21,18 +21,18 @@ class Chunk_Blocks
                      Chunk_Map& chunkMap);
 
         void setBlock   (const Block_Location& location,
-                         const Block::Block_Type& block,
+                         uint8_t block,
                          bool overrideBlocks = true);
 
         void qSetBlock  (const Block_Location& location,
-                         const Block::Block_Type& block,
+                         uint8_t block,
                          bool overrideBlocks = true);
 
         const Block::Block_Type& getBlock (const Block_Location& location) const;
 
 
-        void addBlock(const Block_Location& location, int block);
-        const std::unordered_map<Block_Location, int>& getAddedBlocks() const;
+        void addBlock(const Block_Location& location, uint8_t block);
+        const std::unordered_map<Block_Location, uint8_t>& getAddedBlocks() const;
 
         size_t getLayerCount() const;
 
@@ -54,7 +54,7 @@ class Chunk_Blocks
         Chunk_Map* m_p_chunkMap;
 
         std::vector<Chunk_Layer> m_layers;
-        std::unordered_map<Block_Location, int> m_addedBlocks;
+        std::unordered_map<Block_Location, uint8_t> m_addedBlocks;
 
         std::vector<int> m_maxHeights;
 };

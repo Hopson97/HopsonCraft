@@ -55,7 +55,7 @@ void Chunk::addBlock( const Block_Location& location,
         m_updatableBlocks[location]->setChunk(*this);
     }
 
-    m_blocks.setBlock(location, block, overrideBlocks);
+    m_blocks.setBlock(location, (uint8_t)block.getData().getID(), overrideBlocks);
 }
 
 bool Chunk::tick()
@@ -230,7 +230,7 @@ void Chunk::saveToFile(const std::string& worldName)
             const Block_Location& l = block.first;
 
             outFile << l.x << " " << l.y << " " << l.z << " ";  //Block location
-            outFile << block.second << std::endl;               //Block ID
+            outFile << (uint32_t)block.second << std::endl;     //Block ID
         }
     }
 }
@@ -244,8 +244,9 @@ void Chunk::loadBlockData (const std::string& worldName)
 
     int x,
         z,
-        y,
-        id;
+        y;
+
+    int id;
 
     while(inFile.peek() != EOF)
     {
@@ -255,11 +256,7 @@ void Chunk::loadBlockData (const std::string& worldName)
 
     for (auto& block : m_blocks.getAddedBlocks())
     {
-        int idNum = block.second;
-        Block::ID id = static_cast<Block::ID>(idNum);
-
-
-        m_blocks.qSetBlock(block.first, Block::get(id));
+        m_blocks.qSetBlock(block.first, (uint8_t)block.second);
     }
 
     //upda

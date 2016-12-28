@@ -114,6 +114,7 @@ void World::blockEdit(const Vector3& lastRayPos, const Vector3& rayPos)
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         m_chunkMap.setBlock(Block::air, rayPos);
+        //m_chunkMap.makeExplosion(rayPos, 200);
     }
     else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
