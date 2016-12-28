@@ -61,7 +61,6 @@ void Player::update(float dt, Camera& camera, Chunk_Map& chunkMap)
     if (!m_isOnGround)
         m_velocity.y -= 10 * dt;
 
-    collision(chunkMap, dt);
     m_camera.position += m_velocity * dt;
 
     m_velocity *= 0.95;
