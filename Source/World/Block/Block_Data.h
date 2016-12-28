@@ -27,7 +27,7 @@ namespace Block
             const Vector2& getTextureSide   () const;
             const Vector2& getTextureBottom () const;
 
-            bool isOpaque () const;
+
 
             int getBlastRestistance() const;
 
@@ -36,6 +36,10 @@ namespace Block
 
             bool canBePlacedOn  (const Block_Data& block) const;
             bool isUpdatable    () const;
+            bool isOpaque       () const;
+            bool isFullBlock    () const;
+
+            float getHeight     () const;
 
         private:
             void loadFromFile();
@@ -50,6 +54,9 @@ namespace Block
 
             bool m_isOpaque     = false;
             bool m_isUpdatable  = false;
+            bool m_isFullBlock  = true;
+
+            float m_height      = 1.0f;
 
             int m_blastRestistance = 0; //The "power" from a blast must be greater than this
 

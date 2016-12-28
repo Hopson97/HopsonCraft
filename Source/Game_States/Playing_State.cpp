@@ -97,7 +97,7 @@ namespace State
         //UnderWater
         {
             //Get player position
-            auto& wp    = m_world->getPlayer().getCamera().position;
+            auto& wp    = m_world->getPlayer().position;
             auto bp     = Maths::worldToBlockPosition(wp);
             auto cp     = Maths::worldToChunkPosition(wp);
 

@@ -29,7 +29,6 @@ vec4 getWorldPosition()
 {
     vec4 worldPosition = modelMatrix * vec4 ( vertexPosition, 1.0f );
 
-    worldPosition.y -= 0.2;
     worldPosition.y += sin((time + worldPosition.z) * 2.5) / 8.8f;
     worldPosition.y += cos((time + worldPosition.x) * 2.5) / 8.8f;
 

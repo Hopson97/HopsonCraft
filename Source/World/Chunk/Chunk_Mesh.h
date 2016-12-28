@@ -74,6 +74,8 @@ class Chunk_Mesh
         const Chunk_Blocks* m_p_chunkBlocks;
 
         Chunk_Mesh_Part* m_activePart;
+
+        float m_bh;
 };
 
 #endif // CHUNK_MESH_H

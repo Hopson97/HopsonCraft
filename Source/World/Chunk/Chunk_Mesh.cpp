@@ -162,6 +162,7 @@ Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getPart(const Block::Block_Data& block)
 void Chunk_Mesh::addBlockMesh (float x, float y, float z, const Block::Block_Data& block)
 {
     m_activePart = &getPart(block);
+    m_bh = block.getHeight();
 
     if (block.getMeshType() == Block::Mesh_Type::X_Style)
     {
@@ -201,12 +202,12 @@ bool Chunk_Mesh::shouldMakeMesh(int x, int y, int z, const Block::Block_Data& bl
 {
     Block_Location location(x, y, z); //This is so it does not construct this object 3 times, but rather just once.
     auto& b = m_p_chunk->getBlocks().getBlock(location).getData();
+    auto id = b.getID();
 
-    return      ( b.getID() == Block::ID::Air) ||
-                (!b.isOpaque() &&
-                  b.getID() != block.getID()) ||
-                ( b.getPhysicalState() == Block::Physical_State::Flora &&
-                  b.getID() != block.getID());
+    return      ( id == Block::ID::Air) ||
+                (!b.isOpaque()                                          && id != block.getID()) ||
+                ( b.getPhysicalState() == Block::Physical_State::Flora  && id != block.getID()) ||
+                (!b.isFullBlock()                                       && id != block.getID());
 }
 
 
@@ -222,10 +223,10 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
-        x,      y + 1, z + 1,   //Front-Left
-        x + 1,  y + 1, z + 1,   //Front-Right
-        x + 1,  y + 1, z,       //Back-Right
-        x,      y + 1, z,       //Back-Left
+        x,      y + m_bh, z + 1,   //Front-Left
+        x + 1,  y + m_bh, z + 1,   //Front-Right
+        x + 1,  y + m_bh, z,       //Back-Right
+        x,      y + m_bh, z,       //Back-Left
     });
 /*
     bool v1s1 = m_p_chunk.getBlocks().getBlock({x - 1, y + 1, z     ).getData().isOpaque();
@@ -254,10 +255,10 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Bloc
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
-        x, y,       z,
-        x, y,       z + 1,
-        x, y + 1,   z + 1,
-        x, y + 1,   z,
+        x, y,           z,
+        x, y,           z + 1,
+        x, y + m_bh,    z + 1,
+        x, y + m_bh,    z,
     });
 
     finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
@@ -267,10 +268,10 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
-        x + 1, y,       z + 1,
-        x + 1, y,       z,
-        x + 1, y + 1,   z,
-        x + 1, y + 1,   z + 1,
+        x + 1, y,           z + 1,
+        x + 1, y,           z,
+        x + 1, y + m_bh,    z,
+        x + 1, y + m_bh,    z + 1,
     });
 
     finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
@@ -280,10 +281,10 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
-        x,      y,      z + 1,
-        x + 1,  y,      z + 1,
-        x + 1,  y + 1,  z + 1,
-        x,      y + 1,  z + 1,
+        x,      y,          z + 1,
+        x + 1,  y,          z + 1,
+        x + 1,  y + m_bh,   z + 1,
+        x,      y + m_bh,   z + 1,
     });
 
     finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
@@ -293,10 +294,10 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Bloc
 {
     m_activePart->vertexCoords.insert(m_activePart->vertexCoords.end(),
     {
-        x + 1,  y,      z,
-        x,      y,      z,
-        x,      y + 1,  z,
-        x + 1,  y + 1,  z,
+        x + 1,  y,          z,
+        x,      y,          z,
+        x,      y + m_bh,   z,
+        x + 1,  y + m_bh,   z,
     });
 
     finishBlockFace(block.getTextureSide(), Light_Value::SIDE);

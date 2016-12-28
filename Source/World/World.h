@@ -43,10 +43,9 @@ class World
 
         void loadWorldFile();
 
-        std::shared_ptr<Player> m_player;
-        Chunk_Location  m_playerLocation;
-
         std::string     m_name;
+
+        Player          m_player;
         Chunk_Map       m_chunkMap;
         Crosshair       m_crosshair;
         uint32_t        m_seed;

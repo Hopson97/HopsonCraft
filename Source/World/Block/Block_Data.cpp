@@ -76,6 +76,17 @@ namespace Block
         return m_isUpdatable;
     }
 
+    bool Block_Data::isFullBlock() const
+    {
+        return m_isFullBlock;
+    }
+
+    float Block_Data::getHeight() const
+    {
+        return m_height;
+    }
+
+
     /*
         Every block has its constant data loaded from a file.
     */
@@ -142,6 +153,11 @@ namespace Block
             else if (line == "upt")
             {
                 inFile >> m_isUpdatable;
+            }
+            else if (line == "height")
+            {
+                m_isFullBlock = false;
+                inFile >> m_height;
             }
             else if (line == "") continue;
             else

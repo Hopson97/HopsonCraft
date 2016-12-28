@@ -24,36 +24,28 @@
 
 World::World(uint32_t seed,
              const std::string& name)
-:   m_player            (std::make_shared<Player>())
-,   m_playerLocation    (Maths::worldToChunkPosition(m_player->getCamera().position))
-,   m_name              (name)
-,   m_chunkMap          (m_playerLocation, name, seed)
+:   m_name              (name)
+,   m_player            (m_chunkMap)
+,   m_chunkMap          (m_player.getChunkLocation(), name, seed)
 ,   m_seed              (seed)
 {
     loadWorldFile();
-
-    //m_entities.push_back(m_player);
 }
 
 void World::input(const sf::Event& e)
 {
-    m_player->input(e);
+    m_player.input(e);
 }
 
 void World::input()
 {
-    m_player->input();
     blockRayHit();
 }
 
 void World::update(float dt, Camera& camera)
 {
-    m_player->update(dt, camera, m_chunkMap);
-
-    auto& position      = m_player->getCamera().position;
-    m_playerLocation    = Maths::worldToChunkPosition(position);
-
-    Debug_Display::addPlayerPosition(position);
+    m_player.input(camera);
+    m_player.update(dt);
 
     m_chunkMap.checkChunks();//This must be the last thing to happen in the update function here!
 }
@@ -72,10 +64,10 @@ void World::drawXHair(Master_Renderer& renderer)
 void World::blockRayHit()
 {
     static sf::Clock blockEditTimer;
-    auto& rotation    = m_player->getCamera().rotation;
-    auto& position    = m_player->getCamera().position;
+    auto& rotation    = m_player.rotation;
+    auto& position    = m_player.position;
 
-    auto lastRayPos  = m_player->getCamera().position;
+    auto lastRayPos  = m_player.position;
 
 
     Maths::Ray ray(rotation.y + 90,
@@ -127,7 +119,7 @@ void World::blockEdit(const Vector3& lastRayPos, const Vector3& rayPos)
                 break;
 
             case Block::Interaction_Type::None:
-                m_chunkMap.setBlock(m_player->getBlock(), lastRayPos);
+                m_chunkMap.setBlock(m_player.getBlock(), lastRayPos);
                 break;
         }
     }
@@ -143,7 +135,7 @@ void World::loadWorldFile()
         {
             int x, y, z;
             inFile >> x >> y >> z;
-            m_player->setPosition({x + 0.5,
+            m_player.setPosition({x + 0.5,
                                   y,            //Offset by 0.5 as the exact numbers put the player on a block corner
                                   z + 0.5});
         }
@@ -154,7 +146,7 @@ void World::save() const
 {
     m_chunkMap.saveChunks();
 
-    auto& position = m_player->getCamera().position;
+    auto& position = m_player.position;
 
     std::ofstream outFile ("Worlds/" + m_name + "/World_Info.data");
     std::cout << "Worlds/" << m_name << "/World_Info.data" << std::endl;
@@ -174,7 +166,7 @@ const Chunk_Map& World::getChunkMap() const
 
 const Player& World::getPlayer() const
 {
-    return *m_player;
+    return m_player;
 }
 
 

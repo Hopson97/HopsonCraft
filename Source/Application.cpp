@@ -7,6 +7,7 @@
 #include <string>
 #include <ctime>
 #include <stdexcept>
+#include <chrono>
 
 #include "Game_States/Playing_State.h"
 #include "Game_States/Menu_State.h"
@@ -45,11 +46,11 @@ Application::~Application()
 void Application::runMainLoop()
 {
     sf::Clock dtClock;
-    sf::Clock updateClock;
 
     while (Display::isOpen())
     {
         auto dt = dtClock.restart().asSeconds();
+
         sf::Event e;
         while (Display::get().pollEvent(e))
         {
@@ -59,16 +60,13 @@ void Application::runMainLoop()
         }
         if (!Display::isOpen()) break;
 
-        m_stateStack.top()->input   ();
-        //if (updateClock.getElapsedTime().asSeconds() > 0.05)
-        {
-            m_stateStack.top()->update  (dt, m_camera);
-            //updateClock.restart();
-        }
-        m_stateStack.top()->draw    (dt, m_renderer);
+        m_stateStack.top()->input ();
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::F5))
-            takeScreenshot();
+        {
+            m_stateStack.top()->update (dt, m_camera);
+        }
+
+        m_stateStack.top()->draw (dt, m_renderer);
 
         m_renderer.clear();
         m_renderer.update(m_camera);

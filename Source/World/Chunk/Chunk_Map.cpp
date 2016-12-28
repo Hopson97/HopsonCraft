@@ -30,7 +30,7 @@ struct Area
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition,
                      const std::string& worldName,
                      uint32_t seed)
-:   m_blockTextures     (1024, 16, "Block_Atlas")
+:   m_blockTextures     (1024, 32, "HD")
 ,   m_playerPosition    (&playerPosition)
 ,   m_worldName         (worldName)
 ,   m_worldSeed         (seed)

@@ -8,6 +8,7 @@
 
 struct Chunk_Location
 {
+    Chunk_Location() = default;
     Chunk_Location (int x, int z);
 
     int x = 0;

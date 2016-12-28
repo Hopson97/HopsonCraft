@@ -13,31 +13,26 @@
 
 #include "../Input/Key_Binds.h"
 
-Player::Player()
-:   m_p_heldBlock (&Block::grass)
+#include "../Maths/Position_Converter_Maths.h"
+
+Player::Player(Chunk_Map& chunkMap)
+:   m_p_heldBlock   (&Block::grass)
+,   m_p_chunkMap    (&chunkMap)
+,   m_chunkLocation (Maths::worldToChunkPosition(position))
 {
-    m_camera.position = {20000, 250, 20000};
+    position = {20000, 250, 20000};
     Debug_Display::addheldBlock (*m_p_heldBlock);
 }
 
-
-/**
-
-*/
-const Camera& Player::getCamera() const
+const Chunk_Location& Player::getChunkLocation() const
 {
-    return m_camera;
+    return m_chunkLocation;
 }
 
-
-/**
-
-*/
 void Player::setPosition(const Vector3& position)
 {
-    m_camera.position = position;
+    this->position = position;
 }
-
 
 void Player::input (const sf::Event& e)
 {
@@ -50,24 +45,22 @@ void Player::input (const sf::Event& e)
     }
 }
 
-void Player::input()
+void Player::input(Camera& camera)
 {
-    m_velocity += m_camera.keyboardInput(SPEED);
-    m_camera.mouseInput();
+    addForce(camera.keyboardInput(SPEED));
+    camera.mouseInput();
+
+    //hax
+    camera.position = position;
+    rotation = camera.rotation;
 }
 
-void Player::update(float dt, Camera& camera, Chunk_Map& chunkMap)
+void Player::onUpdate(float dt)
 {
-    if (!m_isOnGround)
-        m_velocity.y -= 10 * dt;
-
-    m_camera.position += m_velocity * dt;
-
-    m_velocity *= 0.95;
-    camera = m_camera;
-
-    Debug_Display::addLookVector(camera.rotation);
+    m_chunkLocation = Maths::worldToChunkPosition(position);
+    Debug_Display::addLookVector(rotation);
     Debug_Display::addheldBlock (*m_p_heldBlock);
+    Debug_Display::addPlayerPosition(position);
 }
 
 
