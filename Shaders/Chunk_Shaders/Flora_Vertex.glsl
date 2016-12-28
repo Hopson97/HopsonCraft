@@ -28,8 +28,8 @@ vec4 getWorldPosition()
 {
     vec4 worldPosition = modelMatrix * vec4 ( vertexPosition, 1.0f );
 
-    worldPosition.x += sin((time + worldPosition.z + worldPosition.y) * 1.8) / 15f;
-    worldPosition.z -= cos((time + worldPosition.x + worldPosition.y) * 1.8) / 15f;
+    worldPosition.x += sin((time + worldPosition.z + worldPosition.y) * 1.8) / 15.0f;
+    worldPosition.z -= cos((time + worldPosition.x + worldPosition.y) * 1.8) / 15.0f;
 
     return worldPosition;
 }

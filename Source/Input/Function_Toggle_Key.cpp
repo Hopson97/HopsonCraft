@@ -1,4 +1,4 @@
-#include "function_toggle_key.h"
+#include "Function_Toggle_Key.h"
 
 Function_Toggle_Key::Function_Toggle_Key (std::function<void(void)> func, sf::Keyboard::Key key, sf::Time seconds)
 :   m_func          (func)

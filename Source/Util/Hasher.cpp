@@ -1,6 +1,7 @@
 #include "Hasher.h"
 
 #include <algorithm>
+#include <functional>
 
 namespace Hasher
 {
