@@ -94,21 +94,30 @@ namespace State
     */
     void Playing_State::tryAddPostFX(Master_Renderer& renderer)
     {
-        //Get player position
-        auto& wp    = m_world->getPlayer().getCamera().position;
-        auto bp     = Maths::worldToBlockPosition(wp);
-        auto cp     = Maths::worldToChunkPosition(wp);
-
-        const Chunk* chunk = m_world->getChunkMap().getChunkAt(cp);
-
-        if (chunk)
+        //UnderWater
         {
-           //Player underwater
-           if (chunk->getBlocks().getBlock(bp).getData().getID() == Block::ID::Water)
-           {
-              // renderer.addPostFX(Post_FX::Blue);
-               renderer.addPostFX(Post_FX::Blur);
-           }
+            //Get player position
+            auto& wp    = m_world->getPlayer().getCamera().position;
+            auto bp     = Maths::worldToBlockPosition(wp);
+            auto cp     = Maths::worldToChunkPosition(wp);
+
+            const Chunk* chunk = m_world->getChunkMap().getChunkAt(cp);
+
+            if (chunk)
+            {
+               //Player underwater
+               if (chunk->getBlocks().getBlock(bp).getData().getID() == Block::ID::Water)
+               {
+                  // renderer.addPostFX(Post_FX::Blue);
+                   renderer.addPostFX(Post_FX::Blur);
+               }
+            }
+        }
+
+        //Pause blur
+        if (m_isPaused)
+        {
+            renderer.addPostFX(Post_FX::Blur);
         }
     }
 

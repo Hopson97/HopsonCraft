@@ -18,20 +18,6 @@ namespace State
 {
     class Playing_State : public Game_State
     {
-        enum class PS_State //Playing State State xD
-        {
-            Play,
-            Pause,
-        };
-
-        enum class RenderDistance
-        {
-            Tiny = 3,
-            Small = 8,
-            Medium = 15,
-            Far = 20,
-        };
-
         public:
             Playing_State  (Application& application,
                             const std::string& worldName,
@@ -63,6 +49,8 @@ namespace State
             std::vector<std::string> m_worldFileNames;
 
             std::unique_ptr<World> m_world;
+
+            bool m_isPaused = false;
     };
 }
 

@@ -31,7 +31,7 @@ Vector3 Camera::keyboardInput(float speed)
         speed * 10.0 :
         speed;
 
-    auto yaw = rotation.y;
+    auto yaw = glm::radians(rotation.y);
 
     if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
