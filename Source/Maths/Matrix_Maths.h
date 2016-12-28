@@ -21,6 +21,7 @@ namespace Maths
     Matrix4 createViewMatrix    (const Camera& camera);
 
     Matrix4 createViewRotationMatrix    (const Camera& camera);
+    Matrix4 createViewTranslationMatrix (const Camera& camera);
 
     /**
     *  @brief  Generates a transformation matrix

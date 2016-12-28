@@ -42,7 +42,7 @@ namespace Display
         window->setPosition ({0, 0});
         initGL(videoMode);
 
-        window->setVerticalSyncEnabled(true);
+        //window->setVerticalSyncEnabled(true);
     }
 
     void clear()

@@ -1,12 +1,12 @@
 #version 330 core
 
-in vec3 passTextureCoords;
+in vec2 passTextureCoords;
 
 out vec4 outColour;
 
-uniform samplerCube cubeMap;
+uniform sampler2D screenTexture;
 
 void main()
 {
-     outColour = texture(cubeMap, passTextureCoords);
+    outColour = texture(screenTexture, passTextureCoords);
 }

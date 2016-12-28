@@ -20,11 +20,11 @@ namespace
 }
 
 void Camera::mouseInput()
-{/*
+{
     lock.checkInput();
     if (locked)
         return;
-*/
+
     static sf::Vector2i lastMousePos;
     auto mouseMove = lastMousePos - sf::Mouse::getPosition();
 

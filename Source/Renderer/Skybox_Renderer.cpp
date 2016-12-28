@@ -8,83 +8,37 @@
 
 namespace
 {
-    constexpr GLfloat SIZE = 5.0f;
+    constexpr GLfloat SIZE = 15000.0f;
+    constexpr GLfloat DIST = 500.0f;
 
     std::vector<GLfloat> vertexPositions =
     {
-        //Back
-        SIZE, -SIZE, -SIZE,
-        -SIZE, -SIZE, -SIZE,
-        -SIZE, SIZE, -SIZE,
-        SIZE, SIZE, -SIZE,
+         SIZE, -SIZE, -DIST,
+         SIZE,  SIZE, -DIST,
+        -SIZE,  SIZE, -DIST,
+        -SIZE, -SIZE, -DIST,
+    };
 
-        //Right-Side
-        SIZE, -SIZE, SIZE,
-        SIZE, -SIZE, -SIZE,
-        SIZE, SIZE, -SIZE,
-        SIZE, SIZE, SIZE,
-
-        //Front
-        -SIZE, -SIZE, SIZE,
-        SIZE, -SIZE, SIZE,
-        SIZE, SIZE, SIZE,
-        -SIZE, SIZE, SIZE,
-
-        //Left
-        -SIZE, -SIZE, -SIZE,
-        -SIZE, -SIZE, SIZE,
-        -SIZE, SIZE, SIZE,
-        -SIZE, SIZE, -SIZE,
-
-        //Top
-        -SIZE, SIZE, SIZE,
-        SIZE, SIZE, SIZE,
-        SIZE, SIZE, -SIZE,
-        -SIZE, SIZE, -SIZE,
-
-        //Bottom
-        -SIZE, -SIZE, -SIZE,
-        SIZE, -SIZE, -SIZE,
-        SIZE, -SIZE, SIZE,
-        -SIZE, -SIZE, SIZE
+    std::vector<GLfloat> quadTextureCoords =
+    {
+        1, 0,
+        1, 1,
+        0, 1,
+        0, 0,
     };
 
     std::vector<GLuint> indices =
     {
         0, 1, 2,
-        2, 3, 0,
-
-        4, 5, 6,
-        6, 7, 4,
-
-        8, 9, 10,
-        10, 1, 8,
-
-        12, 13, 14,
-        14, 15, 12,
-
-        16, 17, 18,
-        18, 19, 16,
-
-        20, 21, 22,
-        22, 23, 20
+        2, 3, 0
     };
 }
 
-std::vector<std::string> files =
-{
-    "Data/Images/Skybox/right.png",
-    "Data/Images/Skybox/left.png",
-    "Data/Images/Skybox/top.png",
-    "Data/Images/Skybox/bottom.png",
-    "Data/Images/Skybox/back.png",
-    "Data/Images/Skybox/front.png"
-};
 
 Skybox_Renderer::Skybox_Renderer()
-:   m_texture(files)
+:   m_texture("Sky")
 {
-    m_model.addData(vertexPositions, {}, indices);
+    m_model.addData(vertexPositions, quadTextureCoords, indices);
 }
 
 

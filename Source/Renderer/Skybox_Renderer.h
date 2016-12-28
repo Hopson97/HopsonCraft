@@ -3,7 +3,7 @@
 
 #include "../Model/Model.h"
 #include "../Shaders/Skybox_Shader.h"
-#include "../Texture/Cube_Texture.h"
+#include "../Texture/Texture.h"
 
 class Camera;
 
@@ -16,7 +16,7 @@ class Skybox_Renderer
 
     private:
         Model                   m_model;
-        Cube_Texture            m_texture;
+        Texture                 m_texture;
         Shader::Skybox_Shader   m_shader;
 };
 

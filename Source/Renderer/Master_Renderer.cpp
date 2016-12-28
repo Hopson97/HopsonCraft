@@ -119,5 +119,5 @@ void Master_Renderer::drawScene(const Camera& camera)
     m_waterRenderer.render  (camera);
     m_floraRenderer.render  (camera);
 
-    m_skyboxRenderer.render(camera);
+    //m_skyboxRenderer.render(camera);
 }
