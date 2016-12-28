@@ -38,8 +38,6 @@ class Player
 
         void changeBlock (int increment);
 
-        void collision(Chunk_Map& chunkMap, float dt);
-
         Vector3 m_velocity;
         const Block::Block_Type* m_p_heldBlock;
 

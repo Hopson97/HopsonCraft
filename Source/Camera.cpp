@@ -6,6 +6,8 @@
 
 #include "Util/Display.h"
 #include "Input/Function_Toggle_Key.h"
+#include "Input/Key_Binds.h"
+#include "Maths/General_Maths.h"
 
 namespace
 {
@@ -13,11 +15,58 @@ namespace
     static Function_Toggle_Key lock([&]()
     {
         locked = !locked;
-        std::cout << "PL" << std::endl;
     },
     sf::Keyboard::L,
     sf::seconds(1.5));
 }
+
+Vector3 Camera::keyboardInput(float speed)
+{
+    if (locked)
+        return {0, 0, 0};
+    //Speed variables
+
+    Vector3 change;
+    auto acc = sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ?
+        speed * 10.0 :
+        speed;
+
+    auto yaw = rotation.y;
+
+    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
+    {
+        change.x -= cos (yaw + Maths::PI / 2) * acc;
+        change.z -= sin (yaw + Maths::PI / 2) * acc;
+    }
+    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Back)))
+    {
+        change.x += cos (yaw + Maths::PI / 2) * acc;
+        change.z += sin (yaw + Maths::PI / 2) * acc;
+    }
+    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Right)))
+    {
+        change.x += cos (yaw) * acc;
+        change.z += sin (yaw) * acc;
+    }
+    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Left)))
+    {
+        change.x -= cos (yaw) * acc;
+        change.z -= sin (yaw) * acc;
+    }
+
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+    {
+        change.y -= acc;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        change.y += acc;
+    }
+
+    return change;
+}
+
 
 void Camera::mouseInput()
 {

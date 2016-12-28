@@ -39,9 +39,6 @@ void Player::setPosition(const Vector3& position)
 }
 
 
-/**
-
-*/
 void Player::input (const sf::Event& e)
 {
     if (e.type == sf::Event::KeyPressed)
@@ -53,25 +50,16 @@ void Player::input (const sf::Event& e)
     }
 }
 
-
-/**
-
-*/
 void Player::input()
 {
-    translationInput ();
+    m_velocity += m_camera.keyboardInput(SPEED);
     m_camera.mouseInput();
 }
 
-
-/**
-
-*/
 void Player::update(float dt, Camera& camera, Chunk_Map& chunkMap)
 {
     if (!m_isOnGround)
         m_velocity.y -= 10 * dt;
-   // m_isOnGround = false;
 
     collision(chunkMap, dt);
     m_camera.position += m_velocity * dt;
@@ -84,90 +72,11 @@ void Player::update(float dt, Camera& camera, Chunk_Map& chunkMap)
 }
 
 
-/**
-
-*/
 const Block::Block_Type& Player::getBlock() const
 {
     return *m_p_heldBlock;
 }
 
-
-/**
-
-*/
-void Player::translationInput()
-{
-    Vector3 change;
-    auto yaw = glm::radians (m_camera.rotation.y);
-
-    walkingInput(change, yaw);
-    upDownInput(change);
-
-    m_velocity += change;
-}
-
-
-/**
-
-*/
-void Player::walkingInput(Vector3& change, float yaw)
-{
-    //Speed variables
-    float acc;
-    sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ?
-        acc = SPEED * 10 :
-        acc = SPEED;
-
-    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
-    {
-        change.x -= cos (yaw + Maths::PI / 2) * acc;
-        change.z -= sin (yaw + Maths::PI / 2) * acc;
-    }
-    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Back)))
-    {
-        change.x += cos (yaw + Maths::PI / 2) * acc;
-        change.z += sin (yaw + Maths::PI / 2) * acc;
-    }
-    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Right)))
-    {
-        change.x += cos (yaw) * acc;
-        change.z += sin (yaw) * acc;
-    }
-    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Left)))
-    {
-        change.x -= cos (yaw) * acc;
-        change.z -= sin (yaw) * acc;
-    }
-}
-
-
-/**
-
-*/
-void Player::upDownInput(Vector3& change)
-{
-    //Speed variables
-    float acc;
-    sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ?
-        acc = SPEED * 10 :
-        acc = SPEED;
-
-    //Up/ Down
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
-    {
-        change.y -= acc;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_isOnGround)
-    {
-        change.y += acc;
-        //m_isOnGround = false;
-    }
-}
-
-/**
-    Tempory way of switching blocks I guess
-*/
 void Player::changeBlock(int increment)
 {
     constexpr static auto BLOCK_TYPES = (uint32_t)(Block::ID::NUM_BLOCK_TYPES);
@@ -190,26 +99,4 @@ void Player::changeBlock(int increment)
 
     m_p_heldBlock = &Block::get(static_cast<Block::ID>(currId));
 }
-
-#include <iostream>
-/**
-
-*/
-void Player::collision(Chunk_Map& chunkMap, float dt)
-{
-/*
-    static auto width     = 0.3;
-    static auto height    = 1.5;
-    auto pos = m_camera.position + m_velocity;
-*/
-}
-
-
-
-
-
-
-
-
-
 

@@ -7,8 +7,9 @@
 class Camera : public Entity
 {
     public:
-        void mouseInput     ();
-        void movePosition   (const Vector3& amount);
+        Vector3 keyboardInput   (float speed);
+        void mouseInput         ();
+        void movePosition       (const Vector3& amount);
 
 };
 
