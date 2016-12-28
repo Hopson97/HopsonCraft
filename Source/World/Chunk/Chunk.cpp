@@ -259,8 +259,5 @@ void Chunk::loadBlockData (const std::string& worldName)
     {
         m_blocks.qSetBlock(block.first, (uint8_t)block.second);
     }
-
-    //upda
-
 }
 

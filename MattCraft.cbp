@@ -119,6 +119,7 @@
 		<Unit filename="Source/GUI/Image.h" />
 		<Unit filename="Source/GUI/Imaged_Button.cpp" />
 		<Unit filename="Source/GUI/Imaged_Button.h" />
+		<Unit filename="Source/GUI/Menus/Main_Menu.h" />
 		<Unit filename="Source/GUI/Panel.cpp" />
 		<Unit filename="Source/GUI/Panel.h" />
 		<Unit filename="Source/GUI/Panel_Section.h" />
@@ -135,6 +136,7 @@
 		<Unit filename="Source/Input/Key_Binds.cpp" />
 		<Unit filename="Source/Input/Key_Binds.h" />
 		<Unit filename="Source/Inventory/Inventory.h" />
+		<Unit filename="Source/Item/Item.h" />
 		<Unit filename="Source/Main.cpp" />
 		<Unit filename="Source/Maths/General_Maths.cpp" />
 		<Unit filename="Source/Maths/General_Maths.h" />

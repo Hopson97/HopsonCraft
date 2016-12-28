@@ -12,18 +12,28 @@ const float Settings::SKY_BLUE    = 1;
 
 namespace Settings
 {
-    uint32_t renderDistance = (uint32_t)Render_Distance::Normal;
-    uint32_t fov            = (uint32_t)Field_Of_Vision::Big;
+    auto sRenderDistance = Render_Distance::Normal;
+    auto sFov            = Field_Of_Vision::Big;
 
     uint32_t getRenderDistance()
     {
         //std::cout << renderDistance << std::endl;
-        return renderDistance;
+        return (uint32_t)sRenderDistance;
     }
 
     float getFOV()
     {
-        return (float)fov;
+        return (float)sFov;
+    }
+
+    void setRenderDistance(Render_Distance distance)
+    {
+        sRenderDistance = distance;
+    }
+
+    void setFOV(Field_Of_Vision fov)
+    {
+        sFov = fov;
     }
 
     void load()
