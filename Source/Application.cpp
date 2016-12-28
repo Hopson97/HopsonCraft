@@ -131,10 +131,10 @@ void Application::resetSong()
     {
         "C418-Ward",
         "C418-Sweden(Caution and Crisis Remix)",
-        "gm",
-        "tbatw",
-        "rue",
-        "uouat",
+        "Waterflame - Glorious Morning",
+        "The Bird And The Worm Instrumental",
+        "Rue's Whistle",
+        "Undertale - Once Upon A Time",
         "euk",
     };
     static auto lastSong = songNames.size() - 1; //In terms of the index in the std::vector
