@@ -167,6 +167,8 @@ void Application::init()
 
     //Initiate the debug information GUI
     Debug_Display::init();
+
+    Settings::load();
 }
 
 namespace

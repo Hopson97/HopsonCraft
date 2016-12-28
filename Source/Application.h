@@ -26,8 +26,6 @@ class Application
         void takeScreenshot (const std::string& path = "-1");
         void resetSong();
 
-        Settings gameSettings;
-
     private:
         void init();
 

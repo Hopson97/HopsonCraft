@@ -29,16 +29,13 @@ struct Area
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition,
                      const std::string& worldName,
-                     uint32_t seed,
-                     Settings& settings)
+                     uint32_t seed)
 :   m_blockTextures     (1024, 16, "Block_Atlas")
 ,   m_playerPosition    (&playerPosition)
-,   m_chunkManageThread (&Chunk_Map::manageChunks, this)
 ,   m_worldName         (worldName)
 ,   m_worldSeed         (seed)
-,   m_p_settings        (&settings)
 {
-    m_chunkManageThread.detach();
+    std::thread(&Chunk_Map::manageChunks, this).detach();
 }
 
 Chunk_Map::~Chunk_Map()
@@ -325,10 +322,10 @@ void Chunk_Map :: manageChunks()
         {
             Area deleteArea
             (
-                m_playerPosition->x - m_p_settings->getRenderDistance(),
-                m_playerPosition->z - m_p_settings->getRenderDistance(),
-                m_playerPosition->x + m_p_settings->getRenderDistance(),
-                m_playerPosition->z + m_p_settings->getRenderDistance()
+                m_playerPosition->x - Settings::getRenderDistance(),
+                m_playerPosition->z - Settings::getRenderDistance(),
+                m_playerPosition->x + Settings::getRenderDistance(),
+                m_playerPosition->z + Settings::getRenderDistance()
             );
 
 
@@ -351,20 +348,20 @@ void Chunk_Map :: manageChunks()
         }
 
 
-        if (m_loadingDistance < m_p_settings->getRenderDistance())
+        if (m_loadingDistance < Settings::getRenderDistance())
         {
             m_loadingDistance++;
         }
-        else if (m_loadingDistance >= m_p_settings->getRenderDistance())
+        else if (m_loadingDistance >= Settings::getRenderDistance())
         {
             m_loadingDistance = 2;
         }
 
-        if (m_generationDistance < m_p_settings->getRenderDistance())
+        if (m_generationDistance < Settings::getRenderDistance())
         {
             m_generationDistance++;
         }
-        else if (m_generationDistance >= m_p_settings->getRenderDistance())
+        else if (m_generationDistance >= Settings::getRenderDistance())
         {
             m_generationDistance = 2;
         }

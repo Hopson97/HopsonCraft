@@ -16,15 +16,13 @@ namespace sf
 class   Entity;
 class   Master_Renderer;
 class   Area;
-class   Settings;
 
 class Chunk_Map
 {
     public:
         Chunk_Map   (const Chunk_Location& playerPosition,
                      const std::string& worldName,
-                     uint32_t seed,
-                     Settings& settings);
+                     uint32_t seed);
 
         ~Chunk_Map  ();
 
@@ -73,14 +71,8 @@ class Chunk_Map
 
         const Chunk_Location* m_playerPosition;
 
-        std::thread m_chunkManageThread;
-
         std::string m_worldName;
         uint32_t   m_worldSeed;
-
-        Settings* m_p_settings;
-
-
 };
 
 #endif // CHUNK_MAP_H

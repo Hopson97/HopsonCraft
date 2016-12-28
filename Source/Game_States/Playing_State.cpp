@@ -42,7 +42,7 @@ namespace State
 
         loadWorldList();
 
-        m_world = std::make_unique<World>(seed, worldName, m_application->gameSettings);
+        m_world = std::make_unique<World>(seed, worldName);
     }
 
     /**

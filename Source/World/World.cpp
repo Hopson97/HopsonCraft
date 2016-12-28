@@ -22,13 +22,12 @@
 #include "../Renderer/Master_Renderer.h"
 #include "../Input/Key_Binds.h"
 
-World::World(   uint32_t seed,
-                    const std::string& name,
-                    Settings& settings)
+World::World(uint32_t seed,
+             const std::string& name)
 :   m_player            (std::make_shared<Player>())
 ,   m_playerLocation    (Maths::worldToChunkPosition(m_player->getCamera().position))
 ,   m_name              (name)
-,   m_chunkMap          (m_playerLocation, name, seed, settings)
+,   m_chunkMap          (m_playerLocation, name, seed)
 ,   m_seed              (seed)
 {
     loadWorldFile();

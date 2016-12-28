@@ -17,7 +17,6 @@ namespace sf
 }
 
 class Master_Renderer;
-class Settings;
 class Camera;
 class Application;
 
@@ -25,8 +24,7 @@ class World
 {
     public:
         World(uint32_t seed,
-                const std::string& name,
-                Settings& settings);
+              const std::string& name);
 
         void input      (const sf::Event& e);
         void input      ();

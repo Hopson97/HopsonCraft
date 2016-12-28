@@ -129,6 +129,7 @@ void Chunk::generateMesh ()
    // std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
+//Gives all the vertex data to opengl
 void Chunk::bufferMesh ()
 {
     m_mesh.bufferMesh();

@@ -50,7 +50,7 @@ namespace Maths
 
     Matrix4 createPerspectiveMatrix ()
     {
-        return glm::perspective(glm::radians(Settings::FOV),
+        return glm::perspective(glm::radians(Settings::getFOV()),
                                 Display::getAspect(),
                                 Settings::NEAR_PLANE,
                                 Settings::FAR_PLANE);
