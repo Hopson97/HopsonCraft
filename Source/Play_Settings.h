@@ -10,13 +10,13 @@ class Settings
 
         uint32_t getRenderDistance();
 
-        constexpr static float FOV = 95;
-        constexpr static float NEAR_PLANE  = 0.01;
-        constexpr static float FAR_PLANE   = 1000;
+        const static float FOV;
+        const static float NEAR_PLANE;
+        const static float FAR_PLANE;
 
-        constexpr static float SKY_RED     = 0.12;
-        constexpr static float SKY_GREEN   = 0.56;
-        constexpr static float SKY_BLUE    = 1;
+        const static float SKY_RED;
+        const static float SKY_GREEN;
+        const static float SKY_BLUE;
 
     private:
         uint32_t m_renderDistance = 20;
