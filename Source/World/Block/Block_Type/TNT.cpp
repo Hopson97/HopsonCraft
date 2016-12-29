@@ -10,8 +10,17 @@ namespace Block
 
     Interaction_Type TNT::interact(World& world, Chunk& chunk, const Vector3& location, Temp_Item_ID id) const
     {
-        world.makeExplosion(location, 10);
-        return Interaction_Type::None;
+        explode(world, location);
+        return Interaction_Type::Chunk_Block_Change;
     }
 
+    void TNT::breakBlock(World& world, Chunk& chunk, const Vector3& location) const
+    {
+        explode(world, location);
+    }
+
+    void TNT::explode(World& world, const Vector3& location) const
+    {
+        world.makeExplosion(location, 10);
+    }
 }

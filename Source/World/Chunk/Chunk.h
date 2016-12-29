@@ -38,7 +38,8 @@ class Chunk : public Entity
                       bool overrideBlocks = true);
 
         void breakBlock(const Block_Location& location,
-                        World& world);
+                        World& world,
+                        const Vector3& worldPosition);
 
         bool tick   ();
         bool update ();

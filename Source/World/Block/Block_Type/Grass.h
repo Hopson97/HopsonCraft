@@ -9,7 +9,7 @@ namespace Block
     {
         public:
             Grass();
-            Interaction_Type interact(Chunk& chunk, const Block_Location& location, Temp_Item_ID id) const;
+            //Interaction_Type interact(Chunk& chunk, const Block_Location& location, Temp_Item_ID id) const;
     };
 }
 

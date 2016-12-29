@@ -111,7 +111,6 @@ void World::blockEdit(const Vector3& lastRayPos, const Vector3& rayPos)
                                                                                                      *chunk,
                                                                                                      rayPos,
                                                                                                      Empty());
-
         switch (interaction)
         {
             case Block::Interaction_Type::Chunk_Block_Change:

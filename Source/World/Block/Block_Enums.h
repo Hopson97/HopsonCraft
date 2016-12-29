@@ -47,7 +47,6 @@ namespace Block
     {
         None,
         Chunk_Block_Change,
-        Explode_Small,
     };
 }
 

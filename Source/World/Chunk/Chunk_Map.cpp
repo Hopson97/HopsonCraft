@@ -177,7 +177,7 @@ void Chunk_Map::addBlock (const Block::Block_Type& block, const Vector3& worldPo
                  chunk->getBlocks().getBlock({blockPosition.x, y, blockPosition.z}).getData().getPhysicalState() == Block::Physical_State::Flora ;
                  y++)
             {
-                chunk->breakBlock({blockPosition.x, y, blockPosition.z}, *m_p_world);
+                chunk->breakBlock({blockPosition.x, y, blockPosition.z}, *m_p_world, worldPosition);
             }
         }
 
@@ -186,7 +186,7 @@ void Chunk_Map::addBlock (const Block::Block_Type& block, const Vector3& worldPo
 
         if(block.getData().getID() == Block::ID::Air)
         {
-            chunk->breakBlock(blockPosition, *m_p_world);
+            chunk->breakBlock(blockPosition, *m_p_world, worldPosition);
         }
         else
         {

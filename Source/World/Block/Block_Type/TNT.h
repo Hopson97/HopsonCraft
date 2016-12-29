@@ -11,6 +11,10 @@ namespace Block
             TNT();
 
             Interaction_Type interact(World& world, Chunk& chunk, const Vector3& location, Temp_Item_ID id) const;
+            void breakBlock(World& world, Chunk& chunk, const Vector3& location) const;
+
+        private:
+            void explode(World& world, const Vector3& location) const;
     };
 }
 

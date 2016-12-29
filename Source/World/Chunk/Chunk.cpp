@@ -57,7 +57,6 @@ void Chunk::addBlock( const Block_Location& location,
         m_blocks.setMaxHeight({location.x, y, location.z});
     }
 */
-    //Loot loot = getBlocks().getBlock(location).getLoot();
 
     if(m_updatableBlocks.find(location) != m_updatableBlocks.end())
     {
@@ -75,9 +74,13 @@ void Chunk::addBlock( const Block_Location& location,
     m_blocks.setBlock(location, (uint8_t)block.getData().getID(), overrideBlocks);
 }
 
-void Chunk::breakBlock(const Block_Location& location, World& world)
+void Chunk::breakBlock(const Block_Location& location, World& world, const Vector3& worldPosition)
 {
+    auto& block = m_blocks.getBlock(location);
     m_blocks.setBlock(location, (uint8_t)Block::ID::Air, true);
+    block.breakBlock(world, *this, worldPosition);
+
+    //Loot loot = getBlocks().getBlock(location).getLoot();
 }
 
 
