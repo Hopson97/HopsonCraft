@@ -30,6 +30,7 @@ namespace Block
         registerBlock(std::make_unique<Block::Glass>        ());
         registerBlock(std::make_unique<Block::Cobblestone>  ());
         registerBlock(std::make_unique<Block::Stone_Brick>  ());
+        registerBlock(std::make_unique<Block::Snow>         ());
         registerBlock(std::make_unique<Block::Cactus>       ());
         registerBlock(std::make_unique<Block::Rose>         ());
         registerBlock(std::make_unique<Block::Tall_Grass>   ());

@@ -31,6 +31,7 @@
 					<Add option="-march=corei7" />
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
+					<Add option="-flto" />
 					<Add option="-O3" />
 				</Compiler>
 				<Linker>
@@ -43,7 +44,9 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
+			<Add option="-pedantic" />
+			<Add option="-w" />
+			<Add option="-Wextra" />
 			<Add option="-std=c++14" />
 			<Add option="-DGLEW_STATIC" />
 			<Add directory="D:/_Programming Libraries/C++/SFML-2.4.1/include" />
@@ -72,6 +75,7 @@
 		<Unit filename="Data/Blocks/Snow.block" />
 		<Unit filename="Data/Blocks/Stone.block" />
 		<Unit filename="Data/Blocks/Stone_Bricks.block" />
+		<Unit filename="Data/Blocks/TNT.block" />
 		<Unit filename="Data/Blocks/Tall_Grass.block" />
 		<Unit filename="Data/Blocks/Water.block" />
 		<Unit filename="Data/Music/C418-Sweden(Caution and Crisis Remix).ogg" />
@@ -251,6 +255,8 @@
 		<Unit filename="Source/World/Block/Block_Type/Stone.h" />
 		<Unit filename="Source/World/Block/Block_Type/Stone_Brick.cpp" />
 		<Unit filename="Source/World/Block/Block_Type/Stone_Brick.h" />
+		<Unit filename="Source/World/Block/Block_Type/TNT.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/TNT.h" />
 		<Unit filename="Source/World/Block/Block_Type/Tall_Grass.cpp" />
 		<Unit filename="Source/World/Block/Block_Type/Tall_Grass.h" />
 		<Unit filename="Source/World/Block/Block_Type/Water.cpp" />

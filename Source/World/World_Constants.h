@@ -8,7 +8,7 @@ namespace World_Constants
     constexpr static uint16_t   CHUNK_SIZE      = 20,    //Width/ depth of a chunk, height is infinite
                                 WATER_LEVEL     = 90,
                                 BEACH_LEVEL     = WATER_LEVEL + 4,
-                                SNOW_LEVEL      = 250,
+                                SNOW_LEVEL      = 240,
                                 CHUNK_AREA      = World_Constants::CHUNK_SIZE * World_Constants::CHUNK_SIZE;
 }
 
