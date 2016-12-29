@@ -74,11 +74,14 @@ void Chunk::addBlock( const Block_Location& location,
     m_blocks.setBlock(location, (uint8_t)block.getData().getID(), overrideBlocks);
 }
 
-void Chunk::breakBlock(const Block_Location& location, World& world, const Vector3& worldPosition)
+void Chunk::breakBlock(const Block_Location& location,
+                       World& world,
+                       const Vector3& worldPosition,
+                       Block::Break_Type breakType)
 {
     auto& block = m_blocks.getBlock(location);
     m_blocks.setBlock(location, (uint8_t)Block::ID::Air, true);
-    block.breakBlock(world, *this, worldPosition);
+    block.breakBlock(world, *this, worldPosition, breakType);
 
     //Loot loot = getBlocks().getBlock(location).getLoot();
 }

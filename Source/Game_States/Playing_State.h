@@ -6,7 +6,6 @@
 #include "../Input/Function_Toggle_Key.h"
 #include "../Renderer/Master_Renderer.h"
 #include "../Mob/Player.h"
-#include "../GUI/Panel.h"
 #include "../Crosshair.h"
 #include "../World/World.h"
 #include "Game_State.h"

@@ -32,7 +32,7 @@ namespace Block
         return Interaction_Type::None;
     }
 
-    void Block_Type::breakBlock(World& world, Chunk& chunk, const Vector3& location) const
+    void Block_Type::breakBlock(World& world, Chunk& chunk, const Vector3& location, Break_Type breakType) const
     { }
 
 }

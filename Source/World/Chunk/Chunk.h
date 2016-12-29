@@ -39,7 +39,8 @@ class Chunk : public Entity
 
         void breakBlock(const Block_Location& location,
                         World& world,
-                        const Vector3& worldPosition);
+                        const Vector3& worldPosition,
+                        Block::Break_Type breakType);
 
         bool tick   ();
         bool update ();

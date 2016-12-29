@@ -48,6 +48,13 @@ namespace Block
         None,
         Chunk_Block_Change,
     };
+
+    enum class Break_Type
+    {
+        Normal,
+        Explosion,
+        Fire
+    };
 }
 
 #endif // E_BLOCK_ID_H_INCLUDED

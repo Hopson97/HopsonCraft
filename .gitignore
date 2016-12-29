@@ -29,3 +29,7 @@ Terrain_
 
 #Exe
 game
+
+#Other#
+#Deprecated files that i do not want to delete
+Dep/

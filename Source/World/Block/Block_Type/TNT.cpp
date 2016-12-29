@@ -14,9 +14,10 @@ namespace Block
         return Interaction_Type::Chunk_Block_Change;
     }
 
-    void TNT::breakBlock(World& world, Chunk& chunk, const Vector3& location) const
+    void TNT::breakBlock(World& world, Chunk& chunk, const Vector3& location, Break_Type breakType) const
     {
-        explode(world, location);
+        if(breakType == Break_Type::Explosion)
+            explode(world, location);
     }
 
     void TNT::explode(World& world, const Vector3& location) const

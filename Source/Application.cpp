@@ -31,7 +31,7 @@ namespace
 Application::Application()
 {
     init();
-    m_stateStack.push(std::make_unique<State::Playing_State>(*this, "Terrain_", 00));
+    m_stateStack.push(std::make_unique<State::Playing_State>(*this, "Test World", 76105971));
 }
 
 Application::~Application()

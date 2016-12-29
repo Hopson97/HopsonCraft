@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game_State.h"
-#include "../GUI/Panel.h"
 
 class Application;
 class Entity;
@@ -25,20 +24,10 @@ namespace State
             void exitState  ();
 
         private:
-            uint32_t  getSeed();
+            uint32_t    getSeed();
 
-            void initFrontMenu  ();
-            void initNewGameMenu();
+            uint32_t    m_seed;
 
-            void genLoadMenu    ();
-
-            //GUI::Panel m_frontMenu;
-            //GUI::Panel m_newGameMenu;
-            //GUI::Panel m_loadmenu;
-
-            //GUI::Panel* m_activeMenu    = nullptr;
-
-            uint32_t   m_seed;
             std::string m_seedString;
             std::string m_worldName;
 

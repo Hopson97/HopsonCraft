@@ -36,8 +36,13 @@ class Chunk_Map
         void checkChunks ();
         void draw(Master_Renderer& renderer);
 
-        void addBlock (const Block::Block_Type& block, const Vector3& worldPosition);
-        void addBlocks(const Block::Block_Type& block, const std::vector<Vector3> worldPositions);
+        void addBlock (const Block::Block_Type& block,
+                       const Vector3& worldPosition,
+                       Block::Break_Type breakType = Block::Break_Type::Normal);
+
+        void addBlocks(const Block::Block_Type& block,
+                       const std::vector<Vector3> worldPositions,
+                       Block::Break_Type breakType = Block::Break_Type::Normal);
 
         void breakBlock(const Block::Block_Type& block, const Vector3& worldPosition);
 

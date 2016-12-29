@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <cstdint>
+#include <iostream>
 
 #include "../Maths/General_Maths.h"
 #include "../World/Block/D_Blocks.h"
@@ -86,7 +87,9 @@ void Player::changeBlock(int increment)
     while ( newBlock->getData().getPhysicalState() == Block::Physical_State::Liquid ||
             newBlock->getData().getPhysicalState() == Block::Physical_State::Gas)
     {
+        //std::cout << std::cout << m_heldBlock << std::endl;
         m_heldBlock += increment;
+        newBlock = &Block::get(m_heldBlock);
     }
 
     Debug_Display::addheldBlock (Block::get(m_heldBlock));

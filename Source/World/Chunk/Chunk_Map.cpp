@@ -152,7 +152,9 @@ void Chunk_Map::deleteChunks()
     }
 }
 
-void Chunk_Map::addBlock (const Block::Block_Type& block, const Vector3& worldPosition)
+void Chunk_Map::addBlock (const Block::Block_Type& block,
+                          const Vector3& worldPosition,
+                          Block::Break_Type breakType)
 {
     auto addToBatch = [&](int x, int y)
     {
@@ -177,7 +179,7 @@ void Chunk_Map::addBlock (const Block::Block_Type& block, const Vector3& worldPo
                  chunk->getBlocks().getBlock({blockPosition.x, y, blockPosition.z}).getData().getPhysicalState() == Block::Physical_State::Flora ;
                  y++)
             {
-                chunk->breakBlock({blockPosition.x, y, blockPosition.z}, *m_p_world, worldPosition);
+                chunk->breakBlock({blockPosition.x, y, blockPosition.z}, *m_p_world, worldPosition, breakType);
             }
         }
 
@@ -186,7 +188,7 @@ void Chunk_Map::addBlock (const Block::Block_Type& block, const Vector3& worldPo
 
         if(block.getData().getID() == Block::ID::Air)
         {
-            chunk->breakBlock(blockPosition, *m_p_world, worldPosition);
+            chunk->breakBlock(blockPosition, *m_p_world, worldPosition, breakType);
         }
         else
         {
@@ -211,11 +213,13 @@ void Chunk_Map::addBlock (const Block::Block_Type& block, const Vector3& worldPo
     }
 }
 
-void Chunk_Map::addBlocks(const Block::Block_Type& block, const std::vector<Vector3>worldPositions)
+void Chunk_Map::addBlocks(const Block::Block_Type& block,
+                          const std::vector<Vector3>worldPositions,
+                          Block::Break_Type breakType)
 {
     for (auto& position : worldPositions)
     {
-        addBlock(block, position);
+        addBlock(block, position, breakType);
     }
 }
 
@@ -302,7 +306,7 @@ void Chunk_Map::makeExplosion(const Vector3& worldPosition, int power)
             }
         }
     }
-    addBlocks(Block::get(Block::ID::Air), positions);
+    addBlocks(Block::get(Block::ID::Air), positions, Block::Break_Type::Explosion);
 }
 
 void Chunk_Map :: manageChunks()

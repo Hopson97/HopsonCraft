@@ -37,7 +37,7 @@ namespace Block
 
             virtual bool tick                   (const Block_Location& location, Chunk* chunk) const;
             virtual Interaction_Type interact   (World& world, Chunk& chunk, const Vector3& location, Temp_Item_ID id) const;
-            virtual void breakBlock             (World& world, Chunk& chunk, const Vector3& location) const;
+            virtual void breakBlock             (World& world, Chunk& chunk, const Vector3& location, Break_Type breakType) const;
 
             const Block_Data& getData() const;
 
