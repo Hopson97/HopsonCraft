@@ -1,6 +1,6 @@
 #ifndef IMAGE_H
 #define IMAGE_H
-
+/*
 #include "Component.h"
 
 namespace GUI
@@ -22,5 +22,5 @@ namespace GUI
             sf::RectangleShape m_quad;
     };
 }
-
+*/
 #endif // IMAGE_H

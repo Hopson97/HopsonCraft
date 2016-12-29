@@ -1,6 +1,6 @@
 #ifndef IMAGED_BUTTON_H
 #define IMAGED_BUTTON_H
-
+/*
 #include <functional>
 
 #include "Component.h"
@@ -28,6 +28,6 @@ namespace GUI
             sf::Texture m_image;
             sf::RectangleShape m_imageRect;
     };
-}
+}*/
 
 #endif // IMAGED_BUTTON_H

@@ -108,18 +108,21 @@ void World_Generator::generateBlockData()
         }
     }
 
-    //Generate strucutres eg trees
-    for (auto& s : m_structures)
-    {
-        s.second(*m_p_chunk, s.first, false);
-    }
-    m_structures.clear();
-
     //Generate flora
     for (auto& s : m_flora)
     {
         auto& loc = s.first;
         m_p_chunk->addBlock({loc.x, loc.y + 1, loc.z}, *s.second);
+    }
+    m_flora.clear();
+
+    //Set max height using the height map before adding trees
+    m_p_chunk->setMaxHeights(m_heightMap);
+
+    //Generate strucutres eg trees
+    for (auto& s : m_structures)
+    {
+        s.second(*m_p_chunk, s.first, false);
     }
     m_structures.clear();
 }
@@ -139,8 +142,8 @@ void World_Generator::setBlock(const Block_Location& location, int h)
     if (y > h)  //Above the ground
     {
         y > World_Constants::WATER_LEVEL ?
-            setBlock(location, Block::air)  :
-            setBlock(location, Block::water);
+            setBlock(location, Block::get(Block::ID::Air))  :
+            setBlock(location, Block::get(Block::ID::Water));
     }
     else if (y == h)    //Surface levels
     {
@@ -156,21 +159,21 @@ void World_Generator::setBlock(const Block_Location& location, int h)
             }
             else if (y <= World_Constants::BEACH_LEVEL && y >= World_Constants::WATER_LEVEL) //Beach
             {
-                setBlock(location, Block::sand);
+                setBlock(location, Block::get(Block::ID::Sand));
             }
             else // Underwater surface
             {
                  (y < 2) ?
-                    setBlock(location, Block::bedrock) :
+                    setBlock(location, Block::get(Block::ID::Bedrock)) :
                     Random::integer(0, 3) < 1 ?
-                        setBlock(location, Block::dirt) :
-                        setBlock(location, Block::sand);
+                        setBlock(location, Block::get(Block::ID::Dirt)) :
+                        setBlock(location, Block::get(Block::ID::Sand));
             }
         }
         else    //High mountains
         {
             Random::integer(1, 5) < 2 ?
-                setBlock(location, Block::snow) :
+                setBlock(location, Block::get(Block::ID::Snow)) :
                 setBlock(location, m_p_activeBiome->getBlock());
         }
     }
@@ -181,16 +184,16 @@ void World_Generator::setBlock(const Block_Location& location, int h)
     else if (y < h && y >= h - 4)   //Slighty underground
     {
             y > World_Constants::BEACH_LEVEL ?
-                setBlock(location, Block::dirt) :
-                setBlock(location, Block::sand);
+                setBlock(location, Block::get(Block::ID::Dirt)) :
+                setBlock(location, Block::get(Block::ID::Sand));
     }
     else if (y < 2)
     {
-        setBlock(location, Block::bedrock);
+        setBlock(location, Block::get(Block::ID::Bedrock));
     }
     else    //Deep underground
     {
-        setBlock(location, Block::stone);
+        setBlock(location, Block::get(Block::ID::Stone));
     }
 }
 
@@ -241,49 +244,49 @@ void World_Generator::setUpBiomes ()
 {
     //===================================
     //Forest
-    forestBiome.addBlock(Block::grass, 1);
+    forestBiome.addBlock(Block::get(Block::ID::Grass), 1);
     forestBiome.setDepth(1);
 
     forestBiome.addTree(Structure::makeOak);
     forestBiome.setTreeFrequency(45);
 
-    forestBiome.addFlora(Block::tallGrass, 1);
-    forestBiome.addFlora(Block::rose, 1);
+    forestBiome.addFlora(Block::get(Block::ID::Tall_Grass), 1);
+    forestBiome.addFlora(Block::get(Block::ID::Rose), 1);
     forestBiome.setFloraFrequency(40);
 
     //===================================
     //Dirt Forest
-    dirtForest.addBlock(Block::grass, 1);
+    dirtForest.addBlock(Block::get(Block::ID::Grass), 1);
     dirtForest.setDepth(1);
 
     dirtForest.addTree(Structure::makeOak);
     dirtForest.setTreeFrequency(250);
 
-    dirtForest.addFlora(Block::tallGrass, 2);
-    dirtForest.addFlora(Block::rose, 1);
+    forestBiome.addFlora(Block::get(Block::ID::Tall_Grass), 2);
+    forestBiome.addFlora(Block::get(Block::ID::Rose), 1);
     dirtForest.setFloraFrequency(60);
 
     //===================================
     //Desert
-    desertBiome.addBlock(Block::sand, 1);
+    desertBiome.addBlock(Block::get(Block::ID::Sand), 1);
     desertBiome.setDepth(3);
 
     desertBiome.addTree(Structure::makeCactus);
     desertBiome.setTreeFrequency(1200);
 
-    desertBiome.addFlora(Block::deadShrub, 1);
+    desertBiome.addFlora(Block::get(Block::ID::Dead_Shrub), 1);
     desertBiome.setFloraFrequency(400);
 
     //===================================
     //Grassland
-    grasslandBiome.addBlock(Block::grass, 1);
+    grasslandBiome.addBlock(Block::get(Block::ID::Grass), 1);
 
     grasslandBiome.setDepth(1);
 
     grasslandBiome.addTree(Structure::makeOak);
     grasslandBiome.setTreeFrequency(1000);
 
-    grasslandBiome.addFlora(Block::tallGrass, 3);
-    grasslandBiome.addFlora(Block::rose, 1);
+    forestBiome.addFlora(Block::get(Block::ID::Tall_Grass), 3);
+    forestBiome.addFlora(Block::get(Block::ID::Rose), 1);
     grasslandBiome.setFloraFrequency(40);
 }

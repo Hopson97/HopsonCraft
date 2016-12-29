@@ -1,6 +1,6 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
-
+/*
 #include <SFML/Graphics.hpp>
 
 class Master_Renderer;
@@ -19,5 +19,5 @@ namespace GUI
     };
 
 }
-
+*/
 #endif // BACKGROUND_H

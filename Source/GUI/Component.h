@@ -1,6 +1,6 @@
 #ifndef COMPONENT_GUI_H
 #define COMPONENT_GUI_H
-
+/*
 #include <SFML/Graphics.hpp>
 
 class Master_Renderer;
@@ -43,5 +43,5 @@ namespace GUI
             const sf::Vector2f getSize () const { return {0,0}; }
     };
 }
-
+*/
 #endif // COMPONENT_GUI_H

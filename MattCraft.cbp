@@ -28,6 +28,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-march=corei7" />
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
@@ -103,9 +104,8 @@
 		<Unit filename="Source/Camera.h" />
 		<Unit filename="Source/Crosshair.cpp" />
 		<Unit filename="Source/Crosshair.h" />
-		<Unit filename="Source/D_Settings.h" />
-		<Unit filename="Source/Entity/Entity.cpp" />
-		<Unit filename="Source/Entity/Entity.h" />
+		<Unit filename="Source/Entity.cpp" />
+		<Unit filename="Source/Entity.h" />
 		<Unit filename="Source/GUI/Background.cpp" />
 		<Unit filename="Source/GUI/Background.h" />
 		<Unit filename="Source/GUI/Button.cpp" />
@@ -148,13 +148,15 @@
 		<Unit filename="Source/Maths/Ray.h" />
 		<Unit filename="Source/Maths/Viewing_Frustum.cpp" />
 		<Unit filename="Source/Maths/Viewing_Frustum.h" />
+		<Unit filename="Source/Mob/Mob_Base.cpp" />
+		<Unit filename="Source/Mob/Mob_Base.h" />
+		<Unit filename="Source/Mob/Player.cpp" />
+		<Unit filename="Source/Mob/Player.h" />
 		<Unit filename="Source/Model/Model.cpp" />
 		<Unit filename="Source/Model/Model.h" />
 		<Unit filename="Source/OpenGL/GL_Maths.h" />
 		<Unit filename="Source/Play_Settings.cpp" />
 		<Unit filename="Source/Play_Settings.h" />
-		<Unit filename="Source/Player/Player.cpp" />
-		<Unit filename="Source/Player/Player.h" />
 		<Unit filename="Source/PostFX/Framebuffer_Object.cpp" />
 		<Unit filename="Source/PostFX/Framebuffer_Object.h" />
 		<Unit filename="Source/Renderer/Chunk_Renderer.h" />
@@ -281,6 +283,7 @@
 		<Unit filename="Source/World/Gen/World_Generator.h" />
 		<Unit filename="Source/World/World.cpp" />
 		<Unit filename="Source/World/World.h" />
+		<Unit filename="Source/World/World_Constants.h" />
 		<Unit filename="Worlds/Terrain_/World_Info.data" />
 		<Unit filename="libgcc_s_sjlj-1.dll" />
 		<Unit filename="libstdc++-6.dll" />

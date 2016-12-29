@@ -228,13 +228,14 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
         x + 1,  y + m_bh, z,       //Back-Right
         x,      y + m_bh, z,       //Back-Left
     });
+
+
+    finishBlockFace(block.getTextureTop(),  Light_Value::TOP);
 /*
-    bool v1s1 = m_p_chunk.getBlocks().getBlock({x - 1, y + 1, z     ).getData().isOpaque();
-    bool v1c  = m_p_chunk.getBlocks().getBlock({x - 1, y + 1, z + 1}).getData().isOpaque();
-    bool v1s2 = m_p_chunk.getBlocks().getBlock({x,     y + 1, z + 1}).getData().isOpaque();
-    m_activePart->ambientOcclusion.push_back(ambientOcculsionValues[getVertexAmbientOcc(v1s1, v1s2, v1c)]);
+    finishBlockFace(block.getTextureTop(),  m_p_chunk->getBlocks().getMaxheightAt(x, z) == (int)y ?
+                                                Light_Value::TOP :
+                                                Light_Value::SIDE);
 */
-    finishBlockFace(block.getTextureTop(), Light_Value::TOP);
 }
 
 //"Ceiling"

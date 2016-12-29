@@ -16,13 +16,15 @@ namespace sf
 class   Entity;
 class   Master_Renderer;
 class   Area;
+class   World;
 
 class Chunk_Map
 {
     public:
         Chunk_Map   (const Chunk_Location& playerPosition,
                      const std::string& worldName,
-                     uint32_t seed);
+                     uint32_t seed,
+                     World& world);
 
         ~Chunk_Map  ();
 
@@ -34,8 +36,10 @@ class Chunk_Map
         void checkChunks ();
         void draw(Master_Renderer& renderer);
 
-        void setBlock (const Block::Block_Type& block, const Vector3& worldPosition);
-        void setBlocks(const Block::Block_Type& block, const std::vector<Vector3> worldPositions);
+        void addBlock (const Block::Block_Type& block, const Vector3& worldPosition);
+        void addBlocks(const Block::Block_Type& block, const std::vector<Vector3> worldPositions);
+
+        void breakBlock(const Block::Block_Type& block, const Vector3& worldPosition);
 
         bool isSolidBlockAt (const Vector3& worldPosition);
 
@@ -73,6 +77,8 @@ class Chunk_Map
 
         std::string m_worldName;
         uint32_t   m_worldSeed;
+
+        World* m_p_world;
 };
 
 #endif // CHUNK_MAP_H

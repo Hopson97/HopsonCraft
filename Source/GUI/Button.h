@@ -1,6 +1,6 @@
 #ifndef BUTTON_H
 #define BUTTON_H
-
+/*
 #include <functional>
 
 #include "Component.h"
@@ -26,5 +26,5 @@ namespace GUI
             sf::Text            m_text;
     };
 }
-
+*/
 #endif // BUTTON_H

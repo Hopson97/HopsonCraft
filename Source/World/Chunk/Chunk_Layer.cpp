@@ -12,10 +12,13 @@ Chunk_Layer::Chunk_Layer()
     {
         for (auto z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)
         {
-            m_blocks[World_Constants::CHUNK_SIZE * z + x] = 0; //0 is air
+            m_blocks    [World_Constants::CHUNK_SIZE * z + x] = 0; //0 is air
+            //m_lightMap  [World_Constants::CHUNK_SIZE * z + x] = 0;
         }
     }
 }
+
+
 
 void Chunk_Layer::setBlock(int x, int z, const Block::Block_Type& block)
 {

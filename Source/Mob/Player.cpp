@@ -21,7 +21,6 @@ Player::Player(Chunk_Map& chunkMap)
 ,   m_chunkLocation (Maths::worldToChunkPosition(position))
 {
     position = {20000, 250, 20000};
-    Debug_Display::addheldBlock (Block::get(m_heldBlock));
 }
 
 const Chunk_Location& Player::getChunkLocation() const
@@ -60,7 +59,6 @@ void Player::onUpdate(float dt)
     m_chunkLocation = Maths::worldToChunkPosition(position);
 
     Debug_Display::addLookVector(rotation);
-    Debug_Display::addheldBlock (Block::get(m_heldBlock));
     Debug_Display::addPlayerPosition(position);
 }
 
@@ -90,5 +88,7 @@ void Player::changeBlock(int increment)
     {
         m_heldBlock += increment;
     }
+
+    Debug_Display::addheldBlock (Block::get(m_heldBlock));
 }
 

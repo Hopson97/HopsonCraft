@@ -1,6 +1,6 @@
 #ifndef DROPDOWN_H
 #define DROPDOWN_H
-
+/*
 #include "Component.h"
 
 namespace GUI
@@ -29,5 +29,5 @@ namespace GUI
             std::vector<sf::Text> m_options;
     };
 }
-
+*/
 #endif // DROPDOWN_H

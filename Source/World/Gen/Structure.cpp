@@ -18,7 +18,7 @@ namespace Structure
         //Make the trunk
         for (auto i = 1 ; i < trunkHeight + 1 ; i++)
         {
-            chunk.addBlock({location.x, location.y + i, location.z}, Block::oakWood, overwriteBlocks);
+            chunk.addBlock({location.x, location.y + i, location.z}, Block::get(Block::ID::Oak_Wood), overwriteBlocks);
         }
         int y = trunkHeight + location.y;
 
@@ -26,8 +26,8 @@ namespace Structure
         {
             for (int zLeaf = location.z - 2 ; zLeaf < location.z + 3 ; zLeaf++)
             {
-                chunk.addBlock({xLeaf, y, zLeaf}, Block::oakLeaf, overwriteBlocks);
-                chunk.addBlock({xLeaf, y + 1, zLeaf}, Block::oakLeaf, overwriteBlocks);
+                chunk.addBlock({xLeaf, y, zLeaf},       Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
+                chunk.addBlock({xLeaf, y + 1, zLeaf},   Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
             }
         }
         y++;
@@ -36,16 +36,16 @@ namespace Structure
         {
             for (int zLeaf = location.z - 1 ; zLeaf < location.z + 2 ; zLeaf++)
             {
-                chunk.addBlock({xLeaf, y, zLeaf}, Block::oakLeaf, overwriteBlocks);
+                chunk.addBlock({xLeaf, y, zLeaf}, Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
             }
         }
         y++;
 
-        chunk.addBlock({location.x - 1, y,   location.z},       Block::oakLeaf, overwriteBlocks);
-        chunk.addBlock({location.x + 1, y,   location.z},       Block::oakLeaf, overwriteBlocks);
-        chunk.addBlock({location.x,     y,   location.z},       Block::oakLeaf, overwriteBlocks);
-        chunk.addBlock({location.x,     y,   location.z + 1},   Block::oakLeaf, overwriteBlocks);
-        chunk.addBlock({location.x,     y,   location.z - 1},   Block::oakLeaf, overwriteBlocks);
+        chunk.addBlock({location.x - 1, y,   location.z},       Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
+        chunk.addBlock({location.x + 1, y,   location.z},       Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
+        chunk.addBlock({location.x,     y,   location.z},       Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
+        chunk.addBlock({location.x,     y,   location.z + 1},   Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
+        chunk.addBlock({location.x,     y,   location.z - 1},   Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
     }
 
     void createCactus(Chunk& chunk, const Block_Location& location, bool overwriteBlocks)
@@ -54,7 +54,7 @@ namespace Structure
 
         for (auto i = 1 ; i < cactusHeight + 1 ; i++)
         {
-            chunk.addBlock({location.x, location.y + i, location.z}, Block::cactus, overwriteBlocks);
+            chunk.addBlock({location.x, location.y + i, location.z}, Block::get(Block::ID::Cactus), overwriteBlocks);
         }
     }
 

@@ -31,11 +31,13 @@ struct Area
 
 Chunk_Map::Chunk_Map(const Chunk_Location& playerPosition,
                      const std::string& worldName,
-                     uint32_t seed)
+                     uint32_t seed,
+                     World& world)
 :   m_blockTextures     (1024, 32, "HD")
 ,   m_playerPosition    (&playerPosition)
 ,   m_worldName         (worldName)
 ,   m_worldSeed         (seed)
+,   m_p_world           (&world)
 {
     std::thread(&Chunk_Map::manageChunks, this).detach();
 }
@@ -154,9 +156,8 @@ void Chunk_Map::deleteChunks()
     }
 }
 
-void Chunk_Map::setBlock (const Block::Block_Type& block, const Vector3& worldPosition)
+void Chunk_Map::addBlock (const Block::Block_Type& block, const Vector3& worldPosition)
 {
-    sf::Clock c;
     auto addToBatch = [&](int x, int y)
     {
         auto* c = getChunkAt({x, y});
@@ -167,7 +168,7 @@ void Chunk_Map::setBlock (const Block::Block_Type& block, const Vector3& worldPo
     Block_Location blockPosition    (Maths::worldToBlockPosition(worldPosition));
     Block_Location underBlock       (blockPosition.x, blockPosition.y - 1, blockPosition.z);
 
-    Chunk* chunk = getChunkAt(position);
+    auto* chunk = getChunkAt(position);
 
     if (chunk) //If the chunk exists
     {
@@ -180,14 +181,21 @@ void Chunk_Map::setBlock (const Block::Block_Type& block, const Vector3& worldPo
                  chunk->getBlocks().getBlock({blockPosition.x, y, blockPosition.z}).getData().getPhysicalState() == Block::Physical_State::Flora ;
                  y++)
             {
-                chunk->addBlock({blockPosition.x, y, blockPosition.z}, Block::air);
+                chunk->breakBlock({blockPosition.x, y, blockPosition.z}, *m_p_world);
             }
         }
 
         if (!block.getData().canBePlacedOn(chunk->getBlocks().getBlock(underBlock).getData()))
             return; //Some blocks can only be placed on certain blocks
 
-        chunk->addBlock(blockPosition, block);
+        if(block.getData().getID() == Block::ID::Air)
+        {
+            chunk->breakBlock(blockPosition, *m_p_world);
+        }
+        else
+        {
+            chunk->addBlock(blockPosition, block);
+        }
 
         addToBatch(position.x, position.z);
 
@@ -207,14 +215,13 @@ void Chunk_Map::setBlock (const Block::Block_Type& block, const Vector3& worldPo
     }
 }
 
-void Chunk_Map::setBlocks(const Block::Block_Type& block, const std::vector<Vector3>worldPositions)
+void Chunk_Map::addBlocks(const Block::Block_Type& block, const std::vector<Vector3>worldPositions)
 {
     for (auto& position : worldPositions)
     {
-        setBlock(block, position);
+        addBlock(block, position);
     }
 }
-
 
 /* isSolidBlockAt
 
@@ -240,7 +247,7 @@ const Block::Block_Type& Chunk_Map::getBlockAt(const Vector3& worldPosition)
     {
         return chunk->getBlocks().getBlock(blockPosition);
     }
-    return Block::air;
+    return Block::get(Block::ID::Air);
 }
 
 void Chunk_Map::saveChunks() const
@@ -299,7 +306,7 @@ void Chunk_Map::makeExplosion(const Vector3& worldPosition, int power)
             }
         }
     }
-    setBlocks(Block::air, positions);
+    addBlocks(Block::get(Block::ID::Air), positions);
 }
 
 void Chunk_Map :: manageChunks()

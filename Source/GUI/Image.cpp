@@ -1,5 +1,5 @@
 #include "Image.h"
-
+/*
 #include "../Renderer/Master_Renderer.h"
 
 namespace GUI
@@ -33,3 +33,4 @@ namespace GUI
         return m_quad.getSize();
     }
 }
+*/

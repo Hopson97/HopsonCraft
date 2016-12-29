@@ -24,7 +24,7 @@ World::World(uint32_t seed,
              const std::string& name)
 :   m_name              (name)
 ,   m_player            (m_chunkMap)
-,   m_chunkMap          (m_player.getChunkLocation(), name, seed)
+,   m_chunkMap          (m_player.getChunkLocation(), name, seed, *this)
 ,   m_seed              (seed)
 {
     loadWorldFile();
@@ -102,8 +102,8 @@ void World::blockEdit(const Vector3& lastRayPos, const Vector3& rayPos)
 {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        m_chunkMap.setBlock(Block::air, rayPos);
-        //m_chunkMap.makeExplosion(rayPos, 200);
+        m_chunkMap.addBlock(Block::get(Block::ID::Air), rayPos);
+        m_chunkMap.makeExplosion(rayPos, 8);
     }
     else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
@@ -117,7 +117,7 @@ void World::blockEdit(const Vector3& lastRayPos, const Vector3& rayPos)
                 break;
 
             case Block::Interaction_Type::None:
-                m_chunkMap.setBlock(m_player.getBlock(), lastRayPos);
+                m_chunkMap.addBlock(m_player.getBlock(), lastRayPos);
                 break;
         }
     }

@@ -1,5 +1,5 @@
 #include "Background.h"
-
+/*
 #include "../Util/Display.h"
 #include "../Renderer/Master_Renderer.h"
 
@@ -18,3 +18,4 @@ namespace GUI
         renderer.draw(m_quad);
     }
 }
+*/

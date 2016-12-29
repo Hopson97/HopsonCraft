@@ -14,7 +14,7 @@ Chunk_Blocks::Chunk_Blocks(const Chunk& chunk,
 ,   m_location      (location)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_layers        (World_Constants::WATER_LEVEL + 1)
-,   m_maxHeights    (World_Constants::CHUNK_SIZE * World_Constants::CHUNK_SIZE)
+,   m_maxHeights    (World_Constants::CHUNK_AREA)
 { }
 
 void Chunk_Blocks::setBlock(const Block_Location& location,
@@ -72,17 +72,17 @@ const Block::Block_Type& Chunk_Blocks::getBlock (const Block_Location& location)
     }
     else if ((unsigned)location.y > m_layers.size() - 1)
     {
-        return Block::air;
+        return Block::get(Block::ID::Air);
     }
     else if (location.y < 0)
     {
-        return Block::air;
+        return Block::get(Block::ID::Air);
     }
     else
     {
         return m_layers[location.y].getBlock(location.x, location.z);
     }
-    return Block::air;    //This is for world edges
+    return Block::get(Block::ID::Air);    //This is for world edges
 }
 
 void Chunk_Blocks::addBlock(const Block_Location& location, uint8_t block)
@@ -119,7 +119,7 @@ size_t Chunk_Blocks::getLayerCount() const
     return m_layers.size();
 }
 
-int Chunk_Blocks::getMaxheightAt(int x, int z)
+int Chunk_Blocks::getMaxheightAt(int x, int z) const
 {
     return m_maxHeights[x * World_Constants::CHUNK_SIZE + z];
 }
@@ -141,5 +141,11 @@ bool Chunk_Blocks::layerHasTranslucentBlocks(uint32_t layer) const
     else
         return getLayer(layer).hasTranslucentBlocks();
 }
+
+void Chunk_Blocks::setMaxHeights(const std::vector<int>& heightMap)
+{
+    m_maxHeights = heightMap;
+}
+
 
 

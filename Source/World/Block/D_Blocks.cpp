@@ -3,56 +3,39 @@
 #include <vector>
 #include <cstdint>
 #include <cassert>
+#include <memory>
 
 using u32 = uint32_t;
 
 namespace Block
 {
-    Block::Air          air;
-    Block::Grass        grass;
-    Block::Dirt         dirt;
-    Block::Stone        stone;
-    Block::Water        water;
-    Block::Sand         sand;
-    Block::Oak_Leaf     oakLeaf;
-    Block::Oak_Wood     oakWood;
-    Block::Oak_Plank    oakPlank;
-    Block::Glass        glass;
-    Block::Cobblestone  cobbleStone;
-    Block::Stone_Brick  stoneBricks;
-    Block::Snow         snow;
-    Block::Cactus       cactus;
-    Block::Rose         rose;
-    Block::Tall_Grass   tallGrass;
-    Block::Dead_Shrub   deadShrub;
-    Block::Bedrock      bedrock;
-    Block::Oak_Sapling  oakSapling;
+    std::vector<std::unique_ptr<Block_Type>> blocks((u32)Block::ID::NUM_BLOCK_TYPES);
 
-    std::vector<Block::Block_Type*> blocks((u32)Block::ID::NUM_BLOCK_TYPES);
+    void registerBlock(std::unique_ptr<Block_Type> instance)
+    {
+        blocks[(u32)instance->getData().getID()] = std::move(instance);
+    }
 
     void initBlockDatabase()
     {
-        blocks[(u32)Block::ID::Air          ]   = &air;
-        blocks[(u32)Block::ID::Grass        ]   = &grass;
-        blocks[(u32)Block::ID::Dirt         ]   = &dirt;
-        blocks[(u32)Block::ID::Stone        ]   = &stone;
-        blocks[(u32)Block::ID::Sand         ]   = &sand;
-        blocks[(u32)Block::ID::Water        ]   = &water;
-        blocks[(u32)Block::ID::Oak_Leaf     ]   = &oakLeaf;
-        blocks[(u32)Block::ID::Oak_Wood     ]   = &oakWood;
-        blocks[(u32)Block::ID::Oak_Plank    ]   = &oakPlank;
-        blocks[(u32)Block::ID::Glass        ]   = &glass;
-        blocks[(u32)Block::ID::Cobble_Stone ]   = &cobbleStone;
-        blocks[(u32)Block::ID::Stone_Brick  ]   = &stoneBricks;
-        blocks[(u32)Block::ID::Snow         ]   = &snow;
-        blocks[(u32)Block::ID::Cactus       ]   = &cactus;
-        blocks[(u32)Block::ID::Rose         ]   = &rose;
-        blocks[(u32)Block::ID::Tall_Grass   ]   = &tallGrass;
-        blocks[(u32)Block::ID::Dead_Shrub   ]   = &deadShrub;
-        blocks[(u32)Block::ID::Bedrock      ]   = &bedrock;
-        blocks[(u32)Block::ID::Oak_Sapling  ]   = &oakSapling;
-
-        assert(blocks.size() == (int)Block::ID::NUM_BLOCK_TYPES);
+        registerBlock(std::make_unique<Block::Air>          ());
+        registerBlock(std::make_unique<Block::Grass>        ());
+        registerBlock(std::make_unique<Block::Dirt>         ());
+        registerBlock(std::make_unique<Block::Stone>        ());
+        registerBlock(std::make_unique<Block::Sand>         ());
+        registerBlock(std::make_unique<Block::Water>        ());
+        registerBlock(std::make_unique<Block::Oak_Leaf>     ());
+        registerBlock(std::make_unique<Block::Oak_Wood>     ());
+        registerBlock(std::make_unique<Block::Oak_Plank>    ());
+        registerBlock(std::make_unique<Block::Glass>        ());
+        registerBlock(std::make_unique<Block::Cobblestone>  ());
+        registerBlock(std::make_unique<Block::Stone_Brick>  ());
+        registerBlock(std::make_unique<Block::Cactus>       ());
+        registerBlock(std::make_unique<Block::Rose>         ());
+        registerBlock(std::make_unique<Block::Tall_Grass>   ());
+        registerBlock(std::make_unique<Block::Dead_Shrub>   ());
+        registerBlock(std::make_unique<Block::Bedrock>      ());
+        registerBlock(std::make_unique<Block::Oak_Sapling>  ());
     }
 
     Block::Block_Type& get (Block::ID id)

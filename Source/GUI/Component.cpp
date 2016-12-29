@@ -1,5 +1,5 @@
 #include "Component.h"
-
+/*
 #include "../Util/Display.h"
 
 namespace GUI
@@ -59,5 +59,5 @@ namespace GUI
 
 
 }
-
+*/
 

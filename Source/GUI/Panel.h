@@ -1,6 +1,6 @@
 #ifndef PANEL_H_INCLUDED
 #define PANEL_H_INCLUDED
-
+/*
 #include <memory>
 #include <vector>
 #include <cstdint>
@@ -25,5 +25,5 @@ namespace GUI
             std::vector<Panel_Section*> m_sections;
     };
 }
-
+*/
 #endif // PANEL_H_INCLUDED

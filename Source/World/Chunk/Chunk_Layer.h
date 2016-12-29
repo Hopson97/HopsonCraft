@@ -21,6 +21,7 @@ class Chunk_Layer
 
     private:
         std::array<uint8_t, World_Constants::CHUNK_AREA> m_blocks;
+        //std::array<uint8_t, World_Constants::CHUNK_AREA> m_lightMap;
 
         uint16_t m_translucentCount = World_Constants::CHUNK_AREA;
 };

@@ -1,6 +1,6 @@
 #ifndef TEXT_BOX_H
 #define TEXT_BOX_H
-
+/*
 #include "Component.h"
 
 namespace GUI
@@ -33,5 +33,5 @@ namespace GUI
     };
 }
 
-
+*/
 #endif // TEXT_BOX_H

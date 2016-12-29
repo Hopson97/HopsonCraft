@@ -22,6 +22,7 @@
 
 class Texture_Atlas;
 class Chunk_Map;
+class World;
 
 class Chunk : public Entity
 {
@@ -35,6 +36,9 @@ class Chunk : public Entity
         void addBlock(const Block_Location& location,
                       const Block::Block_Type& block,
                       bool overrideBlocks = true);
+
+        void breakBlock(const Block_Location& location,
+                        World& world);
 
         bool tick   ();
         bool update ();
@@ -66,6 +70,8 @@ class Chunk : public Entity
         void saveToFile         (const std::string& worldName);
 
         const Matrix4& getModelMatrix   () const;
+
+        void setMaxHeights (const std::vector<int>& heightMap);
 
     private:
         void loadBlockData              (const std::string& worldName);
