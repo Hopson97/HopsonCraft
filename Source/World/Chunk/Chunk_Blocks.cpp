@@ -2,6 +2,7 @@
 
 #include "../Block/D_Blocks.h"
 #include "../World.h"
+#include "../World_Constants.h"
 
 #include "Chunk.h"
 #include "Chunk_Map.h"
@@ -12,8 +13,8 @@ Chunk_Blocks::Chunk_Blocks(const Chunk& chunk,
 :   m_p_chunk       (&chunk)
 ,   m_location      (location)
 ,   m_p_chunkMap    (&chunkMap)
-,   m_layers        (World::WATER_LEVEL + 1)
-,   m_maxHeights    (World::CHUNK_SIZE * World::CHUNK_SIZE)
+,   m_layers        (World_Constants::WATER_LEVEL + 1)
+,   m_maxHeights    (World_Constants::CHUNK_SIZE * World_Constants::CHUNK_SIZE)
 { }
 
 void Chunk_Blocks::setBlock(const Block_Location& location,
@@ -22,8 +23,8 @@ void Chunk_Blocks::setBlock(const Block_Location& location,
 {
     if ( location.x < 0 )           return;
     else if ( location.z < 0 )      return;
-    else if ( location.x >= World::CHUNK_SIZE )  return;
-    else if ( location.z >= World::CHUNK_SIZE )  return;
+    else if ( location.x >= World_Constants::CHUNK_SIZE )  return;
+    else if ( location.z >= World_Constants::CHUNK_SIZE )  return;
     else
         qSetBlock(location, block, overrideBlocks);
 
@@ -55,17 +56,17 @@ const Block::Block_Type& Chunk_Blocks::getBlock (const Block_Location& location)
 {
     if (location.x == -1 )
     {
-        return getAdjacentChunkBlock(-1, 0, {World::CHUNK_SIZE - 1, location.y, location.z});
+        return getAdjacentChunkBlock(-1, 0, {World_Constants::CHUNK_SIZE - 1, location.y, location.z});
     }
     else if (location.z == -1 )
     {
-        return getAdjacentChunkBlock(0, -1, {location.x, location.y, World::CHUNK_SIZE - 1});
+        return getAdjacentChunkBlock(0, -1, {location.x, location.y, World_Constants::CHUNK_SIZE - 1});
     }
-    else if (location.x == World::CHUNK_SIZE )
+    else if (location.x == World_Constants::CHUNK_SIZE )
     {
         return getAdjacentChunkBlock(1, 0, {0, location.y, location.z});
     }
-    else if (location.z == World::CHUNK_SIZE )
+    else if (location.z == World_Constants::CHUNK_SIZE )
     {
         return getAdjacentChunkBlock(0, 1, {location.x, location.y, 0});
     }
@@ -120,12 +121,12 @@ size_t Chunk_Blocks::getLayerCount() const
 
 int Chunk_Blocks::getMaxheightAt(int x, int z)
 {
-    return m_maxHeights[x * World::CHUNK_SIZE + z];
+    return m_maxHeights[x * World_Constants::CHUNK_SIZE + z];
 }
 
 void Chunk_Blocks::setMaxHeight(const Block_Location& location)
 {
-    m_maxHeights[location.x * World::CHUNK_SIZE + location.z] = location.y;
+    m_maxHeights[location.x * World_Constants::CHUNK_SIZE + location.z] = location.y;
 }
 
 const Chunk_Layer& Chunk_Blocks::getLayer(uint32_t layer) const

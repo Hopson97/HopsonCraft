@@ -97,9 +97,9 @@ void Chunk_Mesh::generateMesh(int height)
     {
         if(shouldCreateLayer(y))
         {
-            for (int z = 0 ; z < World::CHUNK_SIZE ; z++)
+            for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)
             {
-                for (int x = 0 ; x < World::CHUNK_SIZE ; x++)
+                for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)
                 {
                     if (m_p_chunkBlocks->getBlock({x, y, z}).getData().getPhysicalState() == Block::Physical_State::Gas)
                     {

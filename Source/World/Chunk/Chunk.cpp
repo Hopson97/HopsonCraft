@@ -20,8 +20,8 @@ Chunk::Chunk(const Chunk_Location& position,
               const Texture_Atlas& blockAtlas,
               unsigned seed,
               const std::string& worldName)
-:   Entity          ({0, 0, 0}, {position.x * World::CHUNK_SIZE, 0,
-                                 position.z * World::CHUNK_SIZE})
+:   Entity          ({0, 0, 0}, {position.x * World_Constants::CHUNK_SIZE, 0,
+                                 position.z * World_Constants::CHUNK_SIZE})
 ,   m_location      (position)
 ,   m_p_chunkMap    (&chunkMap)
 ,   m_p_atlas       (&blockAtlas)

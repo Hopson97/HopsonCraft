@@ -4,6 +4,7 @@
 #include <array>
 #include <cstdint>
 
+#include "../World_Constants.h"
 #include "../Block/Block_Type/Block_Type.h"
 #include "../Block/D_Blocks.h"
 
@@ -19,9 +20,9 @@ class Chunk_Layer
         bool hasTranslucentBlocks() const;
 
     private:
-        std::array<uint8_t, 20 * 20> m_blocks;
+        std::array<uint8_t, World_Constants::CHUNK_AREA> m_blocks;
 
-        uint16_t m_translucentCount = 20 * 20;
+        uint16_t m_translucentCount = World_Constants::CHUNK_AREA;
 };
 
 #endif // CHUNK_LAYER_H

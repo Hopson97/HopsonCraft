@@ -8,8 +8,9 @@
 
 namespace Structure
 {
-    Structure_Function makeOak     (&createOak);
-    Structure_Function makeCactus  (&createCactus);
+    Structure_Function makeOak      (&createOak);
+    Structure_Function makeCactus   (&createCactus);
+    Structure_Function makeSpruce   (&createSpruce);
 
     void createOak(Chunk& chunk, const Block_Location& location, bool overwriteBlocks)
     {
@@ -56,5 +57,17 @@ namespace Structure
             chunk.addBlock({location.x, location.y + i, location.z}, Block::cactus, overwriteBlocks);
         }
     }
+
+    void  createSpruce(Chunk& chunk, const Block_Location& location, bool overwriteBlocks)
+    {/*
+        auto trunkHeight = Random::integer(5, 8);
+        //Make the trunk
+        for (auto i = 1 ; i < trunkHeight + 1 ; i++)
+        {
+            chunk.addBlock({location.x, location.y + i, location.z}, Block::oakWood, overwriteBlocks);
+        }
+        int y = trunkHeight + location.y;*/
+    }
+
 }
 

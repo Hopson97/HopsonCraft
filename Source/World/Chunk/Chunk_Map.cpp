@@ -2,7 +2,9 @@
 
 #include "../../Maths/Position_Converter_Maths.h"
 #include "../../Maths/General_Maths.h"
+
 #include "../../Entity.h"
+
 #include "../../Util/Debug_Display.h"
 #include "../../Input/Function_Toggle_Key.h"
 #include "../Block/D_Blocks.h"
@@ -196,10 +198,10 @@ void Chunk_Map::setBlock (const Block::Block_Type& block, const Vector3& worldPo
         if (blockPosition.z == 0)
             addToBatch(position.x, position.z - 1);
 
-        if (blockPosition.x == World::CHUNK_SIZE - 1)
+        if (blockPosition.x == World_Constants::CHUNK_SIZE - 1)
             addToBatch(position.x + 1, position.z);
 
-        if (blockPosition.z == World::CHUNK_SIZE - 1)
+        if (blockPosition.z == World_Constants::CHUNK_SIZE - 1)
             addToBatch(position.x, position.z + 1);
 
     }

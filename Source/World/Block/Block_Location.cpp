@@ -28,8 +28,8 @@ Block_Location Block_Location::getRandom(int maxY)
 {
     return
     {
-        Random::integer(0, World::CHUNK_SIZE - 1),
+        Random::integer(0, World_Constants::CHUNK_SIZE - 1),
         Random::integer(0, maxY),
-        Random::integer(0, World::CHUNK_SIZE - 1)
+        Random::integer(0, World_Constants::CHUNK_SIZE - 1)
     };
 }

@@ -63,10 +63,10 @@ namespace Noise
 
     double Generator::getValue(int x, int z, int tileX, int tileZ) const
     {
-        auto newX = (x + (tileX * World::CHUNK_SIZE));
-        auto newZ = (z + (tileZ * World::CHUNK_SIZE));
+        auto newX = (x + (tileX * World_Constants::CHUNK_SIZE));
+        auto newZ = (z + (tileZ * World_Constants::CHUNK_SIZE));
 
-        //if (newX < 0 || newZ < 0) return World::WATER_LEVEL - 1;
+        //if (newX < 0 || newZ < 0) return World_Constants::WATER_LEVEL - 1;
 
         auto totalValue   = 0.0;
 
