@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.1)
 project(MattCraft)
 
 set (CMAKE_CXX_STANDARD 14)
+#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 file(GLOB src_files
@@ -11,6 +12,7 @@ file(GLOB src_files
     Source/Input/*.cpp
     Source/Maths/*.cpp
     Source/Model/*.cpp
+    Source/Mob/*.cpp
     Source/OpenGL/*.cpp
     Source/Player/*.cpp
     Source/PostFX/*.cpp
