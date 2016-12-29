@@ -1,10 +1,10 @@
 #include "Matrix_Maths.h"
 
-#include "../Entity/Entity.h"
+#include "../Entity.h"
 #include "../Util/Display.h"
 #include "../Play_Settings.h"
 
-#include "../Entity/Entity.h"
+#include "../Entity.h"
 #include "../Camera.h"
 
 namespace Maths

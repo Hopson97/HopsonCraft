@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include "../World/Chunk/Chunk.h"
-#include "../Entity/Entity.h"
+#include "../Entity.h"
 #include "../Maths/Matrix_Maths.h"
 #include "../Play_Settings.h"
 

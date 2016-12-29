@@ -3,7 +3,6 @@
 
 #include "../Util/Display.h"
 #include "../Renderer/Master_Renderer.h"
-#include "../D_Settings.h"
 
 namespace GUI
 {

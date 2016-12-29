@@ -2,10 +2,9 @@
 
 #include "../Util/Display.h"
 #include "../Renderer/Master_Renderer.h"
-#include "../D_Settings.h"
 
 namespace GUI
-{
+{/*
     Text_Box::Text_Box( unsigned maxTextLength,
                         const sf::Vector2f& size,
                         const std::string& labelText,
@@ -86,5 +85,5 @@ namespace GUI
         return  {m_quad.getSize().x,
                 m_quad.getSize().y + 15};
     }
-
+*/
 }

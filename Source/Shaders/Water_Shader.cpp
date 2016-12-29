@@ -1,7 +1,7 @@
 #include "Water_Shader.h"
 
 #include "../Maths/Matrix_Maths.h"
-#include "../Entity/Entity.h"
+#include "../Entity.h"
 
 namespace Shader
 {

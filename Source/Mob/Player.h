@@ -35,9 +35,9 @@ class Player : public Mob
     private:
         void changeBlock (int increment);
 
-        const Block::Block_Type*    m_p_heldBlock;
-        Chunk_Map*                  m_p_chunkMap    = nullptr;
-        Chunk_Location              m_chunkLocation;
+        uint8_t         m_heldBlock;
+        Chunk_Map*      m_p_chunkMap    = nullptr;
+        Chunk_Location  m_chunkLocation;
 };
 
 #endif // PLAYER_H

@@ -18,7 +18,7 @@
 #include "Chunk_Layer.h"
 #include "Chunk_Blocks.h"
 
-#include "../../Entity/Entity.h"
+#include "../../Entity.h"
 
 class Texture_Atlas;
 class Chunk_Map;

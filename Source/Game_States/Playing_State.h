@@ -5,7 +5,7 @@
 
 #include "../Input/Function_Toggle_Key.h"
 #include "../Renderer/Master_Renderer.h"
-#include "../Player/Player.h"
+#include "../Mob/Player.h"
 #include "../GUI/Panel.h"
 #include "../Crosshair.h"
 #include "../World/World.h"

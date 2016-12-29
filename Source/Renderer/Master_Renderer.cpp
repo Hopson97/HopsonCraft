@@ -1,6 +1,5 @@
 #include "Master_Renderer.h"
 
-#include "../D_Settings.h"
 #include "../Util/Display.h"
 
 namespace

@@ -1,7 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "../OpenGL/GL_Maths.h"
+#include "OpenGL/GL_Maths.h"
 
 struct Entity
 {

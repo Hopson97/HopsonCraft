@@ -3,7 +3,7 @@
 #include "../World/Chunk/Chunk.h"
 #include "../Maths/Matrix_Maths.h"
 #include "../Shaders/Solid_Block_Shader.h"
-#include "../Entity/Entity.h"
+#include "../Entity.h"
 
 Solid_Block_Renderer::Solid_Block_Renderer()
 { }

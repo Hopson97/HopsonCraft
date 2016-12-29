@@ -1,7 +1,7 @@
 #ifndef MOB_BASE_H_INCLUDED
 #define MOB_BASE_H_INCLUDED
 
-#include "../Entity/Entity.h"
+#include "../Entity.h"
 
 class Mob : public Entity
 {

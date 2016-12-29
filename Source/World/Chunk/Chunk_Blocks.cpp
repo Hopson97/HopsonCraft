@@ -33,17 +33,19 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
                              uint8_t block,
                              bool overrideBlocks)
 {
-    if ((unsigned)location.y > m_layers.size() - 1) addLayers(location.y);
-
-
-    if (m_layers[location.y].getBlock(location.x, location.z).getData().getID() == Block::ID::Bedrock)
-        return;
-
+    if ((unsigned)location.y > m_layers.size() - 1)
+        addLayers(location.y);
 
     if (m_layers[location.y].getBlock(location.x, location.z).getData().getID() == Block::ID::Air || overrideBlocks)
     {
         if (m_p_chunk->hasBlockData())
+        {
             m_addedBlocks[location] = block;
+
+            //Don't want to tinker with the bottom layer
+            if (location.y == 0)
+                return;
+        }
 
         m_layers[location.y].setBlock(location.x, location.z, Block::get(block));
     }
@@ -95,8 +97,8 @@ const std::unordered_map<Block_Location, uint8_t>& Chunk_Blocks::getAddedBlocks(
 
 
 const Block::Block_Type& Chunk_Blocks::getAdjacentChunkBlock (int xChange,
-                                                    int zChange,
-                                                    const Block_Location& location) const
+                                                              int zChange,
+                                                              const Block_Location& location) const
 {
     //Try dd a chunk incase it does not yet exist
     Chunk_Location chunkLocation (m_location.x + xChange, m_location.z + zChange);

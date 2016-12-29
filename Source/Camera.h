@@ -1,7 +1,7 @@
 #ifndef CAMERA_H_INCLUDED
 #define CAMERA_H_INCLUDED
 
-#include "Entity/Entity.h"
+#include "Entity.h"
 #include "OpenGL/GL_Maths.h"
 
 class Camera : public Entity
