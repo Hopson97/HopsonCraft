@@ -221,7 +221,7 @@ void Chunk::setMaxHeights(const std::vector<int>& heightMap)
 
 
 
-std::string Chunk::getFileString(const std::string& worldName)
+std::string Chunk::getFileString(const std::string& worldName) const
 {
     return "Worlds/" +
             worldName +
@@ -249,7 +249,7 @@ const Chunk_Blocks* Chunk::getAdjBlocks(int yd, int xd) const
 
 
 
-void Chunk::saveToFile(const std::string& worldName)
+void Chunk::saveToFile(const std::string& worldName) const
 {
     if(!m_blocks.getAddedBlocks().empty())
     {

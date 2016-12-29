@@ -77,12 +77,7 @@ void Chunk_Map::addChunk(const Chunk_Location& location)
 {
     if (!getChunkAt(location))
     {
-        std::unique_ptr<Chunk> c = std::make_unique<Chunk>(location,
-                                                           *this,
-                                                           m_blockTextures,
-                                                           m_worldSeed,
-                                                           m_worldName);
-        m_chunks[location] = std::move(c);
+        m_chunks.insert(std::make_pair(location, std::make_unique<Chunk>(location, *this, m_blockTextures, m_worldSeed, m_worldName)));
     }
 }
 
@@ -133,6 +128,7 @@ void Chunk_Map::updateChunks()
 {
     for(auto& chunk : m_chunks)
     {
+        if(!chunk.second) continue;
         //These functions return true if the chunk update/ tick changes the mesh of the chunk
         if(chunk.second->update() /*|| chunk.second->tick()*/)
         {

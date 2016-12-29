@@ -67,7 +67,7 @@ class Chunk : public Entity
         void giveRegenMeshFlag  ();
         bool hasRegenMeshFlag   () const;
 
-        void saveToFile         (const std::string& worldName);
+        void saveToFile         (const std::string& worldName) const;
 
         const Matrix4& getModelMatrix   () const;
 
@@ -75,7 +75,7 @@ class Chunk : public Entity
 
     private:
         void loadBlockData              (const std::string& worldName);
-        std::string getFileString       (const std::string& worldName);
+        std::string getFileString       (const std::string& worldName) const;
 
         std::unordered_map<Block_Location, std::unique_ptr<Updatable_Block>> m_updatableBlocks;
 
