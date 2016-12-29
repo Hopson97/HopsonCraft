@@ -23,6 +23,7 @@ namespace Block
         Dead_Shrub      =   16,
         Bedrock         =   17,
         Oak_Sapling     =   18,
+        TNT             =   19,
 
         NUM_BLOCK_TYPES
     };
@@ -46,6 +47,7 @@ namespace Block
     {
         None,
         Chunk_Block_Change,
+        Explode_Small,
     };
 }
 

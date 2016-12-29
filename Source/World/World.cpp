@@ -103,12 +103,14 @@ void World::blockEdit(const Vector3& lastRayPos, const Vector3& rayPos)
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         m_chunkMap.addBlock(Block::get(Block::ID::Air), rayPos);
-        m_chunkMap.makeExplosion(rayPos, 8);
     }
     else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
         Chunk* chunk = m_chunkMap.getChunkAt(Maths::worldToChunkPosition(rayPos));
-        auto interaction = chunk->getBlocks().getBlock(Maths::worldToBlockPosition(rayPos)).interact(*chunk, Maths::worldToBlockPosition(rayPos), Empty());
+        auto interaction = chunk->getBlocks().getBlock(Maths::worldToBlockPosition(rayPos)).interact(*this,
+                                                                                                     *chunk,
+                                                                                                     rayPos,
+                                                                                                     Empty());
 
         switch (interaction)
         {
@@ -155,6 +157,10 @@ void World::save() const
     outFile << "date\n" << Time::getDateString()    << std::endl;
 }
 
+void World::makeExplosion(const Vector3& worldPosition, int power)
+{
+    m_chunkMap.makeExplosion(worldPosition, power);
+}
 
 //Getters...
 const Chunk_Map& World::getChunkMap() const

@@ -27,6 +27,8 @@
 #include "Stone_Brick.h"
 #include "Cobblestone.h"
 
+#include "TNT.h"
+
 
 
 #endif // BLOCK_TYPES_H_INCLUDED

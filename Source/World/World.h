@@ -37,6 +37,8 @@ class World
 
         void save() const;
 
+        void makeExplosion(const Vector3& worldPosition, int power);
+
     private:
         void blockRayHit();
         void blockEdit  (const Vector3& lastRayPos, const Vector3& rayPos);
