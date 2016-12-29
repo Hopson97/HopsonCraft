@@ -36,10 +36,11 @@ void Chunk_Mesh::Chunk_Mesh_Part::addUvCoords (const std::vector<GLfloat>& coord
 
 void Chunk_Mesh::Chunk_Mesh_Part::addLight(float value)
 {
-    light.push_back(value);
-    light.push_back(value);
-    light.push_back(value);
-    light.push_back(value);
+    static float night = 15.0f / 15.0f;
+    light.push_back(value * night);
+    light.push_back(value * night);
+    light.push_back(value * night);
+    light.push_back(value * night);
 }
 
 void Chunk_Mesh::Chunk_Mesh_Part::buffer()

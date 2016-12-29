@@ -6,15 +6,15 @@ set (CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 file(GLOB src_files
-    Source/Entity/*.cpp
     Source/Game_States/*.cpp
     Source/GUI/*.cpp
     Source/Input/*.cpp
+    Source/Inventory/*.cpp
+    Source/Item/*.cpp
     Source/Maths/*.cpp
     Source/Model/*.cpp
     Source/Mob/*.cpp
     Source/OpenGL/*.cpp
-    Source/Player/*.cpp
     Source/PostFX/*.cpp
     Source/Renderer/*.cpp
     Source/Shaders/*.cpp
