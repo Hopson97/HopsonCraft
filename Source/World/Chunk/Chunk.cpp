@@ -56,10 +56,7 @@ void Chunk::addBlock( const Block_Location& location,
 
     m_blocks.setBlock(location, (uint8_t)block.getData().getID(), overrideBlocks);
 
-    if(m_hasBlockData)
-    {
-        m_blocks.recalculateMaxHeight(location.x, location.z);
-    }
+    checkAddedBlockLocation(location);
 }
 
 void Chunk::breakBlock(const Block_Location& location,
@@ -73,11 +70,21 @@ void Chunk::breakBlock(const Block_Location& location,
 
     //Loot loot = getBlocks().getBlock(location).getLoot();
 
+    checkAddedBlockLocation(location);
+}
+
+void Chunk::checkAddedBlockLocation(const Block_Location& location)
+{
     if(m_hasBlockData)
     {
         m_blocks.recalculateMaxHeight(location.x, location.z);
     }
+    if (m_updatableBlocks.find(location) != m_updatableBlocks.end())
+    {
+        m_updatableBlocks.erase(location);
+    }
 }
+
 
 
 bool Chunk::tick()

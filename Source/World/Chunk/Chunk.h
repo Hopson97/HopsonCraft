@@ -74,6 +74,8 @@ class Chunk : public Entity
         const Matrix4& getModelMatrix   () const;
 
     private:
+        void checkAddedBlockLocation    (const Block_Location& location);
+
         void loadBlockData              (const std::string& worldName);
         std::string getFileString       (const std::string& worldName) const;
 

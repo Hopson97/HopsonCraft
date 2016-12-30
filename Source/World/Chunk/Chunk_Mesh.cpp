@@ -230,8 +230,7 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
         x,      y + m_bh, z,       //Back-Left
     });
 
-
-    //finishBlockFace(block.getTextureTop(),  Light_Value::TOP);
+    //auto light = m_p_chunkBlocks->getLayer(y + 1).getNaturalLight(x, z);
 
     finishBlockFace(block.getTextureTop(),  m_p_chunk->getBlocks().getMaxheightAt(x, z) == (int)y ?
                                                 Light_Value::TOP :
@@ -251,6 +250,8 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Bl
         x,      y, z + 1,
     });
 
+    //auto light = m_p_chunkBlocks->getLayer(y - 1).getNaturalLight(x, z);
+
     finishBlockFace(block.getTextureBottom(), Light_Value::BOTTOM);
 }
 
@@ -263,6 +264,8 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Bloc
         x, y + m_bh,    z + 1,
         x, y + m_bh,    z,
     });
+
+    //auto light = m_p_chunkBlocks->getLayer(y).getNaturalLight(x - 1, z);
 
     finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
 }
@@ -277,6 +280,8 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
         x + 1, y + m_bh,    z + 1,
     });
 
+    //auto light = m_p_chunkBlocks->getLayer(y).getNaturalLight(x + 1, z);
+
     finishBlockFace(block.getTextureSide(), Light_Value::SIDE - 0.07);
 }
 
@@ -290,6 +295,8 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
         x,      y + m_bh,   z + 1,
     });
 
+    //auto light = m_p_chunkBlocks->getLayer(y).getNaturalLight(x, z + 1);
+
     finishBlockFace(block.getTextureSide(), Light_Value::SIDE - 0.14);
 }
 
@@ -302,6 +309,8 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Bloc
         x,      y + m_bh,   z,
         x + 1,  y + m_bh,   z,
     });
+
+    //auto light = m_p_chunkBlocks->getLayer(y).getNaturalLight(x, z - 1);
 
     finishBlockFace(block.getTextureSide(), Light_Value::SIDE - 0.21);
 }

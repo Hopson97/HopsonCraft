@@ -3,6 +3,7 @@
 
 #include <array>
 #include <cstdint>
+#include <vector>
 
 #include "../World_Constants.h"
 #include "../Block/Block_Type/Block_Type.h"
@@ -19,9 +20,14 @@ class Chunk_Layer
 
         bool hasTranslucentBlocks() const;
 
+        uint8_t getNaturalLight    (int x, int z) const;
+        uint8_t getBlockLight      (int x, int z) const;
+
     private:
-        std::array<uint8_t, World_Constants::CHUNK_AREA> m_blocks;
-        //std::array<uint8_t, World_Constants::CHUNK_AREA> m_lightMap;
+        std::array<uint8_t, World_Constants::CHUNK_AREA>    m_blocks;
+
+        std::array<uint8_t, World_Constants::CHUNK_AREA>    m_naturalLightMap;
+        std::array<uint8_t, World_Constants::CHUNK_AREA>    m_blockLightMap;
 
         uint16_t m_translucentCount = World_Constants::CHUNK_AREA;
 };
