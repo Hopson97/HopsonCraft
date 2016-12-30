@@ -21,7 +21,6 @@ class Biome
         bool hasFlora();
         bool hasTrees();
 
-
         Structure_Function getTreeFunction();
         const Block::Block_Type& getBlock() const;
         const Block::Block_Type& getFlora() const;
@@ -31,9 +30,9 @@ class Biome
         int getFloraFrequency() const;
 
     private:
-        std::vector<const Block::Block_Type*>         m_blocks;
-        std::vector<const Block::Block_Type*>         m_flora;
-        std::vector<Structure_Function>     m_treeCreators;
+        std::vector<const Block::Block_Type*>   m_blocks;
+        std::vector<const Block::Block_Type*>   m_flora;
+        std::vector<Structure_Function>         m_treeCreators;
 
 
         int m_depth          = 1;
