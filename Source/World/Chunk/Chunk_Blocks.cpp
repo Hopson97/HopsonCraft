@@ -137,9 +137,9 @@ bool Chunk_Blocks::layerHasTranslucentBlocks(uint32_t layer) const
 
 void Chunk_Blocks::calculateMaxHeights()
 {
-    for (auto z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)    //z
+    for (auto x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)    //z
     {
-        for (auto x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)    //x
+        for (auto z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)    //x
         {
             recalculateMaxHeight(x, z);
         }
@@ -150,10 +150,10 @@ void Chunk_Blocks::recalculateMaxHeight(int x, int z)
 {
     for (auto y = int(m_layers.size() - 1) ; y > 0 ; y--)
     {
-        if (m_layers[y].getBlock(x, z).getData().isOpaque())
+        if (m_layers[y].getBlock(x, z).getData().getID() != Block::ID::Air)
         {
-            m_maxHeights[x + World_Constants::CHUNK_SIZE * z] = y;
-            return;
+            m_maxHeights[x * World_Constants::CHUNK_SIZE + z] = y;
+            break;
         }
     }
 }

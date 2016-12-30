@@ -32,7 +32,7 @@ Chunk::Chunk(const Chunk_Location& position,
 {
     m_worldGenerator.generate();
     loadBlockData (worldName);
-    //m_blocks.calculateMaxHeights();
+    m_blocks.calculateMaxHeights();
 
     m_hasBlockData = true;
 }
@@ -58,7 +58,7 @@ void Chunk::addBlock( const Block_Location& location,
 
     if(m_hasBlockData)
     {
-        //m_blocks.recalculateMaxHeight(location.x, location.z);
+        m_blocks.recalculateMaxHeight(location.x, location.z);
     }
 }
 
@@ -72,6 +72,11 @@ void Chunk::breakBlock(const Block_Location& location,
     block.breakBlock(world, *this, worldPosition, breakType);
 
     //Loot loot = getBlocks().getBlock(location).getLoot();
+
+    if(m_hasBlockData)
+    {
+        m_blocks.recalculateMaxHeight(location.x, location.z);
+    }
 }
 
 
