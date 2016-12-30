@@ -32,6 +32,7 @@ Chunk::Chunk(const Chunk_Location& position,
 {
     m_worldGenerator.generate();
     loadBlockData (worldName);
+    //m_blocks.calculateMaxHeights();
 
     m_hasBlockData = true;
 }
@@ -40,24 +41,6 @@ void Chunk::addBlock( const Block_Location& location,
                       const Block::Block_Type& block,
                       bool overrideBlocks)
 {
-    //int h = m_blocks.getMaxheightAt(location.x, location.z);
-/*
-    if (location.y > h && block.getData().isOpaque())
-    {
-        m_blocks.setMaxHeight(location);
-    }*/
-/*
-    else if (location.y == h)
-    {
-        int y;
-        for (   y = location.y ;
-                m_blocks.getBlock({location.x, location.y - y, location.z}).getData().isOpaque() ;
-                y--);
-
-        m_blocks.setMaxHeight({location.x, y, location.z});
-    }
-*/
-
     if(m_updatableBlocks.find(location) != m_updatableBlocks.end())
     {
         m_updatableBlocks[location]->breakBlock();
@@ -72,6 +55,11 @@ void Chunk::addBlock( const Block_Location& location,
     }
 
     m_blocks.setBlock(location, (uint8_t)block.getData().getID(), overrideBlocks);
+
+    if(m_hasBlockData)
+    {
+        //m_blocks.recalculateMaxHeight(location.x, location.z);
+    }
 }
 
 void Chunk::breakBlock(const Block_Location& location,
@@ -219,12 +207,6 @@ const Matrix4& Chunk::getModelMatrix() const
 {
     return m_modelMatrix;
 }
-
-void Chunk::setMaxHeights(const std::vector<int>& heightMap)
-{
-    m_blocks.setMaxHeights(heightMap);
-}
-
 
 
 std::string Chunk::getFileString(const std::string& worldName) const

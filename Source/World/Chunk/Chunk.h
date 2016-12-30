@@ -73,8 +73,6 @@ class Chunk : public Entity
 
         const Matrix4& getModelMatrix   () const;
 
-        void setMaxHeights (const std::vector<int>& heightMap);
-
     private:
         void loadBlockData              (const std::string& worldName);
         std::string getFileString       (const std::string& worldName) const;
@@ -98,7 +96,6 @@ class Chunk : public Entity
         Chunk_Blocks m_blocks;
         World_Generator m_worldGenerator;
         Matrix4 m_modelMatrix;
-
 };
 
 typedef std::unique_ptr<Chunk> Chunk_Ptr;

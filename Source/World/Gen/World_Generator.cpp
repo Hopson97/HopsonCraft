@@ -116,9 +116,6 @@ void World_Generator::generateBlockData()
     }
     m_flora.clear();
 
-    //Set max height using the height map before adding trees
-    m_p_chunk->setMaxHeights(m_heightMap);
-
     //Generate strucutres eg trees
     for (auto& s : m_structures)
     {
@@ -256,14 +253,15 @@ void World_Generator::setUpBiomes ()
 
     //===================================
     //Dirt Forest
-    dirtForest.addBlock(Block::get(Block::ID::Grass), 1);
+    dirtForest.addBlock(Block::get(Block::ID::Grass), 5);
+    dirtForest.addBlock(Block::get(Block::ID::Dirt),  1);
     dirtForest.setDepth(1);
 
     dirtForest.addTree(Structure::makeOak);
     dirtForest.setTreeFrequency(250);
 
-    forestBiome.addFlora(Block::get(Block::ID::Tall_Grass), 2);
-    forestBiome.addFlora(Block::get(Block::ID::Rose), 1);
+    dirtForest.addFlora(Block::get(Block::ID::Tall_Grass), 2);
+    dirtForest.addFlora(Block::get(Block::ID::Rose), 1);
     dirtForest.setFloraFrequency(60);
 
     //===================================
@@ -286,7 +284,7 @@ void World_Generator::setUpBiomes ()
     grasslandBiome.addTree(Structure::makeOak);
     grasslandBiome.setTreeFrequency(1000);
 
-    forestBiome.addFlora(Block::get(Block::ID::Tall_Grass), 3);
-    forestBiome.addFlora(Block::get(Block::ID::Rose), 1);
-    grasslandBiome.setFloraFrequency(40);
+    grasslandBiome.addFlora(Block::get(Block::ID::Tall_Grass), 3);
+    grasslandBiome.addFlora(Block::get(Block::ID::Rose), 1);
+    grasslandBiome.setFloraFrequency(20);
 }

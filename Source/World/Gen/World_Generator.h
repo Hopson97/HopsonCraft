@@ -50,8 +50,8 @@ class World_Generator
         std::vector<int> m_heightMap;
         std::vector<int> m_biomeMap;
 
-        std::unordered_map<Block_Location, Structure_Function>  m_structures;
-        std::unordered_map<Block_Location, const Block::Block_Type*>      m_flora;
+        std::unordered_map<Block_Location, Structure_Function>          m_structures;
+        std::unordered_map<Block_Location, const Block::Block_Type*>    m_flora;
 
         int m_maxHeight;
         uint32_t m_seed;

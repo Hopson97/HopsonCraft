@@ -13,8 +13,8 @@ namespace
     namespace Light_Value
     {
         constexpr float TOP      = 1.0f;
-        constexpr float SIDE     = 0.6f;
-        constexpr float BOTTOM   = 0.4f;
+        constexpr float SIDE     = 0.45f;
+        constexpr float BOTTOM   = 0.3f;
     }
 
     const std::vector<GLfloat> ambientOcculsionValues
@@ -236,6 +236,7 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
     finishBlockFace(block.getTextureTop(),  m_p_chunk->getBlocks().getMaxheightAt(x, z) == (int)y ?
                                                 Light_Value::TOP :
                                                 Light_Value::SIDE);
+
 */
 }
 
@@ -276,7 +277,7 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
         x + 1, y + m_bh,    z + 1,
     });
 
-    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
+    finishBlockFace(block.getTextureSide(), Light_Value::SIDE + 0.1);
 }
 
 void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -289,7 +290,7 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
         x,      y + m_bh,   z + 1,
     });
 
-    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
+    finishBlockFace(block.getTextureSide(), Light_Value::SIDE + 0.2);
 }
 
 void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -302,7 +303,7 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Bloc
         x + 1,  y + m_bh,   z,
     });
 
-    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
+    finishBlockFace(block.getTextureSide(), Light_Value::SIDE + 0.3);
 }
 
 void Chunk_Mesh::finishBlockFace(const Vector2& textureLocation, float lightValue)

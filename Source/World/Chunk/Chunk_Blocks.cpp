@@ -1,5 +1,7 @@
 #include "Chunk_Blocks.h"
 
+#include <iostream>
+
 #include "../Block/D_Blocks.h"
 #include "../World.h"
 #include "../World_Constants.h"
@@ -111,22 +113,13 @@ const Block::Block_Type& Chunk_Blocks::getAdjacentChunkBlock (int xChange,
 
 void Chunk_Blocks::addLayers(unsigned target)
 {
-    while (m_layers.size() - 1 < target) m_layers.emplace_back();
+    while (m_layers.size() - 1 < target)
+        m_layers.emplace_back();
 }
 
 size_t Chunk_Blocks::getLayerCount() const
 {
     return m_layers.size();
-}
-
-int Chunk_Blocks::getMaxheightAt(int x, int z) const
-{
-    return m_maxHeights[x * World_Constants::CHUNK_SIZE + z];
-}
-
-void Chunk_Blocks::setMaxHeight(const Block_Location& location)
-{
-    m_maxHeights[location.x * World_Constants::CHUNK_SIZE + location.z] = location.y;
 }
 
 const Chunk_Layer& Chunk_Blocks::getLayer(uint32_t layer) const
@@ -142,10 +135,32 @@ bool Chunk_Blocks::layerHasTranslucentBlocks(uint32_t layer) const
         return getLayer(layer).hasTranslucentBlocks();
 }
 
-void Chunk_Blocks::setMaxHeights(const std::vector<int>& heightMap)
+void Chunk_Blocks::calculateMaxHeights()
 {
-    m_maxHeights = heightMap;
+    for (auto z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)    //z
+    {
+        for (auto x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)    //x
+        {
+            recalculateMaxHeight(x, z);
+        }
+    }
 }
 
+void Chunk_Blocks::recalculateMaxHeight(int x, int z)
+{
+    for (auto y = int(m_layers.size() - 1) ; y > 0 ; y--)
+    {
+        if (m_layers[y].getBlock(x, z).getData().isOpaque())
+        {
+            m_maxHeights[x + World_Constants::CHUNK_SIZE * z] = y;
+            return;
+        }
+    }
+}
+
+int Chunk_Blocks::getMaxheightAt(int x, int z) const
+{
+    return m_maxHeights[x * World_Constants::CHUNK_SIZE + z];
+}
 
 
