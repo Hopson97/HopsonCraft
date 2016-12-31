@@ -9,6 +9,7 @@ namespace Block
     {
         public:
             Grass();
+            bool tick(const Block_Location& location, Chunk& chunk);
             //Interaction_Type interact(Chunk& chunk, const Block_Location& location, Temp_Item_ID id) const;
     };
 }

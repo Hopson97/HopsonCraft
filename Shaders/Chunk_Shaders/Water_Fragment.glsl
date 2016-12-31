@@ -16,8 +16,8 @@ float   blockLight;
 void getLightValues()
 {
     cardinalLight = passLightValues.r;
-    naturalLight  = passLightValues.g;
-    blockLight    = passLightValues.b;
+    naturalLight  = passLightValues.g / 15.0;
+    blockLight    = passLightValues.b / 15.0;
 }
 
 void main()
@@ -26,7 +26,16 @@ void main()
 
     outColour = texture(textureSampler, passTextureCoords);
     outColour *= vec4(cardinalLight, cardinalLight, cardinalLight, 1.0);
-
+/*
+    if(naturalLight > blockLight)
+    {
+        outColour *= vec4(naturalLight, naturalLight, naturalLight, 1.0);
+    }
+    else
+    {
+        outColour *= vec4(blockLight, blockLight, blockLight, 1.0);
+    }
+*/
     if (outColour.a == 0)
     {
         discard;

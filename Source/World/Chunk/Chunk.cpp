@@ -96,7 +96,7 @@ bool Chunk::tick()
     {
         auto location = Block_Location::getRandom(m_blocks.getLayerCount());
 
-        chunkHasChanged = m_blocks.getBlock(location).tick(location, this) | chunkHasChanged;
+        chunkHasChanged = m_blocks.getBlock(location).tick(location, *this) | chunkHasChanged;
     }
     return chunkHasChanged;
 }

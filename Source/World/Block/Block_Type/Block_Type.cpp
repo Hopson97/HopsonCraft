@@ -21,7 +21,7 @@ namespace Block
         return nullptr;
     }
 
-    bool Block_Type::tick(const Block_Location& location, Chunk* chunk) const
+    bool Block_Type::tick(const Block_Location& location, Chunk& chunk) const
     {
         return false;
     }

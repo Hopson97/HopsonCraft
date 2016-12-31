@@ -14,13 +14,11 @@ Chunk_Layer::Chunk_Layer()
         {
             m_blocks            [World_Constants::CHUNK_SIZE * z + x] = 0; //0 is air
 
-            m_naturalLightMap   [World_Constants::CHUNK_SIZE * z + x] = 0;
-            m_blockLightMap     [World_Constants::CHUNK_SIZE * z + x] = 0;
+            m_naturalLightMap   [World_Constants::CHUNK_SIZE * z + x] = 15;
+            m_blockLightMap     [World_Constants::CHUNK_SIZE * z + x] = 15;
         }
     }
 }
-
-
 
 void Chunk_Layer::setBlock(int x, int z, const Block::Block_Type& block)
 {
