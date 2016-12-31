@@ -73,6 +73,11 @@ class Chunk : public Entity
 
         const Matrix4& getModelMatrix   () const;
 
+        Chunk* getChunkAdj (int dx, int dz) const;
+
+        uint8_t getNaturalLight (const Block_Location& location) const;
+        uint8_t getBlockLight   (const Block_Location& location) const;
+
     private:
         void checkAddedBlockLocation    (const Block_Location& location);
 

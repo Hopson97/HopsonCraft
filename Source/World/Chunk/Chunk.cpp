@@ -247,6 +247,104 @@ const Chunk_Blocks* Chunk::getAdjBlocks(int yd, int xd) const
     return nullptr;
 }
 
+Chunk* Chunk::getChunkAdj(int dx, int dz) const
+{
+    return m_p_chunkMap->getChunkAt({m_location.x + dx, m_location.z + dz});
+}
+
+
+uint8_t Chunk::getNaturalLight(const Block_Location& location) const
+{
+    auto x = location.x;
+    auto z = location.z;
+    auto y = location.y;
+
+    if (location.x == -1 )
+    {
+        const auto* chunk =getChunkAdj(-1, 0);
+        if (chunk)
+        {
+            return chunk->getNaturalLight({World_Constants::CHUNK_SIZE - 1, y, z});
+        }
+        return 0;
+    }
+    else if (location.z == -1 )
+    {
+        const auto* chunk =getChunkAdj(0, -1);
+        if (chunk)
+        {
+            return chunk->getNaturalLight({x, y, World_Constants::CHUNK_SIZE - 1});
+        }
+        return 0;
+    }
+    else if (location.x == World_Constants::CHUNK_SIZE )
+    {
+        const auto* chunk =getChunkAdj(1, 0);
+        if (chunk)
+        {
+            return chunk->getNaturalLight({0, y, z});
+        }
+        return 0;
+    }
+    else if (location.z == World_Constants::CHUNK_SIZE )
+    {
+        const auto* chunk =getChunkAdj(0, 1);
+        if (chunk)
+        {
+            return chunk->getNaturalLight({x, y, 0});
+        }
+        return 0;
+    }
+    return m_blocks.getLayer(y).getNaturalLight(x, z);
+
+}
+
+uint8_t Chunk::getBlockLight(const Block_Location& location) const
+{
+    auto x = location.x;
+    auto z = location.z;
+    auto y = location.y;
+
+    if (location.x == -1 )
+    {
+        const auto* chunk = getChunkAdj(-1, 0);
+        if (chunk)
+        {
+            return chunk->getBlockLight({World_Constants::CHUNK_SIZE - 1, y, z});
+        }
+        return 0;
+    }
+    else if (location.z == -1 )
+    {
+        const auto* chunk =getChunkAdj(0, -1);
+        if (chunk)
+        {
+            return chunk->getBlockLight({x, y, World_Constants::CHUNK_SIZE - 1});
+        }
+        return 0;
+    }
+    else if (location.x == World_Constants::CHUNK_SIZE )
+    {
+        const auto* chunk =getChunkAdj(1, 0);
+        if (chunk)
+        {
+            return chunk->getBlockLight({0, y, z});
+        }
+        return 0;
+    }
+    else if (location.z == World_Constants::CHUNK_SIZE )
+    {
+        const auto* chunk =getChunkAdj(0, 1);
+        if (chunk)
+        {
+            return chunk->getBlockLight({x, y, 0});
+        }
+        return 0;
+    }
+    return m_blocks.getLayer(y).getBlockLight(x, z);
+}
+
+
 
 
 void Chunk::saveToFile(const std::string& worldName) const

@@ -2,12 +2,11 @@
 
 layout (location = 0) in vec3   vertexPosition;
 layout (location = 1) in vec2   texturePosition;
-layout (location = 2) in float  inLightValue;
+layout (location = 2) in vec3   inLightValues;
 
 out vec2 passTextureCoords;
 out float passVis;
-out float passLightValue;
-
+out vec3 passLightValues;
 
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
@@ -42,7 +41,7 @@ void main()
     gl_Position = projectionMatrix * vertRelToCamera;
 
     calculateFog(vertRelToCamera);
-    passTextureCoords = texturePosition;
 
-    passLightValue = inLightValue;
+    passTextureCoords = texturePosition;
+    passLightValues = inLightValues;
 }

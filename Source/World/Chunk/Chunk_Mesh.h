@@ -18,15 +18,15 @@ class Chunk_Mesh
     {
         ~Chunk_Mesh_Part(){};
         Model model;
-        std::vector<GLfloat> vertexCoords;
-        std::vector<GLfloat> textureCoords;
-        std::vector<GLfloat> light;
-        std::vector<GLfloat> ambientOcclusion;
+        std::vector<GLfloat>    vertexCoords;
+        std::vector<GLfloat>    textureCoords;
+        std::vector<GLfloat>    lightValues;
+
         std::vector<GLuint>  indices;
 
 
         void addUvCoords    (const std::vector<GLfloat>& coords);
-        void addLight       (float value);
+        void addLight       (float cardinal, float natural, float block);
         void buffer         ();
 
         GLuint indicesCount = 0;
@@ -59,7 +59,11 @@ class Chunk_Mesh
         void addBlockFrontToMesh    (float x, float y, float z, const Block::Block_Data& block);
         void addBlockBackToMesh     (float x, float y, float z, const Block::Block_Data& block);
 
-        void    finishBlockFace        (const Vector2& textureLocation, float lightValue);
+        void finishBlockFace (const Vector2& textureLocation,
+                              float cardinalLight,
+                              float naturalLight,
+                              float blockLight);
+
         uint8_t getVertexAmbientOcc    (bool side1, bool side2, bool corner);
 
         void addBlockIndices        ();

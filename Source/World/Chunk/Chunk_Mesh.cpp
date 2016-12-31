@@ -34,30 +34,31 @@ void Chunk_Mesh::Chunk_Mesh_Part::addUvCoords (const std::vector<GLfloat>& coord
     textureCoords.insert(textureCoords.end(), coords.begin(), coords.end());
 }
 
-void Chunk_Mesh::Chunk_Mesh_Part::addLight(float value)
+void Chunk_Mesh::Chunk_Mesh_Part::addLight (float cardinal, float natural, float block)
 {
-    static float night = 15.0f / 15.0f;
-    light.push_back(value * night);
-    light.push_back(value * night);
-    light.push_back(value * night);
-    light.push_back(value * night);
+    for (int i = 0 ; i < 4 ; i++)
+    {
+        lightValues.push_back(cardinal);
+        lightValues.push_back(natural);
+        lightValues.push_back(block);
+    }
 }
 
 void Chunk_Mesh::Chunk_Mesh_Part::buffer()
 {
     model.addData   (vertexCoords, textureCoords, indices);
-    model.addVBO    (1, light);
+    model.addVBO    (3, lightValues);
 
     vertexCoords.clear();
     textureCoords.clear();
-    light.clear();
+    lightValues.clear();
     indices.clear();
     indicesCount = 0;
 
     //Fully clear the vectors
     vertexCoords.shrink_to_fit();
     textureCoords.shrink_to_fit();
-    light.shrink_to_fit();
+    lightValues.shrink_to_fit();
     indices.shrink_to_fit();
 }
 
@@ -230,11 +231,18 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
         x,      y + m_bh, z,       //Back-Left
     });
 
-    //auto light = m_p_chunkBlocks->getLayer(y + 1).getNaturalLight(x, z);
+    Block_Location lightLocation (x, y + 1, z);
+    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
+    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
 
-    finishBlockFace(block.getTextureTop(),  m_p_chunk->getBlocks().getMaxheightAt(x, z) == (int)y ?
+    float cardinalLight = m_p_chunk->getBlocks().getMaxheightAt(x, z) == (int)y ?
                                                 Light_Value::TOP :
-                                                Light_Value::SIDE);
+                                                Light_Value::SIDE;
+
+    finishBlockFace(block.getTextureTop(),
+                    cardinalLight,
+                    naturalLight,
+                    blockLight);
 
 
 }
@@ -250,9 +258,14 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Bl
         x,      y, z + 1,
     });
 
-    //auto light = m_p_chunkBlocks->getLayer(y - 1).getNaturalLight(x, z);
+    Block_Location lightLocation (x, y - 1, z);
+    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
+    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
 
-    finishBlockFace(block.getTextureBottom(), Light_Value::BOTTOM);
+    finishBlockFace(block.getTextureBottom(),
+                    Light_Value::BOTTOM,
+                    naturalLight,
+                    blockLight);
 }
 
 void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -265,9 +278,14 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Bloc
         x, y + m_bh,    z,
     });
 
-    //auto light = m_p_chunkBlocks->getLayer(y).getNaturalLight(x - 1, z);
+    Block_Location lightLocation (x - 1, y, z);
+    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
+    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
 
-    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
+    finishBlockFace(block.getTextureSide(),
+                    Light_Value::SIDE,
+                    naturalLight,
+                    blockLight);
 }
 
 void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -280,9 +298,15 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
         x + 1, y + m_bh,    z + 1,
     });
 
-    //auto light = m_p_chunkBlocks->getLayer(y).getNaturalLight(x + 1, z);
+    Block_Location lightLocation (x + 1, y, z);
+    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
+    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
 
-    finishBlockFace(block.getTextureSide(), Light_Value::SIDE - 0.07);
+
+    finishBlockFace(block.getTextureSide(),
+                    Light_Value::SIDE - 0.07,
+                    naturalLight,
+                    blockLight);
 }
 
 void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -295,9 +319,14 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
         x,      y + m_bh,   z + 1,
     });
 
-    //auto light = m_p_chunkBlocks->getLayer(y).getNaturalLight(x, z + 1);
+    Block_Location lightLocation (x, y, z + 1);
+    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
+    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
 
-    finishBlockFace(block.getTextureSide(), Light_Value::SIDE - 0.14);
+    finishBlockFace(block.getTextureSide(),
+                    Light_Value::SIDE - 0.14,
+                    naturalLight,
+                    blockLight);
 }
 
 void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Block_Data& block)
@@ -310,20 +339,29 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Bloc
         x + 1,  y + m_bh,   z,
     });
 
-    //auto light = m_p_chunkBlocks->getLayer(y).getNaturalLight(x, z - 1);
+    Block_Location lightLocation (x, y, z - 1);
+    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
+    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
 
-    finishBlockFace(block.getTextureSide(), Light_Value::SIDE - 0.21);
+    finishBlockFace(block.getTextureSide(),
+                    Light_Value::SIDE - 0.21,
+                    naturalLight,
+                    blockLight);
 }
 
-void Chunk_Mesh::finishBlockFace(const Vector2& textureLocation, float lightValue)
+void Chunk_Mesh::finishBlockFace(const Vector2& textureLocation,
+                                float cardinalLight,
+                                float naturalLight,
+                                float blockLight)
 {
     m_activePart->addUvCoords(p_atlas->getTextureCoords(textureLocation));
-    m_activePart->addLight(lightValue);
+    m_activePart->addLight(cardinalLight, naturalLight, blockLight);
     addBlockIndices();
 }
 
 //Ambient Occlusion algorithm as seen here on this website:
 //https://0fps.net/2013/07/03/ambient-occlusion-for-minecraft-like-worlds/
+//For now, this is unused.
 uint8_t Chunk_Mesh::getVertexAmbientOcc(bool side1, bool side2, bool corner)
 {
     if (side1 && side2)
@@ -368,6 +406,15 @@ void Chunk_Mesh::addPlantToMesh(float x, float y, float z, const Block::Block_Da
         x,      y + 1,  z + 1,
     });
 
-    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
-    finishBlockFace(block.getTextureSide(), Light_Value::SIDE);
+    Block_Location lightLocation (x, y, z);
+    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
+    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
+
+    for (int i = 0 ; i < 2 ; i++)
+    {
+        finishBlockFace(block.getTextureSide(),
+                    Light_Value::SIDE,
+                    naturalLight,
+                    blockLight);
+    }
 }
