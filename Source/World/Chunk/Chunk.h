@@ -58,7 +58,8 @@ class Chunk : public Entity
         const Vector2  getPosition          () const;
 
         const Chunk_Blocks& getBlocks       () const;
-        const Chunk_Blocks* getAdjBlocks    (int yd, int xd) const;
+        const Chunk_Blocks* getAdjBlocks    (int xd, int zd) const;
+        Chunk_Blocks* getAdjBlocks          (int xd, int zd);
 
         const Chunk_Mesh& getMesh   () const;
 
@@ -78,7 +79,13 @@ class Chunk : public Entity
         uint8_t getNaturalLight (const Block_Location& location) const;
         uint8_t getBlockLight   (const Block_Location& location) const;
 
+
+
     private:
+        Chunk_Blocks& getBlocks_nc ();
+
+        void floodFillLight();
+
         void loadBlockData              (const std::string& worldName);
         std::string getFileString       (const std::string& worldName) const;
 

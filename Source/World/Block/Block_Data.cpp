@@ -86,6 +86,10 @@ namespace Block
         return m_height;
     }
 
+    int Block_Data::getLightChange() const
+    {
+        return m_lightChange;
+    }
 
     /*
         Every block has its constant data loaded from a file.
@@ -158,6 +162,10 @@ namespace Block
             {
                 m_isFullBlock = false;
                 inFile >> m_height;
+            }
+            else if (line == "lightch")
+            {
+                inFile >> m_lightChange;
             }
             else if (line == "") continue;
             else

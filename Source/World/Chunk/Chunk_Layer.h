@@ -23,11 +23,16 @@ class Chunk_Layer
         uint8_t getNaturalLight    (int x, int z) const;
         uint8_t getBlockLight      (int x, int z) const;
 
+        void setNaturalLight(int x, int z, uint8_t value);
+        void setBlockLight  (int x, int z, uint8_t value);
+
+        void resetLight();
+
     private:
         std::array<uint8_t, World_Constants::CHUNK_AREA>    m_blocks;
 
-        std::array<uint8_t, World_Constants::CHUNK_AREA>    m_naturalLightMap;
-        std::array<uint8_t, World_Constants::CHUNK_AREA>    m_blockLightMap;
+        std::array<uint8_t, World_Constants::CHUNK_AREA>    m_naturalLightMap;  //Light from the sunny
+        std::array<uint8_t, World_Constants::CHUNK_AREA>    m_blockLightMap;    //Light from blocks
 
         uint16_t m_translucentCount = World_Constants::CHUNK_AREA;
 };

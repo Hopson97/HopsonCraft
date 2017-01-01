@@ -3,6 +3,8 @@
 #include "../Maths/Matrix_Maths.h"
 #include "../Entity.h"
 
+#include "../World/World_Constants.h"
+
 namespace Shader
 {
     Chunk_Shader::Chunk_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
@@ -13,6 +15,7 @@ namespace Shader
 
         useProgram();
         loadMatrix4(m_locationProjectionMatrix, Maths::createPerspectiveMatrix());
+        loadMaxLightValue(World_Constants::MAX_LIGHT_VALUE);
         glUseProgram(0);
     }
 
@@ -31,6 +34,13 @@ namespace Shader
         loadVector3 (m_skyColourLocation, skyColour);
     }
 
+
+    void Chunk_Shader::loadMaxLightValue(int value) const
+    {
+        Shader_Program::loadInteger(m_maxLightValueLocation, value);
+    }
+
+
     void Chunk_Shader::bindAttributes()
     {
         bindAttribute(0, "inVertexCoords");
@@ -45,6 +55,7 @@ namespace Shader
         m_locationProjectionMatrix  = glGetUniformLocation (getId(), "projectionMatrix");
 
         m_skyColourLocation         = glGetUniformLocation (getId(), "skyColour");
+        m_maxLightValueLocation     = glGetUniformLocation (getId(), "maxLightValue");
     }
 
 }

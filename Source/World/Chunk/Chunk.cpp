@@ -144,16 +144,23 @@ void Chunk::generateMesh ()
     //This is so the chunk mesh generator can know about the blocks in neighbouring chunks
     //This is so that the blocks don't have missing faces, or random underground faces etc
     //The chunk will only be added if there already is not a chunk there.
+    //This also helps for the sake of lighting calculations
     m_p_chunkMap->addChunk({m_location.x + 1,   m_location.z        });
     m_p_chunkMap->addChunk({m_location.x,       m_location.z + 1    });
     m_p_chunkMap->addChunk({m_location.x - 1,   m_location.z        });
     m_p_chunkMap->addChunk({m_location.x,       m_location.z - 1    });
+    m_p_chunkMap->addChunk({m_location.x - 1,   m_location.z - 1    });
+    m_p_chunkMap->addChunk({m_location.x + 1,   m_location.z + 1    });
+    m_p_chunkMap->addChunk({m_location.x - 1,   m_location.z + 1    });
+    m_p_chunkMap->addChunk({m_location.x + 1,   m_location.z - 1    });
+
+    m_blocks.floodFillLight();
 
     m_mesh.generateMesh(m_blocks.getLayerCount());
 
     m_hasMesh       = true;
     m_hasBuffered   = false;
-   // std::cout << c.getElapsedTime().asSeconds() << std::endl;
+    //std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 //Gives all the vertex data to opengl
@@ -198,6 +205,7 @@ bool Chunk::hasDeleteFlag () const
 
 void Chunk::regenMesh()
 {
+    m_blocks.resetLight();
     generateMesh();
     bufferMesh();
     m_hasregenMeshFlag = false;
@@ -234,13 +242,28 @@ const Chunk_Blocks& Chunk::getBlocks() const
     return m_blocks;
 }
 
-//This function is mostly for the sake of generating chunk meshes
-const Chunk_Blocks* Chunk::getAdjBlocks(int yd, int xd) const
+Chunk_Blocks& Chunk::getBlocks_nc()
 {
-    Chunk* chunk = m_p_chunkMap->getChunkAt({m_location.x + yd, m_location.z + xd});
+    return m_blocks;
+}
+
+//This function is mostly for the sake of generating chunk meshes
+const Chunk_Blocks* Chunk::getAdjBlocks(int xd, int zd) const
+{
+    Chunk* chunk = m_p_chunkMap->getChunkAt({m_location.x + xd, m_location.z + zd});
     if (chunk)
     {
         return &chunk->getBlocks();
+    }
+    return nullptr;
+}
+
+Chunk_Blocks* Chunk::getAdjBlocks(int xd, int zd)
+{
+    Chunk* chunk = m_p_chunkMap->getChunkAt({m_location.x + xd, m_location.z + zd});
+    if (chunk)
+    {
+        return &chunk->getBlocks_nc();
     }
     return nullptr;
 }

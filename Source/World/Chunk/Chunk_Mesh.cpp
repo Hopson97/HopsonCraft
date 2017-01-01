@@ -232,8 +232,8 @@ void Chunk_Mesh::addBlockTopToMesh(float x, float y, float z, const Block::Block
     });
 
     Block_Location lightLocation (x, y + 1, z);
-    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
-    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
+    auto naturalLight   = m_p_chunk->getNaturalLight    (lightLocation);
+    auto blockLight     = m_p_chunk->getBlockLight      (lightLocation);
 
 
     float cardinalLight = m_p_chunk->getBlocks().getMaxheightAt(x, z) == (int)y ?
@@ -260,8 +260,8 @@ void Chunk_Mesh::addBlockBottomToMesh(float x, float y, float z, const Block::Bl
     });
 
     Block_Location lightLocation (x, y - 1, z);
-    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
-    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
+    auto naturalLight   = m_p_chunk->getNaturalLight    (lightLocation);
+    auto blockLight     = m_p_chunk->getBlockLight      (lightLocation);
 
     finishBlockFace(block.getTextureBottom(),
                     Light_Value::BOTTOM,
@@ -280,8 +280,8 @@ void Chunk_Mesh::addBlockLeftToMesh(float x, float y, float z, const Block::Bloc
     });
 
     Block_Location lightLocation (x - 1, y, z);
-    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
-    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
+    auto naturalLight   = m_p_chunk->getNaturalLight    (lightLocation);
+    auto blockLight     = m_p_chunk->getBlockLight      (lightLocation);
 
     finishBlockFace(block.getTextureSide(),
                     Light_Value::SIDE,
@@ -300,8 +300,8 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
     });
 
     Block_Location lightLocation (x + 1, y, z);
-    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
-    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
+    auto naturalLight   = m_p_chunk->getNaturalLight    (lightLocation);
+    auto blockLight     = m_p_chunk->getBlockLight      (lightLocation);
 
 
     finishBlockFace(block.getTextureSide(),
@@ -321,8 +321,8 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
     });
 
     Block_Location lightLocation (x, y, z + 1);
-    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
-    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
+    auto naturalLight   = m_p_chunk->getNaturalLight    (lightLocation);
+    auto blockLight     = m_p_chunk->getBlockLight      (lightLocation);
 
     finishBlockFace(block.getTextureSide(),
                     Light_Value::SIDE - 0.14,
@@ -341,8 +341,8 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Bloc
     });
 
     Block_Location lightLocation (x, y, z - 1);
-    auto naturalLight = m_p_chunk->getNaturalLight  (lightLocation);
-    auto blockLight = m_p_chunk->getBlockLight      (lightLocation);
+    auto naturalLight   = m_p_chunk->getNaturalLight    (lightLocation);
+    auto blockLight     = m_p_chunk->getBlockLight      (lightLocation);
 
     finishBlockFace(block.getTextureSide(),
                     Light_Value::SIDE - 0.21,

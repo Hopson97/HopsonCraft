@@ -41,6 +41,8 @@ namespace Block
 
             float getHeight     () const;
 
+            int getLightChange  () const;
+
         private:
             void loadFromFile();
 
@@ -64,6 +66,8 @@ namespace Block
             Mesh_Type m_meshType;
 
             std::vector<ID> m_blocksCanBePlacedOn;
+
+            int m_lightChange;
     };
 } //Namespace Block
 

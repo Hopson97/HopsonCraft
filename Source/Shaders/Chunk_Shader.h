@@ -17,6 +17,7 @@ namespace Shader
             void loadCameraMatrix   (const Camera& camera) const;
             void loadChunkMatrix    (const Matrix4& matrix) const;
             void loadSkyColour      (const Vector3& skyColour) const;
+            void loadMaxLightValue  (int value) const;
 
         protected:
             virtual void bindAttributes     () override;
@@ -28,6 +29,7 @@ namespace Shader
             GLuint m_locationModelMatrix;
             GLuint m_locationProjectionMatrix;
             GLuint m_skyColourLocation;
+            GLuint m_maxLightValueLocation;
     };
 }
 

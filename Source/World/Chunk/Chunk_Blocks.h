@@ -16,7 +16,7 @@ class Chunk;
 class Chunk_Blocks
 {
     public:
-        Chunk_Blocks(const Chunk& chunk,
+        Chunk_Blocks(Chunk& chunk,
                      const Chunk_Location& location,
                      Chunk_Map& chunkMap);
 
@@ -43,12 +43,18 @@ class Chunk_Blocks
         void recalculateMaxHeight(int x, int z);
         int getMaxheightAt (int x, int z) const;
 
+        void floodFillLight();
+
+        void resetLight();
+
     private:
+        void floodNaturalLight(int x, int y, int z, uint8_t value);
+
         const Block::Block_Type& getAdjacentChunkBlock (int xChange,
                                                         int zChange,
                                                         const Block_Location& location) const;
 
-        const Chunk* m_p_chunk;
+        Chunk* m_p_chunk;
         Chunk_Location m_location;
         Chunk_Map* m_p_chunkMap;
 

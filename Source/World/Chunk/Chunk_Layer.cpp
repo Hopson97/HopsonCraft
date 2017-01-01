@@ -8,15 +8,11 @@
 
 Chunk_Layer::Chunk_Layer()
 {
-    for (auto x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)
+    for (int i = 0 ; i < World_Constants::CHUNK_AREA ; i++)
     {
-        for (auto z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)
-        {
-            m_blocks            [World_Constants::CHUNK_SIZE * z + x] = 0; //0 is air
-
-            m_naturalLightMap   [World_Constants::CHUNK_SIZE * z + x] = 15;
-            m_blockLightMap     [World_Constants::CHUNK_SIZE * z + x] = 15;
-        }
+        m_blockLightMap[i] = 0;
+        m_naturalLightMap[i] = 0;
+        m_blocks[i] = 0;
     }
 }
 
@@ -41,12 +37,31 @@ const Block::Block_Type& Chunk_Layer::getBlock(int x, int z) const
 
 uint8_t Chunk_Layer::getNaturalLight(int x, int z) const
 {
-    //return m_naturalLightMap[World_Constants::CHUNK_SIZE * z + x];
+    return m_naturalLightMap[World_Constants::CHUNK_SIZE * z + x];
 }
 
 uint8_t Chunk_Layer::getBlockLight(int x, int z) const
 {
-    //return m_blockLightMap[World_Constants::CHUNK_SIZE * z + x];
+    return m_blockLightMap[World_Constants::CHUNK_SIZE * z + x];
+}
+
+void Chunk_Layer::setNaturalLight(int x, int z, uint8_t value)
+{
+    m_naturalLightMap[World_Constants::CHUNK_SIZE * z + x] = value;
+}
+
+void Chunk_Layer::setBlockLight(int x, int z, uint8_t value)
+{
+    m_blockLightMap[World_Constants::CHUNK_SIZE * z + x] = value;
+}
+
+void Chunk_Layer::resetLight()
+{
+    for (int i = 0 ; i < World_Constants::CHUNK_AREA ; i++)
+    {
+        m_blockLightMap[i] = 0;
+        m_naturalLightMap[i] = 0;
+    }
 }
 
 
