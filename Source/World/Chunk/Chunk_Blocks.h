@@ -43,7 +43,8 @@ class Chunk_Blocks
         void recalculateMaxHeight(int x, int z);
         int getMaxheightAt (int x, int z) const;
 
-        void floodFillLight();
+        void calculateChunkLight();
+        void calculateChunkEdgeLight();
 
         void resetLight();
 

@@ -30,6 +30,8 @@ namespace Debug_Display
 
         sf::Text t_heldBlock;
 
+        sf::Text t_lightText;
+
 
         void initText(sf::Text& text)
         {
@@ -58,6 +60,8 @@ namespace Debug_Display
 
         initText(t_heldBlock);
 
+        initText(t_lightText);
+
         t_chunkPosition.move(0, 40);
         t_blockPosition.move(0, 80);
         t_worldPosition.move(0, 120);
@@ -68,6 +72,8 @@ namespace Debug_Display
         t_numChunks.move(300, 40);
 
         t_heldBlock.move(500, 0);
+
+        t_lightText.move(500, 40);
 
     }
 
@@ -92,6 +98,25 @@ namespace Debug_Display
                                                  " Y: " + std::to_string((int)location.y) +
                                                  " Z: " + std::to_string((int)location.z));
     }
+
+    void addPlayerLightLevel(const Vector3& location, const Chunk* chunk)
+    {
+        if (!chunk)
+        {
+            t_lightText.setString("Not in Chunk");
+        }
+        else
+        {
+            auto pos = Maths::worldToBlockPosition  (location);
+            std::string nat (std::to_string(chunk->getNaturalLight  (pos)));
+            std::string blo (std::to_string(chunk->getBlockLight    (pos)));
+            std::string light("Lights:\n");
+            t_lightText.setString(light +
+                                  "Natural -> " + nat + "\n" +
+                                  "Blocks  -> " + blo);
+        }
+    }
+
 
     void addLookVector(const Vector3& rotation)
     {
@@ -133,5 +158,7 @@ namespace Debug_Display
         renderer.draw(t_numChunks);
 
         renderer.draw(t_heldBlock);
+
+        renderer.draw(t_lightText);
     }
 }

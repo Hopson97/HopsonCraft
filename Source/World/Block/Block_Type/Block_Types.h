@@ -29,6 +29,8 @@
 
 #include "TNT.h"
 
+#include "Glow_Stone.h"
+
 
 
 #endif // BLOCK_TYPES_H_INCLUDED

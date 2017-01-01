@@ -61,6 +61,7 @@ void Player::onUpdate(float dt)
 
     Debug_Display::addLookVector(rotation);
     Debug_Display::addPlayerPosition(position);
+    Debug_Display::addPlayerLightLevel(position, m_p_chunkMap->getChunkAt(m_chunkLocation));
 }
 
 

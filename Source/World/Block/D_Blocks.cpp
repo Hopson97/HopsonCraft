@@ -38,6 +38,7 @@ namespace Block
         registerBlock(std::make_unique<Block::Bedrock>      ());
         registerBlock(std::make_unique<Block::Oak_Sapling>  ());
         registerBlock(std::make_unique<Block::TNT>          ());
+        registerBlock(std::make_unique<Block::Glow_Stone>   ());
 
         assert(blocks.size() == (int)ID::NUM_BLOCK_TYPES);
     }

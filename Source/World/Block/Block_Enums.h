@@ -24,6 +24,7 @@ namespace Block
         Bedrock         =   17,
         Oak_Sapling     =   18,
         TNT             =   19,
+        Glow_Stone      =   20,
 
         NUM_BLOCK_TYPES
     };

@@ -104,6 +104,8 @@ class Chunk : public Entity
         bool m_hasDeleteFlag        = false;
         bool m_hasregenMeshFlag     = false;
 
+        bool m_calculatedLight      = false;
+
         Chunk_Mesh m_mesh;
         Chunk_Blocks m_blocks;
         World_Generator m_worldGenerator;

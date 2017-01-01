@@ -99,7 +99,7 @@ const Block::Block_Type& Chunk_Blocks::getBlock (const Block_Location& location)
     return Block::get(Block::ID::Air);    //This is for world edges
 }
 
-void Chunk_Blocks::floodFillLight()
+void Chunk_Blocks::calculateChunkLight()
 {
     for (auto& lightSouce : m_lightSources)
     {
@@ -113,13 +113,16 @@ void Chunk_Blocks::floodFillLight()
     {
         for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; ++z)
         {
-            for (int y = getMaxheightAt(x, z) ; y < m_layers.size() - 1 ; ++y)
+            //for (int y = getMaxheightAt(x, z) ; y < m_layers.size() - 1 ; ++y)
             {
-                floodNaturalLight(x, y, z, World_Constants::MAX_LIGHT_VALUE);
+                floodNaturalLight(x, getMaxheightAt(x, z) + 1, z, World_Constants::MAX_LIGHT_VALUE);
             }
         }
     }
+}
 
+void Chunk_Blocks::calculateChunkEdgeLight()
+{
     //Chunk edges
     for (int y = 0 ; y < m_layers.size() - 1 ; ++y )
     {
