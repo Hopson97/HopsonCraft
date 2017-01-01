@@ -40,7 +40,12 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
         return;
 
     if (m_layers[location.y].getBlock(location.x, location.z).getData().getID() == Block::ID::Air || overrideBlocks)
-    {
+    {/*
+        if(m_lightSources.find(location) != m_lightSources.end())
+        {
+            m_lightSources.erase(location);
+        }*/
+
         if (m_p_chunk->hasBlockData())
         {
             m_addedBlocks[location] = block;
@@ -48,7 +53,11 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
             //Don't want to tinker with the bottom layer
             if (location.y == 0)
                 return;
-        }
+        }/*
+        if (Block::get(block).getData().getLightEmission() > 0)
+        {
+            m_lightSources[location] = (uint8_t)Block::get(block).getData().getLightEmission();
+        }*/
 
         m_layers[location.y].setBlock(location.x, location.z, Block::get(block));
     }
@@ -114,12 +123,9 @@ void Chunk_Blocks::floodFillLight()
         for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)
         {
             floodNaturalLight(0, y, z, m_p_chunk->getAdjBlocks(-1, 0)->getLayer(y).getNaturalLight(World_Constants::CHUNK_SIZE - 1, z));
-            floodNaturalLight(0, y, z, m_p_chunk->getAdjBlocks(-1, 0)->getLayer(y).getNaturalLight(0, z));
+            //floodNaturalLight(0, y, z, m_p_chunk->getAdjBlocks(World_Constants::CHUNK_SIZE - 1, 0)->getLayer(y).getNaturalLight(0, z));
         }
     }
-
-
-
 }
 
 void Chunk_Blocks::resetLight()
@@ -135,7 +141,6 @@ void Chunk_Blocks::floodNaturalLight(int x, int y, int z, uint8_t value)
 {
     if (x < 0)
         return;
-
 
     if (x > World_Constants::CHUNK_SIZE - 1)
         return;
@@ -174,6 +179,51 @@ void Chunk_Blocks::floodNaturalLight(int x, int y, int z, uint8_t value)
     floodNaturalLight(x,        y - 1,  z,      value);
     floodNaturalLight(x,        y,      z + 1,  value);
     floodNaturalLight(x,        y,      z - 1,  value);
+}
+
+//Recurssive "flood fill" algoritm for light
+void Chunk_Blocks::floodBlockLight(int x, int y, int z, uint8_t value)
+{
+    if (x < 0)
+        return;
+
+    if (x > World_Constants::CHUNK_SIZE - 1)
+        return;
+
+    if (z < 0)
+        return;
+
+    if (z > World_Constants::CHUNK_SIZE - 1)
+        return;
+
+    if (y > World_Constants::CHUNK_HEIGHT)
+        return;
+
+    int change = m_layers[y].getBlock(x, z).getData().getLightChange();
+    if (change < 0)
+        return;
+
+    int light = static_cast<int>(value);
+    light -= change;
+    if (light < 0)
+        return;
+
+    value -= (uint8_t)change;
+
+    if (m_layers[y].getBlockLight(x, z) >= value)
+        return;
+
+    if (value == 0)
+        return;
+
+    m_layers[y].setBlockLight(x, z, value--);
+
+    floodBlockLight(x - 1,    y,      z,      value);
+    floodBlockLight(x + 1,    y,      z,      value);
+    floodBlockLight(x,        y + 1,  z,      value);
+    floodBlockLight(x,        y - 1,  z,      value);
+    floodBlockLight(x,        y,      z + 1,  value);
+    floodBlockLight(x,        y,      z - 1,  value);
 }
 
 void Chunk_Blocks::addBlock(const Block_Location& location, uint8_t block)

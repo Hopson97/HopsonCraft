@@ -49,6 +49,7 @@ class Chunk_Blocks
 
     private:
         void floodNaturalLight(int x, int y, int z, uint8_t value);
+        void floodBlockLight(int x, int y, int z, uint8_t value);
 
         const Block::Block_Type& getAdjacentChunkBlock (int xChange,
                                                         int zChange,
@@ -60,6 +61,7 @@ class Chunk_Blocks
 
         std::vector<Chunk_Layer> m_layers;
         std::unordered_map<Block_Location, uint8_t> m_addedBlocks;
+        std::unordered_map<Block_Location, uint8_t> m_lightSources;
 
         std::vector<int> m_maxHeights;
 };

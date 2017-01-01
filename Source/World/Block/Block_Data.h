@@ -42,6 +42,7 @@ namespace Block
             float getHeight     () const;
 
             int getLightChange  () const;
+            int getLightEmission() const;
 
         private:
             void loadFromFile();
@@ -67,7 +68,8 @@ namespace Block
 
             std::vector<ID> m_blocksCanBePlacedOn;
 
-            int m_lightChange;
+            int m_lightChange   = -1;
+            int m_lightEmission = 0;
     };
 } //Namespace Block
 

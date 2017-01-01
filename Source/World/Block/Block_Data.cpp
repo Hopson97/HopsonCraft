@@ -91,6 +91,12 @@ namespace Block
         return m_lightChange;
     }
 
+    int Block_Data::getLightEmission() const
+    {
+        return m_lightEmission;
+    }
+
+
     /*
         Every block has its constant data loaded from a file.
     */
@@ -166,6 +172,10 @@ namespace Block
             else if (line == "lightch")
             {
                 inFile >> m_lightChange;
+            }
+            else if (line == "lightso")
+            {
+                inFile >> m_lightEmission;
             }
             else if (line == "") continue;
             else
