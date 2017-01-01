@@ -79,8 +79,6 @@ class Chunk : public Entity
         uint8_t getBlockLight   (const Block_Location& location) const;
 
     private:
-        void checkAddedBlockLocation    (const Block_Location& location);
-
         void loadBlockData              (const std::string& worldName);
         std::string getFileString       (const std::string& worldName) const;
 

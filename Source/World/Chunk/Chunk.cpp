@@ -41,7 +41,10 @@ void Chunk::addBlock( const Block_Location& location,
                       const Block::Block_Type& block,
                       bool overrideBlocks)
 {
-    checkAddedBlockLocation(location);
+    if (m_updatableBlocks.find(location) != m_updatableBlocks.end())
+    {
+        m_updatableBlocks[location]->breakBlock();
+    }
 
     //We have to request the block data if it is updatable, and then we get the actual updatable block instance from the
     //block type
@@ -52,6 +55,11 @@ void Chunk::addBlock( const Block_Location& location,
     }
 
     m_blocks.setBlock(location, (uint8_t)block.getData().getID(), overrideBlocks);
+
+    if(m_hasBlockData)
+    {
+        m_blocks.recalculateMaxHeight(location.x, location.z);
+    }
 }
 
 void Chunk::breakBlock(const Block_Location& location,
@@ -59,30 +67,23 @@ void Chunk::breakBlock(const Block_Location& location,
                        const Vector3& worldPosition,
                        Block::Break_Type breakType)
 {
-    checkAddedBlockLocation(location);
+
+    if (m_updatableBlocks.find(location) != m_updatableBlocks.end())
+    {
+        m_updatableBlocks[location]->breakBlock();
+    }
 
     auto& block = m_blocks.getBlock(location);
     m_blocks.setBlock(location, (uint8_t)Block::ID::Air, true);
     block.breakBlock(world, *this, worldPosition, breakType);
 
-    //Loot loot = getBlocks().getBlock(location).getLoot();
-}
-
-void Chunk::checkAddedBlockLocation(const Block_Location& location)
-{
     if(m_hasBlockData)
     {
         m_blocks.recalculateMaxHeight(location.x, location.z);
     }
 
-    if (m_updatableBlocks.find(location) != m_updatableBlocks.end())
-    {
-        std::cout << "RIP" << std::endl;
-        m_updatableBlocks[location]->breakBlock();
-    }
+    //Loot loot = getBlocks().getBlock(location).getLoot();
 }
-
-
 
 bool Chunk::tick()
 {
