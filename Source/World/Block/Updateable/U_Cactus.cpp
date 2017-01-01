@@ -24,6 +24,6 @@ namespace Block
         return m_isDestroyed;
     }
 
-    void U_Cactus::breakBlock()
+    void U_Cactus::onBreak()
     { }
 }

@@ -14,8 +14,8 @@ Chunk_Layer::Chunk_Layer()
         {
             m_blocks            [World_Constants::CHUNK_SIZE * z + x] = 0; //0 is air
 
-            m_naturalLightMap   [World_Constants::CHUNK_SIZE * z + x] = 15;
-            m_blockLightMap     [World_Constants::CHUNK_SIZE * z + x] = 15;
+            //m_naturalLightMap   [World_Constants::CHUNK_SIZE * z + x] = 15;
+            //m_blockLightMap     [World_Constants::CHUNK_SIZE * z + x] = 15;
         }
     }
 }
@@ -41,12 +41,12 @@ const Block::Block_Type& Chunk_Layer::getBlock(int x, int z) const
 
 uint8_t Chunk_Layer::getNaturalLight(int x, int z) const
 {
-    return m_naturalLightMap[World_Constants::CHUNK_SIZE * z + x];
+    //return m_naturalLightMap[World_Constants::CHUNK_SIZE * z + x];
 }
 
 uint8_t Chunk_Layer::getBlockLight(int x, int z) const
 {
-    return m_blockLightMap[World_Constants::CHUNK_SIZE * z + x];
+    //return m_blockLightMap[World_Constants::CHUNK_SIZE * z + x];
 }
 
 

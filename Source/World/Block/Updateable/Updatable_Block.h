@@ -11,11 +11,15 @@ class Updatable_Block
         void setChunk   (Chunk& chunk);
 
         virtual bool update     (const Block_Location& location) = 0;
-        virtual void breakBlock () = 0;
+        void breakBlock ();
 
         bool isDestroyed    () const;
 
+
+
     protected:
+        virtual void onBreak () = 0;
+
         Chunk*          m_p_chunk       = nullptr;
         bool            m_isDestroyed   = false;
 };

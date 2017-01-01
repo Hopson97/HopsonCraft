@@ -10,12 +10,12 @@ namespace Block
     class U_Oak_Sapling : public Updatable_Block
     {
         public:
-            U_Oak_Sapling();
-
+            U_Oak_Sapling   ();
             bool update     (const Block_Location& location) override;
-            void breakBlock () override;
 
         private:
+            void onBreak    () override;
+
             sf::Time    m_timeToGrow;
             sf::Clock   m_growClock;
     };

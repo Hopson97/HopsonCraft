@@ -23,6 +23,6 @@ namespace Block
         return m_isDestroyed;
     }
 
-    void U_Oak_Sapling::breakBlock()
+    void U_Oak_Sapling::onBreak()
     { }
 }

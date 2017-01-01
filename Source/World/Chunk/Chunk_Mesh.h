@@ -60,9 +60,9 @@ class Chunk_Mesh
         void addBlockBackToMesh     (float x, float y, float z, const Block::Block_Data& block);
 
         void finishBlockFace (const Vector2& textureLocation,
-                              float cardinalLight,
-                              float naturalLight,
-                              float blockLight);
+                              float cardinalLight = 0,
+                              float naturalLight = 0,
+                              float blockLight = 0);
 
         uint8_t getVertexAmbientOcc    (bool side1, bool side2, bool corner);
 
