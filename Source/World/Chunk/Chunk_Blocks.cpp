@@ -15,7 +15,7 @@ Chunk_Blocks::Chunk_Blocks(const Chunk& chunk,
 :   m_p_chunk       (&chunk)
 ,   m_location      (location)
 ,   m_p_chunkMap    (&chunkMap)
-,   m_layers        (World_Constants::WATER_LEVEL + 1)
+,   m_layers        (World_Constants::CHUNK_HEIGHT + 1)
 ,   m_maxHeights    (World_Constants::CHUNK_AREA)
 { }
 
@@ -37,7 +37,7 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
                              bool overrideBlocks)
 {
     if ((unsigned)location.y > m_layers.size() - 1)
-        addLayers(location.y);
+        return;
 
     if (m_layers[location.y].getBlock(location.x, location.z).getData().getID() == Block::ID::Air || overrideBlocks)
     {
@@ -56,6 +56,9 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
 
 const Block::Block_Type& Chunk_Blocks::getBlock (const Block_Location& location) const
 {
+    if (location.y > World_Constants::CHUNK_HEIGHT)
+        return Block::get(Block::ID::Air);
+
     if (location.x == -1 )
     {
         return getAdjacentChunkBlock(-1, 0, {World_Constants::CHUNK_SIZE - 1, location.y, location.z});
@@ -109,12 +112,6 @@ const Block::Block_Type& Chunk_Blocks::getAdjacentChunkBlock (int xChange,
 
     //Return the respective block...
     return m_p_chunkMap->getChunkAt(chunkLocation)->getBlocks().getBlock(location);
-}
-
-void Chunk_Blocks::addLayers(unsigned target)
-{
-    while (m_layers.size() - 1 < target)
-        m_layers.emplace_back();
 }
 
 size_t Chunk_Blocks::getLayerCount() const

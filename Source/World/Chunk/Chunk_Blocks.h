@@ -48,8 +48,6 @@ class Chunk_Blocks
                                                         int zChange,
                                                         const Block_Location& location) const;
 
-        void addLayers (unsigned target);
-
         const Chunk* m_p_chunk;
         Chunk_Location m_location;
         Chunk_Map* m_p_chunkMap;
