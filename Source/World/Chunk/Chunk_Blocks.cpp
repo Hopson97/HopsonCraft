@@ -107,32 +107,38 @@ void Chunk_Blocks::floodFillLight()
         floodBlockLight(l.x, l.y, l.z, lightSouce.second);
     }
 
-    for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)
+
+    //Sunlight hits every block above the maximum height of a chunk column
+    for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; ++x)
     {
-        for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)
+        for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; ++z)
         {
-            for (int y = getMaxheightAt(x, z) ; y < m_layers.size() - 1 ; y++)
+            for (int y = getMaxheightAt(x, z) ; y < m_layers.size() - 1 ; ++y)
             {
                 floodNaturalLight(x, y, z, World_Constants::MAX_LIGHT_VALUE);
             }
         }
     }
 
-    for (int y = 0 ; y < m_layers.size() - 1 ; y++ )
+    //Chunk edges
+    for (int y = 0 ; y < m_layers.size() - 1 ; ++y )
     {
-        for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)
+        for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; ++x)
         {
             floodNaturalLight(x, y, 0, m_p_chunk->getAdjBlocks(0, -1)->getLayer(y).getNaturalLight(x, World_Constants::CHUNK_SIZE - 1));
             floodNaturalLight(x, y, World_Constants::CHUNK_SIZE - 1, m_p_chunk->getAdjBlocks(0, 1)->getLayer(y).getNaturalLight(x, 0));
 
-            floodNaturalLight(x, y, 0, m_p_chunk->getAdjBlocks(0, -1)->getLayer(y).getNaturalLight(x, World_Constants::CHUNK_SIZE - 1));
-            floodNaturalLight(x, y, World_Constants::CHUNK_SIZE - 1, m_p_chunk->getAdjBlocks(0, 1)->getLayer(y).getNaturalLight(x, 0));
+            floodBlockLight(x, y, 0, m_p_chunk->getAdjBlocks(0, -1)->getLayer(y).getBlockLight(x, World_Constants::CHUNK_SIZE - 1));
+            floodBlockLight(x, y, World_Constants::CHUNK_SIZE - 1, m_p_chunk->getAdjBlocks(0, 1)->getLayer(y).getBlockLight(x, 0));
         }
 
-        for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)
+        for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; ++z)
         {
             floodNaturalLight(0, y, z, m_p_chunk->getAdjBlocks(-1, 0)->getLayer(y).getNaturalLight(World_Constants::CHUNK_SIZE - 1, z));
-            //floodNaturalLight(0, y, z, m_p_chunk->getAdjBlocks(World_Constants::CHUNK_SIZE - 1, 0)->getLayer(y).getNaturalLight(0, z));
+            floodNaturalLight(World_Constants::CHUNK_SIZE - 1, y, z, m_p_chunk->getAdjBlocks(1, 0)->getLayer(y).getNaturalLight(0, z));
+
+            floodBlockLight(0, y, z, m_p_chunk->getAdjBlocks(-1, 0)->getLayer(y).getBlockLight(World_Constants::CHUNK_SIZE - 1, z));
+            floodBlockLight(World_Constants::CHUNK_SIZE - 1, y, z, m_p_chunk->getAdjBlocks(1, 0)->getLayer(y).getBlockLight(0, z));
         }
     }
 }
@@ -163,11 +169,11 @@ void Chunk_Blocks::floodNaturalLight(int x, int y, int z, uint8_t value)
     if (y > World_Constants::CHUNK_HEIGHT)
         return;
 
-    int change = m_layers[y].getBlock(x, z).getData().getLightChange();
+    auto change = m_layers[y].getBlock(x, z).getData().getLightChange();
     if (change < 0)
         return;
 
-    int light = static_cast<int>(value);
+    auto light = (int)value;
     light -= change;
     if (light < 0)
         return;
@@ -208,11 +214,12 @@ void Chunk_Blocks::floodBlockLight(int x, int y, int z, uint8_t value)
     if (y > World_Constants::CHUNK_HEIGHT)
         return;
 
-    int change = m_layers[y].getBlock(x, z).getData().getLightChange();
+    auto change = m_layers[y].getBlock(x, z).getData().getLightChange();
     if (change < 0)
         return;
 
-    int light = static_cast<int>(value);
+    auto light = (int)value;
+
     light -= change;
     if (light < 0)
         return;
@@ -279,9 +286,9 @@ bool Chunk_Blocks::layerHasTranslucentBlocks(uint32_t layer) const
 
 void Chunk_Blocks::calculateMaxHeights()
 {
-    for (auto x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)    //z
+    for (auto x = 0 ; x < World_Constants::CHUNK_SIZE ; ++x)    //z
     {
-        for (auto z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)    //x
+        for (auto z = 0 ; z < World_Constants::CHUNK_SIZE ; ++z)    //x
         {
             recalculateMaxHeight(x, z);
         }

@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <thread>
 
 #include "../Block/D_Blocks.h"
 #include "../Block/Block_Type/Block_Type.h"
@@ -139,7 +140,7 @@ bool Chunk::hasBuffered () const
 
 void Chunk::generateMesh ()
 {
-    //sf::Clock c;
+    sf::Clock c;
 
     //This is so the chunk mesh generator can know about the blocks in neighbouring chunks
     //This is so that the blocks don't have missing faces, or random underground faces etc
@@ -149,10 +150,6 @@ void Chunk::generateMesh ()
     m_p_chunkMap->addChunk({m_location.x,       m_location.z + 1    });
     m_p_chunkMap->addChunk({m_location.x - 1,   m_location.z        });
     m_p_chunkMap->addChunk({m_location.x,       m_location.z - 1    });
-    m_p_chunkMap->addChunk({m_location.x - 1,   m_location.z - 1    });
-    m_p_chunkMap->addChunk({m_location.x + 1,   m_location.z + 1    });
-    m_p_chunkMap->addChunk({m_location.x - 1,   m_location.z + 1    });
-    m_p_chunkMap->addChunk({m_location.x + 1,   m_location.z - 1    });
 
     m_blocks.floodFillLight();
 
@@ -160,7 +157,7 @@ void Chunk::generateMesh ()
 
     m_hasMesh       = true;
     m_hasBuffered   = false;
-    //std::cout << c.getElapsedTime().asSeconds() << std::endl;
+    std::cout << c.getElapsedTime().asSeconds() << std::endl;
 }
 
 //Gives all the vertex data to opengl

@@ -76,9 +76,9 @@ void World_Generator::generateBiomeMap()
 
 void World_Generator::generateMap(std::vector<int>& valueMap, const Noise::Generator& noiseGenerator)
 {
-    for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)
+    for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; ++x)
     {
-        for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)
+        for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; ++z)
         {
             auto value = noiseGenerator.getValue(x,
                                                  z,
@@ -92,11 +92,11 @@ void World_Generator::generateMap(std::vector<int>& valueMap, const Noise::Gener
 
 void World_Generator::generateBlockData()
 {
-    for (int y = 0  ; y < m_maxHeight + 1 ; y++)
+    for (int y = 0  ; y < m_maxHeight + 1 ; ++y)
     {
-        for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)
+        for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; ++x)
         {
-            for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)
+            for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; ++z)
             {
                 setRandomSeed(x, y, z);
 

@@ -30,7 +30,7 @@ namespace Structure
                 chunk.addBlock({xLeaf, y + 1, zLeaf},   Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
             }
         }
-        y++;
+        ++y;
 
         for (int xLeaf = location.x - 1 ; xLeaf < location.x + 2 ; xLeaf++)
         {
@@ -39,7 +39,7 @@ namespace Structure
                 chunk.addBlock({xLeaf, y, zLeaf}, Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
             }
         }
-        y++;
+        ++y;
 
         chunk.addBlock({location.x - 1, y,   location.z},       Block::get(Block::ID::Oak_Leaf), overwriteBlocks);
         chunk.addBlock({location.x + 1, y,   location.z},       Block::get(Block::ID::Oak_Leaf), overwriteBlocks);

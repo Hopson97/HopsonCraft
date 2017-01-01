@@ -177,7 +177,7 @@ void Chunk_Map::addBlock (const Block::Block_Type& block,
         {
             for (auto y = blockPosition.y + 1 ;
                  chunk->getBlocks().getBlock({blockPosition.x, y, blockPosition.z}).getData().getPhysicalState() == Block::Physical_State::Flora ;
-                 y++)
+                 ++y)
             {
                 chunk->breakBlock({blockPosition.x, y, blockPosition.z}, *m_p_world, worldPosition, breakType);
             }
@@ -287,11 +287,11 @@ void Chunk_Map::makeExplosion(const Vector3& worldPosition, int power)
     auto zStart = p.z - power;
 
     std::vector<Vector3> positions;
-    for (auto y = yStart ; y <= yStart + power * 2 ; y++)
+    for (auto y = yStart ; y <= yStart + power * 2 ; ++y)
     {
-        for (auto x = xStart ; x <= xStart + power * 2 ; x++)
+        for (auto x = xStart ; x <= xStart + power * 2 ; ++x)
         {
-            for (auto z = zStart ; z <= zStart + power * 2 ; z++)
+            for (auto z = zStart ; z <= zStart + power * 2 ; ++z)
             {
                 auto distance = Maths::getDistance({x, y, z}, worldPosition);
 
@@ -379,10 +379,10 @@ void Chunk_Map :: manageChunks()
 
 void Chunk_Map::generateChunks (const Area& createArea)
 {
-    for (auto x = createArea.minX ; x < createArea.maxX ; x++)
+    for (auto x = createArea.minX ; x < createArea.maxX ; ++x)
     {
         if (!m_isRunning) return; //Safety
-        for (auto z = createArea.minZ ; z < createArea.maxZ ; z++)
+        for (auto z = createArea.minZ ; z < createArea.maxZ ; ++z)
         {
             if (!m_isRunning )
                 return; //Safety
@@ -414,11 +414,11 @@ void Chunk_Map::flagChunksForDelete( const Area& deleteArea )
 
 void Chunk_Map::generateMeshes(const Area& generationArea)
 {
-    for (auto x = generationArea.minX ; x < generationArea.maxX ; x++)
+    for (auto x = generationArea.minX ; x < generationArea.maxX ; ++x)
     {
         if (!m_isRunning)
             return; //Safety
-        for (auto z = generationArea.minZ ; z < generationArea.maxZ ; z++)
+        for (auto z = generationArea.minZ ; z < generationArea.maxZ ; ++z)
         {
             if (!m_isRunning)
                 return; //Safety
