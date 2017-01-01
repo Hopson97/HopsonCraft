@@ -12,7 +12,7 @@ const float Settings::SKY_BLUE    = 1;
 
 namespace Settings
 {
-    auto sRenderDistance = Render_Distance::Blind;
+    auto sRenderDistance = Render_Distance::Normal;
     auto sFov            = Field_Of_Vision::Big;
 
     uint32_t getRenderDistance()

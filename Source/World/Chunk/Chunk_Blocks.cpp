@@ -40,11 +40,11 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
         return;
 
     if (m_layers[location.y].getBlock(location.x, location.z).getData().getID() == Block::ID::Air || overrideBlocks)
-    {/*
+    {
         if(m_lightSources.find(location) != m_lightSources.end())
         {
             m_lightSources.erase(location);
-        }*/
+        }
 
         if (m_p_chunk->hasBlockData())
         {
@@ -53,11 +53,11 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
             //Don't want to tinker with the bottom layer
             if (location.y == 0)
                 return;
-        }/*
+        }
         if (Block::get(block).getData().getLightEmission() > 0)
         {
             m_lightSources[location] = (uint8_t)Block::get(block).getData().getLightEmission();
-        }*/
+        }
 
         m_layers[location.y].setBlock(location.x, location.z, Block::get(block));
     }
@@ -101,6 +101,12 @@ const Block::Block_Type& Chunk_Blocks::getBlock (const Block_Location& location)
 
 void Chunk_Blocks::floodFillLight()
 {
+    for (auto& lightSouce : m_lightSources)
+    {
+        auto& l = lightSouce.first;
+        floodBlockLight(l.x, l.y, l.z, lightSouce.second);
+    }
+
     for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)
     {
         for (int z = 0 ; z < World_Constants::CHUNK_SIZE ; z++)
@@ -116,6 +122,9 @@ void Chunk_Blocks::floodFillLight()
     {
         for (int x = 0 ; x < World_Constants::CHUNK_SIZE ; x++)
         {
+            floodNaturalLight(x, y, 0, m_p_chunk->getAdjBlocks(0, -1)->getLayer(y).getNaturalLight(x, World_Constants::CHUNK_SIZE - 1));
+            floodNaturalLight(x, y, World_Constants::CHUNK_SIZE - 1, m_p_chunk->getAdjBlocks(0, 1)->getLayer(y).getNaturalLight(x, 0));
+
             floodNaturalLight(x, y, 0, m_p_chunk->getAdjBlocks(0, -1)->getLayer(y).getNaturalLight(x, World_Constants::CHUNK_SIZE - 1));
             floodNaturalLight(x, y, World_Constants::CHUNK_SIZE - 1, m_p_chunk->getAdjBlocks(0, 1)->getLayer(y).getNaturalLight(x, 0));
         }
