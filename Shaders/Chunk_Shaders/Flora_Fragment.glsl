@@ -16,8 +16,8 @@ void main()
     float naturalLight  = passLightValues.g / maxLightValue;
     float blockLight    = passLightValues.b / maxLightValue;
 
-    naturalLight = max(0.1, naturalLight);
-    blockLight = max(0.1, blockLight);
+    naturalLight = max(0.05, naturalLight);
+    blockLight = max(0.05, blockLight);
 
     outColour = texture(textureSampler, passTextureCoords);
     outColour *= vec4(cardinalLight, cardinalLight, cardinalLight, 1.0);

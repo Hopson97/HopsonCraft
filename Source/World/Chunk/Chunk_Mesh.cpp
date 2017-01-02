@@ -13,8 +13,8 @@ namespace
     namespace Light_Value
     {
         constexpr float TOP      = 1.0f;
-        constexpr float SIDE     = 0.7f;;
-        constexpr float BOTTOM   = 0.4f;
+        constexpr float SIDE     = 0.8f;;
+        constexpr float BOTTOM   = 0.6f;
     }
 
     const std::vector<GLfloat> ambientOcculsionValues
@@ -305,7 +305,7 @@ void Chunk_Mesh::addBlockRightToMesh(float x, float y, float z, const Block::Blo
 
 
     finishBlockFace(block.getTextureSide(),
-                    Light_Value::SIDE - 0.07,
+                    Light_Value::SIDE,
                     naturalLight,
                     blockLight);
 }
@@ -325,7 +325,7 @@ void Chunk_Mesh::addBlockFrontToMesh(float x, float y, float z, const Block::Blo
     auto blockLight     = m_p_chunk->getBlockLight      (lightLocation);
 
     finishBlockFace(block.getTextureSide(),
-                    Light_Value::SIDE - 0.14,
+                    Light_Value::SIDE,
                     naturalLight,
                     blockLight);
 }
@@ -345,7 +345,7 @@ void Chunk_Mesh::addBlockBackToMesh(float x, float y, float z, const Block::Bloc
     auto blockLight     = m_p_chunk->getBlockLight      (lightLocation);
 
     finishBlockFace(block.getTextureSide(),
-                    Light_Value::SIDE - 0.21,
+                    Light_Value::SIDE,
                     naturalLight,
                     blockLight);
 }

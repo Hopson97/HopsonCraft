@@ -65,6 +65,7 @@
 		<Unit filename="Data/Blocks/Dead_Shrub.block" />
 		<Unit filename="Data/Blocks/Dirt.block" />
 		<Unit filename="Data/Blocks/Glass.block" />
+		<Unit filename="Data/Blocks/Glow_Stone.block" />
 		<Unit filename="Data/Blocks/Grass.block" />
 		<Unit filename="Data/Blocks/Oak_Leaf.block" />
 		<Unit filename="Data/Blocks/Oak_Plank.block" />
@@ -216,6 +217,8 @@
 		<Unit filename="Source/World/Block/Block_Type/Dirt.h" />
 		<Unit filename="Source/World/Block/Block_Type/Glass.cpp" />
 		<Unit filename="Source/World/Block/Block_Type/Glass.h" />
+		<Unit filename="Source/World/Block/Block_Type/Glow_Stone.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Glow_Stone.h" />
 		<Unit filename="Source/World/Block/Block_Type/Grass.cpp" />
 		<Unit filename="Source/World/Block/Block_Type/Grass.h" />
 		<Unit filename="Source/World/Block/Block_Type/Oak_Leaf.cpp" />

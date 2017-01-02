@@ -50,7 +50,7 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
         {
             m_addedBlocks[location] = block;
 
-            //Don't want to tinker with the bottom layer
+            //Bottom layer is indestructable
             if (location.y == 0)
                 return;
         }

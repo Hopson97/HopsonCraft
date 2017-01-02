@@ -59,8 +59,8 @@ void Chunk_Layer::resetLight()
 {
     for (int i = 0 ; i < World_Constants::CHUNK_AREA ; i++)
     {
-        m_blockLightMap[i] = 0;
-        m_naturalLightMap[i] = 0;
+        m_blockLightMap     [i] = 0;
+        m_naturalLightMap   [i] = 0;
     }
 }
 

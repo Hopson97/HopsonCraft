@@ -91,36 +91,12 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
 
 void Application::popState()
 {
-
     if (!m_stateStack.empty())
     {
         m_stateStack.top()->exitState();
         m_stateStack.pop();
     }
 }
-
-void Application::takeScreenshot(const std::string& path)
-{
-    Directory::create("Screenshots");
-    std::string filePathName = path;
-    if (filePathName == "-1")
-    {
-        filePathName.clear();
-        filePathName += "Screenshots/Screenshot: " + Time::getTimeString() + "..." + Time::getDateString();
-    }
-    filePathName += ".png";
-
-    auto windowSize = Display::get().getSize();
-    sf::Texture texture;
-
-    texture.create(windowSize.x, windowSize.y);
-    texture.update(Display::get());
-
-    sf::Image screenshot = texture.copyToImage();
-    screenshot.saveToFile(filePathName);
-}
-
-
 
 void Application::resetSong()
 {

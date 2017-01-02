@@ -390,16 +390,15 @@ void Chunk::loadBlockData (const std::string& worldName)
     if(!inFile.is_open())
         return;
 
-    int x,
-        z,
-        y;
-
-    int id;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    int id = 0;
 
     while(inFile.peek() != EOF)
     {
         inFile >> x >> y >> z >> id;
-        addBlock({x, y, z}, Block::get(id));
+        addBlock({x, y, z}, Block::get((uint8_t)id));
     }
 
     for (auto& block : m_blocks.getAddedBlocks())

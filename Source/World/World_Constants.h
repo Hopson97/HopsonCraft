@@ -11,7 +11,7 @@ namespace World_Constants
                                 BEACH_LEVEL     = WATER_LEVEL + 4,
                                 SNOW_LEVEL      = 243,
                                 CHUNK_AREA      = World_Constants::CHUNK_SIZE * World_Constants::CHUNK_SIZE,
-                                MAX_LIGHT_VALUE = 12;
+                                MAX_LIGHT_VALUE = 15;
 }
 
 #endif // WORLD_CONSTANTS_H_INCLUDED

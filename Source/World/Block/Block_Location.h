@@ -4,22 +4,23 @@
 
 #include <functional>
 #include <cmath>
+#include <cstdint>
 
 #include "../../Util/Hasher.h"
 
 struct Block_Location
 {
-    Block_Location (int x, int y, int z);
+    Block_Location (int32_t x, int32_t y, int32_t z);
 
-    int x = 0;
-    int y = 0;
-    int z = 0;
+    int32_t x = 0;
+    int32_t y = 0;
+    int32_t z = 0;
 
     bool operator== (const Block_Location& other) const;
 
     bool operator!=  (const Block_Location& other) const;
 
-    static Block_Location getRandom(int maxY);
+    static Block_Location getRandom(int32_t maxY);
 };
 
 namespace std
