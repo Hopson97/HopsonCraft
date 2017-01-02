@@ -19,6 +19,8 @@ namespace Debug_Display
         //t_ prefix for TEXT
         sf::Text t_fps;
 
+        sf::Text t_highestBlock;
+
         sf::Text t_chunkPosition;
         sf::Text t_blockPosition;
         sf::Text t_worldPosition;
@@ -48,6 +50,7 @@ namespace Debug_Display
         font.loadFromFile("Data/Font/rs.ttf");
 
         initText(t_fps);
+        initText(t_highestBlock);
 
         initText(t_chunkPosition);
         initText(t_blockPosition);
@@ -74,7 +77,14 @@ namespace Debug_Display
         t_heldBlock.move(500, 0);
 
         t_lightText.move(500, 40);
+        t_highestBlock.move(500, 110);
 
+    }
+
+
+    void addHighestBlock(uint32_t y)
+    {
+        t_highestBlock.setString("Highest Block -> " + std::to_string(y));
     }
 
     void addFPS(float fps)
@@ -160,5 +170,7 @@ namespace Debug_Display
         renderer.draw(t_heldBlock);
 
         renderer.draw(t_lightText);
+
+        renderer.draw(t_highestBlock);
     }
 }

@@ -46,6 +46,15 @@ void World::update(float dt, Camera& camera)
     m_player.update(dt);
 
     m_chunkMap.checkChunks();//This must be the last thing to happen in the update function here!
+
+    Chunk_Location loc      =    m_player.getChunkLocation();
+    Block_Location locBlock = Maths::worldToBlockPosition(m_player.position);
+    auto* chunk = m_chunkMap.getChunkAt(loc);
+
+    if(chunk)
+    {
+        Debug_Display::addHighestBlock(m_chunkMap.getChunkAt(loc)->getBlocks().getMaxheightAt(locBlock.x, locBlock.z));
+    }
 }
 
 void World::draw(float dt, Master_Renderer& renderer)

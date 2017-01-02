@@ -14,6 +14,7 @@ namespace Debug_Display
 
     void addFPS             (float fps);
 
+    void addHighestBlock    (uint32_t y);
     void addPlayerPosition  (const Vector3& location);
     void addPlayerLightLevel(const Vector3& location, const Chunk* chunk);
     void addLookVector      (const Vector3& rotation);

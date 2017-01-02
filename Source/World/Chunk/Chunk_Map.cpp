@@ -124,7 +124,7 @@ void Chunk_Map::regenChunks()
         (*itr)->regenMesh();
         itr = m_chunksToUpdate.erase( itr );
     }
-    if (!m_chunkRegenQueue.empty() && (regenQueueClock.getElapsedTime().asSeconds() >= 0.06))
+    if (!m_chunkRegenQueue.empty() && (regenQueueClock.getElapsedTime().asSeconds() >= 0.04))
     {
         m_chunkRegenQueue.front()->regenMesh(false);
         m_chunkRegenQueue.pop();
