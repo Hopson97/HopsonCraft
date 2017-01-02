@@ -115,8 +115,6 @@ void Chunk_Map::draw(Master_Renderer& renderer)
 
 void Chunk_Map::regenChunks()
 {
-    static sf::Clock regenQueueClock;
-
     Debug_Display::addChunkUpdates(m_chunksToUpdate.size() + m_chunkRegenQueue.size());
     Debug_Display::addChunkAmounth(m_chunks.size());
     for ( auto itr = m_chunksToUpdate.begin() ; itr != m_chunksToUpdate.end() ; )
@@ -124,11 +122,10 @@ void Chunk_Map::regenChunks()
         (*itr)->regenMesh();
         itr = m_chunksToUpdate.erase( itr );
     }
-    if (!m_chunkRegenQueue.empty() && (regenQueueClock.getElapsedTime().asSeconds() >= 0.04))
+    if (!m_chunkRegenQueue.empty())
     {
         m_chunkRegenQueue.front()->regenMesh(false);
         m_chunkRegenQueue.pop();
-        regenQueueClock.restart();
     }
 }
 
@@ -166,8 +163,9 @@ void Chunk_Map::addBlock (const Block::Block_Type& block,
 {
     auto addToBatch = [&](int x, int y)
     {
-        auto* c = getChunkAt({x, y});
-        addChangedChunk(c);
+        auto* chunk = getChunkAt({x, y});
+        //chunk->resetLight();
+        addChangedChunk(chunk);
     };
 
     Chunk_Location position         (Maths::worldToChunkPosition(worldPosition));
@@ -338,8 +336,9 @@ void Chunk_Map::addChunkToRegenQueue(Chunk* chunk)
     {
         if(!chunk->hasRegenMeshFlag())
         {
-            chunk->giveRegenMeshFlag();
-            m_chunkRegenQueue.push(chunk);
+            //chunk->resetLight();
+           // chunk->giveRegenMeshFlag();
+           // m_chunkRegenQueue.push(chunk);
         }
     }
 }

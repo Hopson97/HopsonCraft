@@ -228,8 +228,7 @@ void Chunk::regenMesh(bool regenNeighbours)
     {
         m_p_chunkMap->regenNeighboursSurrounding(m_location);
     }
-
-    m_blocks.resetLight();
+    resetLight();
     generateMesh();
     bufferMesh();
     m_hasregenMeshFlag = false;
@@ -296,6 +295,12 @@ Chunk* Chunk::getChunkAdj(int dx, int dz) const
 {
     return m_p_chunkMap->getChunkAt({m_location.x + dx, m_location.z + dz});
 }
+
+void Chunk::resetLight()
+{
+    m_blocks.resetLight();
+}
+
 
 
 uint8_t Chunk::getNaturalLight(const Block_Location& location) const

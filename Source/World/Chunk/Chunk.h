@@ -84,7 +84,7 @@ class Chunk : public Entity
         uint8_t getNaturalLight (const Block_Location& location) const;
         uint8_t getBlockLight   (const Block_Location& location) const;
 
-
+        void resetLight();
 
     private:
         Chunk_Blocks& getBlocks_nc ();
