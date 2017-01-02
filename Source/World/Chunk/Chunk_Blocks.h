@@ -56,7 +56,7 @@ class Chunk_Blocks
         Chunk_Location m_location;
         Chunk_Map* m_p_chunkMap;
 
-        std::vector<Chunk_Layer> m_layers;
+        std::array<Chunk_Layer, World_Constants::CHUNK_HEIGHT + 1> m_layers;
         std::unordered_map<Block_Location, uint8_t> m_lightSources;
 
         std::vector<int> m_maxHeights;

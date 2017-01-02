@@ -104,13 +104,20 @@ bool Chunk::tick()
 {
     bool chunkHasChanged = false;
 
-    //Regular blocks can tick
-    for (int i = 0 ; i < 5 ; i++)
-    {
-        auto location = Block_Location::getRandom(m_blocks.getLayerCount());
+    int tries = 0;
 
-        chunkHasChanged = m_blocks.getBlock(location).tick(location, *this) | chunkHasChanged;
+    //Regular blocks can tick
+    auto location = Block_Location::getRandom(m_blocks.getLayerCount());
+    while (m_blocks.getBlock(location).getData().getID() == Block::ID::Air)
+    {
+        location = Block_Location::getRandom(m_blocks.getLayerCount());
+        tries++;
+        if (tries >= 25)
+            return false;
     }
+
+    chunkHasChanged = m_blocks.getBlock(location).tick(location, *this) | chunkHasChanged;
+
     return chunkHasChanged;
 }
 

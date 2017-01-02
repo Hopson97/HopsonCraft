@@ -3,6 +3,8 @@
 #include "../../Chunk/Chunk.h"
 #include "../Block_Location.h"
 
+#include <iostream>
+
 namespace Block
 {
     Grass::Grass()
@@ -11,6 +13,7 @@ namespace Block
 
     bool tick(const Block_Location& location, Chunk& chunk)
     {
+        std::cout << "bye bye" << std::endl;
         Block_Location lightLoc (location.x, location.y + 1, location.z);
 
         if (chunk.getBlockLight(lightLoc) < 3 || chunk.getNaturalLight(lightLoc) < 3)

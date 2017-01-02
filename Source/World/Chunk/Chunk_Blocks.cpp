@@ -15,7 +15,6 @@ Chunk_Blocks::Chunk_Blocks(Chunk& chunk,
 :   m_p_chunk       (&chunk)
 ,   m_location      (location)
 ,   m_p_chunkMap    (&chunkMap)
-,   m_layers        (World_Constants::CHUNK_HEIGHT + 1)
 ,   m_maxHeights    (World_Constants::CHUNK_AREA)
 { }
 
