@@ -90,7 +90,7 @@ namespace State
     /*
         Sometimes, the player will be in such as place where there needs to be some kind of Post FX
         For exmaple:
-            Player underwater -> Blueness
+            Player underwater -> Blur
     */
     void Playing_State::tryAddPostFX(Master_Renderer& renderer)
     {
