@@ -30,10 +30,6 @@ class Chunk_Blocks
 
         const Block::Block_Type& getBlock (const Block_Location& location) const;
 
-
-        void addBlock(const Block_Location& location, uint8_t block);
-        const std::unordered_map<Block_Location, uint8_t>& getAddedBlocks() const;
-
         size_t getLayerCount() const;
 
         const Chunk_Layer& getLayer     (uint32_t layer) const;
@@ -61,7 +57,6 @@ class Chunk_Blocks
         Chunk_Map* m_p_chunkMap;
 
         std::vector<Chunk_Layer> m_layers;
-        std::unordered_map<Block_Location, uint8_t> m_addedBlocks;
         std::unordered_map<Block_Location, uint8_t> m_lightSources;
 
         std::vector<int> m_maxHeights;

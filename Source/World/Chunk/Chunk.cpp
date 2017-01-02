@@ -32,6 +32,9 @@ Chunk::Chunk(const Chunk_Location& position,
 ,   m_modelMatrix   (Maths::createModelMatrix(*this))
 {
     m_worldGenerator.generate();
+
+    m_hasGenBaseBlockData = true;
+
     loadBlockData (worldName);
     m_blocks.calculateMaxHeights();
     m_blocks.calculateChunkLight();
@@ -62,6 +65,11 @@ void Chunk::addBlock( const Block_Location& location,
     {
         m_blocks.recalculateMaxHeight(location.x, location.z);
     }
+
+    if (m_hasGenBaseBlockData)
+    {
+        m_addedBlocks[location] = &block;
+    }
 }
 
 void Chunk::breakBlock(const Block_Location& location,
@@ -82,6 +90,11 @@ void Chunk::breakBlock(const Block_Location& location,
     if(m_hasBlockData)
     {
         m_blocks.recalculateMaxHeight(location.x, location.z);
+    }
+
+    if (m_hasGenBaseBlockData)
+    {
+        m_addedBlocks[location] = &Block::get(Block::ID::Air);
     }
 
     //Loot loot = getBlocks().getBlock(location).getLoot();
@@ -369,16 +382,16 @@ uint8_t Chunk::getBlockLight(const Block_Location& location) const
 
 void Chunk::saveToFile(const std::string& worldName) const
 {
-    if(!m_blocks.getAddedBlocks().empty())
+    if(!m_addedBlocks.empty())
     {
         std::ofstream outFile (getFileString(worldName) + ".chunk");
 
-        for(auto& block : m_blocks.getAddedBlocks())
+        for(auto& block : m_addedBlocks)
         {
             const Block_Location& l = block.first;
 
-            outFile << "b " << l.x << " " << l.y << " " << l.z << " ";  //Block location
-            outFile << (uint32_t)block.second << std::endl;     //Block ID
+            outFile << "b " << l.x << " " << l.y << " " << l.z << " ";          //Block location
+            outFile << (uint32_t)block.second->getData().getID() << std::endl;   //Block ID
         }
         outFile << "e";
     }
@@ -410,9 +423,9 @@ void Chunk::loadBlockData (const std::string& worldName)
         }
     }
 
-    for (auto& block : m_blocks.getAddedBlocks())
+    for (auto& block : m_addedBlocks)
     {
-        m_blocks.qSetBlock(block.first, (uint8_t)block.second);
+        m_blocks.qSetBlock(block.first, (uint8_t)block.second->getData().getID());
     }
 }
 

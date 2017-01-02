@@ -46,12 +46,9 @@ void Chunk_Blocks::qSetBlock(const Block_Location& location,
             m_lightSources.erase(location);
         }
 
-        if (m_p_chunk->hasBlockData())
+        //Bottom layer is indestructable
+        if (m_p_chunk->hasBlockData() && location.y == 0)
         {
-            m_addedBlocks[location] = block;
-
-            //Bottom layer is indestructable
-            if (location.y == 0)
                 return;
         }
         if (Block::get(block).getData().getLightEmission() > 0)
@@ -244,18 +241,6 @@ void Chunk_Blocks::floodBlockLight(int x, int y, int z, uint8_t value)
     floodBlockLight(x,        y,      z + 1,  value);
     floodBlockLight(x,        y,      z - 1,  value);
 }
-
-void Chunk_Blocks::addBlock(const Block_Location& location, uint8_t block)
-{
-    m_addedBlocks.insert(std::make_pair(location, block));
-}
-
-
-const std::unordered_map<Block_Location, uint8_t>& Chunk_Blocks::getAddedBlocks() const
-{
-    return m_addedBlocks;
-}
-
 
 const Block::Block_Type& Chunk_Blocks::getAdjacentChunkBlock (int xChange,
                                                               int zChange,

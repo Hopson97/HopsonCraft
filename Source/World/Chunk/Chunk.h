@@ -24,6 +24,11 @@ class Texture_Atlas;
 class Chunk_Map;
 class World;
 
+namespace Block
+{
+    class Block_Type;
+}
+
 class Chunk : public Entity
 {
     public:
@@ -90,6 +95,7 @@ class Chunk : public Entity
         std::string getFileString       (const std::string& worldName) const;
 
         std::unordered_map<Block_Location, std::unique_ptr<Updatable_Block>> m_updatableBlocks;
+        std::unordered_map<Block_Location, const Block::Block_Type*> m_addedBlocks;
 
         Chunk_Location m_location; //Map coords
 
@@ -105,6 +111,8 @@ class Chunk : public Entity
         bool m_hasregenMeshFlag     = false;
 
         bool m_calculatedLight      = false;
+
+        bool m_hasGenBaseBlockData = false;
 
         Chunk_Mesh m_mesh;
         Chunk_Blocks m_blocks;
