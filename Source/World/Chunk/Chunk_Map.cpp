@@ -122,6 +122,12 @@ void Chunk_Map::regenChunks()
         (*itr)->regenMesh();
         itr = m_chunksToUpdate.erase( itr );
     }
+    if (!m_chunkRegenQueue.empty())
+    {
+        m_chunkRegenQueue.front()->regenMesh(false);
+        m_chunkRegenQueue.pop();
+    }
+
 }
 
 void Chunk_Map::updateChunks()
@@ -308,6 +314,24 @@ void Chunk_Map::makeExplosion(const Vector3& worldPosition, int power)
     }
     addBlocks(Block::get(Block::ID::Air), positions, Block::Break_Type::Explosion);
 }
+
+
+void Chunk_Map::regenNeighboursSurrounding(const Chunk_Location& location)
+{
+    m_chunkRegenQueue.push(m_chunks[{location.x + 1,    location.z}].get());
+    m_chunkRegenQueue.push(m_chunks[{location.x - 1,    location.z}].get());
+
+    m_chunkRegenQueue.push(m_chunks[{location.x,        location.z + 1}].get());
+    m_chunkRegenQueue.push(m_chunks[{location.x,        location.z - 1}].get());
+
+    m_chunkRegenQueue.push(m_chunks[{location.x + 1,    location.z + 1}].get());
+    m_chunkRegenQueue.push(m_chunks[{location.x - 1,    location.z - 1}].get());
+
+    m_chunkRegenQueue.push(m_chunks[{location.x - 1,    location.z + 1}].get());
+    m_chunkRegenQueue.push(m_chunks[{location.x + 1,    location.z - 1}].get());
+}
+
+
 
 void Chunk_Map :: manageChunks()
 {

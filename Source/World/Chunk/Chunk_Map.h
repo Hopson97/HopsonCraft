@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <memory>
 #include <thread>
+#include <queue>
 
 #include "Chunk.h"
 #include "../../Texture/Texture_Atlas.h"
@@ -58,6 +59,8 @@ class Chunk_Map
 
         void endThreads();
 
+        void regenNeighboursSurrounding(const Chunk_Location& location);
+
     private:
         void deleteChunks   ();
         void updateChunks   ();
@@ -73,6 +76,8 @@ class Chunk_Map
         std::vector<Chunk*> m_chunksToUpdate;
 
         std::vector<Chunk_Location> m_chunksToDelete;
+
+        std::queue<Chunk*> m_chunkRegenQueue;
 
         Texture_Atlas   m_blockTextures;
         bool m_isRunning = true;

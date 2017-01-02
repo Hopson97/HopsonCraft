@@ -222,8 +222,13 @@ bool Chunk::hasDeleteFlag () const
     return m_hasDeleteFlag;
 }
 
-void Chunk::regenMesh()
+void Chunk::regenMesh(bool regenNeighbours)
 {
+    if (regenNeighbours)
+    {
+        m_p_chunkMap->regenNeighboursSurrounding(m_location);
+    }
+
     m_blocks.resetLight();
     generateMesh();
     bufferMesh();

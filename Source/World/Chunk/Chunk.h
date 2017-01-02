@@ -71,7 +71,7 @@ class Chunk : public Entity
         void giveDeleteFlag (const std::string& worldName);
         bool hasDeleteFlag  () const;
 
-        void regenMesh          ();
+        void regenMesh          (bool regenNeighbours = true);
         void giveRegenMeshFlag  ();
         bool hasRegenMeshFlag   () const;
 
