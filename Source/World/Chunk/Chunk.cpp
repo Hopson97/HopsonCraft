@@ -377,9 +377,10 @@ void Chunk::saveToFile(const std::string& worldName) const
         {
             const Block_Location& l = block.first;
 
-            outFile << l.x << " " << l.y << " " << l.z << " ";  //Block location
+            outFile << "b " << l.x << " " << l.y << " " << l.z << " ";  //Block location
             outFile << (uint32_t)block.second << std::endl;     //Block ID
         }
+        outFile << "e";
     }
 }
 
@@ -395,10 +396,18 @@ void Chunk::loadBlockData (const std::string& worldName)
     int z = 0;
     int id = 0;
 
-    while(inFile.peek() != EOF)
+    char line;
+    while(inFile >> line)
     {
-        inFile >> x >> y >> z >> id;
-        addBlock({x, y, z}, Block::get((uint8_t)id));
+        if (line == 'b')
+        {
+            inFile >> x >> y >> z >> id;
+            addBlock({x, y, z}, Block::get((uint8_t)id));
+        }
+        else if (line == 'e')
+        {
+            break;
+        }
     }
 
     for (auto& block : m_blocks.getAddedBlocks())

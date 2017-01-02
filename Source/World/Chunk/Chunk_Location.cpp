@@ -1,6 +1,6 @@
 #include "Chunk_Location.h"
 
-Chunk_Location :: Chunk_Location (int x, int z)
+Chunk_Location :: Chunk_Location (int32_t x, int32_t z)
 :   x   (x)
 ,   z   (z)
 {}

@@ -434,3 +434,10 @@ void Chunk_Map::generateMeshes(const Area& generationArea)
         }
     }
 }
+
+void Chunk_Map::endThreads()
+{
+    m_isRunning = false;
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(50)); //Allows threads to finish...
+}

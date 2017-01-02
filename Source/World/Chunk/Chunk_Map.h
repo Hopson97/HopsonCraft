@@ -56,6 +56,8 @@ class Chunk_Map
 
         void addChangedChunk(Chunk* chunk);
 
+        void endThreads();
+
     private:
         void deleteChunks   ();
         void updateChunks   ();

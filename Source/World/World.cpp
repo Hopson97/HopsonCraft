@@ -141,8 +141,9 @@ void World::loadWorldFile()
     }
 }
 
-void World::save() const
+void World::save()
 {
+    m_chunkMap.endThreads();
     m_chunkMap.saveChunks();
 
     auto& position = m_player.position;

@@ -35,7 +35,7 @@ class World
         const Chunk_Map&    getChunkMap ()  const;
         const Player&       getPlayer   ()  const;
 
-        void save() const;
+        void save();
 
         void makeExplosion(const Vector3& worldPosition, int power);
 

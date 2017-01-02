@@ -9,10 +9,10 @@
 struct Chunk_Location
 {
     Chunk_Location() = default;
-    Chunk_Location (int x, int z);
+    Chunk_Location (int32_t x, int32_t z);
 
-    int x = 0;
-    int z = 0;
+    int32_t x = 0;
+    int32_t z = 0;
 
     bool operator== (const Chunk_Location& other) const;
 
