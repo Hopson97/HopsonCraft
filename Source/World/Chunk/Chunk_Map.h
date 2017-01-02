@@ -61,6 +61,8 @@ class Chunk_Map
 
         void regenNeighboursSurrounding(const Chunk_Location& location);
 
+        void addChunkToRegenQueue (Chunk* chunk);
+
     private:
         void deleteChunks   ();
         void updateChunks   ();

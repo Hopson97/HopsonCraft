@@ -115,19 +115,21 @@ void Chunk_Map::draw(Master_Renderer& renderer)
 
 void Chunk_Map::regenChunks()
 {
-    Debug_Display::addChunkUpdates(m_chunksToUpdate.size());
+    static sf::Clock regenQueueClock;
+
+    Debug_Display::addChunkUpdates(m_chunksToUpdate.size() + m_chunkRegenQueue.size());
     Debug_Display::addChunkAmounth(m_chunks.size());
     for ( auto itr = m_chunksToUpdate.begin() ; itr != m_chunksToUpdate.end() ; )
     {
         (*itr)->regenMesh();
         itr = m_chunksToUpdate.erase( itr );
     }
-    if (!m_chunkRegenQueue.empty())
+    if (!m_chunkRegenQueue.empty() && (regenQueueClock.getElapsedTime().asSeconds() >= 0.06))
     {
         m_chunkRegenQueue.front()->regenMesh(false);
         m_chunkRegenQueue.pop();
+        regenQueueClock.restart();
     }
-
 }
 
 void Chunk_Map::updateChunks()
@@ -264,18 +266,6 @@ void Chunk_Map::saveChunks() const
     }
 }
 
-void Chunk_Map::addChangedChunk(Chunk* chunk)
-{
-    if (!chunk)
-        return;
-    if (chunk->hasRegenMeshFlag())
-        return;
-
-    chunk->giveRegenMeshFlag();
-    m_chunksToUpdate.push_back(chunk);
-}
-
-
 /*
 makeEplosion:
 
@@ -315,22 +305,44 @@ void Chunk_Map::makeExplosion(const Vector3& worldPosition, int power)
     addBlocks(Block::get(Block::ID::Air), positions, Block::Break_Type::Explosion);
 }
 
+void Chunk_Map::addChangedChunk(Chunk* chunk)
+{
+    if (!chunk)
+        return;
+    if (chunk->hasRegenMeshFlag())
+        return;
+
+    chunk->giveRegenMeshFlag();
+    m_chunksToUpdate.push_back(chunk);
+}
+
 
 void Chunk_Map::regenNeighboursSurrounding(const Chunk_Location& location)
 {
-    m_chunkRegenQueue.push(m_chunks[{location.x + 1,    location.z}].get());
-    m_chunkRegenQueue.push(m_chunks[{location.x - 1,    location.z}].get());
-
-    m_chunkRegenQueue.push(m_chunks[{location.x,        location.z + 1}].get());
-    m_chunkRegenQueue.push(m_chunks[{location.x,        location.z - 1}].get());
-
-    m_chunkRegenQueue.push(m_chunks[{location.x + 1,    location.z + 1}].get());
-    m_chunkRegenQueue.push(m_chunks[{location.x - 1,    location.z - 1}].get());
-
-    m_chunkRegenQueue.push(m_chunks[{location.x - 1,    location.z + 1}].get());
-    m_chunkRegenQueue.push(m_chunks[{location.x + 1,    location.z - 1}].get());
+    auto xLoc = location.x;
+    auto zLoc = location.z;
+    for (int x = -1 ; x <= 1 ; x++)
+    {
+        for (int z = -1 ; z <= 1 ; z++)
+        {
+            if (x == xLoc && z == zLoc )
+                continue;
+            addChunkToRegenQueue(getChunkAt({xLoc + x, zLoc +  z}));
+        }
+    }
 }
 
+void Chunk_Map::addChunkToRegenQueue(Chunk* chunk)
+{
+    if (chunk)
+    {
+        if(!chunk->hasRegenMeshFlag())
+        {
+            chunk->giveRegenMeshFlag();
+            m_chunkRegenQueue.push(chunk);
+        }
+    }
+}
 
 
 void Chunk_Map :: manageChunks()
