@@ -8,7 +8,9 @@
 
 namespace Random
 {
+    std::minstd_rand gen;
 
+/*
 	int integer(int low, int high)
 	{
 		return rand() % (high - low + 1) + low;
@@ -25,28 +27,22 @@ namespace Random
 
 		return newNum / multiplier;
 	}
-
+*/
     void setSeed(int seed)
     {
-        srand(seed);
+        gen.seed(seed);
     }
 
-    Generator::Generator()
+
+    int integer(int low, int high)
     {
-        m_rng.seed(std::random_device()());
+        std::uniform_int_distribution<int> dist(low, high);
+        return dist(gen);
     }
 
-    void Generator::setSeed(int value)
+    double decimal(double low, double high)
     {
-        m_rng.seed(value);
+        std::uniform_real_distribution<double> dist(low, high);
+        return dist(gen);
     }
-
-    int Generator::get(int low, int high)
-    {
-        std::uniform_int_distribution<std::mt19937::result_type> distribution(low, high);
-        return distribution(m_rng);
-    }
-
-
-
 }

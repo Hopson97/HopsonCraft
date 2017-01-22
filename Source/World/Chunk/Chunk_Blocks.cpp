@@ -154,7 +154,9 @@ void Chunk_Blocks::resetLight()
 void Chunk_Blocks::floodNaturalLight(int x, int y, int z, uint8_t value)
 {
     if (x < 0)
+    {
         return;
+    }
 
     if (x > World_Constants::CHUNK_SIZE - 1)
         return;

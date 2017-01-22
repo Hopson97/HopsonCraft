@@ -54,6 +54,8 @@ class Chunk : public Entity
         bool hasMesh        () const;
         bool hasBuffered    () const;
 
+        bool needsRegen     () const;
+
         void generateMesh   ();
         void bufferMesh     ();
 
@@ -85,6 +87,8 @@ class Chunk : public Entity
         uint8_t getBlockLight   (const Block_Location& location) const;
 
         void resetLight();
+
+        Chunk* getAdjacentChunk (int dx, int dz) const;
 
     private:
         Chunk_Blocks& getBlocks_nc ();
