@@ -29,6 +29,8 @@ class Chunk_Mesh
         void addLight       (float cardinal, float natural, float block);
         void buffer         ();
 
+        void reserveMemory(int vertex, int texture, int light, int index);
+
         GLuint indicesCount = 0;
     };
 

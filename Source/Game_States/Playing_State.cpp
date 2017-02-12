@@ -34,7 +34,7 @@ namespace State
     :   Game_State      (application)
     ,   m_debugDisplay  ([&](){m_debugDisplayActive = !m_debugDisplayActive;}, sf::Keyboard::F3, sf::seconds(0.5))
     ,   m_worldName     (worldName)
-    ,   m_worldSeed   (seed)
+    ,   m_worldSeed     (seed)
     {
         Display::hideMouse();
         Directory::create("Worlds");

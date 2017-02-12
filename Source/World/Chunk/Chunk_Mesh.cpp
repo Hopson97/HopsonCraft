@@ -62,6 +62,15 @@ void Chunk_Mesh::Chunk_Mesh_Part::buffer()
     indices.shrink_to_fit();
 }
 
+void Chunk_Mesh::Chunk_Mesh_Part::reserveMemory(int vertex, int texture, int light, int index)
+{
+    vertexCoords.reserve    (vertex);
+    textureCoords.reserve   (texture);
+    lightValues.reserve     (light);
+    indices.reserve         (index);
+}
+
+
 
 Chunk_Mesh::Chunk_Mesh(const Chunk& chunk)
 :   m_p_chunk (&chunk)
@@ -95,6 +104,8 @@ const Chunk_Mesh::Chunk_Mesh_Part& Chunk_Mesh::getFloraPart() const
 
 void Chunk_Mesh::generateMesh(int height)
 {
+    m_solidPart.reserveMemory(19200, 12800, 6400, 6400);
+
     for (int y = 0 ; y < height ; ++y)
     {
         if(shouldCreateLayer(y))
