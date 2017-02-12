@@ -4,6 +4,8 @@
 
 #include <GL/glew.h>
 #include "../Play_Settings.h"
+#include "Singleton.h"
+#include "Config.h"
 
 namespace Display
 {
@@ -33,7 +35,7 @@ namespace Display
         settings.majorVersion = 3;
         settings.minorVersion = 3;
 
-        sf::VideoMode videoMode (sf::VideoMode::getDesktopMode());
+        sf::VideoMode videoMode = Singleton<Config>::get().getVideoMode();
 
         window = std::make_unique<sf::RenderWindow>(videoMode,
                                                     name,
