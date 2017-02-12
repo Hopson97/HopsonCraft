@@ -5,6 +5,8 @@
 #include <iostream>
 
 #include "Util/Display.h"
+#include "Util/Singleton.h"
+#include "Util/Config.h"
 #include "Input/Function_Toggle_Key.h"
 #include "Input/Key_Binds.h"
 #include "Maths/General_Maths.h"
@@ -32,23 +34,24 @@ Vector3 Camera::keyboardInput(float speed)
         speed;
 
     auto yaw = glm::radians(rotation.y);
+    auto const& config = Singleton<Config>::get();
 
-    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
+    if  (sf::Keyboard::isKeyPressed(config.getKey(Key_Binds::Control::Player_Forwards)))
     {
         change.x -= cos (yaw + Maths::PI / 2) * acc;
         change.z -= sin (yaw + Maths::PI / 2) * acc;
     }
-    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Back)))
+    if  (sf::Keyboard::isKeyPressed(config.getKey(Key_Binds::Control::Player_Back)))
     {
         change.x += cos (yaw + Maths::PI / 2) * acc;
         change.z += sin (yaw + Maths::PI / 2) * acc;
     }
-    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Right)))
+    if  (sf::Keyboard::isKeyPressed(config.getKey(Key_Binds::Control::Player_Right)))
     {
         change.x += cos (yaw) * acc;
         change.z += sin (yaw) * acc;
     }
-    if  (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Left)))
+    if  (sf::Keyboard::isKeyPressed(config.getKey(Key_Binds::Control::Player_Left)))
     {
         change.x -= cos (yaw) * acc;
         change.z -= sin (yaw) * acc;
