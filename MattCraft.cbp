@@ -181,6 +181,10 @@
 		<Unit filename="Source/Texture/Texture.h" />
 		<Unit filename="Source/Texture/Texture_Atlas.cpp" />
 		<Unit filename="Source/Texture/Texture_Atlas.h" />
+		<Unit filename="Source/Util/Config.cpp" />
+		<Unit filename="Source/Util/Config.h" />
+		<Unit filename="Source/Util/ConfigParser.cpp" />
+		<Unit filename="Source/Util/ConfigParser.h" />
 		<Unit filename="Source/Util/Debug_Display.cpp" />
 		<Unit filename="Source/Util/Debug_Display.h" />
 		<Unit filename="Source/Util/Directory_Creator.cpp" />
@@ -193,8 +197,10 @@
 		<Unit filename="Source/Util/Noise_Generator.h" />
 		<Unit filename="Source/Util/Random.cpp" />
 		<Unit filename="Source/Util/Random.h" />
+		<Unit filename="Source/Util/Singleton.h" />
 		<Unit filename="Source/Util/Time.cpp" />
 		<Unit filename="Source/Util/Time.h" />
+		<Unit filename="Source/Util/noise_generator.h" />
 		<Unit filename="Source/World/Block/Block_Data.cpp" />
 		<Unit filename="Source/World/Block/Block_Data.h" />
 		<Unit filename="Source/World/Block/Block_Enums.h" />
