@@ -20,9 +20,11 @@ namespace Chunk
                 void reserve();
                 void buffer ();
 
-                inline void addVerticies(const std::vector<GLfloat>& v);
-                inline void addTexCoords(const std::vector<GLfloat>& t);
-                inline void addIndices  (const std::vector<GLuint>&  i);
+                void addVerticies   (const std::vector<GLfloat>& v);
+                void addTexCoords   (const std::vector<GLfloat>& t);
+                void addIndices     (const std::vector<GLuint>&  i);
+                void addLightVal    (GLfloat cardinalVal);
+
 
                 GLuint getIndicesCount() const;
 
@@ -31,9 +33,10 @@ namespace Chunk
                 const Model& getModel() const;
 
             private:
-                std::vector<GLfloat> m_verticies;
-                std::vector<GLfloat> m_texCoords;
-                std::vector<GLuint>  m_indices;
+                std::vector<GLfloat>    m_verticies;
+                std::vector<GLfloat>    m_texCoords;
+                std::vector<GLuint>     m_indices;
+                std::vector<GLfloat>    m_light;
 
                 Model m_model;
 

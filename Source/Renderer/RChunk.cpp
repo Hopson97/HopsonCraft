@@ -3,9 +3,7 @@
 #include <iostream>
 
 #include "../World/Chunk/Chunklet.h"
-
 #include "../Maths/Matrix_Maths.h"
-
 #include "../World/Chunk/Chunklet.h"
 
 namespace Renderer
@@ -17,6 +15,9 @@ namespace Renderer
 
     void RChunk::update(const Camera& camera)
     {
+        glEnable    (GL_CULL_FACE);
+        glCullFace  (GL_BACK);
+
         m_shader.bind();
 
         m_shader.setViewMatrix(Maths::createViewMatrix(camera));

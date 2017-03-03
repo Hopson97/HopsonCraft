@@ -13,40 +13,59 @@
 
 namespace Chunk
 {
+    namespace
+    {
+        constexpr GLfloat   LIGHT_TOP       =   1.0,
+                            LIGHT_Z         =   0.82f,
+                            LIGHT_X         =   0.7,
+                            LIGHT_BOTTOM    =   0.5;
+    }
+
     void Mesh::Section::reserve()
     {
-        m_verticies.reserve   (61440);
-        m_texCoords.reserve   (40960);
-        m_indices.reserve     (30720);
+        //m_verticies.reserve (61440);
+        //m_texCoords.reserve (40960);
+        //m_indices.reserve   (30720);
+        //m_light.reserve     (30720);
     }
 
     void Mesh::Section::buffer()
     {
         m_model.addData(m_verticies, m_texCoords, m_indices);
+        m_model.addVBO(1, m_light);
 
-        m_verticies.clear();
-        m_texCoords.clear();
-        m_indices.clear();
+        m_verticies .clear();
+        m_texCoords .clear();
+        m_indices   .clear();
+        m_light     .clear();
 
-        m_verticies.shrink_to_fit();
-        m_verticies.shrink_to_fit();
-        m_verticies.shrink_to_fit();
+        m_verticies .shrink_to_fit();
+        m_texCoords .shrink_to_fit();
+        m_indices   .shrink_to_fit();
+        m_light     .shrink_to_fit();
+
     }
 
-    inline void Mesh::Section::addVerticies(const std::vector<GLfloat>& v)
+    void Mesh::Section::addVerticies(const std::vector<GLfloat>& v)
     {
         m_verticies.insert(m_verticies.end(), v.begin(), v.end());
     }
 
-    inline void Mesh::Section::addTexCoords(const std::vector<GLfloat>& t)
+    void Mesh::Section::addTexCoords(const std::vector<GLfloat>& t)
     {
         m_texCoords.insert(m_texCoords.end(), t.begin(), t.end());
     }
 
-    inline void Mesh::Section::addIndices(const std::vector<GLuint>& i)
+    void Mesh::Section::addIndices(const std::vector<GLuint>& i)
     {
         m_indices.insert(m_indices.end(), i.begin(), i.end());
     }
+
+    void Mesh::Section::addLightVal(GLfloat cardinalVal)
+    {
+        m_light.insert(m_light.end(), {cardinalVal, cardinalVal, cardinalVal, cardinalVal});
+    }
+
 
     GLuint Mesh::Section::getIndicesCount() const
     {
@@ -166,6 +185,8 @@ namespace Chunk
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->getSideTex()));
+
+        m_solidMesh.addLightVal(LIGHT_Z);
     }
 
     void Mesh::makeBackFace(const Block::Position& pos)
@@ -184,6 +205,8 @@ namespace Chunk
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->getSideTex()));
+
+        m_solidMesh.addLightVal(LIGHT_Z);
     }
 
     void Mesh::makeLeftFace(const Block::Position& pos)
@@ -202,6 +225,8 @@ namespace Chunk
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->getSideTex()));
+
+        m_solidMesh.addLightVal(LIGHT_X);
     }
 
     void Mesh::makeRightFace(const Block::Position& pos)
@@ -220,6 +245,8 @@ namespace Chunk
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->getSideTex()));
+
+        m_solidMesh.addLightVal(LIGHT_X);
     }
 
     void Mesh::makeTopFace(const Block::Position& pos)
@@ -238,6 +265,8 @@ namespace Chunk
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->getTopTex()));
+
+        m_solidMesh.addLightVal(LIGHT_TOP);
     }
 
     void Mesh::makeBottomFace(const Block::Position& pos)
@@ -256,6 +285,8 @@ namespace Chunk
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->getBottomTex()));
+
+        m_solidMesh.addLightVal(LIGHT_BOTTOM);
     }
 
     void Mesh::addIndices(uint32_t faces)

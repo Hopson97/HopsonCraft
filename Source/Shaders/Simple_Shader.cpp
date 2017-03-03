@@ -15,6 +15,13 @@ namespace Shader
 
     }
 
+    Simple_Shader::Simple_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
+    :   Shader_Program (vertexShaderFile, fragmentShaderFile)
+    {
+
+    }
+
+
     void Simple_Shader::setViewMatrix(const Matrix4& matrix)
     {
         loadMatrix4(m_locationViewMatrix, matrix);

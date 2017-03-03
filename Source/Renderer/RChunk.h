@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "../Shaders/Simple_Shader.h"
+#include "../Shaders/Solid_Shader.h"
 
 class Chunklet;
 struct Camera;
@@ -23,7 +23,7 @@ namespace Renderer
         private:
             std::vector<const Chunklet*> m_chunks;
 
-            Shader::Simple_Shader m_shader;
+            Shader::Solid_Shader m_shader;
     };
 }
 

@@ -8,14 +8,11 @@ Model::Model(const std::vector<GLfloat>& vertexPositions,
 :   m_indicesCount  (indices.size())
 {
     glGenVertexArrays(1, &m_vao);
-    glBindVertexArray(m_vao);
+    bind();
 
     addVBO(3, vertexPositions);
     addVBO(2, textureCoordinates);
     addEBO(indices);
-
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 Model::~Model()
@@ -38,9 +35,6 @@ void Model::addData(const std::vector<GLfloat>& vertexPositions,
     addVBO(3, vertexPositions);
     addVBO(2, textureCoordinates);
     addEBO(indices);
-
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 
@@ -68,6 +62,7 @@ void Model::addVBO(int dim, const std::vector<GLfloat>& data)
                  data.size() * sizeof(data[0]),
                  data.data(),
                  GL_STATIC_DRAW);
+
     glVertexAttribPointer(m_vboCount,
                           dim,
                           GL_FLOAT,
@@ -90,5 +85,6 @@ void Model::addEBO(const std::vector<GLuint>& indices)
                  indices.size() * sizeof (indices[0]),
                  indices.data(),
                  GL_STATIC_DRAW);
+
     m_buffers.push_back(ebo);
 }
