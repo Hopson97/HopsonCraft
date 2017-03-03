@@ -4,8 +4,6 @@
 #include "Application.h"
 #include "Util/Random.h"
 
-
-
 int main() try
 {
     Random  ::init();

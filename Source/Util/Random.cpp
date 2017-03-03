@@ -14,4 +14,11 @@ namespace Random
     {
         rd.seed(std::time(nullptr));
     }
+
+    int intInRange(int lowBound, int highBound)
+    {
+        std::uniform_int_distribution<int> dist(lowBound, highBound);
+        return dist (rd);
+    }
+
 }

@@ -4,7 +4,7 @@
 namespace Random
 {
     void init();
-    void intInRange(int lowBound, int highBound);
+    int intInRange(int lowBound, int highBound);
 }
 
 #endif // RANDOM_H_INCLUDED

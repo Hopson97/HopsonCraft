@@ -1,6 +1,7 @@
 #include "Chunklet.h"
 
 #include "../../Maths/Matrix_Maths.h"
+#include "../../Util/Random.h"
 
 Chunklet::Chunklet()
 :   m_mesh  (*this)
@@ -17,8 +18,7 @@ Chunklet::Chunklet()
         {
             for (uint8_t z = 0; z < World_Constants::CH_SIZE; z++)
             {
-                if (y != World_Constants::CH_SIZE - 1)
-                    m_blocks.at(getBlockIndex({x, y, z})) = 2;
+                m_blocks.at(getBlockIndex({x, y, z})) = Random::intInRange(0, 2);
             }
         }
     }
