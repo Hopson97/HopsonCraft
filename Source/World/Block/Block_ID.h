@@ -9,8 +9,9 @@ namespace Block
 {
     enum class ID : Block_t
     {
-        Air = 0,
-        Grass = 1,
+        Air     = 0,
+        Grass   = 1,
+        Dirt    = 2,
 
         NUM_BLOCK_TYPES
     };

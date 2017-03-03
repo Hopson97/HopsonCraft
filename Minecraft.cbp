@@ -70,6 +70,8 @@
 		<Unit filename="Source/Maths/Matrix_Maths.h" />
 		<Unit filename="Source/Model.cpp" />
 		<Unit filename="Source/Model.h" />
+		<Unit filename="Source/Renderer/RChunk.cpp" />
+		<Unit filename="Source/Renderer/RChunk.h" />
 		<Unit filename="Source/Renderer/RMaster.cpp" />
 		<Unit filename="Source/Renderer/RMaster.h" />
 		<Unit filename="Source/Renderer/RSimple.cpp" />

@@ -10,18 +10,19 @@ Chunklet::Chunklet()
 
     m_modelMat = Maths::createModelMatrix(*this);
 
-/*
+
     for (uint8_t y = 0; y < World_Constants::CH_SIZE; y++)
     {
         for (uint8_t x = 0; x < World_Constants::CH_SIZE; x++)
         {
             for (uint8_t z = 0; z < World_Constants::CH_SIZE; z++)
             {
-                m_blocks.at(getBlockIndex({x, y, z})) = Block::ID::Grass;
+                if (y != World_Constants::CH_SIZE - 1)
+                    m_blocks.at(getBlockIndex({x, y, z})) = 2;
             }
         }
     }
-*/
+
     m_mesh.create();
 }
 
