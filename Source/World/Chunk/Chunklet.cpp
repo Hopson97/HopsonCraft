@@ -18,7 +18,15 @@ Chunklet::Chunklet()
         {
             for (uint8_t z = 0; z < World_Constants::CH_SIZE; z++)
             {
-                m_blocks.at(getBlockIndex({x, y, z})) = Random::intInRange(0, 2);
+                if (y != World_Constants::CH_SIZE - 1)
+                    m_blocks.at(getBlockIndex({x, y, z})) = 2;
+
+                auto val = Random::intInRange(0, 1);
+
+                if (y != World_Constants::CH_SIZE - 1 && val == 1)
+                    val = 2;
+
+                m_blocks.at(getBlockIndex({x, y, z})) = val;
             }
         }
     }
