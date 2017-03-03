@@ -1,15 +1,17 @@
-#include "Display.h"
-
-#include "Application.h"
-
 #include <iostream>
+
+#include "Display.h"
+#include "Application.h"
+#include "Util/Random.h"
+
+
 
 int main() try
 {
-    Display::init();
+    Random  ::init();
+    Display ::init();
 
     Application app;
-
     app.runMainGameLoop();
 
     return 0;
