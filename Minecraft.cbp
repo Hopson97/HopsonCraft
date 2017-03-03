@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Minecraft" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Minecraft" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-audio-d" />
+					<Add library="sfml-network-d" />
+					<Add library="sfml-system-d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Minecraft" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-network" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=c++14" />
+			<Add option="-fexceptions" />
+			<Add option="-DGLEW_STATIC" />
+			<Add directory="D:/_Programming Libraries/C++/SFML-2.4.1/include" />
+		</Compiler>
+		<Linker>
+			<Add library="glew32s" />
+			<Add library="opengl32" />
+			<Add library="glu32" />
+			<Add directory="D:/_Programming Libraries/C++/SFML-2.4.1/lib" />
+			<Add directory="D:/_Programming Libraries/C++/glew-2.0.0/lib/Release/Win32" />
+		</Linker>
+		<Unit filename="Data/Blocks/Air.block" />
+		<Unit filename="Data/Blocks/Grass.block" />
+		<Unit filename="Data/Shaders/Simple_Fragment.glsl" />
+		<Unit filename="Data/Shaders/Simple_Vertex.glsl" />
+		<Unit filename="Source/Application.cpp" />
+		<Unit filename="Source/Application.h" />
+		<Unit filename="Source/Camera.cpp" />
+		<Unit filename="Source/Camera.h" />
+		<Unit filename="Source/Display.cpp" />
+		<Unit filename="Source/Display.h" />
+		<Unit filename="Source/Entity.h" />
+		<Unit filename="Source/Glm_Common.h" />
+		<Unit filename="Source/Maths/General_Maths.h" />
+		<Unit filename="Source/Maths/Matrix_Maths.cpp" />
+		<Unit filename="Source/Maths/Matrix_Maths.h" />
+		<Unit filename="Source/Model.cpp" />
+		<Unit filename="Source/Model.h" />
+		<Unit filename="Source/Renderer/RMaster.cpp" />
+		<Unit filename="Source/Renderer/RMaster.h" />
+		<Unit filename="Source/Renderer/RSimple.cpp" />
+		<Unit filename="Source/Renderer/RSimple.h" />
+		<Unit filename="Source/Shaders/Shader_Loader.cpp" />
+		<Unit filename="Source/Shaders/Shader_Loader.h" />
+		<Unit filename="Source/Shaders/Shader_Program.cpp" />
+		<Unit filename="Source/Shaders/Shader_Program.h" />
+		<Unit filename="Source/Shaders/Simple_Shader.cpp" />
+		<Unit filename="Source/Shaders/Simple_Shader.h" />
+		<Unit filename="Source/States/Game_State.cpp" />
+		<Unit filename="Source/States/Game_State.h" />
+		<Unit filename="Source/States/SPlaying.cpp" />
+		<Unit filename="Source/States/SPlaying.h" />
+		<Unit filename="Source/Temp/Quad.cpp" />
+		<Unit filename="Source/Temp/Quad.h" />
+		<Unit filename="Source/Texture/Texture.cpp" />
+		<Unit filename="Source/Texture/Texture.h" />
+		<Unit filename="Source/Texture/Texture_Atlas.cpp" />
+		<Unit filename="Source/Texture/Texture_Atlas.h" />
+		<Unit filename="Source/World/Block/Block_Data.cpp" />
+		<Unit filename="Source/World/Block/Block_Data.h" />
+		<Unit filename="Source/World/Block/Block_Database.cpp" />
+		<Unit filename="Source/World/Block/Block_Database.h" />
+		<Unit filename="Source/World/Block/Block_ID.h" />
+		<Unit filename="Source/World/Block/Block_Position.cpp" />
+		<Unit filename="Source/World/Block/Block_Position.h" />
+		<Unit filename="Source/World/Block/Block_Types/BAir.cpp" />
+		<Unit filename="Source/World/Block/Block_Types/BAir.h" />
+		<Unit filename="Source/World/Block/Block_Types/BDefault.cpp" />
+		<Unit filename="Source/World/Block/Block_Types/BDefault.h" />
+		<Unit filename="Source/World/Block/Block_Types/BGrass.cpp" />
+		<Unit filename="Source/World/Block/Block_Types/BGrass.h" />
+		<Unit filename="Source/World/Block/Block_Types/Block_Type.cpp" />
+		<Unit filename="Source/World/Block/Block_Types/Block_Type.h" />
+		<Unit filename="Source/World/Chunk/CBlock.cpp" />
+		<Unit filename="Source/World/Chunk/CBlock.h" />
+		<Unit filename="Source/World/Chunk/CMesh.cpp" />
+		<Unit filename="Source/World/Chunk/CMesh.h" />
+		<Unit filename="Source/World/Chunk/Chunklet.cpp" />
+		<Unit filename="Source/World/Chunk/Chunklet.h" />
+		<Unit filename="Source/World/World.cpp" />
+		<Unit filename="Source/World/World.h" />
+		<Unit filename="Source/World/World_Constants.h" />
+		<Unit filename="Source/main.cpp" />
+		<Unit filename="glew32.dll" />
+		<Unit filename="openal32.dll" />
+		<Unit filename="sfml-audio-2.dll" />
+		<Unit filename="sfml-audio-d-2.dll" />
+		<Unit filename="sfml-graphics-2.dll" />
+		<Unit filename="sfml-graphics-d-2.dll" />
+		<Unit filename="sfml-network-2.dll" />
+		<Unit filename="sfml-network-d-2.dll" />
+		<Unit filename="sfml-system-2.dll" />
+		<Unit filename="sfml-system-d-2.dll" />
+		<Unit filename="sfml-window-2.dll" />
+		<Unit filename="sfml-window-d-2.dll" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

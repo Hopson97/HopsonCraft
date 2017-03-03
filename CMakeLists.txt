@@ -6,27 +6,18 @@ set (CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 file(GLOB src_files
-    Source/Game_States/*.cpp
-    Source/GUI/*.cpp
-    Source/Input/*.cpp
-    Source/Inventory/*.cpp
-    Source/Item/*.cpp
-    Source/Maths/*.cpp
-    Source/Model/*.cpp
-    Source/Mob/*.cpp
-    Source/OpenGL/*.cpp
-    Source/PostFX/*.cpp
-    Source/Renderer/*.cpp
-    Source/Shaders/*.cpp
-    Source/Texture/*.cpp
-    Source/World/*.cpp
-    Source/Util/*.cpp
     Source/*.cpp
-    Source/World/Chunk/*.cpp
-    Source/World/Block/*.cpp
-    Source/World/Block/Block_Type/*.cpp
-    Source/World/Block/Updateable/*.cpp
-    Source/World/Gen/*.cpp)
+	Source/Maths/*.cpp
+	Source/Renderer/*.cpp
+	Source/Shaders/*.cpp 
+	Source/States/*cpp 
+	Source/Temp/*.cpp
+	Source/Texture/*.cpp
+	Source/World/*.cpp 
+	Source/World/Block/Block_Types/*.cpp
+	Source/World/Block/*.cpp
+	Source/World/Chunk/*.cpp
+	)
 
 find_package(OpenGL REQUIRED)
 if (OPENGL_FOUND)

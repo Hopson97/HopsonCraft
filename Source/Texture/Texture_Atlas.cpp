@@ -1,43 +1,31 @@
 #include "Texture_Atlas.h"
 
-#include <unordered_map>
-
-namespace
+namespace Texture
 {
-    //There is only one block atlas, so I can do this to work around the "getTextureCoords" being a const function
-    std::unordered_map<Vector2, std::vector<GLfloat>> textureLocationCache;
-}
-
-Texture_Atlas::Texture_Atlas (float imageSize, float textureSize, const std::string& file)
-:   Texture         (file)
-,   m_size          (imageSize)
-,   m_textureSize   (textureSize)
-{
-
-}
-
-std::vector<GLfloat>& Texture_Atlas::getTextureCoords (const Vector2& location) const
-{
-    if (textureLocationCache.find(location) == textureLocationCache.end())
+    Atlas::Atlas(const std::string& textureName, GLuint size, GLuint textureSize)
+    :   m_size          (size)
+    ,   m_textureSize   (textureSize)
     {
-        static float txrPerRow = m_size / m_textureSize;
-        static float unitSize  = 1.0f   / txrPerRow;
+        load(textureName);
+    }
 
-        float xMin  = location.x * unitSize;
-        float yMin  = location.y * unitSize;
-        float xMax  = xMin + unitSize;
-        float yMax  = yMin + unitSize;
+    std::vector<GLfloat> Atlas::getTextureCoords(const Vector2& location) const
+    {
+        static auto texturesPerRow  = m_size / m_textureSize;
+        static auto unitSize        = 1.0f / (float)texturesPerRow;
 
-        textureLocationCache.insert(std::make_pair(
-        location,
-        std::vector<GLfloat>
+        auto xMin = location.x * unitSize;
+        auto yMin = location.y * unitSize;
+
+        auto xMax = xMin + unitSize;
+        auto yMax = yMin + unitSize;
+
+        return
         {
             xMax, yMax,
             xMin, yMax,
             xMin, yMin,
-            xMax, yMin,
-        }));
+            xMax, yMin
+        };
     }
-
-    return textureLocationCache[location];
 }

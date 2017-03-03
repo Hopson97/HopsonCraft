@@ -1,35 +1,25 @@
-#ifndef TEXTURE_ATLAS_H
-#define TEXTURE_ATLAS_H
+#ifndef TEXTURE_ATLAS_H_INCLUDED
+#define TEXTURE_ATLAS_H_INCLUDED
 
-#include <GL/glew.h>
+#include "Texture.h"
+
 #include <vector>
 
-#include "../OpenGL/GL_Maths.h"
-#include "Texture.h"
-#include "../Util/Hasher.h"
+#include "../Glm_Common.h"
 
-namespace std
+namespace Texture
 {
-    template<>
-    struct hash<Vector2>
+    class Atlas : public Basic_Texture
     {
-        size_t operator() (const Vector2& v) const
-        {
-            return Hasher::hash(v.x, v.y);
-        }
+        public:
+            Atlas(const std::string& textureName, GLuint size, GLuint textureSize);
+
+            std::vector<GLfloat> getTextureCoords (const Vector2& location) const;
+
+        private:
+            const GLuint m_size;
+            const GLuint m_textureSize;
     };
 }
 
-class Texture_Atlas : public Texture
-{
-    public:
-        Texture_Atlas(float imageSize, float textureSize, const std::string& file);
-
-        std::vector<GLfloat>& getTextureCoords (const Vector2& location) const;
-
-    private:
-        float m_size;
-        float m_textureSize;
-};
-
-#endif // TEXTURE_ATLAS_H
+#endif // TEXTURE_ATLAS_H_INCLUDED

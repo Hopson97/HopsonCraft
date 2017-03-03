@@ -1,17 +1,13 @@
 #ifndef WORLD_CONSTANTS_H_INCLUDED
 #define WORLD_CONSTANTS_H_INCLUDED
 
-#include <cmath>
+#include <cstdint>
 
 namespace World_Constants
 {
-    constexpr static uint16_t   CHUNK_SIZE      = 20,
-                                CHUNK_HEIGHT    = 300,
-                                WATER_LEVEL     = 90,
-                                BEACH_LEVEL     = WATER_LEVEL + 4,
-                                SNOW_LEVEL      = 243,
-                                CHUNK_AREA      = World_Constants::CHUNK_SIZE * World_Constants::CHUNK_SIZE,
-                                MAX_LIGHT_VALUE = 12;
+    constexpr uint32_t  CH_SIZE      = 32,
+                        CH_VOLUME    = CH_SIZE * CH_SIZE * CH_SIZE,
+                        CH_AREA      = CH_SIZE * CH_SIZE;
 }
 
 #endif // WORLD_CONSTANTS_H_INCLUDED

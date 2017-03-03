@@ -1,88 +1,84 @@
 #include "Shader_Loader.h"
 
 #include <fstream>
-#include <vector>
 #include <sstream>
 #include <stdexcept>
 
 namespace Shader
 {
-    void checkErrors(GLuint shaderId, GLenum statusType, const std::string& errorType)
+    GLuint compileShader(const GLchar* source, GLenum type)
     {
-        auto bufferSize = 512;
+        auto id = glCreateShader(type);
+
+        glShaderSource(id, 1, &source, nullptr);
+        glCompileShader(id);
 
         GLint isSuccess;
-        GLchar infoLog[bufferSize];
+        GLchar infoLog[512];
 
-        glGetShaderiv (shaderId, statusType, &isSuccess);
-        if (!isSuccess)
+        glGetShaderiv(id, GL_COMPILE_STATUS, &isSuccess);
+
+        if(!isSuccess)
         {
-            glGetShaderInfoLog (shaderId, bufferSize, nullptr, infoLog);
-            throw std::runtime_error ("Shader loading error.\nType: " + errorType + "\nWhat: " + infoLog);
+            glGetShaderInfoLog(id, 512, nullptr, infoLog);
+            throw std::runtime_error ("Error compiling shader: " + std::string(infoLog));
         }
+
+        return id;
     }
 
-    std::string getSource (const std::string& shaderFile)
+    std::string getSource(const std::string& sourceFile)
     {
-        std::ifstream shaderSourceFile ("Shaders/" + shaderFile + ".glsl");
-        if (!shaderSourceFile.is_open())
-        {
-            throw std::runtime_error ("Unable to open the shader file: " + shaderFile + ".glsl");
-        }
-        shaderSourceFile.exceptions(std::ifstream::badbit);
-
+        std::ifstream inFile ("Data/Shaders/" + sourceFile + ".glsl");
         std::string source;
-        std::stringstream stream;
+        std::stringstream stringStream;
 
-        try
+        if (!inFile.is_open())
         {
-            stream << shaderSourceFile.rdbuf();
-            source = stream.str();
+            throw std::runtime_error ("Could not open file: " + sourceFile);
         }
-        catch ( std::ifstream::failure& e)
-        {
-            throw std::runtime_error ("Unable to read the shader file: " + shaderFile + ".glsl");
-        }
+
+        stringStream << inFile.rdbuf();
+        source = stringStream.str();
 
         return source;
     }
 
-    GLuint compileShader (const char* source, GLenum type)
+    GLuint createProgram(GLuint vertexShaderID, GLuint fragmentShaderID)
     {
-        auto shaderId = glCreateShader(type);
+        auto id = glCreateProgram();
 
-        glShaderSource  (shaderId, 1, &source, nullptr);
-        glCompileShader (shaderId);
+        glAttachShader(id, vertexShaderID);
+        glAttachShader(id, fragmentShaderID);
 
-        checkErrors(shaderId, GL_COMPILE_STATUS, "Error compiling shader!");
+        glLinkProgram(id);
 
-        return shaderId;
+        return id;
     }
 
-    GLuint createProgram(GLuint vertexShaderId, GLuint fragmentShaderId)
+    GLuint loadShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
     {
-        auto shaderProgrsm = glCreateProgram();
+        auto vertexSource   = getSource(vertexShaderFile);
+        auto fragmentSource = getSource(fragmentShaderFile);
 
-        glAttachShader (shaderProgrsm, vertexShaderId);
-        glAttachShader (shaderProgrsm, fragmentShaderId);
-        glLinkProgram  (shaderProgrsm);
+        auto vertexShaderID     = compileShader(vertexSource.c_str(), GL_VERTEX_SHADER);
+        auto fragmentShaderID   = compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
 
-        return shaderProgrsm;
+        auto programID = createProgram(vertexShaderID, fragmentShaderID);
+
+        glDeleteShader(vertexShaderID);
+        glDeleteShader(fragmentShaderID);
+
+        return programID;
     }
+}
 
-    GLuint load (const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
-    {
-        auto vertexSource    = getSource (vertexShaderFile);
-        auto fragmentSource  = getSource (fragmentShaderFile);
 
-        auto vertexId   = compileShader(vertexSource.c_str(),   GL_VERTEX_SHADER);
-        auto fragmentId = compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
 
-        auto shaderProgramId = createProgram(vertexId, fragmentId);
 
-        glDeleteShader(vertexId);
-        glDeleteShader(fragmentId);
 
-        return shaderProgramId;
-    }
-} //Namespace Shader
+
+
+
+
+

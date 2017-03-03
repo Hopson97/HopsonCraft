@@ -1,32 +1,22 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
-
-#include <string>
-
-//#include "../OpenGL/Glew/glew.h"
+#ifndef TEXTURE_H_INCLUDED
+#define TEXTURE_H_INCLUDED
 
 #include <GL/glew.h>
+#include <string>
 
-class Texture
+namespace Texture
 {
-    public:
-        Texture     () = default;
-        Texture     ( const std::string& filePath );
+    class Basic_Texture
+    {
+        public:
+            void load(const std::string& fileName);
 
-        void loadFromFile ( const std::string& file );
-        void createEmpty  (int width, int height);
+            void bind();
+            void unbind();
 
-        void bind   ();
-        void unbind ();
+        private:
+            GLuint m_textureID;
+    };
+}
 
-        const GLuint& getID () const;
-
-        ~Texture ();
-
-    private:
-        void create(int width, int height, const void* data);
-
-        GLuint m_textureID = 0;
-};
-
-#endif // TEXTURE_H
+#endif // TEXTURE_H_INCLUDED
