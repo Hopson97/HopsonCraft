@@ -44,6 +44,9 @@ class Chunklet : private Entity
 
         const Chunk::Chunklet_Position& getPosition() const;
 
+        bool hasFaces() const;
+        void setFaces(bool faces);
+
     private:
 
         uint32_t getBlockIndex (const Block::Small_Position& pos) const;
@@ -55,6 +58,8 @@ class Chunklet : private Entity
         Chunk::Chunklet_Position m_pos;
 
         Chunk::Map* m_p_chunkMap;
+
+        bool m_hasFaces = false;
 };
 
 #endif // CHUNKLET_H_INCLUDED

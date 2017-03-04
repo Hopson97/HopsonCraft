@@ -83,16 +83,15 @@ namespace Chunk
     }
 
 
-    Mesh::Mesh(const Chunklet& chunklet)
+    Mesh::Mesh(Chunklet& chunklet)
     :   m_p_chunklet        (&chunklet)
     ,   m_p_textureAtlas    (&Block::Database::get().textures)
     { }
 
     void Mesh::create()
     {
-        sf::Clock timer;
+        //sf::Clock timer;
         uint32_t faces = 0;
-        std::cout << "Started to make mesh\n";
 
         m_solidMesh.reserve();
 
@@ -150,10 +149,9 @@ namespace Chunk
             }
         }
         addIndices(faces);
+        m_p_chunklet->setFaces(faces);
         m_solidMesh.buffer();
-
-        //smh all this white space
-        std::cout << faces << " faces added in " << timer.getElapsedTime().asSeconds() << " seconds.\n";
+        //std::cout << faces << " faces added in " << timer.getElapsedTime().asSeconds() << " seconds.\n";
     }
 
     const Mesh::Section& Mesh::getSolidMesh() const

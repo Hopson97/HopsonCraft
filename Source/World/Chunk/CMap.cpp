@@ -1,6 +1,7 @@
 #include "CMap.h"
 
 #include <iostream>
+#include <SFML/System/Clock.hpp>
 
 #include "../../Renderer/RMaster.h"
 #include "Chunklet.h"
@@ -9,7 +10,7 @@ namespace Chunk
 {
     Map::Map()
     {
-        int size = 25;
+        int size = 41;
         for (int z = 0; z < size; z++)
         {
             for (int x = 0; x < size; ++x)
@@ -18,6 +19,7 @@ namespace Chunk
             }
         }
 
+        sf::Clock timer;
         for (int z = 0; z < size; z++)
         {
             for (int x = 0; x < size; ++x)
@@ -25,6 +27,12 @@ namespace Chunk
                 m_chunks.at({x, z})->createFullMesh();
             }
         }
+        auto timed = timer.getElapsedTime().asSeconds();
+
+        std::cout   << "Time to make " << size * size
+                    << " chunks: " << timed
+                    << " seconds. Average: " << timed / (size * size) << "\n";
+
     }
 
     void Map::update()

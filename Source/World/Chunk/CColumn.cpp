@@ -21,6 +21,18 @@ namespace Chunk
         sf::Clock clock;
 
         addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
+        addChunklet();
 
         for (int32_t y = 0; y < World_Constants::CH_SIZE; y++)
         {
@@ -38,7 +50,7 @@ namespace Chunk
     {
         for (auto& c : m_chunklets)
         {
-            c->Chunklet::createMesh();
+            c->createMesh();
         }
     }
 
@@ -78,7 +90,8 @@ namespace Chunk
     {
         for(auto& c : m_chunklets)
         {
-            renderer.draw(*c);
+            if (c->hasFaces())
+                renderer.draw(*c);
         }
     }
 

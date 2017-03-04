@@ -164,6 +164,16 @@ const Chunk::Chunklet_Position& Chunklet::getPosition() const
     return m_pos;
 }
 
+bool Chunklet::hasFaces() const
+{
+    return m_hasFaces;
+}
+
+void Chunklet::setFaces(bool faces)
+{
+    m_hasFaces = faces;
+}
+
 uint32_t Chunklet::getBlockIndex(const Block::Small_Position& pos) const
 {
     return pos.y * World_Constants::CH_AREA + pos.z * World_Constants::CH_SIZE + pos.x;

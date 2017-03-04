@@ -45,7 +45,7 @@ namespace Chunk
         };
 
         public:
-            Mesh(const Chunklet& chunklet);
+            Mesh(Chunklet& chunklet);
 
             void create();
 
@@ -67,7 +67,7 @@ namespace Chunk
 
             Section m_solidMesh;
 
-            const Chunklet*         m_p_chunklet        = nullptr;
+            Chunklet*         m_p_chunklet        = nullptr;
             const Block::Data*      m_p_activeBlockData = nullptr;
             const Texture::Atlas*   m_p_textureAtlas    = nullptr;
     };
