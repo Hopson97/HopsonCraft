@@ -95,51 +95,51 @@ namespace Chunk
 
         m_solidMesh.reserve();
 
-        for (uint8_t y = 0; y < World_Constants::CH_SIZE; ++y){
-            for (uint8_t x = 0; x < World_Constants::CH_SIZE; ++x){
-                for (uint8_t z = 0; z < World_Constants::CH_SIZE; ++z)
+        for (int8_t y = 0; y < World_Constants::CH_SIZE; ++y){
+            for (int8_t x = 0; x < World_Constants::CH_SIZE; ++x){
+                for (int8_t z = 0; z < World_Constants::CH_SIZE; ++z)
                 {
                     Block::Position pos{x, y, z};
-                    if (m_p_chunklet->getBlock(pos) == Block::ID::Air)
+                    if (m_p_chunklet->qGetBlock(pos) == Block::ID::Air)
                     {
                         continue;
                     }
                     else
                     {
                         m_p_activeBlockData = &Block::Database::get().
-                                                getBlock(m_p_chunklet->getBlock(pos).id).getData();
+                                                getBlock(m_p_chunklet->qGetBlock(pos).id).getData();
 
                         //ugly C++ casts be like
-                        if (shouldMakeFaceAdjacentTo({x, static_cast<uint8_t>(y + 1), z}))
+                        if (shouldMakeFaceAdjacentTo({x, static_cast<int8_t>(y + 1), z}))
                         {
                             makeTopFace (pos);
                             ++faces;
                         }
 
-                        if (shouldMakeFaceAdjacentTo({x, static_cast<uint8_t>(y - 1), z}) && y != 0)
+                        if (shouldMakeFaceAdjacentTo({x, static_cast<int8_t>(y - 1), z}))
                         {
                             makeBottomFace(pos);
                             ++faces;
                         }
 
-                        if (shouldMakeFaceAdjacentTo({static_cast<uint8_t>(x - 1), y, z}))
+                        if (shouldMakeFaceAdjacentTo({static_cast<int8_t>(x - 1), y, z}))
                         {
                             makeLeftFace (pos);
                             ++faces;
                         }
 
-                        if (shouldMakeFaceAdjacentTo({static_cast<uint8_t>(x + 1), y, z}))
+                        if (shouldMakeFaceAdjacentTo({static_cast<int8_t>(x + 1), y, z}))
                         {
                             makeRightFace (pos);
                             ++faces;
                         }
-                        if (shouldMakeFaceAdjacentTo({x, y, static_cast<uint8_t>(z + 1)}))
+                        if (shouldMakeFaceAdjacentTo({x, y, static_cast<int8_t>(z + 1)}))
                         {
                             makeFrontFace (pos);
                             ++faces;
                         }
 
-                        if (shouldMakeFaceAdjacentTo({x, y, static_cast<uint8_t>(z - 1)}))
+                        if (shouldMakeFaceAdjacentTo({x, y, static_cast<int8_t>(z - 1)}))
                         {
                             makeBackFace (pos);
                             ++faces;
@@ -152,7 +152,7 @@ namespace Chunk
         m_solidMesh.buffer();
 
         //smh all this white space
-        std::cout << "Faces: " << faces << " took " << timer.getElapsedTime().asSeconds() << " to make.\n";
+        std::cout << faces << " faces added in " << timer.getElapsedTime().asSeconds() << " seconds.\n";
     }
 
     const Mesh::Section& Mesh::getSolidMesh() const

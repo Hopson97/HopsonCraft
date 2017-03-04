@@ -15,6 +15,15 @@ namespace Hasher
 
         return std::hash<T>{}(h1 ^ (h2 << h3) ^ h3);
     }
+
+    template<typename T>
+    size_t hash(T x, T z)
+    {
+        auto h1 = std::hash<T>{}(x);
+        auto h2 = std::hash<T>{}(z);
+
+        return std::hash<T>{}((h1 ^ h2) >> 2);
+    }
 }
 
 #endif // HASHER_H_INCLUDED

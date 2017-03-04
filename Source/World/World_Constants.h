@@ -5,7 +5,7 @@
 
 namespace World_Constants
 {
-    constexpr uint32_t  CH_SIZE      = 32,
+    constexpr int32_t   CH_SIZE      = 24,
                         CH_VOLUME    = CH_SIZE * CH_SIZE * CH_SIZE,
                         CH_AREA      = CH_SIZE * CH_SIZE;
 }

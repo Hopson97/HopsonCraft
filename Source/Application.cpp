@@ -7,6 +7,9 @@
 Application::Application()
 {
     pushState(std::make_unique<State::Playing>(*this));
+    camera.position.y = World_Constants::CH_SIZE;
+    camera.position.x = World_Constants::CH_SIZE / 2;
+    camera.position.z = World_Constants::CH_SIZE / 2;
 }
 
 void Application::runMainGameLoop()

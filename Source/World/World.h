@@ -1,7 +1,7 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
 
-#include "Chunk/Chunklet.h"
+#include "Chunk/CMap.h"
 
 class Camera;
 
@@ -20,7 +20,7 @@ class World
         void draw   (Renderer::Master& renderer);
 
     private:
-        Chunklet m_chunklet;
+        Chunk::Map m_chunkMap;
 };
 
 #endif // WORLD_H_INCLUDED

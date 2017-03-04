@@ -54,9 +54,12 @@
 			<Add directory="D:/_Programming Libraries/C++/glew-2.0.0/lib/Release/Win32" />
 		</Linker>
 		<Unit filename="Data/Blocks/Air.block" />
+		<Unit filename="Data/Blocks/Dirt.block" />
 		<Unit filename="Data/Blocks/Grass.block" />
 		<Unit filename="Data/Shaders/Simple_Fragment.glsl" />
 		<Unit filename="Data/Shaders/Simple_Vertex.glsl" />
+		<Unit filename="Data/Shaders/Solid_Fragment.glsl" />
+		<Unit filename="Data/Shaders/Solid_Vertex.glsl" />
 		<Unit filename="Source/Application.cpp" />
 		<Unit filename="Source/Application.h" />
 		<Unit filename="Source/Camera.cpp" />
@@ -82,6 +85,8 @@
 		<Unit filename="Source/Shaders/Shader_Program.h" />
 		<Unit filename="Source/Shaders/Simple_Shader.cpp" />
 		<Unit filename="Source/Shaders/Simple_Shader.h" />
+		<Unit filename="Source/Shaders/Solid_Shader.cpp" />
+		<Unit filename="Source/Shaders/Solid_Shader.h" />
 		<Unit filename="Source/States/Game_State.cpp" />
 		<Unit filename="Source/States/Game_State.h" />
 		<Unit filename="Source/States/SPlaying.cpp" />
@@ -92,6 +97,9 @@
 		<Unit filename="Source/Texture/Texture.h" />
 		<Unit filename="Source/Texture/Texture_Atlas.cpp" />
 		<Unit filename="Source/Texture/Texture_Atlas.h" />
+		<Unit filename="Source/Util/Hasher.h" />
+		<Unit filename="Source/Util/Random.cpp" />
+		<Unit filename="Source/Util/Random.h" />
 		<Unit filename="Source/World/Block/Block_Data.cpp" />
 		<Unit filename="Source/World/Block/Block_Data.h" />
 		<Unit filename="Source/World/Block/Block_Database.cpp" />
@@ -109,8 +117,14 @@
 		<Unit filename="Source/World/Block/Block_Types/Block_Type.h" />
 		<Unit filename="Source/World/Chunk/CBlock.cpp" />
 		<Unit filename="Source/World/Chunk/CBlock.h" />
+		<Unit filename="Source/World/Chunk/CColumn.cpp" />
+		<Unit filename="Source/World/Chunk/CColumn.h" />
+		<Unit filename="Source/World/Chunk/CMap.cpp" />
+		<Unit filename="Source/World/Chunk/CMap.h" />
 		<Unit filename="Source/World/Chunk/CMesh.cpp" />
 		<Unit filename="Source/World/Chunk/CMesh.h" />
+		<Unit filename="Source/World/Chunk/CPosition.cpp" />
+		<Unit filename="Source/World/Chunk/CPosition.h" />
 		<Unit filename="Source/World/Chunk/Chunklet.cpp" />
 		<Unit filename="Source/World/Chunk/Chunklet.h" />
 		<Unit filename="Source/World/World.cpp" />

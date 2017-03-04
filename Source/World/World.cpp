@@ -14,10 +14,10 @@ void World::input(Camera& camera)
 
 void World::update(float dt)
 {
-
+    m_chunkMap.update();
 }
 
 void World::draw(Renderer::Master& renderer)
 {
-    renderer.draw(m_chunklet);
+    m_chunkMap.draw(renderer);
 }
