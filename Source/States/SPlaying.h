@@ -6,8 +6,6 @@
 #include "../Model.h"
 #include "../Texture/Texture_Atlas.h"
 
-#include "../Temp/Quad.h"
-
 #include "../World/World.h"
 
 class Application;
@@ -26,9 +24,6 @@ namespace State
 
         private:
             World m_world;
-
-            Quad m_quad;
-
     };
 }
 

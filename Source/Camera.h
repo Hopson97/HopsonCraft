@@ -6,10 +6,12 @@
 class Camera : public Entity
 {
     public:
-        void input(float dt);
+        void input  ();
+        void update (float dt);
 
     private:
         void mouseInput();
+        Vector3 m_velocity;
 };
 
 #endif // CAMERA_H_INCLUDED

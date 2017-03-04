@@ -7,10 +7,10 @@
 
 #include "Display.h"
 
-void Camera::input(float dt)
+void Camera::input()
 {
     Vector3 change;
-    float speed = 25;
+    float speed = 0.5;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
@@ -46,7 +46,7 @@ void Camera::input(float dt)
         change.y -= speed;
     }
 
-    position += change * dt;
+    m_velocity += change;
 
     mouseInput();
 }
@@ -86,6 +86,13 @@ void Camera::mouseInput()
     lastMousePosition = sf::Mouse::getPosition();
 }
 
+
+
+void Camera::update(float dt)
+{
+    position += m_velocity * dt;
+    m_velocity *= 0.96f;
+}
 
 
 

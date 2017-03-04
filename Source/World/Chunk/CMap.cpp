@@ -46,7 +46,18 @@ namespace Chunk
 
     void Map::update()
     {
-
+        for (auto itr = m_chunks.begin(); itr != m_chunks.end();)
+        {
+            Column& c = *(itr)->second;
+            if(c.getFlags().deleteMe)
+            {
+                itr = m_chunks.erase(itr);
+            }
+            else
+            {
+                itr++;
+            }
+        }
     }
 
     void Map::draw(Renderer::Master& renderer)
@@ -150,7 +161,7 @@ namespace Chunk
             {
                 m_currentLoadDist = 2;
             }
-/*
+
             Load_Sector deleteSect
             (
                 pos.x - m_renderDistance,
@@ -168,14 +179,10 @@ namespace Chunk
                     p.y < deleteSect.minZ ||
                     p.y > deleteSect.maxZ)
                 {
-                    itr = m_chunks.erase(itr);
-                }
-                else
-                {
-                    itr++;
+                    c.setDeleteFlag(true);
                 }
             }
-*/
+
         }
     }
 

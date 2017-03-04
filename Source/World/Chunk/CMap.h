@@ -2,6 +2,7 @@
 #define CMAP_H_INCLUDED
 
 #include <memory>
+#include <mutex>
 #include <unordered_map>
 
 
@@ -36,8 +37,10 @@ namespace Chunk
 
             const Camera* m_p_camera;
 
-            int8_t m_renderDistance    = 10;
+            int8_t m_renderDistance    = 5;
             int8_t m_currentLoadDist   = 2;
+
+            std::mutex m_chunkDeleteMutex;
     };
 }
 

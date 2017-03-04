@@ -1,6 +1,8 @@
 #include "Application.h"
 
 #include <iostream>
+#include <chrono>
+#include <SFML/System/Clock.hpp>
 
 #include "Display.h"
 
@@ -32,7 +34,7 @@ namespace
 Application::Application()
 {
     pushState(std::make_unique<State::Playing>(*this));
-    m_camera.position.y = World_Constants::CH_SIZE;
+    m_camera.position.y = World_Constants::CH_SIZE * 9;
     m_camera.position.x = World_Constants::CH_SIZE / 2;
     m_camera.position.z = World_Constants::CH_SIZE / 2;
 }
@@ -40,22 +42,27 @@ Application::Application()
 void Application::runMainGameLoop()
 {
     sf::Clock clock;
+    auto begin = std::chrono::system_clock::now();
+    auto frameCount = 0;
 
     while (Display::isOpen())
     {
-        //std::cout << "Camera: " << m_camera.position.x << " " << m_camera.position.z << "\n";
-
         checkFps ();
-        auto dt = clock.restart().asSeconds();
-
-        m_renderer.clear();
-
         m_states.top()->input   (m_camera);
-        m_states.top()->update  (m_camera, dt);
+        /*
+        while(std::chrono::duration<double>
+             (std::chrono::system_clock::now() - begin).count() <
+              frameCount * 0.010)*/
+        {
+            auto dt = clock.restart().asSeconds();
+            m_states.top()->update  (m_camera, dt);
+        }
+        m_renderer.clear();
         m_states.top()->draw    (m_renderer);
 
         m_renderer.update(m_camera);
         Display::checkForClose();
+        ++frameCount;
     }
 }
 

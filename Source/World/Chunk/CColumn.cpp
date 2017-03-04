@@ -69,11 +69,20 @@ namespace Chunk
     }
 
 
-    const Position& Column::getPosition() const
+    const Position& Column::getPosition () const
     {
         return m_position;
     }
 
+    const Column::CFlags& Column::getFlags ()
+    {
+        return m_flags;
+    }
+
+    void Column::setDeleteFlag (bool deleteF)
+    {
+        m_flags.deleteMe = deleteF;
+    }
 
     void Column::draw(Renderer::Master& renderer)
     {

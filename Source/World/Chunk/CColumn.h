@@ -24,10 +24,12 @@ namespace Chunk
         {
             CFlags()
             :   hasFullMesh (false)
-            ,   hasBuffered (false) {}
+            ,   hasBuffered (false)
+            ,   deleteMe    (false){}
 
             std::atomic<bool> hasFullMesh;
             std::atomic<bool> hasBuffered;
+            std::atomic<bool> deleteMe;
         };
 
 
@@ -42,7 +44,8 @@ namespace Chunk
 
             const Chunklet* getChunklet(int32_t index) const;
 
-            const CFlags& getFlags() { return m_flags; }
+            const CFlags& getFlags();
+            void setDeleteFlag(bool deleteF);
 
         private:
             void addChunklet();

@@ -1,3 +1,5 @@
+/*
+
 #include "RSimple.h"
 
 #include "../Temp/Quad.h"
@@ -33,3 +35,4 @@ namespace Renderer
 
     }
 }
+*/
