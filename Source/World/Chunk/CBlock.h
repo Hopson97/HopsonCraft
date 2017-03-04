@@ -16,7 +16,7 @@ struct CBlock
         return *this;
     }
 
-    Block_t id = 1;
+    Block_t id = 0;
     //meta data?
 };
 

@@ -13,7 +13,7 @@ namespace Renderer
 class World
 {
     public:
-        World();
+        World(const Camera& camera);
 
         void input  (Camera& camera);
         void update (float dt);

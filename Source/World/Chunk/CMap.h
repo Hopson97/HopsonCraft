@@ -4,8 +4,11 @@
 #include <memory>
 #include <unordered_map>
 
+
 #include "CColumn.h"
 #include "CPosition.h"
+
+class Camera;
 
 namespace Renderer
 {
@@ -17,7 +20,7 @@ namespace Chunk
     class Map
     {
         public:
-            Map();
+            Map(const Camera& camera);
 
             void update();
             void draw(Renderer::Master& renderer);
@@ -27,7 +30,14 @@ namespace Chunk
             Column* getChunklet(const Chunk::Position& pos);
 
         private:
+            void manageChunks();
+
             std::unordered_map<Position, std::unique_ptr<Column>> m_chunks;
+
+            const Camera* m_p_camera;
+
+            int8_t m_renderDistance    = 10;
+            int8_t m_currentLoadDist   = 2;
     };
 }
 

@@ -25,7 +25,7 @@ namespace State
             void draw   (Renderer::Master& renderer) override;
 
         private:
-            World world;
+            World m_world;
 
             Quad m_quad;
 

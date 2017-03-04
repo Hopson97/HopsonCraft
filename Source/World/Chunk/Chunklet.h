@@ -2,6 +2,7 @@
 #define CHUNKLET_H_INCLUDED
 
 #include <array>
+#include <atomic>
 
 #include "CPosition.h"
 #include "CBlock.h"
@@ -29,9 +30,15 @@ class Chunklet : private Entity
 {
     struct CFlags
     {
-        bool hasFaces     = false;
-        bool hasMesh      = false;
-        bool hasBuffered  = false;
+        CFlags()
+        :   hasFaces    (false)
+        ,   hasMesh     (false)
+        ,   hasBuffered (false) {}
+
+
+        std::atomic<bool> hasFaces;
+        std::atomic<bool> hasMesh;
+        std::atomic<bool> hasBuffered;
     };
 
     public:

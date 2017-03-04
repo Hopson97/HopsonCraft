@@ -2,11 +2,11 @@
 
 #include <SFML/System/Clock.hpp>
 
-#include "../Renderer/RMaster.h"
-
-#include "../Camera.h"
-
 #include "../World/Block/Block_Database.h"
+#include "../Renderer/RMaster.h"
+#include "../Camera.h"
+#include "../Application.h"
+
 
 namespace State
 {
@@ -15,6 +15,7 @@ namespace State
     Playing::Playing(Application& application)
     :   Game_State  (application)
     ,   m_quad      (Block::Database::get().textures)
+    ,   m_world     (application.getCamera())
     {
         Block::Database::get().textures.bind();
 
@@ -24,18 +25,18 @@ namespace State
 
     void Playing::input(Camera& camera)
     {
-        world.input(camera);
+        m_world.input(camera);
     }
 
     void Playing::update(Camera& camera, float dt)
     {
         camera.input(dt);
-        world.update(dt);
+        m_world.update(dt);
     }
 
     void Playing::draw(Renderer::Master& renderer)
     {
         renderer.draw(m_quad);
-        world.draw(renderer);
+        m_world.draw(renderer);
     }
 }

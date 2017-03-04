@@ -20,6 +20,17 @@ namespace Chunk
 
     class Column
     {
+        struct CFlags
+        {
+            CFlags()
+            :   hasFullMesh (false)
+            ,   hasBuffered (false) {}
+
+            std::atomic<bool> hasFullMesh;
+            std::atomic<bool> hasBuffered;
+        };
+
+
         public:
             Column(const Position& pos, Map& map);
 
@@ -31,6 +42,8 @@ namespace Chunk
 
             const Chunklet* getChunklet(int32_t index) const;
 
+            const CFlags& getFlags() { return m_flags; }
+
         private:
             void addChunklet();
 
@@ -40,6 +53,8 @@ namespace Chunk
             Map* m_p_chunkMap = nullptr;
 
             int32_t m_chunkCount = 0;
+
+            CFlags m_flags;
     };
 }
 

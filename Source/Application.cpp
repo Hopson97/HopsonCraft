@@ -32,9 +32,9 @@ namespace
 Application::Application()
 {
     pushState(std::make_unique<State::Playing>(*this));
-    camera.position.y = World_Constants::CH_SIZE;
-    camera.position.x = World_Constants::CH_SIZE / 2;
-    camera.position.z = World_Constants::CH_SIZE / 2;
+    m_camera.position.y = World_Constants::CH_SIZE;
+    m_camera.position.x = World_Constants::CH_SIZE / 2;
+    m_camera.position.z = World_Constants::CH_SIZE / 2;
 }
 
 void Application::runMainGameLoop()
@@ -43,16 +43,18 @@ void Application::runMainGameLoop()
 
     while (Display::isOpen())
     {
+        //std::cout << "Camera: " << m_camera.position.x << " " << m_camera.position.z << "\n";
+
         checkFps ();
         auto dt = clock.restart().asSeconds();
 
         m_renderer.clear();
 
-        m_states.top()->input   (camera);
-        m_states.top()->update  (camera, dt);
+        m_states.top()->input   (m_camera);
+        m_states.top()->update  (m_camera, dt);
         m_states.top()->draw    (m_renderer);
 
-        m_renderer.update(camera);
+        m_renderer.update(m_camera);
         Display::checkForClose();
     }
 }
@@ -65,4 +67,9 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
 void Application::popState()
 {
     m_states.pop();
+}
+
+const Camera& Application::getCamera()
+{
+    return m_camera;
 }

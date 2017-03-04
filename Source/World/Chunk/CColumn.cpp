@@ -15,18 +15,20 @@ namespace Chunk
     {
         sf::Clock clock;
 
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < Random::intInRange(6, 8); i++)
         {
             addChunklet();
         }
 
-        for (int32_t y = 0; y < World_Constants::CH_SIZE; y++)
+        for (int32_t y = 0; y < m_chunkCount * World_Constants::CH_SIZE; y++)
         {
             for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
             {
                 for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
                 {
-                    setBlock({x, y, z}, Block::ID::Dirt);
+                    y == m_chunkCount * World_Constants::CH_SIZE - 1 ?
+                        setBlock({x, y, z}, Block::ID::Grass)    :
+                        setBlock({x, y, z}, Block::ID::Dirt);
                 }
             }
         }
@@ -38,6 +40,7 @@ namespace Chunk
         {
             c->createMesh();
         }
+        m_flags.hasFullMesh = true;
     }
 
 

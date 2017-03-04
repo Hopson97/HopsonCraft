@@ -21,12 +21,14 @@ class Application
         void pushState(std::unique_ptr<State::Game_State> state);
         void popState();
 
+        const Camera& getCamera();
+
     private:
         std::stack<std::unique_ptr<State::Game_State>> m_states;
 
         Renderer::Master m_renderer;
 
-        Camera camera;
+        Camera m_camera;
 };
 
 #endif // APPLICATION_H_INCLUDED

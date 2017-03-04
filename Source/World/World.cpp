@@ -2,7 +2,8 @@
 
 #include "../Renderer/RMaster.h"
 
-World::World()
+World::World(const Camera& camera)
+:   m_chunkMap  (camera)
 {
 
 }

@@ -23,8 +23,8 @@ namespace Chunk
 
     void Mesh::Section::reserve()
     {
-        m_verticies.reserve (40000);
-        m_texCoords.reserve (20000);
+        m_verticies.reserve (10000);
+        m_texCoords.reserve (10000);
         m_indices.reserve   (10000);
         m_light.reserve     (10000);
     }
@@ -92,8 +92,6 @@ namespace Chunk
     {
         //sf::Clock timer;
         uint32_t faces = 0;
-
-        //m_solidMesh.reserve();
 
         for (int8_t y = 0; y < World_Constants::CH_SIZE; ++y){
             for (int8_t x = 0; x < World_Constants::CH_SIZE; ++x){
