@@ -23,10 +23,10 @@ namespace Chunk
 
     void Mesh::Section::reserve()
     {
-        //m_verticies.reserve (61440);
-        //m_texCoords.reserve (40960);
-        //m_indices.reserve   (30720);
-        //m_light.reserve     (30720);
+        m_verticies.reserve (40000);
+        m_texCoords.reserve (20000);
+        m_indices.reserve   (10000);
+        m_light.reserve     (10000);
     }
 
     void Mesh::Section::buffer()
@@ -93,7 +93,7 @@ namespace Chunk
         //sf::Clock timer;
         uint32_t faces = 0;
 
-        m_solidMesh.reserve();
+        //m_solidMesh.reserve();
 
         for (int8_t y = 0; y < World_Constants::CH_SIZE; ++y){
             for (int8_t x = 0; x < World_Constants::CH_SIZE; ++x){
@@ -148,10 +148,32 @@ namespace Chunk
                 }
             }
         }
-        addIndices(faces);
+
+        for (uint32_t i = 0; i < faces; ++i)
+        {
+            auto count = m_solidMesh.getIndicesCount();
+
+            m_solidMesh.addIndices(
+            {
+                count,
+                count + 1,
+                count + 2,
+                count + 2,
+                count + 3,
+                count,
+            });
+
+            m_solidMesh.addToIndexCount(4);
+        }
+
+
         m_p_chunklet->setFaces(faces);
-        m_solidMesh.buffer();
         //std::cout << faces << " faces added in " << timer.getElapsedTime().asSeconds() << " seconds.\n";
+    }
+
+    void Mesh::buffer()
+    {
+        m_solidMesh.buffer();
     }
 
     const Mesh::Section& Mesh::getSolidMesh() const
@@ -287,27 +309,5 @@ namespace Chunk
 
         m_solidMesh.addLightVal(LIGHT_BOTTOM);
     }
-
-    void Mesh::addIndices(uint32_t faces)
-    {
-        for (uint32_t i = 0; i < faces; ++i)
-        {
-            auto count = m_solidMesh.getIndicesCount();
-
-            m_solidMesh.addIndices(
-            {
-                0 + count,
-                1 + count,
-                2 + count,
-                2 + count,
-                3 + count,
-                0 + count,
-            });
-
-            m_solidMesh.addToIndexCount(4);
-        }
-    }
-
-
 }
 

@@ -10,7 +10,7 @@ namespace Chunk
 {
     Map::Map()
     {
-        int size = 41;
+        int size = 25;
         for (int z = 0; z < size; z++)
         {
             for (int x = 0; x < size; ++x)

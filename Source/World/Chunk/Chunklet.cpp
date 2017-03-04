@@ -32,7 +32,15 @@ void Chunklet::createMesh()
         }
     }
     m_mesh.create();
+    m_flags.hasMesh = true;
 }
+
+void Chunklet::bufferMesh()
+{
+    m_mesh.buffer();
+    m_flags.hasBuffered = true;
+}
+
 
 void Chunklet::qSetBlock(const Block::Small_Position& pos, CBlock block)
 {
@@ -164,14 +172,9 @@ const Chunk::Chunklet_Position& Chunklet::getPosition() const
     return m_pos;
 }
 
-bool Chunklet::hasFaces() const
-{
-    return m_hasFaces;
-}
-
 void Chunklet::setFaces(bool faces)
 {
-    m_hasFaces = faces;
+    m_flags.hasFaces = faces;
 }
 
 uint32_t Chunklet::getBlockIndex(const Block::Small_Position& pos) const

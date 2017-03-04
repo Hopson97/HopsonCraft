@@ -6,8 +6,6 @@
 #include "../../Util/Thread_Pool_Impl.h"
 
 #include <cmath>
-#include <iostream>
-
 #include <SFML/System/Clock.hpp>
 
 #define NEAREST(number, multiple) (((number) + ((multiple) / 2)) / (multiple) * (multiple))
@@ -88,10 +86,25 @@ namespace Chunk
 
     void Column::draw(Renderer::Master& renderer)
     {
-        for(auto& c : m_chunklets)
+        for(auto itr = m_chunklets.begin(); itr != m_chunklets.end();)
         {
-            if (c->hasFaces())
-                renderer.draw(*c);
+            Chunklet& chunklet = *(*itr);
+            if (chunklet.getFlags().hasFaces)
+            {
+                if (chunklet.getFlags().hasBuffered)
+                {
+                    ++itr;
+                    renderer.draw(chunklet);
+                }
+                else
+                {
+                    chunklet.bufferMesh();
+                }
+            }
+            else
+            {
+                itr++;
+            }
         }
     }
 

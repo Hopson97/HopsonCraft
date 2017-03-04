@@ -41,13 +41,13 @@ namespace Chunk
                 Model m_model;
 
                 GLuint m_indicesCount = 0;
-
         };
 
         public:
             Mesh(Chunklet& chunklet);
 
             void create();
+            void buffer();
 
             const Section& getSolidMesh() const;
 
@@ -61,9 +61,6 @@ namespace Chunk
             void makeRightFace  (const Block::Small_Position& pos);
             void makeTopFace    (const Block::Small_Position& pos);
             void makeBottomFace (const Block::Small_Position& pos);
-
-            void addIndices(uint32_t faces);
-
 
             Section m_solidMesh;
 

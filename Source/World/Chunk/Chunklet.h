@@ -2,6 +2,7 @@
 #define CHUNKLET_H_INCLUDED
 
 #include <array>
+#include <atomic>
 
 #include "../../Glm_Common.h"
 
@@ -28,11 +29,19 @@ namespace Texture
 
 class Chunklet : private Entity
 {
+    struct CFlags
+    {
+        bool hasFaces     = false;
+        bool hasMesh      = false;
+        bool hasBuffered  = false;
+    };
+
     public:
         Chunklet(const Chunk::Chunklet_Position& pos,
                  Chunk::Map& map);
 
         void createMesh();
+        void bufferMesh();
 
         void qSetBlock(const Block::Small_Position& pos, CBlock block);
 
@@ -44,8 +53,8 @@ class Chunklet : private Entity
 
         const Chunk::Chunklet_Position& getPosition() const;
 
-        bool hasFaces() const;
         void setFaces(bool faces);
+        const CFlags& getFlags() { return m_flags; }
 
     private:
 
@@ -59,7 +68,7 @@ class Chunklet : private Entity
 
         Chunk::Map* m_p_chunkMap;
 
-        bool m_hasFaces = false;
+        CFlags m_flags;
 };
 
 #endif // CHUNKLET_H_INCLUDED
