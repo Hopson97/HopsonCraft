@@ -2,20 +2,18 @@
 #define CHUNKLET_H_INCLUDED
 
 #include <array>
-#include <atomic>
 
-#include "../../Glm_Common.h"
+#include "CPosition.h"
+#include "CBlock.h"
+#include "CMesh.h"
 
 #include "../Block/Block_ID.h"
+#include "../Block/Block_Position.h"
+
 #include "../World_Constants.h"
 
-#include "CMesh.h"
-#include "CBlock.h"
-
-#include "../Block/Block_Position.h"
-#include "CPosition.h"
-
 #include "../../Entity.h"
+#include "../../Glm_Common.h"
 
 namespace Chunk
 {

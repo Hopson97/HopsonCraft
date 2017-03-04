@@ -1,13 +1,11 @@
 #ifndef CMAP_H_INCLUDED
 #define CMAP_H_INCLUDED
 
-#include <unordered_map>
 #include <memory>
+#include <unordered_map>
 
 #include "CColumn.h"
 #include "CPosition.h"
-
-
 
 namespace Renderer
 {
@@ -29,7 +27,7 @@ namespace Chunk
             Column* getChunklet(const Chunk::Position& pos);
 
         private:
-            std::unordered_map<Chunk::Position, std::unique_ptr<Column>> m_chunks;
+            std::unordered_map<Position, std::unique_ptr<Column>> m_chunks;
     };
 }
 

@@ -1,7 +1,5 @@
 #include "CBlock.h"
 
-
-
 CBlock::CBlock(Block_t t)
 :   id  (t)
 { }

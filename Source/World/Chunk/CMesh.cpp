@@ -171,22 +171,14 @@ namespace Chunk
         //std::cout << faces << " faces added in " << timer.getElapsedTime().asSeconds() << " seconds.\n";
     }
 
-    void Mesh::buffer()
-    {
-        m_solidMesh.buffer();
-    }
+    void Mesh::buffer() { m_solidMesh.buffer(); }
 
-    const Mesh::Section& Mesh::getSolidMesh() const
-    {
-        return m_solidMesh;
-    }
+    const Mesh::Section& Mesh::getSolidMesh() const { return m_solidMesh; }
 
 
     bool Mesh::shouldMakeFaceAdjacentTo(const Block::Small_Position& pos)
     {
         CBlock block = m_p_chunklet->getBlock(pos);
-
-
         return block == Block::ID::Air;
     }
 

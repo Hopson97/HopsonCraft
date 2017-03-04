@@ -2,13 +2,19 @@
 #define CMESH_H_INCLUDED
 
 #include "../../Model.h"
-
 #include "../Block/Block_Position.h"
-#include "../Block/Block_Data.h"
-
-#include "../../Texture/Texture_Atlas.h"
 
 class Chunklet;
+
+namespace Block
+{
+    class Data;
+};
+
+namespace Texture
+{
+    class Atlas;
+}
 
 namespace Chunk
 {
@@ -64,7 +70,7 @@ namespace Chunk
 
             Section m_solidMesh;
 
-            Chunklet*         m_p_chunklet        = nullptr;
+            Chunklet*               m_p_chunklet        = nullptr;
             const Block::Data*      m_p_activeBlockData = nullptr;
             const Texture::Atlas*   m_p_textureAtlas    = nullptr;
     };

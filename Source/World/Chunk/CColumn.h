@@ -1,11 +1,13 @@
 #ifndef CCOLUMN_H_INCLUDED
 #define CCOLUMN_H_INCLUDED
 
-#include <stack>
+#include <vector>
 #include <memory>
+#include <cstdint>
 
 #include "Chunklet.h"
 #include "CBlock.h"
+#include "../Block/Block_Position.h"
 
 namespace Renderer
 {

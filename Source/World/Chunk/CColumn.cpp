@@ -1,14 +1,11 @@
 #include "CColumn.h"
 
-#include "../../Renderer/RMaster.h"
-
-#include "../../Util/Random.h"
-#include "../../Util/Thread_Pool_Impl.h"
-
-#include <cmath>
 #include <SFML/System/Clock.hpp>
+#include <cmath>
 
-#define NEAREST(number, multiple) (((number) + ((multiple) / 2)) / (multiple) * (multiple))
+
+#include "../../Renderer/RMaster.h"
+#include "../../Util/Random.h"
 
 namespace Chunk
 {
@@ -18,19 +15,10 @@ namespace Chunk
     {
         sf::Clock clock;
 
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
-        addChunklet();
+        for (int i = 0; i < 16; i++)
+        {
+            addChunklet();
+        }
 
         for (int32_t y = 0; y < World_Constants::CH_SIZE; y++)
         {

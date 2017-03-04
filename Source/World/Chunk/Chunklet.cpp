@@ -1,13 +1,8 @@
 #include "Chunklet.h"
 
 #include "../../Maths/Matrix_Maths.h"
-#include "../../Util/Random.h"
 
 #include "CMap.h"
-
-#include "../../Util/Thread_Pool_Impl.h"
-
-#include <iostream>
 
 Chunklet::Chunklet(const Chunk::Chunklet_Position& pos,
                    Chunk::Map& map)
@@ -15,9 +10,9 @@ Chunklet::Chunklet(const Chunk::Chunklet_Position& pos,
 ,   m_pos           (pos)
 ,   m_p_chunkMap    (&map)
 {
-    position.x = pos.x * 24;
+    position.x = pos.x * World_Constants::CH_SIZE;
     position.y = pos.y * World_Constants::CH_SIZE;
-    position.z = pos.z * 24;
+    position.z = pos.z * World_Constants::CH_SIZE;
 
     m_modelMat = Maths::createModelMatrix(*this);
 }
