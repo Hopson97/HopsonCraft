@@ -53,14 +53,14 @@ namespace Chunk
 
 
         private:
-            bool shouldMakeFaceAdjacentTo(const Block::Position& pos);
+            bool shouldMakeFaceAdjacentTo(const Block::Small_Position& pos);
 
-            void makeFrontFace  (const Block::Position& pos);
-            void makeBackFace   (const Block::Position& pos);
-            void makeLeftFace   (const Block::Position& pos);
-            void makeRightFace  (const Block::Position& pos);
-            void makeTopFace    (const Block::Position& pos);
-            void makeBottomFace (const Block::Position& pos);
+            void makeFrontFace  (const Block::Small_Position& pos);
+            void makeBackFace   (const Block::Small_Position& pos);
+            void makeLeftFace   (const Block::Small_Position& pos);
+            void makeRightFace  (const Block::Small_Position& pos);
+            void makeTopFace    (const Block::Small_Position& pos);
+            void makeBottomFace (const Block::Small_Position& pos);
 
             void addIndices(uint32_t faces);
 

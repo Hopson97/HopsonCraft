@@ -92,6 +92,7 @@ namespace Chunk
     {
         sf::Clock timer;
         uint32_t faces = 0;
+        std::cout << "Started to make mesh\n";
 
         m_solidMesh.reserve();
 
@@ -99,7 +100,7 @@ namespace Chunk
             for (int8_t x = 0; x < World_Constants::CH_SIZE; ++x){
                 for (int8_t z = 0; z < World_Constants::CH_SIZE; ++z)
                 {
-                    Block::Position pos{x, y, z};
+                    Block::Small_Position pos{x, y, z};
                     if (m_p_chunklet->qGetBlock(pos) == Block::ID::Air)
                     {
                         continue;
@@ -161,7 +162,7 @@ namespace Chunk
     }
 
 
-    bool Mesh::shouldMakeFaceAdjacentTo(const Block::Position& pos)
+    bool Mesh::shouldMakeFaceAdjacentTo(const Block::Small_Position& pos)
     {
         CBlock block = m_p_chunklet->getBlock(pos);
 
@@ -169,7 +170,7 @@ namespace Chunk
         return block == Block::ID::Air;
     }
 
-    void Mesh::makeFrontFace(const Block::Position& pos)
+    void Mesh::makeFrontFace(const Block::Small_Position& pos)
     {
         GLfloat x = static_cast<GLfloat>(pos.x);
         GLfloat y = static_cast<GLfloat>(pos.y);
@@ -189,7 +190,7 @@ namespace Chunk
         m_solidMesh.addLightVal(LIGHT_Z);
     }
 
-    void Mesh::makeBackFace(const Block::Position& pos)
+    void Mesh::makeBackFace(const Block::Small_Position& pos)
     {
         GLfloat x = static_cast<GLfloat>(pos.x);
         GLfloat y = static_cast<GLfloat>(pos.y);
@@ -209,7 +210,7 @@ namespace Chunk
         m_solidMesh.addLightVal(LIGHT_Z);
     }
 
-    void Mesh::makeLeftFace(const Block::Position& pos)
+    void Mesh::makeLeftFace(const Block::Small_Position& pos)
     {
         GLfloat x = static_cast<GLfloat>(pos.x);
         GLfloat y = static_cast<GLfloat>(pos.y);
@@ -229,7 +230,7 @@ namespace Chunk
         m_solidMesh.addLightVal(LIGHT_X);
     }
 
-    void Mesh::makeRightFace(const Block::Position& pos)
+    void Mesh::makeRightFace(const Block::Small_Position& pos)
     {
         GLfloat x = static_cast<GLfloat>(pos.x);
         GLfloat y = static_cast<GLfloat>(pos.y);
@@ -249,7 +250,7 @@ namespace Chunk
         m_solidMesh.addLightVal(LIGHT_X);
     }
 
-    void Mesh::makeTopFace(const Block::Position& pos)
+    void Mesh::makeTopFace(const Block::Small_Position& pos)
     {
         GLfloat x = static_cast<GLfloat>(pos.x);
         GLfloat y = static_cast<GLfloat>(pos.y);
@@ -269,7 +270,7 @@ namespace Chunk
         m_solidMesh.addLightVal(LIGHT_TOP);
     }
 
-    void Mesh::makeBottomFace(const Block::Position& pos)
+    void Mesh::makeBottomFace(const Block::Small_Position& pos)
     {
         GLfloat x = static_cast<GLfloat>(pos.x);
         GLfloat y = static_cast<GLfloat>(pos.y);

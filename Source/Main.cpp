@@ -1,13 +1,18 @@
 #include <iostream>
+#include <thread>
 
 #include "Display.h"
 #include "Application.h"
 #include "Util/Random.h"
+#include "Util/Thread_Pool_Impl.h"
 
 int main() try
 {
-    Random  ::init();
-    Display ::init();
+    std::cout << std::thread::hardware_concurrency() << "\n";
+
+    Random      ::init();
+    Display     ::init();
+    Thread_Pool ::init();
 
     Application app;
     app.runMainGameLoop();

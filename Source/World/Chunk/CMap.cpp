@@ -9,8 +9,22 @@ namespace Chunk
 {
     Map::Map()
     {
-        addChunk({0, 0});
-        //m_chunks.at({0, 0, 0})->createMesh();
+        int size = 25;
+        for (int z = 0; z < size; z++)
+        {
+            for (int x = 0; x < size; ++x)
+            {
+                addChunk({x, z});
+            }
+        }
+
+        for (int z = 0; z < size; z++)
+        {
+            for (int x = 0; x < size; ++x)
+            {
+                m_chunks.at({x, z})->createFullMesh();
+            }
+        }
     }
 
     void Map::update()

@@ -15,8 +15,8 @@ namespace Renderer
 
     void RChunk::update(const Camera& camera)
     {
-        glEnable    (GL_CULL_FACE);
-        glCullFace  (GL_BACK);
+        //glEnable    (GL_CULL_FACE);
+        //glCullFace  (GL_BACK);
 
         m_shader.bind();
 

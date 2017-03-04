@@ -10,7 +10,7 @@
 void Camera::input(float dt)
 {
     Vector3 change;
-    float speed = 5;
+    float speed = 25;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {

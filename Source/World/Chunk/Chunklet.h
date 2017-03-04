@@ -34,8 +34,10 @@ class Chunklet : private Entity
 
         void createMesh();
 
-        CBlock getBlock (const Block::Position& pos) const;
-        CBlock qGetBlock(const Block::Position& pos) const;
+        void qSetBlock(const Block::Small_Position& pos, CBlock block);
+
+        CBlock getBlock (const Block::Small_Position& pos) const;
+        CBlock qGetBlock(const Block::Small_Position& pos) const;
 
         const Chunk::Mesh& getMesh() const;
         const Matrix4& getMat() const;
@@ -44,7 +46,7 @@ class Chunklet : private Entity
 
     private:
 
-        uint32_t getBlockIndex (const Block::Position& pos) const;
+        uint32_t getBlockIndex (const Block::Small_Position& pos) const;
 
         std::array<CBlock, World_Constants::CH_VOLUME> m_blocks;
 

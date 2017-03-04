@@ -5,6 +5,8 @@
 
 #include "CMap.h"
 
+#include "../../Util/Thread_Pool_Impl.h"
+
 #include <iostream>
 
 Chunklet::Chunklet(const Chunk::Chunklet_Position& pos,
@@ -13,87 +15,128 @@ Chunklet::Chunklet(const Chunk::Chunklet_Position& pos,
 ,   m_pos           (pos)
 ,   m_p_chunkMap    (&map)
 {
-    position.x = pos.x * World_Constants::CH_SIZE;
-    position.z = pos.z * World_Constants::CH_SIZE;
+    position.x = pos.x * 24;
     position.y = pos.y * World_Constants::CH_SIZE;
+    position.z = pos.z * 24;
 
     m_modelMat = Maths::createModelMatrix(*this);
-
-
-    for (uint8_t y = 0; y < World_Constants::CH_SIZE; y++)
-    {
-        for (uint8_t x = 0; x < World_Constants::CH_SIZE; x++)
-        {
-            for (uint8_t z = 0; z < World_Constants::CH_SIZE; z++)
-            {
-                if (y != World_Constants::CH_SIZE - 1)
-                    m_blocks.at(getBlockIndex({(int8_t)x, (int8_t)y, (int8_t)z})) = 2;
-/*
-                auto val = Random::intInRange(0, 10);
-
-                val = val > 7? 1 : 0;
-
-                if (y != World_Constants::CH_SIZE - 1 && val == 1)
-                    val = 2;
-
-                m_blocks.at(getBlockIndex({x, y, z})) = val;
-*/
-            }
-        }
-    }
 }
 
 void Chunklet::createMesh()
 {
+    for(int x = -1; x <= 1; x++)
+    {
+        for(int z = -1; z <= 1; z++)
+        {
+            m_p_chunkMap->addChunk({m_pos.x + x, m_pos.z + z});
+        }
+    }
     m_mesh.create();
 }
 
-CBlock Chunklet::getBlock(const Block::Position& pos) const
-{/*
-    const auto& chunklet = getChunklet(pos);
+void Chunklet::qSetBlock(const Block::Small_Position& pos, CBlock block)
+{
+    m_blocks.at(getBlockIndex(pos)) = block;
+}
 
-    if (chunklet == this)
-        return qGetBlock(pos);
 
-    else
+CBlock Chunklet::getBlock(const Block::Small_Position& pos) const
+{
+    if (pos.x < 0)
     {
-        //auto offset = getPosition() - chunklet->getPosition();
+        auto x = m_pos.x - 1;
+        auto z = m_pos.z;
 
-        if (chunklet)
+        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y);
+
+        if (c)
         {
-            std::cout << "not rip" << std::endl;
-            //return chunklet->qGetBlock(ncPos);
-            return Block::ID::Dirt;
+            return c->qGetBlock({World_Constants::CH_SIZE - 1, pos.y, pos.z});
         }
         else
         {
             return Block::ID::Air;
         }
-    }*/
-
-    if (pos.x < 0)
-    {
-        return Block::ID::Air;
     }
     else if (pos.x > World_Constants::CH_SIZE - 1)
     {
-        return Block::ID::Air;
+        auto x = m_pos.x + 1;
+        auto z = m_pos.z;
+
+        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y);
+
+        if (c)
+        {
+            return c->qGetBlock({0, pos.y, pos.z});
+        }
+        else
+        {
+            return Block::ID::Air;
+        }
     }
     else if (pos.z < 0)
     {
-        return Block::ID::Air;
+        auto x = m_pos.x;
+        auto z = m_pos.z - 1;
+
+        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y);
+
+        if (c)
+        {
+            return c->qGetBlock({pos.x, pos.y, World_Constants::CH_SIZE - 1});
+        }
+        else
+        {
+            return Block::ID::Air;
+        }
     }
     else if (pos.z > World_Constants::CH_SIZE - 1)
     {
-        return Block::ID::Air;
+        auto x = m_pos.x;
+        auto z = m_pos.z + 1;
+
+        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y);
+
+        if (c)
+        {
+            return c->qGetBlock({pos.x, pos.y, 0});
+        }
+        else
+        {
+            return Block::ID::Air;
+        }
     }
     else if (pos.y < 0)
     {
-        return Block::ID::Air;
+        auto x = m_pos.x;
+        auto z = m_pos.z;
+
+        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y - 1);
+
+        if (c)
+        {
+            return c->qGetBlock({pos.x, World_Constants::CH_SIZE - 1, pos.z});
+        }
+        else
+        {
+            return Block::ID::Air;
+        }
     }
     else if (pos.y > World_Constants::CH_SIZE - 1)
     {
-        return Block::ID::Air;
+        auto x = m_pos.x;
+        auto z = m_pos.z;
+
+        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y + 1);
+
+        if (c)
+        {
+            return c->qGetBlock({pos.x, 0, pos.z});
+        }
+        else
+        {
+            return Block::ID::Air;
+        }
     }
     else
     {
@@ -101,7 +144,7 @@ CBlock Chunklet::getBlock(const Block::Position& pos) const
     }
 }
 
-CBlock Chunklet::qGetBlock(const Block::Position& pos) const
+CBlock Chunklet::qGetBlock(const Block::Small_Position& pos) const
 {
     return m_blocks.at(getBlockIndex(pos));
 }
@@ -121,7 +164,7 @@ const Chunk::Chunklet_Position& Chunklet::getPosition() const
     return m_pos;
 }
 
-uint32_t Chunklet::getBlockIndex(const Block::Position& pos) const
+uint32_t Chunklet::getBlockIndex(const Block::Small_Position& pos) const
 {
     return pos.y * World_Constants::CH_AREA + pos.z * World_Constants::CH_SIZE + pos.x;
 }

@@ -1,8 +1,33 @@
 #include "Application.h"
 
+#include <iostream>
+
 #include "Display.h"
 
 #include "States/SPlaying.h"
+
+namespace
+{
+    void checkFps ()
+    {
+        static sf::Clock timer;
+        static sf::Clock printTimer;
+        static auto numFrames = 0;
+
+        numFrames++;
+
+        if (printTimer.getElapsedTime().asSeconds() >= 1.0f)
+        {
+            auto fps = (float)numFrames / timer.getElapsedTime().asSeconds();
+            printTimer.restart();
+            std::cout << fps << std::endl;
+
+            numFrames = 0;
+            timer.restart();
+        }
+    }
+
+}
 
 Application::Application()
 {
@@ -18,6 +43,7 @@ void Application::runMainGameLoop()
 
     while (Display::isOpen())
     {
+        checkFps ();
         auto dt = clock.restart().asSeconds();
 
         m_renderer.clear();

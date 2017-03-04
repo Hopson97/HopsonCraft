@@ -29,8 +29,10 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-pg" />
 				</Compiler>
 				<Linker>
+					<Add option="-pg -lgmon" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-audio" />
@@ -100,6 +102,9 @@
 		<Unit filename="Source/Util/Hasher.h" />
 		<Unit filename="Source/Util/Random.cpp" />
 		<Unit filename="Source/Util/Random.h" />
+		<Unit filename="Source/Util/Thread_Pool.h" />
+		<Unit filename="Source/Util/Thread_Pool_Impl.cpp" />
+		<Unit filename="Source/Util/Thread_Pool_Impl.h" />
 		<Unit filename="Source/World/Block/Block_Data.cpp" />
 		<Unit filename="Source/World/Block/Block_Data.h" />
 		<Unit filename="Source/World/Block/Block_Database.cpp" />

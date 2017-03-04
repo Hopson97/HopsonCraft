@@ -9,9 +9,10 @@ namespace Hasher
     template<typename T>
     size_t hash(T x, T y, T z)
     {
-        auto h1 = std::hash<T>{}(x);
-        auto h2 = std::hash<T>{}(y);
-        auto h3 = std::hash<T>{}(z);
+        std::hash<T> hasher;
+        auto h1 = hasher(x);
+        auto h2 = hasher(y);
+        auto h3 = hasher(z);
 
         return std::hash<T>{}(h1 ^ (h2 << h3) ^ h3);
     }
@@ -19,8 +20,9 @@ namespace Hasher
     template<typename T>
     size_t hash(T x, T z)
     {
-        auto h1 = std::hash<T>{}(x);
-        auto h2 = std::hash<T>{}(z);
+        std::hash<T> hasher;
+        auto h1 = hasher(x);
+        auto h2 = hasher(z);
 
         return std::hash<T>{}((h1 ^ h2) >> 2);
     }
