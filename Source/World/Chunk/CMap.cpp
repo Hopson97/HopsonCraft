@@ -15,33 +15,15 @@ namespace Chunk
 {
     Map::Map(const Camera& camera)
     :   m_p_camera  (&camera)
+    ,   m_isRunning (true)
+    ,   m_chunkLoadThread   ([&](){manageChunks();})
+    { }
+
+    Map::~Map()
     {
-        /*
-        int size = 25;
-        for (int z = 0; z < size; z++)
-        {
-            for (int x = 0; x < size; ++x)
-            {
-                addChunk({x, z});
-            }
-        }
-
-        sf::Clock timer;
-        for (int z = 0; z < size; z++)
-        {
-            for (int x = 0; x < size; ++x)
-            {
-                m_chunks.at({x, z})->createFullMesh();
-            }
-        }
-        auto timed = timer.getElapsedTime().asSeconds();
-
-        std::cout   << "Time to make " << size * size
-                    << " chunks: " << timed
-                    << " seconds. Average: " << timed / (size * size) << "\n";
-
-*/
-        std::thread([&](){manageChunks();}).detach();
+        m_isRunning = false;
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        m_chunkLoadThread.join();
     }
 
     void Map::update()
@@ -113,78 +95,88 @@ namespace Chunk
 
         }
 
-
-
         int32_t minX, maxX,
                 minZ, maxZ;
     };
 
     void Map::manageChunks()
     {
-        while (true)
+        while (m_isRunning)
         {
-            auto pos = Maths::worldToChunkPos(m_p_camera->position);
-            Load_Sector sect
-            (
-                pos.x - m_currentLoadDist,
-                pos.x + m_currentLoadDist,
-                pos.y - m_currentLoadDist,
-                pos.y + m_currentLoadDist
-            );
-
-            for (auto x = sect.minX; x < sect.maxX; x++)
-            {
-                for (auto z = sect.minZ; z < sect.maxZ; z++)
-                {
-                    addChunk({x, z});
-                }
-            }
-
-            for (auto x = sect.minX; x < sect.maxX; x++)
-            {
-                for (auto z = sect.minZ; z < sect.maxZ; z++)
-                {
-                    Column* chunk =  getChunklet({x, z});
-                    if (chunk)
-                    {
-                        if (!chunk->getFlags().hasFullMesh)
-                        {
-                            chunk->createFullMesh();
-                        }
-                    }
-                }
-            }
+            loadAndGenChunks();
 
             if (m_currentLoadDist < m_renderDistance - 1)
                 m_currentLoadDist++;
             else
-            {
                 m_currentLoadDist = 2;
-            }
 
-            Load_Sector deleteSect
-            (
-                pos.x - m_renderDistance - 1,
-                pos.x + m_renderDistance + 1,
-                pos.y - m_renderDistance - 1,
-                pos.y + m_renderDistance + 1
-            );
 
-            for (auto itr = m_chunks.begin(); itr != m_chunks.end(); itr++)
-            {
-                Column& c = *itr->second;
-                Position p = c.getPosition();
-                if (p.x < deleteSect.minX ||
-                    p.x > deleteSect.maxX ||
-                    p.y < deleteSect.minZ ||
-                    p.y > deleteSect.maxZ)
-                {
-                    c.setDeleteFlag(true);
-                }
-            }
+            flagChunks();
 
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }
+
+    void Map::loadAndGenChunks()
+    {
+        auto pos = Maths::worldToChunkPos(m_p_camera->position);
+        Load_Sector sect
+        (
+            pos.x - m_currentLoadDist,
+            pos.x + m_currentLoadDist,
+            pos.y - m_currentLoadDist,
+            pos.y + m_currentLoadDist
+        );
+        for (auto x = sect.minX; x < sect.maxX; x++)
+        {
+            for (auto z = sect.minZ; z < sect.maxZ; z++)
+            {
+                addChunk({x, z});
+            }
+        }
+        for (auto x = sect.minX; x < sect.maxX; x++)
+        {
+            for (auto z = sect.minZ; z < sect.maxZ; z++)
+            {
+                auto* chunk =  getChunklet({x, z});
+                if (chunk)
+                {
+                    if (!chunk->getFlags().hasFullMesh)
+                    {
+                        chunk->createFullMesh();
+                    }
+                }
+            }
+        }
+    }
+
+    void Map::flagChunks()
+    {
+        auto pos = Maths::worldToChunkPos(m_p_camera->position);
+         Load_Sector deleteSect
+         (
+             pos.x - m_renderDistance - 1,
+             pos.x + m_renderDistance + 1,
+             pos.y - m_renderDistance - 1,
+             pos.y + m_renderDistance + 1
+         );
+
+         for (auto itr = m_chunks.begin(); itr != m_chunks.end(); itr++)
+         {
+             auto& c = *itr->second;
+             Position p = c.getPosition();
+             if (p.x < deleteSect.minX ||
+                 p.x > deleteSect.maxX ||
+                 p.y < deleteSect.minZ ||
+                 p.y > deleteSect.maxZ)
+             {
+                 c.setDeleteFlag(true);
+             }
+         }
+    }
+
+
+
 
 
 }   //Namespace Chunk

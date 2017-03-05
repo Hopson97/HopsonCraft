@@ -33,7 +33,5 @@ namespace Renderer
         glEnable(GL_DEPTH_TEST);
 
         m_drawables.clear();
-
     }
-
 }
