@@ -54,6 +54,7 @@
 			<Add directory="D:/_Programming Libraries/C++/SFML-2.4.1/lib" />
 			<Add directory="D:/_Programming Libraries/C++/glew-2.0.0/lib/Release/Win32" />
 		</Linker>
+		<Unit filename="CMakeLists.txt" />
 		<Unit filename="Data/Blocks/Air.block" />
 		<Unit filename="Data/Blocks/Dirt.block" />
 		<Unit filename="Data/Blocks/Grass.block" />
@@ -63,6 +64,7 @@
 		<Unit filename="Data/Shaders/Solid_Vertex.glsl" />
 		<Unit filename="Source/Application.cpp" />
 		<Unit filename="Source/Application.h" />
+		<Unit filename="Source/Body.h" />
 		<Unit filename="Source/Camera.cpp" />
 		<Unit filename="Source/Camera.h" />
 		<Unit filename="Source/Display.cpp" />

@@ -40,7 +40,9 @@ namespace Chunk
 
             void draw(Renderer::Master& renderer);
             const Position& getPosition() const;
-            void setBlock(const Block::Column_Position& pos, CBlock block);
+
+            void    setBlock    (const Block::Column_Position& pos, CBlock block);
+            CBlock  getBlock    (const Block::Column_Position& pos) const;
 
             const Chunklet* getChunklet(int32_t index) const;
 
@@ -51,6 +53,7 @@ namespace Chunk
             void addChunklet();
 
             std::vector<std::unique_ptr<Chunklet>> m_chunklets;
+            std::array<uint32_t, World_Constants::CH_AREA> m_heightMap;
 
             Position m_position;
             Map* m_p_chunkMap = nullptr;

@@ -42,8 +42,6 @@ Application::Application()
 void Application::runMainGameLoop()
 {
     sf::Clock clock;
-    auto begin = std::chrono::system_clock::now();
-    auto frameCount = 0;
 
     while (Display::isOpen())
     {
@@ -62,7 +60,6 @@ void Application::runMainGameLoop()
 
         m_renderer.update(m_camera);
         Display::checkForClose();
-        ++frameCount;
     }
 }
 

@@ -6,28 +6,32 @@
 #include "../../Renderer/RMaster.h"
 #include "../../Util/Random.h"
 
+#include <iostream>
+
 namespace Chunk
 {
     Column::Column(const Position& pos, Map& map)
     :   m_position      (pos)
     ,   m_p_chunkMap    (&map)
     {
-        sf::Clock clock;
+        m_heightMap.fill(Random::intInRange(64, 70));
 
-        for (int i = 0; i < Random::intInRange(6, 8); i++)
-        {
-            addChunklet();
-        }
-
-        for (int32_t y = 0; y < m_chunkCount * World_Constants::CH_SIZE; y++)
+        for (int32_t y = 0; y < 70 + 1; y++)
         {
             for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
             {
                 for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
                 {
-                    y == m_chunkCount * World_Constants::CH_SIZE - 1 ?
-                        setBlock({x, y, z}, Block::ID::Grass)    :
+                    int h = m_heightMap.at(x + World_Constants::CH_SIZE + z);
+
+                    if (y == h)
+                    {
+                        setBlock({x, y, z}, Block::ID::Grass);
+                    }
+                    else if (y < h)
+                    {
                         setBlock({x, y, z}, Block::ID::Dirt);
+                    }
                 }
             }
         }
@@ -45,14 +49,38 @@ namespace Chunk
 
     void Column::setBlock(const Block::Column_Position& pos, CBlock block)
     {
-        auto chunklet = std::ceil(pos.y / World_Constants::CH_SIZE);
-
+        int32_t chunklet = std::ceil(pos.y / World_Constants::CH_SIZE);
+        while (chunklet + 1 > m_chunkCount)
+        {
+            addChunklet();
+        }
         int8_t yPos = pos.y - World_Constants::CH_SIZE * chunklet;
 
         m_chunklets.at(chunklet)->qSetBlock({ (int8_t)pos.x,
                                                       yPos,
                                               (int8_t)pos.z}, block);
     }
+
+    CBlock Column::getBlock(const Block::Column_Position& pos) const
+    {
+        int32_t chunklet = std::ceil(pos.y / World_Constants::CH_SIZE);
+        if(pos.y < 0)
+        {
+            return Block::ID::Air;
+        }
+        int8_t yPos = pos.y - World_Constants::CH_SIZE * chunklet;
+
+        if (chunklet < m_chunkCount && chunklet >= 0)
+        {
+            Block::Small_Position bp (pos.x, yPos, pos.z);
+            return m_chunklets.at(chunklet)->qGetBlock(bp);
+        }
+        else
+        {
+            return Block::ID::Air;
+        }
+    }
+
 
     const Chunklet* Column::getChunklet(int32_t index) const
     {

@@ -12,6 +12,10 @@ void Camera::input()
 {
     Vector3 change;
     float speed = 0.5;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+    {
+        speed = 20;
+    }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
