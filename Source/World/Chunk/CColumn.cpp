@@ -3,7 +3,6 @@
 #include <SFML/System/Clock.hpp>
 #include <cmath>
 
-
 #include "../../Renderer/RMaster.h"
 #include "../../Util/Random.h"
 

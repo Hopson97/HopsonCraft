@@ -2,6 +2,7 @@
 #define MASTER_H_INCLUDED
 
 #include "RChunk.h"
+#include "RSFML.h"
 
 class Chunklet;
 struct Camera;
@@ -18,6 +19,7 @@ namespace Renderer
 
         private:
             RChunk m_chunkRenderer;
+            RSFML  m_sfmlRenderer;
     };
 }
 

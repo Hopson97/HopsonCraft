@@ -1,6 +1,7 @@
 #include "RMaster.h"
 
 #include "../Display.h"
+#include "../World/Block/Block_Database.h"
 
 #include <iostream>
 
@@ -13,7 +14,10 @@ namespace Renderer
 
     void Master::update(const Camera& camera)
     {
-        m_chunkRenderer.update  (camera);
+        Block::Database::get().textures.bind();
+
+        m_chunkRenderer .update (camera);
+        m_sfmlRenderer  .update ();
 
         Display::update();
     }

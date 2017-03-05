@@ -66,6 +66,12 @@ namespace Display
     {
         return *window;
     }
+
+    void sfDraw(const sf::Drawable& drawable)
+    {
+        window->draw(drawable);
+    }
+
 }
 
 

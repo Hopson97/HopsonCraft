@@ -14,9 +14,7 @@ namespace State
     Playing::Playing(Application& application)
     :   Game_State  (application)
     ,   m_world     (application.getCamera())
-    {
-        Block::Database::get().textures.bind();
-    }
+    { }
 
     void Playing::input(Camera& camera)
     {
