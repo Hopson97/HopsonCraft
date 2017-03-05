@@ -30,6 +30,7 @@ namespace State
 
     void Playing::draw(Renderer::Master& renderer)
     {
-        m_world.draw(renderer);
+        m_world     .draw(renderer);
+        m_vignette  .draw(renderer);
     }
 }

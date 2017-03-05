@@ -20,13 +20,20 @@ namespace Renderer
         glBindTexture(GL_TEXTURE_2D, 0);
         glUseProgram(0);
 
+        Display::get().pushGLStates();
+        Display::get().resetGLStates();
+
 
         for(const auto& sfd : m_drawables)
         {
             Display::sfDraw(*sfd);
         }
 
+        Display::get().popGLStates();
         glEnable(GL_DEPTH_TEST);
+
+        m_drawables.clear();
+
     }
 
 }

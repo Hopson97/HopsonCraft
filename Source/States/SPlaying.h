@@ -8,6 +8,8 @@
 
 #include "../World/World.h"
 
+#include "../HUD/Vignette.h"
+
 class Application;
 class Camera;
 
@@ -23,7 +25,8 @@ namespace State
             void draw   (Renderer::Master& renderer) override;
 
         private:
-            World m_world;
+            World       m_world;
+            Vignette    m_vignette;
     };
 }
 

@@ -27,5 +27,8 @@ namespace Renderer
         m_chunkRenderer.draw(chunklet);
     }
 
-
+    void Master::draw(const sf::Drawable& drawable)
+    {
+        m_sfmlRenderer.draw(drawable);
+    }
 }

@@ -8,37 +8,7 @@
 
 enum class Texture_ID
 {
-    Splash_SFML,
-    Splash_MH,
-
-    Player_Legs,
-
-    Player_Body_Shirt,
-    Player_Head_None,
-    Player_Shield_Wood,
-    Player_Sword_Wood,
-    Player_Wood_Slash,
-
-    Entity_Blacksmith,
-    Entity_Slime,
-    Entity_Bee,
-
-    Entity_Coral_Slime,
-
-    Zone_Village,
-    Zone_Forest,
-    Zone_Beach,
-    Zone_Mountians,
-    Zone_River,
-    Zone_Desert,
-
-    Proj_Stinger,
-
-    GUI_Exit_Button,
-
-    World_Map,
-
-    Hearts,
+    Vignette
 };
 
 class Texture_Manager : public Resource_Manager<sf::Texture, Texture_ID>

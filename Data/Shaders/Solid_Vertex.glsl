@@ -13,11 +13,10 @@ uniform mat4 projMatrix;
 
 void main()
 {
-    gl_Position = projMatrix * viewMatrix * modelMatrix *
-                  vec4 (inVertexPosition.x,
-                        inVertexPosition.y,
-                        inVertexPosition.z,
-                        1.0);
+    gl_Position =   projMatrix *
+                    viewMatrix *
+                    modelMatrix *
+                    vec4 (inVertexPosition.xyz, 1.0);
 
     passTextureCoords = inTextureCoords;
     passLightValue    = inLightValue;

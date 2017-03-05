@@ -23,7 +23,7 @@ namespace Display
 
     bool isOpen();
 
-    const sf::Window& get();
+    sf::RenderWindow& get();
 
     void sfDraw(const sf::Drawable& drawable);
 }

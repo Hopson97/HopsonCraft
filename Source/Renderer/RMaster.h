@@ -15,7 +15,9 @@ namespace Renderer
             void clear();
 
             void update(const Camera& camera);
+
             void draw(const Chunklet& chunklet);
+            void draw(const sf::Drawable& drawable);
 
         private:
             RChunk m_chunkRenderer;

@@ -35,7 +35,7 @@ namespace
 int main() try
 {
     initilize();
-    //loadConfig();
+    loadConfig();
 
     Application app;
     app.runMainGameLoop();

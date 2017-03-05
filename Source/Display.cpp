@@ -62,7 +62,7 @@ namespace Display
         return window->isOpen();
     }
 
-    const sf::Window& get()
+    sf::RenderWindow& get()
     {
         return *window;
     }
