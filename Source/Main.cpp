@@ -8,12 +8,16 @@
 #include "Util/ConfigParser.h"
 #include "Util/Singleton.h"
 
+#include "World/Block/Block_Database.h"
+
 namespace
 {
     void initilize()
     {
         Random  ::init();
         Display ::init();
+
+        Block::Database::get();
     }
 
     void loadConfig()
@@ -31,7 +35,7 @@ namespace
 int main() try
 {
     initilize();
-    loadConfig();
+    //loadConfig();
 
     Application app;
     app.runMainGameLoop();
