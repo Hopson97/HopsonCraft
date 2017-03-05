@@ -7,14 +7,15 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 file(GLOB src_files
     Source/*.cpp
+    Source/Hud/*.cpp
 	Source/Input/*.cpp
 	Source/Maths/*.cpp
 	Source/Renderer/*.cpp
-	Source/Shaders/*.cpp 
-	Source/States/*cpp 
+	Source/Shaders/*.cpp
+	Source/States/*cpp
 	Source/Temp/*.cpp
 	Source/Texture/*.cpp
-	Source/World/*.cpp 
+	Source/World/*.cpp
 	Source/World/Block/Block_Types/*.cpp
 	Source/World/Block/*.cpp
 	Source/World/Chunk/*.cpp

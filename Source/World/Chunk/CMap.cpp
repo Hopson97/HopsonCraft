@@ -153,26 +153,26 @@ namespace Chunk
     void Map::flagChunks()
     {
         auto pos = Maths::worldToChunkPos(m_p_camera->position);
-         Load_Sector deleteSect
-         (
-             pos.x - m_renderDistance - 1,
-             pos.x + m_renderDistance + 1,
-             pos.y - m_renderDistance - 1,
-             pos.y + m_renderDistance + 1
-         );
+        Load_Sector deleteSect
+        (
+            pos.x - m_renderDistance - 1,
+            pos.x + m_renderDistance + 1,
+            pos.y - m_renderDistance - 1,
+            pos.y + m_renderDistance + 1
+        );
 
-         for (auto itr = m_chunks.begin(); itr != m_chunks.end(); itr++)
-         {
-             auto& c = *itr->second;
-             Position p = c.getPosition();
-             if (p.x < deleteSect.minX ||
-                 p.x > deleteSect.maxX ||
-                 p.y < deleteSect.minZ ||
-                 p.y > deleteSect.maxZ)
-             {
-                 c.setDeleteFlag(true);
-             }
-         }
+        for (auto itr = m_chunks.begin(); itr != m_chunks.end(); itr++)
+        {
+            auto& c = *itr->second;
+            Position p = c.getPosition();
+            if (p.x < deleteSect.minX ||
+                p.x > deleteSect.maxX ||
+                p.y < deleteSect.minZ ||
+                p.y > deleteSect.maxZ)
+            {
+                c.setDeleteFlag(true);
+            }
+        }
     }
 
 
