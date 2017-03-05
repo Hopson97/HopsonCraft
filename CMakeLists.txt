@@ -19,6 +19,7 @@ file(GLOB src_files
 	Source/World/Block/Block_Types/*.cpp
 	Source/World/Block/*.cpp
 	Source/World/Chunk/*.cpp
+	Source/Util/*.cpp
 	)
 
 find_package(OpenGL REQUIRED)

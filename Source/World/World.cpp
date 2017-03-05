@@ -15,6 +15,7 @@ World::World(const Camera& camera)
 
 void World::input(Camera& camera)
 {
+    /*
     Chunk::Column* c = m_chunkMap.getChunklet(Maths::worldToChunkPos(camera.position));
     if(c)
     {
@@ -24,6 +25,7 @@ void World::input(Camera& camera)
             std::cout << "Gay" << std::endl;
         }
     }
+    */
 }
 
 void World::update(float dt)
