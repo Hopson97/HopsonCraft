@@ -10,6 +10,8 @@
 
 #include "../HUD/Vignette.h"
 
+#include "../Player.h"
+
 class Application;
 class Camera;
 
@@ -27,6 +29,8 @@ namespace State
         private:
             World       m_world;
             Vignette    m_vignette;
+
+            Player      m_player;
     };
 }
 

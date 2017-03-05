@@ -14,9 +14,9 @@ namespace Chunk
     :   m_position      (pos)
     ,   m_p_chunkMap    (&map)
     {
-        m_heightMap.fill(Random::intInRange(75, 90));
+        m_heightMap.fill(Random::intInRange(64, 64));
 
-        for (int32_t y = 0; y < 90 + 1; y++)
+        for (int32_t y = 0; y < 64 + 1; y++)
         {
             for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
             {
@@ -39,6 +39,7 @@ namespace Chunk
                 }
             }
         }
+        m_flags.generated = true;
     }
 
     void Column::createFullMesh()
@@ -63,6 +64,12 @@ namespace Chunk
         m_chunklets.at(chunklet)->qSetBlock({ (int8_t)pos.x,
                                                       yPos,
                                               (int8_t)pos.z}, block);
+
+        if(m_flags.generated)
+        {
+            std::cout << "Adding a chunk to the batcht\n";
+            m_chunkletsToUpdate.push_back(&*m_chunklets.at(chunklet));
+        }
     }
 
     CBlock Column::getBlock(const Block::Column_Position& pos) const
@@ -115,6 +122,16 @@ namespace Chunk
         m_flags.deleteMe = deleteF;
     }
 
+    void Column::update()
+    {
+        for (auto& c : m_chunkletsToUpdate)
+        {
+            std::cout << "Created a mesh" << std::endl;
+            c->createMesh();
+        }
+        m_chunkletsToUpdate.clear();
+    }
+
     void Column::draw(Renderer::Master& renderer)
     {
         for(auto itr = m_chunklets.begin(); itr != m_chunklets.end();)
@@ -129,7 +146,9 @@ namespace Chunk
                 }
                 else
                 {
+                    std::cout << "Trying to buffer a mesh" << std::endl;
                     chunklet.bufferMesh();
+                    std::cout << "Finished\n\n";
                 }
             }
             else

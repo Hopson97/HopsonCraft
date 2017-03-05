@@ -36,10 +36,7 @@ namespace Chunk
     {
         for(int i = 0; i < 4 ; i++)
         {
-            m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
-                                                                        {
-                                                                          manageChunks();
-                                                                        }));
+            m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]() { manageChunks(); }));
         }
     }
 
@@ -57,6 +54,8 @@ namespace Chunk
         for (auto itr = m_chunks.begin(); itr != m_chunks.end();)
         {
             Column& c = *(itr)->second;
+            c.update();
+
             if(c.getFlags().deleteMe)
             {
                 itr = m_chunks.erase(itr);

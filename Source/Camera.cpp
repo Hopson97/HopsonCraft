@@ -11,10 +11,10 @@
 void Camera::input()
 {
     Vector3 change;
-    float speed = 0.5;
+    float speed = 0.05;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
-        speed = 20;
+        speed = 0.2;
     }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
@@ -95,9 +95,14 @@ void Camera::mouseInput()
 
 void Camera::update(float dt)
 {
-    position += m_velocity * dt;
-    m_velocity *= 0.96f;
+    m_velocity *= 0.9f;
 }
+
+const Vector3& Camera::getVelocity() const
+{
+    return m_velocity;
+}
+
 
 
 

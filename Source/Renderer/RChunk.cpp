@@ -21,15 +21,20 @@ namespace Renderer
 
         m_shader.setViewMatrix(Maths::createViewMatrix(camera));
 
-        for (auto& chunklet : m_chunks)
-        {
+        for (const Chunklet* chunklet : m_chunks)
+        {/*
+            if(chunklet->getPosition().x == 0 &&
+               chunklet->getPosition().z == 0 )
+            {
+                std::cout << "Center\n" << " " << chunklet->getMesh().getSolidMesh().getIndicesCount() << "\n";
+            }*/
+
             prepare(*chunklet);
             glDrawElements(GL_TRIANGLES,
                            chunklet->getMesh().getSolidMesh().getModel().getIndicesCount(),
                            GL_UNSIGNED_INT,
                            nullptr);
         }
-
         m_chunks.clear();
     }
 

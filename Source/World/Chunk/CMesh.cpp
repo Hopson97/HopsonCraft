@@ -16,9 +16,9 @@ namespace Chunk
     namespace
     {
         constexpr GLfloat   LIGHT_TOP       =   1.0,
-                            LIGHT_Z         =   0.82f,
+                            LIGHT_Z         =   0.8,
                             LIGHT_X         =   0.7,
-                            LIGHT_BOTTOM    =   0.5;
+                            LIGHT_BOTTOM    =   0.6;
     }
 
     void Mesh::Section::reserve()
@@ -163,7 +163,6 @@ namespace Chunk
 
             m_solidMesh.addToIndexCount(4);
         }
-
 
         m_p_chunklet->setFaces(faces);
         //std::cout << faces << " faces added in " << timer.getElapsedTime().asSeconds() << " seconds.\n";

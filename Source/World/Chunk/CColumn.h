@@ -25,11 +25,13 @@ namespace Chunk
             CFlags()
             :   hasFullMesh (false)
             ,   hasBuffered (false)
-            ,   deleteMe    (false){}
+            ,   deleteMe    (false)
+            ,   generated   (false) {}
 
             std::atomic<bool> hasFullMesh;
             std::atomic<bool> hasBuffered;
             std::atomic<bool> deleteMe;
+            std::atomic<bool> generated;
         };
 
 
@@ -38,6 +40,7 @@ namespace Chunk
 
             void createFullMesh();
 
+            void update();
             void draw(Renderer::Master& renderer);
             const Position& getPosition() const;
 
@@ -52,6 +55,7 @@ namespace Chunk
         private:
             void addChunklet();
 
+            std::vector<Chunklet*> m_chunkletsToUpdate;
             std::vector<std::unique_ptr<Chunklet>> m_chunklets;
             std::array<uint32_t, World_Constants::CH_AREA> m_heightMap;
 

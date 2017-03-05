@@ -3,6 +3,7 @@
 
 #include "Chunk/CMap.h"
 
+class Player;
 class Camera;
 
 namespace Renderer
@@ -13,7 +14,7 @@ namespace Renderer
 class World
 {
     public:
-        World(const Camera& camera);
+        World(const Camera& camera, Player& player);
 
         void input  (Camera& camera);
         void update (float dt);
@@ -21,6 +22,8 @@ class World
 
     private:
         Chunk::Map m_chunkMap;
+
+        Player* m_p_player;
 };
 
 #endif // WORLD_H_INCLUDED

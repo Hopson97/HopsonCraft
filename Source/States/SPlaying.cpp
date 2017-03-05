@@ -13,7 +13,7 @@ namespace State
 
     Playing::Playing(Application& application)
     :   Game_State  (application)
-    ,   m_world     (application.getCamera())
+    ,   m_world     (application.getCamera(), m_player)
     { }
 
     void Playing::input(Camera& camera)
@@ -25,6 +25,7 @@ namespace State
     void Playing::update(Camera& camera, float dt)
     {
         camera.update(dt);
+        m_player.update(dt);
         m_world.update(dt);
     }
 

@@ -4,6 +4,8 @@
 
 #include "CMap.h"
 
+#include <iostream>
+
 Chunklet::Chunklet(const Chunk::Chunklet_Position& pos,
                    Chunk::Map& map)
 :   m_mesh          (*this)
@@ -19,6 +21,7 @@ Chunklet::Chunklet(const Chunk::Chunklet_Position& pos,
 
 void Chunklet::createMesh()
 {
+    m_flags.hasFaces = false;
     for(int x = -1; x <= 1; x++)
     {
         for(int z = -1; z <= 1; z++)
@@ -26,12 +29,15 @@ void Chunklet::createMesh()
             m_p_chunkMap->addChunk({m_pos.x + x, m_pos.z + z});
         }
     }
+    std::cout << "Create chunklet mesh\n";
     m_mesh.create();
     m_flags.hasMesh = true;
+    m_flags.hasBuffered = false;
 }
 
 void Chunklet::bufferMesh()
 {
+    std::cout << "Buffer chunklet\n";
     m_mesh.buffer();
     m_flags.hasBuffered = true;
 }

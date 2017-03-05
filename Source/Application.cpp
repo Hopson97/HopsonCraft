@@ -34,9 +34,6 @@ namespace
 Application::Application()
 {
     pushState(std::make_unique<State::Playing>(*this));
-    m_camera.position.y = World_Constants::CH_SIZE * 9;
-    m_camera.position.x = World_Constants::CH_SIZE / 2;
-    m_camera.position.z = World_Constants::CH_SIZE / 2;
 }
 
 void Application::runMainGameLoop()
