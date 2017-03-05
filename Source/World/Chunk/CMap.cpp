@@ -10,20 +10,46 @@
 
 #include "../../Maths/General_Maths.h"
 
+namespace
+{
+    struct Load_Sector
+    {
+        Load_Sector(int32_t minX, int32_t maxX,
+                    int32_t minZ, int32_t maxZ)
+        :   minX    (minX)
+        ,   maxX    (maxX)
+        ,   minZ    (minZ)
+        ,   maxZ    (maxZ)
+        { }
+
+        int32_t minX, maxX,
+                minZ, maxZ;
+    };
+}
+
 
 namespace Chunk
 {
     Map::Map(const Camera& camera)
     :   m_p_camera  (&camera)
     ,   m_isRunning (true)
-    ,   m_chunkLoadThread   ([&](){manageChunks();})
-    { }
+    {
+        for(int i = 0; i < 4 ; i++)
+        {
+            m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
+                                                                        {
+                                                                          manageChunks();
+                                                                        }));
+        }
+    }
 
     Map::~Map()
     {
         m_isRunning = false;
         std::this_thread::sleep_for(std::chrono::seconds(2));
-        m_chunkLoadThread.join();
+
+        for(auto& thread : m_chunkGenThreads)
+            thread->join();
     }
 
     void Map::update()
@@ -52,11 +78,13 @@ namespace Chunk
 
     void Map::addChunk(const Position& pos)
     {
+        m_addChunkMutex.lock();
         if(!getChunklet(pos))
         {
             m_chunks.insert(std::make_pair
                            (pos, std::make_unique<Column>(pos, *this)));
         }
+        m_addChunkMutex.unlock();
     }
 
     Column* Map::getChunklet(const Chunk::Position& pos)
@@ -83,35 +111,23 @@ namespace Chunk
         }
     }
 
-    struct Load_Sector
-    {
-        Load_Sector(int32_t minX, int32_t maxX,
-                    int32_t minZ, int32_t maxZ)
-        :   minX    (minX)
-        ,   maxX    (maxX)
-        ,   minZ    (minZ)
-        ,   maxZ    (maxZ)
-        {
-
-        }
-
-        int32_t minX, maxX,
-                minZ, maxZ;
-    };
-
     void Map::manageChunks()
     {
         while (m_isRunning)
         {
+
+            m_chunkUpdateMutex.lock();
             loadAndGenChunks();
+            m_chunkUpdateMutex.unlock();
 
             if (m_currentLoadDist < m_renderDistance - 1)
                 m_currentLoadDist++;
             else
                 m_currentLoadDist = 2;
 
-
+            m_chunkUpdateMutex.lock();
             flagChunks();
+            m_chunkUpdateMutex.unlock();
 
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
@@ -127,6 +143,7 @@ namespace Chunk
             pos.y - m_currentLoadDist,
             pos.y + m_currentLoadDist
         );
+
         for (auto x = sect.minX; x < sect.maxX; x++)
         {
             for (auto z = sect.minZ; z < sect.maxZ; z++)
@@ -134,6 +151,7 @@ namespace Chunk
                 addChunk({x, z});
             }
         }
+
         for (auto x = sect.minX; x < sect.maxX; x++)
         {
             for (auto z = sect.minZ; z < sect.maxZ; z++)

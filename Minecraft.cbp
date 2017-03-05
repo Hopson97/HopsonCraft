@@ -58,10 +58,15 @@
 		<Unit filename="Data/Blocks/Air.block" />
 		<Unit filename="Data/Blocks/Dirt.block" />
 		<Unit filename="Data/Blocks/Grass.block" />
+		<Unit filename="Data/Blocks/Stone.block" />
+		<Unit filename="Data/Fonts/rs.ttf" />
 		<Unit filename="Data/Shaders/Simple_Fragment.glsl" />
 		<Unit filename="Data/Shaders/Simple_Vertex.glsl" />
 		<Unit filename="Data/Shaders/Solid_Fragment.glsl" />
 		<Unit filename="Data/Shaders/Solid_Vertex.glsl" />
+		<Unit filename="Data/Textures/Texture_Atlas.png" />
+		<Unit filename="Data/Textures/grass.png" />
+		<Unit filename="Data/Textures/vignette.png" />
 		<Unit filename="Source/Application.cpp" />
 		<Unit filename="Source/Application.h" />
 		<Unit filename="Source/Body.h" />

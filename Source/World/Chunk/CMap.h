@@ -3,7 +3,9 @@
 
 #include <memory>
 #include <thread>
+#include <mutex>
 #include <unordered_map>
+#include <queue>
 
 
 #include "CColumn.h"
@@ -40,12 +42,14 @@ namespace Chunk
 
             const Camera* m_p_camera;
 
-            int8_t m_renderDistance    = 15;
+            int8_t m_renderDistance    = 10;
             int8_t m_currentLoadDist   = 2;
 
             std::atomic<bool> m_isRunning;
 
-            std::thread m_chunkLoadThread;
+            std::mutex m_addChunkMutex;
+            std::mutex m_chunkUpdateMutex;
+            std::vector<std::unique_ptr<std::thread>> m_chunkGenThreads;
     };
 }
 

@@ -14,9 +14,9 @@ namespace Chunk
     :   m_position      (pos)
     ,   m_p_chunkMap    (&map)
     {
-        m_heightMap.fill(Random::intInRange(64, 70));
+        m_heightMap.fill(Random::intInRange(75, 90));
 
-        for (int32_t y = 0; y < 70 + 1; y++)
+        for (int32_t y = 0; y < 90 + 1; y++)
         {
             for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
             {
@@ -28,9 +28,13 @@ namespace Chunk
                     {
                         setBlock({x, y, z}, Block::ID::Grass);
                     }
-                    else if (y < h)
+                    else if (y < h && y > h - 3 )
                     {
                         setBlock({x, y, z}, Block::ID::Dirt);
+                    }
+                    else if (y <= h - 3)
+                    {
+                        setBlock({x, y, z}, Block::ID::Stone);
                     }
                 }
             }

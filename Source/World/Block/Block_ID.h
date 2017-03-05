@@ -12,6 +12,7 @@ namespace Block
         Air     = 0,
         Grass   = 1,
         Dirt    = 2,
+        Stone   = 3,
 
         NUM_BLOCK_TYPES
     };
