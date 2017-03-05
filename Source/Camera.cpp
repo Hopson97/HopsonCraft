@@ -6,42 +6,43 @@
 #include <SFML/Window/Mouse.hpp>
 
 #include "Display.h"
+#include "Input/Key_Binds.h"
 
 void Camera::input()
 {
     Vector3 change;
     float speed = 0.5;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
         change.x -= cos(glm::radians(rotation.y + 90)) * speed;
         change.z -= sin(glm::radians(rotation.y + 90)) * speed;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Back)))
     {
         change.x += cos(glm::radians(rotation.y + 90)) * speed;
         change.z += sin(glm::radians(rotation.y + 90)) * speed;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Left)))
     {
         change.x += -cos(glm::radians(rotation.y)) * speed;
         change.z += -sin(glm::radians(rotation.y)) * speed;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Right)))
     {
         change.x += cos(glm::radians(rotation.y)) * speed;
         change.z += sin(glm::radians(rotation.y)) * speed;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Up)))
     {
         change.y += speed;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Down)))
     {
         change.y -= speed;
     }

@@ -164,10 +164,10 @@ namespace Chunk
 
             Load_Sector deleteSect
             (
-                pos.x - m_renderDistance,
-                pos.x + m_renderDistance,
-                pos.y - m_renderDistance,
-                pos.y + m_renderDistance
+                pos.x - m_renderDistance - 1,
+                pos.x + m_renderDistance + 1,
+                pos.y - m_renderDistance - 1,
+                pos.y + m_renderDistance + 1
             );
 
             for (auto itr = m_chunks.begin(); itr != m_chunks.end(); itr++)

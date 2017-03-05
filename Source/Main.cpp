@@ -1,14 +1,37 @@
 #include <iostream>
-#include <thread>
+#include <fstream>
 
 #include "Display.h"
 #include "Application.h"
 #include "Util/Random.h"
+#include "Util/Config.h"
+#include "Util/ConfigParser.h"
+#include "Util/Singleton.h"
+
+namespace
+{
+    void initilize()
+    {
+        Random  ::init();
+        Display ::init();
+    }
+
+    void loadConfig()
+    {
+        const std::string fileName = "HopsonCraft.conf";
+        std::ifstream inFile (fileName);
+
+        if(inFile.is_open())
+        {
+            Singleton<Config>::get().loadFromStream(fileName, inFile);
+        }
+    }
+}
 
 int main() try
 {
-    Random      ::init();
-    Display     ::init();
+    initilize();
+    loadConfig();
 
     Application app;
     app.runMainGameLoop();
