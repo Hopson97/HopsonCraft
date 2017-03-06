@@ -26,6 +26,8 @@ class Model
         GLuint getIndicesCount() const;
 
     private:
+        void deleteData();
+
         void addEBO(const std::vector<GLuint>& indices);
 
         std::vector<GLuint> m_buffers;

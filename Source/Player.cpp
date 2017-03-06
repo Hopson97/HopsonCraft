@@ -2,5 +2,5 @@
 
 Player::Player()
 {
-    position = {0, 100, 0};
+    position = {10, 100, 10};
 }

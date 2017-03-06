@@ -66,17 +66,6 @@ namespace Chunk
         m_light.insert(m_light.end(), {cardinalVal, cardinalVal, cardinalVal, cardinalVal});
     }
 
-
-    GLuint Mesh::Section::getIndicesCount() const
-    {
-        return m_indicesCount;
-    }
-
-    void Mesh::Section::addToIndexCount(GLuint amount)
-    {
-        m_indicesCount += amount;
-    }
-
     const Model& Mesh::Section::getModel() const
     {
         return m_model;
@@ -90,7 +79,8 @@ namespace Chunk
 
     void Mesh::create()
     {
-        //sf::Clock timer;
+        sf::Clock timer;
+
         uint32_t faces = 0;
 
         for (int8_t y = 0; y < World_Constants::CH_SIZE; ++y){
@@ -147,10 +137,9 @@ namespace Chunk
             }
         }
 
-        for (uint32_t i = 0; i < faces; ++i)
-        {
-            auto count = m_solidMesh.getIndicesCount();
 
+        for (uint32_t i = 0, count = 0; i < faces; ++i, count += 4)
+        {
             m_solidMesh.addIndices(
             {
                 count,
@@ -160,8 +149,6 @@ namespace Chunk
                 count + 3,
                 count,
             });
-
-            m_solidMesh.addToIndexCount(4);
         }
 
         m_p_chunklet->setFaces(faces);

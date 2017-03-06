@@ -29,7 +29,6 @@ void Chunklet::createMesh()
             m_p_chunkMap->addChunk({m_pos.x + x, m_pos.z + z});
         }
     }
-    std::cout << "Create chunklet mesh\n";
     m_mesh.create();
     m_flags.hasMesh = true;
     m_flags.hasBuffered = false;
@@ -37,7 +36,6 @@ void Chunklet::createMesh()
 
 void Chunklet::bufferMesh()
 {
-    std::cout << "Buffer chunklet\n";
     m_mesh.buffer();
     m_flags.hasBuffered = true;
 }

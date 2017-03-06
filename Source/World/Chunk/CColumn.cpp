@@ -67,7 +67,6 @@ namespace Chunk
 
         if(m_flags.generated)
         {
-            std::cout << "Adding a chunk to the batcht\n";
             m_chunkletsToUpdate.push_back(&*m_chunklets.at(chunklet));
         }
     }
@@ -126,7 +125,6 @@ namespace Chunk
     {
         for (auto& c : m_chunkletsToUpdate)
         {
-            std::cout << "Created a mesh" << std::endl;
             c->createMesh();
         }
         m_chunkletsToUpdate.clear();
@@ -141,19 +139,17 @@ namespace Chunk
             {
                 if (chunklet.getFlags().hasBuffered)
                 {
-                    ++itr;
                     renderer.draw(chunklet);
+                    ++itr;
                 }
                 else
                 {
-                    std::cout << "Trying to buffer a mesh" << std::endl;
                     chunklet.bufferMesh();
-                    std::cout << "Finished\n\n";
                 }
             }
             else
             {
-                itr++;
+                ++itr;
             }
         }
     }

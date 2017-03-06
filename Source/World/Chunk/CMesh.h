@@ -31,11 +31,6 @@ namespace Chunk
                 void addIndices     (const std::vector<GLuint>&  i);
                 void addLightVal    (GLfloat cardinalVal);
 
-
-                GLuint getIndicesCount() const;
-
-                void addToIndexCount(GLuint amount);
-
                 const Model& getModel() const;
 
             private:
