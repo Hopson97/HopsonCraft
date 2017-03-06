@@ -33,12 +33,14 @@ class Chunklet : private Entity
         CFlags()
         :   hasFaces    (false)
         ,   hasMesh     (false)
-        ,   hasBuffered (false) {}
+        ,   hasBuffered (false)
+        ,   regening    (false){}
 
 
         std::atomic<bool> hasFaces;
         std::atomic<bool> hasMesh;
         std::atomic<bool> hasBuffered;
+        std::atomic<bool> regening;
     };
 
     public:

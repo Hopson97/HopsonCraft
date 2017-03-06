@@ -54,21 +54,24 @@ namespace Chunk
 
     void Column::setBlock(const Block::Column_Position& pos, CBlock block)
     {
-        int32_t chunklet = std::ceil(pos.y / World_Constants::CH_SIZE);
-        while (chunklet + 1 > m_chunkCount)
+        int32_t yIndex = std::ceil(pos.y / World_Constants::CH_SIZE);
+        while (yIndex + 1 > m_chunkCount)
         {
             addChunklet();
         }
-        int8_t yPos = pos.y - World_Constants::CH_SIZE * chunklet;
+        Chunklet* chunk = getChunkletnc(yIndex);
 
-        m_chunklets.at(chunklet)->qSetBlock({ (int8_t)pos.x,
-                                                      yPos,
-                                              (int8_t)pos.z}, block);
+        auto yPos = pos.y - World_Constants::CH_SIZE * yIndex;
+        Block::Small_Position blockPosition ((int8_t)pos.x, yPos, (int8_t)pos.z);
+
+        chunk->qSetBlock(blockPosition, block);
 
         if(m_flags.generated)
         {
-            m_chunkletsToUpdate.push_back(&*m_chunklets.at(chunklet));
+            //if(!chunk->getFlags().regening)
+                m_chunkletsToUpdate.push_back(chunk);
         }
+
     }
 
     CBlock Column::getBlock(const Block::Column_Position& pos) const
@@ -93,6 +96,19 @@ namespace Chunk
 
 
     const Chunklet* Column::getChunklet(int32_t index) const
+    {
+        if (index > m_chunkCount - 1)
+        {
+            return nullptr;
+        }
+        else if (index < 0)
+        {
+            return nullptr;
+        }
+        return m_chunklets.at(index).get();
+    }
+
+    Chunklet* Column::getChunkletnc(int32_t index)
     {
         if (index > m_chunkCount - 1)
         {

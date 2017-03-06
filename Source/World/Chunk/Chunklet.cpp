@@ -38,11 +38,15 @@ void Chunklet::bufferMesh()
 {
     m_mesh.buffer();
     m_flags.hasBuffered = true;
+    m_flags.regening = false;
 }
 
 
 void Chunklet::qSetBlock(const Block::Small_Position& pos, CBlock block)
 {
+    if(m_flags.hasMesh)
+        m_flags.regening = true;
+
     m_blocks.at(getBlockIndex(pos)) = block;
 }
 

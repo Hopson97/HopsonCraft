@@ -53,6 +53,7 @@ namespace Chunk
             void setDeleteFlag(bool deleteF);
 
         private:
+            Chunklet* getChunkletnc(int32_t index);
             void addChunklet();
 
             std::vector<Chunklet*> m_chunkletsToUpdate;
