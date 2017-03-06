@@ -31,7 +31,6 @@
 					<Add option="-O3" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-audio" />
@@ -77,6 +76,8 @@
 		<Unit filename="Source/Display.h" />
 		<Unit filename="Source/Entity.h" />
 		<Unit filename="Source/Glm_Common.h" />
+		<Unit filename="Source/HUD/Crosshair.cpp" />
+		<Unit filename="Source/HUD/Crosshair.h" />
 		<Unit filename="Source/HUD/Vignette.cpp" />
 		<Unit filename="Source/HUD/Vignette.h" />
 		<Unit filename="Source/Input/Function_Toggle_Key.cpp" />

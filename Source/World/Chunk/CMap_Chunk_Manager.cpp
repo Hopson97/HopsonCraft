@@ -26,19 +26,15 @@ namespace Chunk
     {
         while (m_isRunning)
         {
-
-            m_chunkUpdateMutex.lock();
             loadAndGenChunks();
-            m_chunkUpdateMutex.unlock();
 
             if (m_currentLoadDist < m_renderDistance - 1)
                 m_currentLoadDist++;
             else
                 m_currentLoadDist = 2;
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
-            m_chunkUpdateMutex.lock();
             flagChunks();
-            m_chunkUpdateMutex.unlock();
 
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }

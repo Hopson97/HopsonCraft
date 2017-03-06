@@ -72,25 +72,15 @@ namespace Chunk
     Column* Map::getChunk(const Chunk::Position& position)
     {
         if (m_chunks.find(position) == m_chunks.end())
-        {
             return nullptr;
-        }
-        else
-        {
-            return m_chunks.at(position).get();
-        }
+        return m_chunks.at(position).get();
     }
 
     const Column* Map::getChunk(const Chunk::Position& position) const
     {
         if (m_chunks.find(position) == m_chunks.end())
-        {
             return nullptr;
-        }
-        else
-        {
-            return m_chunks.at(position).get();
-        }
+        return m_chunks.at(position).get();
     }
 
     CBlock Map::getBlockAt(const Vector3& worldPosition)

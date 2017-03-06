@@ -9,6 +9,7 @@
 #include "../World/World.h"
 
 #include "../HUD/Vignette.h"
+#include "../HUD/Crosshair.h"
 
 #include "../Player.h"
 
@@ -29,6 +30,7 @@ namespace State
         private:
             World       m_world;
             Vignette    m_vignette;
+            Crosshair   m_crosshair;
 
             Player      m_player;
     };

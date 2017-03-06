@@ -46,7 +46,7 @@ namespace Chunk
 
             const Camera* m_p_camera;
 
-            int8_t m_renderDistance    = 13;
+            int8_t m_renderDistance    = 18;
             int8_t m_currentLoadDist   = 1;
 
             std::atomic<bool> m_isRunning;

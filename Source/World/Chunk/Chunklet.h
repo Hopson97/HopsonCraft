@@ -3,6 +3,7 @@
 
 #include <array>
 #include <atomic>
+#include <vector>
 
 #include "CPosition.h"
 #include "CBlock.h"
@@ -34,13 +35,11 @@ class Chunklet : private Entity
         :   hasFaces    (false)
         ,   hasMesh     (false)
         ,   hasBuffered (false)
-        ,   regening    (false){}
-
+        {}
 
         std::atomic<bool> hasFaces;
         std::atomic<bool> hasMesh;
         std::atomic<bool> hasBuffered;
-        std::atomic<bool> regening;
     };
 
     public:
@@ -50,7 +49,8 @@ class Chunklet : private Entity
         void createMesh();
         void bufferMesh();
 
-        void qSetBlock(const Block::Small_Position& pos, CBlock block);
+        void qSetBlock  (const Block::Small_Position& pos, CBlock block);
+        std::vector<Chunklet*> setBlock   (const Block::Small_Position& pos, CBlock block);
 
         CBlock getBlock (const Block::Small_Position& pos) const;
         CBlock qGetBlock(const Block::Small_Position& pos) const;
@@ -65,7 +65,7 @@ class Chunklet : private Entity
 
     private:
 
-        uint32_t getBlockIndex (const Block::Small_Position& pos) const;
+        int32_t getBlockIndex (const Block::Small_Position& pos) const;
 
         std::array<CBlock, World_Constants::CH_VOLUME> m_blocks;
 

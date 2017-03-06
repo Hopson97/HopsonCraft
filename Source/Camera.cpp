@@ -11,7 +11,7 @@
 void Camera::input()
 {
     Vector3 change;
-    float speed = 0.05;
+    float speed = 0.01;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
         speed = 0.2;
@@ -86,7 +86,7 @@ void Camera::mouseInput()
     auto centerX = Display::get().getSize().x / 2;
     auto centerY = Display::get().getSize().y / 2;
 
-    sf::Mouse::setPosition(sf::Vector2i{centerX, centerY}, Display::get());
+    sf::Mouse::setPosition({centerX, centerY}, Display::get());
 
     lastMousePosition = sf::Mouse::getPosition();
 }
@@ -95,7 +95,7 @@ void Camera::mouseInput()
 
 void Camera::update(float dt)
 {
-    m_velocity *= 0.9f;
+    m_velocity *= 0.95;
 }
 
 const Vector3& Camera::getVelocity() const

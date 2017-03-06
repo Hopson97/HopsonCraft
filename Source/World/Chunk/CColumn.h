@@ -47,7 +47,7 @@ namespace Chunk
             void    setBlock    (const Block::Column_Position& pos, CBlock block);
             CBlock  getBlock    (const Block::Column_Position& pos) const;
 
-            const Chunklet* getChunklet(int32_t index) const;
+            Chunklet* getChunklet(int32_t index);
 
             const CFlags& getFlags();
             void setDeleteFlag(bool deleteF);
@@ -58,7 +58,6 @@ namespace Chunk
 
             std::vector<Chunklet*> m_chunkletsToUpdate;
             std::vector<std::unique_ptr<Chunklet>> m_chunklets;
-            std::array<uint32_t, World_Constants::CH_AREA> m_heightMap;
 
             Position m_position;
             Map* m_p_chunkMap = nullptr;

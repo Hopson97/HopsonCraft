@@ -14,16 +14,22 @@ namespace Chunk
     :   m_position      (pos)
     ,   m_p_chunkMap    (&map)
     {
-        m_heightMap.fill(Random::intInRange(64, 64));
+        int h;
+        if (pos.x < 0 || pos.y < 0)
+        {
+            h = 1;
+        }
+        else
+        {
+            h = Random::intInRange(75, 90);
+        }
 
-        for (int32_t y = 0; y < 64 + 1; y++)
+        for (int32_t y = 0; y < h + 1; y++)
         {
             for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
             {
                 for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
                 {
-                    int h = m_heightMap.at(x + World_Constants::CH_SIZE + z);
-
                     if (y == h)
                     {
                         setBlock({x, y, z}, Block::ID::Grass);
@@ -68,20 +74,24 @@ namespace Chunk
 
         if(m_flags.generated)
         {
-            //if(!chunk->getFlags().regening)
-                m_chunkletsToUpdate.push_back(chunk);
+            std::vector<Chunklet*> chunklets = chunk->setBlock(blockPosition, block);
+            m_chunkletsToUpdate.insert(m_chunkletsToUpdate.end(), chunklets.begin(), chunklets.end());
+        }
+        else
+        {
+            chunk->qSetBlock(blockPosition, block);
         }
 
     }
 
     CBlock Column::getBlock(const Block::Column_Position& pos) const
     {
-        int32_t chunklet = std::ceil(pos.y / World_Constants::CH_SIZE);
         if(pos.y < 0)
         {
             return Block::ID::Air;
         }
-        int8_t yPos = pos.y - World_Constants::CH_SIZE * chunklet;
+        auto chunklet = std::ceil(pos.y / World_Constants::CH_SIZE);
+        auto yPos = pos.y - World_Constants::CH_SIZE * chunklet;
 
         if (chunklet < m_chunkCount && chunklet >= 0)
         {
@@ -95,7 +105,7 @@ namespace Chunk
     }
 
 
-    const Chunklet* Column::getChunklet(int32_t index) const
+    Chunklet* Column::getChunklet(int32_t index)
     {
         if (index > m_chunkCount - 1)
         {

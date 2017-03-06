@@ -18,7 +18,7 @@ void Block_Editor::input(Player& player)
                  player.rotation.x,
                  player.position);
 
-    for (uint32_t i = 0; i < 6 / 0.1; i++)
+    for (uint32_t i = 0; i < 4 / 0.1; i++)
     {
         raycast.step(0.1);
 
@@ -38,7 +38,7 @@ bool Block_Editor::isHitBlock(const Ray& ray) const
 
 bool Block_Editor::editBlock(const Ray& ray)
 {
-    if(m_editorTimer.getElapsedTime().asSeconds() > 0.5 &&
+    if(m_editorTimer.getElapsedTime().asSeconds() > 0.1 &&
         sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         m_editorTimer.restart();

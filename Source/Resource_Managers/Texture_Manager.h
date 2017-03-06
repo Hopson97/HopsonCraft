@@ -8,7 +8,8 @@
 
 enum class Texture_ID
 {
-    Vignette
+    Vignette,
+    Crosshair1
 };
 
 class Texture_Manager : public Resource_Manager<sf::Texture, Texture_ID>

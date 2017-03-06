@@ -32,7 +32,7 @@ namespace
     }
 }
 
-int main() try
+int main() //try
 {
     initilize();
     loadConfig();
@@ -42,10 +42,11 @@ int main() try
 
     return 0;
 }
+/*
 catch(std::exception& e)
 {
     std::cout << e.what() << std::endl;
     std::cin.ignore();
 }
-
+*/
 

@@ -37,5 +37,6 @@ namespace State
     {
         m_world     .draw(renderer);
         m_vignette  .draw(renderer);
+        m_crosshair .draw(renderer);
     }
 }

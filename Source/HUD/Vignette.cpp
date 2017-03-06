@@ -6,8 +6,8 @@
 
 Vignette::Vignette()
 {
-    m_sprite.setSize({Display::get().getSize().x,
-                      Display::get().getSize().y});
+    m_sprite.setSize({(float)Display::get().getSize().x,
+                      (float)Display::get().getSize().y});
     m_sprite.setTexture(&getResources().getTexture(Texture_ID::Vignette));
 }
 
