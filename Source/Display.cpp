@@ -15,13 +15,13 @@ namespace Display
         settings.majorVersion = 3;
         settings.minorVersion = 3; //OpenGL 3.3
 
-        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(WIDTH, HEIGHT),
+        window = std::make_unique<sf::RenderWindow>(sf::VideoMode::getDesktopMode(),
                                                     "Window",
                                                     sf::Style::Close,
                                                     settings);
 
         glewInit();
-        glViewport(0, 0, WIDTH, HEIGHT);
+        glViewport(0, 0, get().getSize().x, get().getSize().y);
 
         glEnable(GL_DEPTH_TEST);
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

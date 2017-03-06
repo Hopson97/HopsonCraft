@@ -34,7 +34,7 @@ namespace Chunk
     :   m_p_camera  (&camera)
     ,   m_isRunning (true)
     {
-        for(int i = 0; i < 4 ; i++)
+        for(int i = 0; i < 1 ; i++)
         {
             m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]() { manageChunks(); }));
         }

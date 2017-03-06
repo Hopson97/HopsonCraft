@@ -83,8 +83,8 @@ void Camera::mouseInput()
         rotation.y = 0;
     }
 
-    auto centerX = Display::WIDTH   / 2;
-    auto centerY = Display::HEIGHT  / 2;
+    auto centerX = Display::get().getSize().x / 2;
+    auto centerY = Display::get().getSize().y / 2;
 
     sf::Mouse::setPosition(sf::Vector2i{centerX, centerY}, Display::get());
 

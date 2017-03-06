@@ -3,6 +3,8 @@
 #include <iostream>
 #include <chrono>
 #include <SFML/System/Clock.hpp>
+#include <SFML/Graphics.hpp>
+#include "Resource_Managers/Resource_Holder.h"
 
 #include "Display.h"
 
@@ -10,7 +12,8 @@
 
 namespace
 {
-    void checkFps ()
+    sf::Text text;
+    void checkFps (Renderer::Master& master)
     {
         static sf::Clock timer;
         static sf::Clock printTimer;
@@ -20,10 +23,8 @@ namespace
 
         if (printTimer.getElapsedTime().asSeconds() >= 1.0f)
         {
-            auto fps = (float)numFrames / timer.getElapsedTime().asSeconds();
+            text.setString(std::to_string(numFrames / timer.getElapsedTime().asSeconds()));
             printTimer.restart();
-            std::cout << fps << std::endl;
-
             numFrames = 0;
             timer.restart();
         }
@@ -33,6 +34,11 @@ namespace
 
 Application::Application()
 {
+    text.setFont(getResources().getFont(Font_ID::RS));
+    text.setOutlineThickness(1);
+    text.setOutlineThickness(2);
+    text.setCharacterSize(25);
+    text.setString("Hello world");
     pushState(std::make_unique<State::Playing>(*this));
 }
 
@@ -42,21 +48,20 @@ void Application::runMainGameLoop()
 
     while (Display::isOpen())
     {
-        checkFps ();
-        m_states.top()->input   (m_camera);
-        /*
-        while(std::chrono::duration<double>
-             (std::chrono::system_clock::now() - begin).count() <
-              frameCount * 0.010)*/
-        {
-            auto dt = clock.restart().asSeconds();
-            m_states.top()->update  (m_camera, dt);
-        }
         m_renderer.clear();
-        m_states.top()->draw    (m_renderer);
 
+        m_states.top()->input   (m_camera);
+
+        auto dt = clock.restart().asSeconds();
+        m_states.top()->update  (m_camera, dt);
+
+        m_states.top()->draw    (m_renderer);
+        m_renderer.draw(text);
         m_renderer.update(m_camera);
+
         Display::checkForClose();
+
+        checkFps (m_renderer);
     }
 }
 
