@@ -1,10 +1,15 @@
 #ifndef RANDOM_H_INCLUDED
 #define RANDOM_H_INCLUDED
 
+#include <random>
+
 namespace Random
 {
-    void init();
-    int intInRange(int lowBound, int highBound);
+	int integer		( int low, int high );
+
+	double decimalD ( double low, double high, int precision = 1 );
+
+	void setSeed (int seed);
 }
 
-#endif // RANDOM_H_INCLUDED
+#endif

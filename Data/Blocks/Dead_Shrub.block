@@ -1,0 +1,30 @@
+id
+16
+
+txrtop
+17 0
+
+txrside
+17 0
+
+txrbottom
+17 0
+
+opaque
+0
+
+blastres
+1
+
+physstate
+3
+
+meshtype
+1
+
+placeon
+4
+end
+
+lightch
+0

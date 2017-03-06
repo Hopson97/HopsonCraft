@@ -1,149 +1,105 @@
 #include "Camera.h"
 
-#include <cmath>
-
-#include <SFML/Window/Keyboard.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <iostream>
 
-#include "Display.h"
+#include "Util/Display.h"
+#include "Util/Singleton.h"
+#include "Util/Config.h"
+#include "Input/Function_Toggle_Key.h"
 #include "Input/Key_Binds.h"
+#include "Maths/General_Maths.h"
 
-void Camera::input()
+namespace
 {
+    bool locked = false;
+    static Function_Toggle_Key lock([&]()
+    {
+        locked = !locked;
+    },
+    sf::Keyboard::L,
+    sf::seconds(1.5));
+}
+
+Vector3 Camera::keyboardInput(float speed)
+{
+    if (locked)
+        return {0, 0, 0};
+    //Speed variables
+
     Vector3 change;
-    float speed = 0.01;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+    auto acc = sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ?
+        speed * 10.0 :
+        speed;
+
+    auto yaw = glm::radians(rotation.y);
+    auto const& config = Singleton<Config>::get();
+
+    if  (sf::Keyboard::isKeyPressed(config.getKey(Key_Binds::Control::Player_Forwards)))
     {
-        speed = 0.2;
+        change.x -= cos (yaw + Maths::PI / 2) * acc;
+        change.z -= sin (yaw + Maths::PI / 2) * acc;
+    }
+    if  (sf::Keyboard::isKeyPressed(config.getKey(Key_Binds::Control::Player_Back)))
+    {
+        change.x += cos (yaw + Maths::PI / 2) * acc;
+        change.z += sin (yaw + Maths::PI / 2) * acc;
+    }
+    if  (sf::Keyboard::isKeyPressed(config.getKey(Key_Binds::Control::Player_Right)))
+    {
+        change.x += cos (yaw) * acc;
+        change.z += sin (yaw) * acc;
+    }
+    if  (sf::Keyboard::isKeyPressed(config.getKey(Key_Binds::Control::Player_Left)))
+    {
+        change.x -= cos (yaw) * acc;
+        change.z -= sin (yaw) * acc;
     }
 
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
     {
-        change.x -= cos(glm::radians(rotation.y + 90)) * speed;
-        change.z -= sin(glm::radians(rotation.y + 90)) * speed;
+        change.y -= acc;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        change.y += acc;
     }
 
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Back)))
-    {
-        change.x += cos(glm::radians(rotation.y + 90)) * speed;
-        change.z += sin(glm::radians(rotation.y + 90)) * speed;
-    }
-
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Left)))
-    {
-        change.x += -cos(glm::radians(rotation.y)) * speed;
-        change.z += -sin(glm::radians(rotation.y)) * speed;
-    }
-
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Right)))
-    {
-        change.x += cos(glm::radians(rotation.y)) * speed;
-        change.z += sin(glm::radians(rotation.y)) * speed;
-    }
-
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Up)))
-    {
-        change.y += speed;
-    }
-
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Down)))
-    {
-        change.y -= speed;
-    }
-
-    m_velocity += change;
-
-    mouseInput();
+    return change;
 }
 
 
 void Camera::mouseInput()
 {
-    static sf::Vector2i lastMousePosition = sf::Mouse::getPosition();
+    lock.checkInput();
+    if (locked)
+        return;
 
-    auto mouseChange = sf::Mouse::getPosition() - lastMousePosition;
+    static sf::Vector2i lastMousePos;
+    auto mouseMove = lastMousePos - sf::Mouse::getPosition();
 
-    rotation.y += mouseChange.x;
-    rotation.x += mouseChange.y;
+    rotation.y -= (float)mouseMove.x / 1.5f;// / 0.9;
+    rotation.x -= (float)mouseMove.y / 1.5f;// / 0.9;
 
-    if (rotation.x > 80)
-    {
+    if (rotation.x > 80 )
         rotation.x = 80;
-    }
     else if (rotation.x < -80)
-    {
         rotation.x = -80;
-    }
-    if (rotation.y < 0)
-    {
+
+    if (rotation.y < 0 )
         rotation.y = 360;
-    }
     else if (rotation.y > 360)
-    {
         rotation.y = 0;
-    }
 
-    auto centerX = Display::get().getSize().x / 2;
-    auto centerY = Display::get().getSize().y / 2;
+    auto windowSize = Display::get().getSize();
+    sf::Mouse::setPosition(sf::Vector2i(windowSize.x / 2, windowSize.y / 2), Display::get());
 
-    sf::Mouse::setPosition({centerX, centerY}, Display::get());
-
-    lastMousePosition = sf::Mouse::getPosition();
+    lastMousePos = sf::Mouse::getPosition();
 }
 
-
-
-void Camera::update(float dt)
+void Camera::movePosition(const Vector3& amount)
 {
-    m_velocity *= 0.95;
+    position += amount;
 }
-
-const Vector3& Camera::getVelocity() const
-{
-    return m_velocity;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

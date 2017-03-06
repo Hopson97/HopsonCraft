@@ -2,11 +2,12 @@
 #define SHADER_LOADER_H_INCLUDED
 
 #include <GL/glew.h>
+
 #include <string>
 
 namespace Shader
 {
-    GLuint loadShader (const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
-}
+    GLuint load (const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
+} //Namespace Shader
 
 #endif // SHADER_LOADER_H_INCLUDED

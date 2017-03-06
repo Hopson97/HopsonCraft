@@ -1,84 +1,88 @@
 #include "Shader_Loader.h"
 
 #include <fstream>
+#include <vector>
 #include <sstream>
 #include <stdexcept>
 
 namespace Shader
 {
-    GLuint compileShader(const GLchar* source, GLenum type)
+    void checkErrors(GLuint shaderId, GLenum statusType, const std::string& errorType)
     {
-        auto id = glCreateShader(type);
-
-        glShaderSource(id, 1, &source, nullptr);
-        glCompileShader(id);
+        auto bufferSize = 512;
 
         GLint isSuccess;
-        GLchar infoLog[512];
+        GLchar infoLog[bufferSize];
 
-        glGetShaderiv(id, GL_COMPILE_STATUS, &isSuccess);
-
-        if(!isSuccess)
+        glGetShaderiv (shaderId, statusType, &isSuccess);
+        if (!isSuccess)
         {
-            glGetShaderInfoLog(id, 512, nullptr, infoLog);
-            throw std::runtime_error ("Error compiling shader: " + std::string(infoLog));
+            glGetShaderInfoLog (shaderId, bufferSize, nullptr, infoLog);
+            throw std::runtime_error ("Shader loading error.\nType: " + errorType + "\nWhat: " + infoLog);
         }
-
-        return id;
     }
 
-    std::string getSource(const std::string& sourceFile)
+    std::string getSource (const std::string& shaderFile)
     {
-        std::ifstream inFile ("Data/Shaders/" + sourceFile + ".glsl");
-        std::string source;
-        std::stringstream stringStream;
-
-        if (!inFile.is_open())
+        std::ifstream shaderSourceFile ("Shaders/" + shaderFile + ".glsl");
+        if (!shaderSourceFile.is_open())
         {
-            throw std::runtime_error ("Could not open file: " + sourceFile);
+            throw std::runtime_error ("Unable to open the shader file: " + shaderFile + ".glsl");
         }
+        shaderSourceFile.exceptions(std::ifstream::badbit);
 
-        stringStream << inFile.rdbuf();
-        source = stringStream.str();
+        std::string source;
+        std::stringstream stream;
+
+        try
+        {
+            stream << shaderSourceFile.rdbuf();
+            source = stream.str();
+        }
+        catch ( std::ifstream::failure& e)
+        {
+            throw std::runtime_error ("Unable to read the shader file: " + shaderFile + ".glsl");
+        }
 
         return source;
     }
 
-    GLuint createProgram(GLuint vertexShaderID, GLuint fragmentShaderID)
+    GLuint compileShader (const char* source, GLenum type)
     {
-        auto id = glCreateProgram();
+        auto shaderId = glCreateShader(type);
 
-        glAttachShader(id, vertexShaderID);
-        glAttachShader(id, fragmentShaderID);
+        glShaderSource  (shaderId, 1, &source, nullptr);
+        glCompileShader (shaderId);
 
-        glLinkProgram(id);
+        checkErrors(shaderId, GL_COMPILE_STATUS, "Error compiling shader!");
 
-        return id;
+        return shaderId;
     }
 
-    GLuint loadShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
+    GLuint createProgram(GLuint vertexShaderId, GLuint fragmentShaderId)
     {
-        auto vertexSource   = getSource(vertexShaderFile);
-        auto fragmentSource = getSource(fragmentShaderFile);
+        auto shaderProgrsm = glCreateProgram();
 
-        auto vertexShaderID     = compileShader(vertexSource.c_str(), GL_VERTEX_SHADER);
-        auto fragmentShaderID   = compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
+        glAttachShader (shaderProgrsm, vertexShaderId);
+        glAttachShader (shaderProgrsm, fragmentShaderId);
+        glLinkProgram  (shaderProgrsm);
 
-        auto programID = createProgram(vertexShaderID, fragmentShaderID);
-
-        glDeleteShader(vertexShaderID);
-        glDeleteShader(fragmentShaderID);
-
-        return programID;
+        return shaderProgrsm;
     }
-}
 
+    GLuint load (const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
+    {
+        auto vertexSource    = getSource (vertexShaderFile);
+        auto fragmentSource  = getSource (fragmentShaderFile);
 
+        auto vertexId   = compileShader(vertexSource.c_str(),   GL_VERTEX_SHADER);
+        auto fragmentId = compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
 
+        auto shaderProgramId = createProgram(vertexId, fragmentId);
 
+        glDeleteShader(vertexId);
+        glDeleteShader(fragmentId);
 
-
-
-
-
-
+        return shaderProgramId;
+    }
+} //Namespace Shader

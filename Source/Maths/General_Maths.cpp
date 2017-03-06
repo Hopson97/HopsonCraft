@@ -1,23 +1,23 @@
 #include "General_Maths.h"
 
-#include "../World/World_Constants.h"
-
 #include <cmath>
 
 namespace Maths
 {
-    Chunk::Position worldToChunkPos(const Vector3& position)
+    double getDistance (const Vector3& p1, const Vector3& p2)
     {
-        return  {(int32_t)std::floor(position.x / World_Constants::CH_SIZE),
-                 (int32_t)std::floor(position.z / World_Constants::CH_SIZE)};
+        double dx = p1.x - p2.x;
+        double dy = p1.y - p2.y;
+        double dz = p1.z - p2.z;
+
+        return getLength({dx, dy, dz});
     }
 
-    Block::Column_Position worldToBlockPos(const Vector3& position)
+    double getLength (const Vector3& vect)
     {
-        int32_t x = (int32_t) position.x % World_Constants::CH_SIZE;
-        int32_t z = (int32_t) position.z % World_Constants::CH_SIZE;
-
-        return  {x, (int32_t)position.y, z};
+        return std::abs (std::sqrt
+                        (vect.x * vect.x +
+                         vect.y * vect.y +
+                         vect.z * vect.z));
     }
-
-}
+}//namespace maths

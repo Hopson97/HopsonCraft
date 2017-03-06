@@ -1,17 +1,24 @@
-Name
-Air
-
-ID
+id
 0
 
-Opaque
+txrtop
+0 0
+txrside
+0 0
+txrbottom
+0 0
+
+opaque
 0
 
-TextureTop
-0 0
+blastres
+2147483600
 
-TextureSide
-0 0
+physstate
+2
 
-TextureBottom
-0 0
+meshtype
+0
+
+lightch
+0

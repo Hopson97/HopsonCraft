@@ -2,18 +2,14 @@
 #define CAMERA_H_INCLUDED
 
 #include "Entity.h"
+#include "OpenGL/GL_Maths.h"
 
 class Camera : public Entity
 {
     public:
-        void input  ();
-        void update (float dt);
-
-        const Vector3& getVelocity() const;
-
-    private:
-        void mouseInput();
-        Vector3 m_velocity;
+        Vector3 keyboardInput   (float speed);
+        void mouseInput         ();
+        void movePosition       (const Vector3& amount);
 
 };
 

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MattCraft" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/MattCraft" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-audio-d" />
+					<Add library="sfml-network-d" />
+					<Add library="sfml-system-d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/MattCraft" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=corei7" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-network" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-pedantic" />
+			<Add option="-w" />
+			<Add option="-Wextra" />
+			<Add option="-std=c++14" />
+			<Add option="-DGLEW_STATIC" />
+			<Add directory="D:/_Programming Libraries/C++/SFML-2.4.1/include" />
+		</Compiler>
+		<Linker>
+			<Add library="glew32s" />
+			<Add library="glu32" />
+			<Add library="opengl32" />
+			<Add directory="D:/_Programming Libraries/C++/SFML-2.4.1/lib" />
+			<Add directory="D:/_Programming Libraries/C++/glew-2.0.0/lib/Release/Win32" />
+		</Linker>
+		<Unit filename="Data/Blocks/Air.block" />
+		<Unit filename="Data/Blocks/Bedrock.block" />
+		<Unit filename="Data/Blocks/Cactus.block" />
+		<Unit filename="Data/Blocks/Cobblestone.block" />
+		<Unit filename="Data/Blocks/Dead_Shrub.block" />
+		<Unit filename="Data/Blocks/Dirt.block" />
+		<Unit filename="Data/Blocks/Glass.block" />
+		<Unit filename="Data/Blocks/Glow_Stone.block" />
+		<Unit filename="Data/Blocks/Grass.block" />
+		<Unit filename="Data/Blocks/Oak_Leaf.block" />
+		<Unit filename="Data/Blocks/Oak_Plank.block" />
+		<Unit filename="Data/Blocks/Oak_Sapling.block" />
+		<Unit filename="Data/Blocks/Oak_Wood.block" />
+		<Unit filename="Data/Blocks/Rose.block" />
+		<Unit filename="Data/Blocks/Sand.block" />
+		<Unit filename="Data/Blocks/Snow.block" />
+		<Unit filename="Data/Blocks/Stone.block" />
+		<Unit filename="Data/Blocks/Stone_Bricks.block" />
+		<Unit filename="Data/Blocks/TNT.block" />
+		<Unit filename="Data/Blocks/Tall_Grass.block" />
+		<Unit filename="Data/Blocks/Water.block" />
+		<Unit filename="Data/Music/C418-Sweden(Caution and Crisis Remix).ogg" />
+		<Unit filename="Data/Music/C418-Ward.ogg" />
+		<Unit filename="Data/Music/euk.ogg" />
+		<Unit filename="Data/Music/gm.ogg" />
+		<Unit filename="Data/Music/rue.ogg" />
+		<Unit filename="Data/Music/tbatw.ogg" />
+		<Unit filename="Data/Music/uouat.ogg" />
+		<Unit filename="Data/Settings.txt" />
+		<Unit filename="Shaders/Blue_Fragment.glsl" />
+		<Unit filename="Shaders/Blue_Vertex.glsl" />
+		<Unit filename="Shaders/Blur_Fragment.glsl" />
+		<Unit filename="Shaders/Blur_Vertex.glsl" />
+		<Unit filename="Shaders/Chunk_Shaders/Flora_Fragment.glsl" />
+		<Unit filename="Shaders/Chunk_Shaders/Flora_Vertex.glsl" />
+		<Unit filename="Shaders/Chunk_Shaders/Ground_Fragment.glsl" />
+		<Unit filename="Shaders/Chunk_Shaders/Ground_Vertex.glsl" />
+		<Unit filename="Shaders/Chunk_Shaders/Water_Fragment.glsl" />
+		<Unit filename="Shaders/Chunk_Shaders/Water_Vertex.glsl" />
+		<Unit filename="Shaders/Simple_Fragment.glsl" />
+		<Unit filename="Shaders/Simple_Vertex.glsl" />
+		<Unit filename="Shaders/Sky_Box_Fragment.glsl" />
+		<Unit filename="Shaders/Sky_Box_Vertex.glsl" />
+		<Unit filename="Source/AABB.cpp" />
+		<Unit filename="Source/AABB.h" />
+		<Unit filename="Source/Application.cpp" />
+		<Unit filename="Source/Application.h" />
+		<Unit filename="Source/Camera.cpp" />
+		<Unit filename="Source/Camera.h" />
+		<Unit filename="Source/Crosshair.cpp" />
+		<Unit filename="Source/Crosshair.h" />
+		<Unit filename="Source/Entity.cpp" />
+		<Unit filename="Source/Entity.h" />
+		<Unit filename="Source/Game_States/Game_State.cpp" />
+		<Unit filename="Source/Game_States/Game_State.h" />
+		<Unit filename="Source/Game_States/Menu_State.cpp" />
+		<Unit filename="Source/Game_States/Menu_State.h" />
+		<Unit filename="Source/Game_States/Playing_State.cpp" />
+		<Unit filename="Source/Game_States/Playing_State.h" />
+		<Unit filename="Source/Input/Function_Toggle_Key.cpp" />
+		<Unit filename="Source/Input/Function_Toggle_Key.h" />
+		<Unit filename="Source/Input/Key_Binds.cpp" />
+		<Unit filename="Source/Input/Key_Binds.h" />
+		<Unit filename="Source/Inventory/Inventory.h" />
+		<Unit filename="Source/Item/Item.h" />
+		<Unit filename="Source/Main.cpp" />
+		<Unit filename="Source/Maths/General_Maths.cpp" />
+		<Unit filename="Source/Maths/General_Maths.h" />
+		<Unit filename="Source/Maths/Matrix_Maths.cpp" />
+		<Unit filename="Source/Maths/Matrix_Maths.h" />
+		<Unit filename="Source/Maths/Position_Converter_Maths.cpp" />
+		<Unit filename="Source/Maths/Position_Converter_Maths.h" />
+		<Unit filename="Source/Maths/Ray.cpp" />
+		<Unit filename="Source/Maths/Ray.h" />
+		<Unit filename="Source/Maths/Viewing_Frustum.cpp" />
+		<Unit filename="Source/Maths/Viewing_Frustum.h" />
+		<Unit filename="Source/Mob/Mob_Base.cpp" />
+		<Unit filename="Source/Mob/Mob_Base.h" />
+		<Unit filename="Source/Mob/Player.cpp" />
+		<Unit filename="Source/Mob/Player.h" />
+		<Unit filename="Source/Model/Model.cpp" />
+		<Unit filename="Source/Model/Model.h" />
+		<Unit filename="Source/OpenGL/GL_Maths.h" />
+		<Unit filename="Source/Play_Settings.cpp" />
+		<Unit filename="Source/Play_Settings.h" />
+		<Unit filename="Source/PostFX/Framebuffer_Object.cpp" />
+		<Unit filename="Source/PostFX/Framebuffer_Object.h" />
+		<Unit filename="Source/Renderer/Chunk_Renderer.h" />
+		<Unit filename="Source/Renderer/Flora_Renderer.cpp" />
+		<Unit filename="Source/Renderer/Flora_Renderer.h" />
+		<Unit filename="Source/Renderer/Master_Renderer.cpp" />
+		<Unit filename="Source/Renderer/Master_Renderer.h" />
+		<Unit filename="Source/Renderer/SFML_Renderer.cpp" />
+		<Unit filename="Source/Renderer/SFML_Renderer.h" />
+		<Unit filename="Source/Renderer/Skybox_Renderer.cpp" />
+		<Unit filename="Source/Renderer/Skybox_Renderer.h" />
+		<Unit filename="Source/Renderer/Solid_Block_Renderer.cpp" />
+		<Unit filename="Source/Renderer/Solid_Block_Renderer.h" />
+		<Unit filename="Source/Renderer/Water_Renderer.cpp" />
+		<Unit filename="Source/Renderer/Water_Renderer.h" />
+		<Unit filename="Source/Shaders/Chunk_Shader.cpp" />
+		<Unit filename="Source/Shaders/Chunk_Shader.h" />
+		<Unit filename="Source/Shaders/Flora_Shader.cpp" />
+		<Unit filename="Source/Shaders/Flora_Shader.h" />
+		<Unit filename="Source/Shaders/Screen_Shader.cpp" />
+		<Unit filename="Source/Shaders/Screen_Shader.h" />
+		<Unit filename="Source/Shaders/Shader.cpp" />
+		<Unit filename="Source/Shaders/Shader.h" />
+		<Unit filename="Source/Shaders/Shader_Loader.cpp" />
+		<Unit filename="Source/Shaders/Shader_Loader.h" />
+		<Unit filename="Source/Shaders/Skybox_Shader.cpp" />
+		<Unit filename="Source/Shaders/Skybox_Shader.h" />
+		<Unit filename="Source/Shaders/Solid_Block_Shader.cpp" />
+		<Unit filename="Source/Shaders/Solid_Block_Shader.h" />
+		<Unit filename="Source/Shaders/Water_Shader.cpp" />
+		<Unit filename="Source/Shaders/Water_Shader.h" />
+		<Unit filename="Source/Sky_Box.h" />
+		<Unit filename="Source/Texture/Cube_Texture.cpp" />
+		<Unit filename="Source/Texture/Cube_Texture.h" />
+		<Unit filename="Source/Texture/Texture.cpp" />
+		<Unit filename="Source/Texture/Texture.h" />
+		<Unit filename="Source/Texture/Texture_Atlas.cpp" />
+		<Unit filename="Source/Texture/Texture_Atlas.h" />
+		<Unit filename="Source/Util/Config.cpp" />
+		<Unit filename="Source/Util/Config.h" />
+		<Unit filename="Source/Util/ConfigParser.cpp" />
+		<Unit filename="Source/Util/ConfigParser.h" />
+		<Unit filename="Source/Util/Debug_Display.cpp" />
+		<Unit filename="Source/Util/Debug_Display.h" />
+		<Unit filename="Source/Util/Directory_Creator.cpp" />
+		<Unit filename="Source/Util/Directory_Creator.h" />
+		<Unit filename="Source/Util/Display.cpp" />
+		<Unit filename="Source/Util/Display.h" />
+		<Unit filename="Source/Util/Hasher.cpp" />
+		<Unit filename="Source/Util/Hasher.h" />
+		<Unit filename="Source/Util/Noise_Generator.cpp" />
+		<Unit filename="Source/Util/Noise_Generator.h" />
+		<Unit filename="Source/Util/Random.cpp" />
+		<Unit filename="Source/Util/Random.h" />
+		<Unit filename="Source/Util/Singleton.h" />
+		<Unit filename="Source/Util/Time.cpp" />
+		<Unit filename="Source/Util/Time.h" />
+		<Unit filename="Source/Util/noise_generator.h" />
+		<Unit filename="Source/World/Block/Block_Data.cpp" />
+		<Unit filename="Source/World/Block/Block_Data.h" />
+		<Unit filename="Source/World/Block/Block_Enums.h" />
+		<Unit filename="Source/World/Block/Block_Location.cpp" />
+		<Unit filename="Source/World/Block/Block_Location.h" />
+		<Unit filename="Source/World/Block/Block_Type/Air.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Air.h" />
+		<Unit filename="Source/World/Block/Block_Type/Bedrock.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Bedrock.h" />
+		<Unit filename="Source/World/Block/Block_Type/Block_Type.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Block_Type.h" />
+		<Unit filename="Source/World/Block/Block_Type/Block_Types.h" />
+		<Unit filename="Source/World/Block/Block_Type/Cactus.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Cactus.h" />
+		<Unit filename="Source/World/Block/Block_Type/Cobblestone.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Cobblestone.h" />
+		<Unit filename="Source/World/Block/Block_Type/Dead_Shrub.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Dead_Shrub.h" />
+		<Unit filename="Source/World/Block/Block_Type/Dirt.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Dirt.h" />
+		<Unit filename="Source/World/Block/Block_Type/Glass.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Glass.h" />
+		<Unit filename="Source/World/Block/Block_Type/Glow_Stone.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Glow_Stone.h" />
+		<Unit filename="Source/World/Block/Block_Type/Grass.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Grass.h" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Leaf.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Leaf.h" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Plank.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Plank.h" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Sapling.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Sapling.h" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Wood.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Oak_Wood.h" />
+		<Unit filename="Source/World/Block/Block_Type/Rose.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Rose.h" />
+		<Unit filename="Source/World/Block/Block_Type/Sand.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Sand.h" />
+		<Unit filename="Source/World/Block/Block_Type/Snow.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Snow.h" />
+		<Unit filename="Source/World/Block/Block_Type/Stone.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Stone.h" />
+		<Unit filename="Source/World/Block/Block_Type/Stone_Brick.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Stone_Brick.h" />
+		<Unit filename="Source/World/Block/Block_Type/TNT.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/TNT.h" />
+		<Unit filename="Source/World/Block/Block_Type/Tall_Grass.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Tall_Grass.h" />
+		<Unit filename="Source/World/Block/Block_Type/Water.cpp" />
+		<Unit filename="Source/World/Block/Block_Type/Water.h" />
+		<Unit filename="Source/World/Block/D_Blocks.cpp" />
+		<Unit filename="Source/World/Block/D_Blocks.h" />
+		<Unit filename="Source/World/Block/Updateable/U_Cactus.cpp" />
+		<Unit filename="Source/World/Block/Updateable/U_Cactus.h" />
+		<Unit filename="Source/World/Block/Updateable/U_Oak_Sapling.cpp" />
+		<Unit filename="Source/World/Block/Updateable/U_Oak_Sapling.h" />
+		<Unit filename="Source/World/Block/Updateable/Updatable_Block.cpp" />
+		<Unit filename="Source/World/Block/Updateable/Updatable_Block.h" />
+		<Unit filename="Source/World/Chunk/Chunk.cpp" />
+		<Unit filename="Source/World/Chunk/Chunk.h" />
+		<Unit filename="Source/World/Chunk/Chunk_Blocks.cpp" />
+		<Unit filename="Source/World/Chunk/Chunk_Blocks.h" />
+		<Unit filename="Source/World/Chunk/Chunk_Layer.cpp" />
+		<Unit filename="Source/World/Chunk/Chunk_Layer.h" />
+		<Unit filename="Source/World/Chunk/Chunk_Location.cpp" />
+		<Unit filename="Source/World/Chunk/Chunk_Location.h" />
+		<Unit filename="Source/World/Chunk/Chunk_Map.cpp" />
+		<Unit filename="Source/World/Chunk/Chunk_Map.h" />
+		<Unit filename="Source/World/Chunk/Chunk_Mesh.cpp" />
+		<Unit filename="Source/World/Chunk/Chunk_Mesh.h" />
+		<Unit filename="Source/World/Gen/Biome.cpp" />
+		<Unit filename="Source/World/Gen/Biome.h" />
+		<Unit filename="Source/World/Gen/Structure.cpp" />
+		<Unit filename="Source/World/Gen/Structure.h" />
+		<Unit filename="Source/World/Gen/World_Generator.cpp" />
+		<Unit filename="Source/World/Gen/World_Generator.h" />
+		<Unit filename="Source/World/World.cpp" />
+		<Unit filename="Source/World/World.h" />
+		<Unit filename="Source/World/World_Constants.h" />
+		<Unit filename="Worlds/Terrain_/World_Info.data" />
+		<Unit filename="libgcc_s_sjlj-1.dll" />
+		<Unit filename="libstdc++-6.dll" />
+		<Unit filename="openal32.dll" />
+		<Unit filename="sfml-audio-2.dll" />
+		<Unit filename="sfml-audio-d-2.dll" />
+		<Unit filename="sfml-graphics-2.dll" />
+		<Unit filename="sfml-graphics-d-2.dll" />
+		<Unit filename="sfml-network-2.dll" />
+		<Unit filename="sfml-network-d-2.dll" />
+		<Unit filename="sfml-system-2.dll" />
+		<Unit filename="sfml-system-d-2.dll" />
+		<Unit filename="sfml-window-2.dll" />
+		<Unit filename="sfml-window-d-2.dll" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

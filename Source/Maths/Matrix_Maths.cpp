@@ -1,43 +1,58 @@
 #include "Matrix_Maths.h"
 
 #include "../Entity.h"
-#include "../Display.h"
+#include "../Util/Display.h"
+#include "../Play_Settings.h"
 
+#include "../Entity.h"
 #include "../Camera.h"
 
 namespace Maths
 {
-    Matrix4 createViewMatrix(const Camera& camera)
+    Matrix4 createViewMatrix (const Camera& camera)
     {
-        Matrix4 matrix;
+        Matrix4  viewMatrix;
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.x), {1, 0, 0});
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.y), {0, 1, 0});
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.z), {0, 0, 1});
 
-        matrix = glm::rotate(matrix, glm::radians(camera.rotation.x), {1, 0, 0});
-        matrix = glm::rotate(matrix, glm::radians(camera.rotation.y), {0, 1, 0});
-        matrix = glm::rotate(matrix, glm::radians(camera.rotation.z), {0, 0, 1});
+        return glm::translate(viewMatrix, -camera.position);
+    }
 
-        matrix = glm::translate(matrix, -camera.position);
+    Matrix4 createViewRotationMatrix(const Camera& camera)
+    {
+        Matrix4  viewMatrix;
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.x), {1, 0, 0});
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.rotation.y), {0, 1, 0});
+        return       glm::rotate(viewMatrix, glm::radians(camera.rotation.z), {0, 0, 1});
+    }
 
-        return matrix;
+    Matrix4 createViewTranslationMatrix(const Camera& camera)
+    {
+        Matrix4  viewMatrix;
+        return glm::translate(Matrix4(), -camera.position);
     }
 
     Matrix4 createModelMatrix(const Entity& entity)
     {
-        Matrix4 matrix;
+        Matrix4 transform;
 
-        matrix = glm::translate(matrix, entity.position);
 
-        matrix = glm::rotate(matrix, glm::radians(entity.rotation.x), {1, 0, 0});
-        matrix = glm::rotate(matrix, glm::radians(entity.rotation.y), {0, 1, 0});
-        matrix = glm::rotate(matrix, glm::radians(entity.rotation.z), {0, 0, 1});
 
-        return matrix;
+        transform = glm::rotate(transform, glm::radians(entity.rotation.x), {1, 0, 0});
+        transform = glm::rotate(transform, glm::radians(entity.rotation.y), {0, 1, 0});
+        transform = glm::rotate(transform, glm::radians(entity.rotation.z), {1, 0, 1});
+
+        transform = glm::translate(transform, entity.position);
+
+        return glm::scale(transform, entity.scale);
     }
 
-    Matrix4 createProjMatrix()
+    Matrix4 createPerspectiveMatrix ()
     {
-        return glm::perspective(glm::radians(95.0f),
-                                (float)Display::get().getSize().x/ (float)Display::get().getSize().y,
-                                0.001f,
-                                1000.0f);
+        return glm::perspective(glm::radians(Settings::getFOV()),
+                                Display::getAspect(),
+                                Settings::NEAR_PLANE,
+                                Settings::FAR_PLANE);
     }
 }

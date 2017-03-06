@@ -1,18 +1,23 @@
-Name
-Stone
-
-ID
+id
 3
 
-Opaque
+txrtop
+3 0
+
+txrside
+3 0
+
+txrbottom
+3 0
+
+opaque
 1
 
-TextureTop
-3 0
+blastres
+7
 
-TextureSide
-3 0
+physstate
+0
 
-TextureBottom
-3 0
-
+meshtype
+0

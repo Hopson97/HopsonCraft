@@ -1,12 +1,21 @@
-#ifndef ENTITY_H_INCLUDED
-#define ENTITY_H_INCLUDED
+#ifndef ENTITY_H
+#define ENTITY_H
 
-#include "Glm_Common.h"
+#include "OpenGL/GL_Maths.h"
 
 struct Entity
 {
-    Vector3 position;
+    Entity() = default;
+    Entity(const Vector3& rotation,
+           const Vector3& position,
+           const Vector3& scale = {1, 1, 1});
+
     Vector3 rotation;
+    Vector3 position;
+    Vector3 scale       = {1, 1, 1};
+    Vector3 velcoity;
+
+    virtual ~Entity() = default;
 };
 
-#endif // ENTITY_H_INCLUDED
+#endif // ENTITY_H

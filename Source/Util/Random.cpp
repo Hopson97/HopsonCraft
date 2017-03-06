@@ -1,24 +1,48 @@
 #include "Random.h"
 
-#include <random>
 #include <ctime>
+#include <cstdlib>
+#include <cmath>
+#include <random>
+#include <mutex>
 
 namespace Random
 {
-    namespace
+    std::minstd_rand gen;
+
+/*
+	int integer(int low, int high)
+	{
+		return rand() % (high - low + 1) + low;
+	}
+
+	double decimalD( double low, double high, int precision )
+	{
+		double multiplier = pow(10, precision);
+
+		low *= multiplier;
+		high *= multiplier;
+
+		double newNum = integer(low, high);
+
+		return newNum / multiplier;
+	}
+*/
+    void setSeed(int seed)
     {
-        std::minstd_rand rd;
+        gen.seed(seed);
     }
 
-    void init()
+
+    int integer(int low, int high)
     {
-        rd.seed(std::time(nullptr));
+        std::uniform_int_distribution<int> dist(low, high);
+        return dist(gen);
     }
 
-    int intInRange(int lowBound, int highBound)
+    double decimal(double low, double high)
     {
-        std::uniform_int_distribution<int> dist(lowBound, highBound);
-        return dist (rd);
+        std::uniform_real_distribution<double> dist(low, high);
+        return dist(gen);
     }
-
 }
