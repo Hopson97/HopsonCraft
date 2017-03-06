@@ -91,6 +91,8 @@
 		<Unit filename="Source/Model.h" />
 		<Unit filename="Source/Physics/AABB.cpp" />
 		<Unit filename="Source/Physics/AABB.h" />
+		<Unit filename="Source/Physics/Ray.cpp" />
+		<Unit filename="Source/Physics/Ray.h" />
 		<Unit filename="Source/Player.cpp" />
 		<Unit filename="Source/Player.h" />
 		<Unit filename="Source/Renderer/RChunk.cpp" />
@@ -150,12 +152,15 @@
 		<Unit filename="Source/World/Block/Block_Types/BGrass.h" />
 		<Unit filename="Source/World/Block/Block_Types/Block_Type.cpp" />
 		<Unit filename="Source/World/Block/Block_Types/Block_Type.h" />
+		<Unit filename="Source/World/Block_Editor.cpp" />
+		<Unit filename="Source/World/Block_Editor.h" />
 		<Unit filename="Source/World/Chunk/CBlock.cpp" />
 		<Unit filename="Source/World/Chunk/CBlock.h" />
 		<Unit filename="Source/World/Chunk/CColumn.cpp" />
 		<Unit filename="Source/World/Chunk/CColumn.h" />
 		<Unit filename="Source/World/Chunk/CMap.cpp" />
 		<Unit filename="Source/World/Chunk/CMap.h" />
+		<Unit filename="Source/World/Chunk/CMap_Chunk_Manager.cpp" />
 		<Unit filename="Source/World/Chunk/CMesh.cpp" />
 		<Unit filename="Source/World/Chunk/CMesh.h" />
 		<Unit filename="Source/World/Chunk/CPosition.cpp" />

@@ -29,9 +29,13 @@ namespace Chunk
             void update();
             void draw(Renderer::Master& renderer);
 
-            void addChunk(const Position& pos);
-            const Column* getChunklet(const Chunk::Position& pos) const;
-            Column* getChunklet(const Chunk::Position& pos);
+            void addChunk(const Position& position);
+            const Column* getChunk(const Chunk::Position& position) const;
+            Column* getChunk(const Chunk::Position& position);
+
+            CBlock getBlockAt(const Vector3& worldPosition);
+
+            void breakBlock(const Vector3& worldPosition);
 
         private:
             void manageChunks();

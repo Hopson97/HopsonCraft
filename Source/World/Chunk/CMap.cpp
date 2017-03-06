@@ -10,23 +10,6 @@
 
 #include "../../Maths/General_Maths.h"
 
-namespace
-{
-    struct Load_Sector
-    {
-        Load_Sector(int32_t minX, int32_t maxX,
-                    int32_t minZ, int32_t maxZ)
-        :   minX    (minX)
-        ,   maxX    (maxX)
-        ,   minZ    (minZ)
-        ,   maxZ    (maxZ)
-        { }
-
-        int32_t minX, maxX,
-                minZ, maxZ;
-    };
-}
-
 
 namespace Chunk
 {
@@ -75,125 +58,77 @@ namespace Chunk
         }
     }
 
-    void Map::addChunk(const Position& pos)
+    void Map::addChunk(const Position& position)
     {
         m_addChunkMutex.lock();
-        if(!getChunklet(pos))
+        if(!getChunk(position))
         {
             m_chunks.insert(std::make_pair
-                           (pos, std::make_unique<Column>(pos, *this)));
+                           (position, std::make_unique<Column>(position, *this)));
         }
         m_addChunkMutex.unlock();
     }
 
-    Column* Map::getChunklet(const Chunk::Position& pos)
+    Column* Map::getChunk(const Chunk::Position& position)
     {
-        if (m_chunks.find(pos) == m_chunks.end())
+        if (m_chunks.find(position) == m_chunks.end())
         {
             return nullptr;
         }
         else
         {
-            return m_chunks.at(pos).get();
+            return m_chunks.at(position).get();
         }
     }
 
-    const Column* Map::getChunklet(const Chunk::Position& pos) const
+    const Column* Map::getChunk(const Chunk::Position& position) const
     {
-        if (m_chunks.find(pos) == m_chunks.end())
+        if (m_chunks.find(position) == m_chunks.end())
         {
             return nullptr;
         }
         else
         {
-            return m_chunks.at(pos).get();
+            return m_chunks.at(position).get();
         }
     }
 
-    void Map::manageChunks()
+    CBlock Map::getBlockAt(const Vector3& worldPosition)
     {
-        while (m_isRunning)
+        const auto* chunk = getChunk(Maths::worldToChunkPos(worldPosition));
+        if(chunk)
         {
-
-            m_chunkUpdateMutex.lock();
-            loadAndGenChunks();
-            m_chunkUpdateMutex.unlock();
-
-            if (m_currentLoadDist < m_renderDistance - 1)
-                m_currentLoadDist++;
-            else
-                m_currentLoadDist = 2;
-
-            m_chunkUpdateMutex.lock();
-            flagChunks();
-            m_chunkUpdateMutex.unlock();
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            auto blockPosition = Maths::worldToBlockPos(worldPosition);
+            return chunk->getBlock(blockPosition);
+        }
+        else
+        {
+            return Block::ID::Air;
         }
     }
 
-    void Map::loadAndGenChunks()
+    void Map::breakBlock(const Vector3& worldPosition)
     {
-        auto pos = Maths::worldToChunkPos(m_p_camera->position);
-        Load_Sector sect
-        (
-            pos.x - m_currentLoadDist,
-            pos.x + m_currentLoadDist,
-            pos.y - m_currentLoadDist,
-            pos.y + m_currentLoadDist
-        );
-
-        for (auto x = sect.minX; x < sect.maxX; x++)
+        auto* chunk = getChunk(Maths::worldToChunkPos(worldPosition));
+        if(chunk)
         {
-            for (auto z = sect.minZ; z < sect.maxZ; z++)
-            {
-                addChunk({x, z});
-            }
-        }
-
-        for (auto x = sect.minX; x < sect.maxX; x++)
-        {
-            for (auto z = sect.minZ; z < sect.maxZ; z++)
-            {
-                auto* chunk =  getChunklet({x, z});
-                if (chunk)
-                {
-                    if (!chunk->getFlags().hasFullMesh)
-                    {
-                        chunk->createFullMesh();
-                    }
-                }
-            }
+            auto blockPosition = Maths::worldToBlockPos(worldPosition);
+            chunk->setBlock(blockPosition, Block::ID::Air);
         }
     }
-
-    void Map::flagChunks()
-    {
-        auto pos = Maths::worldToChunkPos(m_p_camera->position);
-        Load_Sector deleteSect
-        (
-            pos.x - m_renderDistance - 1,
-            pos.x + m_renderDistance + 1,
-            pos.y - m_renderDistance - 1,
-            pos.y + m_renderDistance + 1
-        );
-
-        for (auto itr = m_chunks.begin(); itr != m_chunks.end(); itr++)
-        {
-            auto& c = *itr->second;
-            Position p = c.getPosition();
-            if (p.x < deleteSect.minX ||
-                p.x > deleteSect.maxX ||
-                p.y < deleteSect.minZ ||
-                p.y > deleteSect.maxZ)
-            {
-                c.setDeleteFlag(true);
-            }
-        }
-    }
-
 
 
 
 
 }   //Namespace Chunk
+
+
+
+
+
+
+
+
+
+
+

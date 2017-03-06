@@ -3,6 +3,8 @@
 
 #include "Chunk/CMap.h"
 
+#include "Block_Editor.h"
+
 class Player;
 class Camera;
 
@@ -21,7 +23,10 @@ class World
         void draw   (Renderer::Master& renderer);
 
     private:
+        void testRayCastBlockEdit();
+
         Chunk::Map m_chunkMap;
+        Block_Editor m_blockEditor;
 
         Player* m_p_player;
 };

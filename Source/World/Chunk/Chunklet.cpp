@@ -54,7 +54,7 @@ CBlock Chunklet::getBlock(const Block::Small_Position& pos) const
         auto x = m_pos.x - 1;
         auto z = m_pos.z;
 
-        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y);
+        const Chunklet* c = m_p_chunkMap->getChunk({x, z})->getChunklet(m_pos.y);
 
         if (c)
         {
@@ -70,7 +70,7 @@ CBlock Chunklet::getBlock(const Block::Small_Position& pos) const
         auto x = m_pos.x + 1;
         auto z = m_pos.z;
 
-        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y);
+        const Chunklet* c = m_p_chunkMap->getChunk({x, z})->getChunklet(m_pos.y);
 
         if (c)
         {
@@ -86,7 +86,7 @@ CBlock Chunklet::getBlock(const Block::Small_Position& pos) const
         auto x = m_pos.x;
         auto z = m_pos.z - 1;
 
-        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y);
+        const Chunklet* c = m_p_chunkMap->getChunk({x, z})->getChunklet(m_pos.y);
 
         if (c)
         {
@@ -102,7 +102,7 @@ CBlock Chunklet::getBlock(const Block::Small_Position& pos) const
         auto x = m_pos.x;
         auto z = m_pos.z + 1;
 
-        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y);
+        const Chunklet* c = m_p_chunkMap->getChunk({x, z})->getChunklet(m_pos.y);
 
         if (c)
         {
@@ -118,7 +118,7 @@ CBlock Chunklet::getBlock(const Block::Small_Position& pos) const
         auto x = m_pos.x;
         auto z = m_pos.z;
 
-        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y - 1);
+        const Chunklet* c = m_p_chunkMap->getChunk({x, z})->getChunklet(m_pos.y - 1);
 
         if (c)
         {
@@ -134,7 +134,7 @@ CBlock Chunklet::getBlock(const Block::Small_Position& pos) const
         auto x = m_pos.x;
         auto z = m_pos.z;
 
-        const Chunklet* c = m_p_chunkMap->getChunklet({x, z})->getChunklet(m_pos.y + 1);
+        const Chunklet* c = m_p_chunkMap->getChunk({x, z})->getChunklet(m_pos.y + 1);
 
         if (c)
         {

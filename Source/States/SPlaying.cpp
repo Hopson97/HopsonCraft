@@ -18,6 +18,10 @@ namespace State
 
     void Playing::input(Camera& camera)
     {
+        m_player.addForce(camera.getVelocity());
+        m_player.rotation   = camera    .rotation;
+        camera  .position   = m_player  .position;
+
         m_world.input(camera);
         camera.input();
     }
