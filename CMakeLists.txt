@@ -11,6 +11,7 @@ file(GLOB src_files
 	Source/Input/*.cpp
 	Source/Maths/*.cpp
 	Source/Renderer/*.cpp
+	Source/Physics/*.cpp
 	Source/Shaders/*.cpp
 	Source/States/*cpp
 	Source/Temp/*.cpp

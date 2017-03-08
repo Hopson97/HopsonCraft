@@ -1,38 +1,14 @@
-# Created by https://www.gitignore.io/api/codeblocks
 
-### CodeBlocks ###
-# specific to CodeBlocks IDE
+#CodeBLocks stuff
 *.layout
 *.depend
-#*.cbp
-
-# generated directories
+*.cbp
 bin/
 obj/
 
-#SFML Stuff
+#.dll stuff
 *.dll
 
-#Zips
-*.zip
-*.7z
-
 #Builds
-Project/
-MattCraft/
-old/
-build/
+*.7z
 HopsonCraft/
-
-#Test Worlds
-Test\ World/
-Terrain_
-New\ World
-World\ Of\ Cool\ People/
-
-#Exe
-game
-
-#Other#
-#Deprecated files that i do not want to delete
-Dep/
