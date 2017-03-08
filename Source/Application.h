@@ -1,41 +1,34 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#ifndef APPLICATION_H_INCLUDED
+#define APPLICATION_H_INCLUDED
 
 #include <stack>
 #include <memory>
 
-#include <SFML/Audio.hpp>
+#include "States/Game_State.h"
 
-#include "Game_States/Game_State.h"
-#include "Renderer/Master_Renderer.h"
+#include "Renderer/RMaster.h"
+
+#include "Entity.h"
 #include "Camera.h"
-#include "Play_Settings.h"
 
 class Application
 {
     public:
-        Application ();
-        ~Application();
+        Application();
 
-        void runMainLoop();
+        void runMainGameLoop();
 
-        void changeState    (std::unique_ptr<State::Game_State> state);
-        void pushState      (std::unique_ptr<State::Game_State> state);
-        void popState       ();
+        void pushState(std::unique_ptr<State::Game_State> state);
+        void popState();
 
-        void resetSong();
+        Camera& getCamera();
 
     private:
-        void init();
+        std::stack<std::unique_ptr<State::Game_State>> m_states;
 
-        std::stack<std::unique_ptr<State::Game_State>> m_stateStack;
+        Renderer::Master m_renderer;
 
-        sf::Music m_song;
-        sf::Time  m_songDuration;
-        sf::Clock m_songTimer;
-
-        Master_Renderer m_renderer;
-        Camera          m_camera;
+        Camera m_camera;
 };
 
-#endif // APPLICATION_H
+#endif // APPLICATION_H_INCLUDED

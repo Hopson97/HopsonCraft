@@ -1,24 +1,18 @@
-id
-2
+Name
+Grass
 
-txrtop
-2 0
-
-txrside
-2 0
-
-txrbottom
-2 0
-
-opaque
+ID
 1
 
-blastres
-3
+Opaque
+1
 
-physstate
-0
+TextureTop
+2 0
 
-meshtype
-0
+TextureSide
+2 0
+
+TextureBottom
+2 0
 

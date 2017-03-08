@@ -12,6 +12,8 @@ namespace Key_Binds
         Player_Back,
         Player_Left,
         Player_Right,
+        Player_Up,
+        Player_Down,
     };
 
     std::map<Control, sf::Keyboard::Key>&   get     ();

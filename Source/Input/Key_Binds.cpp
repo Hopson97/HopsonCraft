@@ -10,6 +10,8 @@ namespace Key_Binds
         keys[Control::Player_Back]      = sf::Keyboard::S;
         keys[Control::Player_Left]      = sf::Keyboard::A;
         keys[Control::Player_Right]     = sf::Keyboard::D;
+        keys[Control::Player_Up]        = sf::Keyboard::Space;
+        keys[Control::Player_Down]      = sf::Keyboard::LShift;
     }
 
     std::map<Control, sf::Keyboard::Key>& get()

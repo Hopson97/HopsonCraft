@@ -1,16 +1,14 @@
 #ifndef GENERAL_MATHS_H_INCLUDED
 #define GENERAL_MATHS_H_INCLUDED
 
-#include "../OpenGL/GL_Maths.h"
+#include "../Glm_Common.h"
+#include "../World/Chunk/CPosition.h"
+#include "../World/Block/Block_Position.h"
 
 namespace Maths
 {
-    constexpr static double PI = 3.14159265359;
-
-    double getDistance (const Vector3& p1, const Vector3& p2);
-
-    double getLength (const Vector3& vect);
-
-}//namespace maths
+    Chunk::Position         worldToChunkPos(const Vector3& position);
+    Block::Column_Position  worldToBlockPos(const Vector3& position);
+}
 
 #endif // GENERAL_MATHS_H_INCLUDED

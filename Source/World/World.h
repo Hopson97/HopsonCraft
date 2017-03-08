@@ -1,56 +1,32 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
 
-#include <SFML/Graphics.hpp>
-#include <string>
-#include <memory>
-#include <vector>
+#include "Chunk/CMap.h"
 
-#include "Chunk/Chunk_Map.h"
-#include "../Crosshair.h"
-#include "../Mob/Player.h"
+#include "Block_Editor.h"
 
-
-namespace sf
-{
-    class Event;
-}
-
-class Master_Renderer;
+class Player;
 class Camera;
-class Application;
+
+namespace Renderer
+{
+    class Master;
+}
 
 class World
 {
     public:
-        World(uint32_t seed,
-              const std::string& name);
+        World(const Camera& camera, Player& player);
 
-        void input      (const sf::Event& e);
-        void input      ();
-        void update     (float dt, Camera& camera);
-        void draw       (float dt, Master_Renderer& renderer);
-        void drawXHair  (Master_Renderer& renderer);
-
-        const Chunk_Map&    getChunkMap ()  const;
-        const Player&       getPlayer   ()  const;
-
-        void save();
-
-        void makeExplosion(const Vector3& worldPosition, int power);
+        void input  (Camera& camera);
+        void update (float dt);
+        void draw   (Renderer::Master& renderer);
 
     private:
-        void blockRayHit();
-        void blockEdit  (const Vector3& lastRayPos, const Vector3& rayPos);
+        Chunk::Map m_chunkMap;
+        Block_Editor m_blockEditor;
 
-        void loadWorldFile();
-
-        std::string     m_name;
-
-        Player          m_player;
-        Chunk_Map       m_chunkMap;
-        Crosshair       m_crosshair;
-        uint32_t        m_seed;
+        Player* m_p_player;
 };
 
 #endif // WORLD_H_INCLUDED

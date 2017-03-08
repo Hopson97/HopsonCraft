@@ -1,39 +1,52 @@
-#include "Application.h"
-#include "Util/Display.h"
-#include "Util/Config.h"
-#include "Util/Singleton.h"
-
-#include "Util/Noise_Generator.h"
-
-#include<iostream>
-#include<string>
+#include <iostream>
 #include <fstream>
 
-int main()
+#include "Display.h"
+#include "Application.h"
+#include "Util/Random.h"
+#include "Util/Config.h"
+#include "Util/ConfigParser.h"
+#include "Util/Singleton.h"
+
+#include "World/Block/Block_Database.h"
+
+namespace
 {
-    // Initialise the configuration
+    void initilize()
     {
-        std::string const filename = "HopsonCraft.conf";
-        std::ifstream config_file(filename);
-        if (config_file)
-            Singleton<Config>::get().loadFromStream(filename, config_file);
+        Random  ::init();
+        Display ::init();
+
+        Block::Database::get();
     }
 
-    Display::create("MattCraft");
+    void loadConfig()
+    {
+        const std::string fileName = "HopsonCraft.conf";
+        std::ifstream inFile (fileName);
 
-    Application app;
-    app.runMainLoop();
-
-    return EXIT_SUCCESS;
+        if(inFile.is_open())
+        {
+            Singleton<Config>::get().loadFromStream(fileName, inFile);
+        }
+    }
 }
 
+int main() //try
+{
+    initilize();
+    loadConfig();
 
+    Application app;
+    app.runMainGameLoop();
 
-
-
-
-
-
-
-
+    return 0;
+}
+/*
+catch(std::exception& e)
+{
+    std::cout << e.what() << std::endl;
+    std::cin.ignore();
+}
+*/
 
