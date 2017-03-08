@@ -12,3 +12,6 @@ obj/
 #Builds
 *.7z
 HopsonCraft/
+
+#Profiler
+*.out
