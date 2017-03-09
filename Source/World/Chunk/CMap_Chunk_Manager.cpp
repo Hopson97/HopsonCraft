@@ -22,33 +22,54 @@ namespace
 
 namespace Chunk
 {
+    namespace
+    {
+        template<typename T, typename R>
+        void loadDistChange(T& ld, R rd)
+        {
+            if (ld < rd - 1)
+            {
+                ld++;
+            }
+            else
+            {
+                ld = 2;
+            }
+        }
+    }
+
     void Map::manageChunks()
     {
         while (m_isRunning)
         {
             loadAndGenChunks();
 
-            if (m_currentLoadDist < m_renderDistance - 1)
-                m_currentLoadDist++;
-            else
-                m_currentLoadDist = 2;
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            loadDistChange(m_currentLoadDist, m_renderDistance);
 
-            flagChunks();
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            //flagChunks();
         }
     }
 
     void Map::loadAndGenChunks()
     {
         auto pos = Maths::worldToChunkPos(m_p_camera->position);
+
+        /*
         Load_Sector sect
         (
             pos.x - m_currentLoadDist,
             pos.x + m_currentLoadDist,
             pos.y - m_currentLoadDist,
             pos.y + m_currentLoadDist
+        );
+        */
+
+        Load_Sector sect
+        (
+            0,
+            m_currentLoadDist,
+            0,
+            m_currentLoadDist
         );
 
         for (auto x = sect.minX; x < sect.maxX; x++)

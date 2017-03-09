@@ -111,6 +111,17 @@ namespace Chunk
         }
     }
 
+    void Map::addBlock(const Vector3& worldPosition, CBlock block)
+    {
+        auto* chunk = getChunk(Maths::worldToChunkPos(worldPosition));
+        if(chunk)
+        {
+            auto blockPosition = Maths::worldToBlockPos(worldPosition);
+            chunk->setBlock(blockPosition, block);
+        }
+    }
+
+
 
 
 

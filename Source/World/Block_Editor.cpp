@@ -8,6 +8,8 @@
 #include "../Physics/Ray.h"
 #include "../Player.h"
 
+float delay = 0.1f;
+
 Block_Editor::Block_Editor(Chunk::Map& chunkMap)
 :   m_p_chunkMap    (&chunkMap)
 { }
@@ -18,7 +20,7 @@ void Block_Editor::input(Player& player)
                  player.rotation.x,
                  player.position);
 
-    for (uint32_t i = 0; i < 40 / 0.1; i++)
+    for (uint32_t i = 0; i < 8 / 0.1; i++)
     {
         raycast.step(0.1);
 
@@ -31,6 +33,7 @@ void Block_Editor::input(Player& player)
             if (editBlock(raycast))
                 break;
         }
+        m_lastRayPosition = raycast.getEndPoint();
     }
 }
 
@@ -42,16 +45,30 @@ bool Block_Editor::isHitBlock(const Ray& ray) const
 
 bool Block_Editor::editBlock(const Ray& ray)
 {
-    if(m_editorTimer.getElapsedTime().asSeconds() > 0.0 &&
-        sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if(m_editorTimer.getElapsedTime().asSeconds() >= delay)
     {
-        m_editorTimer.restart();
-        m_p_chunkMap->breakBlock(ray.getEndPoint());
-        return true;
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            m_editorTimer.restart();
+            m_p_chunkMap->breakBlock(ray.getEndPoint());
+            return true;
+        }
+        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+        {
+            m_editorTimer.restart();
+            m_p_chunkMap->addBlock(m_lastRayPosition, Block::ID::Grass);
+            return true;
+        }
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
+
+
+
+
+
+
+
+
+
 

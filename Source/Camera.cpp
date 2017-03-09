@@ -7,15 +7,22 @@
 
 #include "Display.h"
 #include "Input/Key_Binds.h"
+#include "Input/Function_Toggle_Key.h"
 
 
 Camera::Camera()
-{ }
+{
+    rotation.y += 180;
+}
 
 Vector3 Camera::input()
 {
     Vector3 change;
     float speed = 0.5;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+    {
+        speed = 10;
+    }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
@@ -59,6 +66,12 @@ Vector3 Camera::input()
 
 void Camera::mouseInput()
 {
+    static bool lock = false;
+    static Function_Toggle_Key key([&](){ lock = !lock; }, sf::Keyboard::L, sf::seconds(1.0));
+    key.checkInput();
+    if(lock) return;
+
+
     static sf::Vector2i lastMousePosition = sf::Mouse::getPosition();
 
     auto mouseChange = sf::Mouse::getPosition() - lastMousePosition;

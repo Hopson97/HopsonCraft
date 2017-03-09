@@ -22,7 +22,7 @@ namespace Chunk
         }
         else
         {
-            h = 10;
+            h = 80;
         }
 
         for (int32_t y = 0; y < h + 1; y++)
