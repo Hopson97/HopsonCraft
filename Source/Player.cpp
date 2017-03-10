@@ -12,7 +12,7 @@ Player::Player(Camera& camera)
 :   m_p_camera  (&camera)
 ,   box         ({0.5, 0.5, 0.5})
 {
-    position = {0, 100, 0};
+    position = {50,100, 50};
 }
 
 void Player::addForce(const Vector3& force)

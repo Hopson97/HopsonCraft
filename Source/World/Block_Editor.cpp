@@ -8,7 +8,7 @@
 #include "../Physics/Ray.h"
 #include "../Player.h"
 
-float delay = 0.1f;
+float delay = 0.01f;
 
 Block_Editor::Block_Editor(Chunk::Map& chunkMap)
 :   m_p_chunkMap    (&chunkMap)

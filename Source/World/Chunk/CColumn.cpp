@@ -20,8 +20,9 @@ namespace Chunk
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        m_noiseGen.setSeed(900);
-        m_noiseGen.setNoiseFunction({8, 80, 0.53, 200, 0});
+        m_noiseGen.setSeed(6446);
+        //m_noiseGen.setNoiseFunction({8, 80, 0.53, 200, 0});
+        m_noiseGen.setNoiseFunction({10, 80, 0.5, 240, 0});
 
         if( pos.x < 0 || pos.y < 0)
         {
