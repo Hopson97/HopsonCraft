@@ -45,6 +45,8 @@ namespace Chunk
             void draw(Renderer::Master& renderer);
             const Position& getPosition() const;
 
+
+
             void    setBlock    (const Block::Column_Position& pos, CBlock block);
             CBlock  getBlock    (const Block::Column_Position& pos) const;
 
@@ -54,6 +56,8 @@ namespace Chunk
             void setDeleteFlag(bool deleteF);
 
         private:
+            std::pair<int32_t, int32_t> getChunkletBlockLocation(const Block::Column_Position& pos) const;
+
             Chunklet* getChunkletnc(int32_t index);
             void addChunklet();
 

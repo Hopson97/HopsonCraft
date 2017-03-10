@@ -41,9 +41,6 @@ namespace Chunk
             v = *std::max_element(heightMap.begin(), heightMap.end());
         }
 
-
-
-
         for (int32_t y = 0; y < v + 1; y++)
         {
             for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
@@ -71,49 +68,6 @@ namespace Chunk
                 }
             }
         }
-
-
-
-
-
-
-
-    /*
-        int v;
-        if( pos.x < 0 || pos.y < 0)
-        {
-            v = 15;
-        }
-        else
-        {
-            v = 76 + pos.x;
-        }
-
-        for (int32_t y = 0; y < v + 1; y++)
-        {
-            for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
-            {
-                for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
-                {
-                    if (y == v)
-                    {
-                        y > 75?
-                            setBlock({x, y, z}, Block::ID::Grass) :
-                            setBlock({x, y, z}, Block::ID::Sand);
-                    }
-
-
-                    else if (y < v && y > v - 3 )
-                    {
-                        setBlock({x, y, z}, Block::ID::Dirt);
-                    }
-                    else if (y <= v - 3)
-                    {
-                        setBlock({x, y, z}, Block::ID::Stone);
-                    }
-                }
-            }
-        }*/
         m_flags.generated = true;
     }
 
@@ -129,15 +83,17 @@ namespace Chunk
 
     void Column::setBlock(const Block::Column_Position& pos, CBlock block)
     {
-        int32_t yIndex = std::ceil(pos.y / World_Constants::CH_SIZE);
-        while (yIndex + 1 > m_chunkCount)
+        auto trueLocation       = getChunkletBlockLocation(pos);
+        int32_t chunkletIndex   = trueLocation.first;
+        int32_t blockYPosition  = trueLocation.second;
+
+        while (chunkletIndex + 1 > m_chunkCount)
         {
             addChunklet();
         }
-        Chunklet* chunk = getChunkletnc(yIndex);
+        Chunklet* chunk = getChunkletnc(chunkletIndex);
 
-        auto yPos = pos.y - World_Constants::CH_SIZE * yIndex;
-        Block::Small_Position blockPosition ((int8_t)pos.x, yPos, (int8_t)pos.z);
+        Block::Small_Position blockPosition (pos.x, blockYPosition, pos.z);
 
         chunk->qSetBlock(blockPosition, block);
 
@@ -159,18 +115,27 @@ namespace Chunk
         {
             return Block::ID::Air;
         }
-        auto chunklet = std::ceil(pos.y / World_Constants::CH_SIZE);
-        auto yPos = pos.y - World_Constants::CH_SIZE * chunklet;
+        auto trueLocation       = getChunkletBlockLocation(pos);
+        int32_t chunkletIndex   = trueLocation.first;
+        int32_t blockYPosition  = trueLocation.second;
 
-        if (chunklet < m_chunkCount && chunklet >= 0)
+        if (chunkletIndex < m_chunkCount && chunkletIndex >= 0)
         {
-            Block::Small_Position bp (pos.x, yPos, pos.z);
-            return m_chunklets.at(chunklet)->qGetBlock(bp);
+            Block::Small_Position bp (pos.x, blockYPosition, pos.z);
+            return m_chunklets.at(chunkletIndex)->qGetBlock(bp);
         }
         else
         {
             return Block::ID::Air;
         }
+    }
+
+    std::pair<int32_t, int32_t> Column::getChunkletBlockLocation(const Block::Column_Position& pos) const
+    {
+        auto yIndex = std::ceil(pos.y / World_Constants::CH_SIZE);
+        auto yPos = pos.y - World_Constants::CH_SIZE * yIndex;
+
+        return std::make_pair(yIndex, yPos);
     }
 
 
