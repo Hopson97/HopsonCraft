@@ -13,7 +13,7 @@ namespace Block
 
     Database::Database()
     :   blocks ((int)ID::NUM_BLOCK_TYPES)
-    ,   textures   ("Texture_Atlas", 512, 16)
+    ,   textures   ("Texture_Atlas_Plastic", 512, 16)
     {
         blocks[(int)ID::Air     ] = std::make_unique<Default>  ("Air");
         blocks[(int)ID::Grass   ] = std::make_unique<Default>  ("Grass");

@@ -18,6 +18,7 @@ namespace Renderer
 namespace Chunk
 {
     class Map;
+    class Regenerator;
 
     class Column
     {
@@ -37,7 +38,7 @@ namespace Chunk
 
 
         public:
-            Column(const Position& pos, Map& map);
+            Column(const Position& pos, Map& map, Regenerator& regenerator);
 
             void createFullMesh();
 
@@ -61,7 +62,6 @@ namespace Chunk
             Chunklet* getChunkletnc(int32_t index);
             void addChunklet();
 
-            std::vector<Chunklet*> m_chunkletsToUpdate;
             std::vector<std::unique_ptr<Chunklet>> m_chunklets;
 
             Position m_position;
@@ -70,6 +70,8 @@ namespace Chunk
             int32_t m_chunkCount = 0;
 
             CFlags m_flags;
+
+            Regenerator* m_p_regenerator;
     };
 }
 

@@ -34,6 +34,8 @@ namespace Chunk
 
     void Map::update()
     {
+        m_regenerator.regen();
+
         for (auto itr = m_chunks.begin(); itr != m_chunks.end();)
         {
             Column& c = *(itr)->second;
@@ -64,7 +66,7 @@ namespace Chunk
         if(!getChunk(position))
         {
             m_chunks.insert(std::make_pair
-                           (position, std::make_unique<Column>(position, *this)));
+                           (position, std::make_unique<Column>(position, *this, m_regenerator)));
         }
         m_addChunkMutex.unlock();
     }

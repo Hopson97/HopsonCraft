@@ -8,11 +8,19 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "../../Util/Hasher.h"
+#include "../Block/Block_Position.h"
 
 namespace Chunk
 {
     typedef sf::Vector3<int64_t> Chunklet_Position;
     typedef sf::Vector2<int64_t> Position;
+
+    struct Chu_Blo_Pos
+    {
+        Chunklet_Position       chunkletPos;
+        Block::Small_Position   blockPos;
+    };
+
     /*
     struct Position
     {

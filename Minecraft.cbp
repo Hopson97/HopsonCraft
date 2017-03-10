@@ -58,6 +58,7 @@
 		<Unit filename="Data/Blocks/Air.block" />
 		<Unit filename="Data/Blocks/Dirt.block" />
 		<Unit filename="Data/Blocks/Grass.block" />
+		<Unit filename="Data/Blocks/Sand.block" />
 		<Unit filename="Data/Blocks/Stone.block" />
 		<Unit filename="Data/Fonts/rs.ttf" />
 		<Unit filename="Data/Shaders/Simple_Fragment.glsl" />
@@ -79,13 +80,13 @@
 		<Unit filename="Source/Glm_Common.h" />
 		<Unit filename="Source/HUD/Crosshair.cpp" />
 		<Unit filename="Source/HUD/Crosshair.h" />
+		<Unit filename="Source/HUD/HUD.h" />
 		<Unit filename="Source/HUD/Vignette.cpp" />
 		<Unit filename="Source/HUD/Vignette.h" />
 		<Unit filename="Source/Input/Function_Toggle_Key.cpp" />
 		<Unit filename="Source/Input/Function_Toggle_Key.h" />
 		<Unit filename="Source/Input/Key_Binds.cpp" />
 		<Unit filename="Source/Input/Key_Binds.h" />
-		<Unit filename="Source/Item/Item.h" />
 		<Unit filename="Source/Maths/Frustum.h" />
 		<Unit filename="Source/Maths/General_Maths.cpp" />
 		<Unit filename="Source/Maths/General_Maths.h" />
@@ -163,7 +164,6 @@
 		<Unit filename="Source/World/Block/Block_Types/Block_Type.h" />
 		<Unit filename="Source/World/Block_Editor.cpp" />
 		<Unit filename="Source/World/Block_Editor.h" />
-		<Unit filename="Source/World/Chunk/CBase.h" />
 		<Unit filename="Source/World/Chunk/CBlock.cpp" />
 		<Unit filename="Source/World/Chunk/CBlock.h" />
 		<Unit filename="Source/World/Chunk/CColumn.cpp" />
@@ -175,11 +175,14 @@
 		<Unit filename="Source/World/Chunk/CMesh.h" />
 		<Unit filename="Source/World/Chunk/CPosition.cpp" />
 		<Unit filename="Source/World/Chunk/CPosition.h" />
+		<Unit filename="Source/World/Chunk/CRegenerator.cpp" />
+		<Unit filename="Source/World/Chunk/CRegenerator.h" />
 		<Unit filename="Source/World/Chunk/Chunklet.cpp" />
 		<Unit filename="Source/World/Chunk/Chunklet.h" />
 		<Unit filename="Source/World/World.cpp" />
 		<Unit filename="Source/World/World.h" />
 		<Unit filename="Source/World/World_Constants.h" />
+		<Unit filename="Source/World/World_Settings.h" />
 		<Unit filename="Source/main.cpp" />
 		<Unit filename="glew32.dll" />
 		<Unit filename="openal32.dll" />

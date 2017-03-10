@@ -10,6 +10,7 @@
 
 #include "CColumn.h"
 #include "CPosition.h"
+#include "CRegenerator.h"
 
 class Camera;
 
@@ -45,9 +46,11 @@ namespace Chunk
 
             std::unordered_map<Position, std::unique_ptr<Column>> m_chunks;
 
+            Regenerator m_regenerator;
+
             const Camera* m_p_camera;
 
-            int8_t m_renderDistance    = 20;
+            int8_t m_renderDistance    = 10;
             int8_t m_currentLoadDist   = 1;
 
             std::atomic<bool> m_isRunning;

@@ -3,6 +3,8 @@
 #include <SFML/System/Clock.hpp>
 #include <cmath>
 
+#include "CRegenerator.h"
+
 #include "../../Renderer/RMaster.h"
 #include "../../Util/Random.h"
 
@@ -12,9 +14,10 @@
 
 namespace Chunk
 {
-    Column::Column(const Position& pos, Map& map)
+    Column::Column(const Position& pos, Map& map, Regenerator& regenerator)
     :   m_position      (pos)
     ,   m_p_chunkMap    (&map)
+    ,   m_p_regenerator (&regenerator)
     {
         Noise::Generator m_noiseGen;
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
@@ -99,8 +102,7 @@ namespace Chunk
 
         if(m_flags.generated)
         {
-            std::vector<Chunklet*> chunklets = chunk->setBlock(blockPosition, block);
-            m_chunkletsToUpdate.insert(m_chunkletsToUpdate.end(), chunklets.begin(), chunklets.end());
+            m_p_regenerator->addChunklets(chunk->setBlock(blockPosition, block));
         }
         else
         {
@@ -183,11 +185,7 @@ namespace Chunk
 
     void Column::update()
     {
-        for (auto& c : m_chunkletsToUpdate)
-        {
-            c->createMesh();
-        }
-        m_chunkletsToUpdate.clear();
+
     }
 
     void Column::draw(Renderer::Master& renderer)
