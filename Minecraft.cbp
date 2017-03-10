@@ -85,6 +85,7 @@
 		<Unit filename="Source/Input/Function_Toggle_Key.h" />
 		<Unit filename="Source/Input/Key_Binds.cpp" />
 		<Unit filename="Source/Input/Key_Binds.h" />
+		<Unit filename="Source/Item/Item.h" />
 		<Unit filename="Source/Maths/Frustum.h" />
 		<Unit filename="Source/Maths/General_Maths.cpp" />
 		<Unit filename="Source/Maths/General_Maths.h" />
@@ -162,6 +163,7 @@
 		<Unit filename="Source/World/Block/Block_Types/Block_Type.h" />
 		<Unit filename="Source/World/Block_Editor.cpp" />
 		<Unit filename="Source/World/Block_Editor.h" />
+		<Unit filename="Source/World/Chunk/CBase.h" />
 		<Unit filename="Source/World/Chunk/CBlock.cpp" />
 		<Unit filename="Source/World/Chunk/CBlock.h" />
 		<Unit filename="Source/World/Chunk/CColumn.cpp" />
@@ -191,6 +193,7 @@
 		<Unit filename="sfml-system-d-2.dll" />
 		<Unit filename="sfml-window-2.dll" />
 		<Unit filename="sfml-window-d-2.dll" />
+		<Unit filename="simplegen.txt" />
 		<Extensions>
 			<code_completion />
 			<envvars />

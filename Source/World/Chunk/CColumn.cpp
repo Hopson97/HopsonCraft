@@ -16,33 +16,16 @@ namespace Chunk
     :   m_position      (pos)
     ,   m_p_chunkMap    (&map)
     {
-        Noise::Generator m_noiseGen;
-        std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        m_noiseGen.setSeed(6446);
-        //m_noiseGen.setNoiseFunction({8, 80, 0.53, 200, 0});
-        m_noiseGen.setNoiseFunction({10, 80, 0.5, 240, 0});
-
         if( pos.x < 0 || pos.y < 0)
         {
             v = 15;
         }
         else
         {
-            for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
-            {
-                for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
-                {
-                    int h = m_noiseGen.getValue(x, z, pos.x, pos.y);
-                    heightMap[x * World_Constants::CH_SIZE + z] = h;
-                }
-            }
-            v = *std::max_element(heightMap.begin(), heightMap.end());
+            v = 76 + pos.x;
         }
-
-
-
 
         for (int32_t y = 0; y < v + 1; y++)
         {
@@ -50,9 +33,7 @@ namespace Chunk
             {
                 for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
                 {
-                    int h = heightMap[x * World_Constants::CH_SIZE + z];
-
-                    if (y == h)
+                    if (y == v)
                     {
                         y > 75?
                             setBlock({x, y, z}, Block::ID::Grass) :
@@ -60,11 +41,11 @@ namespace Chunk
                     }
 
 
-                    else if (y < h && y > h - 3 )
+                    else if (y < v && y > v - 3 )
                     {
                         setBlock({x, y, z}, Block::ID::Dirt);
                     }
-                    else if (y <= h - 3)
+                    else if (y <= v - 3)
                     {
                         setBlock({x, y, z}, Block::ID::Stone);
                     }

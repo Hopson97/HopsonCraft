@@ -8,7 +8,7 @@
 #include "../Physics/Ray.h"
 #include "../Player.h"
 
-float delay = 0.01f;
+float delay = 0.3f;
 
 Block_Editor::Block_Editor(Chunk::Map& chunkMap)
 :   m_p_chunkMap    (&chunkMap)
@@ -20,7 +20,7 @@ void Block_Editor::input(Player& player)
                  player.rotation.x,
                  player.position);
 
-    for (uint32_t i = 0; i < 8 / 0.1; i++)
+    for (uint32_t i = 0; i < 5 / 0.1; i++)
     {
         raycast.step(0.1);
 
