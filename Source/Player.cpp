@@ -1,5 +1,7 @@
 #include "Player.h"
 
+#include <SFML/Graphics.hpp>
+
 #include "Camera.h"
 
 #include "World/Chunk/CMap.h"
@@ -20,7 +22,6 @@ void Player::addForce(const Vector3& force)
 
 void Player::testForCollide(Chunk::Map& chunkMap, float dt)
 {
-    //std::cout << position.x << "\n";
 /*
     box.update(position + (m_velocity * dt));
 
@@ -34,6 +35,12 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
 
 void Player::input()
 {
+    static sf::Clock c;
+    if (c.getElapsedTime().asSeconds() >= 0.5)
+    {
+        std::cout << "Y: " << position.y << std::endl;
+        c.restart();
+    }
     addForce(m_p_camera->input());
     rotation = m_p_camera->rotation;
     m_p_camera->position = position;

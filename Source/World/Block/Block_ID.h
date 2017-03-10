@@ -13,6 +13,7 @@ namespace Block
         Grass   = 1,
         Dirt    = 2,
         Stone   = 3,
+        Sand    = 4,
 
         NUM_BLOCK_TYPES
     };

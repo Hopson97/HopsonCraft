@@ -8,6 +8,7 @@
 #include "Chunklet.h"
 #include "CBlock.h"
 #include "../Block/Block_Position.h"
+#include "../../Temp/Noise_Generator.h"
 
 namespace Renderer
 {

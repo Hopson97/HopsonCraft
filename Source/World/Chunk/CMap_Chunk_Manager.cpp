@@ -31,10 +31,7 @@ namespace Chunk
             {
                 ld++;
             }
-            else
-            {
-                ld = 2;
-            }
+            if (ld - 1 > rd) ld = 1;
         }
     }
 
@@ -42,11 +39,15 @@ namespace Chunk
     {
         while (m_isRunning)
         {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
             loadAndGenChunks();
 
             loadDistChange(m_currentLoadDist, m_renderDistance);
 
-            //flagChunks();
+            //if(m_currentLoadDist == m_renderDistance - 1) return;
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            flagChunks();
         }
     }
 
@@ -54,7 +55,7 @@ namespace Chunk
     {
         auto pos = Maths::worldToChunkPos(m_p_camera->position);
 
-        /*
+
         Load_Sector sect
         (
             pos.x - m_currentLoadDist,
@@ -62,8 +63,8 @@ namespace Chunk
             pos.y - m_currentLoadDist,
             pos.y + m_currentLoadDist
         );
-        */
 
+/*
         Load_Sector sect
         (
             0,
@@ -71,7 +72,7 @@ namespace Chunk
             0,
             m_currentLoadDist
         );
-
+*/
         for (auto x = sect.minX; x < sect.maxX; x++)
         {
             for (auto z = sect.minZ; z < sect.maxZ; z++)

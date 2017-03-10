@@ -131,6 +131,8 @@
 		<Unit filename="Source/States/Game_State.h" />
 		<Unit filename="Source/States/SPlaying.cpp" />
 		<Unit filename="Source/States/SPlaying.h" />
+		<Unit filename="Source/Temp/Noise_Generator.cpp" />
+		<Unit filename="Source/Temp/Noise_Generator.h" />
 		<Unit filename="Source/Texture/Texture.cpp" />
 		<Unit filename="Source/Texture/Texture.h" />
 		<Unit filename="Source/Texture/Texture_Atlas.cpp" />

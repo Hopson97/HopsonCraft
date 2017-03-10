@@ -8,33 +8,57 @@
 
 #include <iostream>
 
+
+
 namespace Chunk
 {
     Column::Column(const Position& pos, Map& map)
     :   m_position      (pos)
     ,   m_p_chunkMap    (&map)
     {
-        int h;
+        Noise::Generator m_noiseGen;
+        std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
-        if (pos.x < 0 || pos.y < 0)
+        int v;
+        m_noiseGen.setSeed(900);
+        m_noiseGen.setNoiseFunction({8, 80, 0.53, 200, 0});
+
+        if( pos.x < 0 || pos.y < 0)
         {
-            h = 1;
+            v = 15;
         }
         else
-        {
-            h = 80;
-        }
-
-        for (int32_t y = 0; y < h + 1; y++)
         {
             for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
             {
                 for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
                 {
+                    int h = m_noiseGen.getValue(x, z, pos.x, pos.y);
+                    heightMap[x * World_Constants::CH_SIZE + z] = h;
+                }
+            }
+            v = *std::max_element(heightMap.begin(), heightMap.end());
+        }
+
+
+
+
+        for (int32_t y = 0; y < v + 1; y++)
+        {
+            for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
+            {
+                for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
+                {
+                    int h = heightMap[x * World_Constants::CH_SIZE + z];
+
                     if (y == h)
                     {
-                        setBlock({x, y, z}, Block::ID::Grass);
+                        y > 75?
+                            setBlock({x, y, z}, Block::ID::Grass) :
+                            setBlock({x, y, z}, Block::ID::Sand);
                     }
+
+
                     else if (y < h && y > h - 3 )
                     {
                         setBlock({x, y, z}, Block::ID::Dirt);
