@@ -13,15 +13,18 @@
 
 #include "../Util/Random.h"
 
-World::World(const Camera& camera, Player& player)
+#include "../HUD/HUD.h"
+
+World::World(const Camera& camera, Player& player, HUD& hud)
 :   m_chunkMap      (camera)
 ,   m_blockEditor   (m_chunkMap)
 ,   m_p_player      (&player)
+,   m_p_hud         (&hud)
 { }
 
 void World::input(Camera& camera)
 {
-    m_blockEditor.input(*m_p_player);
+    m_blockEditor.input(*m_p_player, m_p_hud->crosshair);
 }
 
 void World::update(float dt)

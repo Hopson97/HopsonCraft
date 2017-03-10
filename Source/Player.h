@@ -5,7 +5,6 @@
 
 #include "Physics/AABB.h"
 #include "Body.h"
-#include "Item/Item.h"
 
 namespace Chunk
 {
@@ -13,17 +12,6 @@ namespace Chunk
 }
 
 class Camera;
-
-struct Hot_Bar
-{
-    void addItem(std::unique_ptr<Item::Item_Base> item, uint8_t amaount)
-    {
-
-    }
-
-    std::array<Item::Stack, 9> m_itemStacks;
-    uint8_t m_hotbarSelect = 0;
-};
 
 class Player : public Entity
 {
@@ -36,13 +24,9 @@ class Player : public Entity
 
         void addForce       (const Vector3& force);
 
-
-
     private:
         Camera* m_p_camera;
         Vector3 m_velocity;
-
-
 
     public:
         AABB box;

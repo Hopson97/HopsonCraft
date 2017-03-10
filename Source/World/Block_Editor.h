@@ -12,13 +12,14 @@ namespace Chunk
 
 class Player;
 class Ray;
+class Crosshair;
 
 class Block_Editor
 {
     public:
         Block_Editor(Chunk::Map& chunkMap);
 
-        void input(Player& player);
+        void input(Player& player, Crosshair& crosshair);
 
 
     private:

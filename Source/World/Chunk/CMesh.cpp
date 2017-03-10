@@ -16,9 +16,9 @@ namespace Chunk
     namespace
     {
         constexpr GLfloat   LIGHT_TOP       =   1.0,
-                            LIGHT_Z         =   0.8,
-                            LIGHT_X         =   0.7,
-                            LIGHT_BOTTOM    =   0.6;
+                            LIGHT_Z         =   0.7,
+                            LIGHT_X         =   0.5,
+                            LIGHT_BOTTOM    =   0.3;
     }
 
     void Mesh::Section::reserve()

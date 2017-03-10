@@ -11,9 +11,16 @@ namespace Renderer
 class Crosshair
 {
     public:
+        enum Mode
+        {
+            Reg,
+            Hit
+        };
+
         Crosshair();
 
         void draw(Renderer::Master& renderer);
+        void setMode(Mode mode);
 
     private:
         sf::RectangleShape m_sprite;

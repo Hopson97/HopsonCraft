@@ -13,7 +13,7 @@ namespace State
 
     Playing::Playing(Application& application)
     :   Game_State  (application)
-    ,   m_world     (application.getCamera(), m_player)
+    ,   m_world     (application.getCamera(), m_player, m_hud)
     ,   m_player    (application.getCamera())
     { }
 
@@ -31,7 +31,7 @@ namespace State
     void Playing::draw(Renderer::Master& renderer)
     {
         m_world     .draw(renderer);
-        m_vignette  .draw(renderer);
-        m_crosshair .draw(renderer);
+
+        m_hud.draw(renderer);
     }
 }

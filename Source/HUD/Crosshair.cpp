@@ -20,3 +20,18 @@ void Crosshair::draw(Renderer::Master& renderer)
 {
     renderer.draw(m_sprite);
 }
+
+void Crosshair::setMode(Mode mode)
+{
+    switch (mode)
+    {
+        case Mode::Hit:
+            m_sprite.setFillColor(sf::Color::Red);
+            break;
+
+        case Mode::Reg:
+            m_sprite.setFillColor(sf::Color::White);
+            break;
+    }
+}
+

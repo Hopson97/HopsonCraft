@@ -2,25 +2,27 @@
 
 #include <SFML/Window/Mouse.hpp>
 
-#include "Chunk/CMap.h"
 
+#include "Chunk/CMap.h"
+#include "../HUD/Crosshair.h"
 #include "../Maths/General_Maths.h"
 #include "../Physics/Ray.h"
 #include "../Player.h"
 
-float delay = 0.3f;
+
+float delay = 0.2f;
 
 Block_Editor::Block_Editor(Chunk::Map& chunkMap)
 :   m_p_chunkMap    (&chunkMap)
 { }
 
-void Block_Editor::input(Player& player)
+void Block_Editor::input(Player& player, Crosshair& crosshair)
 {
     Ray raycast (player.rotation.y + 90,
                  player.rotation.x,
                  player.position);
 
-    for (uint32_t i = 0; i < 5 / 0.1; i++)
+    for (uint32_t i = 0; i < 5 / 0.04; i++)
     {
         raycast.step(0.1);
 
@@ -30,8 +32,13 @@ void Block_Editor::input(Player& player)
 
         if(isHitBlock(raycast))
         {
+            crosshair.setMode(Crosshair::Mode::Hit);
             if (editBlock(raycast))
                 break;
+        }
+        else
+        {
+            crosshair.setMode(Crosshair::Mode::Reg);
         }
         m_lastRayPosition = raycast.getEndPoint();
     }

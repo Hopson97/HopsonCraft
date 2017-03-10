@@ -8,8 +8,7 @@
 
 #include "../World/World.h"
 
-#include "../HUD/Vignette.h"
-#include "../HUD/Crosshair.h"
+#include "../HUD/HUD.h"
 
 #include "../Player.h"
 
@@ -29,8 +28,7 @@ namespace State
 
         private:
             World       m_world;
-            Vignette    m_vignette;
-            Crosshair   m_crosshair;
+            HUD         m_hud;
 
             Player      m_player;
     };
