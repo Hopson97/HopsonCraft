@@ -15,15 +15,14 @@ namespace Block
 
     struct Data_Holder
     {
-        ID blockID;
-
+        ID          blockID;
         std::string name;
-
-        bool isOpaque;
-
-        Vector2 topTextureCoords;
-        Vector2 sideTextureCoords;
-        Vector2 bottomTextureCoords;
+        bool        isOpaque    = true;
+        bool        isObstacle  = true;
+        Mesh_Type   meshType    = Mesh_Type::Solid;
+        Vector2     topTextureCoords;
+        Vector2     sideTextureCoords;
+        Vector2     bottomTextureCoords;
     };
 
     class Data

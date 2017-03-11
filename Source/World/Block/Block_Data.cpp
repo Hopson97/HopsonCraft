@@ -30,6 +30,10 @@ namespace Block
             {
                 inFile >> m_holder.isOpaque;
             }
+            else if (title == "Obstacle")
+            {
+                inFile >> m_holder.isObstacle;
+            }
             else if (title == "TextureTop")
             {
                 inFile >> m_holder.topTextureCoords.x >> m_holder.topTextureCoords.y;
