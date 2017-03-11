@@ -101,8 +101,9 @@
 		<Unit filename="Source/Physics/Collisions.h" />
 		<Unit filename="Source/Physics/Ray.cpp" />
 		<Unit filename="Source/Physics/Ray.h" />
-		<Unit filename="Source/Player.cpp" />
-		<Unit filename="Source/Player.h" />
+		<Unit filename="Source/Player/Player.cpp" />
+		<Unit filename="Source/Player/Player.h" />
+		<Unit filename="Source/Player/Player_Input.cpp" />
 		<Unit filename="Source/Renderer/RChunk.cpp" />
 		<Unit filename="Source/Renderer/RChunk.h" />
 		<Unit filename="Source/Renderer/RMaster.cpp" />

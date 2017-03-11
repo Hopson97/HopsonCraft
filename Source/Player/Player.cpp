@@ -9,7 +9,7 @@ Player::Player(Camera& camera)
 :   m_p_camera  (&camera)
 ,   box         ({0.5, 0.5, 0.5})
 {
-    position = {5000, 100, 5000};
+    position = {500, 100, 500};
 }
 
 void Player::addForce(const Vector3& force)
@@ -21,7 +21,7 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
 {
     if (!m_isOnGround)
     {
-        m_velocity.y -= 0.1;
+        m_velocity.y -= 0.12;
     }
     m_isOnGround = false;
 

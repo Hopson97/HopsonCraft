@@ -10,6 +10,7 @@ file(GLOB src_files
     Source/Hud/*.cpp
 	Source/Input/*.cpp
 	Source/Maths/*.cpp
+	Source/Player/*.cpp
 	Source/Renderer/*.cpp
 	Source/Physics/*.cpp
 	Source/Shaders/*.cpp
