@@ -15,7 +15,9 @@ namespace State
     :   Game_State  (application)
     ,   m_world     (application.getCamera(), m_player, m_hud)
     ,   m_player    (application.getCamera())
-    { }
+    {
+        application.getCamera().hookEntity(m_player);
+    }
 
     void Playing::input(Camera& camera)
     {
@@ -26,6 +28,8 @@ namespace State
     void Playing::update(Camera& camera, float dt)
     {
         m_world.update(dt);
+
+        m_application->getCamera().update();
     }
 
     void Playing::draw(Renderer::Master& renderer)

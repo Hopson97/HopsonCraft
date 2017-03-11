@@ -5,12 +5,9 @@
 
 #include "../Model.h"
 #include "../Texture/Texture_Atlas.h"
-
 #include "../World/World.h"
-
 #include "../HUD/HUD.h"
-
-#include "../Player.h"
+#include "../Player/Player.h"
 
 class Application;
 class Camera;

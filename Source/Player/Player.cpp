@@ -2,10 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Camera.h"
-#include "World/Chunk/CMap.h"
-#include "Input/Key_Binds.h"
-
+#include "../Camera.h"
+#include "../World/Chunk/CMap.h"
 
 Player::Player(Camera& camera)
 :   m_p_camera  (&camera)
@@ -23,7 +21,7 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
 {
     if (!m_isOnGround)
     {
-        m_velocity.y -= 1;
+        m_velocity.y -= 0.1;
     }
     m_isOnGround = false;
 
@@ -71,6 +69,7 @@ void Player::collisionTest( Chunk::Map& chunkMap,
         {
             position.y = y + height + 1;
             m_isOnGround = true;
+            m_velocity.y = 0;
         }
         if (vz > 0)
         {
@@ -84,33 +83,6 @@ void Player::collisionTest( Chunk::Map& chunkMap,
 }
 
 
-
-
-void Player::input()
-{
-    /*
-    static sf::Clock c;
-    if (c.getElapsedTime().asSeconds() >= 0.5)
-    {
-        std::cout << "Y: " << position.y << std::endl;
-        c.restart();
-    }
-    */
-
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Up)))
-    {
-        if (m_isOnGround)
-        {
-            m_velocity.y += 100;
-        }
-    }
-
-
-    addForce(m_p_camera->input());
-    rotation = m_p_camera->rotation;
-    m_p_camera->position = position;
-}
-
 void Player::update(float dt)
 {
     if (position.x < 0.2)
@@ -122,5 +94,6 @@ void Player::update(float dt)
         position.z = 0.2;
     }
 
-    m_velocity *= 0.95;
+    m_velocity.x *= 0.95;
+    m_velocity.z *= 0.95;
 }

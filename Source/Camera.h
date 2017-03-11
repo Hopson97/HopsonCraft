@@ -7,12 +7,11 @@ class Camera : public Entity
 {
     public:
         Camera();
-
-        Vector3 input  ();
-        void update (float dt);
+        void update ();
+        void hookEntity(const Entity& entity);
 
     private:
-        void mouseInput();
+        const Entity* m_P_entity = this;
 };
 
 #endif // CAMERA_H_INCLUDED

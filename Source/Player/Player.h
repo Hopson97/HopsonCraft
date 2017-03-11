@@ -3,8 +3,8 @@
 
 #include <array>
 
-#include "Physics/AABB.h"
-#include "Body.h"
+#include "../Physics/AABB.h"
+#include "../Body.h"
 
 namespace Chunk
 {
@@ -30,6 +30,9 @@ class Player : public Entity
                              float vx,
                              float vy,
                              float yz);
+
+        void keyBoardInput  ();
+        void mouseInput     ();
 
 
         Camera* m_p_camera;
