@@ -76,6 +76,10 @@
 		<Unit filename="Source/Display.cpp" />
 		<Unit filename="Source/Display.h" />
 		<Unit filename="Source/Entity.h" />
+		<Unit filename="Source/File/Chunklet_File.cpp" />
+		<Unit filename="Source/File/Chunklet_File.h" />
+		<Unit filename="Source/File/World_File.cpp" />
+		<Unit filename="Source/File/World_File.h" />
 		<Unit filename="Source/Glm_Common.h" />
 		<Unit filename="Source/HUD/Crosshair.cpp" />
 		<Unit filename="Source/HUD/Crosshair.h" />

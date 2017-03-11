@@ -8,6 +8,7 @@
 #include "../World/Chunk/CBlock.h"
 
 #include <fstream>
+#include <unordered_map>
 
 enum FileMode
 {
@@ -17,13 +18,17 @@ enum FileMode
 
 class Chunklet_File
 {
-    Chunklet_File(const std::string& fileName, const Chunk::Chunklet_Position& p, FileMode mode);
+    public:
+        Chunklet_File(const std::string& fileName, const Chunk::Chunklet_Position& p);
 
-    void writeBlock (const Block::Small_Position& pos, CBlock block);
-    std::pair<Block::Small_Position, Block_t> getNextBlock();
+        void writeBlock (const Block::Small_Position& pos, Block_t block);
+
+        std::unordered_map<Block::Small_Position, Block_t>
+        readBlocks ();
 
     private:
-        std::fstream m_fileStream;
+        std::ifstream m_inFile;
+        std::ofstream m_outFile;
 };
 
 #endif // CHUNKLET_FILE_H_INCLUDED

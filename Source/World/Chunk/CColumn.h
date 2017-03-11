@@ -10,6 +10,8 @@
 #include "../Block/Block_Position.h"
 #include "../../Temp/Noise_Generator.h"
 
+class World_File;
+
 namespace Renderer
 {
     class Master;
@@ -38,7 +40,7 @@ namespace Chunk
 
 
         public:
-            Column(const Position& pos, Map& map, Regenerator& regenerator);
+            Column(const Position& pos, Map& map, Regenerator& regenerator, World_File& file);
 
             void createFullMesh();
 
@@ -64,14 +66,17 @@ namespace Chunk
 
             std::vector<std::unique_ptr<Chunklet>> m_chunklets;
 
-            Position m_position;
-            Map* m_p_chunkMap = nullptr;
+            Position        m_position;
+
+            Map*            m_p_chunkMap    = nullptr;
+            Regenerator*    m_p_regenerator = nullptr;
+            World_File*     m_p_worldFile   = nullptr;
 
             int32_t m_chunkCount = 0;
 
             CFlags m_flags;
 
-            Regenerator* m_p_regenerator;
+
     };
 }
 

@@ -20,6 +20,10 @@ void Player::keyBoardInput ()
 {
     Vector3 change;
     float speed = 0.1;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+    {
+        speed = 0.5;
+    }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
@@ -72,13 +76,15 @@ void Player::mouseInput ()
     rotation.y += mouseChange.x;
     rotation.x += mouseChange.y;
 
-    if (rotation.x > 80)
+    constexpr int8_t BOUND = 89;
+
+    if (rotation.x > BOUND)
     {
-        rotation.x = 80;
+        rotation.x = BOUND;
     }
-    else if (rotation.x < -80)
+    else if (rotation.x < -BOUND)
     {
-        rotation.x = -80;
+        rotation.x = -BOUND;
     }
     if (rotation.y < 0)
     {

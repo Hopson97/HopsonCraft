@@ -82,7 +82,7 @@ namespace Noise
         double height = totalValue;
 
         //if (height < 3 ) height = 3;
-        return ((height / 2) + 1) * nf.amplitudeMultiplier;
+        return ((height / 2.1) + 1.2) * nf.amplitudeMultiplier;
     }
 
     void Generator::setNoiseFunction(const Noise::Data& data)

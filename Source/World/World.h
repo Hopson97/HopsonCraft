@@ -8,6 +8,7 @@
 class Player;
 class Camera;
 class HUD;
+class World_File;
 
 namespace Renderer
 {
@@ -17,7 +18,7 @@ namespace Renderer
 class World
 {
     public:
-        World(const Camera& camera, Player& player, HUD& hud);
+        World(const Camera& camera, Player& player, HUD& hud, World_File& file);
 
         void input  (Camera& camera);
         void update (float dt);
@@ -27,8 +28,8 @@ class World
         Chunk::Map m_chunkMap;
         Block_Editor m_blockEditor;
 
-        Player* m_p_player;
-        HUD* m_p_hud;
+        Player*     m_p_player;
+        HUD*        m_p_hud;
 };
 
 #endif // WORLD_H_INCLUDED

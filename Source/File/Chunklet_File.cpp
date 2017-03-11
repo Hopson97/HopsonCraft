@@ -12,19 +12,27 @@ namespace
     }
 }
 
-Chunklet_File::Chunklet_File(const std::string& fileName, const Chunk::Chunklet_Position& p, FileMode mode)
+Chunklet_File::Chunklet_File(const std::string& fileName, const Chunk::Chunklet_Position& p)
 {
-    std::string fName = "Worlds/" + fileName + chunkletPositionToString(p) + ".CHUNK";
+    std::string fName = "Worlds/" + fileName + "/" + chunkletPositionToString(p) + ".CHUNK";
 
-    m_fileStream.open("Temp", std::fstream::in | std::fstream::out | std::fstream::app);
+    m_outFile   .open(fName);
+    m_inFile    .open(fName);
 }
 
-void Chunklet_File::writeBlock(const Block::Small_Position& pos, CBlock block)
+void Chunklet_File::writeBlock(const Block::Small_Position& pos, Block_t block)
 {
-
+    m_outFile << block << " " << pos.x << " " << pos.y << " " << pos.z;
 }
 
-std::pair<Block::Small_Position, Block_t> Chunklet_File::getNextBlock()
+std::unordered_map<Block::Small_Position, Block_t>
+Chunklet_File::readBlocks()
 {
+    Block::Small_Position pos;
+    Block_t block;
 
+    while (m_inFile >> block >> pos.x >> pos.y >> pos.z)
+    {
+
+    }
 }

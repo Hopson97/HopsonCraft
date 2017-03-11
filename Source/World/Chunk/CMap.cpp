@@ -13,9 +13,10 @@
 
 namespace Chunk
 {
-    Map::Map(const Camera& camera)
-    :   m_p_camera  (&camera)
-    ,   m_isRunning (true)
+    Map::Map(const Camera& camera, World_File& file)
+    :   m_p_camera      (&camera)
+    ,   m_p_worldFile   (&file)
+    ,   m_isRunning     (true)
     {
         for(int i = 0; i < 1 ; i++)
         {
@@ -72,7 +73,7 @@ namespace Chunk
         if(!getChunk(position))
         {
             m_chunks.insert(std::make_pair
-                           (position, std::make_unique<Column>(position, *this, m_regenerator)));
+                           (position, std::make_unique<Column>(position, *this, m_regenerator, *m_p_worldFile)));
         }
     }
 
@@ -138,7 +139,6 @@ namespace Chunk
             {
                 for (int32_t z = -1; z <= 1; z++)
                 {
-
                 }
             }
         }

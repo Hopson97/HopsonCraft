@@ -14,10 +14,11 @@
 
 namespace Chunk
 {
-    Column::Column(const Position& pos, Map& map, Regenerator& regenerator)
+    Column::Column(const Position& pos, Map& map, Regenerator& regenerator, World_File& file)
     :   m_position      (pos)
     ,   m_p_chunkMap    (&map)
     ,   m_p_regenerator (&regenerator)
+    ,   m_p_worldFile   (&file)
     {
         Noise::Generator noise1;
         Noise::Generator noise2;
@@ -80,6 +81,12 @@ namespace Chunk
                 }
             }
         }
+        for (auto& c : m_chunklets)
+        {
+            Chunklet& ch = *c;
+            ch.load(file);
+        }
+
         m_flags.generated = true;
     }
 
@@ -190,6 +197,12 @@ namespace Chunk
     void Column::setDeleteFlag (bool deleteF)
     {
         m_flags.deleteMe = deleteF;
+
+        for (auto& c : m_chunklets)
+        {
+            Chunklet& ch = *c;
+            ch.save(*m_p_worldFile);
+        }
     }
 
     void Column::update()

@@ -11,8 +11,8 @@
 #include "../Util/Random.h"
 #include "../HUD/HUD.h"
 
-World::World(const Camera& camera, Player& player, HUD& hud)
-:   m_chunkMap      (camera)
+World::World(const Camera& camera, Player& player, HUD& hud, World_File& file)
+:   m_chunkMap      (camera, file)
 ,   m_blockEditor   (m_chunkMap)
 ,   m_p_player      (&player)
 ,   m_p_hud         (&hud)

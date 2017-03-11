@@ -16,7 +16,6 @@ Camera::Camera()
     rotation.y += 180;
 }
 
-
 void Camera::update()
 {
     position = m_P_entity->position;

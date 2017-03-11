@@ -12,8 +12,6 @@ class World_File
     public:
         World_File(std::string&& name);
 
-        void create();
-
         void chunkWriteBlocks(std::unordered_map<Block::Small_Position, Block_t>& block,
                               const Chunk::Chunklet_Position& pos);
 

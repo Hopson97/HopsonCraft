@@ -13,7 +13,8 @@
 namespace
 {
     sf::Text text;
-    void checkFps ()
+
+    void checkFps (float f)
     {
         static sf::Clock timer;
         static sf::Clock printTimer;
@@ -29,7 +30,17 @@ namespace
             timer.restart();
         }
     }
+/*
 
+    void checkFps (float frameTime)
+    {
+        static sf::Clock printTimer;
+        if (printTimer.getElapsedTime().asSeconds() >= 0.5f)
+        {
+            text.setString(std::to_string(1/ frameTime));
+            printTimer.restart();
+        }
+    }*/
 }
 
 Application::Application()
@@ -48,11 +59,12 @@ void Application::runMainGameLoop()
 
     while (Display::isOpen())
     {
+        auto dt = clock.restart().asSeconds();
+
         m_renderer.clear();
 
         m_states.top()->input   (m_camera);
 
-        auto dt = clock.restart().asSeconds();
         m_states.top()->update  (m_camera, dt);
 
         m_states.top()->draw    (m_renderer);
@@ -61,7 +73,7 @@ void Application::runMainGameLoop()
 
         Display::checkForClose();
 
-        checkFps ();
+        checkFps (dt);
     }
 }
 

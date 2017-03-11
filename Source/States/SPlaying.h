@@ -8,6 +8,7 @@
 #include "../World/World.h"
 #include "../HUD/HUD.h"
 #include "../Player/Player.h"
+#include "../File/World_File.h"
 
 class Application;
 class Camera;
@@ -24,10 +25,14 @@ namespace State
             void draw   (Renderer::Master& renderer) override;
 
         private:
+            World_File  m_worldFile;
+
             World       m_world;
             HUD         m_hud;
 
             Player      m_player;
+
+
     };
 }
 

@@ -4,6 +4,7 @@
 #include <array>
 #include <atomic>
 #include <vector>
+#include <unordered_map>
 
 #include "CPosition.h"
 #include "CBlock.h"
@@ -16,6 +17,8 @@
 
 #include "../../Entity.h"
 #include "../../Glm_Common.h"
+
+class World_File;
 
 namespace Chunk
 {
@@ -63,11 +66,16 @@ class Chunklet : private Entity
         void setFaces(bool faces);
         const CFlags& getFlags() { return m_flags; }
 
+        void save(World_File& file);
+        void load(World_File& file);
+
     private:
 
         int32_t getBlockIndex (const Block::Small_Position& pos) const;
 
         std::array<CBlock, World_Constants::CH_VOLUME> m_blocks;
+
+        std::unordered_map<Block::Small_Position, Block_t> m_addedBlocks;
 
         Matrix4 m_modelMat;
         Chunk::Mesh m_mesh;

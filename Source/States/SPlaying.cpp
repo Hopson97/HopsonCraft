@@ -7,13 +7,15 @@
 #include "../Camera.h"
 #include "../Application.h"
 
+
 namespace State
 {
     sf::Clock clock;
 
     Playing::Playing(Application& application)
     :   Game_State  (application)
-    ,   m_world     (application.getCamera(), m_player, m_hud)
+    ,   m_worldFile ("Test")
+    ,   m_world     (application.getCamera(), m_player, m_hud, m_worldFile)
     ,   m_player    (application.getCamera())
     {
         application.getCamera().hookEntity(m_player);

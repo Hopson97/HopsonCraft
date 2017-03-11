@@ -3,6 +3,7 @@
 #include "../../Maths/Matrix_Maths.h"
 
 #include "CMap.h"
+#include "../../File/World_File.h"
 
 #include <iostream>
 
@@ -237,3 +238,20 @@ int32_t Chunklet::getBlockIndex(const Block::Small_Position& pos) const
 {
     return pos.y * World_Constants::CH_AREA + pos.z * World_Constants::CH_SIZE + pos.x;
 }
+
+void Chunklet::save(World_File& file)
+{
+    //file.chunkWriteBlocks(m_addedBlocks, m_pos);
+}
+
+void Chunklet::load(World_File& file)
+{
+    //m_addedBlocks = file.chunkGetBlocks(m_pos);
+/*
+    for (auto& addedBlock : m_addedBlocks)
+    {
+
+    }
+*/
+}
+

@@ -13,6 +13,7 @@
 #include "CRegenerator.h"
 
 class Camera;
+class World_File;
 
 namespace Renderer
 {
@@ -24,7 +25,7 @@ namespace Chunk
     class Map
     {
         public:
-            Map(const Camera& camera);
+            Map(const Camera& camera, World_File& file);
             ~Map();
 
             void update();
@@ -51,6 +52,8 @@ namespace Chunk
             Regenerator m_regenerator;
 
             const Camera* m_p_camera;
+
+            World_File* m_p_worldFile;
 
             int8_t m_renderDistance    = 10;
             int8_t m_currentLoadDist   = 1;

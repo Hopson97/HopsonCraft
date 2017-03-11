@@ -25,8 +25,6 @@ namespace
         #else // __WIN32
             std::cout << message << std::endl;
         #endif
-
-
     }
 
     void initilize()
@@ -63,11 +61,11 @@ namespace
         m_noiseGen.setSeed(555);
         m_noiseGen.setNoiseFunction({8, 100, 0.53, 240, 0});
 
-        uint64_t total = 0;
+        float total = 0;
         std::vector<double> test;
         for (int i = 0 ; i < trials ; i++)
         {
-            int h = m_noiseGen.getValue(i, i, i, i);
+            float h = m_noiseGen.getValue(i, i, i, i);
             test.push_back(h);
             total += h;
         }

@@ -21,7 +21,6 @@ namespace Display
                                                     "Window",
                                                     sf::Style::Close,
                                                     settings);
-
         glewInit();
         glViewport(0, 0, get().getSize().x, get().getSize().y);
 

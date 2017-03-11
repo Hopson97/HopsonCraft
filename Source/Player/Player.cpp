@@ -34,8 +34,6 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
     position.z += m_velocity.z * dt;
     collisionTest(chunkMap, dt, 0, 0, m_velocity.z);
 
-
-
     //box.update(position + (m_velocity * dt));
 }
 
