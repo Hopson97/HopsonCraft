@@ -11,6 +11,22 @@
 
 #include "Chunklet.h"
 
+
+namespace
+{
+    std::vector<GLfloat> cubeCoords
+    {
+        0, 0, 0, //0
+        1, 0, 0, //1
+        1, 1, 0, //2
+        1, 0, 1, //3
+        0, 1, 0, //4
+        0, 1, 1, //5
+        0, 0, 1, //6
+        1, 1, 1, //7
+    };
+}
+
 namespace Chunk
 {
     namespace
