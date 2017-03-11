@@ -36,10 +36,12 @@ namespace Chunk
 
             CBlock getBlockAt(const Vector3& worldPosition);
 
-            void breakBlock(const Vector3& worldPosition);
-            void addBlock  (const Vector3& worldPosition, CBlock block);
+            void breakBlock (const Vector3& worldPosition);
+            void placeBlock (const Vector3& worldPosition, CBlock block);
 
         private:
+            void triggerBlocks(const Block::Column_Position& worldPosition);
+
             void manageChunks();
             void loadAndGenChunks();
             void flagChunks();
@@ -50,13 +52,12 @@ namespace Chunk
 
             const Camera* m_p_camera;
 
-            int8_t m_renderDistance    = 14;
+            int8_t m_renderDistance    = 10;
             int8_t m_currentLoadDist   = 1;
 
             std::atomic<bool> m_isRunning;
 
             std::mutex m_addChunkMutex;
-            std::mutex m_chunkUpdateMutex;
             std::vector<std::unique_ptr<std::thread>> m_chunkGenThreads;
     };
 }

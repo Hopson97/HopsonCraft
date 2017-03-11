@@ -114,19 +114,36 @@ namespace Chunk
         if(chunk)
         {
             auto blockPosition = Maths::worldToBlockPos(worldPosition);
+            triggerBlocks(blockPosition);
             chunk->setBlock(blockPosition, Block::ID::Air);
         }
     }
 
-    void Map::addBlock(const Vector3& worldPosition, CBlock block)
+    void Map::placeBlock(const Vector3& worldPosition, CBlock block)
     {
         auto* chunk = getChunk(Maths::worldToChunkPos(worldPosition));
         if(chunk)
         {
             auto blockPosition = Maths::worldToBlockPos(worldPosition);
+            triggerBlocks(blockPosition);
             chunk->setBlock(blockPosition, block);
         }
     }
+
+    void Map::triggerBlocks(const Block::Column_Position& worldPosition)
+    {
+        for (int32_t y = -1; y <= 1; y++)
+        {
+            for (int32_t x = -1; x <= 1; x++)
+            {
+                for (int32_t z = -1; z <= 1; z++)
+                {
+
+                }
+            }
+        }
+    }
+
 
 
 

@@ -48,39 +48,41 @@ void Player::collisionTest( Chunk::Map& chunkMap,
                             float vy,
                             float vz)
 {
-    for (int x = position.x - size; x < position.x + size; x++)
-        for (int y = position.y - height; y < position.y + height; y++)
-            for (int z = position.z - size; z < position.z + size; z++)
-                if (chunkMap.getBlockAt({x, y, z}) != Block::ID::Air)
-                {
-                    if (vx > 0)
-                    {
-                        position.x = x - size;
-                    }
-                    if (vx < 0)
-                    {
-                        position.x = x + size + 1;
-                    }
-                    if (vy > 0)
-                    {
-                        position.y = y - height;
-                        m_velocity.y = 0;
-                    }
-                    if (vy < 0)
-                    {
-                        position.y = y + height + 1;
-                        m_isOnGround = true;
-                        m_velocity.y = 0;
-                    }
-                    if (vz > 0)
-                    {
-                        position.z = z - size;
-                    }
-                    if (vz < 0)
-                    {
-                        position.z = z + size + 1;
-                    }
-                }
+    for (int32_t x = position.x - size    ; x < position.x + size     ; x++)
+    for (int32_t y = position.y - height  ; y < position.y + height   ; y++)
+    for (int32_t z = position.z - size    ; z < position.z + size     ; z++)
+    {
+        if (chunkMap.getBlockAt({x, y, z}) != Block::ID::Air)
+        {
+            if (vx > 0)
+            {
+                position.x = x - size;
+            }
+            if (vx < 0)
+            {
+                position.x = x + size + 1;
+            }
+            if (vy > 0)
+            {
+                position.y = y - height;
+                m_velocity.y = 0;
+            }
+            if (vy < 0)
+            {
+                position.y = y + height + 1;
+                m_isOnGround = true;
+                m_velocity.y = 0;
+            }
+            if (vz > 0)
+            {
+                position.z = z - size;
+            }
+            if (vz < 0)
+            {
+                position.z = z + size + 1;
+            }
+        }
+    }
 }
 
 

@@ -13,7 +13,7 @@
 namespace
 {
     sf::Text text;
-    void checkFps (Renderer::Master& master)
+    void checkFps ()
     {
         static sf::Clock timer;
         static sf::Clock printTimer;
@@ -61,7 +61,7 @@ void Application::runMainGameLoop()
 
         Display::checkForClose();
 
-        checkFps (m_renderer);
+        checkFps ();
     }
 }
 

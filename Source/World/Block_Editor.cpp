@@ -70,7 +70,7 @@ bool Block_Editor::editBlock(const Ray& ray, Player& player)
 
             if(playerBlockPos != editPos)
             {
-                m_p_chunkMap->addBlock(m_lastRayPosition, Block::ID::Grass);
+                m_p_chunkMap->placeBlock(m_lastRayPosition, Block::ID::Grass);
             }
             return true;
         }

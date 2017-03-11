@@ -4,20 +4,24 @@
 #include <cstdint>
 #include <SFML/System/Vector3.hpp>
 
+#include "../../Util/Hasher.h"
+
 namespace Block
 {
     typedef sf::Vector3<int8_t> Small_Position;
     typedef sf::Vector3<int32_t> Column_Position;
-    /*
-    struct Position
-    {
-        Position(int8_t x, int8_t y, int8_t z);
+}
 
-        int8_t  x,
-                y,
-                z;
+namespace std
+{
+    template<>
+    struct hash<Block::Small_Position>
+    {
+        size_t operator() (const Block::Small_Position& pos) const
+        {
+            return Hasher::hash(pos.x, pos.y, pos.z);
+        }
     };
-    */
 }
 
 #endif // BLOCK_POSITION_H_INCLUDED
