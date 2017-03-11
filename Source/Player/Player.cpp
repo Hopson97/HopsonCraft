@@ -27,6 +27,7 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
             m_velocity.y -= 40 * dt;
         }
         m_isOnGround = false;
+        m_isInLiquid = false;
     }
 
     position.x += m_velocity.x * dt;

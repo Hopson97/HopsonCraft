@@ -25,6 +25,7 @@ void Camera::update()
 void Camera::hookEntity(const Entity& entity)
 {
     m_P_entity = &entity;
+    update();
 }
 
 

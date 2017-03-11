@@ -56,7 +56,18 @@ Application::Application()
 void Application::runMainGameLoop()
 {
     sf::Clock clock;
-
+/*
+    std::thread inputThread([&]()
+    {
+        while (Display::isOpen())
+        {
+            if(!m_states.empty())
+            {
+                m_states.top()->input   (m_camera);
+            }
+        }
+    });
+*/
     while (Display::isOpen())
     {
         auto dt = clock.restart().asSeconds();
@@ -75,6 +86,8 @@ void Application::runMainGameLoop()
 
         checkFps (dt);
     }
+
+    //inputThread.join();
 }
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)

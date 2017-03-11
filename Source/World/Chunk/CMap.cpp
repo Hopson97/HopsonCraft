@@ -18,6 +18,7 @@ namespace Chunk
     ,   m_p_worldFile   (&file)
     ,   m_isRunning     (true)
     {
+        addChunk(Maths::worldToChunkPos(camera.position));
         for(int i = 0; i < 1 ; i++)
         {
             m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
