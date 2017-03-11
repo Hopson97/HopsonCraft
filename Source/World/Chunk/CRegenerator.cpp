@@ -18,7 +18,6 @@ namespace Chunk
         }
     }
 
-
     void Regenerator::regen()
     {
         while (!m_chunklets.empty())

@@ -18,7 +18,7 @@ Camera::Camera()
 Vector3 Camera::input()
 {
     Vector3 change;
-    float speed = 0.5;
+    float speed = 0.3;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
         speed = 10;
@@ -50,7 +50,7 @@ Vector3 Camera::input()
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Up)))
     {
-        change.y += speed;
+        //change.y += speed;
     }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Down)))

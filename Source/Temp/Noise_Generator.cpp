@@ -33,7 +33,8 @@ namespace Noise
 
     double Generator::lerp(double a, double b, double z) const
     {
-        return (1 - z) * a + z * b;
+        double mu2 = (1 - std::cos(z * 3.14)) / 2;
+        return (a * (1 - mu2) + b * mu2);
     }
 
     double Generator::noise(double x, double z) const
@@ -71,10 +72,10 @@ namespace Noise
 
         for (auto a = 0; a < nf.octaves - 1; a++)      //This loops trough the octaves.
         {
-            auto frequency = pow(2.0, a);           //This increases the frequency with every loop of the octave.
+            auto frequency = pow(2.0, a) * 1.5;           //This increases the frequency with every loop of the octave.
             auto amplitude = pow(nf.roughness, a);  //This decreases the amplitude with every loop of the octave.
             totalValue += noise(((double)newX) * frequency / nf.smoother,
-                                ((double)newZ) / nf.smoother * frequency)
+                                ((double)newZ) * frequency / nf.smoother)
                                 * amplitude;
         }
 

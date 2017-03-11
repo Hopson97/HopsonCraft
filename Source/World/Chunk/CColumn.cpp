@@ -19,13 +19,19 @@ namespace Chunk
     ,   m_p_chunkMap    (&map)
     ,   m_p_regenerator (&regenerator)
     {
-        Noise::Generator m_noiseGen;
+        Noise::Generator noise1;
+        Noise::Generator noise2;
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        m_noiseGen.setSeed(433);
-        //m_noiseGen.setNoiseFunction({8, 80, 0.53, 200, 0});
-        m_noiseGen.setNoiseFunction({10, 70, 0.55, 280, 0});
+        noise1.setSeed(5);
+        noise2.setSeed(5);
+
+        //noise1.setNoiseFunction({10, 70, 0.65, 480, 0});
+        //noise1.setNoiseFunction({10, 90, 0.1, 580, 0});
+
+        //noise1.setNoiseFunction({8, 80, 0.53, 200, 0});
+        noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
 
         if( pos.x < 0 || pos.y < 0)
         {
@@ -37,7 +43,10 @@ namespace Chunk
             {
                 for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
                 {
-                    int h = m_noiseGen.getValue(x, z, pos.x, pos.y);
+                    double h1 = noise1.getValue(x, z, pos.x, pos.y);
+                    double h2 = h1;// = noise2.getValue(x, z, pos.x, pos.y);
+
+                    auto h = (h1 + h2) / 2;
                     heightMap[x * World_Constants::CH_SIZE + z] = h;
                 }
             }
@@ -54,7 +63,7 @@ namespace Chunk
 
                     if (y == h)
                     {
-                        y > 75?
+                        y > 73?
                             setBlock({x, y, z}, Block::ID::Grass) :
                             setBlock({x, y, z}, Block::ID::Sand);
                     }

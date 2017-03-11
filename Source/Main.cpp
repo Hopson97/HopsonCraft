@@ -12,8 +12,23 @@
 
 #include "Temp/Noise_Generator.h"
 
+#ifdef __WIN32
+#include <windows.h>
+#endif // __WIN32
+
 namespace
 {
+    void errorMessage(const std::string& message)
+    {
+        #ifdef __WIN32
+            MessageBox(nullptr, message.c_str(), "Error", MB_OK);
+        #else // __WIN32
+            std::cout << message << std::endl;
+        #endif
+
+
+    }
+
     void initilize()
     {
         Random  ::init();
@@ -69,9 +84,15 @@ int main() try
     //noiseTest(1000000);
     return 0;
 }
-catch(std::exception& e)
+catch(std::out_of_range& e)
 {
-    std::cout << e.what() << std::endl;
+    std::string msg = e.what();
+    errorMessage(msg);
+    std::cin.ignore();
+}
+catch(...)
+{
+    errorMessage("Unknown error.");
     std::cin.ignore();
 }
 

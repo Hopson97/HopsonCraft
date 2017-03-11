@@ -25,8 +25,17 @@ class Player : public Entity
         void addForce       (const Vector3& force);
 
     private:
+        void collisionTest  (Chunk::Map& chunkMap,
+                             float dt,
+                             float vx,
+                             float vy,
+                             float yz);
+
+
         Camera* m_p_camera;
         Vector3 m_velocity;
+
+        bool m_isOnGround = false;
 
     public:
         AABB box;

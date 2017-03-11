@@ -37,24 +37,14 @@ namespace Chunk
 
     void Map::manageChunks()
     {
-        while (m_isRunning)
-        {
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
-            loadAndGenChunks();
-
-            loadDistChange(m_currentLoadDist, m_renderDistance);
-
-            //if(m_currentLoadDist == m_renderDistance - 1) return;
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
-            flagChunks();
-        }
+        loadAndGenChunks();
+        loadDistChange(m_currentLoadDist, m_renderDistance);
+        flagChunks();
     }
 
     void Map::loadAndGenChunks()
     {
         auto pos = Maths::worldToChunkPos(m_p_camera->position);
-
 
         Load_Sector sect
         (

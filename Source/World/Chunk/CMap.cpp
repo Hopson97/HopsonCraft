@@ -19,7 +19,13 @@ namespace Chunk
     {
         for(int i = 0; i < 1 ; i++)
         {
-            m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]() { manageChunks(); }));
+            m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
+            {
+                while (m_isRunning)
+                {
+                    manageChunks();
+                }
+            }));
         }
     }
 
@@ -62,13 +68,12 @@ namespace Chunk
 
     void Map::addChunk(const Position& position)
     {
-        m_addChunkMutex.lock();
+        std::lock_guard<std::mutex> lock(m_addChunkMutex);
         if(!getChunk(position))
         {
             m_chunks.insert(std::make_pair
                            (position, std::make_unique<Column>(position, *this, m_regenerator)));
         }
-        m_addChunkMutex.unlock();
     }
 
     Column* Map::getChunk(const Chunk::Position& position)
