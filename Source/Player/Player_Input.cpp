@@ -51,11 +51,30 @@ void Player::keyBoardInput ()
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Up)))
     {
-        if (m_isOnGround)
+        if (m_isFlying)
+        {
+            m_velocity.y += speed;
+        }
+        else if (m_isOnGround)
         {
             m_velocity.y += 12;
         }
     }
+    if (m_isFlying)
+    {
+        if(sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Down)))
+        {
+            m_velocity.y -= speed;
+        }
+    }
+
+    static Function_Toggle_Key key([&]()
+                                   {
+                                       m_isFlying = !m_isFlying;
+                                       m_isOnGround = false;
+                                   },
+                                   sf::Keyboard::F, sf::seconds(1.0));
+    key.checkInput();
 
     addForce(change);
 }

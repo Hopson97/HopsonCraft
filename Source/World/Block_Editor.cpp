@@ -63,15 +63,6 @@ bool Block_Editor::editBlock(const Ray& ray, Player& player)
         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
             m_editorTimer.restart();
-
-            auto playerBlockPos = Maths::worldToBlockPos(player.position);
-            auto editPos        = Maths::worldToBlockPos(m_lastRayPosition);
-
-
-            if(playerBlockPos != editPos)
-            {
-                m_p_chunkMap->placeBlock(m_lastRayPosition, Block::ID::Grass);
-            }
             return true;
         }
     }

@@ -39,6 +39,7 @@ class Player : public Entity
         Vector3 m_velocity;
 
         bool m_isOnGround = false;
+        bool m_isFlying   = false;
 
     public:
         AABB box;

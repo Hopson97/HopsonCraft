@@ -19,11 +19,14 @@ void Player::addForce(const Vector3& force)
 
 void Player::testForCollide(Chunk::Map& chunkMap, float dt)
 {
-    if (!m_isOnGround)
+    if (!m_isFlying)
     {
-        m_velocity.y -= 30 * dt;
+        if (!m_isOnGround)
+        {
+            m_velocity.y -= 40 * dt;
+        }
+        m_isOnGround = false;
     }
-    m_isOnGround = false;
 
     position.x += m_velocity.x * dt;
     collisionTest(chunkMap, dt, m_velocity.x, 0, 0);
@@ -97,4 +100,7 @@ void Player::update(float dt)
 
     m_velocity.x *= 0.98;
     m_velocity.z *= 0.98;
+
+    if(m_isFlying)
+        m_velocity.y *= 0.98;
 }
