@@ -7,25 +7,34 @@
 
 namespace Block
 {
+    enum Mesh_Type
+    {
+        Solid,
+        Liquid
+    };
+
+    struct Data_Holder
+    {
+        ID blockID;
+
+        std::string name;
+
+        bool isOpaque;
+
+        Vector2 topTextureCoords;
+        Vector2 sideTextureCoords;
+        Vector2 bottomTextureCoords;
+    };
+
     class Data
     {
         public:
            Data(const std::string& fileName);
 
-           const Vector2& getTopTex() const;
-           const Vector2& getSideTex() const;
-           const Vector2& getBottomTex() const;
+           const Data_Holder& get() const { return m_holder; }
 
         private:
-            ID m_blockID;
-
-            std::string m_name;
-
-            bool m_isOpaque;
-
-            Vector2 m_topTextureCoords;
-            Vector2 m_sideTextureCoords;
-            Vector2 m_bottomTextureCoords;
+            Data_Holder m_holder;
     };
 }
 

@@ -64,6 +64,8 @@ namespace Chunk
             void makeBottomFace (const Block::Small_Position& pos);
 
             Section m_solidMesh;
+            Section m_liquidMesh;
+            Section* m_activeSection;
 
             Chunklet*               m_p_chunklet        = nullptr;
             const Block::Data*      m_p_activeBlockData = nullptr;

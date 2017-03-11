@@ -18,46 +18,30 @@ namespace Block
             if (title == "") continue;
             else if (title == "Name")
             {
-                inFile >> m_name;
+                inFile >> m_holder.name;
             }
             else if (title == "ID")
             {
                 int tempID;
                 inFile >> tempID;
-                m_blockID = static_cast<ID>(tempID);
+                m_holder.blockID = static_cast<ID>(tempID);
             }
             else if (title == "Opaque")
             {
-                inFile >> m_isOpaque;
+                inFile >> m_holder.isOpaque;
             }
             else if (title == "TextureTop")
             {
-                inFile >> m_topTextureCoords.x >> m_topTextureCoords.y;
+                inFile >> m_holder.topTextureCoords.x >> m_holder.topTextureCoords.y;
             }
             else if (title == "TextureSide")
             {
-                inFile >> m_sideTextureCoords.x >> m_sideTextureCoords.y;
+                inFile >> m_holder.sideTextureCoords.x >> m_holder.sideTextureCoords.y;
             }
             else if (title == "TextureBottom")
             {
-                inFile >> m_bottomTextureCoords.x >> m_bottomTextureCoords.y;
+                inFile >> m_holder.bottomTextureCoords.x >> m_holder.bottomTextureCoords.y;
             }
         }
     }
-
-    const Vector2& Data::getTopTex() const
-    {
-        return m_topTextureCoords;
-    }
-
-    const Vector2& Data::getSideTex() const
-    {
-        return m_sideTextureCoords;
-    }
-
-    const Vector2& Data::getBottomTex() const
-    {
-        return m_bottomTextureCoords;
-    }
-
 }

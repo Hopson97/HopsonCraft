@@ -181,7 +181,7 @@ namespace Chunk
         });
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
-                                 getTextureCoords(m_p_activeBlockData->getSideTex()));
+                                 getTextureCoords(m_p_activeBlockData->get().sideTextureCoords));
 
         m_solidMesh.addLightVal(LIGHT_Z);
     }
@@ -201,7 +201,7 @@ namespace Chunk
         });
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
-                                 getTextureCoords(m_p_activeBlockData->getSideTex()));
+                                 getTextureCoords(m_p_activeBlockData->get().sideTextureCoords));
 
         m_solidMesh.addLightVal(LIGHT_Z);
     }
@@ -221,7 +221,7 @@ namespace Chunk
         });
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
-                                 getTextureCoords(m_p_activeBlockData->getSideTex()));
+                                 getTextureCoords(m_p_activeBlockData->get().sideTextureCoords));
 
         m_solidMesh.addLightVal(LIGHT_X);
     }
@@ -241,7 +241,7 @@ namespace Chunk
         });
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
-                                 getTextureCoords(m_p_activeBlockData->getSideTex()));
+                                 getTextureCoords(m_p_activeBlockData->get().sideTextureCoords));
 
         m_solidMesh.addLightVal(LIGHT_X);
     }
@@ -261,7 +261,7 @@ namespace Chunk
         });
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
-                                 getTextureCoords(m_p_activeBlockData->getTopTex()));
+                                 getTextureCoords(m_p_activeBlockData->get().topTextureCoords));
 
         m_solidMesh.addLightVal(LIGHT_TOP);
     }
@@ -281,7 +281,7 @@ namespace Chunk
         });
 
         m_solidMesh.addTexCoords(m_p_textureAtlas->
-                                 getTextureCoords(m_p_activeBlockData->getBottomTex()));
+                                 getTextureCoords(m_p_activeBlockData->get().bottomTextureCoords));
 
         m_solidMesh.addLightVal(LIGHT_BOTTOM);
     }
