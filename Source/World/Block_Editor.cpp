@@ -7,7 +7,7 @@
 #include "../HUD/Crosshair.h"
 #include "../Maths/General_Maths.h"
 #include "../Physics/Ray.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 
 
 float delay = 0.2f;
@@ -33,7 +33,7 @@ void Block_Editor::input(Player& player, Crosshair& crosshair)
         if(isHitBlock(raycast))
         {
             crosshair.setMode(Crosshair::Mode::Hit);
-            if (editBlock(raycast))
+            if (editBlock(raycast, player))
                 break;
         }
         else
@@ -50,7 +50,7 @@ bool Block_Editor::isHitBlock(const Ray& ray) const
     return !(block == Block::ID::Air);
 }
 
-bool Block_Editor::editBlock(const Ray& ray)
+bool Block_Editor::editBlock(const Ray& ray, Player& player)
 {
     if(m_editorTimer.getElapsedTime().asSeconds() >= delay)
     {
@@ -63,7 +63,15 @@ bool Block_Editor::editBlock(const Ray& ray)
         else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
             m_editorTimer.restart();
-            m_p_chunkMap->addBlock(m_lastRayPosition, Block::ID::Grass);
+
+            auto playerBlockPos = Maths::worldToBlockPos(player.position);
+            auto editPos        = Maths::worldToBlockPos(m_lastRayPosition);
+
+
+            if(playerBlockPos != editPos)
+            {
+                m_p_chunkMap->addBlock(m_lastRayPosition, Block::ID::Grass);
+            }
             return true;
         }
     }

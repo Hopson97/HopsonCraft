@@ -19,7 +19,7 @@ void Player::input()
 void Player::keyBoardInput ()
 {
     Vector3 change;
-    float speed = 0.3;
+    float speed = 0.1;
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
@@ -92,7 +92,8 @@ void Player::mouseInput ()
     auto centerX = Display::get().getSize().x / 4;
     auto centerY = Display::get().getSize().y / 4;
 
-    sf::Mouse::setPosition({centerX, centerY}, Display::get());
+    sf::Mouse::setPosition({static_cast<int>(centerX),
+                            static_cast<int>(centerY)}, Display::get());
 
     lastMousePosition = sf::Mouse::getPosition();
 }

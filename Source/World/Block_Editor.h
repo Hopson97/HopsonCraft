@@ -24,7 +24,7 @@ class Block_Editor
 
     private:
         bool isHitBlock(const Ray& ray) const;
-        bool editBlock (const Ray& ray);
+        bool editBlock (const Ray& ray, Player& player);
 
         Vector3 m_lastRayPosition;
         Chunk::Map* m_p_chunkMap;

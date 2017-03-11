@@ -4,6 +4,7 @@
 
 namespace Collision
 {
+/*
     bool pointInAABB(const Vector3& point, const AABB& box)
     {
         return  (point.x >= box.getDim().x && point.x <= box.getPoint().x + box.getDim().x) &&
@@ -26,5 +27,5 @@ namespace Collision
     {
 
     }
-
+*/
 }
