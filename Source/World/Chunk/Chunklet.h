@@ -75,7 +75,7 @@ class Chunklet : private Entity
 
         std::array<CBlock, World_Constants::CH_VOLUME> m_blocks;
 
-        std::unordered_map<Block::Small_Position, Block_t> m_addedBlocks;
+        //std::unordered_map<Block::Small_Position, Block_t> m_addedBlocks;
 
         Matrix4 m_modelMat;
         Chunk::Mesh m_mesh;
