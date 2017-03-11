@@ -8,7 +8,7 @@ namespace Texture
     {
         load(textureName);
     }
-
+/*
     std::vector<GLfloat> Atlas::getTextureCoords(const Vector2& location) const
     {
         static auto texturesPerRow  = m_size / m_textureSize;
@@ -19,6 +19,28 @@ namespace Texture
 
         auto xMax = xMin + unitSize;
         auto yMax = yMin + unitSize;
+
+        return
+        {
+            xMax, yMax,
+            xMin, yMax,
+            xMin, yMin,
+            xMax, yMin
+        };
+    }
+    */
+
+    std::vector<GLfloat> Atlas::getTextureCoords(const Vector2& location) const
+    {
+        static float texturesPerRow     = m_size / m_textureSize;
+        static float unitSize           = 1.0f / (float)texturesPerRow;
+        static float pixelSize          = 1.0f / (float)m_size;
+
+        float xMin = (location.x * unitSize) + 0.5 * pixelSize;
+        float yMin = (location.y * unitSize) + 0.5 * pixelSize;
+
+        float xMax = (xMin + unitSize) - 0.5 * pixelSize;
+        float yMax = (yMin + unitSize) - 0.5 * pixelSize;
 
         return
         {

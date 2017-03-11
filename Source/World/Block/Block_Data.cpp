@@ -34,6 +34,12 @@ namespace Block
             {
                 inFile >> m_holder.isObstacle;
             }
+            else if (title == "Mesh")
+            {
+                int mesh;
+                inFile >> mesh;
+                m_holder.meshType = static_cast<Mesh_Type>(mesh);
+            }
             else if (title == "TextureTop")
             {
                 inFile >> m_holder.topTextureCoords.x >> m_holder.topTextureCoords.y;

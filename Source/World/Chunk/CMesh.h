@@ -18,42 +18,52 @@ namespace Texture
 
 namespace Chunk
 {
+    class Mesh_Section
+    {
+        public:
+            void reset();
+
+            void buffer ();
+
+            void addVerticies   (const std::vector<GLfloat>& v);
+            void addTexCoords   (const std::vector<GLfloat>& t);
+            void addIndices     (const std::vector<GLuint>&  i);
+            void addLightVal    (GLfloat cardinalVal);
+
+            const Model& getModel() const;
+
+            void addIndices();
+
+            uint32_t getFacesCount() const { return m_faces; }
+
+        private:
+            std::vector<GLfloat>    m_verticies;
+            std::vector<GLfloat>    m_texCoords;
+            std::vector<GLuint>     m_indices;
+            std::vector<GLfloat>    m_light;
+
+            Model m_model;
+
+            uint32_t m_faces = 0;
+
+            GLuint m_indicesCount = 0;
+    };
+
     class Mesh
     {
-        class Section
-        {
-            public:
-                void reserve();
-                void buffer ();
-
-                void addVerticies   (const std::vector<GLfloat>& v);
-                void addTexCoords   (const std::vector<GLfloat>& t);
-                void addIndices     (const std::vector<GLuint>&  i);
-                void addLightVal    (GLfloat cardinalVal);
-
-                const Model& getModel() const;
-
-            //private:
-                std::vector<GLfloat>    m_verticies;
-                std::vector<GLfloat>    m_texCoords;
-                std::vector<GLuint>     m_indices;
-                std::vector<GLfloat>    m_light;
-
-                Model m_model;
-
-                GLuint m_indicesCount = 0;
-        };
-
         public:
             Mesh(Chunklet& chunklet);
 
             void create();
             void buffer();
 
-            const Section& getSolidMesh() const;
+            const Mesh_Section& getSolidMesh    () const;
+            const Mesh_Section& getLiquidMesh   () const;
 
 
         private:
+            void setActiveSection();
+
             bool shouldMakeFaceAdjacentTo(const Block::Small_Position& pos);
 
             void makeFrontFace  (const Block::Small_Position& pos);
@@ -63,9 +73,9 @@ namespace Chunk
             void makeTopFace    (const Block::Small_Position& pos);
             void makeBottomFace (const Block::Small_Position& pos);
 
-            Section m_solidMesh;
-            Section m_liquidMesh;
-            Section* m_activeSection;
+            Mesh_Section m_solidMesh;
+            Mesh_Section m_liquidMesh;
+            Mesh_Section* m_activeSection = nullptr;
 
             Chunklet*               m_p_chunklet        = nullptr;
             const Block::Data*      m_p_activeBlockData = nullptr;

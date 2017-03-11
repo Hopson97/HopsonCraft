@@ -1,9 +1,8 @@
-#ifndef RCHUNK_H_INCLUDED
-#define RCHUNK_H_INCLUDED
+#ifndef RLIQUID_H_INCLUDED
+#define RLIQUID_H_INCLUDED
 
 #include <vector>
 
-#include "../Shaders/Solid_Shader.h"
 #include "../Shaders/Liquid_Shader.h"
 
 class Chunklet;
@@ -11,7 +10,7 @@ struct Camera;
 
 namespace Renderer
 {
-    class RChunk
+    class RLiquid
     {
         public:
             void draw (const Chunklet& quad);
@@ -24,8 +23,8 @@ namespace Renderer
         private:
             std::vector<const Chunklet*> m_chunks;
 
-            Shader::Solid_Shader m_shader;
+            Shader::Liqud_Shader m_shader;
     };
 }
 
-#endif // RCHUNK_H_INCLUDED
+#endif // RLIQUID_H_INCLUDED

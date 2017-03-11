@@ -21,15 +21,12 @@ namespace Chunk
                             LIGHT_BOTTOM    =   0.3;
     }
 
-    void Mesh::Section::reserve()
+    void Mesh_Section::reset()
     {
-        m_verticies.reserve (10000);
-        m_texCoords.reserve (10000);
-        m_indices.reserve   (10000);
-        m_light.reserve     (10000);
+        m_faces = 0;
     }
 
-    void Mesh::Section::buffer()
+    void Mesh_Section::buffer()
     {
         m_model.addData(m_verticies, m_texCoords, m_indices);
         m_model.addVBO(1, m_light);
@@ -46,30 +43,52 @@ namespace Chunk
 
     }
 
-    void Mesh::Section::addVerticies(const std::vector<GLfloat>& v)
+
+
+    void Mesh_Section::addVerticies(const std::vector<GLfloat>& v)
     {
+        m_faces++;
         m_verticies.insert(m_verticies.end(), v.begin(), v.end());
     }
 
-    void Mesh::Section::addTexCoords(const std::vector<GLfloat>& t)
+    void Mesh_Section::addTexCoords(const std::vector<GLfloat>& t)
     {
         m_texCoords.insert(m_texCoords.end(), t.begin(), t.end());
     }
 
-    void Mesh::Section::addIndices(const std::vector<GLuint>& i)
+    void Mesh_Section::addIndices(const std::vector<GLuint>& i)
     {
         m_indices.insert(m_indices.end(), i.begin(), i.end());
     }
 
-    void Mesh::Section::addLightVal(GLfloat cardinalVal)
+    void Mesh_Section::addLightVal(GLfloat cardinalVal)
     {
         m_light.insert(m_light.end(), {cardinalVal, cardinalVal, cardinalVal, cardinalVal});
     }
 
-    const Model& Mesh::Section::getModel() const
+    const Model& Mesh_Section::getModel() const
     {
         return m_model;
     }
+
+
+    void Mesh_Section::addIndices()
+    {
+        for (uint32_t i = 0, count = 0; i < m_faces; ++i, count += 4)
+        {
+            addIndices(
+            {
+                count,
+                count + 1,
+                count + 2,
+                count + 2,
+                count + 3,
+                count,
+            });
+        }
+    }
+
+
 
 
     Mesh::Mesh(Chunklet& chunklet)
@@ -81,7 +100,8 @@ namespace Chunk
     {
         sf::Clock timer;
 
-        uint32_t faces = 0;
+        m_solidMesh.reset();
+        m_liquidMesh.reset();
 
         for (int8_t y = 0; y < World_Constants::CH_SIZE; ++y){
             for (int8_t x = 0; x < World_Constants::CH_SIZE; ++x){
@@ -97,40 +117,35 @@ namespace Chunk
                         m_p_activeBlockData = &Block::Database::get().
                                                 getBlock(m_p_chunklet->qGetBlock(pos).id).getData();
 
-                        //ugly C++ casts be like
+                        setActiveSection();
+
                         if (shouldMakeFaceAdjacentTo({x, static_cast<int8_t>(y + 1), z}))
                         {
                             makeTopFace (pos);
-                            ++faces;
                         }
 
                         if (shouldMakeFaceAdjacentTo({x, static_cast<int8_t>(y - 1), z}))
                         {
                             makeBottomFace(pos);
-                            ++faces;
                         }
 
                         if (shouldMakeFaceAdjacentTo({static_cast<int8_t>(x - 1), y, z}))
                         {
                             makeLeftFace (pos);
-                            ++faces;
                         }
 
                         if (shouldMakeFaceAdjacentTo({static_cast<int8_t>(x + 1), y, z}))
                         {
                             makeRightFace (pos);
-                            ++faces;
                         }
                         if (shouldMakeFaceAdjacentTo({x, y, static_cast<int8_t>(z + 1)}))
                         {
                             makeFrontFace (pos);
-                            ++faces;
                         }
 
                         if (shouldMakeFaceAdjacentTo({x, y, static_cast<int8_t>(z - 1)}))
                         {
                             makeBackFace (pos);
-                            ++faces;
                         }
                     }
                 }
@@ -138,32 +153,54 @@ namespace Chunk
         }
 
 
-        for (uint32_t i = 0, count = 0; i < faces; ++i, count += 4)
-        {
-            m_solidMesh.addIndices(
-            {
-                count,
-                count + 1,
-                count + 2,
-                count + 2,
-                count + 3,
-                count,
-            });
-        }
+        m_solidMesh.addIndices();
+        m_liquidMesh.addIndices();
 
-        m_p_chunklet->setFaces(faces);
-        //std::cout << faces << " faces added in " << timer.getElapsedTime().asSeconds() << " seconds.\n";
+        m_p_chunklet->setFaces(m_solidMesh.getFacesCount() | m_liquidMesh.getFacesCount());
+        //std::cout << " faces added in " << timer.getElapsedTime().asSeconds() << " seconds.\n";
     }
 
-    void Mesh::buffer() { m_solidMesh.buffer(); }
 
-    const Mesh::Section& Mesh::getSolidMesh() const { return m_solidMesh; }
+    void Mesh::setActiveSection()
+    {
+        switch(m_p_activeBlockData->get().meshType)
+        {
+            case Block::Mesh_Type::Solid:
+                m_activeSection = &m_solidMesh;
+                break;
+
+            case Block::Mesh_Type::Liquid:
+                m_activeSection = &m_liquidMesh;
+                break;
+        }
+    }
+
+    void Mesh::buffer()
+    {
+        m_solidMesh.buffer();
+        m_liquidMesh.buffer();
+    }
+
+    const Mesh_Section& Mesh::getSolidMesh() const
+    {
+        return m_solidMesh;
+    }
+
+    const Mesh_Section& Mesh::getLiquidMesh() const
+    {
+        return m_liquidMesh;
+    }
 
 
     bool Mesh::shouldMakeFaceAdjacentTo(const Block::Small_Position& pos)
     {
+
+
         CBlock block = m_p_chunklet->getBlock(pos);
-        return block == Block::ID::Air;
+        const Block::Data_Holder& d = Block::Database::get().getBlock(block.id).getData().get();
+
+        return  block == Block::ID::Air ||
+                (!d.isOpaque && d.blockID != m_p_activeBlockData->get().blockID);
     }
 
     void Mesh::makeFrontFace(const Block::Small_Position& pos)
@@ -172,7 +209,7 @@ namespace Chunk
         GLfloat y = static_cast<GLfloat>(pos.y);
         GLfloat z = static_cast<GLfloat>(pos.z);
 
-        m_solidMesh.addVerticies(
+        m_activeSection->addVerticies(
         {
             x,      y,      z + 1,
             x + 1,  y,      z + 1,
@@ -180,10 +217,10 @@ namespace Chunk
             x,      y + 1,  z + 1,
         });
 
-        m_solidMesh.addTexCoords(m_p_textureAtlas->
-                                 getTextureCoords(m_p_activeBlockData->get().sideTextureCoords));
+        m_activeSection->addTexCoords(m_p_textureAtlas->
+                                      getTextureCoords(m_p_activeBlockData->get().sideTextureCoords));
 
-        m_solidMesh.addLightVal(LIGHT_Z);
+        m_activeSection->addLightVal(LIGHT_Z);
     }
 
     void Mesh::makeBackFace(const Block::Small_Position& pos)
@@ -192,7 +229,7 @@ namespace Chunk
         GLfloat y = static_cast<GLfloat>(pos.y);
         GLfloat z = static_cast<GLfloat>(pos.z);
 
-        m_solidMesh.addVerticies(
+        m_activeSection->addVerticies(
         {
             x + 1,  y,      z,
             x,      y,      z,
@@ -200,10 +237,10 @@ namespace Chunk
             x + 1,  y + 1,  z,
         });
 
-        m_solidMesh.addTexCoords(m_p_textureAtlas->
+        m_activeSection->addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->get().sideTextureCoords));
 
-        m_solidMesh.addLightVal(LIGHT_Z);
+        m_activeSection->addLightVal(LIGHT_Z);
     }
 
     void Mesh::makeLeftFace(const Block::Small_Position& pos)
@@ -212,7 +249,7 @@ namespace Chunk
         GLfloat y = static_cast<GLfloat>(pos.y);
         GLfloat z = static_cast<GLfloat>(pos.z);
 
-        m_solidMesh.addVerticies(
+        m_activeSection->addVerticies(
         {
             x, y,       z,
             x, y,       z + 1,
@@ -220,10 +257,10 @@ namespace Chunk
             x, y + 1,   z,
         });
 
-        m_solidMesh.addTexCoords(m_p_textureAtlas->
+        m_activeSection->addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->get().sideTextureCoords));
 
-        m_solidMesh.addLightVal(LIGHT_X);
+        m_activeSection->addLightVal(LIGHT_X);
     }
 
     void Mesh::makeRightFace(const Block::Small_Position& pos)
@@ -232,7 +269,7 @@ namespace Chunk
         GLfloat y = static_cast<GLfloat>(pos.y);
         GLfloat z = static_cast<GLfloat>(pos.z);
 
-        m_solidMesh.addVerticies(
+        m_activeSection->addVerticies(
         {
             x + 1, y,       z + 1,
             x + 1, y,       z,
@@ -240,10 +277,10 @@ namespace Chunk
             x + 1, y + 1,   z + 1,
         });
 
-        m_solidMesh.addTexCoords(m_p_textureAtlas->
+        m_activeSection->addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->get().sideTextureCoords));
 
-        m_solidMesh.addLightVal(LIGHT_X);
+        m_activeSection->addLightVal(LIGHT_X);
     }
 
     void Mesh::makeTopFace(const Block::Small_Position& pos)
@@ -252,7 +289,7 @@ namespace Chunk
         GLfloat y = static_cast<GLfloat>(pos.y);
         GLfloat z = static_cast<GLfloat>(pos.z);
 
-        m_solidMesh.addVerticies(
+        m_activeSection->addVerticies(
         {
             x,      y + 1, z + 1,   //Front-Left
             x + 1,  y + 1, z + 1,   //Front-Right
@@ -260,10 +297,10 @@ namespace Chunk
             x,      y + 1, z,       //Back-Left
         });
 
-        m_solidMesh.addTexCoords(m_p_textureAtlas->
+        m_activeSection->addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->get().topTextureCoords));
 
-        m_solidMesh.addLightVal(LIGHT_TOP);
+        m_activeSection->addLightVal(LIGHT_TOP);
     }
 
     void Mesh::makeBottomFace(const Block::Small_Position& pos)
@@ -272,7 +309,7 @@ namespace Chunk
         GLfloat y = static_cast<GLfloat>(pos.y);
         GLfloat z = static_cast<GLfloat>(pos.z);
 
-        m_solidMesh.addVerticies(
+        m_activeSection->addVerticies(
         {
             x,      y, z,
             x + 1,  y, z,
@@ -280,10 +317,10 @@ namespace Chunk
             x,      y, z + 1,
         });
 
-        m_solidMesh.addTexCoords(m_p_textureAtlas->
+        m_activeSection->addTexCoords(m_p_textureAtlas->
                                  getTextureCoords(m_p_activeBlockData->get().bottomTextureCoords));
 
-        m_solidMesh.addLightVal(LIGHT_BOTTOM);
+        m_activeSection->addLightVal(LIGHT_BOTTOM);
     }
 }
 

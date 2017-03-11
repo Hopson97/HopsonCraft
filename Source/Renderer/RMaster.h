@@ -1,8 +1,10 @@
 #ifndef MASTER_H_INCLUDED
 #define MASTER_H_INCLUDED
 
-#include "RChunk.h"
 #include "RSFML.h"
+#include "RChunk.h"
+#include "RLiquid.h"
+
 
 class Chunklet;
 struct Camera;
@@ -20,8 +22,9 @@ namespace Renderer
             void draw(const sf::Drawable& drawable);
 
         private:
-            RChunk m_chunkRenderer;
-            RSFML  m_sfmlRenderer;
+            RSFML   m_sfmlRenderer;
+            RChunk  m_chunkRenderer;
+            RLiquid m_liquidRenderer;
     };
 }
 

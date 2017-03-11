@@ -9,8 +9,8 @@ namespace Block
 {
     enum Mesh_Type
     {
-        Solid,
-        Liquid
+        Solid   = 0,
+        Liquid  = 1
     };
 
     struct Data_Holder

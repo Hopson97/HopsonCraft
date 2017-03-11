@@ -47,7 +47,8 @@ void Block_Editor::input(Player& player, Crosshair& crosshair)
 bool Block_Editor::isHitBlock(const Ray& ray) const
 {
     CBlock block = m_p_chunkMap->getBlockAt(ray.getEndPoint());
-    return !(block == Block::ID::Air);
+    return !(block == Block::ID::Air ||
+             block == Block::ID::Water);
 }
 
 bool Block_Editor::editBlock(const Ray& ray, Player& player)

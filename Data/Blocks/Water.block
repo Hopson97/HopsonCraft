@@ -1,15 +1,24 @@
 Name
-Stone
+Water
 
 ID
-3
+5
+
+Opaque
+0
+
+Obstacle
+0
+
+Mesh
+1
 
 TextureTop
-3 0
+5 0
 
 TextureSide
-3 0
+5 0
 
 TextureBottom
-3 0
+5 0
 

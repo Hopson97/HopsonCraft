@@ -1,4 +1,4 @@
-#include "RChunk.h"
+#include "RLiquid.h"
 
 #include <iostream>
 
@@ -8,15 +8,16 @@
 
 namespace Renderer
 {
-    void RChunk::draw(const Chunklet& chunklet)
+    void RLiquid::draw(const Chunklet& chunklet)
     {
         m_chunks.push_back(&chunklet);
     }
 
-    void RChunk::update(const Camera& camera)
+    void RLiquid::update(const Camera& camera)
     {
-        glDisable   (GL_BLEND);
-        glEnable    (GL_CULL_FACE);
+        glEnable    (GL_BLEND);
+        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glDisable   (GL_CULL_FACE);
 
         m_shader.bind();
 
@@ -26,16 +27,16 @@ namespace Renderer
         {
             prepare(*chunklet);
             glDrawElements(GL_TRIANGLES,
-                           chunklet->getMesh().getSolidMesh().getModel().getIndicesCount(),
+                           chunklet->getMesh().getLiquidMesh().getModel().getIndicesCount(),
                            GL_UNSIGNED_INT,
                            nullptr);
         }
         m_chunks.clear();
     }
 
-    void RChunk::prepare(const Chunklet& chunklet)
+    void RLiquid::prepare(const Chunklet& chunklet)
     {
-        chunklet.getMesh().getSolidMesh().getModel().bind();
+        chunklet.getMesh().getLiquidMesh().getModel().bind();
         m_shader.setModelMatrix(chunklet.getMat());
 
     }

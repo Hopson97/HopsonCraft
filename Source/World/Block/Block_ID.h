@@ -14,6 +14,7 @@ namespace Block
         Dirt    = 2,
         Stone   = 3,
         Sand    = 4,
+        Water   = 5,
 
         NUM_BLOCK_TYPES
     };

@@ -4,6 +4,7 @@
 
 #include "../Camera.h"
 #include "../World/Chunk/CMap.h"
+#include "../World/Block/Block_Database.h"
 
 Player::Player(Camera& camera)
 :   m_p_camera  (&camera)
@@ -40,8 +41,11 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
     //box.update(position + (m_velocity * dt));
 }
 
-float size = 0.45;
-float height = 1.75;
+namespace
+{
+    float size = 0.45;
+    float height = 1.75;
+}
 
 void Player::collisionTest( Chunk::Map& chunkMap,
                             float dt,
@@ -53,7 +57,7 @@ void Player::collisionTest( Chunk::Map& chunkMap,
     for (int32_t y = position.y - height  ; y < position.y + height   ; y++)
     for (int32_t z = position.z - size    ; z < position.z + size     ; z++)
     {
-        if (chunkMap.getBlockAt({x, y, z}) != Block::ID::Air)
+        if (Block::Database::get().getBlock(chunkMap.getBlockAt({x, y, z}).id).getData().get().isObstacle)
         {
             if (vx > 0)
             {
