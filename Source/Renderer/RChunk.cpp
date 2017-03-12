@@ -13,14 +13,14 @@ namespace Renderer
         m_chunks.push_back(&chunklet);
     }
 
-    void RChunk::update(const Camera& camera)
+    void RChunk::update(const Matrix4& viewMatrix)
     {
         glDisable   (GL_BLEND);
         glEnable    (GL_CULL_FACE);
 
         m_shader.bind();
 
-        m_shader.setViewMatrix(Maths::createViewMatrix(camera));
+        m_shader.setViewMatrix(viewMatrix);
 
         for (const Chunklet* chunklet : m_chunks)
         {

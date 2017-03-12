@@ -13,7 +13,7 @@ namespace Renderer
         m_chunks.push_back(&chunklet);
     }
 
-    void RLiquid::update(const Camera& camera)
+    void RLiquid::update(const Matrix4& viewMatrix)
     {
         glEnable    (GL_BLEND);
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -21,7 +21,7 @@ namespace Renderer
 
         m_shader.bind();
 
-        m_shader.setViewMatrix(Maths::createViewMatrix(camera));
+        m_shader.setViewMatrix(viewMatrix);
 
         m_shader.loadWaveTimer(m_wavesTimer.getElapsedTime().asSeconds());
 

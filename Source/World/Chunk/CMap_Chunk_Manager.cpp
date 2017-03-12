@@ -5,7 +5,7 @@
 
 namespace
 {
-    int8_t m_renderDistance    = 30;
+    int8_t m_renderDistance    = 15;
     int8_t m_currentLoadDist   = 1;
 
     struct Load_Sector
@@ -47,7 +47,7 @@ namespace Chunk
 
     void Map::loadAndGenChunks()
     {
-        auto pos = Maths::worldToChunkPos(m_p_camera->position);
+        //auto pos = Maths::worldToChunkPos(m_p_camera->position);
 /*
         Load_Sector sect
         (

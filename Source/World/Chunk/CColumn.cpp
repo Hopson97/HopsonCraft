@@ -81,11 +81,6 @@ namespace Chunk
                 }
             }
         }
-        for (auto& c : m_chunklets)
-        {
-            Chunklet& ch = *c;
-            ch.load(file);
-        }
 
         m_flags.generated = true;
     }
@@ -197,13 +192,6 @@ namespace Chunk
     void Column::setDeleteFlag (bool deleteF)
     {
         m_flags.deleteMe = deleteF;
-/*
-        for (auto& c : m_chunklets)
-        {
-            Chunklet& ch = *c;
-            ch.save(*m_p_worldFile);
-        }
-*/
     }
 
     void Column::update()
@@ -211,8 +199,9 @@ namespace Chunk
 
     }
 
-    void Column::draw(Renderer::Master& renderer)
+    bool Column::draw(Renderer::Master& renderer, bool shouldBuffer)
     {
+        bool buffered = false;
         for(auto itr = m_chunklets.begin(); itr != m_chunklets.end();)
         {
             Chunklet& chunklet = *(*itr);
@@ -223,9 +212,14 @@ namespace Chunk
                     renderer.draw(chunklet);
                     ++itr;
                 }
+                else if (shouldBuffer)
+                {
+                    buffered = true;
+                    chunklet.bufferMesh();
+                }
                 else
                 {
-                    chunklet.bufferMesh();
+                    itr++;
                 }
             }
             else
@@ -233,7 +227,10 @@ namespace Chunk
                 ++itr;
             }
         }
+        return buffered;
     }
+
+
 
     void Column::addChunklet()
     {

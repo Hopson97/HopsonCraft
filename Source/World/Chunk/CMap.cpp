@@ -57,25 +57,18 @@ namespace Chunk
         }
     }
 
-    //Frustum frusum;
 
     void Map::draw(Renderer::Master& renderer, const Camera& camera)
     {
-        //frusum.update(Maths::createViewMatrix(camera), Maths::createProjMatrix());
+        static int frames = 0;
 
-        //int culled = 0;
+        bool shouldBuffer = true;
+
         for (auto& chunk : m_chunks)
         {
             //if(frusum.inFrustum(chunk.second->minX, chunk.second->maxX))
-            {
-                chunk.second->draw(renderer);// renderer.draw(*chunk.second);
-            }
-            //else
-            {
-               // culled++;
-            }
+            shouldBuffer = !chunk.second->draw(renderer, shouldBuffer);
         }
-        //std::cout << "Culled: " << culled << "\n";
     }
 
     void Map::addChunk(const Position& position)

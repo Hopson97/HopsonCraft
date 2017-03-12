@@ -38,8 +38,7 @@ void Chunklet::createMesh()
 void Chunklet::bufferMesh()
 {
     m_mesh.buffer();
-    m_flags.hasBuffered     = true;
-    m_flags.queueBuffered   = false;
+    m_flags.hasBuffered = true;
 }
 
 
@@ -238,21 +237,5 @@ void Chunklet::setFaces(bool faces)
 int32_t Chunklet::getBlockIndex(const Block::Small_Position& pos) const
 {
     return pos.y * World_Constants::CH_AREA + pos.z * World_Constants::CH_SIZE + pos.x;
-}
-
-void Chunklet::save(World_File& file)
-{
-    //file.chunkWriteBlocks(m_addedBlocks, m_pos);
-}
-
-void Chunklet::load(World_File& file)
-{
-    //m_addedBlocks = file.chunkGetBlocks(m_pos);
-/*
-    for (auto& addedBlock : m_addedBlocks)
-    {
-
-    }
-*/
 }
 

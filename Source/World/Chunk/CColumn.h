@@ -46,7 +46,7 @@ namespace Chunk
             void createFullMesh();
 
             void update();
-            void draw(Renderer::Master& renderer);
+            bool draw(Renderer::Master& renderer, bool tryBuffer);
             const Position& getPosition() const;
 
 

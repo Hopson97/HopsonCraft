@@ -31,7 +31,6 @@
 					<Add option="-O3" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-audio" />

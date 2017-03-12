@@ -38,13 +38,13 @@ class Chunklet : private Entity
         :   hasFaces        (false)
         ,   hasMesh         (false)
         ,   hasBuffered     (false)
-        ,   queueBuffered   (false)
+        ,   isLoaded        (false)
         {}
 
         std::atomic<bool> hasFaces;
         std::atomic<bool> hasMesh;
         std::atomic<bool> hasBuffered;
-        std::atomic<bool> queueBuffered;
+        std::atomic<bool> isLoaded;
     };
 
     public:
@@ -68,18 +68,11 @@ class Chunklet : private Entity
         void setFaces(bool faces);
         const CFlags& getFlags()    { return m_flags; }
 
-        void queueForBuffer()       { m_flags.queueBuffered = true; }
-
-        void save(World_File& file);
-        void load(World_File& file);
-
     private:
 
         int32_t getBlockIndex (const Block::Small_Position& pos) const;
 
         std::array<CBlock, World_Constants::CH_VOLUME> m_blocks;
-
-        //std::unordered_map<Block::Small_Position, Block_t> m_addedBlocks;
 
         Matrix4 m_modelMat;
         Chunk::Mesh m_mesh;

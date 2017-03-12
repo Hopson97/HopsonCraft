@@ -40,8 +40,6 @@ namespace Display
 
         glCullFace  (GL_BACK);
 
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
         window->setMouseCursorVisible(false);
     }
 

@@ -28,11 +28,13 @@ void Chunklet_File::writeBlock(const Block::Small_Position& pos, Block_t block)
 std::unordered_map<Block::Small_Position, Block_t>
 Chunklet_File::readBlocks()
 {
+    std::unordered_map<Block::Small_Position, Block_t> blocks;
     Block::Small_Position pos;
     Block_t block;
 
     while (m_inFile >> block >> pos.x >> pos.y >> pos.z)
     {
-
+        blocks.insert(std::make_pair(pos, block));
     }
+    return blocks;
 }
