@@ -4,7 +4,7 @@
 #include <array>
 
 #include "../Physics/AABB.h"
-#include "../Body.h"
+#include "../Entity.h"
 
 namespace Chunk
 {

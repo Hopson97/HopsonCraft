@@ -3,6 +3,7 @@
 
 #include <stack>
 #include <memory>
+#include <thread>
 
 #include "States/Game_State.h"
 
@@ -25,6 +26,8 @@ class Application
 
     private:
         std::stack<std::unique_ptr<State::Game_State>> m_states;
+
+        std::unique_ptr<std::thread> m_renderThread;
 
         Renderer::Master m_renderer;
 

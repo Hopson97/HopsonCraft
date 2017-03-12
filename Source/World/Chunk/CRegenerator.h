@@ -2,6 +2,7 @@
 #define CREGENERATOR_H_INCLUDED
 
 #include <unordered_map>
+#include <queue>
 
 #include "CPosition.h"
 #include "Chunklet.h"
@@ -15,6 +16,7 @@ namespace Chunk
             void addChunklets(std::vector<Chunklet*> chunklets);
 
             void regen();
+            void rebuffer();
 
         private:
             std::unordered_map<Chunklet_Position, Chunklet*> m_chunklets;

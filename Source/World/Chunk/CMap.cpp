@@ -46,19 +46,14 @@ namespace Chunk
     {
         m_regenerator.regen();
 
-        for (auto itr = m_chunks.begin(); itr != m_chunks.end();)
+        if (!m_chunksToDelete.empty())
         {
-            Column& c = *(itr)->second;
-            //c.update();
-
-            if(c.getFlags().deleteMe)
+            std::lock_guard<std::mutex> lock(m_deleteChunkMutex);
+            for (auto& position : m_chunksToDelete)
             {
-                itr = m_chunks.erase(itr);
+                m_chunks.erase(position);
             }
-            else
-            {
-                itr++;
-            }
+            m_chunksToDelete.clear();
         }
     }
 

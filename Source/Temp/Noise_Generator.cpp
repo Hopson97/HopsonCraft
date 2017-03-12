@@ -63,7 +63,7 @@ namespace Noise
         auto newX = (x + (tileX * World_Constants::CH_SIZE));
         auto newZ = (z + (tileZ * World_Constants::CH_SIZE));
 
-        //if (newX < 0 || newZ < 0) return World_Constants::WATER_LEVEL - 1;
+        if (newX < 0 || newZ < 0) return 74;
 
         auto totalValue   = 0.0;
 
@@ -79,10 +79,7 @@ namespace Noise
                                 * amplitude;
         }
 
-        double height = totalValue;
-
-        //if (height < 3 ) height = 3;
-        return ((height / 2.1) + 1.2) * nf.amplitudeMultiplier;
+        return ((totalValue / 2.1) + 1.2) * nf.amplitudeMultiplier;
     }
 
     void Generator::setNoiseFunction(const Noise::Data& data)

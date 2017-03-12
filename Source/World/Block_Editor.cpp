@@ -22,7 +22,7 @@ void Block_Editor::input(Player& player, Crosshair& crosshair)
                  player.rotation.x,
                  player.position);
 
-    for (uint32_t i = 0; i < 5 / 0.04; i++)
+    for (uint32_t i = 0; i < 5 / 0.02; i++)
     {
         raycast.step(0.1);
 

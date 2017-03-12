@@ -110,7 +110,11 @@ namespace Chunk
                 p.y < deleteSect.minZ ||
                 p.y > deleteSect.maxZ)
             {
-                c.setDeleteFlag(true);
+                if(!c.getFlags().deleteMe)
+                {
+                    c.setDeleteFlag(true);
+                    m_chunksToDelete.push_back(c.getPosition());
+                }
             }
         }
     }

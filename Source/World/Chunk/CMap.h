@@ -58,7 +58,9 @@ namespace Chunk
             std::atomic<bool> m_isRunning;
 
             std::mutex m_addChunkMutex;
+            std::mutex m_deleteChunkMutex;
             std::vector<std::unique_ptr<std::thread>> m_chunkGenThreads;
+            std::vector<Position> m_chunksToDelete;
     };
 }
 

@@ -10,9 +10,6 @@ void Player::input()
 {
     keyBoardInput();
     mouseInput();
-
-    //rotation = m_p_camera->rotation;
-    //m_p_camera->position = position;
 }
 
 

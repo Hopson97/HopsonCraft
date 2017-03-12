@@ -53,38 +53,11 @@ Application::Application()
     pushState(std::make_unique<State::Playing>(*this));
 }
 
+
+
 void Application::runMainGameLoop()
 {
     sf::Clock clock;
-/*
-    std::thread inputThread([&]()
-    {
-        while (Display::isOpen())
-        {
-            if(!m_states.empty())
-            {
-                m_states.top()->input   (m_camera);
-            }
-        }
-    });
-*/
-/*
-    Display::deactiveate();
-    std::thread renderThread([&]()
-    {
-        Display::activate();
-        while (Display::isOpen())
-        {
-            if(!m_states.empty())
-            {
-                m_renderer.clear();
-                m_states.top()->draw    (m_renderer);
-                m_renderer.draw(text);
-                m_renderer.update(m_camera);
-            }
-        }
-    });
-*/
 
     while (Display::isOpen())
     {
@@ -104,8 +77,6 @@ void Application::runMainGameLoop()
 
         checkFps (dt);
     }
-
-//    renderThread.join();
 }
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)

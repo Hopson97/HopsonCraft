@@ -28,7 +28,7 @@ namespace Display
         settings.majorVersion = 3;
         settings.minorVersion = 0;
 
-        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1280, 720),//sf::VideoMode::getDesktopMode(),
+        window = std::make_unique<sf::RenderWindow>(sf::VideoMode::getDesktopMode(),
                                                     "Window",
                                                     sf::Style::Close,
                                                     settings);

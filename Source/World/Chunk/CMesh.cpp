@@ -16,8 +16,8 @@ namespace
 {
     std::vector<GLfloat> cubeCoords
     {
-        0, 0, 0, //0
-        1, 0, 0, //1
+        0, 0, 0, //0    Left,   bottom, back
+        1, 0, 0, //1    Right,
         1, 1, 0, //2
         1, 0, 1, //3
         0, 1, 0, //4
