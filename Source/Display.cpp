@@ -8,6 +8,17 @@ namespace Display
 {
     std::unique_ptr<sf::RenderWindow> window;
 
+    void deactiveate()
+    {
+        window->setActive(false);
+    }
+
+    void activate()
+    {
+        window->setActive(true);
+    }
+
+
     void init()
     {
         sf::ContextSettings settings;
@@ -26,7 +37,6 @@ namespace Display
 
         glEnable    (GL_DEPTH_TEST);
         glEnable    (GL_CULL_FACE);
-
 
         glCullFace  (GL_BACK);
 

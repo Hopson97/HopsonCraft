@@ -4,6 +4,8 @@
 #include "../World/Block/Block_Database.h"
 #include <iostream>
 
+#include "../World/Chunk/Chunklet.h"
+
 namespace Renderer
 {
     void Master::clear()
@@ -26,8 +28,14 @@ namespace Renderer
 
     void Master::draw(const Chunklet& chunklet)
     {
-        m_chunkRenderer .draw(chunklet);
-        m_liquidRenderer.draw(chunklet);
+        if (chunklet.getMesh().getSolidMesh().getFacesCount() > 0)
+        {
+            m_chunkRenderer .draw(chunklet);
+        }
+        if (chunklet.getMesh().getLiquidMesh().getFacesCount() > 0)
+        {
+            m_liquidRenderer.draw(chunklet);
+        }
     }
 
     void Master::draw(const sf::Drawable& drawable)

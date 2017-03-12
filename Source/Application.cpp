@@ -68,6 +68,24 @@ void Application::runMainGameLoop()
         }
     });
 */
+/*
+    Display::deactiveate();
+    std::thread renderThread([&]()
+    {
+        Display::activate();
+        while (Display::isOpen())
+        {
+            if(!m_states.empty())
+            {
+                m_renderer.clear();
+                m_states.top()->draw    (m_renderer);
+                m_renderer.draw(text);
+                m_renderer.update(m_camera);
+            }
+        }
+    });
+*/
+
     while (Display::isOpen())
     {
         auto dt = clock.restart().asSeconds();
@@ -87,7 +105,7 @@ void Application::runMainGameLoop()
         checkFps (dt);
     }
 
-    //inputThread.join();
+//    renderThread.join();
 }
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)

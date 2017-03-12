@@ -65,7 +65,7 @@ bool Block_Editor::editBlock(const Ray& ray, Player& player)
         {
             m_editorTimer.restart();
 
-            Vector3 pPos = player.position;
+            //Vector3 pPos = player.position;
 
 
 
