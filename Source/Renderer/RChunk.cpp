@@ -2,9 +2,8 @@
 
 #include <iostream>
 
-#include "../World/Chunk/Chunklet.h"
+#include "../World/Chunk/Terrain/CColumn.h"
 #include "../Maths/Matrix_Maths.h"
-#include "../World/Chunk/Chunklet.h"
 
 namespace Renderer
 {

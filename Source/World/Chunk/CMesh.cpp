@@ -9,8 +9,7 @@
 #include "../Block/Block_Position.h"
 #include "../Block/Block_ID.h"
 
-#include "Chunklet.h"
-
+#include "Terrain/Chunklet.h"
 
 namespace
 {

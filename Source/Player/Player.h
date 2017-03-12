@@ -42,7 +42,7 @@ class Player : public Entity
 
         bool m_isOnGround = false;
         bool m_isInLiquid = false;
-        bool m_isFlying   = false;
+        bool m_isFlying   = true;
 
     public:
         AABB box;

@@ -43,17 +43,6 @@ namespace
     }*/
 }
 
-void Music_Player::update()
-{
-    if(music.getPlayingOffset().asSeconds() >= length)
-    {
-        music.openFromFile("Data/Music/rim.ogg");
-        music.play();
-        length = music.getDuration().asSeconds();
-    }
-}
-
-
 Application::Application()
 {
     text.setFont(getResources().getFont(Font_ID::RS));
@@ -62,8 +51,6 @@ Application::Application()
     text.setCharacterSize(25);
     text.setString("Getting FPS...");
     pushState(std::make_unique<State::Playing>(*this));
-
-    m_musicPlayer.update();
 }
 
 

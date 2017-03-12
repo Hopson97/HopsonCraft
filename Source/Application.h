@@ -12,15 +12,7 @@
 
 #include "Entity.h"
 #include "Camera.h"
-
-struct Music_Player
-{
-    sf::Music music;
-
-    void update();
-
-    float length = 0;
-};
+#include "Music_Player.h"
 
 class Application
 {

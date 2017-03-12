@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../Camera.h"
-#include "../World/Chunk/CMap.h"
+#include "../World/Chunk/Map/CMap.h"
 #include "../World/Block/Block_Database.h"
 
 #include "../Maths/General_Maths.h"
@@ -33,6 +33,7 @@ void Player::resetPosition()
 
 void Player::testForCollide(Chunk::Map& chunkMap, float dt)
 {
+    /*
     if (!m_isFlying)
     {
         if (!m_isOnGround && !m_isInLiquid)
@@ -58,15 +59,15 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
     {
         m_isInLiquid = true;
     }
-
+*/
     position.x += m_velocity.x * dt;
-    collisionTest(chunkMap, dt, m_velocity.x, 0, 0);
+    //collisionTest(chunkMap, dt, m_velocity.x, 0, 0);
 
     position.y += m_velocity.y * dt;
-    collisionTest(chunkMap, dt, 0, m_velocity.y, 0);
+    //collisionTest(chunkMap, dt, 0, m_velocity.y, 0);
 
     position.z += m_velocity.z * dt;
-    collisionTest(chunkMap, dt, 0, 0, m_velocity.z);
+    //collisionTest(chunkMap, dt, 0, 0, m_velocity.z);
 
     //box.update(position + (m_velocity * dt));
 }
