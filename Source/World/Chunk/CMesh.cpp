@@ -167,13 +167,11 @@ namespace Chunk
                 }
             }
         }
-
-
         m_solidMesh.addIndices();
         m_liquidMesh.addIndices();
-
         m_p_chunklet->setFaces(m_solidMesh.getFacesCount() | m_liquidMesh.getFacesCount());
-        //std::cout << " faces added in " << timer.getElapsedTime().asSeconds() << " seconds.\n";
+
+        //std::cout << "Mesh made in:" << timer.getElapsedTime().asSeconds() << " seconds.\n";
     }
 
 

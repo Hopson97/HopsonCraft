@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <SFML/System/Clock.hpp>
+
 #include "../Shaders/Liquid_Shader.h"
 
 class Chunklet;
@@ -24,6 +26,8 @@ namespace Renderer
             std::vector<const Chunklet*> m_chunks;
 
             Shader::Liqud_Shader m_shader;
+
+            sf::Clock m_wavesTimer;
     };
 }
 

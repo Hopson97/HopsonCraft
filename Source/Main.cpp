@@ -88,6 +88,12 @@ catch(std::out_of_range& e)
     errorMessage(msg);
     std::cin.ignore();
 }
+catch(std::runtime_error& e)
+{
+    std::string msg = e.what();
+    errorMessage(msg);
+    std::cin.ignore();
+}
 catch(...)
 {
     errorMessage("Unknown error.");

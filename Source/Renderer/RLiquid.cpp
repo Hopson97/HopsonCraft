@@ -23,6 +23,8 @@ namespace Renderer
 
         m_shader.setViewMatrix(Maths::createViewMatrix(camera));
 
+        m_shader.loadWaveTimer(m_wavesTimer.getElapsedTime().asSeconds());
+
         for (const Chunklet* chunklet : m_chunks)
         {
             prepare(*chunklet);

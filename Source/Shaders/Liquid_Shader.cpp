@@ -13,4 +13,17 @@ namespace Shader
         loadMatrix4(m_locationProjMatrix, Maths::createProjMatrix());
         unbind();
     }
+
+    void Liqud_Shader::loadWaveTimer(float time)
+    {
+        loadFloat(m_locationWaveTimer, time);
+    }
+
+    void Liqud_Shader::getUniformLocations()
+    {
+        Simple_Shader::getUniformLocations();
+
+        m_locationWaveTimer = glGetUniformLocation(getID(), "waveTimer");
+    }
+
 }

@@ -30,6 +30,7 @@ class World
 
         Player*     m_p_player;
         HUD*        m_p_hud;
+        const Camera*     m_p_camera;
 };
 
 #endif // WORLD_H_INCLUDED

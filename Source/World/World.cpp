@@ -16,6 +16,7 @@ World::World(const Camera& camera, Player& player, HUD& hud, World_File& file)
 ,   m_blockEditor   (m_chunkMap)
 ,   m_p_player      (&player)
 ,   m_p_hud         (&hud)
+,   m_p_camera      (&camera)
 { }
 
 void World::input(Camera& camera)
@@ -33,7 +34,7 @@ void World::update(float dt)
 
 void World::draw(Renderer::Master& renderer)
 {
-    m_chunkMap.draw(renderer);
+    m_chunkMap.draw(renderer, *m_p_camera);
 }
 
 

@@ -9,6 +9,8 @@
 #include "Chunklet.h"
 
 #include "../../Maths/General_Maths.h"
+#include "../../Maths/Matrix_Maths.h"
+#include "../../Maths/Frustum.h"
 
 
 namespace Chunk
@@ -60,12 +62,25 @@ namespace Chunk
         }
     }
 
-    void Map::draw(Renderer::Master& renderer)
+    //Frustum frusum;
+
+    void Map::draw(Renderer::Master& renderer, const Camera& camera)
     {
+        //frusum.update(Maths::createViewMatrix(camera), Maths::createProjMatrix());
+
+        //int culled = 0;
         for (auto& chunk : m_chunks)
         {
-            chunk.second->draw(renderer);// renderer.draw(*chunk.second);
+            //if(frusum.inFrustum(chunk.second->minX, chunk.second->maxX))
+            {
+                chunk.second->draw(renderer);// renderer.draw(*chunk.second);
+            }
+            else
+            {
+               // culled++;
+            }
         }
+        //std::cout << "Culled: " << culled << "\n";
     }
 
     void Map::addChunk(const Position& position)

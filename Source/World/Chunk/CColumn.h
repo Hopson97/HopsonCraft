@@ -40,6 +40,9 @@ namespace Chunk
 
 
         public:
+            Vector4 minX;
+            Vector4 maxX;
+
             Column(const Position& pos, Map& map, Regenerator& regenerator, World_File& file);
 
             void createFullMesh();

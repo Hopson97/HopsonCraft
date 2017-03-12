@@ -11,15 +11,30 @@ uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 projMatrix;
 
+uniform float waveTimer;
+
 void logFarNearPlane(float near, float far)
 {
     gl_Position.z = 2.0 * log(gl_Position.w / near) / log(far / near) - 1;
     gl_Position.z *= gl_Position.w;
 }
 
+vec4 getWorldPos()
+{
+    vec4 worldPosition = modelMatrix * vec4(inVertexPosition, 1.0f);
+    worldPosition.y -= 0.22;
+
+    worldPosition.y += sin((waveTimer + worldPosition.z) * 2.5) / 8.8f;
+    worldPosition.y += cos((waveTimer + worldPosition.x) * 2.5) / 8.8f;
+
+    return worldPosition;
+}
+
 void main()
 {
-    gl_Position =   projMatrix * viewMatrix * modelMatrix * vec4 (inVertexPosition.xyz, 1.0);
+    vec4 worldPos = getWorldPos();
+
+    gl_Position =   projMatrix * viewMatrix * worldPos;
 
     //logFarNearPlane(0.1, 1000.0f);
 

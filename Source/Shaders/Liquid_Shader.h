@@ -9,6 +9,13 @@ namespace Shader
     {
         public:
             Liqud_Shader();
+
+            void loadWaveTimer(float time);
+
+            void getUniformLocations() override;
+
+        private:
+            GLuint m_locationWaveTimer;
     };
 }
 

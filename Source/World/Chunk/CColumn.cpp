@@ -20,6 +20,8 @@ namespace Chunk
     ,   m_p_regenerator (&regenerator)
     ,   m_p_worldFile   (&file)
     {
+        minX = {pos.x, 0, pos.y, 0};
+
         Noise::Generator noise1;
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
@@ -197,12 +199,13 @@ namespace Chunk
     void Column::setDeleteFlag (bool deleteF)
     {
         m_flags.deleteMe = deleteF;
-
+/*
         for (auto& c : m_chunklets)
         {
             Chunklet& ch = *c;
             ch.save(*m_p_worldFile);
         }
+*/
     }
 
     void Column::update()
@@ -241,6 +244,11 @@ namespace Chunk
                                                  m_chunkCount++,
                                                  m_position.y),
                                *m_p_chunkMap));
+
+        maxX = {minX.x          + World_Constants::CH_SIZE,
+                m_chunkCount    * World_Constants::CH_SIZE,
+                minX.z          + World_Constants::CH_SIZE,
+                0};
     }
 
 
