@@ -20,13 +20,11 @@ namespace Chunk
     ,   m_p_regenerator (&regenerator)
     ,   m_p_worldFile   (&file)
     {
-        minX = {pos.x, 0, pos.y, 0};
-
         Noise::Generator noise1;
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        noise1.setSeed(3373465);
+        noise1.setSeed(53555523);
 
         //noise1.setNoiseFunction({10, 70, 0.65, 480, 0});
         //noise1.setNoiseFunction({10, 90, 0.1, 580, 0});
@@ -213,7 +211,7 @@ namespace Chunk
 
     }
 
-    void Column::draw(Renderer::Master& renderer, std::queue<Chunklet*>& bufferQueue)
+    void Column::draw(Renderer::Master& renderer)
     {
         for(auto itr = m_chunklets.begin(); itr != m_chunklets.end();)
         {
@@ -227,12 +225,7 @@ namespace Chunk
                 }
                 else
                 {
-                    if(!chunklet.getFlags().queueBuffered)
-                    {
-                        chunklet.queueForBuffer();
-                        bufferQueue.push(&chunklet);
-                    }
-                    ++itr;//chunklet.bufferMesh();
+                    chunklet.bufferMesh();
                 }
             }
             else
@@ -249,11 +242,6 @@ namespace Chunk
                                                  m_chunkCount++,
                                                  m_position.y),
                                *m_p_chunkMap));
-
-        maxX = {minX.x          + World_Constants::CH_SIZE,
-                m_chunkCount    * World_Constants::CH_SIZE,
-                minX.z          + World_Constants::CH_SIZE,
-                0};
     }
 
 

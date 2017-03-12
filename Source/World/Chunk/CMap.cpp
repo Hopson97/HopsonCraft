@@ -63,18 +63,12 @@ namespace Chunk
     {
         //frusum.update(Maths::createViewMatrix(camera), Maths::createProjMatrix());
 
-        if(!m_bufferQueue.empty())
-        {
-            m_bufferQueue.front()->bufferMesh();
-            m_bufferQueue.pop();
-        }
-
         //int culled = 0;
         for (auto& chunk : m_chunks)
         {
             //if(frusum.inFrustum(chunk.second->minX, chunk.second->maxX))
             {
-                chunk.second->draw(renderer, m_bufferQueue);// renderer.draw(*chunk.second);
+                chunk.second->draw(renderer);// renderer.draw(*chunk.second);
             }
             //else
             {

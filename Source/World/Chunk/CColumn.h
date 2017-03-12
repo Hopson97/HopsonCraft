@@ -41,15 +41,12 @@ namespace Chunk
 
 
         public:
-            Vector4 minX;
-            Vector4 maxX;
-
             Column(const Position& pos, Map& map, Regenerator& regenerator, World_File& file);
 
             void createFullMesh();
 
             void update();
-            void draw(Renderer::Master& renderer, std::queue<Chunklet*>& bufferQueue);
+            void draw(Renderer::Master& renderer);
             const Position& getPosition() const;
 
 
