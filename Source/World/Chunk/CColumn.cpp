@@ -26,7 +26,7 @@ namespace Chunk
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        noise1.setSeed(33775);
+        noise1.setSeed(3375);
 
         //noise1.setNoiseFunction({10, 70, 0.65, 480, 0});
         //noise1.setNoiseFunction({10, 90, 0.1, 580, 0});
@@ -213,7 +213,7 @@ namespace Chunk
 
     }
 
-    void Column::draw(Renderer::Master& renderer)
+    void Column::draw(Renderer::Master& renderer, std::queue<Chunklet*>& bufferQueue)
     {
         for(auto itr = m_chunklets.begin(); itr != m_chunklets.end();)
         {
@@ -227,7 +227,12 @@ namespace Chunk
                 }
                 else
                 {
-                    chunklet.bufferMesh();
+                    if(!chunklet.getFlags().queueBuffered)
+                    {
+                        chunklet.queueForBuffer();
+                        bufferQueue.push(&chunklet);
+                    }
+                    ++itr;//chunklet.bufferMesh();
                 }
             }
             else

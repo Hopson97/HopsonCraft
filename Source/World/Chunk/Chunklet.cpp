@@ -38,7 +38,8 @@ void Chunklet::createMesh()
 void Chunklet::bufferMesh()
 {
     m_mesh.buffer();
-    m_flags.hasBuffered = true;
+    m_flags.hasBuffered     = true;
+    m_flags.queueBuffered   = false;
 }
 
 

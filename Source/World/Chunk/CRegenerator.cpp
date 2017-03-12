@@ -6,15 +6,16 @@ namespace Chunk
     {
         if (m_chunklets.find(chunklet.getPosition()) == m_chunklets.end())
         {
+            //chunklet.queueForBuffer();
             m_chunklets.insert(std::make_pair(chunklet.getPosition(), &chunklet));
         }
     }
 
     void Regenerator::addChunklets(std::vector<Chunklet*>chunklets)
     {
-        for (auto c : chunklets)
+        for (Chunklet* c : chunklets)
         {
-                addChunklet(*c);
+            addChunklet(*c);
         }
     }
 
@@ -24,6 +25,7 @@ namespace Chunk
         {
             Chunklet& c = *(*m_chunklets.begin()).second;
             c.createMesh();
+            c.bufferMesh();
             m_chunklets.erase(m_chunklets.begin());
         }
     }

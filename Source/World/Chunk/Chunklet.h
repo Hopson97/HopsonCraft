@@ -35,14 +35,16 @@ class Chunklet : private Entity
     struct CFlags
     {
         CFlags()
-        :   hasFaces    (false)
-        ,   hasMesh     (false)
-        ,   hasBuffered (false)
+        :   hasFaces        (false)
+        ,   hasMesh         (false)
+        ,   hasBuffered     (false)
+        ,   queueBuffered   (false)
         {}
 
         std::atomic<bool> hasFaces;
         std::atomic<bool> hasMesh;
         std::atomic<bool> hasBuffered;
+        std::atomic<bool> queueBuffered;
     };
 
     public:
@@ -64,7 +66,9 @@ class Chunklet : private Entity
         const Chunk::Chunklet_Position& getPosition() const;
 
         void setFaces(bool faces);
-        const CFlags& getFlags() { return m_flags; }
+        const CFlags& getFlags()    { return m_flags; }
+
+        void queueForBuffer()       { m_flags.queueBuffered = true; }
 
         void save(World_File& file);
         void load(World_File& file);

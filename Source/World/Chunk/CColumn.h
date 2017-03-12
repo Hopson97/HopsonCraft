@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include <cstdint>
+#include <queue>
 
 #include "Chunklet.h"
 #include "CBlock.h"
@@ -48,7 +49,7 @@ namespace Chunk
             void createFullMesh();
 
             void update();
-            void draw(Renderer::Master& renderer);
+            void draw(Renderer::Master& renderer, std::queue<Chunklet*>& bufferQueue);
             const Position& getPosition() const;
 
 
