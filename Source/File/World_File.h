@@ -2,6 +2,7 @@
 #define WORLD_FILE_H_INCLUDED
 
 #include <unordered_map>
+#include <string>
 
 #include "../World/Block/Block_ID.h"
 #include "../World/Block/Block_Position.h"
