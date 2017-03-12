@@ -4,6 +4,7 @@
 #include <stack>
 #include <memory>
 #include <thread>
+#include <SFML/Audio.hpp>
 
 #include "States/Game_State.h"
 
@@ -11,6 +12,15 @@
 
 #include "Entity.h"
 #include "Camera.h"
+
+struct Music_Player
+{
+    sf::Music music;
+
+    void update();
+
+    float length = 0;
+};
 
 class Application
 {
@@ -24,6 +34,8 @@ class Application
 
         Camera& getCamera();
 
+        void resetSong();
+
     private:
         std::stack<std::unique_ptr<State::Game_State>> m_states;
 
@@ -32,6 +44,8 @@ class Application
         Renderer::Master m_renderer;
 
         Camera m_camera;
+
+        Music_Player m_musicPlayer;
 };
 
 #endif // APPLICATION_H_INCLUDED

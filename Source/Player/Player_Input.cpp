@@ -24,6 +24,11 @@ void Player::keyBoardInput ()
 
     if(m_isInLiquid) speed /= 1.5;
 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+    {
+        resetPosition();
+    }
+
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
         change.x -= cos(glm::radians(rotation.y + 90)) * speed;

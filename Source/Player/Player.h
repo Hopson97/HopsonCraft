@@ -25,6 +25,8 @@ class Player : public Entity
         void addForce       (const Vector3& force);
 
     private:
+        void resetPosition();
+
         void collisionTest  (Chunk::Map& chunkMap,
                              float dt,
                              float vx,
