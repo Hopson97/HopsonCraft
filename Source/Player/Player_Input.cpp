@@ -25,6 +25,8 @@ void Player::keyBoardInput ()
         speed = 10;
     }
 
+    if(m_isInLiquid) speed /= 1.5;
+
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
         change.x -= cos(glm::radians(rotation.y + 90)) * speed;
@@ -55,9 +57,13 @@ void Player::keyBoardInput ()
         {
             m_velocity.y += speed;
         }
-        else if (m_isOnGround)
+        else if (m_isOnGround && !m_isInLiquid)
         {
             m_velocity.y += 12;
+        }
+        else if (m_isInLiquid)
+        {
+            m_velocity.y += 0.2;
         }
     }
     if (m_isFlying)

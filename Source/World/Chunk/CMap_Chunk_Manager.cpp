@@ -5,7 +5,7 @@
 
 namespace
 {
-    int8_t m_renderDistance    = 13;
+    int8_t m_renderDistance    = 10;
     int8_t m_currentLoadDist   = 1;
 
     struct Load_Sector

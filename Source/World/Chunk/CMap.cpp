@@ -49,7 +49,7 @@ namespace Chunk
         for (auto itr = m_chunks.begin(); itr != m_chunks.end();)
         {
             Column& c = *(itr)->second;
-            c.update();
+            //c.update();
 
             if(c.getFlags().deleteMe)
             {

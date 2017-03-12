@@ -6,6 +6,8 @@
 #include "../World/Chunk/CMap.h"
 #include "../World/Block/Block_Database.h"
 
+#include "../Maths/General_Maths.h"
+
 Player::Player(Camera& camera)
 :   m_p_camera  (&camera)
 ,   box         ({0.5, 0.5, 0.5})
@@ -22,12 +24,28 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
 {
     if (!m_isFlying)
     {
-        if (!m_isOnGround)
+        if (!m_isOnGround && !m_isInLiquid)
         {
             m_velocity.y -= 40 * dt;
         }
+        else if (m_isInLiquid)
+        {
+            m_velocity.y -= 5 * dt;
+        }
         m_isOnGround = false;
         m_isInLiquid = false;
+    }
+
+    const Block::Data_Holder& b
+    = Block::Database::get()
+        .getBlock(chunkMap
+        .getBlockAt({position.x, position.y - 1, position.z}).id)
+        .getData()
+        .get();
+
+    if (b.blockID == Block::ID::Water)
+    {
+        m_isInLiquid = true;
     }
 
     position.x += m_velocity.x * dt;
@@ -58,7 +76,12 @@ void Player::collisionTest( Chunk::Map& chunkMap,
     for (int32_t y = position.y - height  ; y < position.y + height   ; y++)
     for (int32_t z = position.z - size    ; z < position.z + size     ; z++)
     {
-        if (Block::Database::get().getBlock(chunkMap.getBlockAt({x, y, z}).id).getData().get().isObstacle)
+        if (Block::Database::get()
+            .getBlock(chunkMap
+            .getBlockAt({x, y, z}).id)
+            .getData()
+            .get()
+            .isObstacle)
         {
             if (vx > 0)
             {
@@ -107,5 +130,5 @@ void Player::update(float dt)
     m_velocity.z = 0;
 
     if(m_isFlying)
-        m_velocity.y *= 0.98;
+        m_velocity.y = 0;
 }
