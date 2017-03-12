@@ -55,9 +55,6 @@ namespace Chunk
 
             World_File* m_p_worldFile;
 
-            int8_t m_renderDistance    = 25;
-            int8_t m_currentLoadDist   = 1;
-
             std::atomic<bool> m_isRunning;
 
             std::mutex m_addChunkMutex;

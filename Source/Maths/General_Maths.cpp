@@ -8,8 +8,8 @@ namespace Maths
 {
     Chunk::Position worldToChunkPos(const Vector3& position)
     {
-        return  {(int32_t)std::floor(position.x / World_Constants::CH_SIZE),
-                 (int32_t)std::floor(position.z / World_Constants::CH_SIZE)};
+        return  {(double)((int)position.x / World_Constants::CH_SIZE),
+                 (double)((int)position.z / World_Constants::CH_SIZE)};
     }
 
     Block::Column_Position worldToBlockPos(const Vector3& position)

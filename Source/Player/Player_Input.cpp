@@ -19,10 +19,10 @@ void Player::input()
 void Player::keyBoardInput ()
 {
     Vector3 change;
-    float speed = 0.1;
+    float speed = 5;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
-        speed = 0.5;
+        speed = 10;
     }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))

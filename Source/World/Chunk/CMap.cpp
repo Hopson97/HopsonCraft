@@ -75,7 +75,7 @@ namespace Chunk
             {
                 chunk.second->draw(renderer);// renderer.draw(*chunk.second);
             }
-            else
+            //else
             {
                // culled++;
             }

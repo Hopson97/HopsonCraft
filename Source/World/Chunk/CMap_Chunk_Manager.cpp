@@ -5,6 +5,9 @@
 
 namespace
 {
+    int8_t m_renderDistance    = 13;
+    int8_t m_currentLoadDist   = 1;
+
     struct Load_Sector
     {
         Load_Sector(int32_t minX, int32_t maxX,
