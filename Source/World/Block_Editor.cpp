@@ -22,7 +22,7 @@ void Block_Editor::input(Player& player, Crosshair& crosshair)
                  player.rotation.x,
                  player.position);
 
-    for (uint32_t i = 0; i < 5 / 0.02; i++)
+    for (uint32_t i = 0; i < 5 / 0.1; i++)
     {
         raycast.step(0.1);
 
@@ -65,12 +65,16 @@ bool Block_Editor::editBlock(const Ray& ray, Player& player)
         {
             m_editorTimer.restart();
 
-            //Vector3 pPos = player.position;
+            auto dx = player.position.x - m_lastRayPosition.x;
+            auto dy = player.position.y - m_lastRayPosition.y;
+            auto dz = player.position.z - m_lastRayPosition.z;
 
+            auto lenth = sqrt(dx * dx + dy * dy + dz * dz);
 
-
-
-            m_p_chunkMap->placeBlock(m_lastRayPosition, Block::ID::Grass);
+            if(lenth > 1.75)
+            {
+                m_p_chunkMap->placeBlock(m_lastRayPosition, Block::ID::Grass);
+            }
             return true;
         }
     }

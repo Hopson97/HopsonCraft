@@ -98,7 +98,7 @@ void Player::mouseInput ()
     rotation.y += mouseChange.x;
     rotation.x += mouseChange.y;
 
-    constexpr int8_t BOUND = 89;
+    constexpr int8_t BOUND = 82;
 
     if (rotation.x > BOUND)
     {

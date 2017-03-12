@@ -20,6 +20,7 @@ file(GLOB src_files
 	Source/Texture/*.cpp
 	Source/World/*.cpp
 	Source/World/Block/Block_Types/*.cpp
+	Source/Resource_Managers/*.cpp
 	Source/World/Block/*.cpp
 	Source/World/Chunk/*.cpp
 	Source/Util/*.cpp
