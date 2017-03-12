@@ -16,8 +16,6 @@ class AABB
         Vector3 getPoint() const { return m_point;      };
         Vector3 getDim  () const { return m_dimensions; };
 
-
-
     private:
         Vector3 m_point;
         Vector3 m_dimensions;

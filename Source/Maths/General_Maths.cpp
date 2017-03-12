@@ -14,10 +14,9 @@ namespace Maths
 
     Block::Column_Position worldToBlockPos(const Vector3& position)
     {
-        int32_t x = (int32_t) position.x % World_Constants::CH_SIZE;
-        int32_t z = (int32_t) position.z % World_Constants::CH_SIZE;
-
-        return  {x, (int32_t)position.y, z};
+        return  {(int32_t) position.x % World_Constants::CH_SIZE,
+                 (int32_t) position.y,
+                 (int32_t) position.z % World_Constants::CH_SIZE};
     }
 
 }

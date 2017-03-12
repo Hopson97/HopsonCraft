@@ -9,3 +9,4 @@ void AABB::update(const Vector3& position)
 {
     m_point = position;
 }
+

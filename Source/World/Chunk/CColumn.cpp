@@ -24,7 +24,7 @@ namespace Chunk
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        noise1.setSeed(53555523);
+        noise1.setSeed(999555333);
 
         //noise1.setNoiseFunction({10, 70, 0.65, 480, 0});
         //noise1.setNoiseFunction({10, 90, 0.1, 580, 0});
