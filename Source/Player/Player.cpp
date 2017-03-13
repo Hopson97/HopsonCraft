@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../Camera.h"
-#include "../World/Chunk/Map/CMap.h"
+#include "../World/Chunk/CMap.h"
 #include "../World/Block/Block_Database.h"
 
 #include "../Maths/General_Maths.h"
@@ -129,6 +129,8 @@ void Player::collisionTest( Chunk::Map& chunkMap,
 
 void Player::update(float dt)
 {
+    position += m_velocity * dt;
+
     if (position.x < 0.2)
     {
         position.x = 0.2;

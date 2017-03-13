@@ -3,7 +3,7 @@
 #include <SFML/Window/Mouse.hpp>
 
 
-#include "Chunk/Map/CMap.h"
+#include "Chunk/CMap.h"
 #include "../HUD/Crosshair.h"
 #include "../Maths/General_Maths.h"
 #include "../Physics/Ray.h"

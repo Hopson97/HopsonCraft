@@ -6,7 +6,6 @@ namespace Chunk
     {
         if (m_chunklets.find(chunklet.getPosition()) == m_chunklets.end())
         {
-            //chunklet.queueForBuffer();
             m_chunklets.insert(std::make_pair(chunklet.getPosition(), &chunklet));
         }
     }

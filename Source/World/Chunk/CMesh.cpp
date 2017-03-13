@@ -9,8 +9,8 @@
 #include "../Block/Block_Position.h"
 #include "../Block/Block_ID.h"
 
-#include "Terrain/Chunklet.h"
-
+#include "Chunklet.h"
+/*
 namespace
 {
     std::vector<GLfloat> cubeCoords
@@ -25,7 +25,7 @@ namespace
         1, 1, 1, //7
     };
 }
-
+*/
 namespace Chunk
 {
     namespace
@@ -46,6 +46,9 @@ namespace Chunk
         m_model.addData(m_verticies, m_texCoords, m_indices);
         m_model.addVBO(1, m_light);
 
+        static int vertices = 0;
+        vertices += m_verticies.size();
+
         m_verticies .clear();
         m_texCoords .clear();
         m_indices   .clear();
@@ -56,6 +59,7 @@ namespace Chunk
         m_indices   .shrink_to_fit();
         m_light     .shrink_to_fit();
 
+        std::cout << vertices << "\n";
     }
 
 

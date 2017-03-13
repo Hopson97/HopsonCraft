@@ -4,13 +4,13 @@
 #include <thread>
 #include <SFML/System/Clock.hpp>
 
-#include "../../../Camera.h"
-#include "../../../Renderer/RMaster.h"
-#include "../Terrain/Chunklet.h"
+#include "../../Camera.h"
+#include "../../Renderer/RMaster.h"
+#include "Chunklet.h"
 
-#include "../../../Maths/General_Maths.h"
-#include "../../../Maths/Matrix_Maths.h"
-#include "../../../Maths/Frustum.h"
+#include "../../Maths/General_Maths.h"
+#include "../../Maths/Matrix_Maths.h"
+#include "../../Maths/Frustum.h"
 
 
 namespace Chunk
@@ -60,8 +60,6 @@ namespace Chunk
 
     void Map::draw(Renderer::Master& renderer, const Camera& camera)
     {
-        static int frames = 0;
-
         bool shouldBuffer = true;
 
         for (auto& chunk : m_chunks)
@@ -130,7 +128,7 @@ namespace Chunk
         if(chunk)
         {
             auto blockPosition = Maths::worldToBlockPos(worldPosition);
-            triggerBlocks(blockPosition);
+            //triggerBlocks(blockPosition);
             chunk->setBlock(blockPosition, block);
         }
     }

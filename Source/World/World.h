@@ -1,7 +1,7 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
 
-#include "Chunk/Map/CMap.h"
+#include "Chunk/CMap.h"
 
 #include "Block_Editor.h"
 

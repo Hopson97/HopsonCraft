@@ -1,9 +1,8 @@
 #include "Chunklet.h"
 
-#include "../../../Maths/Matrix_Maths.h"
-
-#include "../Map/CMap.h"
-#include "../../../File/World_File.h"
+#include "../../Maths/Matrix_Maths.h"
+#include "../../File/World_File.h"
+#include "CMap.h"
 
 #include <iostream>
 

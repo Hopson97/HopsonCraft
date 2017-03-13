@@ -1,7 +1,7 @@
 #include "CMap.h"
 
-#include "../../../Maths/General_Maths.h"
-#include "../../../Camera.h"
+#include "../../Maths/General_Maths.h"
+#include "../../Camera.h"
 
 namespace
 {
@@ -42,6 +42,7 @@ namespace Chunk
     {
         loadAndGenChunks();
         loadDistChange(m_currentLoadDist, m_renderDistance);
+
         flagChunks();
     }
 

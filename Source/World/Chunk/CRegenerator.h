@@ -5,7 +5,7 @@
 #include <queue>
 
 #include "CPosition.h"
-#include "Terrain/Chunklet.h"
+#include "Chunklet.h"
 
 namespace Chunk
 {

@@ -3,14 +3,16 @@
 #include <SFML/System/Clock.hpp>
 #include <cmath>
 
-#include "../CRegenerator.h"
+#include "CRegenerator.h"
 
-#include "../../../Renderer/RMaster.h"
-#include "../../../Util/Random.h"
+#include "../../Renderer/RMaster.h"
+#include "../../Util/Random.h"
 
 #include <iostream>
 
-
+//noise1.setNoiseFunction({10, 70, 0.65, 480, 0});
+//noise1.setNoiseFunction({10, 90, 0.1, 580, 0});
+//noise1.setNoiseFunction({8, 80, 0.53, 200, 0});
 
 namespace Chunk
 {
@@ -20,16 +22,12 @@ namespace Chunk
     ,   m_p_regenerator (&regenerator)
     ,   m_p_worldFile   (&file)
     {
+
         Noise::Generator noise1;
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        noise1.setSeed(999555333);
-
-        //noise1.setNoiseFunction({10, 70, 0.65, 480, 0});
-        //noise1.setNoiseFunction({10, 90, 0.1, 580, 0});
-
-        //noise1.setNoiseFunction({8, 80, 0.53, 200, 0});
+        noise1.setSeed(5);
         noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
 
         if( pos.x < 0 || pos.y < 0)
@@ -87,9 +85,9 @@ namespace Chunk
 
     void Column::createFullMesh()
     {
-        for (auto& c : m_chunklets)
+        for (auto& chunklet : m_chunklets)
         {
-            c->createMesh();
+            chunklet->createMesh();
         }
         m_flags.hasFullMesh = true;
     }
@@ -145,7 +143,7 @@ namespace Chunk
 
     std::pair<int32_t, int32_t> Column::getChunkletBlockLocation(const Block::Column_Position& pos) const
     {
-        auto yIndex = std::ceil(pos.y / World_Constants::CH_SIZE);
+        auto yIndex = pos.y >> 4;//std::ceil(pos.y / World_Constants::CH_SIZE);
         auto yPos = pos.y - World_Constants::CH_SIZE * yIndex;
 
         return std::make_pair(yIndex, yPos);
@@ -202,6 +200,7 @@ namespace Chunk
     bool Column::draw(Renderer::Master& renderer, bool shouldBuffer)
     {
         bool buffered = false;
+
         for(auto itr = m_chunklets.begin(); itr != m_chunklets.end();)
         {
             Chunklet& chunklet = *(*itr);
@@ -227,6 +226,7 @@ namespace Chunk
                 ++itr;
             }
         }
+
         return buffered;
     }
 
@@ -239,6 +239,8 @@ namespace Chunk
                                                  m_chunkCount++,
                                                  m_position.y),
                                *m_p_chunkMap));
+
+        //if(m_flags.hasFullMesh) m_drawableChunklets.push_back(&*m_chunklets.back());
     }
 
 

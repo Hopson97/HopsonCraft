@@ -8,9 +8,9 @@
 #include <queue>
 
 
-#include "../Terrain/CColumn.h"
-#include "../CPosition.h"
-#include "../CRegenerator.h"
+#include "CColumn.h"
+#include "CPosition.h"
+#include "CRegenerator.h"
 
 class Camera;
 class World_File;

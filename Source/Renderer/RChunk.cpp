@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../World/Chunk/Terrain/CColumn.h"
+#include "../World/Chunk/CColumn.h"
 #include "../Maths/Matrix_Maths.h"
 
 namespace Renderer

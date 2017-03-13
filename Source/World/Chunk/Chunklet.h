@@ -6,17 +6,17 @@
 #include <vector>
 #include <unordered_map>
 
-#include "../CPosition.h"
-#include "../CBlock.h"
-#include "../CMesh.h"
+#include "CPosition.h"
+#include "CBlock.h"
+#include "CMesh.h"
 
-#include "../../Block/Block_ID.h"
-#include "../../Block/Block_Position.h"
+#include "../Block/Block_ID.h"
+#include "../Block/Block_Position.h"
 
-#include "../../World_Constants.h"
+#include "../World_Constants.h"
 
-#include "../../../Entity.h"
-#include "../../../Glm_Common.h"
+#include "../../Entity.h"
+#include "../../Glm_Common.h"
 
 class World_File;
 
@@ -41,10 +41,10 @@ class Chunklet : private Entity
         ,   isLoaded        (false)
         {}
 
-        std::atomic<bool> hasFaces;
-        std::atomic<bool> hasMesh;
-        std::atomic<bool> hasBuffered;
-        std::atomic<bool> isLoaded;
+        bool hasFaces;
+        bool hasMesh;
+        bool hasBuffered;
+        bool isLoaded;
     };
 
     public:
