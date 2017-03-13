@@ -101,8 +101,8 @@ void Player::mouseInput ()
 
     auto mouseChange = sf::Mouse::getPosition() - lastMousePosition;
 
-    rotation.y += mouseChange.x;
-    rotation.x += mouseChange.y;
+    rotation.y += mouseChange.x * 0.2;
+    rotation.x += mouseChange.y * 0.2;
 
     constexpr int8_t BOUND = 82;
 

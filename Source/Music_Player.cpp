@@ -4,6 +4,7 @@ Music_Player::Music_Player()
 {
     m_music.openFromFile("Data/Music/rim.ogg");
     m_music.play();
+    m_music.setVolume(10);
 }
 
 void Music_Player::update()

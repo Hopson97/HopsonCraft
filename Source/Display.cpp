@@ -32,6 +32,9 @@ namespace Display
                                                     "Window",
                                                     sf::Style::Close,
                                                     settings);
+
+        window->setVerticalSyncEnabled(true);
+
         glewInit();
         glViewport(0, 0, get().getSize().x, get().getSize().y);
 

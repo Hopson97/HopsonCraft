@@ -46,9 +46,6 @@ namespace Chunk
         m_model.addData(m_verticies, m_texCoords, m_indices);
         m_model.addVBO(1, m_light);
 
-        static int vertices = 0;
-        vertices += m_verticies.size();
-
         m_verticies .clear();
         m_texCoords .clear();
         m_indices   .clear();
@@ -58,8 +55,6 @@ namespace Chunk
         m_texCoords .shrink_to_fit();
         m_indices   .shrink_to_fit();
         m_light     .shrink_to_fit();
-
-        std::cout << vertices << "\n";
     }
 
 
