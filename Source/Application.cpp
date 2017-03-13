@@ -58,27 +58,84 @@ Application::Application()
 void Application::runMainGameLoop()
 {
     sf::Clock clock;
+    sf::Clock frameTIme;
 
+    std::vector<double> frameTimes;
+    double sum = 0;
+/*
+    Display::deactiveate();
+    std::thread render([&]()
+    {
+        Display::activate();
+        while (Display::isOpen())
+        {
+            m_renderer.clear();
+            m_states.top()->draw    (m_renderer);
+            m_renderer.draw(text);
+            m_renderer.update(m_camera);
+        }
+    });
+*/
     while (Display::isOpen())
     {
         m_musicPlayer.update();
 
         auto dt = clock.restart().asSeconds();
 
-        m_renderer.clear();
+        //m_renderer.clear();
 
         m_states.top()->input   (m_camera);
 
         m_states.top()->update  (m_camera, dt);
 
-        m_states.top()->draw    (m_renderer);
-        m_renderer.draw(text);
-        m_renderer.update(m_camera);
+        //m_states.top()->draw    (m_renderer);
+        //m_renderer.draw(text);
+        //m_renderer.update(m_camera);
 
         Display::checkForClose();
 
         checkFps (dt);
+        frameTimes.push_back(frameTIme.restart().asMilliseconds());
+        sum += frameTimes.back();
+        //text.setString(std::to_string(frameTIme.restart().asMilliseconds()));
     }
+    //render.join();
+
+    frameTimes.erase(frameTimes.begin(), frameTimes.begin() + 750);
+
+    double average = sum / frameTimes.size();
+
+    double sxx = 0;
+    for (double f : frameTimes)
+    {
+        sxx += (f * f);
+    }
+    sxx -= (frameTimes.size() * (average * average));
+
+    double sd = sqrt(sxx / (frameTimes.size() - 1));
+
+    std::cout   << "Standard deviation: " << sd << " milliseconds\n"
+                << "Total Frames:       " << frameTimes.size() << std::endl;
+
+    int outliers = 0;
+    for (double f : frameTimes)
+    {
+        if (f > average + (2 * sd))
+            //f < average - (2 * sd)
+        {
+            outliers++;
+        }
+    }
+
+    std::sort(frameTimes.begin(), frameTimes.end());
+    std::reverse(frameTimes.begin(), frameTimes.end());
+    std::cout << "Worst frames: " << std::endl;
+    for (int i = 0; i < 25; i++)
+    {
+        std::cout << frameTimes.at(i) << std::endl;
+    }
+
+    std::cout << "Outliers: " << outliers << std::endl;
 }
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)

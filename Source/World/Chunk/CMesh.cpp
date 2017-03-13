@@ -115,7 +115,7 @@ namespace Chunk
         sf::Clock timer;
 
         m_solidMesh.reset();
-        m_liquidMesh.reset();
+        //m_liquidMesh.reset();
 
         for (int8_t y = 0; y < World_Constants::CH_SIZE; ++y){
             for (int8_t x = 0; x < World_Constants::CH_SIZE; ++x){
@@ -166,10 +166,10 @@ namespace Chunk
             }
         }
         m_solidMesh.addIndices();
-        m_liquidMesh.addIndices();
+        //m_liquidMesh.addIndices();
 
-        m_p_chunklet->setFaces(m_solidMesh.getFacesCount    () |
-                               m_liquidMesh.getFacesCount   ());
+        m_p_chunklet->setFaces(m_solidMesh.getFacesCount());// |
+                               //m_liquidMesh.getFacesCount   ());
 
         //std::cout << "Mesh made in:" << timer.getElapsedTime().asSeconds() << " seconds.\n";
     }
@@ -184,7 +184,7 @@ namespace Chunk
                 break;
 
             case Block::Mesh_Type::Liquid:
-                m_activeSection = &m_liquidMesh;
+                m_activeSection = &m_solidMesh; //@TODO make back to liquid mesh
                 break;
         }
     }

@@ -24,7 +24,7 @@ namespace Display
         sf::ContextSettings settings;
         settings.depthBits = 24;
         settings.stencilBits = 8;
-        settings.antialiasingLevel = 2;
+        settings.antialiasingLevel = 4;
         settings.majorVersion = 3;
         settings.minorVersion = 0;
 
@@ -33,7 +33,7 @@ namespace Display
                                                     sf::Style::Close,
                                                     settings);
 
-        window->setVerticalSyncEnabled(true);
+        //window->setVerticalSyncEnabled(true);
 
         glewInit();
         glViewport(0, 0, get().getSize().x, get().getSize().y);
