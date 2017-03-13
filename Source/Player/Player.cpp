@@ -77,7 +77,7 @@ namespace
     float size = 0.45;
     float height = 1.75;
 }
-
+/*
 void Player::collisionTest( Chunk::Map& chunkMap,
                             float dt,
                             float vx,
@@ -125,7 +125,7 @@ void Player::collisionTest( Chunk::Map& chunkMap,
         }
     }
 }
-
+*/
 
 void Player::update(float dt)
 {
