@@ -30,7 +30,7 @@ namespace Chunk
         noise1.setSeed(63755);
         noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
 
-        uint32_t waterLevel = 73;
+        int32_t waterLevel = 73;
 
         if( pos.x < 0 || pos.y < 0)
         {

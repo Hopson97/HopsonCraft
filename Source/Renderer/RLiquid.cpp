@@ -5,6 +5,8 @@
 #include "../World/Chunk/Chunklet.h"
 #include "../Maths/Matrix_Maths.h"
 
+#include "../Camera.h"
+
 namespace Renderer
 {
     void RLiquid::draw(const Chunklet& chunklet)
@@ -12,7 +14,7 @@ namespace Renderer
         m_chunks.push_back(&chunklet);
     }
 
-    void RLiquid::update(const Matrix4& viewMatrix)
+    void RLiquid::update(const Camera& camera)
     {
         glEnable    (GL_BLEND);
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -20,7 +22,8 @@ namespace Renderer
 
         m_shader.bind();
 
-        m_shader.setViewMatrix(viewMatrix);
+        m_shader.setProjMatrix(camera.getProjectionMatrix());
+        m_shader.setViewMatrix(camera.getViewMatrix());
 
         m_shader.loadWaveTimer(m_wavesTimer.getElapsedTime().asSeconds());
 

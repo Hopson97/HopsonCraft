@@ -8,10 +8,6 @@ namespace Shader
     :   Simple_Shader   ("Liquid_Vertex", "Liquid_Fragment")
     {
         getUniformLocations();
-
-        bind();
-        loadMatrix4(m_locationProjMatrix, Maths::createProjMatrix());
-        unbind();
     }
 
     void Liqud_Shader::loadWaveTimer(float time)

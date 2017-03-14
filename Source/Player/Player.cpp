@@ -72,12 +72,13 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
     //box.update(position + (m_velocity * dt));
 }
 
+/*
 namespace
 {
     float size = 0.45;
     float height = 1.75;
 }
-/*
+
 void Player::collisionTest( Chunk::Map& chunkMap,
                             float dt,
                             float vx,

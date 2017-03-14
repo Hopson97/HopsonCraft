@@ -3,23 +3,20 @@
 #include <cmath>
 #include <iostream>
 
-#include <SFML/Window/Keyboard.hpp>
-#include <SFML/Window/Mouse.hpp>
-
-#include "Display.h"
-#include "Input/Key_Binds.h"
-#include "Input/Function_Toggle_Key.h"
-
+#include "Maths/Matrix_Maths.h"
 
 Camera::Camera()
 {
-    rotation.y += 180;
+    m_projectionMatrix = Maths::createProjMatrix();
 }
 
 void Camera::update()
 {
     position = m_P_entity->position;
     rotation = m_P_entity->rotation;
+
+    m_viewMatrix = Maths::createViewMatrix(*this);
+    m_frustum.update(m_projectionMatrix * m_viewMatrix);
 }
 
 void Camera::hookEntity(const Entity& entity)
@@ -28,15 +25,21 @@ void Camera::hookEntity(const Entity& entity)
     update();
 }
 
+const Frustum& Camera::getFrustum() const
+{
+    return m_frustum;
+}
 
 
+const Matrix4& Camera::getViewMatrix() const
+{
+    return m_viewMatrix;
+}
 
-
-
-
-
-
-
+const Matrix4& Camera::getProjectionMatrix() const
+{
+    return m_projectionMatrix;
+}
 
 
 

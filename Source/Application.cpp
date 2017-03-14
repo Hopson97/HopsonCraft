@@ -85,8 +85,10 @@ void Application::runMainGameLoop()
         m_renderer.clear();
 
         m_states.top()->input   (m_camera);
-
         m_states.top()->update  (m_camera, dt);
+
+        m_camera.update();
+
 
         m_states.top()->draw    (m_renderer);
         m_renderer.draw(text);

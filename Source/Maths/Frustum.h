@@ -20,9 +20,9 @@ class Frustum
     public:
         void update(const Matrix4& projView);
 
-        bool pointInFrustum(const Vector3& point);
+        bool pointInFrustum(const Vector3& point) const;
 
-        bool boxInFrustum(const AABB& box);
+        bool boxInFrustum(const AABB& box) const;
 
 
     private:

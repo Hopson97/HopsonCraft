@@ -67,7 +67,7 @@ void Frustum::update(const Matrix4& mat)
 }
 
 
-bool Frustum::pointInFrustum(const Vector3& point)
+bool Frustum::pointInFrustum(const Vector3& point) const
 {
     for (uint32_t i = 0; i < 6; i++)
     {
@@ -79,7 +79,7 @@ bool Frustum::pointInFrustum(const Vector3& point)
     return true;
 }
 
-bool Frustum::boxInFrustum(const AABB& box)
+bool Frustum::boxInFrustum(const AABB& box) const
 {
 
 }

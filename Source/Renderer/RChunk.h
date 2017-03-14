@@ -6,6 +6,8 @@
 #include "../Shaders/Solid_Shader.h"
 #include "../Shaders/Liquid_Shader.h"
 
+
+
 class Chunklet;
 struct Camera;
 
@@ -16,7 +18,7 @@ namespace Renderer
         public:
             void draw (const Chunklet& quad);
 
-            void update(const Matrix4& viewMatrix);
+            void update(const Camera& camera);
 
         private:
             void prepare(const Chunklet& quad);

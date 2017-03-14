@@ -8,9 +8,5 @@ namespace Shader
     :   Simple_Shader   ("Solid_Vertex", "Solid_Fragment")
     {
         getUniformLocations();
-
-        bind();
-        loadMatrix4(m_locationProjMatrix, Maths::createProjMatrix());
-        unbind();
     }
 }

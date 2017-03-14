@@ -5,6 +5,8 @@
 #include "../World/Chunk/CColumn.h"
 #include "../Maths/Matrix_Maths.h"
 
+#include "../Camera.h"
+
 namespace Renderer
 {
     void RChunk::draw(const Chunklet& chunklet)
@@ -12,14 +14,15 @@ namespace Renderer
         m_chunks.push_back(&chunklet);
     }
 
-    void RChunk::update(const Matrix4& viewMatrix)
+    void RChunk::update(const Camera& camera)
     {
         glDisable   (GL_BLEND);
         glEnable    (GL_CULL_FACE);
 
         m_shader.bind();
 
-        m_shader.setViewMatrix(viewMatrix);
+        m_shader.setProjMatrix(camera.getProjectionMatrix());
+        m_shader.setViewMatrix(camera.getViewMatrix());
 
         for (const Chunklet* chunklet : m_chunks)
         {

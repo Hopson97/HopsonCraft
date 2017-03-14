@@ -8,11 +8,6 @@ namespace Shader
     :   Shader_Program ("Simple_Vertex", "Simple_Fragment")
     {
         getUniformLocations();
-
-        bind();
-        loadMatrix4(m_locationProjMatrix, Maths::createProjMatrix());
-        unbind();
-
     }
 
     Simple_Shader::Simple_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
@@ -20,7 +15,6 @@ namespace Shader
     {
 
     }
-
 
     void Simple_Shader::setViewMatrix(const Matrix4& matrix)
     {

@@ -7,6 +7,8 @@
 #include "../World/Chunk/Chunklet.h"
 #include "../Maths/Matrix_Maths.h"
 
+#include "../Camera.h"
+
 namespace Renderer
 {
     void Master::clear()
@@ -18,11 +20,9 @@ namespace Renderer
     {
         Block::Database::get().textures.bind();
 
-        auto matrix = Maths::createViewMatrix(camera);
-
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        m_chunkRenderer .update (matrix);
-        m_liquidRenderer.update (matrix);
+        m_chunkRenderer .update (camera);
+        m_liquidRenderer.update (camera);
 
         //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         m_sfmlRenderer.update ();

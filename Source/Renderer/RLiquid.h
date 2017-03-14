@@ -17,7 +17,7 @@ namespace Renderer
         public:
             void draw (const Chunklet& quad);
 
-            void update(const Matrix4& viewMatrix);
+            void update(const Camera& camera);
 
         private:
             void prepare(const Chunklet& quad);
