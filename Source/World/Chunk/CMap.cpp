@@ -65,6 +65,7 @@ namespace Chunk
         for (auto& chunk : m_chunks)
         {
             if (camera.getFrustum().pointInFrustum(chunk.second->getWorldPosition()))
+            //if (camera.getFrustum().boxInFrustum(chunk.second->getAABB()))
             {
                 shouldBuffer = !chunk.second->draw(renderer, shouldBuffer);
             }

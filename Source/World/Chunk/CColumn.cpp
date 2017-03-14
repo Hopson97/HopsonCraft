@@ -21,69 +21,17 @@ namespace Chunk
     ,   m_p_chunkMap    (&map)
     ,   m_p_regenerator (&regenerator)
     ,   m_p_worldFile   (&file)
+    ,   m_box           ({World_Constants::CH_SIZE,
+                         0,
+                         World_Constants::CH_SIZE})
     {
         m_worldPosition.x = pos.x * World_Constants::CH_SIZE;
         m_worldPosition.z = pos.y * World_Constants::CH_SIZE;
         m_worldPosition.y = 100;
 
-        Noise::Generator noise1;
-        std::vector<int32_t> heightMap(World_Constants::CH_AREA);
+        m_box.point        = m_worldPosition;
 
-        int v;
-        noise1.setSeed(63755);
-        noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
-
-        int32_t waterLevel = 73;
-
-        if( pos.x < 0 || pos.y < 0)
-        {
-            v = waterLevel + 1;
-        }
-        else
-        {
-            for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
-            {
-                for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
-                {
-                    double h = noise1.getValue(x, z, pos.x, pos.y);
-                    heightMap[x * World_Constants::CH_SIZE + z] = h;
-                }
-            }
-            v = *std::max_element(heightMap.begin(), heightMap.end());
-        }
-
-        if (v < waterLevel) v = waterLevel + 1;
-
-        for (int32_t y = 0; y < v + 1; y++)
-        {
-            for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
-            {
-                for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
-                {
-                    int h = heightMap[x * World_Constants::CH_SIZE + z];
-
-
-                    if (y == h)
-                    {
-                        y > waterLevel?
-                            setBlock({x, y, z}, Block::ID::Grass) :
-                            setBlock({x, y, z}, Block::ID::Sand);
-                    }
-                    else if ( y < waterLevel && y > h)
-                    {
-                        setBlock({x, y, z}, Block::ID::Water);
-                    }
-                    else if (y < h && y > h - 3 )
-                    {
-                        setBlock({x, y, z}, Block::ID::Dirt);
-                    }
-                    else if (y <= h - 3)
-                    {
-                        setBlock({x, y, z}, Block::ID::Stone);
-                    }
-                }
-            }
-        }
+        generate();
 
         m_flags.generated = true;
     }
@@ -220,6 +168,10 @@ namespace Chunk
         return m_worldPosition;
     }
 
+    const AABB& Column::getAABB() const
+    {
+        return m_box;
+    }
 
     bool Column::draw(Renderer::Master& renderer, bool shouldBuffer)
     {
@@ -258,14 +210,74 @@ namespace Chunk
 
     void Column::addChunklet()
     {
+        m_box.dimensions.y += World_Constants::CH_SIZE;
         m_chunklets.push_back(std::make_unique<Chunklet>
                               (Chunklet_Position(m_position.x,
                                                  m_chunkCount++,
                                                  m_position.y),
                                *m_p_chunkMap));
-
-        //if(m_flags.hasFullMesh) m_drawableChunklets.push_back(&*m_chunklets.back());
     }
 
+    void Column::generate()
+    {
+        Noise::Generator noise1;
+        std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
+        int v;
+        noise1.setSeed(63755);
+        noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
+
+        int32_t waterLevel = 73;
+
+        if( m_position.x < 0 || m_position.y < 0)
+        {
+            v = waterLevel + 1;
+        }
+        else
+        {
+            for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
+            {
+                for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
+                {
+                    double h = noise1.getValue(x, z, m_position.x, m_position.y);
+                    heightMap[x * World_Constants::CH_SIZE + z] = h;
+                }
+            }
+            v = *std::max_element(heightMap.begin(), heightMap.end());
+        }
+
+        if (v < waterLevel) v = waterLevel + 1;
+
+        for (int32_t y = 0; y < v + 1; y++)
+        {
+            for (int32_t x = 0; x < World_Constants::CH_SIZE; x++)
+            {
+                for (int32_t z = 0; z < World_Constants::CH_SIZE; z++)
+                {
+                    int h = heightMap[x * World_Constants::CH_SIZE + z];
+
+
+                    if (y == h)
+                    {
+                        y > waterLevel?
+                            setBlock({x, y, z}, Block::ID::Grass) :
+                            setBlock({x, y, z}, Block::ID::Sand);
+                    }
+                    else if ( y < waterLevel && y > h)
+                    {
+                        setBlock({x, y, z}, Block::ID::Water);
+                    }
+                    else if (y < h && y > h - 3 )
+                    {
+                        setBlock({x, y, z}, Block::ID::Dirt);
+                    }
+                    else if (y <= h - 3)
+                    {
+                        setBlock({x, y, z}, Block::ID::Stone);
+                    }
+                }
+            }
+        }
+
+    }
 }

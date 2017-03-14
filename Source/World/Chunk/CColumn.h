@@ -11,6 +11,8 @@
 #include "../Block/Block_Position.h"
 #include "../../Temp/Noise_Generator.h"
 
+#include "../../Physics/AABB.h"
+
 class World_File;
 
 namespace Renderer
@@ -60,8 +62,11 @@ namespace Chunk
             void setDeleteFlag(bool deleteF);
 
             const Vector3& getWorldPosition() const;
+            const AABB&    getAABB() const;
 
         private:
+            void generate();
+
             std::pair<int32_t, int32_t> getChunkletBlockLocation(const Block::Column_Position& pos) const;
 
             Chunklet* getChunkletnc(int32_t index);
@@ -72,9 +77,12 @@ namespace Chunk
             Position    m_position;
             Vector3     m_worldPosition;
 
+
             Map*            m_p_chunkMap    = nullptr;
             Regenerator*    m_p_regenerator = nullptr;
             World_File*     m_p_worldFile   = nullptr;
+
+            AABB        m_box;
 
             int32_t m_chunkCount = 0;
 

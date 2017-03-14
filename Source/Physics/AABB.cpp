@@ -2,11 +2,11 @@
 
 
 AABB::AABB(const Vector3& dimensions)
-:   m_dimensions (dimensions)
+:   dimensions (dimensions)
 { }
 
 void AABB::update(const Vector3& position)
 {
-    m_point = position;
+    point = position;
 }
 

@@ -5,7 +5,7 @@
 
 namespace
 {
-    int8_t m_renderDistance    = 15;
+    int8_t m_renderDistance    = 16;
     int8_t m_currentLoadDist   = 1;
 
     struct Load_Sector
@@ -81,7 +81,7 @@ namespace Chunk
                 auto* chunk =  getChunk({x, z});
                 if (chunk)
                 {
-                    if (!chunk->getFlags().hasFullMesh)
+                    if (!chunk->getFlags().hasFullMesh && m_p_camera->getFrustum().pointInFrustum(chunk->getWorldPosition()))
                     {
                         chunk->createFullMesh();
                     }
