@@ -90,12 +90,12 @@ void Player::keyBoardInput ()
 
 void Player::mouseInput ()
 {
-    /*
+
     static bool lock = false;
     static Function_Toggle_Key key([&](){ lock = !lock; }, sf::Keyboard::L, sf::seconds(1.0));
     key.checkInput();
     if(lock) return;
-    */
+
 
     static sf::Vector2i lastMousePosition = sf::Mouse::getPosition();
 
