@@ -24,9 +24,9 @@ void Player::resetPosition()
 {
     position =
     {
-        50,
+        5000,
         150,
-        50
+        5000
     };
 }
 

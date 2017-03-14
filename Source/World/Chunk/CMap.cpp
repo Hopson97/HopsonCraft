@@ -21,16 +21,14 @@ namespace Chunk
     ,   m_isRunning     (true)
     {
         addChunk(Maths::worldToChunkPos(camera.position));
-        for(int i = 0; i < 1 ; i++)
+
+        m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
         {
-            m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
+            while (m_isRunning)
             {
-                while (m_isRunning)
-                {
-                    manageChunks();
-                }
-            }));
-        }
+                manageChunks();
+            }
+        }));
     }
 
     Map::~Map()
@@ -74,12 +72,13 @@ namespace Chunk
 
     void Map::addChunk(const Position& position)
     {
-        std::lock_guard<std::mutex> lock(m_addChunkMutex);
+        m_addChunkMutex.lock();
         if(!getChunk(position))
         {
             m_chunks.insert(std::make_pair
                            (position, std::make_unique<Column>(position, *this, m_regenerator, *m_p_worldFile)));
         }
+        m_addChunkMutex.unlock();
     }
 
     Column* Map::getChunk(const Chunk::Position& position)

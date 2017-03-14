@@ -44,7 +44,7 @@ namespace Chunk
             void triggerBlocks(const Block::Column_Position& worldPosition);
 
             void manageChunks();
-            void loadAndGenChunks();
+            void loadChunks();
             void flagChunks();
 
             std::unordered_map<Position, std::unique_ptr<Column>> m_chunks;

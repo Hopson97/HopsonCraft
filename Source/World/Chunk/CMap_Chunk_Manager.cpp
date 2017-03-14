@@ -5,7 +5,7 @@
 
 namespace
 {
-    int8_t m_renderDistance    = 16;
+    int8_t m_renderDistance    = 20;
     int8_t m_currentLoadDist   = 1;
 
     struct Load_Sector
@@ -27,8 +27,8 @@ namespace Chunk
 {
     namespace
     {
-        template<typename T, typename R>
-        void loadDistChange(T& ld, R rd)
+        template<typename L, typename R>
+        void loadDistChange(L& ld, R rd)
         {
             if (ld < rd - 1)
             {
@@ -40,16 +40,15 @@ namespace Chunk
 
     void Map::manageChunks()
     {
-        loadAndGenChunks();
+        loadChunks();
         loadDistChange(m_currentLoadDist, m_renderDistance);
 
         flagChunks();
     }
 
-    void Map::loadAndGenChunks()
+    void Map::loadChunks()
     {
         auto pos = Maths::worldToChunkPos(m_p_camera->position);
-
         Load_Sector sect
         (
             pos.x - m_currentLoadDist,
@@ -57,15 +56,7 @@ namespace Chunk
             pos.y - m_currentLoadDist,
             pos.y + m_currentLoadDist
         );
-/*
-        Load_Sector sect
-        (
-            0,
-            m_currentLoadDist,
-            0,
-            m_currentLoadDist
-        );
-*/
+
         for (auto x = sect.minX; x < sect.maxX; x++)
         {
             for (auto z = sect.minZ; z < sect.maxZ; z++)
@@ -89,8 +80,9 @@ namespace Chunk
                 }
             }
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(25));
+
     }
+
 
     void Map::flagChunks()
     {

@@ -224,7 +224,7 @@ namespace Chunk
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        noise1.setSeed(63755);
+        noise1.setSeed(635755);
         noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
 
         int32_t waterLevel = 73;
