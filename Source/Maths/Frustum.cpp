@@ -13,6 +13,12 @@ namespace Planes
     };
 }
 
+float Plane::distanceToPoint(const Vector3& point) const
+{
+    return glm::dot(point, normal) + distance;
+}
+
+
 //calcuate matrix based on the projection * view matrix.
 void Frustum::update(const Matrix4& mat)
 {
@@ -59,4 +65,44 @@ void Frustum::update(const Matrix4& mat)
         m_planes[i].distance    /= length;
     }
 }
+
+
+bool Frustum::pointInFrustum(const Vector3& point)
+{
+    for (uint32_t i = 0; i < 6; i++)
+    {
+        if (m_planes[i].distanceToPoint(point) < 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Frustum::boxInFrustum(const AABB& box)
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
