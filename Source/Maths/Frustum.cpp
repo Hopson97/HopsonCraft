@@ -79,22 +79,24 @@ bool Frustum::pointInFrustum(const Vector3& point) const
     return true;
 }
 
+
 bool Frustum::boxInFrustum(const AABB& box) const
 {
-    Vector3 min = box.point;
-    Vector3 max = { box.point.x + box.dimensions.x,
-                    box.point.y + box.dimensions.y,
-                    box.point.z + box.dimensions.z };
+    bool res = false;
 
     for (uint32_t i = 0; i < 6; i++)
     {
-        if(m_planes[i].distanceToPoint(min) < 0 ||
-           m_planes[i].distanceToPoint(max) < 0)
+        if (m_planes[i].distanceToPoint(box.getVP(m_planes[i].normal)) < 0)
         {
             return false;
         }
+        else if (m_planes[i].distanceToPoint(box.getVN(m_planes[i].normal)) < 0)
+        {
+            return true;
+        }
     }
-    return true;
+
+    return false;
 }
 
 

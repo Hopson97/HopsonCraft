@@ -81,7 +81,8 @@ namespace Chunk
                 auto* chunk =  getChunk({x, z});
                 if (chunk)
                 {
-                    if (!chunk->getFlags().hasFullMesh && m_p_camera->getFrustum().pointInFrustum(chunk->getWorldPosition()))
+                    if (!chunk->getFlags().hasFullMesh &&
+                        m_p_camera->getFrustum().pointInFrustum(chunk->getWorldPosition()))
                     {
                         chunk->createFullMesh();
                     }

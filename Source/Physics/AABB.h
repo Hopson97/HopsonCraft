@@ -13,6 +13,9 @@ struct AABB
 
         void update(const Vector3& position);
 
+        Vector3 getVN(const Vector3& normal) const;
+        Vector3 getVP(const Vector3& normal) const;
+
         Vector3 point;
         Vector3 dimensions;
 };
