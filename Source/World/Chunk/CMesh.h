@@ -24,6 +24,7 @@ namespace Chunk
             void reset();
 
             void buffer ();
+            void reserve(size_t vert, size_t tex, size_t ind, size_t light);
 
             void addVerticies   (const std::vector<GLfloat>& v);
             void addTexCoords   (const std::vector<GLfloat>& t);

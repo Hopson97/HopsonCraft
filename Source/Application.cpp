@@ -82,22 +82,21 @@ void Application::runMainGameLoop()
 
         auto dt = clock.restart().asSeconds();
 
-        //m_renderer.clear();
+        m_renderer.clear();
 
         m_states.top()->input   (m_camera);
 
         m_states.top()->update  (m_camera, dt);
 
-        //m_states.top()->draw    (m_renderer);
-        //m_renderer.draw(text);
-        //m_renderer.update(m_camera);
+        m_states.top()->draw    (m_renderer);
+        m_renderer.draw(text);
+        m_renderer.update(m_camera);
 
         Display::checkForClose();
 
         checkFps (dt);
         frameTimes.push_back(frameTIme.restart().asMilliseconds());
         sum += frameTimes.back();
-        //text.setString(std::to_string(frameTIme.restart().asMilliseconds()));
     }
     //render.join();
 
@@ -136,6 +135,7 @@ void Application::runMainGameLoop()
     }
 
     std::cout << "Outliers: " << outliers << std::endl;
+    std::cout << "Percent:  " << ((float)outliers / (float)frameTimes.size()) * 100.0f << std::endl;
 }
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)

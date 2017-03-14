@@ -27,12 +27,14 @@ namespace Chunk
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        noise1.setSeed(5);
+        noise1.setSeed(63755);
         noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
+
+        uint32_t waterLevel = 73;
 
         if( pos.x < 0 || pos.y < 0)
         {
-            v = 75;
+            v = waterLevel + 1;
         }
         else
         {
@@ -47,7 +49,7 @@ namespace Chunk
             v = *std::max_element(heightMap.begin(), heightMap.end());
         }
 
-        if (v < 75) v = 75;
+        if (v < waterLevel) v = waterLevel + 1;
 
         for (int32_t y = 0; y < v + 1; y++)
         {
@@ -60,11 +62,11 @@ namespace Chunk
 
                     if (y == h)
                     {
-                        y > 73?
+                        y > waterLevel?
                             setBlock({x, y, z}, Block::ID::Grass) :
                             setBlock({x, y, z}, Block::ID::Sand);
                     }
-                    else if ( y < 73 && y > h)
+                    else if ( y < waterLevel && y > h)
                     {
                         setBlock({x, y, z}, Block::ID::Water);
                     }
@@ -85,10 +87,22 @@ namespace Chunk
 
     void Column::createFullMesh()
     {
+        /*
+        static float avg;
+        static int n;
+        sf::Clock c;
+        float time;
+        /**/
         for (auto& chunklet : m_chunklets)
         {
             chunklet->createMesh();
         }
+        /*
+        time = c.getElapsedTime().asSeconds();
+        avg += time;
+        n++;
+        std::cout << "This chunk: " << time << "s | Average time: " << avg / n << "s\n";
+        /**/
         m_flags.hasFullMesh = true;
     }
 
@@ -101,6 +115,7 @@ namespace Chunk
 
         while (chunkletIndex + 1 > m_chunkCount)
         {
+            addChunklet();
             addChunklet();
         }
         Chunklet* chunk = getChunkletnc(chunkletIndex);
@@ -143,7 +158,7 @@ namespace Chunk
 
     std::pair<int32_t, int32_t> Column::getChunkletBlockLocation(const Block::Column_Position& pos) const
     {
-        auto yIndex = pos.y >> 4;//std::ceil(pos.y / World_Constants::CH_SIZE);
+        auto yIndex = std::ceil(pos.y / World_Constants::CH_SIZE);
         auto yPos = pos.y - World_Constants::CH_SIZE * yIndex;
 
         return std::make_pair(yIndex, yPos);
