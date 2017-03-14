@@ -59,6 +59,8 @@ namespace Chunk
             const CFlags& getFlags();
             void setDeleteFlag(bool deleteF);
 
+            const Vector3& getWorldPosition() const;
+
         private:
             std::pair<int32_t, int32_t> getChunkletBlockLocation(const Block::Column_Position& pos) const;
 
@@ -67,7 +69,8 @@ namespace Chunk
 
             std::vector<std::unique_ptr<Chunklet>> m_chunklets;
 
-            Position        m_position;
+            Position    m_position;
+            Vector3     m_worldPosition;
 
             Map*            m_p_chunkMap    = nullptr;
             Regenerator*    m_p_regenerator = nullptr;

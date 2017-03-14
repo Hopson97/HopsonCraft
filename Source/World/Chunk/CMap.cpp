@@ -64,8 +64,10 @@ namespace Chunk
 
         for (auto& chunk : m_chunks)
         {
-            //if(frusum.inFrustum(chunk.second->minX, chunk.second->maxX))
-            shouldBuffer = !chunk.second->draw(renderer, shouldBuffer);
+            if (camera.getFrustum().pointInFrustum(chunk.second->getWorldPosition()))
+            {
+                shouldBuffer = !chunk.second->draw(renderer, shouldBuffer);
+            }
         }
     }
 

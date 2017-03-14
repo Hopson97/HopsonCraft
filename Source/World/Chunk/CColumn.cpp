@@ -22,6 +22,9 @@ namespace Chunk
     ,   m_p_regenerator (&regenerator)
     ,   m_p_worldFile   (&file)
     {
+        m_worldPosition.x = pos.x * World_Constants::CH_SIZE;
+        m_worldPosition.z = pos.y * World_Constants::CH_SIZE;
+        m_worldPosition.y = 100;
 
         Noise::Generator noise1;
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
@@ -211,6 +214,12 @@ namespace Chunk
     {
 
     }
+
+    const Vector3& Column::getWorldPosition() const
+    {
+        return m_worldPosition;
+    }
+
 
     bool Column::draw(Renderer::Master& renderer, bool shouldBuffer)
     {
