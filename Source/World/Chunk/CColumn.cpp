@@ -73,10 +73,9 @@ namespace Chunk
 
         Block::Small_Position blockPosition (pos.x, blockYPosition, pos.z);
 
-        chunk->qSetBlock(blockPosition, block);
-
         if(m_flags.generated)
         {
+            chunk->qSetBlock(blockPosition, block);
             m_p_regenerator->addChunklets(chunk->setBlock(blockPosition, block));
         }
         else
@@ -224,8 +223,9 @@ namespace Chunk
         std::vector<int32_t> heightMap(World_Constants::CH_AREA);
 
         int v;
-        noise1.setSeed(635755);
-        noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
+        noise1.setSeed(6755);
+        //noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
+        noise1.setNoiseFunction({10, 30, 0.2, 280, 0});
 
         int32_t waterLevel = 73;
 

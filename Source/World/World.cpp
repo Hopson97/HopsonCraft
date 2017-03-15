@@ -27,6 +27,7 @@ void World::input(Camera& camera)
 void World::update(float dt)
 {
     m_chunkMap.update();
+    m_p_player->testForCollide(m_chunkMap, dt);
     m_p_player->update(dt);
 }
 

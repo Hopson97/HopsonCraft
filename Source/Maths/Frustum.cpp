@@ -65,11 +65,11 @@ void Frustum::update(const Matrix4& mat)
     m_planes[Planes::Far].normal.z      = mat[2][3] - mat[2][2];
     m_planes[Planes::Far].distance      = mat[3][3] - mat[3][2];
 
-    for (uint32_t i = 0; i < 6; i++)
+    for (auto& plane : m_planes)
     {
-        float length = glm::length(m_planes[i].normal);
-        m_planes[i].normal      /= length;
-        m_planes[i].distance    /= length;
+        float length = glm::length(plane.normal);
+        plane.normal    /= length;
+        plane.distance  /= length;
     }
 }
 

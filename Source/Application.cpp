@@ -14,7 +14,7 @@ namespace
 {
     sf::Text text;
 
-    void checkFps (float f)
+    void checkFps ()
     {
         static sf::Clock timer;
         static sf::Clock printTimer;
@@ -57,8 +57,7 @@ Application::Application()
 
 void Application::runMainGameLoop()
 {
-    sf::Clock clock;
-    sf::Clock frameTIme;
+    sf::Clock gameTimer;
 
     std::vector<double> frameTimes;
     double sum = 0;
@@ -76,30 +75,46 @@ void Application::runMainGameLoop()
         }
     });
 */
+    auto getCurrentTime = [&]() { return gameTimer.getElapsedTime(); };
+
+    sf::Time lastTime = getCurrentTime();
+    float lag = 0.0;
     while (Display::isOpen())
     {
+        sf::Time now = getCurrentTime();
+        sf::Time elapsed = now - lastTime;
+        lastTime = now;
+        lag += elapsed.asMilliseconds();
+
         m_musicPlayer.update();
 
-        auto dt = clock.restart().asSeconds();
 
-        m_renderer.clear();
 
         m_states.top()->input   (m_camera);
-        m_states.top()->update  (m_camera, dt);
 
-        m_camera.update();
+        //while (lag >= 16)
+        {
+            m_states.top()->update  (m_camera, elapsed.asSeconds());
+            m_camera.update();
+            lag -= 16;
+        }
 
 
         m_states.top()->draw    (m_renderer);
         m_renderer.draw(text);
+
+        m_renderer.clear();
         m_renderer.update(m_camera);
 
         Display::checkForClose();
 
-        checkFps (dt);
-        frameTimes.push_back(frameTIme.restart().asMilliseconds());
+        checkFps ();
+        frameTimes.push_back(elapsed.asMilliseconds());
         sum += frameTimes.back();
+
     }
+
+
     //render.join();
 
     frameTimes.erase(frameTimes.begin(), frameTimes.begin() + 750);

@@ -2,10 +2,11 @@
 
 #include "../../Maths/General_Maths.h"
 #include "../../Camera.h"
+#include "../../Util/Random.h"
 
 namespace
 {
-    int8_t m_renderDistance    = 20;
+    int8_t m_renderDistance    = 32;
     int8_t m_currentLoadDist   = 1;
 
     struct Load_Sector
@@ -69,17 +70,22 @@ namespace Chunk
         {
             for (auto z = sect.minZ; z < sect.maxZ; z++)
             {
+                //while(!m_chunkGenMutex.try_lock()) continue;
+
                 auto* chunk =  getChunk({x, z});
                 if (chunk)
                 {
                     if (!chunk->getFlags().hasFullMesh &&
                         m_p_camera->getFrustum().pointInFrustum(chunk->getWorldPosition()))
                     {
+                        if (m_currentLoadDist > m_renderDistance / 2) m_currentLoadDist = 1;
                         chunk->createFullMesh();
                     }
                 }
+                //m_chunkGenMutex.unlock();
             }
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
     }
 

@@ -22,13 +22,19 @@ namespace Chunk
     {
         addChunk(Maths::worldToChunkPos(camera.position));
 
-        m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
+        sf::Clock c;
+        for (int i = 0; i < 1; i++)
         {
-            while (m_isRunning)
+            while (!c.getElapsedTime().asMilliseconds() >= 25);
+            m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
             {
-                manageChunks();
-            }
-        }));
+                while (m_isRunning)
+                {
+                    manageChunks();
+                }
+            }));
+            c.restart();
+        }
     }
 
     Map::~Map()
