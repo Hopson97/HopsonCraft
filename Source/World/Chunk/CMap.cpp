@@ -59,13 +59,18 @@ namespace Chunk
     void Map::draw(Renderer::Master& renderer, const Camera& camera)
     {
         bool shouldBuffer = true;
+        int culled = 0;
 
         for (auto& chunk : m_chunks)
         {
-            if (camera.getFrustum().pointInFrustum(chunk.second->getWorldPosition()))
-            //if (camera.getFrustum().boxInFrustum(chunk.second->getAABB()))
+            //if (camera.getFrustum().pointInFrustum(chunk.second->getWorldPosition()))
+            if (camera.getFrustum().boxInFrustum(chunk.second->getAABB()))
             {
                 shouldBuffer = !chunk.second->draw(renderer, shouldBuffer);
+            }
+            else
+            {
+                culled++;
             }
         }
     }

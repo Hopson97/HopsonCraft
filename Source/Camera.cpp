@@ -7,7 +7,7 @@
 
 Camera::Camera()
 {
-    m_projectionMatrix = Maths::createProjMatrix();
+    m_projectionMatrix = Maths::createProjMatrix(80);
 }
 
 void Camera::update()

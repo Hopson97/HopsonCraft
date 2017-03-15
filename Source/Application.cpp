@@ -138,6 +138,7 @@ void Application::runMainGameLoop()
 
     std::cout << "Outliers: " << outliers << std::endl;
     std::cout << "Percent:  " << ((float)outliers / (float)frameTimes.size()) * 100.0f << std::endl;
+    std::cout << "Average Frame Time " << average << "ms\n";
 }
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)

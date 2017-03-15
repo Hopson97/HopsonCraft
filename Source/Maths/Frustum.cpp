@@ -18,6 +18,13 @@ float Plane::distanceToPoint(const Vector3& point) const
     return glm::dot(point, normal) + distance;
 }
 
+/*
+void Frustum::setInterals(float angle, float ratio, float nearPlane, float farPlane)
+{
+
+}
+*/
+
 
 //calcuate matrix based on the projection * view matrix.
 void Frustum::update(const Matrix4& mat)
@@ -69,9 +76,9 @@ void Frustum::update(const Matrix4& mat)
 
 bool Frustum::pointInFrustum(const Vector3& point) const
 {
-    for (uint32_t i = 0; i < 6; i++)
+    for (auto& plane : m_planes)
     {
-        if (m_planes[i].distanceToPoint(point) < 0)
+        if (plane.distanceToPoint(point) < 0)
         {
             return false;
         }
@@ -82,23 +89,22 @@ bool Frustum::pointInFrustum(const Vector3& point) const
 
 bool Frustum::boxInFrustum(const AABB& box) const
 {
-    bool res = false;
+    bool result = true;
 
-    for (uint32_t i = 0; i < 6; i++)
+    for (auto& plane : m_planes)
     {
-        if (m_planes[i].distanceToPoint(box.getVP(m_planes[i].normal)) < 0)
+        if (plane.distanceToPoint(box.getVP(plane.normal)) < 0)
         {
             return false;
         }
-        else if (m_planes[i].distanceToPoint(box.getVN(m_planes[i].normal)) < 0)
+        else if (plane.distanceToPoint(box.getVN(plane.normal)) < 0)
         {
-            return true;
+            result = true;
         }
     }
 
-    return false;
+    return result;
 }
-
 
 
 
