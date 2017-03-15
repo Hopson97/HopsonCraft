@@ -98,7 +98,7 @@ namespace Chunk
         if (chunkletIndex < m_chunkCount && chunkletIndex >= 0)
         {
             Block::Small_Position bp (pos.x, blockYPosition, pos.z);
-            return m_chunklets.at(chunkletIndex)->qGetBlock(bp);
+            return m_chunklets[chunkletIndex]->qGetBlock(bp);
         }
         else
         {
@@ -225,9 +225,12 @@ namespace Chunk
         int v;
         noise1.setSeed(6755);
         //noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
-        noise1.setNoiseFunction({10, 80, 0.4, 280, 0});
+        if(m_position.x < 6)
+            noise1.setNoiseFunction({10, 60, 0.4, 280, 0});
+        else
+            noise1.setNoiseFunction({8, 130, 0.5, 240, 0});
 
-        int32_t waterLevel = 73;
+        int32_t waterLevel = 64;
 
         if( m_position.x < 0 || m_position.y < 0)
         {

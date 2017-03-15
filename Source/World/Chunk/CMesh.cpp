@@ -224,10 +224,21 @@ namespace Chunk
 
 
         CBlock block = m_p_chunklet->getBlock(pos);
-        const Block::Data_Holder& d = Block::Database::get().getBlock(block.id).getData().get();
+        const Block::Data_Holder& adjacentBlockData = Block::Database::get().getBlock(block.id).getData().get();
 
-        return  block == Block::ID::Air ||
-                (!d.isOpaque && d.blockID != m_p_activeBlockData->get().blockID);
+        if (block == Block::ID::Air)
+        {
+            return true;
+        }
+        else if ( adjacentBlockData.blockID == m_p_activeBlockData->get().blockID)
+        {
+            return false;
+        }
+        else if (!adjacentBlockData.isOpaque)
+        {
+            return true;
+        }
+        return false;
     }
 
     void Mesh::makeFrontFace(const Block::Small_Position& pos)
