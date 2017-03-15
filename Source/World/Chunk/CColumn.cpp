@@ -38,7 +38,7 @@ namespace Chunk
 
     void Column::createFullMesh()
     {
-        /*
+        /**/
         static float avg;
         static int n;
         sf::Clock c;
@@ -48,7 +48,7 @@ namespace Chunk
         {
             chunklet->createMesh();
         }
-        /*
+        /**/
         time = c.getElapsedTime().asSeconds();
         avg += time;
         n++;
@@ -225,7 +225,7 @@ namespace Chunk
         int v;
         noise1.setSeed(6755);
         //noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
-        noise1.setNoiseFunction({10, 30, 0.2, 280, 0});
+        noise1.setNoiseFunction({10, 80, 0.4, 280, 0});
 
         int32_t waterLevel = 73;
 

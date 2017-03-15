@@ -19,7 +19,7 @@ void Player::keyBoardInput ()
     float speed = 5;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
-        speed = 10;
+        speed = 100;
     }
 
     if(m_isInLiquid) speed /= 1.5;

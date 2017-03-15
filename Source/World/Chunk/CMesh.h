@@ -38,6 +38,8 @@ namespace Chunk
             uint32_t getFacesCount() const { return m_faces; }
 
         private:
+            uint32_t m_indicesIndex = 0;
+
             std::vector<GLfloat>    m_verticies;
             std::vector<GLfloat>    m_texCoords;
             std::vector<GLuint>     m_indices;
@@ -46,8 +48,6 @@ namespace Chunk
             Model m_model;
 
             uint32_t m_faces = 0;
-
-            GLuint m_indicesCount = 0;
     };
 
     class Mesh

@@ -48,6 +48,7 @@ namespace Chunk
     void Mesh_Section::reset()
     {
         m_faces = 0;
+        m_indicesIndex = 0;
     }
 
     void Mesh_Section::buffer()
@@ -97,18 +98,16 @@ namespace Chunk
 
     void Mesh_Section::addIndices()
     {
-        for (uint32_t i = 0, count = 0; i < m_faces; ++i, count += 4)
+        addIndices(
         {
-            addIndices(
-            {
-                count,
-                count + 1,
-                count + 2,
-                count + 2,
-                count + 3,
-                count,
-            });
-        }
+            m_indicesIndex,
+            m_indicesIndex + 1,
+            m_indicesIndex + 2,
+            m_indicesIndex + 2,
+            m_indicesIndex + 3,
+            m_indicesIndex
+        });
+        m_indicesIndex += 4;
     }
 
 
@@ -150,44 +149,44 @@ namespace Chunk
                         if (shouldMakeFaceAdjacentTo({x, static_cast<int8_t>(y + 1), z}))
                         {
                             makeTopFace (pos);
+                            m_activeSection->addIndices();
                         }
 
                         if (shouldMakeFaceAdjacentTo({x, static_cast<int8_t>(y - 1), z}))
                         {
                             makeBottomFace(pos);
+                            m_activeSection->addIndices();
                         }
 
                         if (shouldMakeFaceAdjacentTo({static_cast<int8_t>(x - 1), y, z}))
                         {
                             makeLeftFace (pos);
+                            m_activeSection->addIndices();
                         }
 
                         if (shouldMakeFaceAdjacentTo({static_cast<int8_t>(x + 1), y, z}))
                         {
                             makeRightFace (pos);
+                            m_activeSection->addIndices();
                         }
                         if (shouldMakeFaceAdjacentTo({x, y, static_cast<int8_t>(z + 1)}))
                         {
                             makeFrontFace (pos);
+                            m_activeSection->addIndices();
                         }
 
                         if (shouldMakeFaceAdjacentTo({x, y, static_cast<int8_t>(z - 1)}))
                         {
                             makeBackFace (pos);
+                            m_activeSection->addIndices();
                         }
                     }
                 }
             }
         }
-        m_solidMesh.addIndices();
-        m_liquidMesh.addIndices();
-
         m_p_chunklet->setFaces(m_solidMesh .getFacesCount() |
                                m_liquidMesh.getFacesCount());
-
-        //std::cout << "Mesh made in:" << timer.getElapsedTime().asSeconds() << " seconds.\n";
     }
-
 
     void Mesh::setActiveSection()
     {
