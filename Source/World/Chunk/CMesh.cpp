@@ -134,50 +134,70 @@ namespace Chunk
             for (int8_t x = 0; x < World_Constants::CH_SIZE; ++x){
                 for (int8_t z = 0; z < World_Constants::CH_SIZE; ++z)
                 {
-                    Block::Small_Position pos{x, y, z};
-                    if (m_p_chunklet->qGetBlock(pos) == Block::ID::Air)
+                    if (m_p_chunklet->qGetBlock({x, y, z}) == Block::ID::Air)
                     {
                         continue;
                     }
                     else
                     {
+                        auto chunkPos = m_p_chunklet->getPosition();
+
+                        GLfloat minX = x + chunkPos.x * World_Constants::CH_SIZE;
+                        GLfloat minY = y + chunkPos.y * World_Constants::CH_SIZE;
+                        GLfloat minZ = z + chunkPos.z * World_Constants::CH_SIZE;
+
+
+                        GLfloat maxX = x + chunkPos.x * World_Constants::CH_SIZE + 1;
+                        GLfloat maxY = y + chunkPos.y * World_Constants::CH_SIZE + 1;
+                        GLfloat maxZ = z + chunkPos.z * World_Constants::CH_SIZE + 1;
+
+                        Vector3 minPosition (minX,
+                                             minY,
+                                             minZ);
+
+                        Vector3 maxPosition (maxX,
+                                             maxY,
+                                             maxZ);
+
+
+
                         m_p_activeBlockData = &Block::Database::get().
-                                                getBlock(m_p_chunklet->qGetBlock(pos).id).getData();
+                                                getBlock(m_p_chunklet->qGetBlock({x, y, z}).id).getData();
 
                         setActiveSection();
 
                         if (shouldMakeFaceAdjacentTo({x, static_cast<int8_t>(y + 1), z}))
                         {
-                            makeTopFace (pos);
+                            makeTopFace (minPosition, maxPosition);
                             m_activeSection->addIndices();
                         }
 
                         if (shouldMakeFaceAdjacentTo({x, static_cast<int8_t>(y - 1), z}))
                         {
-                            makeBottomFace(pos);
+                            makeBottomFace(minPosition, maxPosition);
                             m_activeSection->addIndices();
                         }
 
                         if (shouldMakeFaceAdjacentTo({static_cast<int8_t>(x - 1), y, z}))
                         {
-                            makeLeftFace (pos);
+                            makeLeftFace (minPosition, maxPosition);
                             m_activeSection->addIndices();
                         }
 
                         if (shouldMakeFaceAdjacentTo({static_cast<int8_t>(x + 1), y, z}))
                         {
-                            makeRightFace (pos);
+                            makeRightFace (minPosition, maxPosition);
                             m_activeSection->addIndices();
                         }
                         if (shouldMakeFaceAdjacentTo({x, y, static_cast<int8_t>(z + 1)}))
                         {
-                            makeFrontFace (pos);
+                            makeFrontFace (minPosition, maxPosition);
                             m_activeSection->addIndices();
                         }
 
                         if (shouldMakeFaceAdjacentTo({x, y, static_cast<int8_t>(z - 1)}))
                         {
-                            makeBackFace (pos);
+                            makeBackFace (minPosition, maxPosition);
                             m_activeSection->addIndices();
                         }
                     }
@@ -221,8 +241,6 @@ namespace Chunk
 
     bool Mesh::shouldMakeFaceAdjacentTo(const Block::Small_Position& pos)
     {
-
-
         CBlock block = m_p_chunklet->getBlock(pos);
         const Block::Data_Holder& adjacentBlockData = Block::Database::get().getBlock(block.id).getData().get();
 
@@ -241,18 +259,14 @@ namespace Chunk
         return false;
     }
 
-    void Mesh::makeFrontFace(const Block::Small_Position& pos)
+    void Mesh::makeFrontFace(const Vector3& min, const Vector3& max)
     {
-        GLfloat x = static_cast<GLfloat>(pos.x);
-        GLfloat y = static_cast<GLfloat>(pos.y);
-        GLfloat z = static_cast<GLfloat>(pos.z);
-
         m_activeSection->addVerticies(
         {
-            x,      y,      z + 1,
-            x + 1,  y,      z + 1,
-            x + 1,  y + 1,  z + 1,
-            x,      y + 1,  z + 1,
+            min.x,  min.y,  max.z,
+            max.x,  min.y,  max.z,
+            max.x,  max.y,  max.z,
+            min.x,  max.y,  max.z,
         });
 
         m_activeSection->addTexCoords(m_p_textureAtlas->
@@ -261,18 +275,14 @@ namespace Chunk
         m_activeSection->addLightVal(LIGHT_Z);
     }
 
-    void Mesh::makeBackFace(const Block::Small_Position& pos)
+    void Mesh::makeBackFace(const Vector3& min, const Vector3& max)
     {
-        GLfloat x = static_cast<GLfloat>(pos.x);
-        GLfloat y = static_cast<GLfloat>(pos.y);
-        GLfloat z = static_cast<GLfloat>(pos.z);
-
         m_activeSection->addVerticies(
         {
-            x + 1,  y,      z,
-            x,      y,      z,
-            x,      y + 1,  z,
-            x + 1,  y + 1,  z,
+            max.x,  min.y,  min.z,
+            min.x,  min.y,  min.z,
+            min.x,  max.y,  min.z,
+            max.x,  max.y,  min.z,
         });
 
         m_activeSection->addTexCoords(m_p_textureAtlas->
@@ -281,18 +291,14 @@ namespace Chunk
         m_activeSection->addLightVal(LIGHT_Z);
     }
 
-    void Mesh::makeLeftFace(const Block::Small_Position& pos)
+    void Mesh::makeLeftFace(const Vector3& min, const Vector3& max)
     {
-        GLfloat x = static_cast<GLfloat>(pos.x);
-        GLfloat y = static_cast<GLfloat>(pos.y);
-        GLfloat z = static_cast<GLfloat>(pos.z);
-
         m_activeSection->addVerticies(
         {
-            x, y,       z,
-            x, y,       z + 1,
-            x, y + 1,   z + 1,
-            x, y + 1,   z,
+            min.x, min.y,   min.z,
+            min.x, min.y,   max.z,
+            min.x, max.y,   max.z,
+            min.x, max.y,   min.z,
         });
 
         m_activeSection->addTexCoords(m_p_textureAtlas->
@@ -301,18 +307,14 @@ namespace Chunk
         m_activeSection->addLightVal(LIGHT_X);
     }
 
-    void Mesh::makeRightFace(const Block::Small_Position& pos)
+    void Mesh::makeRightFace(const Vector3& min, const Vector3& max)
     {
-        GLfloat x = static_cast<GLfloat>(pos.x);
-        GLfloat y = static_cast<GLfloat>(pos.y);
-        GLfloat z = static_cast<GLfloat>(pos.z);
-
         m_activeSection->addVerticies(
         {
-            x + 1, y,       z + 1,
-            x + 1, y,       z,
-            x + 1, y + 1,   z,
-            x + 1, y + 1,   z + 1,
+            max.x, min.y,   max.z,
+            max.x, min.y,   min.z,
+            max.x, max.y,   min.z,
+            max.x, max.y,   max.z,
         });
 
         m_activeSection->addTexCoords(m_p_textureAtlas->
@@ -321,18 +323,14 @@ namespace Chunk
         m_activeSection->addLightVal(LIGHT_X);
     }
 
-    void Mesh::makeTopFace(const Block::Small_Position& pos)
+    void Mesh::makeTopFace(const Vector3& min, const Vector3& max)
     {
-        GLfloat x = static_cast<GLfloat>(pos.x);
-        GLfloat y = static_cast<GLfloat>(pos.y);
-        GLfloat z = static_cast<GLfloat>(pos.z);
-
         m_activeSection->addVerticies(
         {
-            x,      y + 1, z + 1,   //Front-Left
-            x + 1,  y + 1, z + 1,   //Front-Right
-            x + 1,  y + 1, z,       //Back-Right
-            x,      y + 1, z,       //Back-Left
+            min.x,  max.y, max.z,   //Front-Left
+            max.x,  max.y, max.z,   //Front-Right
+            max.x,  max.y, min.z,       //Back-Right
+            min.x,  max.y, min.z,       //Back-Left
         });
 
         m_activeSection->addTexCoords(m_p_textureAtlas->
@@ -341,18 +339,14 @@ namespace Chunk
         m_activeSection->addLightVal(LIGHT_TOP);
     }
 
-    void Mesh::makeBottomFace(const Block::Small_Position& pos)
+    void Mesh::makeBottomFace(const Vector3& min, const Vector3& max)
     {
-        GLfloat x = static_cast<GLfloat>(pos.x);
-        GLfloat y = static_cast<GLfloat>(pos.y);
-        GLfloat z = static_cast<GLfloat>(pos.z);
-
         m_activeSection->addVerticies(
         {
-            x,      y, z,
-            x + 1,  y, z,
-            x + 1,  y, z + 1,
-            x,      y, z + 1,
+            min.x,  min.y, min.z,
+            max.x,  min.y, min.z,
+            max.x,  min.y, max.z,
+            min.x,  min.y, max.z,
         });
 
         m_activeSection->addTexCoords(m_p_textureAtlas->

@@ -27,7 +27,7 @@ namespace Chunk
     {
         m_worldPosition.x = pos.x * World_Constants::CH_SIZE;
         m_worldPosition.z = pos.y * World_Constants::CH_SIZE;
-        m_worldPosition.y = 100;
+        m_worldPosition.y = 50;
 
         m_box.point        = m_worldPosition;
 
@@ -224,13 +224,9 @@ namespace Chunk
 
         int v;
         noise1.setSeed(6755);
-        //noise1.setNoiseFunction({10, 65, 0.535, 280, 0});
-        if(m_position.x < 6)
-            noise1.setNoiseFunction({10, 60, 0.4, 280, 0});
-        else
-            noise1.setNoiseFunction({8, 130, 0.5, 240, 0});
+        noise1.setNoiseFunction({10, 30, 0.535, 280, 0});
 
-        int32_t waterLevel = 64;
+        int32_t waterLevel = 30;
 
         if( m_position.x < 0 || m_position.y < 0)
         {

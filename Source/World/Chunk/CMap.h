@@ -41,6 +41,8 @@ namespace Chunk
             void placeBlock (const Vector3& worldPosition, CBlock block);
 
         private:
+            Column* getChunkThreadSafe(const Chunk::Position& position);
+
             void triggerBlocks(const Block::Column_Position& worldPosition);
 
             void manageChunks();
@@ -59,7 +61,6 @@ namespace Chunk
 
             std::mutex m_addChunkMutex;
             std::mutex m_deleteChunkMutex;
-            std::mutex m_chunkGenMutex;
             std::vector<std::unique_ptr<std::thread>> m_chunkGenThreads;
             std::vector<Position> m_chunksToDelete;
     };

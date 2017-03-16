@@ -3,6 +3,7 @@
 
 #include "../../Model.h"
 #include "../Block/Block_Position.h"
+#include "../../Glm_Common.h"
 
 class Chunklet;
 
@@ -67,12 +68,12 @@ namespace Chunk
 
             bool shouldMakeFaceAdjacentTo(const Block::Small_Position& pos);
 
-            void makeFrontFace  (const Block::Small_Position& pos);
-            void makeBackFace   (const Block::Small_Position& pos);
-            void makeLeftFace   (const Block::Small_Position& pos);
-            void makeRightFace  (const Block::Small_Position& pos);
-            void makeTopFace    (const Block::Small_Position& pos);
-            void makeBottomFace (const Block::Small_Position& pos);
+            void makeFrontFace  (const Vector3& min, const Vector3& max);
+            void makeBackFace   (const Vector3& min, const Vector3& max);
+            void makeLeftFace   (const Vector3& min, const Vector3& max);
+            void makeRightFace  (const Vector3& min, const Vector3& max);
+            void makeTopFace    (const Vector3& min, const Vector3& max);
+            void makeBottomFace (const Vector3& min, const Vector3& max);
 
             Mesh_Section m_solidMesh;
             Mesh_Section m_liquidMesh;

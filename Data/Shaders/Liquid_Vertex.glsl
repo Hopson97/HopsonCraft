@@ -15,13 +15,16 @@ uniform float waveTimer;
 
 vec4 getWorldPos()
 {
-    vec4 worldPosition = modelMatrix * vec4(inVertexPosition, 1.0f);
-    worldPosition.y -= 0.22;
+    vec3 inVert = inVertexPosition.xyz;
+    //vec4 worldPosition = modelMatrix * vec4(inVertexPosition, 1.0f);
+    //worldPosition.y -= 0.22;
 
-    worldPosition.y += sin((waveTimer + worldPosition.z) * 2.5) / 8.8f;
-    worldPosition.y += cos((waveTimer + worldPosition.x) * 2.5) / 8.8f;
+    //inVert.y -= 0.25f;
 
-    return worldPosition;
+    inVert.y += sin((waveTimer + inVert.z) * 2.5) / 8.8f;
+    inVert.y += cos((waveTimer + inVert.x) * 2.5) / 8.8f;
+
+    return vec4(inVert, 1);
 }
 
 void main()

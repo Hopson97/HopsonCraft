@@ -28,6 +28,7 @@ struct CBlock
         return this->id == static_cast<Block_t>(id);
     }
 
+
     Block_t id = 0;
     //meta data?
 };

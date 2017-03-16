@@ -12,8 +12,8 @@
 
 namespace Chunk
 {
-    typedef sf::Vector3<int64_t> Chunklet_Position;
-    typedef sf::Vector2<int64_t> Position;
+    typedef sf::Vector3<int32_t> Chunklet_Position;
+    typedef sf::Vector2<int32_t> Position;
 
     struct Chu_Blo_Pos
     {

@@ -22,10 +22,8 @@ namespace Chunk
     {
         addChunk(Maths::worldToChunkPos(camera.position));
 
-        sf::Clock c;
         for (int i = 0; i < 1; i++)
         {
-            while (!c.getElapsedTime().asMilliseconds() >= 25);
             m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
             {
                 while (m_isRunning)
@@ -33,8 +31,19 @@ namespace Chunk
                     manageChunks();
                 }
             }));
-            c.restart();
         }
+/*
+        for (int i = 0; i < 1; i++)
+        {
+            m_chunkGenThreads.push_back(std::make_unique<std::thread>([&]()
+            {
+                while (m_isRunning)
+                {
+                    flagChunks();
+                }
+            }));
+        }
+*/
     }
 
     Map::~Map()
@@ -70,14 +79,16 @@ namespace Chunk
         for (auto& chunk : m_chunks)
         {
             //if (camera.getFrustum().pointInFrustum(chunk.second->getWorldPosition()))
-            if (camera.getFrustum().boxInFrustum(chunk.second->getAABB()))
+            //if (camera.getFrustum().boxInFrustum(chunk.second->getAABB()))
             {
                 shouldBuffer = !chunk.second->draw(renderer, shouldBuffer);
             }
+            /*
             else
             {
-                culled++;
+                //culled++;
             }
+            */
         }
     }
 
@@ -109,6 +120,7 @@ namespace Chunk
         }
         return m_chunks.at(position).get();
     }
+
 
     CBlock Map::getBlockAt(const Vector3& worldPosition)
     {

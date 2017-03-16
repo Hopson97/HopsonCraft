@@ -24,8 +24,15 @@ void Player::resetPosition()
 {
     position =
     {
-        0,
+        100000,
         150,
+        100000
+    };
+
+    rotation =
+    {
+        45,
+        45,
         0
     };
 }
