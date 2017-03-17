@@ -1,6 +1,6 @@
 #ifndef BLOCK_EDITOR_H_INCLUDED
 #define BLOCK_EDITOR_H_INCLUDED
-
+/*
 #include <SFML/System/Clock.hpp>
 
 #include "../Glm_Common.h"
@@ -32,5 +32,5 @@ class Block_Editor
         sf::Clock m_editorTimer;
 
 };
-
+*/
 #endif // BLOCK_EDITOR_H_INCLUDED

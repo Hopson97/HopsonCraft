@@ -1,6 +1,8 @@
 #ifndef PLAYING_H_INCLUDED
 #define PLAYING_H_INCLUDED
 
+#include <vector>
+
 #include "Game_State.h"
 
 #include "../Model.h"
@@ -9,6 +11,8 @@
 #include "../HUD/HUD.h"
 #include "../Player/Player.h"
 #include "../File/World_File.h"
+
+#include "../Temp/Quad.h"
 
 class Application;
 class Camera;
@@ -32,7 +36,8 @@ namespace State
 
             Player      m_player;
 
-
+            std::vector<Quad> m_quads;
+            Quad m_quady;
     };
 }
 

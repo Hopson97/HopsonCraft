@@ -29,8 +29,10 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-pg" />
 				</Compiler>
 				<Linker>
+					<Add option="-pg -lgmon" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-audio" />
@@ -113,16 +115,14 @@
 		<Unit filename="Source/Player/Player.cpp" />
 		<Unit filename="Source/Player/Player.h" />
 		<Unit filename="Source/Player/Player_Input.cpp" />
-		<Unit filename="Source/Renderer/RChunk.cpp" />
-		<Unit filename="Source/Renderer/RChunk.h" />
-		<Unit filename="Source/Renderer/RLiquid.cpp" />
-		<Unit filename="Source/Renderer/RLiquid.h" />
 		<Unit filename="Source/Renderer/RMaster.cpp" />
 		<Unit filename="Source/Renderer/RMaster.h" />
 		<Unit filename="Source/Renderer/RSFML.cpp" />
 		<Unit filename="Source/Renderer/RSFML.h" />
 		<Unit filename="Source/Renderer/RSimple.cpp" />
 		<Unit filename="Source/Renderer/RSimple.h" />
+		<Unit filename="Source/Renderer/RSolid.cpp" />
+		<Unit filename="Source/Renderer/RSolid.h" />
 		<Unit filename="Source/Resource_Managers/Font_Manager.cpp" />
 		<Unit filename="Source/Resource_Managers/Font_Manager.h" />
 		<Unit filename="Source/Resource_Managers/Resource_Holder.cpp" />
@@ -149,6 +149,8 @@
 		<Unit filename="Source/States/SPlaying.h" />
 		<Unit filename="Source/Temp/Noise_Generator.cpp" />
 		<Unit filename="Source/Temp/Noise_Generator.h" />
+		<Unit filename="Source/Temp/Quad.cpp" />
+		<Unit filename="Source/Temp/Quad.h" />
 		<Unit filename="Source/Texture/Texture.cpp" />
 		<Unit filename="Source/Texture/Texture.h" />
 		<Unit filename="Source/Texture/Texture_Atlas.cpp" />
@@ -168,31 +170,16 @@
 		<Unit filename="Source/World/Block/Block_ID.h" />
 		<Unit filename="Source/World/Block/Block_Position.cpp" />
 		<Unit filename="Source/World/Block/Block_Position.h" />
-		<Unit filename="Source/World/Block/Block_Types/BAir.cpp" />
-		<Unit filename="Source/World/Block/Block_Types/BAir.h" />
 		<Unit filename="Source/World/Block/Block_Types/BDefault.cpp" />
 		<Unit filename="Source/World/Block/Block_Types/BDefault.h" />
-		<Unit filename="Source/World/Block/Block_Types/BGrass.cpp" />
-		<Unit filename="Source/World/Block/Block_Types/BGrass.h" />
 		<Unit filename="Source/World/Block/Block_Types/Block_Type.cpp" />
 		<Unit filename="Source/World/Block/Block_Types/Block_Type.h" />
 		<Unit filename="Source/World/Block_Editor.cpp" />
 		<Unit filename="Source/World/Block_Editor.h" />
 		<Unit filename="Source/World/Chunk/CBlock.cpp" />
 		<Unit filename="Source/World/Chunk/CBlock.h" />
-		<Unit filename="Source/World/Chunk/CColumn.cpp" />
-		<Unit filename="Source/World/Chunk/CColumn.h" />
-		<Unit filename="Source/World/Chunk/CMap.cpp" />
-		<Unit filename="Source/World/Chunk/CMap.h" />
-		<Unit filename="Source/World/Chunk/CMap_Chunk_Manager.cpp" />
-		<Unit filename="Source/World/Chunk/CMesh.cpp" />
-		<Unit filename="Source/World/Chunk/CMesh.h" />
 		<Unit filename="Source/World/Chunk/CPosition.cpp" />
 		<Unit filename="Source/World/Chunk/CPosition.h" />
-		<Unit filename="Source/World/Chunk/CRegenerator.cpp" />
-		<Unit filename="Source/World/Chunk/CRegenerator.h" />
-		<Unit filename="Source/World/Chunk/Chunklet.cpp" />
-		<Unit filename="Source/World/Chunk/Chunklet.h" />
 		<Unit filename="Source/World/World.cpp" />
 		<Unit filename="Source/World/World.h" />
 		<Unit filename="Source/World/World_Constants.h" />

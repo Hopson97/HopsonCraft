@@ -1,6 +1,6 @@
 #ifndef SIMPLE_H_INCLUDED
 #define SIMPLE_H_INCLUDED
-/*
+
 #include <vector>
 #include <SFML/System/Clock.hpp>
 
@@ -11,7 +11,7 @@ struct Camera;
 
 namespace Renderer
 {
-    class Simple
+    class RSimple
     {
         public:
             void draw (const Quad& quad);
@@ -27,5 +27,5 @@ namespace Renderer
             Shader::Simple_Shader m_shader;
     };
 }
-*/
+
 #endif // SIMPLE_H_INCLUDED

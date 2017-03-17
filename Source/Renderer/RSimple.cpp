@@ -1,23 +1,24 @@
-/*
 
 #include "RSimple.h"
-
 #include "../Temp/Quad.h"
-
 #include "../Maths/Matrix_Maths.h"
+#include "../Maths/Matrix_Maths.h"
+
+#include "../Camera.h"
 
 namespace Renderer
 {
-    void Simple::draw(const Quad& quad)
+    void RSimple::draw(const Quad& quad)
     {
         m_quads.push_back(&quad);
     }
 
-    void Simple::update(const Camera& camera)
+    void RSimple::update(const Camera& camera)
     {
         m_shader.bind();
 
-        m_shader.setViewMatrix(Maths::createViewMatrix(camera));
+        m_shader.setProjMatrix(camera.getProjectionMatrix());
+        m_shader.setViewMatrix(camera.getViewMatrix());
 
         for (auto& quad : m_quads)
         {
@@ -28,11 +29,11 @@ namespace Renderer
         m_quads.clear();
     }
 
-    void Simple::prepare(const Quad& quad)
+    void RSimple::prepare(const Quad& quad)
     {
         quad.getModel().bind();
         m_shader.setModelMatrix(Maths::createModelMatrix(quad));
 
     }
 }
-*/
+

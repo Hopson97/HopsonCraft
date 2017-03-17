@@ -16,10 +16,10 @@ void Player::input()
 void Player::keyBoardInput ()
 {
     Vector3 change;
-    float speed = 5;
+    float speed = 0.07;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
-        speed = 100;
+        speed *= 10;
     }
 
     if(m_isInLiquid) speed /= 1.5;
@@ -75,7 +75,7 @@ void Player::keyBoardInput ()
             m_velocity.y -= speed;
         }
     }
-/*
+
     static Function_Toggle_Key key([&]()
                                    {
                                        m_isFlying = !m_isFlying;
@@ -83,7 +83,7 @@ void Player::keyBoardInput ()
                                    },
                                    sf::Keyboard::F, sf::seconds(1.0));
     key.checkInput();
-*/
+
     addForce(change);
 }
 
@@ -101,8 +101,8 @@ void Player::mouseInput ()
 
     auto mouseChange = sf::Mouse::getPosition() - lastMousePosition;
 
-    rotation.y += mouseChange.x * 0.2;
-    rotation.x += mouseChange.y * 0.2;
+    rotation.y += mouseChange.x * 0.1;
+    rotation.x += mouseChange.y * 0.1;
 
     constexpr int8_t BOUND = 82;
 

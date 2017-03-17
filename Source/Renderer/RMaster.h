@@ -2,8 +2,8 @@
 #define MASTER_H_INCLUDED
 
 #include "RSFML.h"
-#include "RChunk.h"
-#include "RLiquid.h"
+#include "RSolid.h"
+#include "RSimple.h"
 
 
 class Chunklet;
@@ -20,11 +20,13 @@ namespace Renderer
 
             void draw(const Chunklet& chunklet);
             void draw(const sf::Drawable& drawable);
+            void draw(const Quad& quad);
 
         private:
             RSFML   m_sfmlRenderer;
             RChunk  m_chunkRenderer;
-            RLiquid m_liquidRenderer;
+            RSimple m_simpleRenderer;
+
     };
 }
 

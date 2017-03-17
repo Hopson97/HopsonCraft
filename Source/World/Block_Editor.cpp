@@ -1,9 +1,8 @@
 #include "Block_Editor.h"
-
+/*
 #include <SFML/Window/Mouse.hpp>
 
 
-#include "Chunk/CMap.h"
 #include "../HUD/Crosshair.h"
 #include "../Maths/General_Maths.h"
 #include "../Physics/Ray.h"
@@ -80,7 +79,7 @@ bool Block_Editor::editBlock(const Ray& ray, Player& player)
     }
     return false;
 }
-
+*/
 
 
 

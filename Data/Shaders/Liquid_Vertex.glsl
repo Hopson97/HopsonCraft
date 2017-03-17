@@ -8,7 +8,6 @@ out vec2 passTextureCoords;
 out float passLightValue;
 
 uniform mat4 viewMatrix;
-uniform mat4 modelMatrix;
 uniform mat4 projMatrix;
 
 uniform float waveTimer;
@@ -16,14 +15,9 @@ uniform float waveTimer;
 vec4 getWorldPos()
 {
     vec3 inVert = inVertexPosition.xyz;
-    //vec4 worldPosition = modelMatrix * vec4(inVertexPosition, 1.0f);
-    //worldPosition.y -= 0.22;
-
-    //inVert.y -= 0.25f;
-
+    inVert.y -= 0.23f;
     inVert.y += sin((waveTimer + inVert.z) * 2.5) / 8.8f;
     inVert.y += cos((waveTimer + inVert.x) * 2.5) / 8.8f;
-
     return vec4(inVert, 1);
 }
 

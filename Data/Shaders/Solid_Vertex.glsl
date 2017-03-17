@@ -8,12 +8,10 @@ out vec2 passTextureCoords;
 out float passLightValue;
 
 uniform mat4 viewMatrix;
-uniform mat4 modelMatrix;
 uniform mat4 projMatrix;
 
 void main()
 {
-    //gl_Position =   projMatrix * viewMatrix * modelMatrix * vec4 (inVertexPosition.xyz, 1.0);
     gl_Position =   projMatrix * viewMatrix * vec4(inVertexPosition, 1.0);
 
     passTextureCoords = inTextureCoords;

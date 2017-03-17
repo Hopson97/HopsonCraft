@@ -1,8 +1,6 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
 
-#include "Chunk/CMap.h"
-
 #include "Block_Editor.h"
 
 class Player;
@@ -18,19 +16,17 @@ namespace Renderer
 class World
 {
     public:
-        World(const Camera& camera, Player& player, HUD& hud, World_File& file);
+        World(const Camera& camera, HUD& hud, World_File& file);
 
         void input  (Camera& camera);
         void update (float dt);
         void draw   (Renderer::Master& renderer);
 
     private:
-        Chunk::Map m_chunkMap;
-        Block_Editor m_blockEditor;
+        //Block_Editor m_blockEditor;
 
-        Player*     m_p_player;
-        HUD*        m_p_hud;
-        const Camera*     m_p_camera;
+        HUD*            m_p_hud;
+        const Camera*   m_p_camera;
 };
 
 #endif // WORLD_H_INCLUDED

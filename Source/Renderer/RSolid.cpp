@@ -1,8 +1,7 @@
-#include "RChunk.h"
+#include "RSolid.h"
 
 #include <iostream>
 
-#include "../World/Chunk/CColumn.h"
 #include "../Maths/Matrix_Maths.h"
 
 #include "../Camera.h"
@@ -27,18 +26,18 @@ namespace Renderer
         for (const Chunklet* chunklet : m_chunks)
         {
             prepare(*chunklet);
+            /*
             glDrawElements(GL_TRIANGLES,
                            chunklet->getMesh().getSolidMesh().getModel().getIndicesCount(),
                            GL_UNSIGNED_INT,
                            nullptr);
+            */
         }
         m_chunks.clear();
     }
 
     void RChunk::prepare(const Chunklet& chunklet)
     {
-        chunklet.getMesh().getSolidMesh().getModel().bind();
-        m_shader.setModelMatrix(chunklet.getMat());
-
+        //chunklet.getMesh().getSolidMesh().getModel().bind();
     }
 }

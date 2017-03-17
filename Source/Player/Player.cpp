@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "../Camera.h"
-#include "../World/Chunk/CMap.h"
 #include "../World/Block/Block_Database.h"
 
 #include "../Maths/General_Maths.h"
@@ -24,9 +23,9 @@ void Player::resetPosition()
 {
     position =
     {
-        100000,
-        150,
-        100000
+        5,
+        5,
+        5
     };
 
     rotation =
@@ -37,7 +36,7 @@ void Player::resetPosition()
     };
 }
 
-
+/*
 void Player::testForCollide(Chunk::Map& chunkMap, float dt)
 {
 
@@ -68,13 +67,13 @@ void Player::testForCollide(Chunk::Map& chunkMap, float dt)
     }
 
     position.x += m_velocity.x * dt;
-    collisionTest(chunkMap, dt, m_velocity.x, 0, 0);
+    //collisionTest(chunkMap, dt, m_velocity.x, 0, 0);
 
     position.y += m_velocity.y * dt;
-    collisionTest(chunkMap, dt, 0, m_velocity.y, 0);
+    //collisionTest(chunkMap, dt, 0, m_velocity.y, 0);
 
     position.z += m_velocity.z * dt;
-    collisionTest(chunkMap, dt, 0, 0, m_velocity.z);
+    //collisionTest(chunkMap, dt, 0, 0, m_velocity.z);
 
     //box.update(position + (m_velocity * dt));
 }
@@ -133,11 +132,11 @@ void Player::collisionTest( Chunk::Map& chunkMap,
         }
     }
 }
-
+*/
 
 void Player::update(float dt)
 {
-    //position += m_velocity * dt;
+    position += m_velocity * dt;
 
     if (position.x < 0.2)
     {
@@ -148,9 +147,12 @@ void Player::update(float dt)
         position.z = 0.2;
     }
 
-    m_velocity.x = 0;
-    m_velocity.z = 0;
+    m_velocity.x *= 0.98;
+    m_velocity.z *= 0.98;
+
+    //m_velocity.x = 0;
+    //m_velocity.z = 0;
 
     if(m_isFlying)
-        m_velocity.y = 0;
+        m_velocity.y *= 0.98;
 }
