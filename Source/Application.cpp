@@ -58,27 +58,62 @@ Application::Application()
 void Application::runMainGameLoop()
 {
     sf::Clock gameTimer;
+    auto getCurrentTime = [&]()
+    {
+        return gameTimer.getElapsedTime();
+    };
+
+    sf::Time lastTime = getCurrentTime();
+
+    while (Display::isOpen())
+    {
+        sf::Time now = getCurrentTime();
+        sf::Time elapsed = now - lastTime;
+
+        m_musicPlayer.update();
+
+        m_states.top()->input   (m_camera);
+        m_states.top()->update  (m_camera, elapsed.asSeconds());
+        m_camera.update();
+
+
+        m_states.top()->draw    (m_renderer);
+        m_renderer.draw(text);
+
+        m_renderer.clear();
+        m_renderer.update(m_camera);
+
+        Display::checkForClose();
+        checkFps ();
+    }
+}
+
+void Application::pushState(std::unique_ptr<State::Game_State> state)
+{
+    m_states.push(std::move(state));
+}
+
+void Application::popState()
+{
+    m_states.pop();
+}
+
+Camera& Application::getCamera()
+{
+    return m_camera;
+}
+
+/*
+void Application::runMainGameLoop()
+{
+    sf::Clock gameTimer;
 
     std::vector<double> frameTimes;
     double sum = 0;
-/*
-    Display::deactiveate();
-    std::thread render([&]()
-    {
-        Display::activate();
-        while (Display::isOpen())
-        {
-            m_renderer.clear();
-            m_states.top()->draw    (m_renderer);
-            m_renderer.draw(text);
-            m_renderer.update(m_camera);
-        }
-    });
-*/
+
     auto getCurrentTime = [&]() { return gameTimer.getElapsedTime(); };
 
     sf::Time lastTime = getCurrentTime();
-    float lag = 0.0;
     while (Display::isOpen())
     {
         sf::Time now = getCurrentTime();
@@ -91,13 +126,8 @@ void Application::runMainGameLoop()
 
 
         m_states.top()->input   (m_camera);
-
-        //while (lag >= 16)
-        {
-            m_states.top()->update  (m_camera, elapsed.asSeconds());
-            m_camera.update();
-            lag -= 16;
-        }
+        m_states.top()->update  (m_camera, elapsed.asSeconds());
+        m_camera.update();
 
 
         m_states.top()->draw    (m_renderer);
@@ -155,18 +185,4 @@ void Application::runMainGameLoop()
     std::cout << "Percent:  " << ((float)outliers / (float)frameTimes.size()) * 100.0f << std::endl;
     std::cout << "Average Frame Time " << average << "ms\n";
 }
-
-void Application::pushState(std::unique_ptr<State::Game_State> state)
-{
-    m_states.push(std::move(state));
-}
-
-void Application::popState()
-{
-    m_states.pop();
-}
-
-Camera& Application::getCamera()
-{
-    return m_camera;
-}
+*/
