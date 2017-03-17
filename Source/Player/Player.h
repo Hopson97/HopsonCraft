@@ -19,20 +19,13 @@ class Player : public Entity
         Player(Camera& camera);
 
         void input          ();
-        //void testForCollide (Chunk::Map& chunkMap, float dt);
         void update         (float dt);
 
         void addForce       (const Vector3& force);
 
     private:
         void resetPosition();
-/*
-        void collisionTest  (Chunk::Map& chunkMap,
-                             float dt,
-                             float vx,
-                             float vy,
-                             float yz);
-*/
+
         void keyBoardInput  ();
         void mouseInput     ();
 
