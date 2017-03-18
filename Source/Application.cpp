@@ -72,12 +72,12 @@ void Application::runMainGameLoop()
 
         m_musicPlayer.update();
 
-        m_states.top()->input   (m_camera);
-        m_states.top()->update  (m_camera, elapsed.asSeconds());
+        m_states.back()->input   (m_camera);
+        m_states.back()->update  (m_camera, elapsed.asSeconds());
         m_camera.update();
 
 
-        m_states.top()->draw    (m_renderer);
+        m_states.back()->draw    (m_renderer);
         m_renderer.draw(text);
 
         m_renderer.clear();
@@ -90,12 +90,12 @@ void Application::runMainGameLoop()
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)
 {
-    m_states.push(std::move(state));
+    m_states.push_back(std::move(state));
 }
 
 void Application::popState()
 {
-    m_states.pop();
+    m_states.pop_back();
 }
 
 Camera& Application::getCamera()

@@ -1,7 +1,7 @@
 #ifndef APPLICATION_H_INCLUDED
 #define APPLICATION_H_INCLUDED
 
-#include <stack>
+#include <vector>
 #include <memory>
 #include <thread>
 #include <SFML/Audio.hpp>
@@ -29,7 +29,7 @@ class Application
         void resetSong();
 
     private:
-        std::stack<std::unique_ptr<State::Game_State>> m_states;
+        std::vector<std::unique_ptr<State::Game_State>> m_states;
 
         std::unique_ptr<std::thread> m_renderThread;
 

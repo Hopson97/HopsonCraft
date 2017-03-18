@@ -12,6 +12,8 @@ class Music_Player
 
     private:
         sf::Music m_music;
+        sf::Time  m_duration;
+        sf::Clock m_timer;
 };
 
 #endif // MUSIC_PLAYER_H_INCLUDED
