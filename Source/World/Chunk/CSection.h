@@ -14,11 +14,29 @@ namespace Chunk
         public:
             Section(const Chunklet_Position& position);
 
+            //Blocks getters/ Setters
+            //with bounds checking
             void    setBlock(const Block::Small_Position& position, CBlock block);
             CBlock  getBlock(const Block::Small_Position& position);
-
+            //with no bounds checking
             void    qSetBlock(const Block::Small_Position& position, CBlock block);
             CBlock  qGetBlock(const Block::Small_Position& position);
+
+            //Natural lights getters/ setters
+            //with bounds checking
+            void setNaturalLight(const Block::Small_Position& position, uint8_t value);
+            uint8_t getNaturalLight(const Block::Small_Position& position);
+            //with no bounds checking
+            void qSetNaturalLight(const Block::Small_Position& position, uint8_t value);
+            uint8_t qGetNaturalLight(const Block::Small_Position& position);
+
+            //Block lights getters/ setters
+            //with bounds checking
+            void setBlockLight(const Block::Small_Position& position, uint8_t value);
+            uint8_t getBlockLight(const Block::Small_Position& position);
+            //with no bounds checking
+            void qSetBlockLight(const Block::Small_Position& position, uint8_t value);
+            uint8_t qGetBlockLight(const Block::Small_Position& position);
 
         private:
             Section* getSection(const Block::Small_Position& position);

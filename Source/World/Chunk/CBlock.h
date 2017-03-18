@@ -38,12 +38,12 @@ struct CBlock
 struct CLight
 {
     CLight()
-    :   naturalLight    (MAX_LIGHT)
-    ,   blockLight      (MAX_LIGHT)
+    :   natural    (MAX_LIGHT)
+    ,   block      (MAX_LIGHT)
     { }
 
-    uint8_t naturalLight : 4;
-    uint8_t blockLight   : 4;
+    uint8_t natural : 4;
+    uint8_t block   : 4;
 };
 
 #endif // CBLOCK_H_INCLUDED

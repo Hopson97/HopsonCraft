@@ -10,39 +10,6 @@ namespace Chunk
         std::fill(m_layerHasAir.begin(), m_layerHasAir.end(), false);
     }
 
-    void Section::setBlock(const Block::Small_Position& position, CBlock block)
-    {
-        Section* section = getSection(position);
-        if(section)
-        {
-            section->qSetBlock(position, block);
-        }
-    }
-
-    CBlock Section::getBlock(const Block::Small_Position& position)
-    {
-        Section* section = getSection(position);
-        if(section)
-        {
-            return section->qGetBlock(position);
-        }
-        else
-        {
-            return Block::ID::Air;
-        }
-    }
-
-    void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
-    {
-        m_blocks[getIndexFrom(position)] = block;
-    }
-
-    CBlock Section::qGetBlock(const Block::Small_Position& position)
-    {
-        return m_blocks[getIndexFrom(position)];
-    }
-
-
     Section* Section::getSection(const Block::Small_Position& position)
     {
         static const sf::Vector3<int32_t> noChnage(0, 0, 0);
