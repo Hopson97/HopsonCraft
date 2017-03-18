@@ -174,10 +174,14 @@
 		<Unit filename="Source/World/Block_Editor.h" />
 		<Unit filename="Source/World/Chunk/CBlock.cpp" />
 		<Unit filename="Source/World/Chunk/CBlock.h" />
+		<Unit filename="Source/World/Chunk/CData.h" />
+		<Unit filename="Source/World/Chunk/CMesh_Builder.cpp" />
+		<Unit filename="Source/World/Chunk/CMesh_Builder.h" />
 		<Unit filename="Source/World/Chunk/CPosition.cpp" />
 		<Unit filename="Source/World/Chunk/CPosition.h" />
 		<Unit filename="Source/World/Chunk/CSection.cpp" />
 		<Unit filename="Source/World/Chunk/CSection.h" />
+		<Unit filename="Source/World/Chunk/CSection_GaS.cpp" />
 		<Unit filename="Source/World/World.cpp" />
 		<Unit filename="Source/World/World.h" />
 		<Unit filename="Source/World/World_Constants.h" />

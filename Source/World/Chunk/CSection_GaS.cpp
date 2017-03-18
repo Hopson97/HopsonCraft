@@ -13,9 +13,9 @@ namespace Chunk
         }
     }
 
-    CBlock Section::getBlock(const Block::Small_Position& position)
+    CBlock Section::getBlock(const Block::Small_Position& position) const
     {
-        Section* section = getSection(position);
+        auto* section = getConstSection(position);
         if(section)
         {
             return section->qGetBlock(position);
@@ -31,7 +31,7 @@ namespace Chunk
         m_blocks[getIndexFrom(position)] = block;
     }
 
-    CBlock Section::qGetBlock(const Block::Small_Position& position)
+    CBlock Section::qGetBlock(const Block::Small_Position& position) const
     {
         return m_blocks[getIndexFrom(position)];
     }
@@ -47,9 +47,9 @@ namespace Chunk
         }
     }
 
-    uint8_t Section::getNaturalLight(const Block::Small_Position& position)
+    uint8_t Section::getNaturalLight(const Block::Small_Position& position) const
     {
-        Section* section = getSection(position);
+        auto* section = getConstSection(position);
         if(section)
         {
             return section->qGetNaturalLight(position);
@@ -65,7 +65,7 @@ namespace Chunk
         m_light[getIndexFrom(position)].natural = value;
     }
 
-    uint8_t Section::qGetNaturalLight(const Block::Small_Position& position)
+    uint8_t Section::qGetNaturalLight(const Block::Small_Position& position) const
     {
         return m_light[getIndexFrom(position)].natural;
     }
@@ -81,9 +81,9 @@ namespace Chunk
         }
     }
 
-    uint8_t Section::getBlockLight(const Block::Small_Position& position)
+    uint8_t Section::getBlockLight(const Block::Small_Position& position) const
     {
-        Section* section = getSection(position);
+        auto* section = getConstSection(position);
         if(section)
         {
             return section->qGetBlockLight(position);
@@ -99,7 +99,7 @@ namespace Chunk
         m_light[getIndexFrom(position)].block = value;
     }
 
-    uint8_t Section::qGetBlockLight(const Block::Small_Position& position)
+    uint8_t Section::qGetBlockLight(const Block::Small_Position& position) const
     {
         return m_light[getIndexFrom(position)].block;
     }

@@ -17,32 +17,33 @@ namespace Chunk
             //Blocks getters/ Setters
             //with bounds checking
             void    setBlock(const Block::Small_Position& position, CBlock block);
-            CBlock  getBlock(const Block::Small_Position& position);
+            CBlock  getBlock(const Block::Small_Position& position) const;
             //with no bounds checking
             void    qSetBlock(const Block::Small_Position& position, CBlock block);
-            CBlock  qGetBlock(const Block::Small_Position& position);
+            CBlock  qGetBlock(const Block::Small_Position& position) const;
 
             //Natural lights getters/ setters
             //with bounds checking
             void setNaturalLight(const Block::Small_Position& position, uint8_t value);
-            uint8_t getNaturalLight(const Block::Small_Position& position);
+            uint8_t getNaturalLight(const Block::Small_Position& position) const;
             //with no bounds checking
             void qSetNaturalLight(const Block::Small_Position& position, uint8_t value);
-            uint8_t qGetNaturalLight(const Block::Small_Position& position);
+            uint8_t qGetNaturalLight(const Block::Small_Position& position) const;
 
             //Block lights getters/ setters
             //with bounds checking
             void setBlockLight(const Block::Small_Position& position, uint8_t value);
-            uint8_t getBlockLight(const Block::Small_Position& position);
+            uint8_t getBlockLight(const Block::Small_Position& position) const;
             //with no bounds checking
             void qSetBlockLight(const Block::Small_Position& position, uint8_t value);
-            uint8_t qGetBlockLight(const Block::Small_Position& position);
+            uint8_t qGetBlockLight(const Block::Small_Position& position) const;
 
         private:
             Section* getSection(const Block::Small_Position& position);
-            void     checkBound(int8_t dir, int32_t& change);
+            const Section* getConstSection(const Block::Small_Position& position) const;
+            void     checkBound(int8_t dir, int32_t& change) const;
 
-            uint32_t getIndexFrom(const Block::Small_Position& position);
+            uint32_t getIndexFrom(const Block::Small_Position& position) const;
 
             std::array<CBlock, CHUNK_VOLUME>    m_blocks;
             std::array<CLight, CHUNK_VOLUME>    m_light;
