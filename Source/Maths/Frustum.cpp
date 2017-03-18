@@ -18,14 +18,6 @@ float Plane::distanceToPoint(const Vector3& point) const
     return glm::dot(point, normal) + distance;
 }
 
-/*
-void Frustum::setInterals(float angle, float ratio, float nearPlane, float farPlane)
-{
-
-}
-*/
-
-
 //calcuate matrix based on the projection * view matrix.
 void Frustum::update(const Matrix4& mat)
 {
