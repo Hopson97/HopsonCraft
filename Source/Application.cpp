@@ -12,49 +12,8 @@
 
 #include "States/SPlaying.h"
 
-namespace
-{
-    sf::Text text;
-
-    void checkFps ()
-    {
-        static sf::Clock timer;
-        static sf::Clock printTimer;
-        static float numFrames = 0;
-
-        numFrames++;
-
-        if (printTimer.getElapsedTime().asSeconds() >= 0.5)
-        {
-            auto FPS = numFrames / timer.getElapsedTime().asMilliseconds();
-            if (FPS <= 0) return;
-
-            text.setString("Frame time: " + std::to_string(1/ FPS) + "ms");
-            printTimer.restart();
-            numFrames = 0;
-            timer.restart();
-        }
-    }
-/*
-
-    void checkFps (float frameTime)
-    {
-        static sf::Clock printTimer;
-        if (printTimer.getElapsedTime().asSeconds() >= 0.5f)
-        {
-            text.setString(std::to_string(1/ frameTime));
-            printTimer.restart();
-        }
-    }*/
-}
-
 Application::Application()
 {
-    text.setFont(getResources().getFont(Font_ID::RS));
-    text.setOutlineThickness(1);
-    text.setOutlineThickness(2);
-    text.setCharacterSize(25);
-    text.setString("Getting FPS...");
     pushState(std::make_unique<State::Playing>(*this));
 }
 
@@ -91,13 +50,10 @@ void Application::runMainGameLoop()
             //lag -= sf::milliseconds(16);
         }
         m_states.back()->draw    (m_renderer);
-
-        m_renderer.draw(text);
         m_renderer.clear();
         m_renderer.update(m_camera);
 
         Display::checkForClose();
-        checkFps ();
     }
 }
 

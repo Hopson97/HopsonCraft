@@ -16,6 +16,19 @@
 class Application;
 class Camera;
 
+struct Frame_Time_Checker
+{
+    public:
+        void         update();
+        const float& getFrameTime();
+
+    private:
+        sf::Clock   m_timer;
+        sf::Clock   m_updateTimer;
+        float       m_frameCount = 0;
+        float       m_frameTime  = 0;
+};
+
 namespace State
 {
     class Playing : public Game_State
@@ -28,10 +41,11 @@ namespace State
             void draw   (Renderer::Master& renderer) override;
 
         private:
-            World       m_world;
-            HUD         m_hud;
-            Player      m_player;
-            Quad m_quady;
+            World               m_world;
+            HUD                 m_hud;
+            Player              m_player;
+            Frame_Time_Checker  m_frameTimeChecker;
+            Quad                m_quady;
     };
 }
 

@@ -82,6 +82,8 @@
 		<Unit filename="Source/Glm_Common.h" />
 		<Unit filename="Source/HUD/Crosshair.cpp" />
 		<Unit filename="Source/HUD/Crosshair.h" />
+		<Unit filename="Source/HUD/Debug.cpp" />
+		<Unit filename="Source/HUD/Debug.h" />
 		<Unit filename="Source/HUD/HUD.h" />
 		<Unit filename="Source/HUD/Vignette.cpp" />
 		<Unit filename="Source/HUD/Vignette.h" />
