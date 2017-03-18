@@ -22,12 +22,12 @@ namespace State
 
         m_quady.position.y = 1;
 
-        for (int x = 0; x < 25; x++)
+        for (int x = 0; x < 10; x++)
         {
-            for (int z = 0; z < 20; z++)
+            for (int z = 0; z < 10; z++)
             {
                 m_quads.emplace_back((Block::Database::get().textures));
-                m_quads.back().position = {x, 0, z};
+                m_quads.back().position = {x * 2 + 1, 0, z * 2 + 1};
 
             }
         }
@@ -35,14 +35,15 @@ namespace State
 
     void Playing::input(Camera& camera)
     {
-        m_player.input();
+
     }
 
     void Playing::update(Camera& camera, float dt)
     {
+        m_application->getCamera().update();
+        m_player.input();
         m_player.update(dt);
 
-        m_application->getCamera().update();
     }
 
     void Playing::draw(Renderer::Master& renderer)

@@ -22,17 +22,17 @@ namespace Display
     void init()
     {
         sf::ContextSettings settings;
-        settings.depthBits = 24;
-        settings.stencilBits = 8;
-        settings.antialiasingLevel = 4;
-        settings.majorVersion = 3;
-        settings.minorVersion = 0;
+        settings.depthBits          = 24;
+        settings.stencilBits        = 8;
+        settings.antialiasingLevel  = 0;
+        settings.majorVersion       = 3;
+        settings.minorVersion       = 0;
+
 
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode::getDesktopMode(),
-                                                    "Window",
+                                                    "OpenGL",
                                                     sf::Style::Close,
                                                     settings);
-
         //window->setVerticalSyncEnabled(true);
 
         glewInit();

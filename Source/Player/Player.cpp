@@ -24,7 +24,7 @@ void Player::resetPosition()
     position =
     {
         5,
-        5,
+        2,
         5
     };
 
@@ -38,7 +38,8 @@ void Player::resetPosition()
 
 void Player::update(float dt)
 {
-    position += m_velocity * dt;
+    position    += m_velocity * dt;
+    m_velocity  *= 0.95;
 
     if (position.x < 0.2)
     {
@@ -48,10 +49,6 @@ void Player::update(float dt)
     {
         position.z = 0.2;
     }
-
-    m_velocity.x *= 0.95;
-    m_velocity.z *= 0.95;
-
 
     if(m_isFlying)
         m_velocity.y *= 0.98;

@@ -6,6 +6,8 @@
 #include <SFML/Graphics.hpp>
 #include "Resource_Managers/Resource_Holder.h"
 
+#include "windows.h"
+
 #include "Display.h"
 
 #include "States/SPlaying.h"
@@ -18,13 +20,16 @@ namespace
     {
         static sf::Clock timer;
         static sf::Clock printTimer;
-        static auto numFrames = 0;
+        static float numFrames = 0;
 
         numFrames++;
 
-        if (printTimer.getElapsedTime().asSeconds() >= 1.0f)
+        if (printTimer.getElapsedTime().asSeconds() >= 0.25f)
         {
-            text.setString(std::to_string(numFrames / timer.getElapsedTime().asSeconds()));
+            auto FPS = numFrames / timer.getElapsedTime().asMilliseconds();
+            if (FPS <= 0) return;
+
+            text.setString("Frame time: " + std::to_string(1/ FPS) + "ms");
             printTimer.restart();
             numFrames = 0;
             timer.restart();
@@ -75,16 +80,16 @@ void Application::runMainGameLoop()
         m_states.back()->input   (m_camera);
         m_states.back()->update  (m_camera, elapsed.asSeconds());
         m_camera.update();
-
-
         m_states.back()->draw    (m_renderer);
-        m_renderer.draw(text);
 
+        m_renderer.draw(text);
         m_renderer.clear();
         m_renderer.update(m_camera);
 
         Display::checkForClose();
         checkFps ();
+
+        lastTime = getCurrentTime();
     }
 }
 

@@ -3,11 +3,11 @@
 
 #include <cstdint>
 
-namespace World_Constants
+namespace Constants
 {
-    constexpr int32_t   CH_SIZE      = 16,
-                        CH_VOLUME    = CH_SIZE * CH_SIZE * CH_SIZE,
-                        CH_AREA      = CH_SIZE * CH_SIZE;
+    constexpr int32_t   CHUNK_SIZE      = 16,
+                        CHUNK_VOLUME    = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE,
+                        CHUNK_AREA      = CHUNK_SIZE * CHUNK_SIZE;
 }
 
 #endif // WORLD_CONSTANTS_H_INCLUDED

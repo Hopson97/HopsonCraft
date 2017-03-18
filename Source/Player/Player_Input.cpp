@@ -16,7 +16,7 @@ void Player::input()
 void Player::keyBoardInput ()
 {
     Vector3 change;
-    float speed = 0.0001;
+    float speed = 200;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
         speed *= 10;
@@ -29,33 +29,41 @@ void Player::keyBoardInput ()
         resetPosition();
     }
 
+    float yaw   = glm::radians(rotation.y);
+    float yaw90 = glm::radians(rotation.y + 90);
+
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
     {
-        change.x -= cos(glm::radians(rotation.y + 90)) * speed;
-        change.z -= sin(glm::radians(rotation.y + 90)) * speed;
+        change.x -= glm::cos(yaw90) * speed;
+        change.z -= glm::sin(yaw90) * speed;
     }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Back)))
     {
-        change.x += cos(glm::radians(rotation.y + 90)) * speed;
-        change.z += sin(glm::radians(rotation.y + 90)) * speed;
+        change.x += glm::cos(yaw90) * speed;
+        change.z += glm::sin(yaw90) * speed;
     }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Left)))
     {
-        change.x += -cos(glm::radians(rotation.y)) * speed;
-        change.z += -sin(glm::radians(rotation.y)) * speed;
+        change.x -= glm::cos(yaw) * speed;
+        change.z -= glm::sin(yaw) * speed;
     }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Right)))
     {
-        change.x += cos(glm::radians(rotation.y)) * speed;
-        change.z += sin(glm::radians(rotation.y)) * speed;
+        change.x += glm::cos(yaw) * speed;
+        change.z += glm::sin(yaw) * speed;
     }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Up)))
     {
-        m_velocity.y += speed;
+        change.y += speed;
+    }
+
+    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Down)))
+    {
+        change.y -= speed;
     }
 
     static Function_Toggle_Key key([&]()

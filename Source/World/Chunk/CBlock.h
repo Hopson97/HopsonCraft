@@ -33,6 +33,4 @@ struct CBlock
     //meta data?
 };
 
-bool operator == (CBlock left, Block::ID right);
-
 #endif // CBLOCK_H_INCLUDED
