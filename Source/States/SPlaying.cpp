@@ -37,7 +37,7 @@ namespace State
 
     Playing::Playing(Application& application)
     :   Game_State  (application)
-    ,   m_world     (application.getCamera(), m_hud)
+    ,   m_world     (application.getCamera())
     ,   m_player    (application.getCamera())
     ,   m_quady     (Block::Database::get().textures)
     {

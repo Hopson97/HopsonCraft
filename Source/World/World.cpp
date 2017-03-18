@@ -4,8 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 World::World(const Camera& camera)
-:   m_p_hud         (&hud)
-,   m_p_camera      (&camera)
+:   m_p_camera      (&camera)
 { }
 
 
