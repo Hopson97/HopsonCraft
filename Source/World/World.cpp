@@ -11,26 +11,10 @@
 #include "../Util/Random.h"
 #include "../HUD/HUD.h"
 
-World::World(const Camera& camera, HUD& hud, World_File& file)
+World::World(const Camera& camera, HUD& hud)
 :   m_p_hud         (&hud)
 ,   m_p_camera      (&camera)
 { }
-
-void World::input(Camera& camera)
-{
-
-}
-
-void World::update(float dt)
-{
-
-}
-
-void World::draw(Renderer::Master& renderer)
-{
-
-}
-
 
 
 

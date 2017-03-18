@@ -10,7 +10,6 @@
 #include "../World/World.h"
 #include "../HUD/HUD.h"
 #include "../Player/Player.h"
-#include "../File/World_File.h"
 
 #include "../Temp/Quad.h"
 
@@ -29,11 +28,8 @@ namespace State
             void draw   (Renderer::Master& renderer) override;
 
         private:
-            World_File  m_worldFile;
-
             World       m_world;
             HUD         m_hud;
-
             Player      m_player;
 
             std::vector<Quad> m_quads;

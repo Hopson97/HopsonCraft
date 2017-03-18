@@ -6,7 +6,6 @@
 class Player;
 class Camera;
 class HUD;
-class World_File;
 
 namespace Renderer
 {
@@ -16,11 +15,7 @@ namespace Renderer
 class World
 {
     public:
-        World(const Camera& camera, HUD& hud, World_File& file);
-
-        void input  (Camera& camera);
-        void update (float dt);
-        void draw   (Renderer::Master& renderer);
+        World(const Camera& camera, HUD& hud);
 
     private:
         //Block_Editor m_blockEditor;
