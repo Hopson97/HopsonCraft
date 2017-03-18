@@ -15,7 +15,7 @@ namespace Renderer
 class World
 {
     public:
-        World(const Camera& camera, HUD& hud);
+        World(const Camera& camera);
 
     private:
         //Block_Editor m_blockEditor;

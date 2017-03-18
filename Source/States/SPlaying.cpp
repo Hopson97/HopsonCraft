@@ -43,8 +43,14 @@ namespace State
     {
         application.getCamera().hookEntity(m_player);
 
-        m_hud.debug.addDebugSector("Frame Time: %dms",          {0, 0},     &m_frameTimeChecker.getFrameTime());
-        m_hud.debug.addDebugSector("Player Position: X: %d",    {0, 30},    &m_player.position.x);
+        float pos = 0;
+        m_hud.debug.addDebugSector("Frame Time: %fms",          {0, pos},     &m_frameTimeChecker.getFrameTime());
+        pos += 27;
+        m_hud.debug.addDebugSector("Player Position: X: %f",    {0, pos},    &m_player.position.x);
+        pos += 27;
+        m_hud.debug.addDebugSector("Player Position: Y: %f",    {0, pos},    &m_player.position.y);
+        pos += 27;
+        m_hud.debug.addDebugSector("Player Position: Z: %f",    {0, pos},    &m_player.position.z);
     }
 
     void Playing::input(Camera& camera)

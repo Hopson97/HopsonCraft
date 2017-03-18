@@ -8,7 +8,7 @@ Debug_HUD::Section::Section(std::string&& format, const sf::Vector2f& position, 
 ,   position    (position)
 ,   info        (info)
 {
-    text.setCharacterSize       (25);
+    text.setCharacterSize       (15);
     text.setFont                (getResources().getFont(Font_ID::RS));
     text.setOutlineThickness    (1);
     text.setOutlineColor        (sf::Color::Black);
@@ -38,7 +38,7 @@ void Debug_HUD::drawSection(Section& section, Renderer::Master& master)
     std::snprintf(buffer,
                   sizeof(buffer),
                   section.format.c_str(),
-                  section.info);
+                  *(float*)section.info);
 
     section.text.setString  (buffer);
     master.draw (section.text);
