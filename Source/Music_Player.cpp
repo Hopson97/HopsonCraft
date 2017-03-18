@@ -11,7 +11,7 @@ Music_Player::Music_Player()
 
 void Music_Player::update()
 {
-    if (m_music.getPlayingOffset() <= m_timer.getElapsedTime())
+    if (m_duration <= m_timer.getElapsedTime())
     {
         m_music.openFromFile("Data/Music/rim.ogg");
         m_duration = m_music.getDuration() + sf::seconds(1);
