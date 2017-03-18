@@ -7,6 +7,7 @@
 #include "Util/Config.h"
 #include "Util/ConfigParser.h"
 #include "Util/Singleton.h"
+#include "World/Chunk/CBlock.h"
 
 #include "World/Block/Block_Database.h"
 
@@ -23,7 +24,7 @@ namespace
         #ifdef __WIN32
             MessageBox(nullptr, message.c_str(), "Error", MB_OK);
         #else // __WIN32
-            std::cout << message << std::endl;
+            std::cerr << message << std::endl;
         #endif
     }
 
@@ -79,7 +80,6 @@ namespace
 int main() try
 {
     runGame();
-    //noiseTest(1000000);
     return 0;
 }
 catch(std::out_of_range& e)

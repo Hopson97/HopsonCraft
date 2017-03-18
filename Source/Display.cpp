@@ -31,7 +31,7 @@ namespace Display
 
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode::getDesktopMode(),
                                                     "OpenGL",
-                                                    sf::Style::Close,
+                                                    sf::Style::Fullscreen,
                                                     settings);
         //window->setVerticalSyncEnabled(true);
 

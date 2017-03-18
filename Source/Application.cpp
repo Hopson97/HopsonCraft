@@ -24,7 +24,7 @@ namespace
 
         numFrames++;
 
-        if (printTimer.getElapsedTime().asSeconds() >= 0.25f)
+        if (printTimer.getElapsedTime().asSeconds() >= 0.5)
         {
             auto FPS = numFrames / timer.getElapsedTime().asMilliseconds();
             if (FPS <= 0) return;
@@ -63,23 +63,33 @@ Application::Application()
 void Application::runMainGameLoop()
 {
     sf::Clock gameTimer;
+/*
     auto getCurrentTime = [&]()
     {
         return gameTimer.getElapsedTime();
     };
-
-    sf::Time lastTime = getCurrentTime();
-
+    sf::Time previous = getCurrentTime();
+    sf::Time lag;
+*/
     while (Display::isOpen())
     {
-        sf::Time now = getCurrentTime();
-        sf::Time elapsed = now - lastTime;
+/*
+        sf::Time current    = getCurrentTime();
+        sf::Time elapsed    = current  - previous;
+        previous            = current ;
+        lag                 += elapsed;
+*/
+        auto elapsed = gameTimer.restart().asSeconds();
 
         m_musicPlayer.update();
 
-        m_states.back()->input   (m_camera);
-        m_states.back()->update  (m_camera, elapsed.asSeconds());
-        m_camera.update();
+        m_states.back()->input (m_camera);
+        //while (lag >= sf::milliseconds(16))
+        {
+            m_states.back()->update  (m_camera, elapsed);
+            m_camera.update();
+            //lag -= sf::milliseconds(16);
+        }
         m_states.back()->draw    (m_renderer);
 
         m_renderer.draw(text);
@@ -88,8 +98,6 @@ void Application::runMainGameLoop()
 
         Display::checkForClose();
         checkFps ();
-
-        lastTime = getCurrentTime();
     }
 }
 

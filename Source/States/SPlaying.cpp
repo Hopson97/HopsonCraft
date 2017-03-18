@@ -19,18 +19,6 @@ namespace State
     ,   m_quady     (Block::Database::get().textures)
     {
         application.getCamera().hookEntity(m_player);
-
-        m_quady.position.y = 1;
-
-        for (int x = 0; x < 10; x++)
-        {
-            for (int z = 0; z < 10; z++)
-            {
-                m_quads.emplace_back((Block::Database::get().textures));
-                m_quads.back().position = {x * 2 + 1, 0, z * 2 + 1};
-
-            }
-        }
     }
 
     void Playing::input(Camera& camera)
@@ -40,7 +28,8 @@ namespace State
 
     void Playing::update(Camera& camera, float dt)
     {
-        m_application->getCamera().update();
+        m_quady.rotation.y += 10 * dt;
+
         m_player.input();
         m_player.update(dt);
 
@@ -48,16 +37,7 @@ namespace State
 
     void Playing::draw(Renderer::Master& renderer)
     {
-
-        for (auto& quad : m_quads)
-        {
-            renderer.draw(quad);
-        }
-
-
         renderer.draw(m_quady);
-
-
         m_hud.draw(renderer);
     }
 }

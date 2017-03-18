@@ -5,7 +5,9 @@
 
 struct CBlock
 {
-    CBlock() = default;
+
+
+    CBlock();
     CBlock(Block_t      id);
     CBlock(Block::ID    id);
 
@@ -28,8 +30,9 @@ struct CBlock
         return this->id == static_cast<Block_t>(id);
     }
 
+    uint16_t id          : 12;
+    uint16_t metaData    : 4;
 
-    Block_t id = 0;
     //meta data?
 };
 

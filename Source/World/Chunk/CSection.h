@@ -7,6 +7,17 @@
 #include "CBlock.h"
 #include "../World_Constants.h"
 
+struct CLight
+{
+    CLight()
+    :   naturalLight    (0)
+    ,   blockLight      (0)
+    { }
+
+    uint8_t naturalLight : 4;
+    uint8_t blockLight   : 4;
+};
+
 namespace Chunk
 {
     class Section
@@ -15,8 +26,8 @@ namespace Chunk
 
 
         private:
-            std::array<CBlock, CHUNK_VOLUME> m_blocks;
-
+            std::array<CBlock, Constants::CHUNK_VOLUME> m_blocks;
+            std::array<CLight, Constants::CHUNK_VOLUME> m_light;
     };
 }
 

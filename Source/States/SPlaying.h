@@ -31,8 +31,6 @@ namespace State
             World       m_world;
             HUD         m_hud;
             Player      m_player;
-
-            std::vector<Quad> m_quads;
             Quad m_quady;
     };
 }
