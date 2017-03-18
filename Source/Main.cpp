@@ -7,7 +7,7 @@
 #include "Util/Config.h"
 #include "Util/ConfigParser.h"
 #include "Util/Singleton.h"
-#include "World/Chunk/CBlock.h"
+#include "World/Chunk/CSection.h"
 
 #include "World/Block/Block_Database.h"
 
@@ -79,6 +79,8 @@ namespace
 
 int main() try
 {
+    std::cout << sizeof(Chunk::Section);
+
     runGame();
     return 0;
 }

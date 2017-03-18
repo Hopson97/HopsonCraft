@@ -7,17 +7,6 @@
 #include "CBlock.h"
 #include "../World_Constants.h"
 
-struct CLight
-{
-    CLight()
-    :   naturalLight    (0)
-    ,   blockLight      (0)
-    { }
-
-    uint8_t naturalLight : 4;
-    uint8_t blockLight   : 4;
-};
-
 namespace Chunk
 {
     class Section
@@ -28,6 +17,8 @@ namespace Chunk
             void    setBlock(const Block::Small_Position& position, CBlock block);
             CBlock  getBlock(const Block::Small_Position& position);
 
+            void    qSetBlock(const Block::Small_Position& position, CBlock block);
+            CBlock  qGetBlock(const Block::Small_Position& position);
 
         private:
             Section* getSection(const Block::Small_Position& position);
@@ -35,8 +26,9 @@ namespace Chunk
 
             uint32_t getIndexFrom(const Block::Small_Position& position);
 
-            std::array<CBlock, Constants::CHUNK_VOLUME> m_blocks;
-            std::array<CLight, Constants::CHUNK_VOLUME> m_light;
+            std::array<CBlock, CHUNK_VOLUME>    m_blocks;
+            std::array<CLight, CHUNK_VOLUME>    m_light;
+            std::array<bool, CHUNK_SIZE>        m_layerHasAir;
 
             Chunklet_Position m_position;
     };

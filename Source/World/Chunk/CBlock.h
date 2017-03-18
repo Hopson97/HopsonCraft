@@ -2,11 +2,10 @@
 #define CBLOCK_H_INCLUDED
 
 #include "../Block/Block_ID.h"
+#include "../World_Constants.h"
 
 struct CBlock
 {
-
-
     CBlock();
     CBlock(Block_t      id);
     CBlock(Block::ID    id);
@@ -34,6 +33,17 @@ struct CBlock
     uint16_t metaData    : 4;
 
     //meta data?
+};
+
+struct CLight
+{
+    CLight()
+    :   naturalLight    (MAX_LIGHT)
+    ,   blockLight      (MAX_LIGHT)
+    { }
+
+    uint8_t naturalLight : 4;
+    uint8_t blockLight   : 4;
 };
 
 #endif // CBLOCK_H_INCLUDED

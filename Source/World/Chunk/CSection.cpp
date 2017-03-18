@@ -6,17 +6,42 @@ namespace Chunk
 {
     Section::Section(const Chunklet_Position& position)
     :   m_position  (position)
-    { }
+    {
+        std::fill(m_layerHasAir.begin(), m_layerHasAir.end(), false);
+    }
 
     void Section::setBlock(const Block::Small_Position& position, CBlock block)
     {
-        m_blocks[getIndexFrom(position)] = block;
+        Section* section = getSection(position);
+        if(section)
+        {
+            section->qSetBlock(position, block);
+        }
     }
 
     CBlock Section::getBlock(const Block::Small_Position& position)
     {
+        Section* section = getSection(position);
+        if(section)
+        {
+            return section->qGetBlock(position);
+        }
+        else
+        {
+            return Block::ID::Air;
+        }
+    }
+
+    void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
+    {
+        m_blocks[getIndexFrom(position)] = block;
+    }
+
+    CBlock Section::qGetBlock(const Block::Small_Position& position)
+    {
         return m_blocks[getIndexFrom(position)];
     }
+
 
     Section* Section::getSection(const Block::Small_Position& position)
     {
@@ -41,9 +66,8 @@ namespace Chunk
 
     void Section::checkBound(int8_t dir, int32_t& change)
     {
-        if (dir > Constants::CHUNK_SIZE - 1)
+        if (dir > CHUNK_SIZE - 1)
             change = -1;
-
         else if (dir < 0)
             change = 1;
     }
@@ -53,8 +77,8 @@ namespace Chunk
     uint32_t Section::getIndexFrom(const Block::Small_Position& position)
     {
         return position.y *
-               Constants::CHUNK_AREA + position.z *
-               Constants::CHUNK_SIZE + position.x;
+               CHUNK_AREA + position.z *
+               CHUNK_SIZE + position.x;
     }
 
 }
