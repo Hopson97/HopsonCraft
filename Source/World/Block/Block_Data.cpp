@@ -1,8 +1,5 @@
 #include "Block_Data.h"
 
-#include <fstream>
-
-
 namespace Block
 {
     Data::Data(const std::string& fileName)
@@ -23,9 +20,7 @@ namespace Block
             }
             else if (title == "ID")
             {
-                int tempID;
-                inFile >> tempID;
-                m_holder.blockID = static_cast<ID>(tempID);
+                loadEnum(inFile, m_holder.blockID);
             }
             else if (title == "Opaque")
             {
@@ -37,9 +32,7 @@ namespace Block
             }
             else if (title == "Mesh")
             {
-                int mesh;
-                inFile >> mesh;
-                m_holder.meshType = static_cast<Mesh_Type>(mesh);
+                loadEnum(inFile, m_holder.meshType);
             }
             else if (title == "TextureTop")
             {

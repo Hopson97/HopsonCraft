@@ -102,7 +102,7 @@ namespace Chunk
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->bottomTextureCoords));
                         faces++;
                     }
-
+/*
                     //X-Faces
                     if (shouldMakeFaceAdjTo({int8_t(x + 1), y, z}))
                     {
@@ -117,7 +117,7 @@ namespace Chunk
                         faces++;
                     }
 
-                    //X-Faces
+                    //Z-Faces
                     if (shouldMakeFaceAdjTo({x, y, int8_t(z + 1)}))
                     {
                         meshes.solidMesh.addFace(frontFace, position, blockPosition);
@@ -130,12 +130,12 @@ namespace Chunk
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
                         faces++;
                     }
-
+*/
                 }
             }
         }
 
-        std::cout << "\n Faces: " << faces << " created in: " << timer.getElapsedTime().asSeconds() << "ms" <<  std::endl;
+        std::cout << "Faces: " << faces << " created in: " << timer.getElapsedTime().asSeconds() * 1000.0f << "ms" <<  "\n";
     }
 
     bool Mesh_Builder::shouldMakeFaceAdjTo(const Block::Small_Position& pos) const

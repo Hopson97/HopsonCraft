@@ -1,19 +1,11 @@
 #ifndef PLAYING_H_INCLUDED
 #define PLAYING_H_INCLUDED
 
-#include <unordered_map>
-#include <memory>
-
 #include "Game_State.h"
-
-#include "../Model.h"
-#include "../Texture/Texture_Atlas.h"
 #include "../World/World.h"
 #include "../HUD/HUD.h"
 #include "../Player/Player.h"
-
 #include "../Temp/Quad.h"
-#include "../World/Chunk/CSection.h"
 
 class Application;
 class Camera;
@@ -43,12 +35,13 @@ namespace State
             void draw   (Renderer::Master& renderer) override;
 
         private:
+            void initHUD();
+
             World               m_world;
             HUD                 m_hud;
             Player              m_player;
             Frame_Time_Checker  m_frameTimeChecker;
             Quad                m_quady;
-            std::unordered_map<Chunk::Position, std::unique_ptr<Chunk::Section>> m_chunkSection;
     };
 }
 

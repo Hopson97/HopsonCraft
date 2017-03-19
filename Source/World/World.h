@@ -1,11 +1,15 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
 
+#include <unordered_map>
+#include <memory>
+
 #include "Block_Editor.h"
+
+#include "Chunk/CSection.h"
 
 class Player;
 class Camera;
-class HUD;
 
 namespace Renderer
 {
@@ -15,13 +19,17 @@ namespace Renderer
 class World
 {
     public:
-        World(const Camera& camera);
+        World(const Camera& camera, uint32_t worldSize);
+
+        void checkPlayerBounds(Player& player);
+        void drawWorld(Renderer::Master& renderer);
 
     private:
-        //Block_Editor m_blockEditor;
+        std::unordered_map<Chunk::Position, std::unique_ptr<Chunk::Section>> m_chunkSection;
 
-        HUD*            m_p_hud;
         const Camera*   m_p_camera;
+        uint32_t m_worldSize = 0;
+
 };
 
 #endif // WORLD_H_INCLUDED

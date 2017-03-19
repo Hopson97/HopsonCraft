@@ -77,6 +77,8 @@ namespace
     }
 }
 
+//====================== i put this here because
+//MAIN IS HERE
 int main() try
 {
     std::cout << sizeof(Chunk::Section);

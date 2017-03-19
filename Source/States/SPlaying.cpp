@@ -33,22 +33,26 @@ const float& Frame_Time_Checker::getFrameTime()
 
 namespace State
 {
-    sf::Clock clock;
+    namespace
+    {
+        uint32_t worldSize = 32;
+    }
 
     Playing::Playing(Application& application)
     :   Game_State  (application)
-    ,   m_world     (application.getCamera())
+    ,   m_world     (application.getCamera(), worldSize)
     ,   m_player    (application.getCamera())
     ,   m_quady     (Block::Database::get().textures)
     {
         application.getCamera().hookEntity(m_player);
+        initHUD();
 
-        float yPos = 0;
-        m_hud.debug.addDebugSector("Frame Time: %fms",        {0,     yPos},  &m_frameTimeChecker.getFrameTime());
-        yPos += 27;
-        m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0,     yPos},  &m_player.position.x);
-        m_hud.debug.addDebugSector("Y: %.1f",                   {170,   yPos},  &m_player.position.y);
-        m_hud.debug.addDebugSector("Z: %.1f",                   {220,   yPos},  &m_player.position.z);
+        m_player.position =
+        {
+            (worldSize * CHUNK_SIZE) / 2,
+            CHUNK_SIZE + 10,
+            (worldSize * CHUNK_SIZE) / 2
+        };
     }
 
     void Playing::input(Camera& camera)
@@ -67,27 +71,25 @@ namespace State
 
     void Playing::draw(Renderer::Master& renderer)
     {
-        bool meshMade = false;
-        for (int32_t x = 0 ; x < 5; x++)
-        {
-            for (int32_t z = 0; z < 5; z++)
-            {
-                if (m_chunkSection.find({x, z}) == m_chunkSection.end())
-                {
-                    m_chunkSection.insert(std::make_pair(Chunk::Position{x, z}, std::make_unique<Chunk::Section>(Chunk::Chunklet_Position(x, 0, z))));
-                    meshMade = true;
-                    break;
-                }
-                else
-                {
-                    renderer.draw(*m_chunkSection.at({x, z}));
-                }
-            }
-            if (meshMade)
-                break;
-        }
+        m_world.drawWorld(renderer);
+
         renderer.draw(m_quady);
+
 
         m_hud.draw(renderer);
     }
+
+    void Playing::initHUD()
+    {
+        float yPos = 0;
+        m_hud.debug.addDebugSector("Frame Time: %fms",        {0,     yPos},  &m_frameTimeChecker.getFrameTime());
+        yPos += 27;
+        m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0,     yPos},  &m_player.position.x);
+        m_hud.debug.addDebugSector("Y: %.1f",                   {170,   yPos},  &m_player.position.y);
+        m_hud.debug.addDebugSector("Z: %.1f",                   {220,   yPos},  &m_player.position.z);
+    }
 }
+
+
+
+
