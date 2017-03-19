@@ -92,6 +92,12 @@ namespace Chunk
                     Block::Small_Position up    (x, int8_t(y + 1), z);
                     Block::Small_Position down  (x, int8_t(y - 1), z);
 
+                    Block::Small_Position left  (int8_t(x - 1), y, z);
+                    Block::Small_Position right (int8_t(x + 1), y, z);
+
+                    Block::Small_Position front  (x, y, int8_t(z + 1));
+                    Block::Small_Position back   (x, y, int8_t(z - 1));
+
                     //Y-Faces
                     if (shouldMakeFaceAdjTo(up))
                     {
@@ -105,15 +111,15 @@ namespace Chunk
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->bottomTextureCoords));
                         faces++;
                     }
-/*
+
                     //X-Faces
-                    if (shouldMakeFaceAdjTo({int8_t(x + 1), y, z}))
+                    if (shouldMakeFaceAdjTo(left))
                     {
                         meshes.solidMesh.addFace(rightFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
                         faces++;
                     }
-                    if (shouldMakeFaceAdjTo({int8_t(x - 1), y, z}))
+                    if (shouldMakeFaceAdjTo(right))
                     {
                         meshes.solidMesh.addFace(leftFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
@@ -121,19 +127,18 @@ namespace Chunk
                     }
 
                     //Z-Faces
-                    if (shouldMakeFaceAdjTo({x, y, int8_t(z + 1)}))
+                    if (shouldMakeFaceAdjTo(front))
                     {
                         meshes.solidMesh.addFace(frontFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
                         faces++;
                     }
-                    if (shouldMakeFaceAdjTo({x, y, int8_t(z - 1)}))
+                    if (shouldMakeFaceAdjTo(back))
                     {
                         meshes.solidMesh.addFace(backFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
                         faces++;
                     }
-*/
                 }
             }
         }
@@ -144,7 +149,15 @@ namespace Chunk
     bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
     {
         auto block = mp_section->getBlock(pos);
-        auto data = Block::Database::get().getBlock(block.id).getData().get();
+        ///@TODO when the chunk mesh generation is fixed, remove the try catch block
+        try
+        {
+            auto data = Block::Database::get().getBlock(block.id).getData().get();
+        }
+        catch(std::out_of_range& e)
+        {
+            auto data = Block::Database::get().getBlock(0).getData().get();
+        }
 
         if (block == Block::ID::Air)
         {

@@ -23,7 +23,7 @@ namespace Chunk
 
             void buffer();
 
-            //@TODO move to .cpp file
+            ///@TODO move to .cpp file
             const Model& getModel() const
             {
                 return m_model;

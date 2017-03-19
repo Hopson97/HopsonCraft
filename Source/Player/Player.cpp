@@ -23,15 +23,6 @@ void Player::update(float dt)
     position    += m_velocity * dt;
     m_velocity  *= 0.95;
 
-    if (position.x < 0.2)
-    {
-        position.x = 0.2;
-    }
-    if (position.z < 0.2)
-    {
-        position.z = 0.2;
-    }
-
     if(m_isFlying)
         m_velocity.y *= 0.98;
 }

@@ -81,8 +81,6 @@ namespace
 //MAIN IS HERE
 int main() try
 {
-    std::cout << sizeof(Chunk::Section);
-
     runGame();
     return 0;
 }

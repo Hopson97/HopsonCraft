@@ -1,6 +1,9 @@
 #include "CSection.h"
 
+#include <iostream>
+
 #include "../World_Constants.h"
+#include "CMap.h"
 
 namespace Chunk
 {
@@ -9,9 +12,16 @@ namespace Chunk
     ,   m_meshBuilder   (*this)
     ,   mp_chunks       (&map)
     {
+
+    }
+
+    void Section::makeMesh()
+    {
         m_meshBuilder.generateMesh(m_meshes);
         m_meshes.solidMesh.buffer();
+        made = true;
     }
+
 
     Section* Section::getSection(Block::Small_Position& position)
     {
@@ -30,10 +40,20 @@ namespace Chunk
         }
         else
         {
-            //@TODO Change to return actual chunk
-            return nullptr;
-        }
 
+            Chunk::Chunklet_Position newPos(m_position.x + change.x,
+                                            0,
+                                            m_position.z + change.z);
+            if (change.y != 0) return nullptr;
+            if (mp_chunks->existsAt({newPos.x, newPos.z}))
+            {
+                return mp_chunks->get({newPos.x, newPos.z});
+            }
+            else
+            {
+                return nullptr;
+            }
+        }
     }
 
     const Section* Section::getConstSection(Block::Small_Position& position) const
@@ -53,25 +73,35 @@ namespace Chunk
         }
         else
         {
-            //@TODO Change to return actual chunk
-            return nullptr;
+            Chunk::Chunklet_Position newPos(m_position.x + change.x,
+                                            0,
+                                            m_position.z + change.z);
+            if (change.y != 0)
+                return nullptr;
+            if (mp_chunks->existsAt({newPos.x, newPos.z}))
+            {
+                return mp_chunks->get({newPos.x, newPos.z});
+            }
+            else
+            {
+                return nullptr;
+            }
         }
-
     }
 
-    void Section::checkBound(int8_t& dir, int32_t& change) const
+    void Section::checkBound(int8_t& pos, int32_t& change) const
     {
-        if (dir > CHUNK_SIZE - 1)
-        {
-            change = -1;
-        }
-        else if (dir < 0)
+        if (pos > CHUNK_SIZE - 1)
         {
             change = 1;
+            pos -= CHUNK_SIZE;
+        }
+        else if (pos < 0)
+        {
+            change = -1;
+            pos += CHUNK_SIZE;
         }
     }
-
-
 
     uint32_t Section::getIndexFrom(const Block::Small_Position& position) const
     {

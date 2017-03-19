@@ -70,7 +70,7 @@ namespace State
     void Playing::update(Camera& camera, float dt)
     {
         m_player.update(dt);
-        m_world.checkPlayerBounds(m_player);
+        //m_world.checkPlayerBounds(m_player);
         m_frameTimeChecker.update();
     }
 

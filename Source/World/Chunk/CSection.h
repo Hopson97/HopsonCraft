@@ -32,6 +32,8 @@ namespace Chunk
 
         public:
             Section(const Chunklet_Position& position, Map& map);
+bool made = false;
+            void makeMesh();
 
             //Blocks getters/ Setters
             //with bounds checking
@@ -57,7 +59,7 @@ namespace Chunk
             void qSetBlockLight(const Block::Small_Position& position, uint8_t value);
             uint8_t qGetBlockLight(const Block::Small_Position& position) const;
 
-            //@TODO move to .cpp file
+            ///@TODO move to .cpp file
             const Chunklet_Position& getPosition()  const   { return m_position;        }
             const Meshes& getMeshes()               const   { return m_meshes;          }
             const Layer& getLayer(int8_t y)         const   { return m_layerHasAir[y];  }
