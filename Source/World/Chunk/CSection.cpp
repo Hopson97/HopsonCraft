@@ -8,9 +8,7 @@ namespace Chunk
     :   m_position      (position)
     ,   m_meshBuilder   (*this)
     {
-        std::fill(m_layerHasAir.begin(), m_layerHasAir.end(), false);
         m_meshBuilder.generateMesh(m_meshes);
-
         m_meshes.solidMesh.buffer();
     }
 

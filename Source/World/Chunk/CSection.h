@@ -8,11 +8,26 @@
 #include "CPosition.h"
 #include "CBlock.h"
 #include "CMesh_Builder.h"
+#include "../Block/Block_Database.h"
 
 namespace Chunk
 {
     class Section
     {
+        //This struct helps with optimizing the creation of the mesh
+        struct Layer
+        {
+            int16_t opaqueCount = 0;
+
+            void update(CBlock block)
+            {
+                const Block::Data_Holder& data = Block::Database::get().getBlock(block.id).getData().get();
+                data.isOpaque ?
+                    opaqueCount++ :
+                    opaqueCount--;
+            }
+        };
+
         public:
             Section(const Chunklet_Position& position);
 
@@ -41,8 +56,9 @@ namespace Chunk
             uint8_t qGetBlockLight(const Block::Small_Position& position) const;
 
             //@TODO move to .cpp file
-            const Chunklet_Position& getPosition() const { return m_position; }
-            const Meshes& getMeshes() const { return m_meshes; }
+            const Chunklet_Position& getPosition()  const   { return m_position;        }
+            const Meshes& getMeshes()               const   { return m_meshes;          }
+            const Layer& getLayer(int8_t y)         const   { return m_layerHasAir[y];  }
 
 
         private:
@@ -55,7 +71,7 @@ namespace Chunk
 
             std::array<CBlock, CHUNK_VOLUME>    m_blocks;
             std::array<CLight, CHUNK_VOLUME>    m_light;
-            std::array<bool, CHUNK_SIZE>        m_layerHasAir;
+            std::array<Layer, CHUNK_SIZE>       m_layerHasAir;
 
             Chunklet_Position m_position;
 

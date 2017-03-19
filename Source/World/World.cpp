@@ -5,7 +5,7 @@
 
 #include "../Renderer/RMaster.h"
 
-World::World(const Camera& camera, uint32_t worldSize)
+World::World(const Camera& camera, int32_t worldSize)
 :   m_p_camera      (&camera)
 ,   m_worldSize     (worldSize)
 { }

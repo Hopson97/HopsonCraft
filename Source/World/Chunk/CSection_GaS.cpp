@@ -76,6 +76,7 @@ namespace Chunk
 
     void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
     {
+        m_layerHasAir[position.y].update(block);
         m_blocks[getIndexFrom(position)] = block;
     }
 

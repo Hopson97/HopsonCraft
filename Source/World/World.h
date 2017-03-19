@@ -19,7 +19,7 @@ namespace Renderer
 class World
 {
     public:
-        World(const Camera& camera, uint32_t worldSize);
+        World(const Camera& camera, int32_t worldSize);
 
         void checkPlayerBounds(Player& player);
         void drawWorld(Renderer::Master& renderer);
@@ -28,7 +28,7 @@ class World
         std::unordered_map<Chunk::Position, std::unique_ptr<Chunk::Section>> m_chunkSection;
 
         const Camera*   m_p_camera;
-        uint32_t m_worldSize = 0;
+        int32_t m_worldSize = 0;
 
 };
 
