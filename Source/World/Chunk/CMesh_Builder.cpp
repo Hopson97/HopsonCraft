@@ -113,13 +113,13 @@ namespace Chunk
                     }
 
                     //X-Faces
-                    if (shouldMakeFaceAdjTo(left))
+                    if (shouldMakeFaceAdjTo(right))
                     {
                         meshes.solidMesh.addFace(rightFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
                         faces++;
                     }
-                    if (shouldMakeFaceAdjTo(right))
+                    if (shouldMakeFaceAdjTo(left))
                     {
                         meshes.solidMesh.addFace(leftFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
