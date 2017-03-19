@@ -3,9 +3,11 @@
 
 #include <array>
 
+#include "../World_Constants.h"
+
 #include "CPosition.h"
 #include "CBlock.h"
-#include "../World_Constants.h"
+#include "CMesh_Builder.h"
 
 namespace Chunk
 {
@@ -38,6 +40,11 @@ namespace Chunk
             void qSetBlockLight(const Block::Small_Position& position, uint8_t value);
             uint8_t qGetBlockLight(const Block::Small_Position& position) const;
 
+            //@TODO move to .cpp file
+            const Chunklet_Position& getPosition() const { return m_position; }
+            const Meshes& getMeshes() const { return m_meshes; }
+
+
         private:
             Section* getSection(const Block::Small_Position& position);
             const Section* getConstSection(const Block::Small_Position& position) const;
@@ -50,6 +57,9 @@ namespace Chunk
             std::array<bool, CHUNK_SIZE>        m_layerHasAir;
 
             Chunklet_Position m_position;
+
+            Mesh_Builder m_meshBuilder;
+            Meshes       m_meshes;
     };
 }
 

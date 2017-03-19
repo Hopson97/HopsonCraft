@@ -25,6 +25,8 @@ class Model
 
         GLuint getIndicesCount() const;
 
+
+
     private:
         void deleteData();
 

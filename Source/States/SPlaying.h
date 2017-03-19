@@ -12,6 +12,7 @@
 #include "../Player/Player.h"
 
 #include "../Temp/Quad.h"
+#include "../World/Chunk/CSection.h"
 
 class Application;
 class Camera;
@@ -46,6 +47,7 @@ namespace State
             Player              m_player;
             Frame_Time_Checker  m_frameTimeChecker;
             Quad                m_quady;
+            Chunk::Section      m_chunkSection;
     };
 }
 

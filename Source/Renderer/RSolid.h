@@ -4,27 +4,28 @@
 #include <vector>
 
 #include "../Shaders/Solid_Shader.h"
-#include "../Shaders/Liquid_Shader.h"
 
-
-
-class Chunklet;
 struct Camera;
+
+namespace Chunk
+{
+    class Section;
+}
 
 namespace Renderer
 {
     class RChunk
     {
         public:
-            void draw (const Chunklet& quad);
+            void draw (const Chunk::Section& section);
 
             void update(const Camera& camera);
 
         private:
-            void prepare(const Chunklet& quad);
+            void prepare(const Chunk::Section& section);
 
         private:
-            std::vector<const Chunklet*> m_chunks;
+            std::vector<const Chunk::Section*> m_chunks;
 
             Shader::Solid_Shader m_shader;
     };

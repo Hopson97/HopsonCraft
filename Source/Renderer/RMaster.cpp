@@ -30,18 +30,9 @@ namespace Renderer
         Display::update();
     }
 
-    void Master::draw(const Chunklet& chunklet)
+    void Master::draw(const Chunk::Section& section)
     {
-        /*
-        if (chunklet.getMesh().getSolidMesh().getFacesCount() > 0)
-        {
-            m_chunkRenderer .draw(chunklet);
-        }
-        if (chunklet.getMesh().getLiquidMesh().getFacesCount() > 0)
-        {
-            m_liquidRenderer.draw(chunklet);
-        }
-        */
+        m_chunkRenderer.draw(section);
     }
 
     void Master::draw(const sf::Drawable& drawable)

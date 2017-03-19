@@ -6,38 +6,40 @@
 
 #include "../Camera.h"
 
+#include "../World/Chunk/CSection.h"
+
 namespace Renderer
 {
-    void RChunk::draw(const Chunklet& chunklet)
+    void RChunk::draw(const Chunk::Section& section)
     {
-        m_chunks.push_back(&chunklet);
+        m_chunks.push_back(&section);
     }
 
     void RChunk::update(const Camera& camera)
     {
-        glDisable   (GL_BLEND);
-        glEnable    (GL_CULL_FACE);
+        //glDisable   (GL_BLEND);
+        //glEnable    (GL_CULL_FACE);
 
         m_shader.bind();
 
         m_shader.setProjMatrix(camera.getProjectionMatrix());
         m_shader.setViewMatrix(camera.getViewMatrix());
 
-        for (const Chunklet* chunklet : m_chunks)
+        for (const auto* section : m_chunks)
         {
-            prepare(*chunklet);
-            /*
+            prepare(*section);
+
             glDrawElements(GL_TRIANGLES,
-                           chunklet->getMesh().getSolidMesh().getModel().getIndicesCount(),
+                           section->getMeshes().solidMesh.getModel().getIndicesCount(),
                            GL_UNSIGNED_INT,
                            nullptr);
-            */
+
         }
         m_chunks.clear();
     }
 
-    void RChunk::prepare(const Chunklet& chunklet)
+    void RChunk::prepare(const Chunk::Section& section)
     {
-        //chunklet.getMesh().getSolidMesh().getModel().bind();
+        section.getMeshes().solidMesh.getModel().bind();
     }
 }

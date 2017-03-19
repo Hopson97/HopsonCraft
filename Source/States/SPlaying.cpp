@@ -40,6 +40,7 @@ namespace State
     ,   m_world     (application.getCamera())
     ,   m_player    (application.getCamera())
     ,   m_quady     (Block::Database::get().textures)
+    ,   m_chunkSection  ({1, 0, 1})
     {
         application.getCamera().hookEntity(m_player);
 
@@ -68,6 +69,7 @@ namespace State
     void Playing::draw(Renderer::Master& renderer)
     {
         renderer.draw(m_quady);
+        renderer.draw(m_chunkSection);
         m_hud.draw(renderer);
     }
 }

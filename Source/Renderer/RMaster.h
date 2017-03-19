@@ -5,8 +5,11 @@
 #include "RSolid.h"
 #include "RSimple.h"
 
+namespace Chunk
+{
+    class Section;
+}
 
-class Chunklet;
 struct Camera;
 
 namespace Renderer
@@ -18,7 +21,7 @@ namespace Renderer
 
             void update(const Camera& camera);
 
-            void draw(const Chunklet& chunklet);
+            void draw(const Chunk::Section& section);
             void draw(const sf::Drawable& drawable);
             void draw(const Quad& quad);
 

@@ -3,6 +3,15 @@
 
 #include <vector>
 
+#include "../Block/Block_Position.h"
+
+#include "CMesh.h"
+
+namespace Block
+{
+    class Data_Holder;
+};
+
 namespace Chunk
 {
     class Section;
@@ -12,8 +21,17 @@ namespace Chunk
         public:
             Mesh_Builder(const Section& section);
 
+            void generateMesh(Meshes& meshes);
+
+
         private:
-            const Section* mp_section;
+            bool shouldMakeFaceAdjTo(const Block::Small_Position& pos) const;
+
+            Meshes*         mp_meshes;
+            const Section*  mp_section;
+            const Block::Data_Holder*   mp_activeData;
+
+
     };
 }
 
