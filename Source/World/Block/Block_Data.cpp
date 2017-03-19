@@ -5,12 +5,9 @@ namespace Block
     Data::Data(const std::string& fileName)
     {
         std::ifstream inFile;
-
         inFile.open("Data/Blocks/" + fileName + ".block");
-
         std::string title;
 
-        //@TODO Make function to help with enum cast stuff
         while (std::getline(inFile, title))
         {
             if (title == "") continue;

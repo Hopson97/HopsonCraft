@@ -52,5 +52,6 @@ namespace Chunk
         //m_light     .shrink_to_fit();
     }
 
+    const Model& Mesh::getModel() const { return m_model; }
 
 }

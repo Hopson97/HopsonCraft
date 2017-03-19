@@ -24,15 +24,13 @@ namespace Block
         blocks[(int)ID::Water   ] = std::make_unique<Default>   ("Water");
     }
 
-    ///@TODO When chunk gen is fixed, change to use operator [] rather tha .at
     const Type& Database::getBlock(uint8_t id)
     {
-        return *blocks.at(id);
+        return *blocks[id];
     }
 
     const Type& Database::getBlock(ID blockID)
     {
-        return *blocks.at((int)blockID);
+        return *blocks[(int)blockID];
     }
-    ///end @TODO
 }

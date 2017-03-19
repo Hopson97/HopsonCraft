@@ -23,11 +23,7 @@ namespace Chunk
 
             void buffer();
 
-            ///@TODO move to .cpp file
-            const Model& getModel() const
-            {
-                return m_model;
-            }
+            const Model& getModel() const;
 
         private:
             std::vector<GLfloat> m_verticies;

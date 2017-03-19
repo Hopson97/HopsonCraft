@@ -89,8 +89,6 @@ namespace Chunk
 
     void Section::checkBound(int8_t& pos, int32_t& change) const
     {
-        ///@TODO remove the cache thingy here
-        uint8_t cache = pos;
         if (pos > CHUNK_SIZE - 1)
         {
             change = 1;
@@ -109,5 +107,11 @@ namespace Chunk
                CHUNK_AREA + position.z *
                CHUNK_SIZE + position.x;
     }
+
+    const Chunklet_Position& Section::getPosition()  const { return m_position;        }
+    const Meshes& Section::getMeshes()               const { return m_meshes;          }
+    const Section::Layer& Section::getLayer(int8_t y)const { return m_layerHasAir[y];  }
+
+
 
 }

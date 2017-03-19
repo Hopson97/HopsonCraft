@@ -59,10 +59,9 @@ bool made = false;
             void qSetBlockLight(const Block::Small_Position& position, uint8_t value);
             uint8_t qGetBlockLight(const Block::Small_Position& position) const;
 
-            ///@TODO move to .cpp file
-            const Chunklet_Position& getPosition()  const   { return m_position;        }
-            const Meshes& getMeshes()               const   { return m_meshes;          }
-            const Layer& getLayer(int8_t y)         const   { return m_layerHasAir[y];  }
+            const Chunklet_Position& getPosition()  const;
+            const Meshes& getMeshes()               const;
+            const Layer& getLayer(int8_t y)         const;
 
 
         private:

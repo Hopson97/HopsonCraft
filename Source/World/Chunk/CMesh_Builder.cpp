@@ -148,22 +148,8 @@ namespace Chunk
 
     bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
     {
-        Block::Small_Position cache = pos;
         auto block = mp_section->getBlock(pos);
-        ///@TODO when the chunk mesh generation is fixed, remove the try catch block
-        try
-        {
-            auto data = Block::Database::get().getBlock(block.id).getData().get();
-        }
-        catch(std::out_of_range& e)
-        {
-            printf("\nError with -> %d, %d, %d\n", cache.x, cache.y, cache.z);
-            printf("New pos     -> %d, %d, %d\n", pos.x, pos.y, pos.z);
-            auto data = Block::Database::get().getBlock(0).getData().get();
-        }
-
-
-
+        auto data = Block::Database::get().getBlock(block.id).getData().get();
 
         if (block == Block::ID::Air)
         {
