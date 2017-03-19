@@ -19,9 +19,11 @@ namespace Chunk
         static const sf::Vector3<int32_t> noChnage(0, 0, 0);
         auto change = noChnage;
 
-        checkBound(position.x, change.x);
-        checkBound(position.y, change.y);
-        checkBound(position.z, change.z);
+        auto pos = position;
+
+        checkBound(pos.x, change.x);
+        checkBound(pos.y, change.y);
+        checkBound(pos.z, change.z);
 
         if (change == noChnage)
         {
@@ -40,9 +42,11 @@ namespace Chunk
         static const sf::Vector3<int32_t> noChnage(0, 0, 0);
         auto change = noChnage;
 
-        checkBound(position.x, change.x);
-        checkBound(position.y, change.y);
-        checkBound(position.z, change.z);
+        auto pos = position;
+
+        checkBound(pos.x, change.x);
+        checkBound(pos.y, change.y);
+        checkBound(pos.z, change.z);
 
         if (change == noChnage)
         {
@@ -56,12 +60,16 @@ namespace Chunk
 
     }
 
-    void Section::checkBound(int8_t dir, int32_t& change) const
+    void Section::checkBound(int8_t& dir, int32_t& change) const
     {
         if (dir > CHUNK_SIZE - 1)
+        {
             change = -1;
+        }
         else if (dir < 0)
+        {
             change = 1;
+        }
     }
 
 

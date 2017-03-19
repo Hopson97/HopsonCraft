@@ -48,7 +48,8 @@ namespace Chunk
         private:
             Section* getSection(const Block::Small_Position& position);
             const Section* getConstSection(const Block::Small_Position& position) const;
-            void     checkBound(int8_t dir, int32_t& change) const;
+
+            void     checkBound(int8_t& dir, int32_t& change) const;
 
             uint32_t getIndexFrom(const Block::Small_Position& position) const;
 

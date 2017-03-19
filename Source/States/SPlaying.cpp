@@ -49,14 +49,6 @@ namespace State
         m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0,     yPos},  &m_player.position.x);
         m_hud.debug.addDebugSector("Y: %.1f",                   {170,   yPos},  &m_player.position.y);
         m_hud.debug.addDebugSector("Z: %.1f",                   {220,   yPos},  &m_player.position.z);
-
-        for (int32_t x = 0 ; x < 10 ; x++)
-        {
-            for (int32_t z = 0; z < 10; z++)
-            {
-                m_chunkSection.push_back(std::make_unique<Chunk::Section>(Chunk::Chunklet_Position(x, 0, z)));
-            }
-        }
     }
 
     void Playing::input(Camera& camera)
@@ -75,11 +67,26 @@ namespace State
 
     void Playing::draw(Renderer::Master& renderer)
     {
-        renderer.draw(m_quady);
-        for (auto& c : m_chunkSection)
+        bool meshMade = false;
+        for (int32_t x = 0 ; x < 5; x++)
         {
-             renderer.draw(*c);
+            for (int32_t z = 0; z < 5; z++)
+            {
+                if (m_chunkSection.find({x, z}) == m_chunkSection.end())
+                {
+                    m_chunkSection.insert(std::make_pair(Chunk::Position{x, z}, std::make_unique<Chunk::Section>(Chunk::Chunklet_Position(x, 0, z))));
+                    meshMade = true;
+                    break;
+                }
+                else
+                {
+                    renderer.draw(*m_chunkSection.at({x, z}));
+                }
+            }
+            if (meshMade)
+                break;
         }
+        renderer.draw(m_quady);
 
         m_hud.draw(renderer);
     }

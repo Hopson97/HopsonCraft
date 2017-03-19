@@ -1,7 +1,7 @@
 #ifndef PLAYING_H_INCLUDED
 #define PLAYING_H_INCLUDED
 
-#include <vector>
+#include <unordered_map>
 #include <memory>
 
 #include "Game_State.h"
@@ -48,7 +48,7 @@ namespace State
             Player              m_player;
             Frame_Time_Checker  m_frameTimeChecker;
             Quad                m_quady;
-            std::vector<std::unique_ptr<Chunk::Section>> m_chunkSection;
+            std::unordered_map<Chunk::Position, std::unique_ptr<Chunk::Section>> m_chunkSection;
     };
 }
 

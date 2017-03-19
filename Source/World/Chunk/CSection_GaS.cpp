@@ -26,16 +26,6 @@ namespace Chunk
         }
     }
 
-    void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
-    {
-        m_blocks[getIndexFrom(position)] = block;
-    }
-
-    CBlock Section::qGetBlock(const Block::Small_Position& position) const
-    {
-        return m_blocks[getIndexFrom(position)];
-    }
-
     //===============================
     //Natural Light
     void Section::setNaturalLight(const Block::Small_Position& position, uint8_t value)
@@ -58,16 +48,6 @@ namespace Chunk
         {
             return MAX_LIGHT;
         }
-    }
-
-    void Section::qSetNaturalLight(const Block::Small_Position& position, uint8_t value)
-    {
-        m_light[getIndexFrom(position)].natural = value;
-    }
-
-    uint8_t Section::qGetNaturalLight(const Block::Small_Position& position) const
-    {
-        return m_light[getIndexFrom(position)].natural;
     }
 
     //===============================
@@ -94,6 +74,16 @@ namespace Chunk
         }
     }
 
+    void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
+    {
+        m_blocks[getIndexFrom(position)] = block;
+    }
+
+    CBlock Section::qGetBlock(const Block::Small_Position& position) const
+    {
+        return m_blocks[getIndexFrom(position)];
+    }
+
     void Section::qSetBlockLight(const Block::Small_Position& position, uint8_t value)
     {
         m_light[getIndexFrom(position)].block = value;
@@ -102,5 +92,15 @@ namespace Chunk
     uint8_t Section::qGetBlockLight(const Block::Small_Position& position) const
     {
         return m_light[getIndexFrom(position)].block;
+    }
+
+    void Section::qSetNaturalLight(const Block::Small_Position& position, uint8_t value)
+    {
+        m_light[getIndexFrom(position)].natural = value;
+    }
+
+    uint8_t Section::qGetNaturalLight(const Block::Small_Position& position) const
+    {
+        return m_light[getIndexFrom(position)].natural;
     }
 }
