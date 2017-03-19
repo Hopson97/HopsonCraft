@@ -1,6 +1,9 @@
 #include "CMesh_Builder.h"
 
 #include <GL/glew.h>
+#include <iostream>
+
+#include <SFML/System.hpp>
 
 #include "CBlock.h"
 #include "CSection.h"
@@ -10,7 +13,7 @@ namespace
 {
     const std::vector<GLfloat> frontFace
     {
-        0, 0, 0,
+        0, 0, 1,
         1, 0, 1,
         1, 1, 1,
         0, 1, 1
@@ -66,8 +69,11 @@ namespace Chunk
 
     void Mesh_Builder::generateMesh(Meshes& meshes)
     {
+        sf::Clock timer;
         meshes.liquidMesh.reset();
         meshes.solidMesh.reset();
+
+        uint32_t faces = 0;
 
         auto& atlas = Block::Database::get().textures;
 
@@ -88,11 +94,13 @@ namespace Chunk
                     {
                         meshes.solidMesh.addFace(topFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->topTextureCoords));
+                        faces++;
                     }
                     if (shouldMakeFaceAdjTo({x, int8_t(y - 1), z}))
                     {
                         meshes.solidMesh.addFace(bottomFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->bottomTextureCoords));
+                        faces++;
                     }
 
                     //X-Faces
@@ -100,11 +108,13 @@ namespace Chunk
                     {
                         meshes.solidMesh.addFace(rightFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
+                        faces++;
                     }
                     if (shouldMakeFaceAdjTo({int8_t(x - 1), y, z}))
                     {
                         meshes.solidMesh.addFace(leftFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
+                        faces++;
                     }
 
                     //X-Faces
@@ -112,15 +122,20 @@ namespace Chunk
                     {
                         meshes.solidMesh.addFace(frontFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
+                        faces++;
                     }
                     if (shouldMakeFaceAdjTo({x, y, int8_t(z - 1)}))
                     {
                         meshes.solidMesh.addFace(backFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
+                        faces++;
                     }
+
                 }
             }
         }
+
+        std::cout << "\n Faces: " << faces << " created in: " << timer.getElapsedTime().asSeconds() << "ms" <<  std::endl;
     }
 
     bool Mesh_Builder::shouldMakeFaceAdjTo(const Block::Small_Position& pos) const

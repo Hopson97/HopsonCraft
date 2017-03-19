@@ -15,9 +15,9 @@ namespace Chunk
     {
         for (int i = 0, index = 0; i < 4; ++i)
         {
-            m_verticies.push_back(templateFace[index++] * chunkPos.x * CHUNK_SIZE + blockPos.x);
-            m_verticies.push_back(templateFace[index++] * chunkPos.y * CHUNK_SIZE + blockPos.y);
-            m_verticies.push_back(templateFace[index++] * chunkPos.z * CHUNK_SIZE + blockPos.z);
+            m_verticies.push_back(templateFace[index++] + chunkPos.x * CHUNK_SIZE + blockPos.x);
+            m_verticies.push_back(templateFace[index++] + chunkPos.y * CHUNK_SIZE + blockPos.y);
+            m_verticies.push_back(templateFace[index++] + chunkPos.z * CHUNK_SIZE + blockPos.z);
         }
 
         m_indices.insert(m_indices.end(),
