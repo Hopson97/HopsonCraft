@@ -4,9 +4,10 @@
 
 namespace Chunk
 {
-    Section::Section(const Chunklet_Position& position)
+    Section::Section(const Chunklet_Position& position, Map& map)
     :   m_position      (position)
     ,   m_meshBuilder   (*this)
+    ,   mp_chunks       (&map)
     {
         m_meshBuilder.generateMesh(m_meshes);
         m_meshes.solidMesh.buffer();

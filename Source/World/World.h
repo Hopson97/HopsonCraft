@@ -7,6 +7,7 @@
 #include "Block_Editor.h"
 
 #include "Chunk/CSection.h"
+#include "Chunk/CMap.h"
 
 class Player;
 class Camera;
@@ -25,7 +26,7 @@ class World
         void drawWorld(Renderer::Master& renderer);
 
     private:
-        std::unordered_map<Chunk::Position, std::unique_ptr<Chunk::Section>> m_chunkSection;
+        Chunk::Map m_chunks;
 
         const Camera*   m_p_camera;
         int32_t m_worldSize = 0;

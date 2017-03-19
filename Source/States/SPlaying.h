@@ -15,12 +15,14 @@ struct Frame_Time_Checker
     public:
         void         update();
         const float& getFrameTime();
+        const float& getFPS();
 
     private:
         sf::Clock   m_timer;
         sf::Clock   m_updateTimer;
         float       m_frameCount = 0;
         float       m_frameTime  = 0;
+        float       m_fps        = 0;
 };
 
 namespace State

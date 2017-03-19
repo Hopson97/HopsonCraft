@@ -11,29 +11,11 @@ Player::Player(Camera& camera)
 :   m_p_camera  (&camera)
 ,   box         ({0.5, 0.5, 0.5})
 {
-    resetPosition();
 }
 
 void Player::addForce(const Vector3& force)
 {
     m_velocity += force;
-}
-
-void Player::resetPosition()
-{
-    position =
-    {
-        0,
-        1.5,
-        0
-    };
-
-    rotation =
-    {
-        45,
-        45,
-        0
-    };
 }
 
 void Player::update(float dt)

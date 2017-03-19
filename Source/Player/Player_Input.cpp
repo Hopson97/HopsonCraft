@@ -24,11 +24,6 @@ void Player::keyBoardInput ()
 
     if(m_isInLiquid) speed /= 1.5;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-    {
-        resetPosition();
-    }
-
     float yaw   = glm::radians(rotation.y);
     float yaw90 = glm::radians(rotation.y + 90);
 

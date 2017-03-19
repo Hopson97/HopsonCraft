@@ -14,11 +14,12 @@ void Frame_Time_Checker::update()
 
     if (m_updateTimer.getElapsedTime().asSeconds() >= 0.5)
     {
-        float fps = m_frameCount / m_timer.getElapsedTime().asMilliseconds();
-        if (fps > 0)
+        m_fps = m_frameCount / m_timer.getElapsedTime().asMilliseconds();
+        if (m_fps > 0)
         {
-            m_frameTime = 1.0f / fps;
+            m_frameTime = 1.0f / m_fps;
         }
+        m_fps *= 1000;
         m_frameCount = 0;
         m_updateTimer.restart();
         m_timer.restart();
@@ -30,12 +31,18 @@ const float& Frame_Time_Checker::getFrameTime()
     return m_frameTime;
 }
 
+const float& Frame_Time_Checker::getFPS()
+{
+    return m_fps;
+}
+
+
 
 namespace State
 {
     namespace
     {
-        uint32_t worldSize = 32;
+        uint32_t worldSize = 16;
     }
 
     Playing::Playing(Application& application)
@@ -62,10 +69,8 @@ namespace State
 
     void Playing::update(Camera& camera, float dt)
     {
-        m_quady.rotation.y += 10 * dt;
-
-
         m_player.update(dt);
+        m_world.checkPlayerBounds(m_player);
         m_frameTimeChecker.update();
     }
 
@@ -82,11 +87,19 @@ namespace State
     void Playing::initHUD()
     {
         float yPos = 0;
-        m_hud.debug.addDebugSector("Frame Time: %fms",        {0,     yPos},  &m_frameTimeChecker.getFrameTime());
-        yPos += 27;
-        m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0,     yPos},  &m_player.position.x);
-        m_hud.debug.addDebugSector("Y: %.1f",                   {170,   yPos},  &m_player.position.y);
-        m_hud.debug.addDebugSector("Z: %.1f",                   {220,   yPos},  &m_player.position.z);
+
+        auto getYPosition = [&yPos]()
+        {
+            float val = yPos;
+            yPos += 27;
+            return val;
+        };
+
+        m_hud.debug.addDebugSector("Frame Time: %fms",          {0,  getYPosition()},  &m_frameTimeChecker.getFrameTime());
+        m_hud.debug.addDebugSector("FPS: %f",                   {0,  getYPosition()},  &m_frameTimeChecker.getFPS());
+        m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0, getYPosition()},  &m_player.position.x);
+        m_hud.debug.addDebugSector("Player Position: Y: %.1f",  {0, getYPosition()},  &m_player.position.y);
+        m_hud.debug.addDebugSector("Player Position: Z: %.1f",  {0, getYPosition()},  &m_player.position.z);
     }
 }
 

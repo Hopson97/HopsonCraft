@@ -12,6 +12,8 @@
 
 namespace Chunk
 {
+    class Map;
+
     class Section
     {
         //This struct helps with optimizing the creation of the mesh
@@ -29,7 +31,7 @@ namespace Chunk
         };
 
         public:
-            Section(const Chunklet_Position& position);
+            Section(const Chunklet_Position& position, Map& map);
 
             //Blocks getters/ Setters
             //with bounds checking
@@ -77,6 +79,8 @@ namespace Chunk
 
             Mesh_Builder m_meshBuilder;
             Meshes       m_meshes;
+
+            Map* mp_chunks;
     };
 }
 
