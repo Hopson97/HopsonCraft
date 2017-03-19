@@ -12,7 +12,7 @@ namespace Chunk
         m_meshes.solidMesh.buffer();
     }
 
-    Section* Section::getSection(const Block::Small_Position& position)
+    Section* Section::getSection(Block::Small_Position& position)
     {
         static const sf::Vector3<int32_t> noChnage(0, 0, 0);
         auto change = noChnage;
@@ -35,7 +35,7 @@ namespace Chunk
 
     }
 
-    const Section* Section::getConstSection(const Block::Small_Position& position) const
+    const Section* Section::getConstSection(Block::Small_Position& position) const
     {
         static const sf::Vector3<int32_t> noChnage(0, 0, 0);
         auto change = noChnage;

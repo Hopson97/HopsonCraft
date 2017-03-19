@@ -89,14 +89,17 @@ namespace Chunk
 
                     Chunklet_Position position = mp_section->getPosition();
 
+                    Block::Small_Position up    (x, int8_t(y + 1), z);
+                    Block::Small_Position down  (x, int8_t(y - 1), z);
+
                     //Y-Faces
-                    if (shouldMakeFaceAdjTo({x, int8_t(y + 1), z}))
+                    if (shouldMakeFaceAdjTo(up))
                     {
                         meshes.solidMesh.addFace(topFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->topTextureCoords));
                         faces++;
                     }
-                    if (shouldMakeFaceAdjTo({x, int8_t(y - 1), z}))
+                    if (shouldMakeFaceAdjTo(down))
                     {
                         meshes.solidMesh.addFace(bottomFace, position, blockPosition);
                         meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->bottomTextureCoords));
@@ -138,7 +141,7 @@ namespace Chunk
         std::cout << "Faces: " << faces << " created in: " << timer.getElapsedTime().asSeconds() * 1000.0f << "ms" <<  "\n";
     }
 
-    bool Mesh_Builder::shouldMakeFaceAdjTo(const Block::Small_Position& pos) const
+    bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
     {
         auto block = mp_section->getBlock(pos);
         auto data = Block::Database::get().getBlock(block.id).getData().get();

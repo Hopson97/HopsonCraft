@@ -4,7 +4,7 @@ namespace Chunk
 {
     //===============================
     //Blocks
-    void Section::setBlock(const Block::Small_Position& position, CBlock block)
+    void Section::setBlock(Block::Small_Position& position, CBlock block)
     {
         Section* section = getSection(position);
         if(section)
@@ -13,7 +13,7 @@ namespace Chunk
         }
     }
 
-    CBlock Section::getBlock(const Block::Small_Position& position) const
+    CBlock Section::getBlock(Block::Small_Position& position) const
     {
         auto* section = getConstSection(position);
         if(section)
@@ -28,7 +28,7 @@ namespace Chunk
 
     //===============================
     //Natural Light
-    void Section::setNaturalLight(const Block::Small_Position& position, uint8_t value)
+    void Section::setNaturalLight(Block::Small_Position& position, uint8_t value)
     {
         Section* section = getSection(position);
         if(section)
@@ -37,7 +37,7 @@ namespace Chunk
         }
     }
 
-    uint8_t Section::getNaturalLight(const Block::Small_Position& position) const
+    uint8_t Section::getNaturalLight(Block::Small_Position& position) const
     {
         auto* section = getConstSection(position);
         if(section)
@@ -52,7 +52,7 @@ namespace Chunk
 
     //===============================
     //Block lights
-    void Section::setBlockLight(const Block::Small_Position& position, uint8_t value)
+    void Section::setBlockLight(Block::Small_Position& position, uint8_t value)
     {
         Section* section = getSection(position);
         if(section)
@@ -61,7 +61,7 @@ namespace Chunk
         }
     }
 
-    uint8_t Section::getBlockLight(const Block::Small_Position& position) const
+    uint8_t Section::getBlockLight(Block::Small_Position& position) const
     {
         auto* section = getConstSection(position);
         if(section)

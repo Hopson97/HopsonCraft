@@ -25,7 +25,7 @@ namespace Chunk
 
 
         private:
-            bool shouldMakeFaceAdjTo(const Block::Small_Position& pos) const;
+            bool shouldMakeFaceAdjTo(Block::Small_Position& pos) const;
 
             Meshes*         mp_meshes;
             const Section*  mp_section;
