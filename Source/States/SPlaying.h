@@ -2,6 +2,7 @@
 #define PLAYING_H_INCLUDED
 
 #include <vector>
+#include <memory>
 
 #include "Game_State.h"
 
@@ -47,7 +48,7 @@ namespace State
             Player              m_player;
             Frame_Time_Checker  m_frameTimeChecker;
             Quad                m_quady;
-            Chunk::Section      m_chunkSection;
+            std::vector<std::unique_ptr<Chunk::Section>> m_chunkSection;
     };
 }
 

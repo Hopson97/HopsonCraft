@@ -1,6 +1,7 @@
 #include "Model.h"
 
 #include <iostream>
+#include <stdexcept>
 
 Model::Model(const std::vector<GLfloat>& vertexPositions,
              const std::vector<GLfloat>& textureCoordinates,

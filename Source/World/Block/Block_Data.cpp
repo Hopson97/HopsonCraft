@@ -13,6 +13,7 @@ namespace Block
 
         std::string title;
 
+        //@TODO Make function to help with enum cast stuff
         while (std::getline(inFile, title))
         {
             if (title == "") continue;

@@ -17,8 +17,8 @@ namespace Renderer
 
     void RChunk::update(const Camera& camera)
     {
-        //glDisable   (GL_BLEND);
-        //glEnable    (GL_CULL_FACE);
+        glDisable   (GL_BLEND);
+        glEnable    (GL_CULL_FACE);
 
         m_shader.bind();
 

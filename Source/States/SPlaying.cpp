@@ -40,16 +40,23 @@ namespace State
     ,   m_world     (application.getCamera())
     ,   m_player    (application.getCamera())
     ,   m_quady     (Block::Database::get().textures)
-    ,   m_chunkSection  ({1, 0, 1})
     {
         application.getCamera().hookEntity(m_player);
 
         float yPos = 0;
-        m_hud.debug.addDebugSector("Frame Time: %.5fms",        {0,     yPos},  &m_frameTimeChecker.getFrameTime());
+        m_hud.debug.addDebugSector("Frame Time: %fms",        {0,     yPos},  &m_frameTimeChecker.getFrameTime());
         yPos += 27;
         m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0,     yPos},  &m_player.position.x);
         m_hud.debug.addDebugSector("Y: %.1f",                   {170,   yPos},  &m_player.position.y);
         m_hud.debug.addDebugSector("Z: %.1f",                   {220,   yPos},  &m_player.position.z);
+
+        for (int32_t x = 0 ; x < 10 ; x++)
+        {
+            for (int32_t z = 0; z < 10; z++)
+            {
+                m_chunkSection.push_back(std::make_unique<Chunk::Section>(Chunk::Chunklet_Position(x, 0, z)));
+            }
+        }
     }
 
     void Playing::input(Camera& camera)
@@ -69,7 +76,11 @@ namespace State
     void Playing::draw(Renderer::Master& renderer)
     {
         renderer.draw(m_quady);
-        renderer.draw(m_chunkSection);
+        for (auto& c : m_chunkSection)
+        {
+             renderer.draw(*c);
+        }
+
         m_hud.draw(renderer);
     }
 }
