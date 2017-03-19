@@ -25,7 +25,7 @@ namespace Chunk
             return Block::ID::Air;
         }
     }
-
+/*
     //===============================
     //Natural Light
     void Section::setNaturalLight(Block::Small_Position& position, uint8_t value)
@@ -73,7 +73,7 @@ namespace Chunk
             return MAX_LIGHT;
         }
     }
-
+*/
     void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
     {
         m_layerHasAir[position.y].update(block);
@@ -84,7 +84,7 @@ namespace Chunk
     {
         return m_blocks[getIndexFrom(position)];
     }
-
+/*
     void Section::qSetBlockLight(const Block::Small_Position& position, uint8_t value)
     {
         m_light[getIndexFrom(position)].block = value;
@@ -104,4 +104,5 @@ namespace Chunk
     {
         return m_light[getIndexFrom(position)].natural;
     }
+*/
 }

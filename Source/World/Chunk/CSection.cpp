@@ -28,11 +28,9 @@ namespace Chunk
         static const sf::Vector3<int32_t> noChnage(0, 0, 0);
         auto change = noChnage;
 
-        auto pos = position;
-
-        checkBound(pos.x, change.x);
-        checkBound(pos.y, change.y);
-        checkBound(pos.z, change.z);
+        checkBound(position.x, change.x);
+        checkBound(position.y, change.y);
+        checkBound(position.z, change.z);
 
         if (change == noChnage)
         {
@@ -40,11 +38,12 @@ namespace Chunk
         }
         else
         {
-
             Chunk::Chunklet_Position newPos(m_position.x + change.x,
                                             0,
                                             m_position.z + change.z);
-            if (change.y != 0) return nullptr;
+            ///@TODO change to actually use up/ down chunks
+            if (change.y != 0)
+                return nullptr;
             if (mp_chunks->existsAt({newPos.x, newPos.z}))
             {
                 return mp_chunks->get({newPos.x, newPos.z});
@@ -61,11 +60,9 @@ namespace Chunk
         static const sf::Vector3<int32_t> noChnage(0, 0, 0);
         auto change = noChnage;
 
-        auto pos = position;
-
-        checkBound(pos.x, change.x);
-        checkBound(pos.y, change.y);
-        checkBound(pos.z, change.z);
+        checkBound(position.x, change.x);
+        checkBound(position.y, change.y);
+        checkBound(position.z, change.z);
 
         if (change == noChnage)
         {
@@ -76,6 +73,7 @@ namespace Chunk
             Chunk::Chunklet_Position newPos(m_position.x + change.x,
                                             0,
                                             m_position.z + change.z);
+            ///@TODO change to actually use up/ down chunks
             if (change.y != 0)
                 return nullptr;
             if (mp_chunks->existsAt({newPos.x, newPos.z}))
@@ -91,6 +89,8 @@ namespace Chunk
 
     void Section::checkBound(int8_t& pos, int32_t& change) const
     {
+        ///@TODO remove the cache thingy here
+        uint8_t cache = pos;
         if (pos > CHUNK_SIZE - 1)
         {
             change = 1;
