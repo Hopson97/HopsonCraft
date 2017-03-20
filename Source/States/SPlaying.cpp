@@ -70,7 +70,7 @@ namespace State
     void Playing::update(Camera& camera, float dt)
     {
         m_player.update(dt);
-        //m_world.checkPlayerBounds(m_player);
+        m_world.checkPlayerBounds(m_player);
         m_frameTimeChecker.update();
     }
 
@@ -96,7 +96,7 @@ namespace State
         };
 
         m_hud.debug.addDebugSector("Frame Time: %fms",          {0,  getYPosition()},  &m_frameTimeChecker.getFrameTime());
-        m_hud.debug.addDebugSector("FPS: %f",                   {0,  getYPosition()},  &m_frameTimeChecker.getFPS());
+        m_hud.debug.addDebugSector("FPS: %.0f",                   {0,  getYPosition()},  &m_frameTimeChecker.getFPS());
         m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0, getYPosition()},  &m_player.position.x);
         m_hud.debug.addDebugSector("Player Position: Y: %.1f",  {0, getYPosition()},  &m_player.position.y);
         m_hud.debug.addDebugSector("Player Position: Z: %.1f",  {0, getYPosition()},  &m_player.position.z);

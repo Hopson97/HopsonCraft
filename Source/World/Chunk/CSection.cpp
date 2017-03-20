@@ -7,13 +7,14 @@
 
 namespace Chunk
 {
+    Section::Layer Section::errorLayer;
+    bool errorSet = false;
+
     Section::Section(const Chunklet_Position& position, Map& map)
     :   m_position      (position)
     ,   m_meshBuilder   (*this)
     ,   mp_chunks       (&map)
-    {
-
-    }
+    { }
 
     void Section::makeMesh()
     {

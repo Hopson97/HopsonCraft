@@ -30,6 +30,8 @@ namespace Chunk
             }
         };
 
+        static Layer errorLayer;
+
         public:
             Section(const Chunklet_Position& position, Map& map);
 bool made = false;

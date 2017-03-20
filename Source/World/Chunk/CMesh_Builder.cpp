@@ -146,6 +146,20 @@ namespace Chunk
         std::cout << "Faces: " << faces << " created in: " << timer.getElapsedTime().asSeconds() * 1000.0f << "ms" <<  "\n";
     }
 
+    ///@TODO finish this function
+    bool Mesh_Builder::shouldCreateLayer(uint32_t yPosition)
+    {
+        auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)
+        {
+
+        };
+
+        return mp_section->getLayer(yPosition)      .opaqueCount > 0 ||
+               mp_section->getLayer(yPosition + 1)  .opaqueCount > 0 ||
+               mp_section->getLayer(yPosition - 1)  .opaqueCount > 0;
+    }
+
+
     bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
     {
         auto block = mp_section->getBlock(pos);

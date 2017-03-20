@@ -36,11 +36,11 @@ void World::checkPlayerBounds(Player& player)
 
     if (player.position.x + 0.2 > m_worldSize * CHUNK_SIZE - 0.2 )
     {
-        player.position.x = m_worldSize * CHUNK_SIZE - 0.2;
+        player.position.x = m_worldSize * CHUNK_SIZE - 0.3;
     }
     if (player.position.z + 0.2 > m_worldSize * CHUNK_SIZE - 0.2 )
     {
-        player.position.z = m_worldSize * CHUNK_SIZE - 0.2;
+        player.position.z = m_worldSize * CHUNK_SIZE - 0.3;
     }
 }
 
