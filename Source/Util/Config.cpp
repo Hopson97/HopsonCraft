@@ -7,7 +7,8 @@ Config::Config() {
     setDefaultKeybindings();
 }
 
-void Config::loadFromStream(std::string const& filename, std::istream& is) {
+void Config::loadFromStream(std::string const& filename, std::istream& is)
+{
     ConfigParser parser;
     parser.parse(filename, is);
     while (!parser.atEnd())

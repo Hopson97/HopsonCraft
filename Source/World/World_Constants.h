@@ -4,7 +4,6 @@
 #include <cstdint>
 
 constexpr int32_t   CHUNK_SIZE      = 16,
-                    CHUNK_SIZE_LOG2 = 4,
                     CHUNK_VOLUME    = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE,
                     CHUNK_AREA      = CHUNK_SIZE * CHUNK_SIZE;
 

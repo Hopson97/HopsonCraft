@@ -65,6 +65,15 @@ namespace State
     void Playing::input(Camera& camera)
     {
         m_player.input();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        {
+            m_player.position =
+            {
+                (worldSize * CHUNK_SIZE) / 2,
+                CHUNK_SIZE + 10,
+                (worldSize * CHUNK_SIZE) / 2
+            };
+        }
     }
 
     void Playing::update(Camera& camera, float dt)
