@@ -28,7 +28,7 @@ namespace Chunk
 
         if(!errorSet)
         {
-            errorLayer.opaqueCount == CHUNK_AREA;
+            errorLayer.opaqueCount = 0;
         }
     }
 

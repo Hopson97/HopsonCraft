@@ -13,50 +13,50 @@ namespace
 {
     const std::vector<GLfloat> frontFace
     {
-        0, 0, 1,
-        1, 0, 1,
-        1, 1, 1,
-        0, 1, 1
+        0,          0,          BLOCK_SIZE,
+        BLOCK_SIZE, 0,          BLOCK_SIZE,
+        BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
+        0,          BLOCK_SIZE, BLOCK_SIZE
     };
 
     const std::vector<GLfloat> backFace
     {
-        1, 0, 0,
-        0, 0, 0,
-        0, 1, 0,
-        1, 1, 0
+        BLOCK_SIZE, 0,          0,
+        0,          0,          0,
+        0,          BLOCK_SIZE, 0,
+        BLOCK_SIZE, BLOCK_SIZE, 0
     };
 
     const std::vector<GLfloat> leftFace
     {
-        0, 0, 0,
-        0, 0, 1,
-        0, 1, 1,
-        0, 1, 0
+        0, 0,           0,
+        0, 0,           BLOCK_SIZE,
+        0, BLOCK_SIZE,  BLOCK_SIZE,
+        0, BLOCK_SIZE,  0
     };
 
     const std::vector<GLfloat> rightFace
     {
-        1, 0, 1,
-        1, 0, 0,
-        1, 1, 0,
-        1, 1, 1
+        BLOCK_SIZE, 0,          BLOCK_SIZE,
+        BLOCK_SIZE, 0,          0,
+        BLOCK_SIZE, BLOCK_SIZE, 0,
+        BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE
     };
 
     const std::vector<GLfloat> topFace
     {
-        0, 1, 1,
-        1, 1, 1,
-        1, 1, 0,
-        0, 1, 0
+        0,          BLOCK_SIZE, BLOCK_SIZE,
+        BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
+        BLOCK_SIZE, BLOCK_SIZE, 0,
+        0,          BLOCK_SIZE, 0
     };
 
     const std::vector<GLfloat> bottomFace
     {
-        0, 0, 0,
-        1, 0, 0,
-        1, 0, 1,
-        0, 0, 1
+        0,          0, 0,
+        BLOCK_SIZE, 0, 0,
+        BLOCK_SIZE, 0, BLOCK_SIZE,
+        0,          0, BLOCK_SIZE
     };
 }
 
@@ -67,8 +67,12 @@ namespace Chunk
     :   mp_section (&section)
     { }
 
+    float sum = 0;
+    int n = 0;
+
     void Mesh_Builder::generateMesh(Meshes& meshes)
     {
+        n++;
         sf::Clock timer;
         meshes.liquidMesh.reset();
         meshes.solidMesh.reset();
@@ -149,7 +153,10 @@ namespace Chunk
             }
         }
 
-        std::cout << "Faces: " << faces << " created in: " << timer.getElapsedTime().asSeconds() * 1000.0f << "ms" <<  "\n";
+        auto timeForGen = timer.getElapsedTime().asSeconds();
+        sum += timeForGen;
+        std::cout << "Faces: "      << faces << " created in: " << timeForGen * 1000.0f << "ms" <<  "\n";
+        std::cout << "Average: "    << (sum / n) * 1000.0f << "ms\n\n";
     }
 
     ///@TODO finish this function
