@@ -77,8 +77,14 @@ namespace Chunk
 
         auto& atlas = Block::Database::get().textures;
 
-        for (int8_t y = 0; y < CHUNK_SIZE; ++y){
-            for (int8_t x = 0; x < CHUNK_SIZE; ++x){
+        for (int8_t y = 0; y < CHUNK_SIZE; ++y)
+        {
+            if (!shouldCreateLayer(y))
+            {
+                continue;
+            }
+            for (int8_t x = 0; x < CHUNK_SIZE; ++x)
+            {
                 for (int8_t z = 0; z < CHUNK_SIZE; ++z)
                 {
                     Block::Small_Position blockPosition(x, y, z);
@@ -154,9 +160,9 @@ namespace Chunk
 
         };
 
-        return mp_section->getLayer(yPosition)      .opaqueCount > 0 ||
-               mp_section->getLayer(yPosition + 1)  .opaqueCount > 0 ||
-               mp_section->getLayer(yPosition - 1)  .opaqueCount > 0;
+        return mp_section->getLayer(yPosition)      .opaqueCount < CHUNK_AREA ||
+               mp_section->getLayer(yPosition + 1)  .opaqueCount < CHUNK_AREA ||
+               mp_section->getLayer(yPosition - 1)  .opaqueCount < CHUNK_AREA;
     }
 
 
@@ -169,6 +175,7 @@ namespace Chunk
         {
             return true;
         }
+        ///@TODO do this stuff
         /*
         else if ( data.blockID == m_p_activeBlockData->get().blockID)
         {

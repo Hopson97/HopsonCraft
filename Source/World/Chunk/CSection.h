@@ -62,9 +62,8 @@ bool made = false;
             uint8_t qGetBlockLight(const Block::Small_Position& position) const;
 
             const Chunklet_Position& getPosition()  const;
-            const Meshes& getMeshes()               const;
-            const Layer& getLayer(int8_t y)         const;
-
+            const Meshes& getMeshes     ()          const;
+            const Layer& getLayer       (int8_t y)  const;
 
         private:
             Section* getSection(Block::Small_Position& position);

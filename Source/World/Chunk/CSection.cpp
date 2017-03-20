@@ -14,7 +14,23 @@ namespace Chunk
     :   m_position      (position)
     ,   m_meshBuilder   (*this)
     ,   mp_chunks       (&map)
-    { }
+    {
+        for (int8_t y = 0; y < CHUNK_SIZE; ++y)
+        {
+            for (int8_t x = 0; x < CHUNK_SIZE; ++x)
+            {
+                for (int8_t z = 0; z < CHUNK_SIZE; ++z)
+                {
+                    qSetBlock({x, y, z}, 1);
+                }
+            }
+        }
+
+        if(!errorSet)
+        {
+            errorLayer.opaqueCount == CHUNK_AREA;
+        }
+    }
 
     void Section::makeMesh()
     {
@@ -109,10 +125,15 @@ namespace Chunk
                CHUNK_SIZE + position.x;
     }
 
-    const Chunklet_Position& Section::getPosition()  const { return m_position;        }
-    const Meshes& Section::getMeshes()               const { return m_meshes;          }
-    const Section::Layer& Section::getLayer(int8_t y)const { return m_layerHasAir[y];  }
+    const Chunklet_Position& Section::getPosition()  const { return m_position; }
+    const Meshes& Section::getMeshes()               const { return m_meshes;   }
 
-
-
+    const Section::Layer& Section::getLayer(int8_t y)const
+    {
+        if (y < 0 || y > CHUNK_SIZE - 1)
+        {
+            return errorLayer;
+        }
+        return m_layerHasAir[y];
+    }
 }
