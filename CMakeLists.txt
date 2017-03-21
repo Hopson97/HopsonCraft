@@ -7,7 +7,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 file(GLOB src_files
     Source/*.cpp
-	Source/File/*.cpp
+	Source/GUI/*.cpp
     Source/HUD/*.cpp
 	Source/Input/*.cpp
 	Source/Maths/*.cpp
