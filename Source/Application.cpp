@@ -25,6 +25,9 @@ void Application::runMainGameLoop()
 
     while (Display::isOpen())
     {
+        if (m_states.empty())
+            break;
+
         auto elapsed = gameTimer.restart().asSeconds();
 
         m_musicPlayer.update();
@@ -50,6 +53,11 @@ void Application::runMainGameLoop()
 
         m_renderer.clear();
         m_renderer.update(m_camera);
+        if (m_shouldPopState)
+        {
+            realPopState();
+            m_shouldPopState = false;
+        }
     }
 }
 
@@ -60,13 +68,19 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
 
 void Application::popState()
 {
-    m_states.pop_back();
+   m_shouldPopState = true;
 }
 
 Camera& Application::getCamera()
 {
     return m_camera;
 }
+
+void Application::realPopState()
+{
+     m_states.pop_back();
+}
+
 
 /*
 void Application::runMainGameLoop()

@@ -3,8 +3,6 @@
 
 #include <vector>
 #include <memory>
-#include <thread>
-#include <SFML/Audio.hpp>
 
 #include "States/Game_State.h"
 
@@ -29,15 +27,14 @@ class Application
         void resetSong();
 
     private:
+        void realPopState();
+
         std::vector<std::unique_ptr<State::Game_State>> m_states;
-
-        std::unique_ptr<std::thread> m_renderThread;
-
         Renderer::Master m_renderer;
-
         Camera m_camera;
-
         Music_Player m_musicPlayer;
+
+        bool m_shouldPopState = false;
 };
 
 #endif // APPLICATION_H_INCLUDED

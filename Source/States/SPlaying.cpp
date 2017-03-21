@@ -56,9 +56,9 @@ namespace State
         initHUD();
 
         m_testPanel.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
-                                                                      {
-                                                                            exit(0);
-                                                                      }));
+        {
+              m_application->popState();
+        }));
 
         m_player.position =
         {
