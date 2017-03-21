@@ -47,8 +47,6 @@ namespace State
             Player              m_player;
             Frame_Time_Checker  m_frameTimeChecker;
             Quad                m_quady;
-
-            GUI::Panel m_testPanel;
     };
 }
 

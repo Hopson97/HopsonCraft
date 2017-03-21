@@ -42,7 +42,7 @@ namespace State
 {
     namespace
     {
-        uint32_t worldSize = 16;
+        uint32_t worldSize = 10;
     }
 
     Playing::Playing(Application& application)
@@ -50,15 +50,9 @@ namespace State
     ,   m_world     (application.getCamera(), worldSize)
     ,   m_player    (application.getCamera())
     ,   m_quady     (Block::Database::get().textures)
-    ,   m_testPanel (GUI::Layout::Center)
     {
         application.getCamera().hookEntity(m_player);
         initHUD();
-
-        m_testPanel.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
-        {
-              m_application->popState();
-        }));
 
         m_player.position =
         {
@@ -70,7 +64,7 @@ namespace State
 
     void Playing::input(sf::Event& e)
     {
-        m_testPanel.input(e);
+
     }
 
     void Playing::input(Camera& camera)
@@ -92,7 +86,6 @@ namespace State
         m_player.update(dt);
         m_world.checkPlayerBounds(m_player);
         m_frameTimeChecker.update();
-        m_testPanel.update();
     }
 
     void Playing::draw(Renderer::Master& renderer)
@@ -100,7 +93,6 @@ namespace State
         m_world.drawWorld(renderer);
         renderer.draw(m_quady);
         m_hud.draw(renderer);
-        m_testPanel.draw(renderer);
     }
 
     void Playing::initHUD()
