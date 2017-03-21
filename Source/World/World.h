@@ -23,7 +23,7 @@ class World
         World(const Camera& camera, int32_t worldSize);
 
         void checkPlayerBounds(Player& player);
-        void drawWorld(Renderer::Master& renderer);
+        void drawWorld(Renderer::Master& renderer, const Camera& camera);
 
     private:
         Chunk::Map m_chunks;

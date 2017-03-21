@@ -6,7 +6,7 @@
 
 namespace GUI
 {
-    Imaged_Button::Imaged_Button(const std::string& name, const std::string& text,
+    Imaged_Button::Imaged_Button(const std::string& imageFileName, const std::string& text,
                                  std::function<void(void)>function)
     : m_function  (function)
     {
@@ -17,7 +17,7 @@ namespace GUI
 
         initText(m_text, 40, text);
 
-        m_image.loadFromFile(name + ".png");
+        m_image.loadFromFile(imageFileName + ".png");
         m_imageRect.setSize({144, 144});
         m_imageRect.setTexture(&m_image);
         m_imageRect.setOutlineColor(sf::Color::Black);

@@ -55,15 +55,11 @@ namespace Chunk
         }
         else
         {
-            Chunk::Chunklet_Position newPos(m_position.x + change.x,
-                                            0,
-                                            m_position.z + change.z);
-            ///@TODO change to actually use up/ down chunks
-            if (change.y != 0)
-                return nullptr;
-            if (mp_chunks->existsAt({newPos.x, newPos.z}))
+            Chunk::Chunklet_Position newPos = m_position + change;
+
+            if (mp_chunks->existsAt({newPos.x, newPos.y, newPos.z}))
             {
-                return mp_chunks->get({newPos.x, newPos.z});
+                return mp_chunks->get({newPos.x, newPos.y, newPos.z});
             }
             else
             {
@@ -87,15 +83,11 @@ namespace Chunk
         }
         else
         {
-            Chunk::Chunklet_Position newPos(m_position.x + change.x,
-                                            0,
-                                            m_position.z + change.z);
-            ///@TODO change to actually use up/ down chunks
-            if (change.y != 0)
-                return nullptr;
-            if (mp_chunks->existsAt({newPos.x, newPos.z}))
+            Chunk::Chunklet_Position newPos = m_position + change;
+
+            if (mp_chunks->existsAt({newPos.x, newPos.y, newPos.z}))
             {
-                return mp_chunks->get({newPos.x, newPos.z});
+                return mp_chunks->get({newPos.x, newPos.y, newPos.z});
             }
             else
             {
@@ -130,10 +122,55 @@ namespace Chunk
 
     const Section::Layer& Section::getLayer(int8_t y)const
     {
-        if (y < 0 || y > CHUNK_SIZE - 1)
+        ///@TODO This to use better bounds
+
+        if (y == -1)
         {
-            return errorLayer;
+            const Section* chunk = mp_chunks->get({m_position.x, m_position.y - 1, m_position.z});
+            if(!chunk)
+            {
+                return errorLayer;
+            }
+            else return chunk->m_layerHasAir[CHUNK_SIZE - 1];
+        }
+        else if (y == CHUNK_SIZE)
+        {
+            const Section* chunk = mp_chunks->get({m_position.x, m_position.y + 1, m_position.z});
+            if(!chunk)
+            {
+                return errorLayer;
+            }
+            else return chunk->m_layerHasAir[0];
         }
         return m_layerHasAir[y];
     }
+
+    const Section* Section::getAdjacentSection(const Vector2& change) const
+    {
+        return mp_chunks->get({ m_position.x + change.x,
+                                m_position.y,
+                                m_position.z + change.y});
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

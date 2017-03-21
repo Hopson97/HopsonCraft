@@ -42,7 +42,7 @@ namespace State
 {
     namespace
     {
-        uint32_t worldSize = 10;
+        uint32_t worldSize = 16;
     }
 
     Playing::Playing(Application& application)
@@ -57,7 +57,7 @@ namespace State
         m_player.position =
         {
             (worldSize * CHUNK_SIZE) / 2,
-            CHUNK_SIZE + 10,
+            CHUNK_SIZE + 5 * 17,
             (worldSize * CHUNK_SIZE) / 2
         };
     }
@@ -75,7 +75,7 @@ namespace State
             m_player.position =
             {
                 (worldSize * CHUNK_SIZE) / 2,
-                CHUNK_SIZE + 10,
+                CHUNK_SIZE + 5 * 17,
                 (worldSize * CHUNK_SIZE) / 2
             };
         }
@@ -90,7 +90,8 @@ namespace State
 
     void Playing::draw(Renderer::Master& renderer)
     {
-        m_world.drawWorld(renderer);
+
+        m_world.drawWorld(renderer, m_application->getCamera());
         renderer.draw(m_quady);
         m_hud.draw(renderer);
     }
@@ -107,7 +108,7 @@ namespace State
         };
 
         m_hud.debug.addDebugSector("Frame Time: %fms",          {0,  getYPosition()},  &m_frameTimeChecker.getFrameTime());
-        m_hud.debug.addDebugSector("FPS: %.0f",                   {0,  getYPosition()},  &m_frameTimeChecker.getFPS());
+        m_hud.debug.addDebugSector("FPS: %.0f",                 {0,  getYPosition()},  &m_frameTimeChecker.getFPS());
         m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0, getYPosition()},  &m_player.position.x);
         m_hud.debug.addDebugSector("Player Position: Y: %.1f",  {0, getYPosition()},  &m_player.position.y);
         m_hud.debug.addDebugSector("Player Position: Z: %.1f",  {0, getYPosition()},  &m_player.position.z);

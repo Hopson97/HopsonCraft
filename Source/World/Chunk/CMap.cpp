@@ -2,7 +2,7 @@
 
 namespace Chunk
 {
-    Section* Map::get(const Chunk::Position& position)
+    Section* Map::get(const Chunk::Chunklet_Position& position)
     {
         if (existsAt(position))
             return m_chunks[position].get();
@@ -10,7 +10,7 @@ namespace Chunk
             return nullptr;
     }
 
-    bool Map::existsAt(const Chunk::Position& position)
+    bool Map::existsAt(const Chunk::Chunklet_Position& position)
     {
         return m_chunks.find(position) != m_chunks.end();
     }

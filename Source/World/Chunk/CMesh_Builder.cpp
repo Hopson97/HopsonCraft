@@ -162,15 +162,27 @@ namespace Chunk
     ///@TODO finish this function
     bool Mesh_Builder::shouldCreateLayer(uint32_t yPosition)
     {
-/*
+
         auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)
         {
-
+            const Section* c = mp_section->getAdjacentSection({xd, zd});
+            if(!c)
+            {
+                return true;
+            }
+            else
+            {
+                return c->getLayer(yPosition).opaqueCount < CHUNK_AREA;
+            }
         };
-*/
-        return mp_section->getLayer(yPosition)      .opaqueCount < CHUNK_AREA ||
-               mp_section->getLayer(yPosition + 1)  .opaqueCount < CHUNK_AREA ||
-               mp_section->getLayer(yPosition - 1)  .opaqueCount < CHUNK_AREA;
+
+        return mp_section->getLayer             (yPosition)      .opaqueCount < CHUNK_AREA ||
+               mp_section->getLayer             (yPosition + 1)  .opaqueCount < CHUNK_AREA ||
+               mp_section->getLayer             (yPosition - 1)  .opaqueCount < CHUNK_AREA ||
+               hasAdjLayerGotTranslucentBlock   ( 1,  1) ||
+               hasAdjLayerGotTranslucentBlock   (-1, -1) ||
+               hasAdjLayerGotTranslucentBlock   ( 1, -1) ||
+               hasAdjLayerGotTranslucentBlock   (-1,  1);
     }
 
 

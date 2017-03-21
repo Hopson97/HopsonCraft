@@ -10,10 +10,10 @@ namespace Chunk
 {
     struct Map
     {
-        std::unordered_map<Chunk::Position, std::unique_ptr<Section>> m_chunks;
+        std::unordered_map<Chunk::Chunklet_Position, std::unique_ptr<Section>> m_chunks;
 
-        Section* get    (const Chunk::Position& position);
-        bool existsAt   (const Chunk::Position& position);
+        Section* get    (const Chunk::Chunklet_Position& position);
+        bool existsAt   (const Chunk::Chunklet_Position& position);
     };
 }
 

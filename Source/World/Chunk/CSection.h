@@ -34,7 +34,7 @@ namespace Chunk
 
         public:
             Section(const Chunklet_Position& position, Map& map);
-bool made = false;
+            bool made = false; ///@TODO Better solution for this
             void makeMesh();
 
             //Blocks getters/ Setters
@@ -64,6 +64,8 @@ bool made = false;
             const Chunklet_Position& getPosition()  const;
             const Meshes& getMeshes     ()          const;
             const Layer& getLayer       (int8_t y)  const;
+
+            const Section* getAdjacentSection(const Vector2& change) const;
 
         private:
             Section* getSection(Block::Small_Position& position);
