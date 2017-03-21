@@ -7,6 +7,8 @@
 #include "../Player/Player.h"
 #include "../Temp/Quad.h"
 
+#include "../GUI/GUI.h"
+
 class Application;
 class Camera;
 
@@ -32,6 +34,7 @@ namespace State
         public:
             Playing(Application& application);
 
+            void input  (sf::Event& e) override;
             void input  (Camera& camera) override;
             void update (Camera& camera, float dt) override;
             void draw   (Renderer::Master& renderer) override;
@@ -44,6 +47,8 @@ namespace State
             Player              m_player;
             Frame_Time_Checker  m_frameTimeChecker;
             Quad                m_quady;
+
+            GUI::Panel m_testPanel;
     };
 }
 

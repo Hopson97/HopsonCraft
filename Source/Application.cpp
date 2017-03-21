@@ -22,38 +22,34 @@ Application::Application()
 void Application::runMainGameLoop()
 {
     sf::Clock gameTimer;
-/*
-    auto getCurrentTime = [&]()
-    {
-        return gameTimer.getElapsedTime();
-    };
-    sf::Time previous = getCurrentTime();
-    sf::Time lag;
-*/
+
     while (Display::isOpen())
     {
-/*
-        sf::Time current    = getCurrentTime();
-        sf::Time elapsed    = current  - previous;
-        previous            = current ;
-        lag                 += elapsed;
-*/
         auto elapsed = gameTimer.restart().asSeconds();
 
         m_musicPlayer.update();
 
-        m_states.back()->input (m_camera);
-        //while (lag >= sf::milliseconds(16))
+        sf::Event e;
+        while (Display::get().pollEvent(e))
         {
-            m_states.back()->update  (m_camera, elapsed);
-            m_camera.update();
-            //lag -= sf::milliseconds(16);
+            if (e.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                Display::close();
+            }
+            m_states.back()->input(e);
         }
-        m_states.back()->draw    (m_renderer);
+        if (!Display::isOpen())
+        {
+            break;
+        }
+
+        m_states.back()->input  (m_camera);
+        m_states.back()->update (m_camera, elapsed);
+        m_camera.update();
+        m_states.back()->draw   (m_renderer);
+
         m_renderer.clear();
         m_renderer.update(m_camera);
-
-        Display::checkForClose();
     }
 }
 
@@ -153,5 +149,45 @@ void Application::runMainGameLoop()
     std::cout << "Outliers: " << outliers << std::endl;
     std::cout << "Percent:  " << ((float)outliers / (float)frameTimes.size()) * 100.0f << std::endl;
     std::cout << "Average Frame Time " << average << "ms\n";
+}
+*/
+
+/*
+void Application::runMainGameLoop()
+{
+    sf::Clock gameTimer;
+
+    auto getCurrentTime = [&]()
+    {
+        return gameTimer.getElapsedTime();
+    };
+    sf::Time previous = getCurrentTime();
+    sf::Time lag;
+
+    while (Display::isOpen())
+    {
+
+        sf::Time current    = getCurrentTime();
+        sf::Time elapsed    = current  - previous;
+        previous            = current ;
+        lag                 += elapsed;
+
+        auto elapsed = gameTimer.restart().asSeconds();
+
+        m_musicPlayer.update();
+
+        m_states.back()->input (m_camera);
+        //while (lag >= sf::milliseconds(16))
+        {
+            m_states.back()->update  (m_camera, elapsed);
+            m_camera.update();
+            //lag -= sf::milliseconds(16);
+        }
+        m_states.back()->draw    (m_renderer);
+        m_renderer.clear();
+        m_renderer.update(m_camera);
+
+        Display::checkForClose();
+    }
 }
 */

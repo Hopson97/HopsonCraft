@@ -40,7 +40,7 @@ namespace Display
         glEnable    (GL_DEPTH_TEST);
         glCullFace  (GL_BACK);
 
-        window->setMouseCursorVisible(false);
+        //window->setMouseCursorVisible(false);
     }
 
     void close()
