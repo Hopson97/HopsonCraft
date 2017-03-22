@@ -6,7 +6,7 @@ namespace GUI
 {
     Image::Image(const std::string& name, const sf::Vector2f& size)
     {
-        m_texture.loadFromFile(name + ".png");
+        m_texture.loadFromFile("Data/Textures/" + name + ".png");
 
         m_quad.setSize(size);
         m_quad.setTexture(&m_texture);

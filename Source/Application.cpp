@@ -11,10 +11,11 @@
 #include "Display.h"
 
 #include "States/SPlaying.h"
+#include "States/SMain_Menu.h"
 
 Application::Application()
 {
-    pushState(std::make_unique<State::Playing>(*this));
+    pushState(std::make_unique<State::Main_Menu>(*this));
 }
 
 

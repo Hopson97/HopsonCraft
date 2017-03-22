@@ -9,7 +9,8 @@
 enum class Texture_ID
 {
     Vignette,
-    Crosshair1
+    Crosshair1,
+    Menu_BG
 };
 
 class Texture_Manager : public Resource_Manager<sf::Texture, Texture_ID>

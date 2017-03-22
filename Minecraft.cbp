@@ -161,6 +161,8 @@
 		<Unit filename="Source/Shaders/Solid_Shader.h" />
 		<Unit filename="Source/States/Game_State.cpp" />
 		<Unit filename="Source/States/Game_State.h" />
+		<Unit filename="Source/States/SMain_Menu.cpp" />
+		<Unit filename="Source/States/SMain_Menu.h" />
 		<Unit filename="Source/States/SPlaying.cpp" />
 		<Unit filename="Source/States/SPlaying.h" />
 		<Unit filename="Source/Temp/Noise_Generator.cpp" />
