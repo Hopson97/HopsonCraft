@@ -8,8 +8,8 @@
 
 namespace Block
 {
-    typedef sf::Vector3<int8_t> Small_Position;
-    typedef sf::Vector3<int32_t> Column_Position;
+    typedef sf::Vector3<int8_t>  Small_Position;
+    typedef sf::Vector3<int32_t> Position;
 }
 
 namespace std

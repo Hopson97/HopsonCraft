@@ -41,12 +41,17 @@ namespace State
 
         private:
             void initHUD();
+            void initPause();
 
             World               m_world;
             HUD                 m_hud;
             Player              m_player;
             Frame_Time_Checker  m_frameTimeChecker;
             Quad                m_quady;
+
+            GUI::Panel m_pauseMenu;
+
+            bool                m_isPaused = false;
     };
 }
 

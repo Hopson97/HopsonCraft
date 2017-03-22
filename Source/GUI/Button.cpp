@@ -12,7 +12,7 @@ namespace GUI
         m_quad.setSize({800, 150});
         m_quad.setTexture(&Component::guiTexture);
         m_quad.setOutlineColor(sf::Color::Black);
-        m_quad.setOutlineThickness(2);
+        m_quad.setOutlineThickness(4);
 
         initText(m_text, 40, text);
     }

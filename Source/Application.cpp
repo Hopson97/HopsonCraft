@@ -36,7 +36,7 @@ void Application::runMainGameLoop()
         sf::Event e;
         while (Display::get().pollEvent(e))
         {
-            if (e.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            if (e.type == sf::Event::Closed)
             {
                 Display::close();
             }

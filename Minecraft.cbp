@@ -197,6 +197,8 @@
 		<Unit filename="Source/World/Chunk/CBlock.cpp" />
 		<Unit filename="Source/World/Chunk/CBlock.h" />
 		<Unit filename="Source/World/Chunk/CData.h" />
+		<Unit filename="Source/World/Chunk/CFull_Chunk.cpp" />
+		<Unit filename="Source/World/Chunk/CFull_Chunk.h" />
 		<Unit filename="Source/World/Chunk/CManager.h" />
 		<Unit filename="Source/World/Chunk/CMap.cpp" />
 		<Unit filename="Source/World/Chunk/CMap.h" />

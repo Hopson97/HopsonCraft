@@ -7,8 +7,8 @@
 
 namespace Maths
 {
-    Chunk::Position         worldToChunkPos(const Vector3& position);
-    Block::Column_Position  worldToBlockPos(const Vector3& position);
+    Chunk::Position worldToChunkPos(const Vector3& position);
+    Block::Position worldToBlockPos(const Vector3& position);
 
 
 

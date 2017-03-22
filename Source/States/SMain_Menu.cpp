@@ -36,12 +36,21 @@ namespace State
     {
         m_menu.addPadding(100);
         m_menu.addBackgroud(getResources().getTexture(Texture_ID::Menu_BG));
-        m_menu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{500, 50}));
+        m_menu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
         m_menu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
             m_application->pushState(std::make_unique<State::Playing>(*m_application));
         }));
+
+        m_menu.addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
+        { }));
+
+        m_menu.addComponent(std::make_unique<GUI::Button>("Settings (Unused)", [&]()
+        { }));
+
+        m_menu.addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
+        { }));
 
         m_menu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
         {

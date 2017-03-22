@@ -7,6 +7,7 @@
 #include "../Renderer/RMaster.h"
 #include "../Camera.h"
 #include "../Application.h"
+#include "../Display.h"
 
 void Frame_Time_Checker::update()
 {
@@ -50,9 +51,11 @@ namespace State
     ,   m_world     (application.getCamera(), worldSize)
     ,   m_player    (application.getCamera())
     ,   m_quady     (Block::Database::get().textures)
+    ,   m_pauseMenu (GUI::Layout::Center)
     {
         application.getCamera().hookEntity(m_player);
         initHUD();
+        initPause();
 
         m_player.position =
         {
@@ -65,24 +68,52 @@ namespace State
     void Playing::input(sf::Event& e)
     {
 
+        if (m_isPaused)
+        {
+            m_pauseMenu.input(e);
+            Display::get().setMouseCursorVisible(true);
+        }
+        else
+        {
+            Display::get().setMouseCursorVisible(false);
+        }
+
+        switch(e.type)
+        {
+            case sf::Event::KeyPressed:
+                if (e.key.code == sf::Keyboard::Escape)
+                {
+                    m_isPaused = !m_isPaused;
+                }
+            default:
+                break;
+        }
     }
 
     void Playing::input(Camera& camera)
     {
-        m_player.input();
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        if (!m_isPaused)
         {
-            m_player.position =
+            m_player.input();
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
             {
-                (worldSize * CHUNK_SIZE) / 2,
-                CHUNK_SIZE + 5 * 17,
-                (worldSize * CHUNK_SIZE) / 2
-            };
+                m_player.position =
+                {
+                    (worldSize * CHUNK_SIZE) / 2,
+                    CHUNK_SIZE + 5 * 17,
+                    (worldSize * CHUNK_SIZE) / 2
+                };
+            }
         }
     }
 
+
     void Playing::update(Camera& camera, float dt)
     {
+        if (m_isPaused)
+        {
+            m_pauseMenu.update();
+        }
         m_player.update(dt);
         m_world.checkPlayerBounds(m_player);
         m_frameTimeChecker.update();
@@ -90,10 +121,17 @@ namespace State
 
     void Playing::draw(Renderer::Master& renderer)
     {
+        if (m_isPaused)
+        {
+            m_pauseMenu.draw(renderer);
+        }
+        else
+        {
+            m_hud.draw(renderer);
+        }
 
         m_world.drawWorld(renderer, m_application->getCamera());
         renderer.draw(m_quady);
-        m_hud.draw(renderer);
     }
 
     void Playing::initHUD()
@@ -113,6 +151,22 @@ namespace State
         m_hud.debug.addDebugSector("Player Position: Y: %.1f",  {0, getYPosition()},  &m_player.position.y);
         m_hud.debug.addDebugSector("Player Position: Z: %.1f",  {0, getYPosition()},  &m_player.position.z);
     }
+
+    void Playing::initPause()
+    {
+        m_pauseMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
+        m_pauseMenu.addPadding(200);
+        m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Resume", [&]()
+        {
+            m_isPaused = false;
+        }));
+
+        m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
+        {
+            m_application->popState();
+        }));
+    }
+
 }
 
 
