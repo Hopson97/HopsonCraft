@@ -24,7 +24,6 @@ namespace Texture
                      GL_UNSIGNED_BYTE,
                      image.getPixelsPtr());
 
-        //Check the description, I couldn't come up with a quick explaination for these
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
