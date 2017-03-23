@@ -20,4 +20,15 @@ namespace Maths
                  (int32_t) position.z % CHUNK_SIZE};
     }
 
+    Block::Small_Position blockToSmallBlockPos(const Block::Position& position)
+    {
+        int32_t y = position.y % CHUNK_SIZE;
+        return
+        {
+            (int8_t) position.x,
+            (int8_t) y,
+            (int8_t) position.z,
+        };
+    }
+
 }

@@ -2,6 +2,7 @@
 #define CFULL_CHUNK_H_INCLUDED
 
 #include <vector>
+#include <memory>
 
 #include "CBlock.h"
 #include "CPosition.h"
@@ -11,19 +12,27 @@ class World;
 
 namespace Chunk
 {
+    class Map;
+
     class Full_Chunk
     {
         public:
-            Full_Chunk(World& world, const Position& position);
+            Full_Chunk(World& world, Map& map, const Position& position);
 
             CBlock getBlock(const Block::Position& position);
             const Position& getPosition() const;
 
-        private:
-            std::vector<Section> m_chunkSections;
+            Section* getSection(int32_t index);
 
-            World* mp_world;
-            Position m_position;
+        private:
+            void addSection();
+
+            std::vector<std::unique_ptr<Section>> m_chunkSections;
+
+            World*      mp_world        = nullptr;
+            Map*        mp_chunkMap     = nullptr;
+            Position    m_position;
+            int32_t     m_sectionCount  = 0;
     };
 }
 
