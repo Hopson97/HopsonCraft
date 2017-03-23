@@ -8,7 +8,13 @@
 #include "CPosition.h"
 #include "CSection.h"
 
+namespace Renderer
+{
+    class Master;
+}
+
 class World;
+class Camera;
 
 namespace Chunk
 {
@@ -23,6 +29,8 @@ namespace Chunk
             const Position& getPosition() const;
 
             Section* getSection(int32_t index);
+
+            bool draw(Renderer::Master& renderer, const Camera& camera);
 
         private:
             void addSection();

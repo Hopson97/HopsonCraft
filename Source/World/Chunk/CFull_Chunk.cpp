@@ -2,6 +2,8 @@
 
 #include "../World_Constants.h"
 #include "../../Maths/General_Maths.h"
+#include "../../Camera.h"
+#include "../../Renderer/RMaster.h"
 
 namespace Chunk
 {
@@ -56,6 +58,24 @@ namespace Chunk
 
         m_chunkSections.push_back(std::make_unique<Section>(position, *mp_chunkMap));
     }
+
+    bool Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)
+    {
+        for (auto& chunk : m_chunkSections)
+        {
+            if (chunk->made)
+            {
+                renderer.draw(*chunk);
+            }
+            else
+            {
+                chunk->makeMesh();
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 }
