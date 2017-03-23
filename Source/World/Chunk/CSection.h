@@ -19,7 +19,7 @@ namespace Chunk
         //This struct helps with optimizing the creation of the mesh
         struct Layer
         {
-            int16_t opaqueCount = 0;
+            int16_t opaqueCount = CHUNK_AREA;
 
             void update(CBlock block)
             {

@@ -15,17 +15,6 @@ namespace Chunk
     ,   m_meshBuilder   (*this)
     ,   mp_chunks       (&map)
     {
-        for (int8_t y = 0; y < CHUNK_SIZE; ++y)
-        {
-            for (int8_t x = 0; x < CHUNK_SIZE; ++x)
-            {
-                for (int8_t z = 0; z < CHUNK_SIZE; ++z)
-                {
-                    qSetBlock({x, y, z}, 1);
-                }
-            }
-        }
-
         if(!errorSet)
         {
             errorLayer.opaqueCount = 0;
@@ -123,7 +112,6 @@ namespace Chunk
     const Section::Layer& Section::getLayer(int8_t y)const
     {
         ///@TODO This to use better bounds
-
         if (y == -1)
         {
             const Section* chunk = mp_chunks->get({m_position.x, m_position.y - 1, m_position.z});

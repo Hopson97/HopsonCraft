@@ -10,7 +10,7 @@ namespace Chunk
     ,   mp_chunkMap (&map)
     ,   m_position  (position)
     {
-        for (int i = 0 ; i < 3 ; i++)
+        for (int i = 0 ; i < 5 ; i++)
         {
             addSection();
         }
@@ -38,7 +38,7 @@ namespace Chunk
 
     Section* Full_Chunk::getSection(int32_t index)
     {
-        if (index > m_sectionCount)
+        if (index > m_sectionCount - 1 || index < 0)
         {
             return nullptr;
         }
