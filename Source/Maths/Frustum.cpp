@@ -98,24 +98,3 @@ bool Frustum::boxInFrustum(const AABB& box) const
     return result;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

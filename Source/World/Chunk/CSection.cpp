@@ -13,11 +13,11 @@ namespace Chunk
     :   m_position      (position)
     ,   m_meshBuilder   (*this)
     ,   mp_chunks       (&map)
-    ,   aabb            ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
+    ,   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
     {
-        aabb.update({position.x * CHUNK_SIZE,
-                     position.y * CHUNK_SIZE,
-                     position.z * CHUNK_SIZE});
+        m_aabb.update({ position.x * CHUNK_SIZE,
+                        position.y * CHUNK_SIZE,
+                        position.z * CHUNK_SIZE});
     }
 
     void Section::makeMesh()
@@ -140,6 +140,11 @@ namespace Chunk
         return mp_chunks->get({ m_position.x + (int32_t)change.x,
                                 m_position.y,
                                 m_position.z + (int32_t)change.y});
+    }
+
+    const AABB& Section::getAABB() const
+    {
+        return m_aabb;
     }
 
 }

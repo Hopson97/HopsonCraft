@@ -35,7 +35,6 @@ namespace Chunk
 
         public:
             ///@TODO MAke this private
-            AABB aabb;
 
             Section(const Chunklet_Position& position, Map& map);
             bool made = false; ///@TODO Better solution for this
@@ -71,6 +70,8 @@ namespace Chunk
 
             const Section* getAdjacentSection(const Vector2& change) const;
 
+            const AABB& getAABB() const;
+
         private:
             Section* getSection(Block::Small_Position& position);
             const Section* getConstSection(Block::Small_Position& position) const;
@@ -89,6 +90,8 @@ namespace Chunk
             Meshes       m_meshes;
 
             Map* mp_chunks;
+
+            AABB m_aabb;
     };
 }
 

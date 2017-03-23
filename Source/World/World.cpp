@@ -53,12 +53,24 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
             Chunk::Full_Chunk* chunk = m_chunks.m_chunks[{x, z}].get();
             if (chunk)
             {
-                if(chunk->draw(renderer, camera))
+                chunk->draw(renderer, camera);
+
+            }
+        }
+    }
+
+    for (int32_t x = 0 ; x < m_worldSize; x++)
+    {
+        for (int32_t z = 0; z < m_worldSize; z++)
+        {
+            Chunk::Full_Chunk* chunk = m_chunks.m_chunks[{x, z}].get();
+            if (chunk)
+            {
+                if(chunk->tryGen(camera))
                 {
                     isMeshMade = true;
                     break;
                 }
-
             }
         }
         if (isMeshMade)

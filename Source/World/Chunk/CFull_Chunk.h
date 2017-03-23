@@ -33,7 +33,8 @@ namespace Chunk
 
             Section* getSection(int32_t index);
 
-            bool draw(Renderer::Master& renderer, const Camera& camera);
+            void draw   (Renderer::Master& renderer, const Camera& camera);
+            bool tryGen (const Camera& camera);
 
         private:
             void addSection();

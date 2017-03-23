@@ -82,16 +82,27 @@ namespace Chunk
         m_chunkSections.push_back(std::make_unique<Section>(position, *mp_chunkMap));
     }
 
-    bool Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)
+    void Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)
     {
         for (auto& chunk : m_chunkSections)
         {
-            //if(!camera.getFrustum().boxInFrustum(chunk->aabb)) continue;
+            if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
+                continue;
             if (chunk->made)
             {
                 renderer.draw(*chunk);
             }
-            else
+        }
+    }
+
+    bool Full_Chunk::tryGen(const Camera& camera)
+    {
+        for (auto& chunk : m_chunkSections)
+        {
+            if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
+                continue;
+
+            if (!chunk->made)
             {
                 chunk->makeMesh();
                 return true;
@@ -99,6 +110,7 @@ namespace Chunk
         }
         return false;
     }
+
 
 
 
