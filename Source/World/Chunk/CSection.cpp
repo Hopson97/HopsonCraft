@@ -7,18 +7,17 @@
 
 namespace Chunk
 {
-    Section::Layer Section::errorLayer;
-    bool errorSet = false;
+    const Section::Layer Section::errorLayer;
 
     Section::Section(const Chunklet_Position& position, Map& map)
     :   m_position      (position)
     ,   m_meshBuilder   (*this)
     ,   mp_chunks       (&map)
+    ,   aabb            ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
     {
-        if(!errorSet)
-        {
-            errorLayer.opaqueCount = 0;
-        }
+        aabb.update({position.x * CHUNK_SIZE,
+                     position.y * CHUNK_SIZE,
+                     position.z * CHUNK_SIZE});
     }
 
     void Section::makeMesh()
@@ -130,14 +129,17 @@ namespace Chunk
             }
             else return chunk->m_layerHasAir[0];
         }
-        return m_layerHasAir[y];
+        else
+        {
+            return m_layerHasAir[y];
+        }
     }
 
     const Section* Section::getAdjacentSection(const Vector2& change) const
     {
-        return mp_chunks->get({ m_position.x + change.x,
+        return mp_chunks->get({ m_position.x + (int32_t)change.x,
                                 m_position.y,
-                                m_position.z + change.y});
+                                m_position.z + (int32_t)change.y});
     }
 
 }

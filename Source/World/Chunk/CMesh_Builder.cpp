@@ -85,6 +85,7 @@ namespace Chunk
         {
             if (!shouldCreateLayer(y))
             {
+
                 continue;
             }
             for (int8_t x = 0; x < CHUNK_SIZE; ++x)
@@ -159,9 +160,9 @@ namespace Chunk
         std::cout << "Average: "    << (sum / n) * 1000.0f << "ms\n\n";
     }
 
-    ///@TODO finish this function
     bool Mesh_Builder::shouldCreateLayer(uint32_t yPosition)
     {
+        //return true;
 
         auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)
         {
@@ -179,10 +180,10 @@ namespace Chunk
         return mp_section->getLayer             (yPosition)      .opaqueCount < CHUNK_AREA ||
                mp_section->getLayer             (yPosition + 1)  .opaqueCount < CHUNK_AREA ||
                mp_section->getLayer             (yPosition - 1)  .opaqueCount < CHUNK_AREA ||
-               hasAdjLayerGotTranslucentBlock   ( 1,  1) ||
-               hasAdjLayerGotTranslucentBlock   (-1, -1) ||
-               hasAdjLayerGotTranslucentBlock   ( 1, -1) ||
-               hasAdjLayerGotTranslucentBlock   (-1,  1);
+               hasAdjLayerGotTranslucentBlock   ( 1,  0) ||
+               hasAdjLayerGotTranslucentBlock   (-1,  0) ||
+               hasAdjLayerGotTranslucentBlock   ( 0, -1) ||
+               hasAdjLayerGotTranslucentBlock   ( 0,  1);
     }
 
 

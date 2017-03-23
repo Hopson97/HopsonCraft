@@ -9,6 +9,7 @@
 #include "CBlock.h"
 #include "CMesh_Builder.h"
 #include "../Block/Block_Database.h"
+#include "../../Physics/AABB.h"
 
 namespace Chunk
 {
@@ -19,7 +20,7 @@ namespace Chunk
         //This struct helps with optimizing the creation of the mesh
         struct Layer
         {
-            int16_t opaqueCount = CHUNK_AREA;
+            int16_t opaqueCount = 0;
 
             void update(CBlock block)
             {
@@ -30,9 +31,12 @@ namespace Chunk
             }
         };
 
-        static Layer errorLayer;
+        const static Layer errorLayer;
 
         public:
+            ///@TODO MAke this private
+            AABB aabb;
+
             Section(const Chunklet_Position& position, Map& map);
             bool made = false; ///@TODO Better solution for this
             void makeMesh();

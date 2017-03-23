@@ -43,7 +43,7 @@ namespace State
 {
     namespace
     {
-        uint32_t worldSize = 16;
+        uint32_t worldSize = 20;
     }
 
     Playing::Playing(Application& application)
@@ -125,13 +125,10 @@ namespace State
         {
             m_pauseMenu.draw(renderer);
         }
-        else
-        {
-            m_hud.draw(renderer);
-        }
-
         m_world.drawWorld(renderer, m_application->getCamera());
         renderer.draw(m_quady);
+
+        m_hud.draw(renderer);
     }
 
     void Playing::initHUD()

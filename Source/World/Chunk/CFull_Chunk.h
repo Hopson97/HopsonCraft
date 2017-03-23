@@ -25,8 +25,11 @@ namespace Chunk
         public:
             Full_Chunk(World& world, Map& map, const Position& position);
 
+            void   setBlock(const Block::Position& position, CBlock block);
             CBlock getBlock(const Block::Position& position);
             const Position& getPosition() const;
+
+
 
             Section* getSection(int32_t index);
 

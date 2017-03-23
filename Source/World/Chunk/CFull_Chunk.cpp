@@ -4,6 +4,7 @@
 #include "../../Maths/General_Maths.h"
 #include "../../Camera.h"
 #include "../../Renderer/RMaster.h"
+#include "../../Util/Random.h"
 
 namespace Chunk
 {
@@ -12,11 +13,33 @@ namespace Chunk
     ,   mp_chunkMap (&map)
     ,   m_position  (position)
     {
-        for (int i = 0 ; i < 5 ; i++)
+        int height = Random::intInRange(5, 25);
+        for (int32_t y = 0; y < height; ++y)
+        {
+            for (int32_t x = 0; x <  CHUNK_SIZE; ++x)
+            {
+                for (int32_t z = 0; z < CHUNK_SIZE; ++z)
+                {
+                    setBlock({x, y, z}, 1);
+                }
+            }
+        }
+    }
+
+    void Full_Chunk::setBlock(const Block::Position& position, CBlock block)
+    {
+        int32_t yPositionSection = position.y / CHUNK_SIZE;
+
+        while (yPositionSection > m_sectionCount - 1)
         {
             addSection();
         }
+
+        ///@TODO Change to use operator [] and regen mesh?
+        m_chunkSections.at(yPositionSection)
+            ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
     }
+
 
     CBlock Full_Chunk::getBlock(const Block::Position& position)
     {
@@ -63,6 +86,7 @@ namespace Chunk
     {
         for (auto& chunk : m_chunkSections)
         {
+            //if(!camera.getFrustum().boxInFrustum(chunk->aabb)) continue;
             if (chunk->made)
             {
                 renderer.draw(*chunk);
