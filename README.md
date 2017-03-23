@@ -1,6 +1,6 @@
 # HopsonCraft
 
-## Dependencies:
+## Dependencies
 
 The project requires these libraries: SFML (minimum 2.4), GLEW, and GLM.
 
@@ -14,6 +14,6 @@ Simple Minecraft clone written using C++.
 
 Coming soon...
 
-## Implementation deatils.
+## Implementation details
 
 Coming soon...
