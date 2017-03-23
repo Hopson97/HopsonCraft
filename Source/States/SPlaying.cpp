@@ -43,7 +43,7 @@ namespace State
 {
     namespace
     {
-        uint32_t worldSize = 32;
+        uint32_t worldSize = 16;
     }
 
     Playing::Playing(Application& application)
@@ -142,8 +142,9 @@ namespace State
             return val;
         };
 
-        m_hud.debug.addDebugSector("Frame Time: %fms",          {0,  getYPosition()},  &m_frameTimeChecker.getFrameTime());
-        m_hud.debug.addDebugSector("FPS: %.0f",                 {0,  getYPosition()},  &m_frameTimeChecker.getFPS());
+        m_hud.debug.addDebugSector("Frame Time: %fms",          {0, getYPosition()},  &m_frameTimeChecker.getFrameTime());
+        m_hud.debug.addDebugSector("FPS: %.0f",                 {0, getYPosition()},  &m_frameTimeChecker.getFPS());
+        m_hud.debug.addDebugSector("Faces drawn: %.0f",         {0, getYPosition()},  &m_world.m_facesDrawn);
         m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0, getYPosition()},  &m_player.position.x);
         m_hud.debug.addDebugSector("Player Position: Y: %.1f",  {0, getYPosition()},  &m_player.position.y);
         m_hud.debug.addDebugSector("Player Position: Z: %.1f",  {0, getYPosition()},  &m_player.position.z);

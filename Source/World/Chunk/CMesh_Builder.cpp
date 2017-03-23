@@ -112,44 +112,65 @@ namespace Chunk
                     //Y-Faces
                     if (shouldMakeFaceAdjTo(up))
                     {
-                        meshes.solidMesh.addFace(topFace, position, blockPosition);
-                        meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->topTextureCoords));
+                        meshes.solidMesh.addFace(   topFace,
+                                                    atlas.getTextureCoords(mp_activeData->topTextureCoords),
+                                                    1.0f,
+                                                    position,
+                                                    blockPosition);
                         faces++;
                     }
                     if (shouldMakeFaceAdjTo(down))
                     {
-                        meshes.solidMesh.addFace(bottomFace, position, blockPosition);
-                        meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->bottomTextureCoords));
+                        meshes.solidMesh.addFace(bottomFace,
+                                                 atlas.getTextureCoords(mp_activeData->bottomTextureCoords),
+                                                 0.5f,
+                                                 position,
+                                                 blockPosition);
+
                         faces++;
                     }
 
                     //X-Faces
                     if (shouldMakeFaceAdjTo(right))
                     {
-                        meshes.solidMesh.addFace(rightFace, position, blockPosition);
-                        meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
+                        meshes.solidMesh.addFace(rightFace,
+                                                 atlas.getTextureCoords(mp_activeData->sideTextureCoords),
+                                                 0.65f,
+                                                 position,
+                                                 blockPosition);
                         faces++;
                     }
                     if (shouldMakeFaceAdjTo(left))
                     {
-                        meshes.solidMesh.addFace(leftFace, position, blockPosition);
-                        meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
+                        meshes.solidMesh.addFace(leftFace,
+                                                 atlas.getTextureCoords(mp_activeData->sideTextureCoords),
+                                                 0.65f,
+                                                 position,
+                                                 blockPosition);
                         faces++;
                     }
 
                     //Z-Faces
                     if (shouldMakeFaceAdjTo(front))
                     {
-                        meshes.solidMesh.addFace(frontFace, position, blockPosition);
-                        meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
+                        meshes.solidMesh.addFace(frontFace,
+                                                 atlas.getTextureCoords(mp_activeData->sideTextureCoords),
+                                                 0.8f,
+                                                 position,
+                                                 blockPosition);
                         faces++;
                     }
+
                     if (shouldMakeFaceAdjTo(back))
                     {
-                        meshes.solidMesh.addFace(backFace, position, blockPosition);
-                        meshes.solidMesh.addTexCoords(atlas.getTextureCoords(mp_activeData->sideTextureCoords));
+                        meshes.solidMesh.addFace(backFace,
+                                                 atlas.getTextureCoords(mp_activeData->sideTextureCoords),
+                                                 0.8f,
+                                                 position,
+                                                 blockPosition);
                         faces++;
                     }
+
                 }
             }
         }

@@ -82,8 +82,9 @@ namespace Chunk
         m_chunkSections.push_back(std::make_unique<Section>(position, *mp_chunkMap));
     }
 
-    void Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)
+    uint32_t Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)
     {
+        uint32_t faces = 0;
         for (auto& chunk : m_chunkSections)
         {
             if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
@@ -91,8 +92,10 @@ namespace Chunk
             if (chunk->made)
             {
                 renderer.draw(*chunk);
+                faces += chunk->getMeshes().solidMesh.getFaceCount();
             }
         }
+        return faces;
     }
 
     bool Full_Chunk::tryGen(const Camera& camera)

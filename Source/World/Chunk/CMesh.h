@@ -16,23 +16,27 @@ namespace Chunk
             void reset();
 
             void addFace(const std::vector<GLfloat>&    templateFace,
+                         const std::vector<GLfloat>&    texCoords,
+                         GLfloat                        cardinalLight,
                          const Chunklet_Position&       chunkPos,
                          const Block::Small_Position&   blockPos);
-
-            void addTexCoords(const std::vector<GLfloat>& texCoords);
 
             void buffer();
 
             const Model& getModel() const;
 
+            uint32_t getFaceCount() const;
+
         private:
             std::vector<GLfloat> m_verticies;
             std::vector<GLfloat> m_texCoords;
+            std::vector<GLfloat> m_cardinalLights;
             std::vector<GLuint> m_indices;
 
             Model m_model;
 
             uint32_t m_indicesIndex = 0;
+            uint32_t m_facesCount = 0;
     };
 
     struct Meshes

@@ -44,8 +44,7 @@ void World::checkPlayerBounds(Player& player)
 
 void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
-    bool isMeshMade = false;
-
+    m_facesDrawn = 0;
     for (int32_t x = 0 ; x < m_worldSize; x++)
     {
         for (int32_t z = 0; z < m_worldSize; z++)
@@ -53,12 +52,12 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
             Chunk::Full_Chunk* chunk = m_chunks.m_chunks[{x, z}].get();
             if (chunk)
             {
-                chunk->draw(renderer, camera);
-
+                m_facesDrawn += chunk->draw(renderer, camera);
             }
         }
     }
 
+    bool isMeshMade = false;
     for (int32_t x = 0 ; x < m_worldSize; x++)
     {
         for (int32_t z = 0; z < m_worldSize; z++)

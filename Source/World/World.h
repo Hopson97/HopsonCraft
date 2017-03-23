@@ -20,6 +20,8 @@ namespace Renderer
 class World
 {
     public:
+        float m_facesDrawn    = 0;
+
         World(const Camera& camera, int32_t worldSize);
 
         void checkPlayerBounds(Player& player);
@@ -29,8 +31,7 @@ class World
         Chunk::Map m_chunks;
 
         const Camera*   m_p_camera;
-        int32_t m_worldSize = 0;
-
+        int32_t m_worldSize     = 0;
 };
 
 #endif // WORLD_H_INCLUDED
