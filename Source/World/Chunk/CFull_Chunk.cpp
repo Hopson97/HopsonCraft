@@ -13,14 +13,19 @@ namespace Chunk
     ,   mp_chunkMap (&map)
     ,   m_position  (position)
     {
-        int height = Random::intInRange(5, 25);
+        int height = Random::intInRange(10, 32);
         for (int32_t y = 0; y < height; ++y)
         {
             for (int32_t x = 0; x <  CHUNK_SIZE; ++x)
             {
                 for (int32_t z = 0; z < CHUNK_SIZE; ++z)
                 {
-                    setBlock({x, y, z}, 1);
+                    if (y == height - 1)
+                        setBlock({x, y, z}, 1);
+                    else if (y > height - 4)
+                        setBlock({x, y, z}, 2);
+                    else
+                        setBlock({x, y, z}, 3);
                 }
             }
         }

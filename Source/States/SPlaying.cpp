@@ -13,7 +13,7 @@ void Frame_Time_Checker::update()
 {
     m_frameCount++;
 
-    if (m_updateTimer.getElapsedTime().asSeconds() >= 0.5)
+    if (m_updateTimer.getElapsedTime().asSeconds() >= 0.3)
     {
         m_fps = m_frameCount / m_timer.getElapsedTime().asMilliseconds();
         if (m_fps > 0)
@@ -57,10 +57,17 @@ namespace State
         initHUD();
         initPause();
 
+        m_quady.position =
+        {
+            (worldSize * CHUNK_SIZE) / 2,
+            CHUNK_SIZE * 3,
+            (worldSize * CHUNK_SIZE) / 2
+        };
+
         m_player.position =
         {
             (worldSize * CHUNK_SIZE) / 2,
-            CHUNK_SIZE + 5 * 17,
+            CHUNK_SIZE * 3,
             (worldSize * CHUNK_SIZE) / 2
         };
     }
@@ -100,7 +107,7 @@ namespace State
                 m_player.position =
                 {
                     (worldSize * CHUNK_SIZE) / 2,
-                    CHUNK_SIZE + 5 * 17,
+                    CHUNK_SIZE * 3,
                     (worldSize * CHUNK_SIZE) / 2
                 };
             }
@@ -110,6 +117,10 @@ namespace State
 
     void Playing::update(Camera& camera, float dt)
     {
+        static sf::Clock c;
+        m_quady.position.x += sin(c.getElapsedTime().asSeconds()) * dt * 0.8;
+        m_quady.position.z += cos(c.getElapsedTime().asSeconds()) * dt * 0.8;
+
         if (m_isPaused)
         {
             m_pauseMenu.update();

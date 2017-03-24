@@ -34,7 +34,6 @@ namespace Display
                                                     sf::Style::Fullscreen,
                                                     settings);
         //window->setVerticalSyncEnabled(true);
-
         glewInit();
         glViewport(0, 0, get().getSize().x, get().getSize().y);
         glEnable    (GL_DEPTH_TEST);
