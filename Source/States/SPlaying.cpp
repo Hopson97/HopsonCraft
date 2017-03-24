@@ -43,7 +43,7 @@ namespace State
 {
     namespace
     {
-        uint32_t worldSize = 64;
+        uint32_t worldSize = 20;
     }
 
     Playing::Playing(Application& application)
