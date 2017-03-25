@@ -17,3 +17,17 @@ Coming soon...
 ## Implementation details
 
 Coming soon...
+
+## Credits
+
+#### Design 
+
+Matthew Hopson, https://github.com/Hopson97/
+
+#### Programming
+
+Matthew Hopson, https://github.com/Hopson97/
+
+#### Art
+
+Matthew Hopson, https://github.com/Hopson97/
