@@ -33,4 +33,16 @@ namespace Block
     {
         return *blocks[(int)blockID];
     }
+
+
+    const Type& get(uint8_t id)
+    {
+        return Database::get().getBlock(id);
+    }
+
+    const Type& get(ID blockID)
+    {
+        return Database::get().getBlock(blockID);
+    }
+
 }

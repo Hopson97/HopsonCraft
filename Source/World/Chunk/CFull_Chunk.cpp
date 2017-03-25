@@ -13,7 +13,7 @@ namespace Chunk
     ,   mp_chunkMap (&map)
     ,   m_position  (position)
     {
-        int height = Random::intInRange(10, 12);
+        int height = Random::intInRange(100, 100);
         for (int32_t y = 0; y < height; ++y)
         {
             for (int32_t x = 0; x <  CHUNK_SIZE; ++x)
@@ -40,8 +40,8 @@ namespace Chunk
             addSection();
         }
 
-        ///@TODO Change to use operator [] and regen mesh?
-        m_chunkSections.at(yPositionSection)
+        ///@TODO regen mesh?
+        m_chunkSections[yPositionSection]
             ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
     }
 
@@ -55,8 +55,7 @@ namespace Chunk
         }
         else
         {
-            ///@TODO Change to use operator []
-            return m_chunkSections.at(yPositionSection)
+            return m_chunkSections[yPositionSection]
                 ->qGetBlock(Maths::blockToSmallBlockPos(position));
         }
     }
@@ -74,8 +73,7 @@ namespace Chunk
         }
         else
         {
-            ///@TODO Change to use operator []
-            return m_chunkSections.at(index).get();
+            return m_chunkSections[index].get();
         }
     }
 

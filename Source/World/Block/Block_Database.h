@@ -27,6 +27,9 @@ namespace Block
         public:
             Texture::Atlas textures;
     };
+
+    const Type& get(uint8_t id);
+    const Type& get(ID blockID);
 }
 
 #endif // BLOCK_DATABASE_H_INCLUDED

@@ -4,6 +4,7 @@ namespace Chunk
 {
     void Map::addChunk(const Chunk::Position& position, World& world)
     {
+
         m_chunks.insert(std::make_pair((position),
                         std::make_unique<Full_Chunk>(world, *this, position)));
     }
@@ -12,7 +13,7 @@ namespace Chunk
     {
         Position chunkPos (position.x, position.z);
         return existsAt(position) ?
-            m_chunks.at(chunkPos)->getSection(position.y) :
+            m_chunks[chunkPos]->getSection(position.y) :
             nullptr;
     }
 
@@ -21,4 +22,18 @@ namespace Chunk
         Position chunkPos(position.x, position.z);
         return m_chunks.find(chunkPos) != m_chunks.end();
     }
+
+    Full_Chunk* Map::get(const Chunk::Position& position)
+    {
+        return existsAt(position) ?
+                    m_chunks[position].get() :
+                    nullptr;
+    }
+
+    bool Map::existsAt(const Chunk::Position& position)
+    {
+        Position chunkPos(position.x, position.y);
+        return m_chunks.find(chunkPos) != m_chunks.end();
+    }
+
 }

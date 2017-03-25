@@ -2,6 +2,7 @@
 #define CMAP_H_INCLUDED
 
 #include <unordered_map>
+#include <vector>
 #include <memory>
 
 #include "CSection.h"
@@ -9,15 +10,24 @@
 
 namespace Chunk
 {
-    struct Map
+    class Map
     {
-        ///@TODO Make this private
-        std::unordered_map<Chunk::Position, std::unique_ptr<Full_Chunk>> m_chunks;
+        public:
+            void addChunk(const Chunk::Position& position, World& world);
 
-        void addChunk(const Chunk::Position& position, World& world);
 
-        Section* get    (const Chunk::Chunklet_Position& position);
-        bool existsAt   (const Chunk::Chunklet_Position& position);
+            Full_Chunk* get (const Chunk::Position& position);
+            bool existsAt   (const Chunk::Position& position);
+
+            Section* get    (const Chunk::Chunklet_Position& position);
+            bool existsAt   (const Chunk::Chunklet_Position& position);
+
+        private:
+            std::unordered_map<Chunk::Position, std::unique_ptr<Full_Chunk>> m_chunks;
+
+            std::vector<Full_Chunk> m_chunksVector;
+            int32_t m_xOffset = 0;
+            int32_t m_zOffset = 0;
     };
 }
 

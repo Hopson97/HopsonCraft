@@ -49,7 +49,7 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
     {
         for (int32_t z = 0; z < m_worldSize; z++)
         {
-            Chunk::Full_Chunk* chunk = m_chunks.m_chunks[{x, z}].get();
+            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
             if (chunk)
             {
                 m_facesDrawn += chunk->draw(renderer, camera);
@@ -62,7 +62,7 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
     {
         for (int32_t z = 0; z < m_worldSize; z++)
         {
-            Chunk::Full_Chunk* chunk = m_chunks.m_chunks[{x, z}].get();
+            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
             if (chunk)
             {
                 if(chunk->tryGen(camera))
