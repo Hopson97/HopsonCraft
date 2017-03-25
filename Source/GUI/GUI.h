@@ -8,5 +8,6 @@
 #include "Text_Box.h"
 #include "Background.h"
 #include "Imaged_Button.h"
+#include "Toggle_Option_Button.h"
 
 #endif // GUI_H_INCLUDED

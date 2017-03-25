@@ -9,14 +9,15 @@ namespace State
 {
     Main_Menu::Main_Menu(Application& application)
     :   Game_State  (application)
-    ,   m_menu      (GUI::Layout::Center)
+    ,   m_frontMenu (GUI::Layout::Center)
+    ,   m_playMenu  (GUI::Layout::Center)
     {
         initMenu();
     }
 
     void Main_Menu::input(sf::Event& e)
     {
-        m_menu.input(e);
+        mp_activeMenu->input(e);
     }
 
     void Main_Menu::input(Camera& camera)
@@ -24,38 +25,63 @@ namespace State
 
     void Main_Menu::update(Camera& camera, float dt)
     {
-        m_menu.update();
+        mp_activeMenu->update();
     }
 
     void Main_Menu::draw(Renderer::Master& renderer)
     {
-        m_menu.draw(renderer);
+        mp_activeMenu->draw(renderer);
     }
 
     void Main_Menu::initMenu()
     {
-        m_menu.addPadding(100);
-        m_menu.addBackgroud(getResources().getTexture(Texture_ID::Menu_BG));
-        m_menu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
+        m_frontMenu.addPadding(100);
+        m_frontMenu.addBackgroud(getResources().getTexture(Texture_ID::Menu_BG));
+        m_frontMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
-        m_menu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
-            m_application->pushState(std::make_unique<State::Playing>(*m_application));
+            mp_activeMenu = &m_playMenu;
         }));
-
-        m_menu.addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
+/*
+        mp_activeMenu->addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
         { }));
 
-        m_menu.addComponent(std::make_unique<GUI::Button>("Settings (Unused)", [&]()
+        mp_activeMenu->addComponent(std::make_unique<GUI::Button>("Settings (Unused)", [&]()
         { }));
 
-        m_menu.addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
+        mp_activeMenu->addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
         { }));
-
-        m_menu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
+*/
+        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
         {
             m_application->popState();
         }));
-    }
 
+
+        m_playMenu.addPadding(100);
+        m_playMenu.addBackgroud(getResources().getTexture(Texture_ID::Menu_BG));
+        m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("World Size",
+        std::vector<std::string> { "Tiny", "Small", "Medium", "Large", "Huge"},
+        std::vector<int32_t>     { 16,     25,       32,      45,      64},
+        m_worldSize));
+
+        m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
+        {
+            mp_activeMenu = &m_frontMenu;
+            m_application->pushState(std::make_unique<State::Playing>(*m_application, m_worldSize));
+        }));
+
+        m_playMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
+        {
+            mp_activeMenu = &m_frontMenu;
+        }));
+
+
+    }
 }
+
+/*
+    m_application->pushState(std::make_unique<State::Playing>(*m_application));
+*/

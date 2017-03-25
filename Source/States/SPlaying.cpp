@@ -41,17 +41,14 @@ const float& Frame_Time_Checker::getFPS()
 
 namespace State
 {
-    namespace
-    {
-        uint32_t worldSize = 20;
-    }
-
-    Playing::Playing(Application& application)
+    Playing::Playing(Application& application,
+                     int32_t worldSize)
     :   Game_State  (application)
     ,   m_world     (application.getCamera(), worldSize)
     ,   m_player    (application.getCamera())
     ,   m_quady     (Block::Database::get().textures)
     ,   m_pauseMenu (GUI::Layout::Center)
+    ,   m_worldSize (worldSize)
     {
         application.getCamera().hookEntity(m_player);
         initHUD();
@@ -59,16 +56,16 @@ namespace State
 
         m_quady.position =
         {
-            (worldSize * CHUNK_SIZE) / 2,
+            (m_worldSize * CHUNK_SIZE) / 2,
             CHUNK_SIZE * 3,
-            (worldSize * CHUNK_SIZE) / 2
+            (m_worldSize * CHUNK_SIZE) / 2
         };
 
         m_player.position =
         {
-            (worldSize * CHUNK_SIZE) / 2,
+            (m_worldSize * CHUNK_SIZE) / 2,
             CHUNK_SIZE * 3,
-            (worldSize * CHUNK_SIZE) / 2
+            (m_worldSize * CHUNK_SIZE) / 2
         };
     }
 
@@ -106,9 +103,9 @@ namespace State
             {
                 m_player.position =
                 {
-                    (worldSize * CHUNK_SIZE) / 2,
+                    (m_worldSize * CHUNK_SIZE) / 2,
                     CHUNK_SIZE * 3,
-                    (worldSize * CHUNK_SIZE) / 2
+                    (m_worldSize * CHUNK_SIZE) / 2
                 };
             }
         }

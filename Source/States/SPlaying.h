@@ -32,7 +32,7 @@ namespace State
     class Playing : public Game_State
     {
         public:
-            Playing(Application& application);
+            Playing(Application& application, int32_t worldSize);
 
             void input  (sf::Event& e) override;
             void input  (Camera& camera) override;
@@ -52,6 +52,8 @@ namespace State
             GUI::Panel m_pauseMenu;
 
             bool                m_isPaused = false;
+
+            int32_t m_worldSize = 0;
     };
 }
 

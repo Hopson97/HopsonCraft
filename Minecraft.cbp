@@ -97,6 +97,8 @@
 		<Unit filename="Source/GUI/Panel.h" />
 		<Unit filename="Source/GUI/Text_Box.cpp" />
 		<Unit filename="Source/GUI/Text_Box.h" />
+		<Unit filename="Source/GUI/Toggle_Option_Button.cpp" />
+		<Unit filename="Source/GUI/Toggle_Option_Button.h" />
 		<Unit filename="Source/Glm_Common.h" />
 		<Unit filename="Source/HUD/Crosshair.cpp" />
 		<Unit filename="Source/HUD/Crosshair.h" />
