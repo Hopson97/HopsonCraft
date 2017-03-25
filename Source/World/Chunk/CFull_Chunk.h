@@ -36,9 +36,9 @@ namespace Chunk
             uint32_t draw   (Renderer::Master& renderer, const Camera& camera);
             bool tryGen (const Camera& camera);
 
-        private:
             void addSection();
 
+        private:
             std::vector<std::unique_ptr<Section>> m_chunkSections;
 
             World*      mp_world        = nullptr;

@@ -66,14 +66,66 @@ CBlock World::getBlock(const Vector3& position)
 void World::updateChunks()
 {
     std::unordered_map<Chunk::Chunklet_Position, Chunk::Section*> chunksToUpdate;
+
+    //Duh, inserts a chunk into the map..
+    auto insertChunk = [&](const Chunk::Chunklet_Position& chunkPosition,
+                                 Chunk::Section* chunk)
+    {
+        Chunk::Full_Chunk* chunkFull = m_chunks.get({chunkPosition.x, chunkPosition.z});
+        if(!chunkFull)
+            return;
+
+        while (!chunk)
+        {
+            chunkFull->addSection();
+            chunk = chunkFull->getSection(chunkPosition.y);
+        }
+        chunksToUpdate.insert(std::make_pair(chunkPosition, chunk));
+    };
+
+    //Lambda checks if blocks are being set on chunk edges, and if so, adds the adjacent chunk to the update batch
+    auto checkForBatchAdd = [&](int8_t position,
+                                const Chunk::Chunklet_Position& chunkPosition,
+                                const Vector3& direction)
+    {
+        if (position == 0)
+        {
+            Chunk::Chunklet_Position newChunkPosition(  chunkPosition.x - direction.x,
+                                                        chunkPosition.y - direction.y,
+                                                        chunkPosition.z - direction.z);
+
+            insertChunk(newChunkPosition, m_chunks.get(newChunkPosition));
+        }
+        else if (position == CHUNK_SIZE - 1)
+        {
+            Chunk::Chunklet_Position newChunkPosition(  chunkPosition.x + direction.x,
+                                                        chunkPosition.y + direction.y,
+                                                        chunkPosition.z + direction.z);
+
+            insertChunk(newChunkPosition, m_chunks.get(newChunkPosition));
+        }
+    };
+
+
+
     for (New_Block& newBlock : m_newBlocks)
     {
         Chunk::Chunklet_Position    chunkPosition   = Maths::worldToChunkletPos(newBlock.position);
         Block::Small_Position       blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(newBlock.position));
         Chunk::Section*             chunk           = m_chunks.get(chunkPosition);
+        Chunk::Full_Chunk*          chunkFull       = m_chunks.get({chunkPosition.x, chunkPosition.z});
+
+        while (!chunk)
+        {
+            chunkFull->addSection();
+            chunk = chunkFull->getSection(chunkPosition.y);
+        }
 
         chunk->qSetBlock(blockPosition, newBlock.block);
-        chunksToUpdate.insert(std::make_pair(chunkPosition, chunk));
+        insertChunk(chunkPosition, chunk);
+        checkForBatchAdd(blockPosition.x, chunkPosition, {1, 0, 0});
+        checkForBatchAdd(blockPosition.y, chunkPosition, {0, 1, 0});
+        checkForBatchAdd(blockPosition.z, chunkPosition, {0, 0, 1});
     }
 
     for (auto& chunk : chunksToUpdate)
@@ -81,6 +133,8 @@ void World::updateChunks()
         Chunk::Section* sect = chunk.second;
         sect->makeMesh();
     }
+
+    m_newBlocks.clear();
 }
 
 
