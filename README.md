@@ -1,7 +1,7 @@
 # HopsonCraft
 
 ## Dependencies
-The project requires these libraries: SFML (minimum 2.4), GLEW, and GLM.
+The project requires these libraries: SFML (minimum 2.4), GLEW (OpenGL 3.3+), and OpenGL Maths Library (GLM).
 
 Compile using compiler flags: ``-std=c++14 -O3 -s``
 
