@@ -96,7 +96,7 @@ namespace Chunk
                     if(mp_section->qGetBlock(blockPosition) == 0)
                         continue;
 
-                    mp_activeData = &Block::Database::get().getBlock(mp_section->qGetBlock(blockPosition).id).getData().get();
+                    mp_activeData = &Block::get(mp_section->qGetBlock(blockPosition).id).getData().get();
 
                     Chunklet_Position position = mp_section->getPosition();
 

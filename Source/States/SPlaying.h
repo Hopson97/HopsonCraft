@@ -40,6 +40,8 @@ namespace State
             void draw   (Renderer::Master& renderer) override;
 
         private:
+            Vector3 getCenterPosition();
+
             void initHUD();
             void initPause();
 

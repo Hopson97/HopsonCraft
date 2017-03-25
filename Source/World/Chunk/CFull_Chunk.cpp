@@ -13,7 +13,7 @@ namespace Chunk
     ,   mp_chunkMap (&map)
     ,   m_position  (position)
     {
-        int height = Random::intInRange(100, 100);
+        int height = Random::intInRange(30, 40);
         for (int32_t y = 0; y < height; ++y)
         {
             for (int32_t x = 0; x <  CHUNK_SIZE; ++x)

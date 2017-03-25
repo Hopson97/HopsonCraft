@@ -54,19 +54,9 @@ namespace State
         initHUD();
         initPause();
 
-        m_quady.position =
-        {
-            (m_worldSize * CHUNK_SIZE) / 2,
-            CHUNK_SIZE * 3,
-            (m_worldSize * CHUNK_SIZE) / 2
-        };
+        m_quady.position = getCenterPosition();
 
-        m_player.position =
-        {
-            (m_worldSize * CHUNK_SIZE) / 2,
-            CHUNK_SIZE * 3,
-            (m_worldSize * CHUNK_SIZE) / 2
-        };
+        m_player.position = getCenterPosition();
     }
 
     void Playing::input(sf::Event& e)
@@ -101,12 +91,7 @@ namespace State
             m_player.input();
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
             {
-                m_player.position =
-                {
-                    (m_worldSize * CHUNK_SIZE) / 2,
-                    CHUNK_SIZE * 3,
-                    (m_worldSize * CHUNK_SIZE) / 2
-                };
+                m_player.position = getCenterPosition();
             }
         }
     }
@@ -138,6 +123,17 @@ namespace State
 
         m_hud.draw(renderer);
     }
+
+    Vector3 Playing::getCenterPosition()
+    {
+        return
+        {
+            (m_worldSize * CHUNK_SIZE) / 2,
+            CHUNK_SIZE * 3,
+            (m_worldSize * CHUNK_SIZE) / 2
+        };
+    }
+
 
     void Playing::initHUD()
     {
