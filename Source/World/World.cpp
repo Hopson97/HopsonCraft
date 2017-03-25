@@ -180,7 +180,9 @@ void World::draw(Renderer::Master& renderer, const Camera& camera)
 
 void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
-    updateChunks();
+    if (!m_newBlocks.empty())
+        updateChunks();
+
     draw(renderer, camera);
     buffer(camera);
 }
