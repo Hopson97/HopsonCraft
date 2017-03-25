@@ -19,6 +19,17 @@ namespace Renderer
 
 class World
 {
+    struct New_Block
+    {
+        New_Block(CBlock block, const Vector3& position)
+        :   block       (block)
+        ,   position    (position)
+        { }
+
+        CBlock block;
+        Vector3 position;
+    };
+
     public:
         float m_facesDrawn    = 0;
 
@@ -27,7 +38,15 @@ class World
         void checkPlayerBounds(Player& player);
         void drawWorld(Renderer::Master& renderer, const Camera& camera);
 
+        void setBlock(const Vector3& position, CBlock block);
+
     private:
+        void updateChunks();
+        void buffer(const Camera& camera);
+        void draw  (Renderer::Master& renderer, const Camera& camera);
+
+        std::vector<New_Block> m_newBlocks;
+
         Chunk::Map m_chunks;
 
         const Camera*   m_p_camera;

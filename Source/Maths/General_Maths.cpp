@@ -7,6 +7,15 @@
 namespace Maths
 {
 
+    Chunk::Chunklet_Position worldToChunkletPos(const Vector3& position)
+    {
+        auto fullChunk = worldToChunkPos(position);
+        auto yIndex  = position.y / CHUNK_SIZE;
+
+        return {fullChunk.x, yIndex, fullChunk.y};
+    }
+
+
     Chunk::Position worldToChunkPos(const Vector3& position)
     {
         return  {(int32_t)position.x / CHUNK_SIZE,

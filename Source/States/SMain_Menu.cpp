@@ -43,7 +43,7 @@ namespace State
         {
             mp_activeMenu = &m_playMenu;
         }));
-/*
+
         mp_activeMenu->addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
         { }));
 
@@ -52,7 +52,7 @@ namespace State
 
         mp_activeMenu->addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
         { }));
-*/
+
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
         {
             m_application->popState();
