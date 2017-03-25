@@ -90,12 +90,17 @@ namespace Chunk
         uint32_t faces = 0;
         for (auto& chunk : m_chunkSections)
         {
-            if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
-                continue;
-            if (chunk->made)
+            //No point trying to render a chunk with no faces
+            if (chunk->getMeshes().solidMesh.getFaceCount() > 0)
             {
-                renderer.draw(*chunk);
-                faces += chunk->getMeshes().solidMesh.getFaceCount();
+                //Frustum test
+                if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
+                    continue;
+                if (chunk->made)
+                {
+                    renderer.draw(*chunk);
+                    faces += chunk->getMeshes().solidMesh.getFaceCount();
+                }
             }
         }
         return faces;
