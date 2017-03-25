@@ -16,7 +16,18 @@ Coming soon...
 
 ## Implementation details
 
+#### Rendering
 Coming soon...
+
+#### Meshes
+Coming soon...
+
+#### Collisions
+Coming soon...
+
+#### Block editing
+Coming soon...
+
 
 ## Credits
 
