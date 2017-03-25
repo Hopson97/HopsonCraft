@@ -38,7 +38,8 @@ class World
         void checkPlayerBounds(Player& player);
         void drawWorld(Renderer::Master& renderer, const Camera& camera);
 
-        void setBlock(const Vector3& position, CBlock block);
+        void setBlock   (const Vector3& position, CBlock block);
+        CBlock getBlock (const Vector3& position);
 
     private:
         void updateChunks();

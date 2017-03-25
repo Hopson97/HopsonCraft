@@ -8,6 +8,7 @@
 #include "../Camera.h"
 #include "../Application.h"
 #include "../Display.h"
+#include "../Physics/Ray.h"
 
 void Frame_Time_Checker::update()
 {
@@ -86,14 +87,62 @@ namespace State
 
     void Playing::input(Camera& camera)
     {
-        if (!m_isPaused)
+        if (m_isPaused)
         {
-            m_player.input();
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-            {
-                m_player.position = getCenterPosition();
-            }
+            return;
         }
+
+        m_player.input();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        {
+            m_player.position = getCenterPosition();
+        }
+
+/**/
+
+        Ray raycast (m_player.rotation.y + 90,
+                     m_player.rotation.x,
+                     m_player.position);
+        Vector3 lastPosition = raycast.getEndPoint();
+
+        static sf::Clock timer;
+
+        for (uint32_t i = 0; i < 5 / 0.1; i++)
+        {
+            raycast.step(0.1);
+
+            if (raycast.getEndPoint().x < 0 ||
+                raycast.getEndPoint().z < 0 ||
+                raycast.getEndPoint().y < 1 ) return;
+
+            CBlock block = m_world.getBlock(raycast.getEndPoint());
+
+            if (!(block == Block::ID::Air ||
+                 block == Block::ID::Water))
+            {
+                float delay = 0.2f;
+
+                if (timer.getElapsedTime().asSeconds() > delay)
+                {
+                    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                    {
+                        timer.restart();
+                        m_world.setBlock(raycast.getEndPoint(), 0);
+                        break;
+                    }
+                    else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                    {
+                        timer.restart();
+                        m_world.setBlock(lastPosition, 1);
+                        break;
+                    }
+                }
+
+
+            }
+            lastPosition = raycast.getEndPoint();
+        }
+/**/
     }
 
 

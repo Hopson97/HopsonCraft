@@ -30,7 +30,7 @@ namespace GUI
             std::vector<int32_t>     m_optionValues;
             int32_t* mp_option;
             std::string m_label;
-            int32_t m_optionIndex = 0;
+            int32_t m_optionIndex = -1;
     };
 }
 

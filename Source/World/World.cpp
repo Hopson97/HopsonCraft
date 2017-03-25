@@ -49,6 +49,20 @@ void World::setBlock(const Vector3& position, CBlock block)
     m_newBlocks.emplace_back(block, position);
 }
 
+CBlock World::getBlock(const Vector3& position)
+{
+    Chunk::Chunklet_Position    chunkPosition   = Maths::worldToChunkletPos(position);
+    Block::Small_Position       blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(position));
+
+    Chunk::Section* chunk = m_chunks.get(chunkPosition);
+
+    if (chunk)
+        return chunk->qGetBlock(blockPosition);
+    else
+        return Block::ID::Air;
+}
+
+
 void World::updateChunks()
 {
     std::unordered_map<Chunk::Chunklet_Position, Chunk::Section*> chunksToUpdate;
@@ -109,8 +123,6 @@ void World::draw(Renderer::Master& renderer, const Camera& camera)
         }
     }
 }
-
-
 
 void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
