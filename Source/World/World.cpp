@@ -63,7 +63,7 @@ CBlock World::getBlock(const Vector3& position)
 }
 
 
-void World::updateChunks()
+void World::regenerateChunks()
 {
     std::unordered_map<Chunk::Chunklet_Position, Chunk::Section*> chunksToUpdate;
 
@@ -181,7 +181,7 @@ void World::draw(Renderer::Master& renderer, const Camera& camera)
 void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
     if (!m_newBlocks.empty())
-        updateChunks();
+        regenerateChunks();
 
     draw(renderer, camera);
     buffer(camera);

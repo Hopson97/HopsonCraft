@@ -42,7 +42,7 @@ class World
         CBlock getBlock (const Vector3& position);
 
     private:
-        void updateChunks();
+        void regenerateChunks();
         void buffer(const Camera& camera);
         void draw  (Renderer::Master& renderer, const Camera& camera);
 
