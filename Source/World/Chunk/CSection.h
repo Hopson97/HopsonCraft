@@ -72,8 +72,9 @@ namespace Chunk
 
             const AABB& getAABB() const;
 
-            bool needsUpdate() { return m_needsUpdate; }
-            void resetUpdate() { m_needsUpdate = false; }
+            bool needsUpdate() { return !m_updateQueued; }
+            void resetUpdate() { m_updateQueued = false; }
+            void updated() { m_updateQueued = true; }
 
         private:
             Section* getSection(Block::Small_Position& position);
@@ -97,7 +98,7 @@ namespace Chunk
             AABB m_aabb;
 
             ////////////////////////////////////////////////////////////////////
-            bool m_needsUpdate = false;
+            bool m_updateQueued = false;
     };
 }
 
