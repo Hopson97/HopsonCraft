@@ -64,14 +64,15 @@ CBlock World::getBlock(const Vector3& position)
 
 
 void World::addSectionUpdate(Chunk::Section* section) {
-    if(section->needsUpdate()) {
+    if(section != nullptr && section->needsUpdate()) {
         m_sectionsToUpdate.emplace_back(section);
     }
 }
 
 int checkBlockAddEdge(int8_t position, 
                        const Chunk::Chunklet_Position& chunkPosition) {
-    if(position == 0 || position == CHUNK_SIZE - 1) {
+    position %= CHUNK_SIZE;
+     if(position == 0 || position == CHUNK_SIZE - 1) {
         return ((position == 0) ? -1 : 1);
     }
     return 0;
@@ -88,7 +89,7 @@ void World::regenerateChunks()
 
         /*vv- I suppose you could shorten this if you want -vv*/
         int res = checkBlockAddEdge(blockPosition.x, chunkPosition);
-        if(res) { 
+        if(res) {
             addSectionUpdate(m_chunks.get(chunkPosition + (sf::Vector3<int32_t>(1, 0, 0)*res))); 
         }
         res = checkBlockAddEdge(blockPosition.y, chunkPosition);
@@ -156,3 +157,5 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
     draw(renderer, camera);
     buffer(camera);
 }
+
+
