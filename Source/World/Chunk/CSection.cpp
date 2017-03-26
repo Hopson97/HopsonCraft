@@ -25,6 +25,7 @@ namespace Chunk
         m_meshBuilder.generateMesh(m_meshes);
         m_meshes.solidMesh.buffer();
         made = true;
+        m_updateQueued = false;
     }
 
 
@@ -148,24 +149,3 @@ namespace Chunk
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

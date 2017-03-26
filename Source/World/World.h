@@ -41,11 +41,14 @@ class World
         void setBlock   (const Vector3& position, CBlock block);
         CBlock getBlock (const Vector3& position);
 
+        void addSectionUpdate(Chunk::Section* section);
+
     private:
         void regenerateChunks();
         void buffer(const Camera& camera);
         void draw  (Renderer::Master& renderer, const Camera& camera);
 
+        std::vector<Chunk::Section*> m_sectionsToUpdate;
         std::vector<New_Block> m_newBlocks;
 
         Chunk::Map m_chunks;

@@ -25,7 +25,7 @@ namespace Chunk
         public:
             Full_Chunk(World& world, Map& map, const Position& position);
 
-            void   setBlock(const Block::Position& position, CBlock block);
+            void   setBlock(const Block::Position& position, CBlock block, bool updateChunk = false);
             CBlock getBlock(const Block::Position& position);
             const Position& getPosition() const;
 
