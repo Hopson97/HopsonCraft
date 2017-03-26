@@ -10,7 +10,7 @@
 namespace Block
 {
     class Data_Holder;
-};
+}
 
 namespace Chunk
 {

@@ -58,6 +58,11 @@ namespace
         BLOCK_SIZE, 0, BLOCK_SIZE,
         0,          0, BLOCK_SIZE
     };
+
+    constexpr GLfloat TOP_LIGHT      = 1.0f;
+    constexpr GLfloat X_LIGHT        = 0.8f;
+    constexpr GLfloat Z_LIGHT        = 0.6f;
+    constexpr GLfloat BOTTOM_LIGHT   = 0.6f;
 }
 
 
@@ -114,7 +119,7 @@ namespace Chunk
                     {
                         meshes.solidMesh.addFace(   topFace,
                                                     atlas.getTextureCoords(mp_activeData->topTextureCoords),
-                                                    1.0f,
+                                                    TOP_LIGHT,
                                                     position,
                                                     blockPosition);
                         faces++;
@@ -123,7 +128,7 @@ namespace Chunk
                     {
                         meshes.solidMesh.addFace(bottomFace,
                                                  atlas.getTextureCoords(mp_activeData->bottomTextureCoords),
-                                                 0.5f,
+                                                 BOTTOM_LIGHT,
                                                  position,
                                                  blockPosition);
 
@@ -135,7 +140,7 @@ namespace Chunk
                     {
                         meshes.solidMesh.addFace(rightFace,
                                                  atlas.getTextureCoords(mp_activeData->sideTextureCoords),
-                                                 0.65f,
+                                                 X_LIGHT,
                                                  position,
                                                  blockPosition);
                         faces++;
@@ -144,7 +149,7 @@ namespace Chunk
                     {
                         meshes.solidMesh.addFace(leftFace,
                                                  atlas.getTextureCoords(mp_activeData->sideTextureCoords),
-                                                 0.65f,
+                                                 X_LIGHT,
                                                  position,
                                                  blockPosition);
                         faces++;
@@ -155,7 +160,7 @@ namespace Chunk
                     {
                         meshes.solidMesh.addFace(frontFace,
                                                  atlas.getTextureCoords(mp_activeData->sideTextureCoords),
-                                                 0.8f,
+                                                 Z_LIGHT,
                                                  position,
                                                  blockPosition);
                         faces++;
@@ -165,7 +170,7 @@ namespace Chunk
                     {
                         meshes.solidMesh.addFace(backFace,
                                                  atlas.getTextureCoords(mp_activeData->sideTextureCoords),
-                                                 0.8f,
+                                                 Z_LIGHT,
                                                  position,
                                                  blockPosition);
                         faces++;

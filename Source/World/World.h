@@ -21,9 +21,9 @@ class World
 {
     struct New_Block
     {
-        New_Block(CBlock block, const Vector3& position)
-        :   block       (block)
-        ,   position    (position)
+        New_Block(CBlock newBlock, const Vector3& blockPosition)
+        :   block       (newBlock)
+        ,   position    (blockPosition)
         { }
 
         CBlock block;

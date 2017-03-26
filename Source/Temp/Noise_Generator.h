@@ -8,17 +8,15 @@ namespace Noise
     struct Data
     {
         Data() = default;
-        Data(int octaves, int ampMult, double rough, double smooth, int heightOffset)
-        :   octaves             (octaves)
+        Data(int numOctaves, int ampMult, double rough, double smooth)
+        :   octaves             (numOctaves)
         ,   amplitudeMultiplier (ampMult)
         ,   roughness           (rough)
-        ,   smoother            (smooth)
-        ,   heightOffset        (heightOffset) {}
+        ,   smoother            (smooth) {}
         int octaves = 8;
         int amplitudeMultiplier = 240;
         double roughness = 0.48;
         double smoother = 190;
-        int heightOffset = 0;
     };
 
     uint64_t getSeed     ();

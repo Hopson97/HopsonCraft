@@ -60,7 +60,7 @@ namespace
     {
         Noise::Generator m_noiseGen;
         m_noiseGen.setSeed(555);
-        m_noiseGen.setNoiseFunction({8, 100, 0.53, 240, 0});
+        m_noiseGen.setNoiseFunction({8, 100, 0.53, 240});
 
         float total = 0;
         std::vector<double> test;

@@ -5,6 +5,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include "../Shaders/Simple_Shader.h"
+#include "../Model.h"
 
 class Quad;
 struct Camera;
@@ -14,8 +15,9 @@ namespace Renderer
     class RSimple
     {
         public:
-            void draw (const Quad& quad);
+            RSimple();
 
+            void draw (const Quad& quad);
             void update(const Camera& camera);
 
         private:
@@ -25,6 +27,8 @@ namespace Renderer
             std::vector<const Quad*> m_quads;
 
             Shader::Simple_Shader m_shader;
+
+            Model m_cubeModel;
     };
 }
 

@@ -47,7 +47,6 @@ namespace State
     :   Game_State  (application)
     ,   m_world     (application.getCamera(), worldSize)
     ,   m_player    (application.getCamera())
-    ,   m_quady     (Block::Database::get().textures)
     ,   m_pauseMenu (GUI::Layout::Center)
     ,   m_worldSize (worldSize)
     {

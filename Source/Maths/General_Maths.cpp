@@ -12,7 +12,7 @@ namespace Maths
         auto fullChunk = worldToChunkPos(position);
         auto yIndex  = position.y / CHUNK_SIZE;
 
-        return {fullChunk.x, yIndex, fullChunk.y};
+        return {fullChunk.x, (int32_t)yIndex, fullChunk.y};
     }
 
 
@@ -21,6 +21,7 @@ namespace Maths
         return  {(int32_t)position.x / CHUNK_SIZE,
                  (int32_t)position.z / CHUNK_SIZE};
     }
+
 
     Block::Position worldToBlockPos(const Vector3& position)
     {

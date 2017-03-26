@@ -11,13 +11,7 @@ namespace Texture
 
 class Quad : public Entity
 {
-    public:
-        Quad(Texture::Atlas& textureAtlas);
 
-        const Model& getModel() const;
-
-    private:
-        Model m_model;
 };
 
 #endif // QUAD_H_INCLUDED

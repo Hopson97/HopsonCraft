@@ -7,26 +7,26 @@
 struct CBlock
 {
     CBlock();
-    CBlock(Block_t      id);
-    CBlock(Block::ID    id);
+    CBlock(Block_t      newID);
+    CBlock(Block::ID    newID);
 
     template<typename T>
-    CBlock& operator=(T id)
+    CBlock& operator=(T newID)
     {
-        this->id = static_cast<Block_t>(id);
+        id = static_cast<Block_t>(newID);
         return *this;
     }
 
     template<typename T>
-    bool operator !=(T id)
+    bool operator !=(T newID)
     {
-        return this->id != static_cast<Block_t>(id);
+        return id != static_cast<Block_t>(newID);
     }
 
     template<typename T>
-    bool operator ==(T id)
+    bool operator ==(T newID)
     {
-        return this->id == static_cast<Block_t>(id);
+        return id == static_cast<Block_t>(newID);
     }
 
     uint16_t id          : 12;

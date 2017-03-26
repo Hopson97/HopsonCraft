@@ -1,8 +1,8 @@
 #include "AABB.h"
 
 
-AABB::AABB(const Vector3& dimensions)
-:   dimensions (dimensions)
+AABB::AABB(const Vector3& dimension)
+:   dimensions (dimension)
 { }
 
 void AABB::update(const Vector3& position)

@@ -12,7 +12,7 @@ namespace Shader
     {
         public:
             Shader_Program(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
-            ~Shader_Program();
+            virtual ~Shader_Program();
 
             void bind   ();
             void unbind ();

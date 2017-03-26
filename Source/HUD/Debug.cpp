@@ -3,10 +3,10 @@
 #include "../Resource_Managers/Resource_Holder.h"
 #include "../Renderer/RMaster.h"
 
-Debug_HUD::Section::Section(std::string&& format, const sf::Vector2f& position, const void* info)
-:   format      (std::move(format))
-,   position    (position)
-,   info        (info)
+Debug_HUD::Section::Section(std::string&& stringFormat, const sf::Vector2f& textPosition, const void* var)
+:   format      (std::move(stringFormat))
+,   position    (textPosition)
+,   info        (var)
 {
     text.setCharacterSize       (20);
     text.setFont                (getResources().getFont(Font_ID::RS));

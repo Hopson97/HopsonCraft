@@ -20,6 +20,7 @@ namespace State
     {
         public:
             Game_State(Application& application);
+            virtual ~Game_State() = default;
 
             virtual void input  (sf::Event& e) {}
             virtual void input  (Camera& camera) = 0;
