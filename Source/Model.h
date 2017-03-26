@@ -14,6 +14,7 @@ class Model
               const std::vector<GLuint>&  indices);
         ~Model();
         Model(const Model& other) = delete;
+        Model(Model&& other);
 
         void addData(const std::vector<GLfloat>& vertexPositions,
                      const std::vector<GLfloat>& textureCoordinates,

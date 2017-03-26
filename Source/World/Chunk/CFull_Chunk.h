@@ -23,11 +23,18 @@ namespace Chunk
     class Full_Chunk
     {
         public:
+            Full_Chunk() = default;
             Full_Chunk(World& world, Map& map, const Position& position);
 
             void   setBlock(const Block::Position& position, CBlock block);
             CBlock getBlock(const Block::Position& position);
             const Position& getPosition() const;
+
+            ///@TODO Move to .cpp file
+            int32_t getHighestBlock(int32_t x, int32_t z) const
+            {
+                return m_highestBlocks[x * CHUNK_SIZE + z];
+            }
 
 
 
@@ -38,8 +45,11 @@ namespace Chunk
 
             void addSection();
 
+            void calculateHighestBlocks();
+
         private:
-            std::vector<std::unique_ptr<Section>> m_chunkSections;
+            std::vector<std::unique_ptr<Section>>   m_chunkSections;
+            std::vector<int32_t>                    m_highestBlocks;
 
             World*      mp_world        = nullptr;
             Map*        mp_chunkMap     = nullptr;

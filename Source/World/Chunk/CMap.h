@@ -23,7 +23,7 @@ namespace Chunk
             bool existsAt   (const Chunk::Chunklet_Position& position);
 
         private:
-            std::unordered_map<Chunk::Position, std::unique_ptr<Full_Chunk>> m_chunks;
+            std::unordered_map<Chunk::Position, Full_Chunk> m_chunks;
 
             std::vector<Full_Chunk> m_chunksVector;
             int32_t m_xOffset = 0;

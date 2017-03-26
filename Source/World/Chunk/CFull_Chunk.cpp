@@ -1,5 +1,7 @@
 #include "CFull_Chunk.h"
 
+#include <iostream>
+
 #include "../World_Constants.h"
 #include "../../Maths/General_Maths.h"
 #include "../../Camera.h"
@@ -12,6 +14,7 @@ namespace Chunk
     :   mp_world    (&world)
     ,   mp_chunkMap (&map)
     ,   m_position  (position)
+    ,   m_highestBlocks (CHUNK_AREA)
     {
         int height = Random::intInRange(30, 40);
         for (int32_t y = 0; y < height; ++y)
@@ -29,7 +32,28 @@ namespace Chunk
                 }
             }
         }
+        calculateHighestBlocks();
     }
+
+    void Full_Chunk::calculateHighestBlocks()
+    {
+        int32_t m_height = m_sectionCount * CHUNK_SIZE + CHUNK_SIZE - 1;
+
+        for (int32_t x = 0; x <  CHUNK_SIZE; ++x)
+        {
+            for (int32_t z = 0; z < CHUNK_SIZE; ++z)
+            {
+                const Block::Data_Holder* blockData = &Block::get(getBlock({x, m_height, z}).id).getData().get();
+                int32_t y = m_height;
+                for (; !blockData->isOpaque ; y--)
+                {
+                    blockData = &Block::get(getBlock({x, y, z}).id).getData().get();
+                }
+                m_highestBlocks[x * CHUNK_SIZE + z] = y;
+            }
+        }
+    }
+
 
     void Full_Chunk::setBlock(const Block::Position& position, CBlock block)
     {
@@ -40,7 +64,6 @@ namespace Chunk
             addSection();
         }
 
-        ///@TODO regen mesh?
         m_chunkSections[yPositionSection]
             ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
     }

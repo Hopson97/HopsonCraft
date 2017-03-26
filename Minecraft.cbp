@@ -41,6 +41,15 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-Wnon-virtual-dtor" />
+			<Add option="-Wshadow" />
+			<Add option="-Winit-self" />
+			<Add option="-Wredundant-decls" />
+			<Add option="-Wcast-align" />
+			<Add option="-Wfloat-equal" />
+			<Add option="-Wunreachable-code" />
+			<Add option="-Wzero-as-null-pointer-constant" />
+			<Add option="-pedantic-errors" />
 			<Add option="-Wall" />
 			<Add option="-std=c++14" />
 			<Add option="-fexceptions" />

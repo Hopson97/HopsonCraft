@@ -112,7 +112,7 @@ void World::regenerateChunks()
     {
         Chunk::Chunklet_Position    chunkPosition   = Maths::worldToChunkletPos(newBlock.position);
         Block::Small_Position       blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(newBlock.position));
-        Chunk::Section*             chunk           = m_chunks.get(chunkPosition);
+        Chunk::Section*             chunk           = nullptr;
         Chunk::Full_Chunk*          chunkFull       = m_chunks.get({chunkPosition.x, chunkPosition.z});
 
         while (!chunk)

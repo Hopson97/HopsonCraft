@@ -117,6 +117,8 @@ namespace Chunk
                     //Y-Faces
                     if (shouldMakeFaceAdjTo(up))
                     {
+                        ///@TODO Get full chunk
+
                         meshes.solidMesh.addFace(   topFace,
                                                     atlas.getTextureCoords(mp_activeData->topTextureCoords),
                                                     TOP_LIGHT,
