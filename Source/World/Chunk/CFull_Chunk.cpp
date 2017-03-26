@@ -32,7 +32,7 @@ namespace Chunk
         }
     }
     
-    void Full_Chunk::setBlock(const Block::Position& position, CBlock block, bool updateChunk = false)
+    void Full_Chunk::setBlock(const Block::Position& position, CBlock block, bool updateChunk)
     {
         int32_t yPositionSection = position.y / CHUNK_SIZE;
 
@@ -41,7 +41,7 @@ namespace Chunk
             addSection();
         }
 
-        if(updateChunk){
+        if(m_chunkSections[yPositionSection]->needsUpdate() && updateChunk){
             mp_world->addSectionUpdate(m_chunkSections[yPositionSection].get());
         }
         m_chunkSections[yPositionSection]
