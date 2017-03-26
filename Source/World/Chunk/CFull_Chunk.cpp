@@ -32,28 +32,7 @@ namespace Chunk
                 }
             }
         }
-        calculateHighestBlocks();
     }
-
-    void Full_Chunk::calculateHighestBlocks()
-    {
-        int32_t m_height = m_sectionCount * CHUNK_SIZE + CHUNK_SIZE - 1;
-
-        for (int32_t x = 0; x <  CHUNK_SIZE; ++x)
-        {
-            for (int32_t z = 0; z < CHUNK_SIZE; ++z)
-            {
-                const Block::Data_Holder* blockData = &Block::get(getBlock({x, m_height, z}).id).getData().get();
-                int32_t y = m_height;
-                for (; !blockData->isOpaque ; y--)
-                {
-                    blockData = &Block::get(getBlock({x, y, z}).id).getData().get();
-                }
-                m_highestBlocks[x * CHUNK_SIZE + z] = y;
-            }
-        }
-    }
-
 
     void Full_Chunk::setBlock(const Block::Position& position, CBlock block)
     {
@@ -105,7 +84,7 @@ namespace Chunk
     {
         Chunklet_Position position (m_position.x, m_sectionCount++, m_position.y);
 
-        m_chunkSections.push_back(std::make_unique<Section>(position, *mp_chunkMap));
+        m_chunkSections.push_back(std::make_unique<Section>(position, *mp_chunkMap, *this));
     }
 
     uint32_t Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)

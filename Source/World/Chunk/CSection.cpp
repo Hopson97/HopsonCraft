@@ -9,10 +9,11 @@ namespace Chunk
 {
     const Section::Layer Section::errorLayer;
 
-    Section::Section(const Chunklet_Position& position, Map& map)
+    Section::Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk)
     :   m_position      (position)
     ,   m_meshBuilder   (*this)
     ,   mp_chunks       (&map)
+    ,   m_parentChunk   (&fullChunk)
     ,   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
     {
         m_aabb.update({ position.x * CHUNK_SIZE,
@@ -45,13 +46,13 @@ namespace Chunk
         {
             Chunk::Chunklet_Position newPos = m_position + change;
 
-            if (mp_chunks->existsAt({newPos.x, newPos.y, newPos.z}))
+            //if (mp_chunks->existsAt({newPos.x, newPos.y, newPos.z}))
             {
                 return mp_chunks->get({newPos.x, newPos.y, newPos.z});
             }
-            else
+            //else
             {
-                return nullptr;
+            //    return nullptr;
             }
         }
     }
@@ -73,13 +74,13 @@ namespace Chunk
         {
             Chunk::Chunklet_Position newPos = m_position + change;
 
-            if (mp_chunks->existsAt({newPos.x, newPos.y, newPos.z}))
+            //if (mp_chunks->existsAt({newPos.x, newPos.y, newPos.z}))
             {
                 return mp_chunks->get({newPos.x, newPos.y, newPos.z});
             }
-            else
+            //else
             {
-                return nullptr;
+            //    return nullptr;
             }
         }
     }

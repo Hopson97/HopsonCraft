@@ -36,16 +36,12 @@ namespace Chunk
                 return m_highestBlocks[x * CHUNK_SIZE + z];
             }
 
-
-
             Section* getSection(int32_t index);
 
             uint32_t draw   (Renderer::Master& renderer, const Camera& camera);
             bool tryGen (const Camera& camera);
 
             void addSection();
-
-            void calculateHighestBlocks();
 
         private:
             std::vector<std::unique_ptr<Section>>   m_chunkSections;

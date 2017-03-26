@@ -2,39 +2,50 @@
 
 namespace Chunk
 {
+    Map::Map(int32_t renderDistance)
+    :   m_currRenderDistance    (renderDistance)
+    ,   m_chunksVector          (renderDistance * renderDistance)
+    { }
+
+    int32_t Map::getIndex(const Chunk::Position& position)
+    {
+        return position.x * m_currRenderDistance + position.y;
+    }
+
     void Map::addChunk(const Chunk::Position& position, World& world)
     {
-        m_chunks.emplace(position, std::move(Full_Chunk{world, *this, position}));
+        //m_chunks.emplace(position, );
+        m_chunksVector[getIndex(position)] = std::move(Full_Chunk{world, *this, position});
     }
 
     Section* Map::get(const Chunk::Chunklet_Position& position)
     {
         Position chunkPos (position.x, position.z);
-        if (existsAt(position))
+        if (existsAt(chunkPos))
         {
-            return m_chunks.at(chunkPos).getSection(position.y);
+            return m_chunksVector[getIndex(chunkPos)].getSection(position.y);
         }
         else
             return nullptr;
     }
 
-    bool Map::existsAt(const Chunk::Chunklet_Position& position)
-    {
-        Position chunkPos(position.x, position.z);
-        return m_chunks.find(chunkPos) != m_chunks.end();
-    }
-
     Full_Chunk* Map::get(const Chunk::Position& position)
     {
-        return existsAt(position) ?
-                    &m_chunks.at(position) :
-                    nullptr;
+        if (existsAt(position))
+        {
+            return &m_chunksVector[getIndex(position)];
+        }
+        else
+            return nullptr;
     }
 
     bool Map::existsAt(const Chunk::Position& position)
     {
-        Position chunkPos(position.x, position.y);
-        return m_chunks.find(chunkPos) != m_chunks.end();
+        if (position.x < 0) return false;
+        if (position.x > m_currRenderDistance - 1) return false;
+        if (position.y < 0) return false;
+        if (position.y > m_currRenderDistance - 1) return false;
+        return true;
     }
 
 }

@@ -14,6 +14,7 @@
 namespace Chunk
 {
     class Map;
+    class Full_Chunk;
 
     class Section
     {
@@ -36,7 +37,7 @@ namespace Chunk
         public:
             ///@TODO MAke this private
 
-            Section(const Chunklet_Position& position, Map& map);
+            Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk);
             bool made = false; ///@TODO Better solution for this
             void makeMesh();
 
@@ -72,6 +73,9 @@ namespace Chunk
 
             const AABB& getAABB() const;
 
+            ///@TODO Move to .cpp file
+            const Full_Chunk& getParentChunk() const { return *m_parentChunk; }
+
         private:
             Section* getSection(Block::Small_Position& position);
             const Section* getConstSection(Block::Small_Position& position) const;
@@ -90,6 +94,7 @@ namespace Chunk
             Meshes       m_meshes;
 
             Map* mp_chunks;
+            Full_Chunk* m_parentChunk;
 
             AABB m_aabb;
     };
