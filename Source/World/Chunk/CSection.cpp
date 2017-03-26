@@ -25,7 +25,7 @@ namespace Chunk
         m_meshBuilder.generateMesh(m_meshes);
         m_meshes.solidMesh.buffer();
         made = true;
-        m_needsUpdate = false;
+        m_updateQueued = false;
     }
 
 
