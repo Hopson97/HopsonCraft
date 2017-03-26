@@ -72,6 +72,9 @@ namespace Chunk
 
             const AABB& getAABB() const;
 
+            bool needsUpdate() { return m_needsUpdate; }
+            void resetUpdate() { m_needsUpdate = false; }
+
         private:
             Section* getSection(Block::Small_Position& position);
             const Section* getConstSection(Block::Small_Position& position) const;
@@ -92,6 +95,9 @@ namespace Chunk
             Map* mp_chunks;
 
             AABB m_aabb;
+
+            ////////////////////////////////////////////////////////////////////
+            bool m_needsUpdate = false;
     };
 }
 
