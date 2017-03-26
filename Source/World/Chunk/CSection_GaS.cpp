@@ -78,6 +78,7 @@ namespace Chunk
     {
         m_layerHasAir[position.y].update(block);
         m_blocks[getIndexFrom(position)] = block;
+        m_needsUpdate = true;
     }
 
     CBlock Section::qGetBlock(const Block::Small_Position& position) const
