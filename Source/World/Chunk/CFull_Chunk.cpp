@@ -54,7 +54,7 @@ namespace Chunk
                     if (y == height)
                     {
                         qSetBlock({x, y, z}, 1);
-                        if (Random::intInRange(0, 500) < 10)
+                        if (generator.intInRange(0, 5000) < 10)
                         {
                             treeMap.push_back({x, y, z});
                         }
@@ -70,7 +70,7 @@ namespace Chunk
         //Make trees
         for (Block::Position& pos : treeMap)
         {
-            auto height = Random::intInRange(5, 8);
+            auto height = generator.intInRange(5, 8);
 
             for (int32_t y = 1; y < height; y++)
             {

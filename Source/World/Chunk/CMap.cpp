@@ -1,21 +1,23 @@
 #include "CMap.h"
 
+#include <iostream>
+
 namespace Chunk
 {
-    Map::Map(int32_t renderDistance)
-    :   m_currRenderDistance    (renderDistance)
-    ,   m_chunksVector          (renderDistance * renderDistance)
-    { }
-
-    int32_t Map::getIndex(const Chunk::Position& position)
+    Map::Map()
     {
-        return position.x * m_currRenderDistance + position.y;
+        m_chunks = (Full_Chunk*) malloc (sizeof(Full_Chunk));
     }
+
+    Map::~Map()
+    {
+        free(m_chunks);
+    }
+
 
     void Map::addChunk(const Chunk::Position& position, World& world)
     {
-        //m_chunks.emplace(position, );
-        m_chunksVector[getIndex(position)] = std::move(Full_Chunk{world, *this, position});
+        m_chunksMap.insert(std::make_pair(position, std::move(Full_Chunk{world, *this, position})));
     }
 
     Section* Map::get(const Chunk::Chunklet_Position& position)
@@ -23,7 +25,7 @@ namespace Chunk
         Position chunkPos (position.x, position.z);
         if (existsAt(chunkPos))
         {
-            return m_chunksVector[getIndex(chunkPos)].getSection(position.y);
+            return m_chunksMap[chunkPos].getSection(position.y);
         }
         else
             return nullptr;
@@ -33,7 +35,7 @@ namespace Chunk
     {
         if (existsAt(position))
         {
-            return &m_chunksVector[getIndex(position)];
+            return &m_chunksMap[position];
         }
         else
             return nullptr;
@@ -41,11 +43,7 @@ namespace Chunk
 
     bool Map::existsAt(const Chunk::Position& position)
     {
-        if (position.x < 0) return false;
-        if (position.x > m_currRenderDistance - 1) return false;
-        if (position.y < 0) return false;
-        if (position.y > m_currRenderDistance - 1) return false;
-        return true;
+        return m_chunksMap.find(position) != m_chunksMap.end();
     }
 
 }

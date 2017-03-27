@@ -4,11 +4,20 @@
 #include "../Block/Block_ID.h"
 #include "../World_Constants.h"
 
+namespace Block
+{
+    class Type;
+    class Data_Holder;
+}
+
 struct CBlock
 {
     CBlock();
     CBlock(Block_t      newID);
     CBlock(Block::ID    newID);
+
+    const Block::Data_Holder& getData() const;
+    const Block::Type&        getType() const;
 
     template<typename T>
     CBlock& operator=(T newID)

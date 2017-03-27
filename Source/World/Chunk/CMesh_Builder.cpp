@@ -102,7 +102,7 @@ namespace Chunk
                     if(mp_section->qGetBlock(blockPosition) == 0)
                         continue;
 
-                    mp_activeData = &Block::get(mp_section->qGetBlock(blockPosition).id).getData().get();
+                    mp_activeData = &mp_section->qGetBlock(blockPosition).getData();
 
                     Chunklet_Position position = mp_section->getPosition();
 
@@ -217,7 +217,7 @@ namespace Chunk
     bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
     {
         auto block = mp_section->getBlock(pos);
-        auto data = Block::Database::get().getBlock(block.id).getData().get();
+        auto data = block.getData();
 
         if (block == Block::ID::Air)
         {

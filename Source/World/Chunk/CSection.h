@@ -25,8 +25,7 @@ namespace Chunk
 
             void update(CBlock block)
             {
-                const Block::Data_Holder& data = Block::Database::get().getBlock(block.id).getData().get();
-                data.isOpaque ?
+                block.getData().isOpaque ?
                     opaqueCount++ :
                     opaqueCount--;
             }

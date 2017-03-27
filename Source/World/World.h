@@ -47,10 +47,10 @@ class World
         void draw  (Renderer::Master& renderer, const Camera& camera);
 
         std::vector<New_Block> m_newBlocks;
-
+        const Camera*   m_p_camera;
         Chunk::Map m_chunks;
 
-        const Camera*   m_p_camera;
+
         int32_t m_worldSize     = 0;
 };
 
