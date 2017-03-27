@@ -17,6 +17,9 @@ namespace Block
 
     struct Data_Holder
     {
+        Data_Holder() = default;
+        Data_Holder(Data_Holder& other) = delete;
+
         ID          blockID;
         std::string name;
         bool        isOpaque    = true;

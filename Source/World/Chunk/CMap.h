@@ -13,9 +13,6 @@ namespace Chunk
     class Map
     {
         public:
-            Map();
-            ~Map();
-
             void addChunk(const Chunk::Position& position, World& world);
 
             Full_Chunk* get (const Chunk::Position& position);
@@ -25,11 +22,8 @@ namespace Chunk
             std::unordered_map<Position, Full_Chunk>& getChunks() { return m_chunksMap; }
 
         private:
-            std::unordered_map<Position, Full_Chunk> m_chunksMap;
 
-            Full_Chunk* m_chunks    = nullptr;
-            uint32_t m_maxSize      = 0;
-            uint32_t m_size         = 0;
+            std::unordered_map<Position, Full_Chunk> m_chunksMap;
     };
 }
 

@@ -142,7 +142,7 @@ void World::regenerateChunks()
 
 void World::buffer(const Camera& camera)
 {
-    int meshCount = 0;
+    bool isMeshMade = false;
     for (int32_t x = 0 ; x < m_worldSize; x++)
     {
         for (int32_t z = 0; z < m_worldSize; z++)
@@ -152,12 +152,12 @@ void World::buffer(const Camera& camera)
             {
                 if(chunk->tryGen(camera))
                 {
-                    meshCount++;
+                    isMeshMade = true;
                     break;
                 }
             }
         }
-        if (meshCount)
+        if (isMeshMade)
         {
             break;
         }
@@ -167,9 +167,16 @@ void World::buffer(const Camera& camera)
 void World::draw(Renderer::Master& renderer, const Camera& camera)
 {
     m_facesDrawn = 0;
-    for (auto& chunk : m_chunks.getChunks())
+    for (int32_t x = 0 ; x < m_worldSize; x++)
     {
-        m_facesDrawn += chunk.second.draw(renderer, camera);
+        for (int32_t z = 0; z < m_worldSize; z++)
+        {
+            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
+            if (chunk)
+            {
+                m_facesDrawn += chunk->draw(renderer, camera);
+            }
+        }
     }
 }
 

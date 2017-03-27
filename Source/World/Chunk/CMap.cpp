@@ -4,21 +4,11 @@
 
 namespace Chunk
 {
-    Map::Map()
-    {
-        m_chunks = (Full_Chunk*) malloc (sizeof(Full_Chunk));
-    }
-
-    Map::~Map()
-    {
-        free(m_chunks);
-    }
-
-
     void Map::addChunk(const Chunk::Position& position, World& world)
     {
         m_chunksMap.insert(std::make_pair(position, std::move(Full_Chunk{world, *this, position})));
     }
+
 
     Section* Map::get(const Chunk::Chunklet_Position& position)
     {
@@ -45,5 +35,4 @@ namespace Chunk
     {
         return m_chunksMap.find(position) != m_chunksMap.end();
     }
-
 }

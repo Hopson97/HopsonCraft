@@ -217,7 +217,7 @@ namespace Chunk
     bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
     {
         auto block = mp_section->getBlock(pos);
-        auto data = block.getData();
+        const auto& data = block.getData();
 
         if (block == Block::ID::Air)
         {
