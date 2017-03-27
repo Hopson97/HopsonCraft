@@ -11,13 +11,18 @@ namespace Random
     int32_t     intInRange      (int32_t lowBound, int32_t highBound);
     uint64_t    uint64InRange   (uint64_t lowBound, uint64_t highBound);
 
-    template<typename RandomEngine>
+    template<typename RandomEngine = std::minstd_rand>
     class Generator
     {
         public:
-            Generator()
+            Generator(uint64_t seed = std::time(nullptr))
             {
-                m_device.seed(std::time(nullptr));
+                m_device.seed(seed);
+            }
+
+            void setSeed(uint64_t seed)
+            {
+                m_device.seed(seed);
             }
 
             int32_t intInRange (int32_t lowBound, int32_t highBound)

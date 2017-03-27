@@ -9,12 +9,13 @@ namespace Block
 {
     enum class ID : Block_t
     {
-        Air     = 0,
-        Grass   = 1,
-        Dirt    = 2,
-        Stone   = 3,
-        Sand    = 4,
-        Water   = 5,
+        Air         = 0,
+        Grass       = 1,
+        Dirt        = 2,
+        Stone       = 3,
+        Sand        = 4,
+        Oak_Wood    = 5,
+        Oak_Leaf    = 6,
 
         NUM_BLOCK_TYPES
     };

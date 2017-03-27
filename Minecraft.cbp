@@ -66,6 +66,8 @@
 		<Unit filename="Data/Blocks/Air.block" />
 		<Unit filename="Data/Blocks/Dirt.block" />
 		<Unit filename="Data/Blocks/Grass.block" />
+		<Unit filename="Data/Blocks/Oak_Leaf.block" />
+		<Unit filename="Data/Blocks/Oak_Wood.block" />
 		<Unit filename="Data/Blocks/Sand.block" />
 		<Unit filename="Data/Blocks/Stone.block" />
 		<Unit filename="Data/Blocks/Water.block" />

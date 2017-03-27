@@ -1,24 +1,15 @@
 Name
-Water
+Oak_Wood
 
 ID
 5
 
-Opaque
-0
-
-Obstacle
-0
-
-Mesh
-1
-
 TextureTop
-5 0
+6 0
 
 TextureSide
 5 0
 
 TextureBottom
-5 0
+6 0
 

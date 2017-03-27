@@ -14,14 +14,14 @@ namespace Block
     Database::Database()
     :   blocks ((int)ID::NUM_BLOCK_TYPES)
     ,   textures   ("Texture_Atlas", 512, 16)
-    //,   textures   ("photo", 4096, 256)
     {
         blocks[(int)ID::Air     ] = std::make_unique<Default>   ("Air");
         blocks[(int)ID::Grass   ] = std::make_unique<Default>   ("Grass");
         blocks[(int)ID::Dirt    ] = std::make_unique<Default>   ("Dirt");
         blocks[(int)ID::Stone   ] = std::make_unique<Default>   ("Stone");
         blocks[(int)ID::Sand    ] = std::make_unique<Default>   ("Sand");
-        blocks[(int)ID::Water   ] = std::make_unique<Default>   ("Water");
+        blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default>   ("Oak_Wood");
+        blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default>   ("Oak_Leaf");
     }
 
     const Type& Database::getBlock(uint8_t id)

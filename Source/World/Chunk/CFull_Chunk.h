@@ -28,6 +28,9 @@ namespace Chunk
 
             void   setBlock(const Block::Position& position, CBlock block);
             CBlock getBlock(const Block::Position& position);
+
+            void   qSetBlock(const Block::Position& position, CBlock block);
+            CBlock qGetBlock(const Block::Position& position);
             const Position& getPosition() const;
 
             ///@TODO Move to .cpp file
