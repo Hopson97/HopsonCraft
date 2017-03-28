@@ -1,7 +1,7 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
 
-#include <unordered_map>
+#include <vector>
 #include <memory>
 
 #include "Block_Editor.h"
@@ -47,6 +47,7 @@ class World
         void draw  (Renderer::Master& renderer, const Camera& camera);
 
         std::vector<New_Block> m_newBlocks;
+
         const Camera*   m_p_camera;
         Chunk::Map m_chunks;
 

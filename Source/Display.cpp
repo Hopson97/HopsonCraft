@@ -26,7 +26,7 @@ namespace Display
         settings.stencilBits        = 8;
         settings.antialiasingLevel  = 0;
         settings.majorVersion       = 3;
-        settings.minorVersion       = 0;
+        settings.minorVersion       = 3;
 
 
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode::getDesktopMode(),

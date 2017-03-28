@@ -17,13 +17,13 @@ namespace Chunk
     :   mp_world    (&world)
     ,   mp_chunkMap (&map)
     ,   m_position  (position)
-    ,   m_highestBlocks (CHUNK_AREA)
+    //,   m_highestBlocks (CHUNK_AREA)
     {
         static Noise::Generator gen;
         gen.setSeed(500);
         Random::Generator<std::minstd_rand> generator;
         generator.setSeed(Hasher::hash(500, position.x, position.y));
-        gen.setNoiseFunction({10, 65, 0.45, 260});
+        gen.setNoiseFunction({10, 75, 0.45, 260});
 
         int32_t maxValue = 0;
         std::vector<int32_t> heightMap (CHUNK_AREA);
@@ -66,7 +66,7 @@ namespace Chunk
                 }
             }
         }
-
+/*
         //Make trees
         for (Block::Position& pos : treeMap)
         {
@@ -87,9 +87,7 @@ namespace Chunk
                     setBlock({pos.x + xLeaf, pos.y + height + 2, pos.z + zLeaf}, Block::ID::Oak_Leaf);
                 }
             }
-
-
-        }
+        }*/
     }
 
     void Full_Chunk::setBlock(const Block::Position& position, CBlock block)

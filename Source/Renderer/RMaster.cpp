@@ -18,12 +18,8 @@ namespace Renderer
     {
         Block::Database::get().textures.bind();
 
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         m_simpleRenderer.update(camera);
-
         m_chunkRenderer .update (camera);
-
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         m_sfmlRenderer.update ();
 
 

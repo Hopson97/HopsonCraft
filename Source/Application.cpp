@@ -18,8 +18,6 @@ Application::Application()
     pushState(std::make_unique<State::Main_Menu>(*this));
 }
 
-
-
 void Application::runMainGameLoop()
 {
     sf::Clock gameTimer;

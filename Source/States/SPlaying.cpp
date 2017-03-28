@@ -97,8 +97,6 @@ namespace State
             m_player.position = getCenterPosition();
         }
 
-/**/
-
         Ray raycast (m_player.rotation.y + 90,
                      m_player.rotation.x,
                      m_player.position);
@@ -128,20 +126,6 @@ namespace State
                     {
                         timer.restart();
                         m_world.setBlock(raycast.getEndPoint(), 0);
-/*
-                        for (int y = -2 ; y <= 2; y++)
-                        {
-                            for (int x = -2 ; x <= 2; x++)
-                            {
-                                for (int z = -2 ; z <= 2; z++)
-                                {
-                                    m_world.setBlock({raycast.getEndPoint().x + x,
-                                                      raycast.getEndPoint().y + y,
-                                                      raycast.getEndPoint().z + z}, 0);
-                                }
-                            }
-                        }
-*/
                         break;
                     }
                     else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -155,8 +139,8 @@ namespace State
 
             }
             lastPosition = raycast.getEndPoint();
+
         }
-/**/
     }
 
 

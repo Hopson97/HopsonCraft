@@ -21,8 +21,6 @@ World::World(const Camera& camera, int32_t worldSize)
             m_chunks.addChunk({x, z}, *this);
         }
     }
-
-    std::cout << m_chunks.getChunks().size() << std::endl;
 }
 
 void World::checkPlayerBounds(Player& player)
@@ -150,7 +148,7 @@ void World::buffer(const Camera& camera)
             Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
             if (chunk)
             {
-                if(chunk->tryGen(camera))
+                if(chunk->tryGen(*m_p_camera))
                 {
                     isMeshMade = true;
                     break;
@@ -167,16 +165,9 @@ void World::buffer(const Camera& camera)
 void World::draw(Renderer::Master& renderer, const Camera& camera)
 {
     m_facesDrawn = 0;
-    for (int32_t x = 0 ; x < m_worldSize; x++)
+    for (auto& chunk : m_chunks.getChunks())
     {
-        for (int32_t z = 0; z < m_worldSize; z++)
-        {
-            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
-            if (chunk)
-            {
-                m_facesDrawn += chunk->draw(renderer, camera);
-            }
-        }
+        m_facesDrawn += chunk.second.draw(renderer, camera);
     }
 }
 

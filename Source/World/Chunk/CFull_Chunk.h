@@ -34,10 +34,12 @@ namespace Chunk
             const Position& getPosition() const;
 
             ///@TODO Move to .cpp file
+            /*
             int32_t getHighestBlock(int32_t x, int32_t z) const
             {
                 return m_highestBlocks[x * CHUNK_SIZE + z];
             }
+            */
 
             Section* getSection(int32_t index);
 
@@ -48,7 +50,7 @@ namespace Chunk
 
         private:
             std::vector<std::unique_ptr<Section>>   m_chunkSections;
-            std::vector<int32_t>                    m_highestBlocks;
+            //std::vector<int32_t>                    m_highestBlocks;
 
             World*      mp_world        = nullptr;
             Map*        mp_chunkMap     = nullptr;
