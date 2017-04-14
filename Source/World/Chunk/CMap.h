@@ -13,7 +13,7 @@ namespace Chunk
     class Map
     {
         public:
-            void addChunk(const Chunk::Position& position, World& world);
+            void addChunk(const Chunk::Position& position, World& world, bool gen = true);
 
             Full_Chunk* get (const Chunk::Position& position);
             bool existsAt   (const Chunk::Position& position);
@@ -24,6 +24,7 @@ namespace Chunk
         private:
 
             std::unordered_map<Position, Full_Chunk> m_chunksMap;
+            World* mp_world = nullptr;
     };
 }
 

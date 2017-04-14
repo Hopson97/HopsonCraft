@@ -6,6 +6,8 @@
 
 #include "../Renderer/RMaster.h"
 
+#include <thread>
+
 #include "../Player/Player.h"
 #include "../Camera.h"
 #include "../Maths/General_Maths.h"

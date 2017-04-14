@@ -2,6 +2,7 @@
 #define CBLOCK_H_INCLUDED
 
 #include "../Block/Block_ID.h"
+#include "../Block/Block_Position.h"
 #include "../World_Constants.h"
 
 namespace Block
@@ -53,6 +54,17 @@ struct CLight
 
     uint8_t natural : 4;
     uint8_t block   : 4;
+};
+
+struct CPositioned_Block
+{
+    CPositioned_Block(const Block::Position& pos, CBlock blo)
+    :   position    (pos)
+    ,   block       (blo)
+    {}
+
+    const Block::Position position;
+    CBlock block;
 };
 
 #endif // CBLOCK_H_INCLUDED

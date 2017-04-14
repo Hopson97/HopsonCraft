@@ -25,6 +25,8 @@ class Model
         void bind() const;
         void unbind() const;
 
+        GLuint getVAO() const;
+
         GLuint getIndicesCount() const;
 
     private:

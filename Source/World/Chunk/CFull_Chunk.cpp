@@ -13,81 +13,14 @@
 
 namespace Chunk
 {
-    Full_Chunk::Full_Chunk(World& world, Map& map, const Position& position)
+    Full_Chunk::Full_Chunk(World& world, Map& map, const Position& position, bool generate)
     :   mp_world    (&world)
     ,   mp_chunkMap (&map)
     ,   m_position  (position)
     //,   m_highestBlocks (CHUNK_AREA)
     {
-        static Noise::Generator gen;
-        gen.setSeed(500);
-        Random::Generator<std::minstd_rand> generator;
-        generator.setSeed(Hasher::hash(500, position.x, position.y));
-        gen.setNoiseFunction({10, 75, 0.45, 260});
-
-        int32_t maxValue = 0;
-        std::vector<int32_t> heightMap (CHUNK_AREA);
-        std::vector<Block::Position> treeMap (CHUNK_AREA);
-
-        //Create height map from noise
-        for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
-        {
-            for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
-            {
-                int32_t heightHere = gen.getValue(x, z, position.x + 3, position.y + 3);
-                heightMap[x * CHUNK_SIZE + z] = heightHere;
-            }
-        }
-
-        maxValue = *std::max_element(heightMap.begin(), heightMap.end());
-
-        //Populate the blocks
-        for (int32_t y = 0; y < maxValue + 1; ++y)
-        {
-            for (int32_t x = 0; x < CHUNK_SIZE; ++x)
-            {
-                for (int32_t z = 0; z < CHUNK_SIZE; ++z)
-                {
-                    int32_t height = heightMap[x * CHUNK_SIZE + z];
-
-                    if (y > height) continue;
-                    if (y == height)
-                    {
-                        qSetBlock({x, y, z}, 1);
-                        if (generator.intInRange(0, 5000) < 10)
-                        {
-                            treeMap.push_back({x, y, z});
-                        }
-                    }
-                    else if (y < height - 4)
-                        qSetBlock({x, y, z}, 2);
-                    else
-                        qSetBlock({x, y, z}, 3);
-                }
-            }
-        }
-/*
-        //Make trees
-        for (Block::Position& pos : treeMap)
-        {
-            auto height = generator.intInRange(5, 8);
-
-            for (int32_t y = 1; y < height; y++)
-            {
-                qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood);
-            }
-
-            int32_t treeSize = height / 2.5;
-            for (int32_t zLeaf = -treeSize; zLeaf <= treeSize; zLeaf++)
-            {
-                for (int32_t xLeaf = -treeSize; xLeaf <= treeSize; xLeaf++)
-                {
-                    setBlock({pos.x + xLeaf, pos.y + height, pos.z + zLeaf}, Block::ID::Oak_Leaf);
-                    setBlock({pos.x + xLeaf, pos.y + height + 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
-                    setBlock({pos.x + xLeaf, pos.y + height + 2, pos.z + zLeaf}, Block::ID::Oak_Leaf);
-                }
-            }
-        }*/
+        if (generate)
+            generateBlocks();
     }
 
     void Full_Chunk::setBlock(const Block::Position& position, CBlock block)
@@ -101,8 +34,19 @@ namespace Chunk
 
         auto pos = Maths::blockToSmallBlockPos(position);
 
-        m_chunkSections[yPositionSection]
-            ->setBlock(pos, block);
+        switch (m_state)
+        {
+            case State::New:
+                m_positionedBlocks.emplace_back(position, block);
+                break;
+
+            default:
+                m_chunkSections[yPositionSection]
+                    ->setBlock(pos, block);
+                    break;
+        }
+
+
     }
 
     CBlock Full_Chunk::getBlock(const Block::Position& position)
@@ -158,14 +102,14 @@ namespace Chunk
 
     Section* Full_Chunk::getSection(int32_t index)
     {
-        if (index > m_sectionCount - 1 || index < 0)
+        if (index < 0) return nullptr;
+
+        while (index > m_sectionCount - 1)
         {
-            return nullptr;
+            addSection();
         }
-        else
-        {
-            return m_chunkSections[index].get();
-        }
+
+        return m_chunkSections[index].get();
     }
 
 
@@ -201,8 +145,8 @@ namespace Chunk
     {
         for (auto& chunk : m_chunkSections)
         {
-            if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
-                continue;
+            //if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
+            //    continue;
 
             if (!chunk->made)
             {
@@ -213,7 +157,101 @@ namespace Chunk
         return false;
     }
 
+    void Full_Chunk::generateBlocks()
+    {
+        m_state = State::Populating;
 
+        static Noise::Generator gen;
+        gen.setSeed(500);
+        Random::Generator<std::mt19937> generator;
+        generator.setSeed(Hasher::hash(500, m_position.x, m_position.y));
+        gen.setNoiseFunction({10, 75, 0.45, 260});
 
+        int32_t maxValue = 0;
+        std::vector<int32_t> heightMap (CHUNK_AREA);
+        std::vector<Block::Position> treeMap (CHUNK_AREA);
+
+        //Create height map from noise
+        for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
+        {
+            for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
+            {
+                int32_t heightHere = gen.getValue(x, z, m_position.x + 3, m_position.y + 3);
+                heightMap[x * CHUNK_SIZE + z] = heightHere;
+            }
+        }
+
+        maxValue = *std::max_element(heightMap.begin(), heightMap.end());
+
+        //Populate the blocks
+        for (int32_t y = 0; y < maxValue + 1; ++y)
+        {
+            for (int32_t x = 0; x < CHUNK_SIZE; ++x)
+            {
+                for (int32_t z = 0; z < CHUNK_SIZE; ++z)
+                {
+                    int32_t height = heightMap[x * CHUNK_SIZE + z];
+
+                    if (y > height) continue;
+                    if (y == height)
+                    {
+                        qSetBlock({x, y, z}, 1);
+                        if (generator.intInRange(0, 10000) < 10)
+                        {
+                            treeMap.push_back({x, y, z});
+                        }
+                    }
+                    else if (y < height - 4)
+                        qSetBlock({x, y, z}, 2);
+                    else
+                        qSetBlock({x, y, z}, 3);
+                }
+            }
+        }
+
+        //Make trees
+        for (Block::Position& pos : treeMap)
+        {
+            auto height = generator.intInRange(5, 8);
+
+            for (int32_t y = 1; y < height; y++)
+            {
+                qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood);
+            }
+
+            int32_t treeSize = 2;
+            for (int32_t zLeaf = -treeSize; zLeaf <= treeSize; zLeaf++)
+            {
+                for (int32_t xLeaf = -treeSize; xLeaf <= treeSize; xLeaf++)
+                {
+                    setBlock({pos.x + xLeaf, pos.y + height, pos.z + zLeaf}, Block::ID::Oak_Leaf);
+                    setBlock({pos.x + xLeaf, pos.y + height + 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
+                    setBlock({pos.x + xLeaf, pos.y + height + 2, pos.z + zLeaf}, Block::ID::Oak_Leaf);
+                }
+            }
+        }
+
+/*
+        for (Block::Position& pos : treeMap)
+        {
+            for(int base = 14, h = 0; base > 0; base -= 2, h++){
+                for (int x = pos.x - base / 2; x < pos.x + base / 2; x++){
+                    for (int z = pos.z - base / 2; z < pos.z + base / 2; z++){
+                        setBlock({pos.x + x, pos.y + h, pos.z + z}, Block::ID::Stone);
+                    }
+                }
+            }
+        }
+*/
+
+        std::cout << m_positionedBlocks.size() << std::endl;
+
+        for (auto& newBlock : m_positionedBlocks)
+        {
+            setBlock(newBlock.position, newBlock.block);
+        }
+        m_state = State::Populated;
+
+    }
 
 }

@@ -97,6 +97,12 @@ void Model::addVBO(int dim, const std::vector<GLfloat>& data)
     m_buffers.push_back(vbo);
 }
 
+GLuint Model::getVAO() const
+{
+    return m_vao;
+}
+
+
 
 void Model::addEBO(const std::vector<GLuint>& indices)
 {

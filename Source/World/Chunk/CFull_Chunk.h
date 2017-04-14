@@ -18,13 +18,23 @@ class Camera;
 
 namespace Chunk
 {
+    enum class State
+    {
+        New,
+        Populating,
+        Populated,
+    };
+
+
     class Map;
 
     class Full_Chunk
     {
         public:
             Full_Chunk() = default;
-            Full_Chunk(World& world, Map& map, const Position& position);
+            Full_Chunk(World& world, Map& map, const Position& position, bool generate = true);
+
+            void generateBlocks();
 
             void   setBlock(const Block::Position& position, CBlock block);
             CBlock getBlock(const Block::Position& position);
@@ -34,6 +44,8 @@ namespace Chunk
             const Position& getPosition() const;
 
             ///@TODO Move to .cpp file
+            State getState() { return m_state; }
+
             /*
             int32_t getHighestBlock(int32_t x, int32_t z) const
             {
@@ -49,13 +61,20 @@ namespace Chunk
             void addSection();
 
         private:
+
+
+
             std::vector<std::unique_ptr<Section>>   m_chunkSections;
             //std::vector<int32_t>                    m_highestBlocks;
+
+            std::vector<CPositioned_Block> m_positionedBlocks;
 
             World*      mp_world        = nullptr;
             Map*        mp_chunkMap     = nullptr;
             Position    m_position;
             int32_t     m_sectionCount  = 0;
+
+            State m_state = State::New;
     };
 }
 
