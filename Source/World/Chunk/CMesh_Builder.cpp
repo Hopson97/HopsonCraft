@@ -83,6 +83,7 @@ void Mesh_Builder::setActiveMesh(Meshes& meshes)
 
 
     ///@TODO Figure out what is causing blocks to not be rendered when using the flora mesh.
+    ///Also check the .block tiles and readd the correct mesh type as needed. (when this is fixed)
 
     switch(mp_activeData->meshType)
     {

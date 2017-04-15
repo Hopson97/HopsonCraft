@@ -5,7 +5,7 @@
 namespace Shader
 {
     Flora_Shader::Flora_Shader()
-    :   Simple_Shader   ("Flora", "Flora")
+    :   Simple_Shader   ("Flora", "Block")
     {
         getUniformLocations();
     }

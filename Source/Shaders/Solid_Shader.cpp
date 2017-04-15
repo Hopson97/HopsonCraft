@@ -5,7 +5,7 @@
 namespace Shader
 {
     Solid_Shader::Solid_Shader()
-    :   Simple_Shader   ("Solid", "Solid")
+    :   Simple_Shader   ("Solid", "Block")
     {
         getUniformLocations();
     }
