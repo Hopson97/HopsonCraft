@@ -4,6 +4,7 @@
 #include "RSFML.h"
 #include "RSolid.h"
 #include "RSimple.h"
+#include "RFlora.h"
 
 namespace Chunk
 {
@@ -29,6 +30,7 @@ namespace Renderer
             RSFML   m_sfmlRenderer;
             RChunk  m_chunkRenderer;
             RSimple m_simpleRenderer;
+            RFlora  m_floraRenderer;
 
     };
 }

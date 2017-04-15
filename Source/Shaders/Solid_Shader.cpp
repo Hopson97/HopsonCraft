@@ -5,7 +5,7 @@
 namespace Shader
 {
     Solid_Shader::Solid_Shader()
-    :   Simple_Shader   ("Solid_Vertex", "Solid_Fragment")
+    :   Simple_Shader   ("Solid", "Solid")
     {
         getUniformLocations();
     }

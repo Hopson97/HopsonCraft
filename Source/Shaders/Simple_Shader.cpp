@@ -5,7 +5,7 @@
 namespace Shader
 {
     Simple_Shader::Simple_Shader()
-    :   Shader_Program ("Simple_Vertex", "Simple_Fragment")
+    :   Shader_Program ("Simple", "Simple")
     {
         getUniformLocations();
     }

@@ -27,15 +27,15 @@ namespace Shader
         return id;
     }
 
-    std::string getSource(const std::string& sourceFile)
+    std::string getSource(const std::string& sourceFile, const std::string& type)
     {
-        std::ifstream inFile ("Data/Shaders/" + sourceFile + ".glsl");
+        std::ifstream inFile ("Data/Shaders/" + sourceFile + "_" + type + ".glsl");
         std::string source;
         std::stringstream stringStream;
 
         if (!inFile.is_open())
         {
-            throw std::runtime_error ("Could not open file: " + sourceFile);
+            throw std::runtime_error ("Could not open shader file: " + sourceFile);
         }
 
         stringStream << inFile.rdbuf();
@@ -58,8 +58,8 @@ namespace Shader
 
     GLuint loadShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
     {
-        auto vertexSource   = getSource(vertexShaderFile);
-        auto fragmentSource = getSource(fragmentShaderFile);
+        auto vertexSource   = getSource(vertexShaderFile, "Vertex");
+        auto fragmentSource = getSource(fragmentShaderFile, "Fragment");
 
         auto vertexShaderID     = compileShader(vertexSource.c_str(), GL_VERTEX_SHADER);
         auto fragmentShaderID   = compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);

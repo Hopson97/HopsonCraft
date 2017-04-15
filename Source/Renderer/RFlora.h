@@ -1,9 +1,10 @@
-#ifndef RCHUNK_H_INCLUDED
-#define RCHUNK_H_INCLUDED
+#ifndef RFlora_INCLUDED
+#define RFlora_INCLUDED
 
 #include <vector>
+#include <SFML/System/Clock.hpp>
 
-#include "../Shaders/Solid_Shader.h"
+#include "../Shaders/Flora_Shader.h"
 #include "RInfo.h"
 
 struct Camera;
@@ -15,20 +16,20 @@ namespace Chunk
 
 namespace Renderer
 {
-    class RChunk
+    class RFlora
     {
+
         public:
             void draw (const Chunk::Section& section);
 
             void update(const Camera& camera);
 
         private:
-            void prepare(const Info& section);
-
-        private:
             std::vector<Info> m_renderInfo;
 
-            Shader::Solid_Shader m_shader;
+            Shader::Flora_Shader m_shader;
+
+            sf::Clock m_waveTimer;
     };
 }
 

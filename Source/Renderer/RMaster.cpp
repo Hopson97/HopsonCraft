@@ -19,8 +19,14 @@ namespace Renderer
         Block::Database::get().textures.bind();
 
         m_simpleRenderer.update(camera);
+
         m_chunkRenderer .update (camera);
+        m_floraRenderer .update (camera);
+
+
         m_sfmlRenderer.update ();
+
+
 
 
         Display::update();
@@ -29,6 +35,7 @@ namespace Renderer
     void Master::draw(const Chunk::Section& section)
     {
         m_chunkRenderer.draw(section);
+        m_floraRenderer.draw(section);
     }
 
     void Master::draw(const sf::Drawable& drawable)

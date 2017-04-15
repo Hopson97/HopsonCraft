@@ -5,7 +5,7 @@
 namespace Shader
 {
     Liqud_Shader::Liqud_Shader()
-    :   Simple_Shader   ("Liquid_Vertex", "Liquid_Fragment")
+    :   Simple_Shader   ("Liquid", "Liquid")
     {
         getUniformLocations();
     }
