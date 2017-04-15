@@ -196,20 +196,17 @@ namespace Chunk
                     if (y == height)
                     {
                         qSetBlock({x, y, z}, 1);
-                        if (generator.intInRange(0, 10000) < 10)
-                        {
-                            treeMap.push_back({x, y, z});
-                        }
                     }
-                    else if (y < height - 4)
-                        qSetBlock({x, y, z}, 2);
+                    else if (y < height && y > height - 4)
+                        qSetBlock({x, y, z}, Block::ID::Dirt);
                     else
-                        qSetBlock({x, y, z}, 3);
+                        qSetBlock({x, y, z}, Block::ID::Stone);
                 }
             }
         }
 
         //Make trees
+/*
         for (Block::Position& pos : treeMap)
         {
             auto height = generator.intInRange(5, 8);
@@ -230,7 +227,9 @@ namespace Chunk
                 }
             }
         }
+*/
 
+        //Pyramid test
 /*
         for (Block::Position& pos : treeMap)
         {

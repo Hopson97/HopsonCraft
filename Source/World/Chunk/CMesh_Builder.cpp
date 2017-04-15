@@ -237,9 +237,14 @@ bool Mesh_Builder::shouldCreateLayer(uint32_t yPosition)
 bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
 {
     auto block = mp_section->getBlock(pos);
-    const auto& data = block.getData();
+    const Block::Data_Holder& data = block.getData();
 
     if (block == Block::ID::Air)
+    {
+        return true;
+    }
+    else if ((data.blockID != mp_activeData->blockID) &&
+             !data.isOpaque)
     {
         return true;
     }
