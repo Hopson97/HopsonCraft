@@ -178,6 +178,7 @@ namespace Chunk
             {
                 int32_t heightHere = gen.getValue(x, z, m_position.x + 3, m_position.y + 3);
                 heightMap[x * CHUNK_SIZE + z] = heightHere;
+                if (Random::intInRange(0, 1000) == 0) treeMap.emplace_back(x, heightHere, z);
             }
         }
 
@@ -195,7 +196,7 @@ namespace Chunk
                     if (y > height) continue;
                     if (y == height)
                     {
-                        qSetBlock({x, y, z}, 1);
+                        qSetBlock({x, y, z}, Block::ID::Grass);
                     }
                     else if (y < height && y > height - 4)
                         qSetBlock({x, y, z}, Block::ID::Dirt);
@@ -206,7 +207,7 @@ namespace Chunk
         }
 
         //Make trees
-/*
+
         for (Block::Position& pos : treeMap)
         {
             auto height = generator.intInRange(5, 8);
@@ -227,7 +228,7 @@ namespace Chunk
                 }
             }
         }
-*/
+
 
         //Pyramid test
 /*

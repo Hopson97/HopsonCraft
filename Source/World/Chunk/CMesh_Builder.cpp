@@ -78,6 +78,12 @@ int n = 0;
 
 void Mesh_Builder::setActiveMesh(Meshes& meshes)
 {
+    m_pActiveMesh = &meshes.solidMesh;
+    return;
+
+
+    ///@TODO Figure out what is causing blocks to not be rendered when using the flora mesh.
+
     switch(mp_activeData->meshType)
     {
         case Block::Mesh_Type::Solid:
@@ -207,8 +213,6 @@ void Mesh_Builder::generateMesh(Meshes& meshes)
 
 bool Mesh_Builder::shouldCreateLayer(uint32_t yPosition)
 {
-    //return true;
-
     auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)
     {
         const Section* c = mp_section->getAdjacentSection({xd, zd});
@@ -248,18 +252,10 @@ bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
     {
         return true;
     }
-    ///@TODO do this stuff
-    /*
-    else if ( data.blockID == m_p_activeBlockData->get().blockID)
+    else
     {
         return false;
     }
-    else if (!data.isOpaque)
-    {
-        return true;
-    }
-    */
-    return false;
 }
 
 }
