@@ -24,7 +24,9 @@ namespace Chunk
     void Section::makeMesh()
     {
         m_meshBuilder.generateMesh(m_meshes);
+        ///@TODO Move these buffer calls to new function
         m_meshes.solidMesh.buffer();
+        m_meshes.floraMesh.buffer();
         made = true;
     }
 

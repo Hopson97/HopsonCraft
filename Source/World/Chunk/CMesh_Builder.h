@@ -27,8 +27,9 @@ namespace Chunk
         private:
             bool shouldCreateLayer  (uint32_t yPosition);
             bool shouldMakeFaceAdjTo(Block::Small_Position& pos) const;
+            void setActiveMesh(Meshes& meshes);
 
-            Meshes*         mp_meshes;
+            Mesh*           m_pActiveMesh;
             const Section*  mp_section;
             const Block::Data_Holder*   mp_activeData;
 

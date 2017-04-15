@@ -42,7 +42,7 @@ namespace Chunk
     struct Meshes
     {
         Mesh solidMesh;
-        Mesh liquidMesh;
+        Mesh floraMesh;
     };
 }
 

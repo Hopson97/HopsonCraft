@@ -162,10 +162,10 @@ namespace Chunk
         m_state = State::Populating;
 
         static Noise::Generator gen;
-        gen.setSeed(500);
+        gen.setSeed(5437474);
         Random::Generator<std::mt19937> generator;
         generator.setSeed(Hasher::hash(500, m_position.x, m_position.y));
-        gen.setNoiseFunction({10, 75, 0.45, 260});
+        gen.setNoiseFunction({10, 75, 0.45, 220});
 
         int32_t maxValue = 0;
         std::vector<int32_t> heightMap (CHUNK_AREA);
