@@ -70,7 +70,7 @@ constexpr GLfloat BOTTOM_LIGHT   = 0.6f;
 namespace Chunk
 {
 Mesh_Builder::Mesh_Builder(const Section& section)
-    :   mp_section (&section)
+:   mp_section (&section)
 { }
 
 float sum = 0;
@@ -78,7 +78,16 @@ int n = 0;
 
 void Mesh_Builder::setActiveMesh(Meshes& meshes)
 {
-    m_pActiveMesh = &meshes.solidMesh;
+    switch(mp_activeData->meshType)
+    {
+        case Block::Mesh_Type::Solid:
+            m_pActiveMesh = &meshes.solidMesh;
+            break;
+
+        case Block::Mesh_Type::Flora:
+            m_pActiveMesh = &meshes.floraMesh;
+            break;
+    }
 }
 
 

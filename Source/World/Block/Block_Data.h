@@ -12,7 +12,7 @@ namespace Block
     enum Mesh_Type
     {
         Solid   = 0,
-        Liquid  = 1
+        Flora   = 1
     };
 
     struct Data_Holder

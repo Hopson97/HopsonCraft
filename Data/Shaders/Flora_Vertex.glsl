@@ -16,7 +16,6 @@ vec4 getWorldPos()
 {
     vec3 inVert = inVertexPosition.xyz;
     inVert.x += sin((windTimer + inVert.z) * 2.5) / 8.8f;
-    inVert.z += cos((windTimer + inVert.x) * 2.5) / 8.8f;
     return vec4(inVert, 1);
 }
 
