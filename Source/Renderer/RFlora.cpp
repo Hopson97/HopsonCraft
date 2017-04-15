@@ -18,7 +18,7 @@ namespace Renderer
 
     void RFlora::update(const Camera& camera)
     {
-        glEnable (GL_CULL_FACE);
+        glDisable (GL_CULL_FACE);
 
         m_shader.bind();
 

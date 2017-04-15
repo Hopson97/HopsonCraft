@@ -10,5 +10,9 @@ uniform sampler2D ourTexture;
 void main()
 {
     colour = texture(ourTexture, passTextureCoords) * passLightValue;
+    if (colour.a == 0)
+    {
+        discard;
+    }
 }
 

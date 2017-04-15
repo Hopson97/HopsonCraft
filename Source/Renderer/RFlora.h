@@ -18,7 +18,6 @@ namespace Renderer
 {
     class RFlora
     {
-
         public:
             void draw (const Chunk::Section& section);
 
