@@ -142,6 +142,40 @@ void World::regenerateChunks()
 
 void World::buffer(const Camera& camera)
 {
+    static int32_t loadDist = 1;
+
+    if (loadDist == ((m_worldSize / 2) + 1)) return;
+
+    int minDis = m_worldSize / 2 - loadDist;
+    int maxDis = m_worldSize / 2 + loadDist;
+
+    bool isMeshMade = false;
+
+    std::cout << loadDist << std::endl;
+
+    for (int32_t x = minDis ; x < maxDis; x++)
+    {
+        for (int32_t z = minDis; z < maxDis; z++)
+        {
+            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
+            if (chunk)
+            {
+                if(chunk->tryGen(*m_p_camera))
+                {
+                    isMeshMade = true;
+                    break;
+                }
+            }
+        }
+        if (isMeshMade)
+        {
+            break;
+        }
+    }
+
+    if (!isMeshMade) loadDist++;
+
+    /*
     bool isMeshMade = false;
     for (int32_t x = 0 ; x < m_worldSize; x++)
     {
@@ -162,6 +196,7 @@ void World::buffer(const Camera& camera)
             break;
         }
     }
+    */
 }
 
 void World::draw(Renderer::Master& renderer, const Camera& camera)

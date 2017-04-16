@@ -78,8 +78,8 @@ int n = 0;
 
 void Mesh_Builder::setActiveMesh(Meshes& meshes)
 {
-    m_pActiveMesh = &meshes.solidMesh;
-    return;
+    //m_pActiveMesh = &meshes.solidMesh;
+    //return;
 
 
     ///@TODO Figure out what is causing blocks to not be rendered when using the flora mesh.
