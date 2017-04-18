@@ -58,13 +58,16 @@ namespace State
             m_application->popState();
         }));
 
-
+        //Play menu
         m_playMenu.addPadding(100);
+
         m_playMenu.addBackgroud(getResources().getTexture(Texture_ID::Menu_BG));
+
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
+
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("World Size",
         std::vector<std::string> { "Tiny", "Small", "Medium", "Large", "Huge"},
-        std::vector<int32_t>     { 16,     25,       32,      45,      64},
+        std::vector<int32_t>     { 20,     32,       44,      56,      68},
         m_worldSize));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
