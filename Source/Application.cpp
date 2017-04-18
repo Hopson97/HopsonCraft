@@ -6,8 +6,6 @@
 #include <SFML/Graphics.hpp>
 #include "Resource_Managers/Resource_Holder.h"
 
-#include "windows.h"
-
 #include "Display.h"
 
 #include "States/SPlaying.h"
