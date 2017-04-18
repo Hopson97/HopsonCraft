@@ -222,7 +222,7 @@ namespace Chunk
             {
                 for (int32_t xLeaf = -treeSize; xLeaf <= treeSize; xLeaf++)
                 {
-                    setBlock({pos.x + xLeaf, pos.y + height, pos.z + zLeaf}, Block::ID::Oak_Leaf);
+                    setBlock({pos.x + xLeaf, pos.y + height, pos.z + zLeaf},     Block::ID::Oak_Leaf);
                     setBlock({pos.x + xLeaf, pos.y + height + 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
                     setBlock({pos.x + xLeaf, pos.y + height + 2, pos.z + zLeaf}, Block::ID::Oak_Leaf);
                 }

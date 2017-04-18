@@ -1,13 +1,9 @@
 #include "World.h"
 
 #include <iostream>
-#include <unordered_map>
 #include <SFML/Graphics.hpp>
 
 #include "../Renderer/RMaster.h"
-
-#include <thread>
-
 #include "../Player/Player.h"
 #include "../Camera.h"
 #include "../Maths/General_Maths.h"
@@ -139,7 +135,8 @@ void World::regenerateChunks()
     m_newBlocks.clear();
 }
 
-
+//Generates meshes for the chunks.
+//It does this in a sort of radius starting from the middle of the world
 void World::buffer(const Camera& camera)
 {
     static int32_t loadDist = 1;
@@ -172,31 +169,10 @@ void World::buffer(const Camera& camera)
             break;
         }
     }
-
-    if (!isMeshMade) loadDist++;
-
-    /*
-    bool isMeshMade = false;
-    for (int32_t x = 0 ; x < m_worldSize; x++)
+    if (!isMeshMade)
     {
-        for (int32_t z = 0; z < m_worldSize; z++)
-        {
-            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
-            if (chunk)
-            {
-                if(chunk->tryGen(*m_p_camera))
-                {
-                    isMeshMade = true;
-                    break;
-                }
-            }
-        }
-        if (isMeshMade)
-        {
-            break;
-        }
+        loadDist++;
     }
-    */
 }
 
 void World::draw(Renderer::Master& renderer, const Camera& camera)
