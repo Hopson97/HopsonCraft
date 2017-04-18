@@ -165,7 +165,7 @@ namespace Chunk
         gen.setSeed(5437474);
         Random::Generator<std::mt19937> generator;
         generator.setSeed(Hasher::hash(500, m_position.x, m_position.y));
-        gen.setNoiseFunction({10, 75, 0.45, 220});
+        gen.setNoiseFunction({8, 30, 0.40, 220});
 
         int32_t maxValue = 0;
         std::vector<int32_t> heightMap (CHUNK_AREA);
@@ -178,7 +178,7 @@ namespace Chunk
             {
                 int32_t heightHere = gen.getValue(x, z, m_position.x + 3, m_position.y + 3);
                 heightMap[x * CHUNK_SIZE + z] = heightHere;
-                if (Random::intInRange(0, 100) == 0) treeMap.emplace_back(x, heightHere, z);
+                if (Random::intInRange(0, 1000) == 0) treeMap.emplace_back(x, heightHere, z);
             }
         }
 

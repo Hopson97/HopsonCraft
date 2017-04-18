@@ -92,6 +92,8 @@ namespace State
         }
 
         m_player.input();
+
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
         {
             m_player.position = getCenterPosition();
@@ -139,7 +141,6 @@ namespace State
 
             }
             lastPosition = raycast.getEndPoint();
-
         }
     }
 

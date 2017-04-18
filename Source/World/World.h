@@ -52,7 +52,8 @@ class World
         Chunk::Map m_chunks;
 
 
-        int32_t m_worldSize     = 0;
+        int32_t m_worldSize         = 0;
+        int32_t m_loadingDistance   = 1;
 };
 
 #endif // WORLD_H_INCLUDED

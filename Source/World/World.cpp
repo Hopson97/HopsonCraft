@@ -139,16 +139,14 @@ void World::regenerateChunks()
 //It does this in a sort of radius starting from the middle of the world
 void World::buffer(const Camera& camera)
 {
-    static int32_t loadDist = 1;
+    if (m_loadingDistance == ((m_worldSize / 2) + 1)) return;
 
-    if (loadDist == ((m_worldSize / 2) + 1)) return;
-
-    int minDis = m_worldSize / 2 - loadDist;
-    int maxDis = m_worldSize / 2 + loadDist;
+    int minDis = m_worldSize / 2 - m_loadingDistance;
+    int maxDis = m_worldSize / 2 + m_loadingDistance;
 
     bool isMeshMade = false;
 
-    std::cout << loadDist << std::endl;
+    std::cout << m_loadingDistance << std::endl;
 
     for (int32_t x = minDis ; x < maxDis; x++)
     {
@@ -171,7 +169,7 @@ void World::buffer(const Camera& camera)
     }
     if (!isMeshMade)
     {
-        loadDist++;
+        m_loadingDistance++;
     }
 }
 
