@@ -127,18 +127,16 @@ namespace State
                     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
                     {
                         timer.restart();
-                        m_world.setBlock(raycast.getEndPoint(), 0);
+                        m_world.setBlock(raycast.getEndPoint(), Block::ID::Air);
                         break;
                     }
                     else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
                     {
                         timer.restart();
-                        m_world.setBlock(lastPosition, 1);
+                        m_world.setBlock(lastPosition, Block::ID::Grass);
                         break;
                     }
                 }
-
-
             }
             lastPosition = raycast.getEndPoint();
         }

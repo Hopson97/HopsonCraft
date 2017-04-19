@@ -113,13 +113,14 @@ void World::regenerateChunks()
         Chunk::Section*             chunk           = nullptr;
         Chunk::Full_Chunk*          chunkFull       = m_chunks.get({chunkPosition.x, chunkPosition.z});
 
+        //Adds sections onto a chunk until it reaches the height of the block
         while (!chunk)
         {
             chunkFull->addSection();
             chunk = chunkFull->getSection(chunkPosition.y);
         }
 
-        chunk->qSetBlock(blockPosition, newBlock.block);
+        chunk->setBlock(blockPosition, newBlock.block);
         insertChunk(chunkPosition, chunk);
         checkForBatchAdd(blockPosition.x, chunkPosition, {1, 0, 0});
         checkForBatchAdd(blockPosition.y, chunkPosition, {0, 1, 0});

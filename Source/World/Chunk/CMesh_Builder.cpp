@@ -120,7 +120,7 @@ void Mesh_Builder::generateMesh(Meshes& meshes)
             for (int8_t z = 0; z < CHUNK_SIZE; ++z)
             {
                 Block::Small_Position blockPosition(x, y, z);
-                if(mp_section->qGetBlock(blockPosition) == 0)
+                if(mp_section->qGetBlock(blockPosition) == Block::ID::Air)
                     continue;
 
                 mp_activeData = &mp_section->qGetBlock(blockPosition).getData();

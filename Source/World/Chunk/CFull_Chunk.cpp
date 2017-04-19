@@ -17,7 +17,6 @@ namespace Chunk
     :   mp_world    (&world)
     ,   mp_chunkMap (&map)
     ,   m_position  (position)
-    //,   m_highestBlocks (CHUNK_AREA)
     {
         if (generate)
             generateBlocks();
@@ -40,7 +39,8 @@ namespace Chunk
                 m_positionedBlocks.emplace_back(position, block);
                 break;
 
-            default:
+            case State::Populating:
+            case State::Populated:
                 m_chunkSections[yPositionSection]
                     ->setBlock(pos, block);
                     break;
@@ -162,14 +162,13 @@ namespace Chunk
         m_state = State::Populating;
 
         static Noise::Generator gen;
-        gen.setSeed(5437474);
+        gen.setSeed(5474);
         Random::Generator<std::mt19937> generator;
         generator.setSeed(Hasher::hash(500, m_position.x, m_position.y));
-        gen.setNoiseFunction({8, 30, 0.40, 220});
+        gen.setNoiseFunction({8, 70, 0.51, 200});
 
         int32_t maxValue = 0;
         std::vector<int32_t> heightMap (CHUNK_AREA);
-        std::vector<Block::Position> treeMap (CHUNK_AREA);
 
         //Create height map from noise
         for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
@@ -178,7 +177,6 @@ namespace Chunk
             {
                 int32_t heightHere = gen.getValue(x, z, m_position.x + 3, m_position.y + 3);
                 heightMap[x * CHUNK_SIZE + z] = heightHere;
-                if (Random::intInRange(0, 1000) == 0) treeMap.emplace_back(x, heightHere, z);
             }
         }
 
@@ -200,14 +198,29 @@ namespace Chunk
                     }
                     else if (y < height && y > height - 4)
                         qSetBlock({x, y, z}, Block::ID::Dirt);
-                    else
+                    else if (y <= height - 4)
                         qSetBlock({x, y, z}, Block::ID::Stone);
                 }
             }
         }
 
-        //Make trees
+        std::cout << "Pos Block:" << m_positionedBlocks.size() << std::endl;
+        for (auto& newBlock : m_positionedBlocks)
+        {
+            setBlock(newBlock.position, newBlock.block);
+        }
+        m_state = State::Populated;
+    }
+}
 
+
+
+
+
+
+
+/*
+        //Make trees
         for (Block::Position& pos : treeMap)
         {
             auto height = generator.intInRange(5, 8);
@@ -228,7 +241,7 @@ namespace Chunk
                 }
             }
         }
-
+*/
 
         //Pyramid test
 /*
@@ -243,15 +256,3 @@ namespace Chunk
             }
         }
 */
-
-        std::cout << m_positionedBlocks.size() << std::endl;
-
-        for (auto& newBlock : m_positionedBlocks)
-        {
-            setBlock(newBlock.position, newBlock.block);
-        }
-        m_state = State::Populated;
-
-    }
-
-}
