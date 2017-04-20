@@ -58,11 +58,7 @@ void Application::runMainGameLoop()
         sf::Event e;
         while (Display::get().pollEvent(e))
         {
-            if (e.type == sf::Event::Closed)
-            {
-                Display::close();
-            }
-            m_states.back()->input(e);
+            handleEvents(e);
         }
         if (!Display::isOpen())
         {
