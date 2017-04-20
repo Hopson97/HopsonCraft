@@ -4,6 +4,9 @@
 #include <string>
 
 #include "../Block_Data.h"
+#include "../Block_Position.h"
+
+class World;
 
 namespace Block
 {
@@ -11,6 +14,8 @@ namespace Block
     {
         public:
             const Data& getData() const;
+
+            virtual void tick(World& world, const Position& position){}
 
         protected:
             Type(const std::string& fileName);

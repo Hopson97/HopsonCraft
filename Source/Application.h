@@ -27,6 +27,7 @@ class Application
         void resetSong();
 
     private:
+        void handleEvents(const sf::Event& e);
         void realPopState();
 
         std::vector<std::unique_ptr<State::Game_State>> m_states;

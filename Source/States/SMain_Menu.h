@@ -12,7 +12,7 @@ namespace State
         public:
             Main_Menu(Application& application);
 
-            void input  (sf::Event& e) override;
+            void input  (const sf::Event& e) override;
             void input  (Camera& camera) override;
             void update (Camera& camera, float dt) override;
             void draw   (Renderer::Master& renderer) override;

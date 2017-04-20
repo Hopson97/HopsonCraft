@@ -59,7 +59,7 @@ namespace State
         m_player.position = getCenterPosition();
     }
 
-    void Playing::input(sf::Event& e)
+    void Playing::input(const sf::Event& e)
     {
 
         if (m_isPaused)

@@ -108,6 +108,7 @@ void World::regenerateChunks()
 
     for (New_Block& newBlock : m_newBlocks)
     {
+        //Get respective positions and objects
         Chunk::Chunklet_Position    chunkPosition   = Maths::worldToChunkletPos(newBlock.position);
         Block::Small_Position       blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(newBlock.position));
         Chunk::Section*             chunk           = nullptr;
@@ -120,13 +121,18 @@ void World::regenerateChunks()
             chunk = chunkFull->getSection(chunkPosition.y);
         }
 
-        chunk->setBlock(blockPosition, newBlock.block);
+
+        //Set block
+        chunk->qSetBlock(blockPosition, newBlock.block);
+
+        //Insert chunks into a regeneration map
         insertChunk(chunkPosition, chunk);
         checkForBatchAdd(blockPosition.x, chunkPosition, {1, 0, 0});
         checkForBatchAdd(blockPosition.y, chunkPosition, {0, 1, 0});
         checkForBatchAdd(blockPosition.z, chunkPosition, {0, 0, 1});
     }
 
+    //Regenerate chunks
     for (auto& chunk : chunksToUpdate)
     {
         Chunk::Section* sect = chunk.second;

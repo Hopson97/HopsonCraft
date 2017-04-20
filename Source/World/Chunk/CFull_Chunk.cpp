@@ -165,7 +165,7 @@ namespace Chunk
         gen.setSeed(5474);
         Random::Generator<std::mt19937> generator;
         generator.setSeed(Hasher::hash(500, m_position.x, m_position.y));
-        gen.setNoiseFunction({8, 70, 0.51, 200});
+        gen.setNoiseFunction({8, 60, 0.51, 300});
 
         int32_t maxValue = 0;
         std::vector<int32_t> heightMap (CHUNK_AREA);

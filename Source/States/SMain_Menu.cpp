@@ -15,7 +15,7 @@ namespace State
         initMenu();
     }
 
-    void Main_Menu::input(sf::Event& e)
+    void Main_Menu::input( const sf::Event& e)
     {
         mp_activeMenu->input(e);
     }

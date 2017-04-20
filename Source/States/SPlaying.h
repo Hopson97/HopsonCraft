@@ -34,7 +34,7 @@ namespace State
         public:
             Playing(Application& application, int32_t worldSize);
 
-            void input  (sf::Event& e) override;
+            void input  (const sf::Event& e) override;
             void input  (Camera& camera) override;
             void update (Camera& camera, float dt) override;
             void draw   (Renderer::Master& renderer) override;

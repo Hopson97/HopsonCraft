@@ -22,7 +22,7 @@ namespace State
             Game_State(Application& application);
             virtual ~Game_State() = default;
 
-            virtual void input  (sf::Event& e) {}
+            virtual void input  (const sf::Event& e) {}
             virtual void input  (Camera& camera) = 0;
             virtual void update (Camera& camera, float dt) = 0;
             virtual void draw   (Renderer::Master& renderer) = 0;
