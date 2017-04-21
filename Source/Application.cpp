@@ -48,7 +48,6 @@ void Application::runMainGameLoop()
         if (m_shouldPopState)
         {
             realPopState();
-            m_shouldPopState = false;
         }
     }
 }
@@ -80,7 +79,8 @@ void Application::handleEvents(const sf::Event& e)
 
 void Application::realPopState()
 {
-     m_states.pop_back();
+    m_states.pop_back();
+    m_shouldPopState = false;
 }
 
 

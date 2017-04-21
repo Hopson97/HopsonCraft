@@ -120,7 +120,7 @@ namespace State
             if (!(block == Block::ID::Air)) //||
                  //block == Block::ID::Water))
             {
-                float delay = 0.2f;
+                constexpr static float delay = 0.15f;
 
                 if (timer.getElapsedTime().asSeconds() > delay)
                 {

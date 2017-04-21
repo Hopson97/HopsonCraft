@@ -1,10 +1,10 @@
 {
 	"Name": 		"Oak Leaf Block",
 	"ID": 			6,
-	"Opaque": 		true,
+	"Opaque": 		false,
 	"Obstacle": 	true,
 	"Mesh":			0,
-	
+
 	"Texture Top": 		[ 7, 0],
 	"Texture Side": 	[ 7, 0],
 	"Texture Bottom": 	[ 7, 0]
