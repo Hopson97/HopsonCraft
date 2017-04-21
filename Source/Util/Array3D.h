@@ -26,17 +26,13 @@ class Array3D
         template<typename Vector>
         T& at(const Vector& pos)
         {
-            return m_array[pos.y *
-                           m_AREA + pos.z *
-                           Size + pos.x];
+            return at(pos.x, pos.y, pos.z);
         }
 
         template<typename Vector>
         const T& at(const Vector& pos) const
         {
-            return m_array[pos.y *
-                           m_AREA + pos.z *
-                           Size + pos.x];
+            return at(pos.x, pos.y, pos.z);
         }
 
     private:

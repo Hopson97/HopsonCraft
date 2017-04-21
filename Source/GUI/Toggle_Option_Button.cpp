@@ -42,7 +42,7 @@ namespace GUI
     void Toggle_Option_Button::nextOption()
     {
         m_optionIndex++;
-        if (m_optionIndex > m_options.size() - 1 )
+        if (m_optionIndex > (int32_t)m_options.size() - 1 )
         {
             m_optionIndex = 0;
         }

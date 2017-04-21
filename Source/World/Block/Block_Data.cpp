@@ -1,48 +1,54 @@
 #include "Block_Data.h"
 
+#include "../../Util/json.h"
+
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
+namespace
+{
+    std::string getFileContents(const std::string& filePath)
+    {
+        std::ifstream inFile(filePath);
+        std::stringstream stream;
+
+        stream << inFile.rdbuf();   //Gets the file contents into a string stream
+        return stream.str();        //Return the string from the string stream
+    }
+}
+
 namespace Block
 {
     Data::Data(const std::string& fileName)
     {
-        std::ifstream inFile;
-        inFile.open("Data/Blocks/" + fileName + ".block");
-        std::string title;
+        auto source = getFileContents("Data/Blocks/" + fileName + ".json");
+        nlohmann::json jsonFile = nlohmann::json::parse(source.c_str());
 
-        while (std::getline(inFile, title))
+        m_holder.name       = jsonFile["Name"]      .get<std::string>();
+        m_holder.isOpaque   = jsonFile["Opaque"]    .get<bool>();
+        m_holder.isObstacle = jsonFile["Obstacle"]  .get<bool>();
+
+        m_holder.blockID    = (Block::ID) jsonFile["ID"]    .get<int32_t>();
+        m_holder.meshType   = (Mesh_Type) jsonFile["Mesh"]  .get<int32_t>();
+
         {
-            if (title == "") continue;
-            else if (title == "Name")
-            {
-                inFile >> m_holder.name;
-            }
-            else if (title == "ID")
-            {
-                loadEnum(inFile, m_holder.blockID);
-            }
-            else if (title == "Opaque")
-            {
-                inFile >> m_holder.isOpaque;
-            }
-            else if (title == "Obstacle")
-            {
-                inFile >> m_holder.isObstacle;
-            }
-            else if (title == "Mesh")
-            {
-                loadEnum(inFile, m_holder.meshType);
-            }
-            else if (title == "TextureTop")
-            {
-                inFile >> m_holder.topTextureCoords.x >> m_holder.topTextureCoords.y;
-            }
-            else if (title == "TextureSide")
-            {
-                inFile >> m_holder.sideTextureCoords.x >> m_holder.sideTextureCoords.y;
-            }
-            else if (title == "TextureBottom")
-            {
-                inFile >> m_holder.bottomTextureCoords.x >> m_holder.bottomTextureCoords.y;
-            }
+            auto uv = jsonFile["Texture Top"].get<std::vector<float>>();
+            m_holder.topTextureCoords.x = uv[0];
+            m_holder.topTextureCoords.y = uv[1];
+        }
+
+        {
+            auto uv = jsonFile["Texture Side"].get<std::vector<float>>();
+            m_holder.sideTextureCoords.x = uv[0];
+            m_holder.sideTextureCoords.y = uv[1];
+        }
+
+        {
+            auto uv = jsonFile["Texture Bottom"].get<std::vector<float>>();
+            m_holder.bottomTextureCoords.x = uv[0];
+            m_holder.bottomTextureCoords.y = uv[1];
         }
     }
 }

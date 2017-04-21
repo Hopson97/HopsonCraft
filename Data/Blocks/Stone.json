@@ -1,0 +1,11 @@
+{
+	"Name": 		"Stone Block",
+	"ID": 			3,
+	"Opaque": 		true,
+	"Obstacle": 	true,
+	"Mesh":			0,
+	
+	"Texture Top": 		[ 3, 0],
+	"Texture Side": 	[ 3, 0],
+	"Texture Bottom": 	[ 3, 0]
+}

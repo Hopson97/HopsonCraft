@@ -49,13 +49,9 @@ namespace Chunk
             Chunk::Chunklet_Position newPos = m_position + change;
 
             //if (mp_chunks->existsAt({newPos.x, newPos.y, newPos.z}))
-            {
                 return mp_chunks->get({newPos.x, newPos.y, newPos.z});
-            }
             //else
-            {
             //    return nullptr;
-            }
         }
     }
 
@@ -77,13 +73,9 @@ namespace Chunk
             Chunk::Chunklet_Position newPos = m_position + change;
 
             //if (mp_chunks->existsAt({newPos.x, newPos.y, newPos.z}))
-            {
                 return mp_chunks->get({newPos.x, newPos.y, newPos.z});
-            }
             //else
-            {
             //    return nullptr;
-            }
         }
     }
 
@@ -100,16 +92,6 @@ namespace Chunk
             pos += CHUNK_SIZE;
         }
     }
-
-    uint32_t Section::getIndexFrom(const Block::Small_Position& position) const
-    {
-        return position.y *
-               CHUNK_AREA + position.z *
-               CHUNK_SIZE + position.x;
-    }
-
-    const Chunklet_Position& Section::getPosition()  const { return m_position; }
-    const Meshes& Section::getMeshes()               const { return m_meshes;   }
 
     const Section::Layer& Section::getLayer(int8_t y)const
     {
@@ -145,10 +127,11 @@ namespace Chunk
                                 m_position.z + (int32_t)change.y});
     }
 
-    const AABB& Section::getAABB() const
-    {
-        return m_aabb;
-    }
+    const Chunklet_Position& Section::getPosition() const { return m_position; }
+    const Meshes& Section::getMeshes()              const { return m_meshes;   }
+    const AABB& Section::getAABB()                  const { return m_aabb; }
+    const Full_Chunk& Section::getParentChunk()      const { return *m_parentChunk; }
+
 
 }
 

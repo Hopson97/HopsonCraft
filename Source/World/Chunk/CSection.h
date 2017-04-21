@@ -71,19 +71,14 @@ namespace Chunk
             const Layer& getLayer       (int8_t y)  const;
 
             const Section* getAdjacentSection(const Vector2& change) const;
-
             const AABB& getAABB() const;
-
-            ///@TODO Move to .cpp file
-            const Full_Chunk& getParentChunk() const { return *m_parentChunk; }
+            const Full_Chunk& getParentChunk() const;
 
         private:
             Section* getSection(Block::Small_Position& position);
             const Section* getConstSection(Block::Small_Position& position) const;
 
             void checkBound(int8_t& dir, int32_t& change) const;
-
-            uint32_t getIndexFrom(const Block::Small_Position& position) const;
 
             Array3D<CBlock, CHUNK_SIZE>         m_blocks;
             std::array<CLight, CHUNK_VOLUME>    m_light;

@@ -77,28 +77,22 @@ namespace
     }
 }
 
-//====================== i put this here because
-//MAIN IS HERE
+/*
+    ~
+    ~
+    ~
+*/
+
+
+
 int main() try
 {
     runGame();
     return 0;
 }
-catch(std::out_of_range& e)
+catch(std::exception& e)
 {
-    std::string msg = e.what();
-    errorMessage(msg);
-    std::cin.ignore();
-}
-catch(std::runtime_error& e)
-{
-    std::string msg = e.what();
-    errorMessage(msg);
-    std::cin.ignore();
-}
-catch(...)
-{
-    errorMessage("Unknown error.");
+    errorMessage(std::string(e.what()));
     std::cin.ignore();
 }
 

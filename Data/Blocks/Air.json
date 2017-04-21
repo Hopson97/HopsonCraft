@@ -1,0 +1,11 @@
+{
+	"Name": 		"Air Block",
+	"ID": 			0,
+	"Opaque": 		false,
+	"Obstacle": 	false,
+	"Mesh":			0,
+
+	"Texture Top": 		[ 0, 3],
+	"Texture Side": 	[ 0, 3],
+	"Texture Bottom": 	[ 0, 3]
+}
