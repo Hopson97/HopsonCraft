@@ -77,12 +77,12 @@ namespace Chunk
     void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
     {
         m_layerHasAir[position.y].update(block);
-        m_blocks[getIndexFrom(position)] = block;
+        m_blocks.at(position.x, position.y, position.z) = block;
     }
 
     CBlock Section::qGetBlock(const Block::Small_Position& position) const
     {
-        return m_blocks[getIndexFrom(position)];
+        return m_blocks.at(position.x, position.y, position.z);
     }
 /*
     void Section::qSetBlockLight(const Block::Small_Position& position, uint8_t value)

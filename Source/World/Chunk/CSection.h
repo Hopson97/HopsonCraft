@@ -11,6 +11,8 @@
 #include "../Block/Block_Database.h"
 #include "../../Physics/AABB.h"
 
+#include "../../Util/Array3D.h"
+
 namespace Chunk
 {
     class Map;
@@ -83,7 +85,7 @@ namespace Chunk
 
             uint32_t getIndexFrom(const Block::Small_Position& position) const;
 
-            std::array<CBlock, CHUNK_VOLUME>    m_blocks;
+            Array3D<CBlock, CHUNK_SIZE>         m_blocks;
             std::array<CLight, CHUNK_VOLUME>    m_light;
             std::array<Layer, CHUNK_SIZE>       m_layerHasAir;
 

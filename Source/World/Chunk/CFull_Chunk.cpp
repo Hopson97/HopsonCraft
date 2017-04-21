@@ -146,8 +146,6 @@ namespace Chunk
     {
         for (auto& chunk : m_chunkSections)
         {
-            //if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
-            //    continue;
             if (!chunk->made)
             {
                 chunk->makeMesh();
@@ -204,7 +202,6 @@ namespace Chunk
             }
         }
 
-        std::cout << "Pos Block:" << m_positionedBlocks.size() << std::endl;
         for (auto& newBlock : m_positionedBlocks)
         {
             setBlock(newBlock.position, newBlock.block);
