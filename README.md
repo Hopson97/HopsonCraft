@@ -1,5 +1,11 @@
 # HopsonCraft
 
+## Versions
+
+This game has gone through major rewrites and refactors overtime.
+
+To see the source code as it was in episodes 1, 2 and 3 of "Creating Minecraft in C++/ OpenGL" videos, look at the "MattCraft Classic" in the releases section of this repository. 
+
 ## Dependencies
 The project requires these libraries: SFML (minimum 2.4), GLEW (OpenGL 3.3+), and OpenGL Maths Library (GLM).
 
