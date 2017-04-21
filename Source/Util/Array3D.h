@@ -23,6 +23,22 @@ class Array3D
                            Size + xPos];
         }
 
+        template<typename Vector>
+        T& at(const Vector& pos)
+        {
+            return m_array[pos.y *
+                           m_AREA + pos.z *
+                           Size + pos.x];
+        }
+
+        template<typename Vector>
+        const T& at(const Vector& pos) const
+        {
+            return m_array[pos.y *
+                           m_AREA + pos.z *
+                           Size + pos.x];
+        }
+
     private:
         std::array<T, Size * Size * Size> m_array;
 
