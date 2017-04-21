@@ -212,6 +212,10 @@ void Mesh_Builder::generateMesh(Meshes& meshes)
     std::cout << "Average: "    << (sum / n) * 1000.0f << "ms\n\n";
 }
 
+//Looks at a layer of chunk
+//Returns true if the layer itself, or an adjacent one, has a non-opaque block
+//I do this as it saves ALOT of time when iterating through underground chunks, which typically get skipped
+//thanks to this function (reduction, on my laptop, from >5ms to <1ms average chunk mesh gen time)
 bool Mesh_Builder::shouldCreateLayer(uint32_t yPosition)
 {
     auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)

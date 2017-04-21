@@ -2,7 +2,15 @@
 
 #include "../World_Constants.h"
 
-
+namespace
+{
+    template<typename T>
+    void clearMemory(std::vector<T>& vect)
+    {
+        vect.clear();
+        vect.shrink_to_fit();
+    }
+}
 
 namespace Chunk
 {
@@ -20,6 +28,8 @@ namespace Chunk
     {
         ++m_facesCount;
 
+        //Builds the vertex positions of the mesh, one vertex (3D) at a time of the face passed in
+        //Does this 4 times for each of the 4 vertices that makes up a block face
         for (int i = 0, index = 0; i < 4; ++i)
         {
             m_verticies.push_back(templateFace[index++] + chunkPos.x * CHUNK_SIZE + blockPos.x);
@@ -51,15 +61,11 @@ namespace Chunk
         m_model.addData(m_verticies, m_texCoords, m_indices);
         m_model.addVBO(1, m_cardinalLights);
 
-        m_verticies         .clear();
-        m_texCoords         .clear();
-        m_indices           .clear();
-        m_cardinalLights    .clear();
-
-        m_verticies         .shrink_to_fit();
-        m_texCoords         .shrink_to_fit();
-        m_indices           .shrink_to_fit();
-        m_cardinalLights    .shrink_to_fit();
+        //Clear up some memory, also prevents odd stuff happening for mesh rebuild
+        clearMemory(m_verticies);
+        clearMemory(m_texCoords);
+        clearMemory(m_indices);
+        clearMemory(m_cardinalLights);
     }
 
     const Model& Mesh::getModel() const

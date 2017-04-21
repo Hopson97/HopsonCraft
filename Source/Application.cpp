@@ -8,34 +8,7 @@
 
 #include "Display.h"
 
-#include "States/SPlaying.h"
 #include "States/SMain_Menu.h"
-
-namespace
-{
-    struct Timestep
-    {
-        public:
-            Timestep(float initialTime)
-            : m_timestep(0.0f), m_lastTime(initialTime)
-            {
-            }
-
-            void update(float currentTime)
-            {
-                m_timestep = currentTime - m_lastTime;
-                m_lastTime = currentTime;
-            }
-
-            float asSeconds() const { return asMillis() * 0.001f; }
-            float asMillis() const { return m_timestep; }
-
-        private:
-            float m_timestep;
-            float m_lastTime;
-    };
-}
-
 
 Application::Application()
 {
@@ -112,50 +85,32 @@ void Application::realPopState()
 
 
 /*
-void Application::runMainGameLoop()
+namespace
 {
-    sf::Clock gameTimer;
-
-    while (Display::isOpen())
+    struct Timestep
     {
-        if (m_states.empty())
-            break;
-
-        auto elapsed = gameTimer.restart().asSeconds();
-
-        m_musicPlayer.update();
-
-        sf::Event e;
-        while (Display::get().pollEvent(e))
-        {
-            if (e.type == sf::Event::Closed)
+        public:
+            Timestep(float initialTime)
+            : m_timestep(0.0f), m_lastTime(initialTime)
             {
-                Display::close();
             }
-            m_states.back()->input(e);
-        }
-        if (!Display::isOpen())
-        {
-            break;
-        }
 
-        m_states.back()->input  (m_camera);
-        m_states.back()->update (m_camera, elapsed);
-        m_camera.update();
-        m_states.back()->draw   (m_renderer);
+            void update(float currentTime)
+            {
+                m_timestep = currentTime - m_lastTime;
+                m_lastTime = currentTime;
+            }
 
-        m_renderer.clear();
-        m_renderer.update(m_camera);
-        if (m_shouldPopState)
-        {
-            realPopState();
-            m_shouldPopState = false;
-        }
-    }
+            float asSeconds() const { return asMillis() * 0.001f; }
+            float asMillis() const { return m_timestep; }
+
+        private:
+            float m_timestep;
+            float m_lastTime;
+    };
 }
-*/
 
-/*
+
 void Application::runMainGameLoop()
 {
     sf::Clock   gameTimer;

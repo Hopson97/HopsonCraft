@@ -63,23 +63,20 @@ namespace Noise
         auto newX = (x + (tileX * CHUNK_SIZE));
         auto newZ = (z + (tileZ * CHUNK_SIZE));
 
-        if (newX < 0 || newZ < 0) return 74;
+        if (newX < 0 || newZ < 0) return WATER_LEVEL;
 
-        auto totalValue   = 0.0;
+        auto totalValue = 0.0;
 
-        //Shorthand
-        Data nf = m_noiseFunction;
-
-        for (auto a = 0; a < nf.octaves - 1; a++)      //This loops trough the octaves.
+        for (auto a = 0; a < m_noiseFunction.octaves - 1; a++)      //This loops trough the octaves.
         {
-            auto frequency = pow(2.0, a) * 1.5;           //This increases the frequency with every loop of the octave.
-            auto amplitude = pow(nf.roughness, a);  //This decreases the amplitude with every loop of the octave.
-            totalValue += noise(((double)newX) * frequency / nf.smoother,
-                                ((double)newZ) * frequency / nf.smoother)
+            auto frequency = pow(2.0, a);           //This increases the frequency with every loop of the octave.
+            auto amplitude = pow(m_noiseFunction.roughness, a);  //This decreases the amplitude with every loop of the octave.
+            totalValue += noise(((double)newX) * frequency / m_noiseFunction.smoother,
+                                ((double)newZ) * frequency / m_noiseFunction.smoother)
                                 * amplitude;
         }
 
-        return ((totalValue / 2.1) + 1.2) * nf.amplitudeMultiplier;
+        return ((totalValue / 2.1) + 1.2) * m_noiseFunction.amplitudeMultiplier;
     }
 
     void Generator::setNoiseFunction(const Noise::Data& data)

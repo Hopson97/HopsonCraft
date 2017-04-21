@@ -120,6 +120,7 @@ namespace Chunk
         m_chunkSections.push_back(std::make_unique<Section>(position, *mp_chunkMap, *this));
     }
 
+    //Returns number of faces drawn
     uint32_t Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)
     {
         uint32_t faces = 0;
@@ -129,8 +130,8 @@ namespace Chunk
             if (chunk->getMeshes().solidMesh.getFaceCount() > 0)
             {
                 //Frustum test
-                if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
-                    continue;
+                if(!camera.getFrustum().boxInFrustum(chunk->getAABB())) continue;
+
                 if (chunk->made)
                 {
                     renderer.draw(*chunk);
@@ -147,7 +148,6 @@ namespace Chunk
         {
             //if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
             //    continue;
-
             if (!chunk->made)
             {
                 chunk->makeMesh();
@@ -212,12 +212,6 @@ namespace Chunk
         m_state = State::Populated;
     }
 }
-
-
-
-
-
-
 
 /*
         //Make trees
