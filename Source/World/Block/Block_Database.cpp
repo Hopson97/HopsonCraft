@@ -20,8 +20,11 @@ namespace Block
         blocks[(int)ID::Dirt    ] = std::make_unique<Default>   ("Dirt");
         blocks[(int)ID::Stone   ] = std::make_unique<Default>   ("Stone");
         blocks[(int)ID::Sand    ] = std::make_unique<Default>   ("Sand");
+
         blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default>   ("Oak_Wood");
         blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default>   ("Oak_Leaf");
+
+        blocks[(int)ID::Water       ] = std::make_unique<Default>   ("Water");
     }
 
     const Type& Database::getBlock(uint8_t id)

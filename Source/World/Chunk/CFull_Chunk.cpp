@@ -181,6 +181,7 @@ namespace Chunk
         }
 
         maxValue = *std::max_element(heightMap.begin(), heightMap.end());
+        maxValue = std::max(maxValue, WATER_LEVEL);
 
         //Populate the blocks
         for (int32_t y = 0; y < maxValue + 1; ++y)
@@ -192,8 +193,17 @@ namespace Chunk
                     int32_t height = heightMap[x * CHUNK_SIZE + z];
 
                     if (y > height)
-                        continue;
-                    if (y == height)
+                    {
+                        if (y > WATER_LEVEL)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            qSetBlock({x, y, z}, Block::ID::Water);
+                        }
+                    }
+                    else if (y == height)
                     {
                         if (y > WATER_LEVEL)
                         {

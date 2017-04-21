@@ -117,8 +117,8 @@ namespace State
             CBlock block = m_world.getBlock(raycast.getEndPoint());
 
             ///@TODO When water is readded, fix this
-            if (!(block == Block::ID::Air)) //||
-                 //block == Block::ID::Water))
+            if (!(block == Block::ID::Air ||
+                  block == Block::ID::Water))
             {
                 constexpr static float delay = 0.15f;
 

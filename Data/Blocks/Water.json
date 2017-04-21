@@ -1,0 +1,11 @@
+{
+	"Name": 		"Water Block",
+	"ID": 			7,
+	"Opaque": 		false,
+	"Obstacle": 	false,
+	"Mesh":			0,
+
+	"Texture Top": 		[ 8, 0],
+	"Texture Side": 	[ 8, 0],
+	"Texture Bottom": 	[ 8, 0]
+}
