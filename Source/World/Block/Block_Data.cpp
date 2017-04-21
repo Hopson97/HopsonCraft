@@ -33,22 +33,15 @@ namespace Block
         m_holder.blockID    = (Block::ID) jsonFile["ID"]    .get<int32_t>();
         m_holder.meshType   = (Mesh_Type) jsonFile["Mesh"]  .get<int32_t>();
 
+        auto getTexCoords = [&](const std::string& loc, Vector2& vect)
         {
-            auto uv = jsonFile["Texture Top"].get<std::vector<float>>();
-            m_holder.topTextureCoords.x = uv[0];
-            m_holder.topTextureCoords.y = uv[1];
-        }
+            auto uv = jsonFile["Texture " + loc].get<std::vector<float>>();
+            vect.x = uv[0];
+            vect.y = uv[1];
+        };
 
-        {
-            auto uv = jsonFile["Texture Side"].get<std::vector<float>>();
-            m_holder.sideTextureCoords.x = uv[0];
-            m_holder.sideTextureCoords.y = uv[1];
-        }
-
-        {
-            auto uv = jsonFile["Texture Bottom"].get<std::vector<float>>();
-            m_holder.bottomTextureCoords.x = uv[0];
-            m_holder.bottomTextureCoords.y = uv[1];
-        }
+        getTexCoords("Top",     m_holder.topTextureCoords);
+        getTexCoords("Side",    m_holder.sideTextureCoords);
+        getTexCoords("Bottom",  m_holder.bottomTextureCoords);
     }
 }
