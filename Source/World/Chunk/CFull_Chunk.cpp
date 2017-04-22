@@ -67,13 +67,18 @@ namespace Chunk
 
 
 
-    void Full_Chunk::qSetBlock(const Block::Position& position, CBlock block)
+    void Full_Chunk::qSetBlock(const Block::Position& position, CBlock block, bool overrideBlocks)
     {
         int32_t yPositionSection = position.y / CHUNK_SIZE;
 
         while (yPositionSection > m_sectionCount - 1)
         {
             addSection();
+        }
+
+        if (!overrideBlocks)
+        {
+            ///@TODO This
         }
 
         m_chunkSections[yPositionSection]
@@ -128,7 +133,9 @@ namespace Chunk
         for (auto& chunk : m_chunkSections)
         {
             //No point trying to render a chunk with no faces
-            if (chunk->getMeshes().solidMesh.getFaceCount() > 0)
+            if (chunk->getMeshes().solidMesh.getFaceCount   () > 0 ||
+                chunk->getMeshes().floraMesh.getFaceCount   () > 0 ||
+                chunk->getMeshes().liquidMesh.getFaceCount  () > 0)
             {
                 //Frustum test
                 if(!camera.getFrustum().boxInFrustum(chunk->getAABB())) continue;
@@ -239,21 +246,22 @@ namespace Chunk
         for (Block::Position& pos : treeMap)
         {
             auto height = generator.intInRange(5, 8);
-
-            for (int32_t y = 1; y < height; y++)
-            {
-                qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood);
-            }
-
             int32_t treeSize = 2;
+
             for (int32_t zLeaf = -treeSize; zLeaf <= treeSize; zLeaf++)
             {
                 for (int32_t xLeaf = -treeSize; xLeaf <= treeSize; xLeaf++)
                 {
-                    setBlock({pos.x + xLeaf, pos.y + height, pos.z + zLeaf},     Block::ID::Oak_Leaf);
+                    setBlock({pos.x + xLeaf, pos.y + height - 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
+                    setBlock({pos.x + xLeaf, pos.y + height + 0, pos.z + zLeaf}, Block::ID::Oak_Leaf);
                     setBlock({pos.x + xLeaf, pos.y + height + 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
-                    setBlock({pos.x + xLeaf, pos.y + height + 2, pos.z + zLeaf}, Block::ID::Oak_Leaf);
                 }
+            }
+
+
+            for (int32_t y = 1; y < height; y++)
+            {
+                qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood);
             }
         }
 

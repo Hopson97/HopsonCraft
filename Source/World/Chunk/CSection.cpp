@@ -32,6 +32,15 @@ namespace Chunk
         made = true;
     }
 
+
+
+
+    const Chunklet_Position& Section::getPosition() const   { return m_position;        }
+    const Meshes& Section::getMeshes()              const   { return m_meshes;          }
+    const AABB& Section::getAABB()                  const   { return m_aabb;            }
+    const Full_Chunk& Section::getParentChunk()      const  { return *m_parentChunk;    }
+
+
     const Section::Layer& Section::getLayer(int8_t y)const
     {
         ///@TODO This to use better bounds
@@ -59,19 +68,13 @@ namespace Chunk
         }
     }
 
+
     const Section* Section::getAdjacentSection(const Vector2& change) const
     {
         return mp_chunks->get({ m_position.x + (int32_t)change.x,
                                 m_position.y,
                                 m_position.z + (int32_t)change.y});
     }
-
-    const Chunklet_Position& Section::getPosition() const   { return m_position;        }
-    const Meshes& Section::getMeshes()              const   { return m_meshes;          }
-    const AABB& Section::getAABB()                  const   { return m_aabb;            }
-    const Full_Chunk& Section::getParentChunk()      const  { return *m_parentChunk;    }
-
-
 }
 
 

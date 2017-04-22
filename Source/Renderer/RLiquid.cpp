@@ -12,7 +12,7 @@ namespace Renderer
 {
     void RLiquid::draw(const Chunk::Section& section)
     {
-        //if (section.getMeshes().liquidMesh.getFaceCount() > 0)
+        if (section.getMeshes().liquidMesh.getFaceCount() > 0)
         {
             m_renderInfo.emplace_back(section.getMeshes().liquidMesh.getModel().getVAO(),
                                       section.getMeshes().liquidMesh.getModel().getIndicesCount());

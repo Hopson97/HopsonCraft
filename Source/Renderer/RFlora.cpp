@@ -12,8 +12,11 @@ namespace Renderer
 {
     void RFlora::draw(const Chunk::Section& section)
     {
-        m_renderInfo.emplace_back(section.getMeshes().floraMesh.getModel().getVAO(),
-                                  section.getMeshes().floraMesh.getModel().getIndicesCount());
+        if (section.getMeshes().floraMesh.getFaceCount() > 0)
+        {
+            m_renderInfo.emplace_back(section.getMeshes().floraMesh.getModel().getVAO(),
+                                      section.getMeshes().floraMesh.getModel().getIndicesCount());
+        }
     }
 
     void RFlora::update(const Camera& camera)
