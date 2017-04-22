@@ -120,6 +120,7 @@ namespace Chunk
         m_chunkSections.push_back(std::make_unique<Section>(position, *mp_chunkMap, *this));
     }
 
+    //Adds all of the chunks within the viewing frustum into the master renderer
     //Returns number of faces drawn
     uint32_t Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)
     {
@@ -135,7 +136,9 @@ namespace Chunk
                 if (chunk->made)
                 {
                     renderer.draw(*chunk);
-                    faces += chunk->getMeshes().solidMesh.getFaceCount();
+                    faces += chunk->getMeshes().solidMesh.getFaceCount() +
+                             chunk->getMeshes().floraMesh.getFaceCount() +
+                             chunk->getMeshes().liquidMesh.getFaceCount();
                 }
             }
         }
@@ -160,8 +163,8 @@ namespace Chunk
         m_state = State::Populating;
 
         Noise::Generator gen;
-        gen.setSeed(5474);
-        gen.setNoiseFunction({8, 60, 0.51, 300});
+        gen.setSeed(500);
+        gen.setNoiseFunction({8, WATER_LEVEL - 10, 0.4856, 245});
 
         Random::Generator<std::mt19937> generator;
         generator.setSeed(Hasher::hash(500, m_position.x, m_position.y));

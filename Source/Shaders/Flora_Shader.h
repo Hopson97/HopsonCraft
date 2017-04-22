@@ -1,5 +1,5 @@
-#ifndef LIQUID_SAHDER_H_INCLUDED
-#define LIQUID_SAHDER_H_INCLUDED
+#ifndef FLORA_SHADER_H
+#define FLORA_SHADER_H
 
 #include "Simple_Shader.h"
 
@@ -19,4 +19,4 @@ namespace Shader
     };
 }
 
-#endif // LIQUID_SAHDER_H_INCLUDED
+#endif // FLORA_SHADER_H

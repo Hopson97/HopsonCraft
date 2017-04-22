@@ -24,7 +24,7 @@ namespace Renderer
 
         m_shader.setProjMatrix(camera.getProjectionMatrix());
         m_shader.setViewMatrix(camera.getViewMatrix());
-        m_shader.loadWindTimer(m_waveTimer.getElapsedTime().asSeconds());
+        m_shader.loadWindTimer(m_windTimer.getElapsedTime().asSeconds());
 
         for (const auto& section : m_renderInfo)
         {

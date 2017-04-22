@@ -12,13 +12,17 @@ namespace Renderer
 {
     void RChunk::draw(const Chunk::Section& section)
     {
-        m_renderInfo.emplace_back(section.getMeshes().solidMesh.getModel().getVAO(),
-                                  section.getMeshes().solidMesh.getModel().getIndicesCount());
+        if (section.getMeshes().solidMesh.getFaceCount() > 0)
+        {
+            m_renderInfo.emplace_back(section.getMeshes().solidMesh.getModel().getVAO(),
+                                      section.getMeshes().solidMesh.getModel().getIndicesCount());
+        }
     }
 
     void RChunk::update(const Camera& camera)
     {
-        glEnable    (GL_CULL_FACE);
+        glEnable (GL_CULL_FACE);
+        glDisable(GL_BLEND);
 
         m_shader.bind();
 

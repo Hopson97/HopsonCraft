@@ -5,10 +5,10 @@
 
 namespace Shader
 {
-    class Liqud_Shader : public Simple_Shader
+    class Liquid_Shader : public Simple_Shader
     {
         public:
-            Liqud_Shader();
+            Liquid_Shader();
 
             void loadWaveTimer(float time);
 

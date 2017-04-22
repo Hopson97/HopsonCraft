@@ -30,14 +30,17 @@ namespace Chunk
                 block.getData().isOpaque ?
                     opaqueCount++ :
                     opaqueCount--;
+
+                if (opaqueCount < 0)
+                {
+                    opaqueCount = 0;
+                }
             }
         };
 
         const static Layer errorLayer;
 
         public:
-            ///@TODO MAke this private
-
             Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk);
             bool made = false; ///@TODO Better solution for this
             void makeMesh();
@@ -75,11 +78,6 @@ namespace Chunk
             const Full_Chunk& getParentChunk() const;
 
         private:
-            Section* getSection(Block::Small_Position& position);
-            const Section* getConstSection(Block::Small_Position& position) const;
-
-            void checkBound(int8_t& dir, int32_t& change) const;
-
             Array3D<CBlock, CHUNK_SIZE>         m_blocks;
             std::array<CLight, CHUNK_VOLUME>    m_light;
             std::array<Layer, CHUNK_SIZE>       m_layerHasAir;

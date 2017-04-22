@@ -1,12 +1,14 @@
 #include "CSection.h"
 
+#include "CBoundsCheck.h"
+
 namespace Chunk
 {
     //===============================
     //Blocks
     void Section::setBlock(Block::Small_Position& position, CBlock block)
     {
-        Section* section = getSection(position);
+        Section* section = getSection(position, this, *mp_chunks);
         if(section)
         {
             section->qSetBlock(position, block);
@@ -15,7 +17,7 @@ namespace Chunk
 
     CBlock Section::getBlock(Block::Small_Position& position) const
     {
-        auto* section = getConstSection(position);
+        auto* section = getConstSection(position, this, *mp_chunks);
         if(section)
         {
             return section->qGetBlock(position);

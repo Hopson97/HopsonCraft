@@ -12,7 +12,8 @@ namespace Block
     enum Mesh_Type
     {
         Solid   = 0,
-        Flora   = 1
+        Flora   = 1,
+        Liquid  = 2,
     };
 
     struct Data_Holder
@@ -22,9 +23,9 @@ namespace Block
 
         ID          blockID;
         std::string name;
-        bool        isOpaque    = true;
-        bool        isObstacle  = true;
-        Mesh_Type   meshType    = Mesh_Type::Solid;
+        bool        isOpaque;
+        bool        isObstacle;
+        Mesh_Type   meshType;
         Vector2     topTextureCoords;
         Vector2     sideTextureCoords;
         Vector2     bottomTextureCoords;

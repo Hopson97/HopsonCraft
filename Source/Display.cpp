@@ -33,15 +33,10 @@ namespace Display
                                                     "OpenGL",
                                                     sf::Style::Fullscreen,
                                                     settings);
-        //window->setVerticalSyncEnabled(true);
         glewInit();
         glViewport(0, 0, get().getSize().x, get().getSize().y);
-        glEnable    (GL_DEPTH_TEST);
-        glCullFace  (GL_BACK);
 
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        //window->setMouseCursorVisible(false);
     }
 
     void close()
@@ -52,6 +47,7 @@ namespace Display
     void clear()
     {
         glClearColor(0.1, 0.5, 1.0, 1.0);
+
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     }
 

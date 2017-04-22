@@ -18,12 +18,15 @@ namespace Renderer
     {
         Block::Database::get().textures.bind();
 
+        glEnable(GL_DEPTH_TEST);
         m_simpleRenderer.update(camera);
 
         m_chunkRenderer .update (camera);
-        m_floraRenderer .update (camera);
+        //m_floraRenderer .update (camera);
+        m_liquidRenderer.update (camera);
 
 
+        glDisable(GL_DEPTH_TEST);
         m_sfmlRenderer.update ();
 
 
@@ -34,8 +37,9 @@ namespace Renderer
 
     void Master::draw(const Chunk::Section& section)
     {
-        m_chunkRenderer.draw(section);
-        m_floraRenderer.draw(section);
+        m_chunkRenderer.draw    (section);
+        //m_floraRenderer.draw    (section);
+        m_liquidRenderer.draw   (section);
     }
 
     void Master::draw(const sf::Drawable& drawable)

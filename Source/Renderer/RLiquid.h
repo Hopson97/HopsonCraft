@@ -1,10 +1,10 @@
-#ifndef RFlora_INCLUDED
-#define RFlora_INCLUDED
+#ifndef RLIQUID_H_INCLUDED
+#define RLIQUID_H_INCLUDED
 
 #include <vector>
 #include <SFML/System/Clock.hpp>
 
-#include "../Shaders/Flora_Shader.h"
+#include "../Shaders/Liquid_Shader.h"
 #include "RInfo.h"
 
 struct Camera;
@@ -16,7 +16,7 @@ namespace Chunk
 
 namespace Renderer
 {
-    class RFlora
+    class RLiquid
     {
         public:
             void draw (const Chunk::Section& section);
@@ -26,10 +26,10 @@ namespace Renderer
         private:
             std::vector<Info> m_renderInfo;
 
-            Shader::Flora_Shader m_shader;
+            Shader::Liquid_Shader m_shader;
 
-            sf::Clock m_windTimer;
+            sf::Clock m_waveTimer;
     };
 }
 
-#endif // RCHUNK_H_INCLUDED
+#endif // RLIQUID_H_INCLUDED

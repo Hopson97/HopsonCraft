@@ -4,18 +4,18 @@
 
 namespace Shader
 {
-    Liqud_Shader::Liqud_Shader()
-    :   Simple_Shader   ("Liquid", "Liquid")
+    Liquid_Shader::Liquid_Shader()
+    :   Simple_Shader   ("Liquid", "Block")
     {
         getUniformLocations();
     }
 
-    void Liqud_Shader::loadWaveTimer(float time)
+    void Liquid_Shader::loadWaveTimer(float time)
     {
         loadFloat(m_locationWaveTimer, time);
     }
 
-    void Liqud_Shader::getUniformLocations()
+    void Liquid_Shader::getUniformLocations()
     {
         Simple_Shader::getUniformLocations();
 

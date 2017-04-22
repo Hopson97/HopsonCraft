@@ -3,7 +3,7 @@
 	"ID": 			7,
 	"Opaque": 		false,
 	"Obstacle": 	false,
-	"Mesh":			0,
+	"Mesh":			2,
 
 	"Texture Top": 		[ 8, 0],
 	"Texture Side": 	[ 8, 0],

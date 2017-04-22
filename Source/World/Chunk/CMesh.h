@@ -43,6 +43,7 @@ namespace Chunk
     {
         Mesh solidMesh;
         Mesh floraMesh;
+        Mesh liquidMesh;
     };
 }
 
