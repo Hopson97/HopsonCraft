@@ -7,12 +7,11 @@ layout (location = 2) in float inLightValue;
 out vec2 passTextureCoords;
 out float passLightValue;
 
-uniform mat4 viewMatrix;
-uniform mat4 projMatrix;
+uniform mat4 projViewMatrix;
 
 void main()
 {
-    gl_Position = projMatrix * viewMatrix * vec4(inVertexPosition, 1.0);
+    gl_Position = projViewMatrix * vec4(inVertexPosition, 1.0);
 
     passTextureCoords = inTextureCoords;
     passLightValue = inLightValue;

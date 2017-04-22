@@ -16,7 +16,9 @@ void Camera::update()
     rotation = m_P_entity->rotation;
 
     m_viewMatrix = Maths::createViewMatrix(*this);
-    m_frustum.update(m_projectionMatrix * m_viewMatrix);
+
+    m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
+    m_frustum.update(m_projectionViewMatrix);
 }
 
 void Camera::hookEntity(const Entity& entity)
@@ -30,14 +32,7 @@ const Frustum& Camera::getFrustum() const
     return m_frustum;
 }
 
-
-const Matrix4& Camera::getViewMatrix() const
+const Matrix4& Camera::getProjectionViewMatrix() const
 {
-    return m_viewMatrix;
+    return m_projectionViewMatrix;
 }
-
-const Matrix4& Camera::getProjectionMatrix() const
-{
-    return m_projectionMatrix;
-}
-

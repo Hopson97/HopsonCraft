@@ -16,9 +16,9 @@ namespace Shader
 
     }
 
-    void Simple_Shader::setViewMatrix(const Matrix4& matrix)
+    void Simple_Shader::setProjViewMatrix(const Matrix4& matrix)
     {
-        loadMatrix4(m_locationViewMatrix, matrix);
+        loadMatrix4(m_locationProjViewMatrix, matrix);
     }
 
     void Simple_Shader::setModelMatrix(const Matrix4& matrix)
@@ -26,18 +26,10 @@ namespace Shader
         loadMatrix4(m_locationModelMatrix, matrix);
     }
 
-    void Simple_Shader::setProjMatrix(const Matrix4& matrix)
-    {
-        loadMatrix4(m_locationProjMatrix, matrix);
-    }
-
-
     void Simple_Shader::getUniformLocations()
     {
-        m_locationViewMatrix    = glGetUniformLocation(getID(), "viewMatrix");
-        m_locationModelMatrix   = glGetUniformLocation(getID(), "modelMatrix");
-        m_locationProjMatrix    = glGetUniformLocation(getID(), "projMatrix");
-
+        m_locationProjViewMatrix    = glGetUniformLocation(getID(), "projViewMatrix");
+        m_locationModelMatrix       = glGetUniformLocation(getID(), "modelMatrix");
     }
 
 }

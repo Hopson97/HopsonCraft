@@ -104,8 +104,7 @@ namespace
     {
         m_shader.bind();
 
-        m_shader.setProjMatrix(camera.getProjectionMatrix());
-        m_shader.setViewMatrix(camera.getViewMatrix());
+        m_shader.setProjViewMatrix(camera.getProjectionViewMatrix());
 
         m_cubeModel.bind();
 

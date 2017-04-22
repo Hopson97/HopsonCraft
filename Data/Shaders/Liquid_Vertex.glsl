@@ -7,9 +7,7 @@ layout (location = 2) in float inLightValue;
 out vec2 passTextureCoords;
 out float passLightValue;
 
-uniform mat4 viewMatrix;
-uniform mat4 projMatrix;
-
+uniform mat4 projViewMatrix;
 uniform float waveTimer;
 
 vec4 getWorldPos()
@@ -23,7 +21,7 @@ vec4 getWorldPos()
 
 void main()
 {
-    gl_Position =   projMatrix * viewMatrix * getWorldPos();
+    gl_Position = projViewMatrix * getWorldPos();
 
     passTextureCoords = inTextureCoords;
     passLightValue    = inLightValue;
