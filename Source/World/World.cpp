@@ -49,15 +49,22 @@ void World::setBlock(const Vector3& position, CBlock block)
 
 CBlock World::getBlock(const Vector3& position)
 {
-    Chunk::Chunklet_Position    chunkPosition   = Maths::worldToChunkletPos(position);
-    Block::Small_Position       blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(position));
+    auto    chunkPosition   = Maths::worldToChunkletPos(position);
+    auto    blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(position));
 
-    Chunk::Section* chunk = m_chunks.get(chunkPosition);
+    const auto& chunk = m_chunks.get(chunkPosition);
 
-    if (chunk)
-        return chunk->qGetBlock(blockPosition);
-    else
-        return Block::ID::Air;
+    return chunk->qGetBlock(blockPosition);
+}
+
+uint32_t World::getHeightAt(const Vector3& worldPosition)
+{
+    auto    chunkPosition   = Maths::worldToChunkPos(worldPosition);
+    auto    blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(worldPosition));
+
+    const auto& chunk = m_chunks.get(chunkPosition);
+
+    return chunk->getHeightAt(blockPosition.x, blockPosition.z);
 }
 
 
@@ -69,7 +76,7 @@ void World::regenerateChunks()
     auto insertChunk = [&](const Chunk::Chunklet_Position& chunkPosition,
                                  Chunk::Section* chunk)
     {
-        Chunk::Full_Chunk* chunkFull = m_chunks.get({chunkPosition.x, chunkPosition.z});
+        const auto& chunkFull = m_chunks.get({chunkPosition.x, chunkPosition.z});
         if(!chunkFull)
             return;
 
@@ -88,17 +95,17 @@ void World::regenerateChunks()
     {
         if (position == 0)
         {
-            Chunk::Chunklet_Position newChunkPosition(  chunkPosition.x - direction.x,
-                                                        chunkPosition.y - direction.y,
-                                                        chunkPosition.z - direction.z);
+            Chunk::Chunklet_Position newChunkPosition(chunkPosition.x - direction.x,
+                                                      chunkPosition.y - direction.y,
+                                                      chunkPosition.z - direction.z);
 
             insertChunk(newChunkPosition, m_chunks.get(newChunkPosition));
         }
         else if (position == CHUNK_SIZE - 1)
         {
-            Chunk::Chunklet_Position newChunkPosition(  chunkPosition.x + direction.x,
-                                                        chunkPosition.y + direction.y,
-                                                        chunkPosition.z + direction.z);
+            Chunk::Chunklet_Position newChunkPosition(chunkPosition.x + direction.x,
+                                                      chunkPosition.y + direction.y,
+                                                      chunkPosition.z + direction.z);
 
             insertChunk(newChunkPosition, m_chunks.get(newChunkPosition));
         }
@@ -109,10 +116,11 @@ void World::regenerateChunks()
     for (New_Block& newBlock : m_newBlocks)
     {
         //Get respective positions and objects
-        Chunk::Chunklet_Position    chunkPosition   = Maths::worldToChunkletPos(newBlock.position);
-        Block::Small_Position       blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(newBlock.position));
+        auto    chunkPosition   = Maths::worldToChunkletPos(newBlock.position);
+        auto    blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(newBlock.position));
+        const auto& chunkFull   = m_chunks.get({chunkPosition.x, chunkPosition.z});
+
         Chunk::Section*             chunk           = nullptr;
-        Chunk::Full_Chunk*          chunkFull       = m_chunks.get({chunkPosition.x, chunkPosition.z});
 
         //Adds sections onto a chunk until it reaches the height of the block
         while (!chunk)
@@ -148,10 +156,10 @@ void World::buffer(const Camera& camera)
 {
     if (m_loadingDistance == ((m_worldSize / 2) + 1)) return;
 
-    int minDis = m_worldSize / 2 - m_loadingDistance;
-    int maxDis = m_worldSize / 2 + m_loadingDistance;
+    auto minDis = m_worldSize / 2 - m_loadingDistance;
+    auto maxDis = m_worldSize / 2 + m_loadingDistance;
 
-    bool isMeshMade = false;
+    auto isMeshMade = false;
 
     std::cout << m_loadingDistance << std::endl;
 

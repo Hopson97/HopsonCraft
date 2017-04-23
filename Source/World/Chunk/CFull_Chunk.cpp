@@ -81,6 +81,12 @@ namespace Chunk
             ///@TODO This
         }
 
+        ///@TODO Handle the height of the chunk getting lower
+        if (m_highestBlocks.at(position.x, position.z) < position.y)
+        {
+            m_highestBlocks.at(position.x, position.z) = position.y;
+        }
+
         m_chunkSections[yPositionSection]
             ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
     }
@@ -124,6 +130,12 @@ namespace Chunk
 
         m_chunkSections.push_back(std::make_unique<Section>(position, *mp_chunkMap, *this));
     }
+
+    uint32_t Full_Chunk::getHeightAt(int8_t x, int8_t z) const
+    {
+        return m_highestBlocks.at(x, z);
+    }
+
 
     //Adds all of the chunks within the viewing frustum into the master renderer
     //Returns number of faces drawn
@@ -177,7 +189,6 @@ namespace Chunk
         generator.setSeed(Hasher::hash(500, m_position.x, m_position.y));
 
         int32_t maxValue = 0;
-        std::vector<int32_t> heightMap (CHUNK_AREA);
         std::vector<Block::Position> treeMap;
 
         //Create height map from noise
@@ -186,11 +197,12 @@ namespace Chunk
             for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
             {
                 int32_t heightHere = gen.getValue(x, z, m_position.x + 3, m_position.y + 3);
-                heightMap[x * CHUNK_SIZE + z] = heightHere;
+                m_highestBlocks.at(x, z) = heightHere;
+                maxValue = std::max(maxValue, heightHere);
             }
         }
 
-        maxValue = *std::max_element(heightMap.begin(), heightMap.end());
+
         maxValue = std::max(maxValue, WATER_LEVEL);
 
         //Populate the blocks
@@ -200,7 +212,7 @@ namespace Chunk
             {
                 for (int32_t z = 0; z < CHUNK_SIZE; ++z)
                 {
-                    int32_t height = heightMap[x * CHUNK_SIZE + z];
+                    int32_t height = m_highestBlocks.at(x, z);
 
                     if (y > height)
                     {
@@ -243,6 +255,7 @@ namespace Chunk
             }
         }
 
+        //Generate trees af
         for (Block::Position& pos : treeMap)
         {
             auto height = generator.intInRange(5, 8);

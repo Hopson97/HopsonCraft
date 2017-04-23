@@ -145,8 +145,12 @@ namespace State
     void Playing::update(Camera& camera, float dt)
     {
         static sf::Clock c;
-        m_quady.position.x += sin(c.getElapsedTime().asSeconds()) * dt * 0.8;
-        m_quady.position.z += cos(c.getElapsedTime().asSeconds()) * dt * 0.8;
+        m_quady.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 8;
+        m_quady.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 8;
+        m_quady.position.y = m_world.getHeightAt({m_quady.position.x,
+                                                 0,
+                                                 m_quady.position.z})
+                                                 + 5;
 
         if (m_isPaused)
         {
@@ -171,11 +175,13 @@ namespace State
 
     Vector3 Playing::getCenterPosition()
     {
+        static const auto centre = (m_worldSize * CHUNK_SIZE) / 2;
+
         return
         {
-            (m_worldSize * CHUNK_SIZE) / 2,
-            CHUNK_SIZE * 3,
-            (m_worldSize * CHUNK_SIZE) / 2
+            centre,
+            m_world.getHeightAt({centre, 0, centre}) + 3,
+            centre
         };
     }
 

@@ -41,6 +41,8 @@ class World
         void setBlock   (const Vector3& position, CBlock block);
         CBlock getBlock (const Vector3& position);
 
+        uint32_t getHeightAt (const Vector3& worldPosition);
+
     private:
         void regenerateChunks();
         void buffer(const Camera& camera);

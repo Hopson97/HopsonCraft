@@ -8,6 +8,8 @@
 #include "CPosition.h"
 #include "CSection.h"
 
+#include "../../Util/Array2D.h"
+
 namespace Renderer
 {
     class Master;
@@ -53,12 +55,13 @@ namespace Chunk
 
             void addSection();
 
-        private:
+            uint32_t getHeightAt(int8_t x, int8_t z) const;
 
+        private:
+            Array2D<uint32_t, CHUNK_SIZE> m_highestBlocks;
 
 
             std::vector<std::unique_ptr<Section>>   m_chunkSections;
-            //std::vector<int32_t>                    m_highestBlocks;
 
             std::vector<CPositioned_Block> m_positionedBlocks;
 
