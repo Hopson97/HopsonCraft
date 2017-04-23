@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "../World.h"
+
 namespace Chunk
 {
     void Map::addChunk(const Chunk::Position& position, World& world, bool gen)
@@ -14,7 +16,10 @@ namespace Chunk
         }
         else
         {
-            m_chunksMap.insert(std::make_pair(position, std::move(Full_Chunk{world, *this, position, gen})));
+            //m_chunksMap.emplace(
+            m_chunksMap.emplace(std::piecewise_construct,
+                                std::make_tuple(position),
+                                std::forward_as_tuple(world, *this, position, gen));
         }
     }
 

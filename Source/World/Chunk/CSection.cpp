@@ -46,7 +46,7 @@ namespace Chunk
         ///@TODO This to use better bounds
         if (y == -1)
         {
-            const Section* chunk = mp_chunks->get({m_position.x, m_position.y - 1, m_position.z});
+            const auto& chunk = mp_chunks->get({m_position.x, m_position.y - 1, m_position.z});
             if(!chunk)
             {
                 return errorLayer;

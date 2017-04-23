@@ -31,7 +31,7 @@ class World
     };
 
     public:
-        float m_facesDrawn    = 0;
+        float m_facesDrawn = 0;
 
         World(const Camera& camera, int32_t worldSize);
 

@@ -145,13 +145,11 @@ namespace State
     void Playing::update(Camera& camera, float dt)
     {
         static sf::Clock c;
-        m_quady.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 8;
-        m_quady.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 8;
+        m_quady.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 20;
+        m_quady.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 20;
         m_quady.position.y = m_world.getHeightAt({m_quady.position.x,
                                                  0,
                                                  m_quady.position.z}) + 1;
-
-
         if (m_isPaused)
         {
             m_pauseMenu.update();
@@ -188,7 +186,7 @@ namespace State
 
     void Playing::initHUD()
     {
-        float yPos = 0;
+        auto yPos = 0;
 
         auto getYPosition = [&yPos]()
         {

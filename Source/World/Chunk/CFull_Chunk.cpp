@@ -45,8 +45,6 @@ namespace Chunk
                     ->setBlock(pos, block);
                     break;
         }
-
-
     }
 
     CBlock Full_Chunk::getBlock(const Block::Position& position)
@@ -141,7 +139,7 @@ namespace Chunk
     //Returns number of faces drawn
     uint32_t Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)
     {
-        uint32_t faces = 0;
+        auto faces = 0;
         for (auto& chunk : m_chunkSections)
         {
             //No point trying to render a chunk with no faces
@@ -182,8 +180,9 @@ namespace Chunk
         m_state = State::Populating;
 
         Noise::Generator gen;
-        gen.setSeed(500);
-        gen.setNoiseFunction({8, WATER_LEVEL - 10, 0.4856, 245});
+        gen.setSeed(242553);
+        gen.setNoiseFunction({8, WATER_LEVEL - 10, 0.55, 245});
+        //gen.setNoiseFunction({8, WATER_LEVEL * 2, 0.5, 245});
 
         Random::Generator<std::mt19937> generator;
         generator.setSeed(Hasher::hash(500, m_position.x, m_position.y));
