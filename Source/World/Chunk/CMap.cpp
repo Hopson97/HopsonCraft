@@ -18,7 +18,7 @@ namespace Chunk
         {
             //m_chunksMap.emplace(
             m_chunksMap.emplace(std::piecewise_construct,
-                                std::make_tuple(position),
+                                std::forward_as_tuple(position),
                                 std::forward_as_tuple(world, *this, position, gen));
         }
     }
