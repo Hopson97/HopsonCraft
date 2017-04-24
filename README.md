@@ -19,9 +19,16 @@ Coming soon...
 
 ## Implementation details
 
-#### Rendering
-Coming soon...
+#### Chunks
+Chunks are made out of a volume of blocks 16x16x16 in size.
 
+They are stored in a class called "Full_Chunk", which is basically a handler for a vertical-column of these "chunk sections". There can be potentially an infinite number of sections in a full chunk.
+
+The 16x16x16 chunks are then made into a mesh, and drawn.
+
+#### Rendering
+Only chunksdd
+fff
 #### Meshes
 Coming soon...
 
