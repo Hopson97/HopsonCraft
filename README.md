@@ -27,8 +27,12 @@ They are stored in a class called "Full_Chunk", which is basically a handler for
 The 16x16x16 chunks are then made into a mesh, and drawn.
 
 #### Rendering
-Only chunksdd
-fff
+The camera class stores an object of a "Frustum" type. This is used to cull out anything (For now, just chunk sections) that is not within the field of view, which increases performance a fair amount.
+
+Each major mesh type has it's own shader and renderer class, each with their own unique responsabilities. 
+
+For example, the solid chunk renderer enables face-culling and disables blending before drawing, and the liquid renderer disables face-culling, enables blending, and also uploads a time variable to the "Liquid Shader" so it can have a wave effect.
+
 #### Meshes
 Coming soon...
 
