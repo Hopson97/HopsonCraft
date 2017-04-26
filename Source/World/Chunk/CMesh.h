@@ -44,6 +44,14 @@ namespace Chunk
         Mesh solidMesh;
         Mesh floraMesh;
         Mesh liquidMesh;
+
+        bool hasFaces() const
+        {
+            return  solidMesh   .getFaceCount() > 0    ||
+                    floraMesh   .getFaceCount() > 0    ||
+                    liquidMesh  .getFaceCount() > 0;
+
+        }
     };
 }
 

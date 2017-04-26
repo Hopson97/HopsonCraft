@@ -80,7 +80,7 @@ namespace Chunk
         }
 
         ///@TODO Handle the height of the chunk getting lower
-        if (m_highestBlocks.at(position.x, position.z) < position.y)
+        if (m_highestBlocks.at(position.x, position.z) < (uint32_t)position.y)
         {
             m_highestBlocks.at(position.x, position.z) = position.y;
         }
@@ -143,9 +143,7 @@ namespace Chunk
         for (auto& chunk : m_chunkSections)
         {
             //No point trying to render a chunk with no faces
-            if (chunk->getMeshes().solidMesh.getFaceCount   () > 0 ||
-                chunk->getMeshes().floraMesh.getFaceCount   () > 0 ||
-                chunk->getMeshes().liquidMesh.getFaceCount  () > 0)
+            if (chunk->getMeshes().hasFaces())
             {
                 //Frustum test
                 if(!camera.getFrustum().boxInFrustum(chunk->getAABB())) continue;

@@ -59,8 +59,8 @@ namespace
     void noiseTest(int trials)
     {
         Noise::Generator m_noiseGen;
-        m_noiseGen.setSeed(555);
-        m_noiseGen.setNoiseFunction({8, 100, 0.53, 240});
+        m_noiseGen.setSeed(242553);
+        m_noiseGen.setNoiseFunction({8, WATER_LEVEL, 0.55, 245});
 
         float total = 0;
         std::vector<double> test;
@@ -87,6 +87,7 @@ namespace
 
 int main() try
 {
+    //noiseTest(1000);
     runGame();
     return 0;
 }
