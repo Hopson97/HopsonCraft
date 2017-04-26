@@ -19,8 +19,19 @@ Coming soon...
 
 ## Implementation details
 
+#### Chunks
+Chunks are made out of a volume of blocks 16x16x16 in size.
+
+They are stored in a class called "Full_Chunk", which is basically a handler for a vertical-column of these "chunk sections". There can be potentially an infinite number of sections in a full chunk.
+
+The 16x16x16 chunks are then made into a mesh, and drawn.
+
 #### Rendering
-Coming soon...
+The camera class stores an object of a "Frustum" type. This is used to cull out anything (For now, just chunk sections) that is not within the field of view, which increases performance a fair amount.
+
+Each major mesh type has it's own shader and renderer class, each with their own unique responsabilities. 
+
+For example, the solid chunk renderer enables face-culling and disables blending before drawing, and the liquid renderer disables face-culling, enables blending, and also uploads a time variable to the "Liquid Shader" so it can have a wave effect.
 
 #### Meshes
 Coming soon...
