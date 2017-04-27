@@ -2,22 +2,9 @@
 
 #include "../../Util/json.h"
 
-#include <string>
-#include <fstream>
-#include <sstream>
 #include <iostream>
 
-namespace
-{
-    std::string getFileContents(const std::string& filePath)
-    {
-        std::ifstream inFile(filePath);
-        std::stringstream stream;
-
-        stream << inFile.rdbuf();   //Gets the file contents into a string stream
-        return stream.str();        //Return the string from the string stream
-    }
-}
+#include "../../Util/File_Util.h"
 
 namespace Block
 {

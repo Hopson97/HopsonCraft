@@ -100,15 +100,16 @@ namespace Chunk
     }
 
 
+    //Looks at the faces of every block, and adds block faces to a mesh if said face
+    //is non-opaque (Other checks are done too)
     void Mesh_Builder::generateMesh(Meshes& meshes)
     {
         n++;
         sf::Clock timer;
         meshes.floraMesh.reset();
+
         meshes.solidMesh.reset();
         meshes.liquidMesh.reset();
-
-        uint32_t faces = 0;
 
         auto& atlas = Block::Database::get().textures;
 
@@ -129,7 +130,7 @@ namespace Chunk
                     mp_activeData = &mp_section->qGetBlock(blockPosition).getData();
 
 
-                    Chunklet_Position position = mp_section->getPosition();
+                    auto& position = mp_section->getPosition();
 
                     //Set local block position vectors
                     Block::Small_Position up    (x, int8_t(y + 1), z);
@@ -152,7 +153,6 @@ namespace Chunk
                                                TOP_LIGHT,
                                                position,
                                                blockPosition);
-                        faces++;
                     }
                     if (shouldMakeFaceAdjTo(down))
                     {
@@ -162,7 +162,6 @@ namespace Chunk
                                                position,
                                                blockPosition);
 
-                        faces++;
                     }
 
                     //X-Faces
@@ -173,7 +172,6 @@ namespace Chunk
                                                X_LIGHT,
                                                position,
                                                blockPosition);
-                        faces++;
                     }
                     if (shouldMakeFaceAdjTo(left))
                     {
@@ -182,7 +180,6 @@ namespace Chunk
                                                X_LIGHT,
                                                position,
                                                blockPosition);
-                        faces++;
                     }
 
                     //Z-Faces
@@ -193,7 +190,6 @@ namespace Chunk
                                                  Z_LIGHT,
                                                  position,
                                                  blockPosition);
-                        faces++;
                     }
 
                     if (shouldMakeFaceAdjTo(back))
@@ -203,7 +199,6 @@ namespace Chunk
                                                  Z_LIGHT,
                                                  position,
                                                  blockPosition);
-                        faces++;
                     }
 
                 }
@@ -212,8 +207,8 @@ namespace Chunk
 
         auto timeForGen = timer.getElapsedTime().asSeconds();
         sum += timeForGen;
-        std::cout << "Faces: "      << faces << " created in: " << timeForGen * 1000.0f << "ms" <<  "\n";
-        std::cout << "Average: "    << (sum / n) * 1000.0f << "ms\n\n";
+        std::cout << "Chunk section created in: "   << timeForGen   * 1000.0f << "ms" <<  "\n";
+        std::cout << "Average: "                    << (sum / n)    * 1000.0f << "ms\n\n";
     }
 
     //Looks at a layer of chunk
@@ -268,29 +263,6 @@ namespace Chunk
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
