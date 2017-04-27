@@ -1,10 +1,13 @@
 # HopsonCraft
 
-## Versions
+## Versions (As seen in the YouTube videos)
 
 This game has gone through major rewrites and refactors overtime.
 
-To see the source code as it was in episodes 1, 2 and 3 of "Creating Minecraft in C++/ OpenGL" videos, look at the "MattCraft Classic" in the releases section of this repository. 
+To see the source code as it was in episodes 1, 2 and 3 of "Creating Minecraft in C++/ OpenGL" videos, look at an older commit here:
+
+https://github.com/Hopson97/HopsonCraft/tree/90a5d596d07dfe71b5dbf47ec76c0b0802ec9dfa
+
 
 ## Dependencies
 The project requires these libraries: SFML (minimum 2.4), GLEW (OpenGL 3.3+), and OpenGL Maths Library (GLM).
@@ -15,7 +18,13 @@ Compile using compiler flags: ``-std=c++14 -O3 -s``
 Simple Minecraft clone written using C++.
 
 ## Screenshots
-Coming soon...
+![Valley](http://i.imgur.com/pDkpGmN.png "Valley")
+
+![Mountain](http://i.imgur.com/HLMnOjZ.png "Mountain")
+
+![View](http://i.imgur.com/Bl5CFdI.png "View")
+
+Note: Some of these pictures may be from older versions of the game.
 
 ## Implementation details
 
