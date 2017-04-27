@@ -8,19 +8,22 @@ namespace Noise
     struct Data
     {
         Data() = default;
-        Data(int numOctaves, int ampMult, double rough, double smooth)
+        Data(int numOctaves, int ampMult, double rough, double smooth, int heightMod = 0)
         :   octaves             (numOctaves)
         ,   amplitudeMultiplier (ampMult)
         ,   roughness           (rough)
-        ,   smoother            (smooth) {}
+        ,   smoother            (smooth)
+        ,   heightMod           (heightMod)
+        {}
         int octaves = 8;
         int amplitudeMultiplier = 240;
         double roughness = 0.48;
         double smoother = 190;
+        int heightMod = 0;
     };
 
-    uint64_t getSeed     ();
-    void setSeed    (uint64_t newSeed);
+    uint64_t getSeed    ();
+    void setSeed        (uint64_t newSeed);
 
     class Generator
     {

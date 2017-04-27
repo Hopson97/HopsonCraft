@@ -14,9 +14,9 @@
 namespace Chunk
 {
     Full_Chunk::Full_Chunk(World& world, Map& map, const Position& position, bool generate)
-    :   mp_world    (&world)
-    ,   mp_chunkMap (&map)
-    ,   m_position  (position)
+    :   mp_world    {&world}
+    ,   mp_chunkMap {&map}
+    ,   m_position  {position}
     {
         if (generate)
             generateBlocks();
@@ -179,7 +179,7 @@ namespace Chunk
 
         Noise::Generator gen;
         gen.setSeed(242553);
-        gen.setNoiseFunction({8, WATER_LEVEL - 10, 0.55, 245});
+        gen.setNoiseFunction({8, 150, 0.55, 345, -110});
         //gen.setNoiseFunction({8, WATER_LEVEL * 2, 0.5, 245});
 
         Random::Generator<std::mt19937> generator;

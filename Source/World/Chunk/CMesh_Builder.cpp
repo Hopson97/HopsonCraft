@@ -112,6 +112,16 @@ namespace Chunk
         meshes.liquidMesh.reset();
 
         auto& atlas = Block::Database::get().textures;
+        auto& position = mp_section->getPosition();
+
+        //Local direction vectors
+        //This is used in the if statements below
+        Block::Small_Position up;
+        Block::Small_Position down;
+        Block::Small_Position left;
+        Block::Small_Position right;
+        Block::Small_Position front;
+        Block::Small_Position back;
 
         for (int8_t y = 0; y < CHUNK_SIZE; ++y)
         {
@@ -129,18 +139,14 @@ namespace Chunk
 
                     mp_activeData = &mp_section->qGetBlock(blockPosition).getData();
 
-
-                    auto& position = mp_section->getPosition();
-
-                    //Set local block position vectors
-                    Block::Small_Position up    (x, int8_t(y + 1), z);
-                    Block::Small_Position down  (x, int8_t(y - 1), z);
-
-                    Block::Small_Position left  (int8_t(x - 1), y, z);
-                    Block::Small_Position right (int8_t(x + 1), y, z);
-
-                    Block::Small_Position front  (x, y, int8_t(z + 1));
-                    Block::Small_Position back   (x, y, int8_t(z - 1));
+                    //Set local block position vectors.
+                    //This is mostly to make the if statements below to look neater.
+                    up      =   {       x,      int8_t( y + 1),     z};
+                    down    =   {       x,      int8_t( y - 1),     z};
+                    left    =   {int8_t(x - 1),         y,          z};
+                    right   =   {int8_t(x + 1),         y,          z};
+                    front   =   {       x,              y, int8_t(  z + 1)};
+                    back    =   {       x,              y, int8_t(  z - 1)};
 
                     //Set the active mesh (Solid blocks, liquid blocks, flora blocks)
                     setActiveMesh(meshes);
@@ -214,7 +220,7 @@ namespace Chunk
     //Looks at a layer of chunk
     //Returns true if the layer itself, or an adjacent one, has a non-opaque block
     //I do this as it saves ALOT of time when iterating through underground chunks, which typically get skipped
-    //thanks to this function (reduction, on my laptop, from >5ms to <1ms average chunk mesh gen time)
+    //thanks to this function (reduction, on my laptop, from >5ms to <0.5ms average chunk mesh gen time)
     bool Mesh_Builder::shouldCreateLayer(uint32_t yPosition)
     {
         auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)

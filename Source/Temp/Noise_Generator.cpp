@@ -76,7 +76,7 @@ namespace Noise
                                 * amplitude;
         }
 
-        return ((totalValue / 2.1) + 1.2) * m_noiseFunction.amplitudeMultiplier;
+        return (((totalValue / 2.1) + 1.2) * m_noiseFunction.amplitudeMultiplier) + m_noiseFunction.heightMod;
     }
 
     void Generator::setNoiseFunction(const Noise::Data& data)

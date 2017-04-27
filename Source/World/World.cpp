@@ -9,8 +9,8 @@
 #include "../Maths/General_Maths.h"
 
 World::World(const Camera& camera, int32_t worldSize)
-:   m_p_camera      (&camera)
-,   m_worldSize     (worldSize)
+:   m_p_camera      {&camera}
+,   m_worldSize     {worldSize}
 {
     for (int32_t x = 0 ; x < m_worldSize; x++)
     {
