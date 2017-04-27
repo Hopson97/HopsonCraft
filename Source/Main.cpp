@@ -33,6 +33,11 @@ namespace
         Random  ::init();
         Display ::init();
 
+        for (int i = 0; i < 50; i++)
+        {
+            Random::intInRange(0, 32532); //This is so that the RNG is more random
+        }
+
         Block::Database::get();
     }
 
