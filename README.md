@@ -14,6 +14,9 @@ The project requires these libraries: SFML (minimum 2.4), GLEW (OpenGL 3.3+), an
 
 Compile using compiler flags: ``-std=c++14 -O3 -s``
 
+## Contributing
+An easy way to contribute is to look for the ``///@TODO`` parts in the code. please actually test before doing a pull request.
+
 ## Description
 Simple Minecraft clone written using C++.
 
