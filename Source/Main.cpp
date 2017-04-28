@@ -14,7 +14,11 @@
 #include "Temp/Noise_Generator.h"
 
 #ifdef __WIN32
-#include <windows.h>
+    #include <windows.h>
+
+    ///@TODO This is only a Windows solution for NVIDIA cards, so this is not really good
+    //Force use dedicated GPU rather than integrated
+    extern "C" _declspec(dllexport) DWORD NvOptimusEnablement = true;
 #endif // __WIN32
 
 namespace
@@ -92,7 +96,6 @@ namespace
 
 int main() try
 {
-    //noiseTest(1000);
     runGame();
     return 0;
 }

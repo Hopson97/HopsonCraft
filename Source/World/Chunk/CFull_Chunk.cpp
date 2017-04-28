@@ -179,7 +179,7 @@ namespace Chunk
 
         Noise::Generator gen;
         gen.setSeed(242553);
-        gen.setNoiseFunction({8, 150, 0.55, 345, -110});
+        gen.setNoiseFunction({8, 75, 0.55, 245, -25});
         //gen.setNoiseFunction({8, WATER_LEVEL * 2, 0.5, 245});
 
         Random::Generator<std::mt19937> generator;
@@ -209,6 +209,7 @@ namespace Chunk
             {
                 for (int32_t z = 0; z < CHUNK_SIZE; ++z)
                 {
+                    Block::ID blockType;
                     int32_t height = m_highestBlocks.at(x, z);
 
                     if (y > height)
@@ -219,35 +220,42 @@ namespace Chunk
                         }
                         else
                         {
-                            qSetBlock({x, y, z}, Block::ID::Water);
+                            blockType = Block::ID::Water;
                         }
                     }
                     else if (y == height)
                     {
-                        if (y > WATER_LEVEL)
+                        if (y >= WATER_LEVEL)
                         {
-                            qSetBlock({x, y, z}, Block::ID::Grass);
-                            if (generator.intInRange(0, 110) == 5)
+                            if (y < BEACH_LEVEL)
                             {
-                                treeMap.emplace_back(x, y, z);
+                                blockType = Block::ID::Sand;
+                            }
+                            else
+                            {
+                                blockType = Block::ID::Grass;
+                                if (generator.intInRange(0, 110) == 5)
+                                {
+                                    treeMap.emplace_back(x, y, z);
+                                }
                             }
                         }
                         else
                         {
-
-                            qSetBlock({x, y, z},
-                                      generator.intInRange(0, 5) > 1 ?  Block::ID::Sand :
-                                                                        Block::ID::Dirt);
+                            blockType = generator.intInRange(0, 5) > 1 ? Block::ID::Sand :
+                                                                         Block::ID::Dirt;
                         }
                     }
                     else if (y < height && y > height - 4)
                     {
-                        qSetBlock({x, y, z}, Block::ID::Dirt);
+                        blockType = Block::ID::Dirt;
                     }
                     else if (y <= height - 4)
                     {
-                        qSetBlock({x, y, z}, Block::ID::Stone);
+                        blockType = Block::ID::Stone;
                     }
+
+                    qSetBlock({x, y, z}, blockType);
                 }
             }
         }

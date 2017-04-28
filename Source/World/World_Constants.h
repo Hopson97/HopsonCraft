@@ -9,7 +9,7 @@ namespace
                                 CHUNK_VOLUME    = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE,
                                 CHUNK_AREA      = CHUNK_SIZE * CHUNK_SIZE,
                                 WATER_LEVEL     = 70,
-                                BEACH_LEVEL     = 73;
+                                BEACH_LEVEL     = WATER_LEVEL + 2;
 
     constexpr static int8_t     MAX_LIGHT       = 10;
 

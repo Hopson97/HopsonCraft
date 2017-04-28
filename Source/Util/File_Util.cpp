@@ -61,10 +61,10 @@ std::string getFileContents(const std::string& filePath)
         closedir(dp);
         return fileNames;
     }
-ifdef __APPLE__
+#elif __APPLE__
 std::vector<std::string> getFileNamesFromFolder(const std::string& folderName)
 {
-    ///@TODO Apple implementation of this
+    ///@TODO Mac implementation of this
     return {};
 }
 

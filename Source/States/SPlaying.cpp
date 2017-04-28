@@ -177,9 +177,9 @@ namespace State
 
         return
         {
-            centre,
+            centre + 0.5,
             m_world.getHeightAt({centre, 0, centre}) + 3,
-            centre
+            centre + 0.5
         };
     }
 

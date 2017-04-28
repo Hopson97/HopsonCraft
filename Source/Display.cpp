@@ -30,7 +30,7 @@ namespace Display
 
 
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode::getDesktopMode(),
-                                                    "OpenGL",
+                                                    "HopsonCraft - 'V4.0'",
                                                     sf::Style::Fullscreen,
                                                     settings);
         glewInit();
