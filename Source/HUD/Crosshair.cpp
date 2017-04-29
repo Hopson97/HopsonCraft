@@ -11,7 +11,7 @@ Crosshair::Crosshair()
     m_sprite.setOrigin(rect.left + rect.width / 2.0f,
                        rect.top  + rect.height / 2.0f);
 
-    m_sprite.setTexture(&getResources().getTexture(Texture_ID::Crosshair1));
+    m_sprite.setTexture(&getResources().textures.get("Crosshair"));
     m_sprite.setPosition(Display::get().getSize().x / 2,
                          Display::get().getSize().y / 2);
 }

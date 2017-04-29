@@ -9,7 +9,7 @@ Debug_HUD::Section::Section(std::string&& stringFormat, const sf::Vector2f& text
 ,   info        (var)
 {
     text.setCharacterSize       (20);
-    text.setFont                (getResources().getFont(Font_ID::RS));
+    text.setFont                (getResources().fonts.get("rs"));
     text.setOutlineThickness    (1);
     text.setOutlineColor        (sf::Color::Black);
     text.setPosition(position);

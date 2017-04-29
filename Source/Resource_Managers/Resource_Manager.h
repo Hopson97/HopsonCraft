@@ -7,30 +7,47 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-template<typename Resource, typename Enum>
-class Resource_Manager
+#include <unordered_map>
+
+template <typename Resource>
+class ResourceManager
 {
     public:
-        const Resource& get(Enum e) const
+        ResourceManager(std::string&& path, std::string&& extension)
+        :   m_path      (std::move(path))
+        ,   m_extension (std::move(extension))
+        {}
+
+        const Resource& get(const std::string& name)
         {
-            return m_resources.at(e);
+            std::string full = m_path + name + m_extension;
+
+            if (m_resourceMap.find(full) == m_resourceMap.end())
+            {
+                add(full);
+            }
+
+            return qGet(full);
         }
 
-        virtual ~Resource_Manager() = default;
+        const Resource& qGet(const std::string& name)
+        {
+            ///@TODO Maybe change to use operator []?
+            return m_resourceMap.at(name);
+        }
 
-    protected:
-        void registerResource(Enum key, const std::string& filename)
+        void add(const std::string& name)
         {
             Resource res;
-            if (!res.loadFromFile(filename))
-            {
-                throw std::runtime_error ("Could load resource: " + filename + "!");
-            }
-            m_resources.insert(std::make_pair(key, res));
+            res.loadFromFile(name);
+            m_resourceMap.insert(std::make_pair(name, res));
         }
 
     private:
-        std::map<Enum, Resource> m_resources;
+        std::string m_path;
+        std::string m_extension;
+
+        std::unordered_map<std::string, Resource> m_resourceMap;
 };
 
 #endif // RESOURCEMANAGER_H_INCLUDED

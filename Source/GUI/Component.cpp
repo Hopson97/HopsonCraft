@@ -42,7 +42,7 @@ namespace GUI
 
     void Component::initText(sf::Text& text, int size, const std::string& title)
     {
-        text.setFont(getResources().getFont(Font_ID::RS));
+        text.setFont(getResources().fonts.get("rs"));
         text.setString(title);
         text.setOutlineColor(sf::Color::Black);
         text.setOutlineThickness(2);

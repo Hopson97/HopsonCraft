@@ -13,10 +13,5 @@ enum class Texture_ID
     Menu_BG
 };
 
-class Texture_Manager : public Resource_Manager<sf::Texture, Texture_ID>
-{
-    public:
-        Texture_Manager();
-};
 
 #endif // TEXTURE_MANAGER_H_INCLUDED

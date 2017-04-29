@@ -36,7 +36,7 @@ namespace State
     void Main_Menu::initMenu()
     {
         m_frontMenu.addPadding(100);
-        m_frontMenu.addBackgroud(getResources().getTexture(Texture_ID::Menu_BG));
+        m_frontMenu.addBackgroud(getResources().textures.get("Menu_BG/2"));
         m_frontMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
@@ -60,9 +60,7 @@ namespace State
 
         //Play menu
         m_playMenu.addPadding(100);
-
-        m_playMenu.addBackgroud(getResources().getTexture(Texture_ID::Menu_BG));
-
+        m_playMenu.addBackgroud(getResources().textures.get("Menu_BG/2"));
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("World Size",
