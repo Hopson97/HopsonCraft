@@ -26,7 +26,7 @@ void Application::runMainGameLoop()
 
         auto elapsed = gameTimer.restart().asSeconds();
 
-        m_musicPlayer.update();
+        //m_musicPlayer.update();
 
         sf::Event e;
         while (Display::get().pollEvent(e))

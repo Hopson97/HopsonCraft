@@ -16,9 +16,17 @@
 #ifdef __WIN32
     #include <windows.h>
 
-    ///@TODO This is only a Windows solution for NVIDIA cards, so this is not really good
-    //Force use dedicated GPU rather than integrated
-    extern "C" _declspec(dllexport) DWORD NvOptimusEnablement = true;
+    //Enable dedicated graphics for NVIDIA:
+    extern "C"
+    {
+      __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
+    }
+
+    //Enable dedicated graphics for AMD Radeon:
+    extern "C"
+    {
+      __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+    }
 #endif // __WIN32
 
 namespace

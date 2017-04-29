@@ -33,7 +33,10 @@ class Application
         std::vector<std::unique_ptr<State::Game_State>> m_states;
         Renderer::Master m_renderer;
         Camera m_camera;
-        Music_Player m_musicPlayer;
+
+        ///@TODO Just uncomment this line when giving it to people :P
+        ///@TODO Don't forget to uncomment in the game loop too!
+        //Music_Player m_musicPlayer;
 
         bool m_shouldPopState = false;
 };

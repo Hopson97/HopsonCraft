@@ -13,7 +13,10 @@
 
 namespace Chunk
 {
-    Full_Chunk::Full_Chunk(World& world, Map& map, const Position& position, bool generate)
+    Full_Chunk::Full_Chunk(World& world,
+                           Map& map,
+                           const Position& position,
+                           bool generate)
     :   mp_world    {&world}
     ,   mp_chunkMap {&map}
     ,   m_position  {position}
@@ -65,7 +68,9 @@ namespace Chunk
 
 
 
-    void Full_Chunk::qSetBlock(const Block::Position& position, CBlock block, bool overrideBlocks)
+    void Full_Chunk::qSetBlock(const Block::Position& position,
+                               CBlock block,
+                               bool overrideBlocks)
     {
         int32_t yPositionSection = position.y / CHUNK_SIZE;
 
@@ -124,9 +129,13 @@ namespace Chunk
 
     void Full_Chunk::addSection()
     {
-        Chunklet_Position position (m_position.x, m_sectionCount++, m_position.y);
+        Chunklet_Position position (m_position.x,
+                                    m_sectionCount++,
+                                    m_position.y);
 
-        m_chunkSections.push_back(std::make_unique<Section>(position, *mp_chunkMap, *this));
+        m_chunkSections.push_back(std::make_unique<Section>(position,
+                                                            *mp_chunkMap,
+                                                            *this));
     }
 
     uint32_t Full_Chunk::getHeightAt(int8_t x, int8_t z) const
@@ -146,7 +155,8 @@ namespace Chunk
             if (chunk->getMeshes().hasFaces())
             {
                 //Frustum test
-                if(!camera.getFrustum().boxInFrustum(chunk->getAABB())) continue;
+                if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
+                    continue;
 
                 if (chunk->made)
                 {
@@ -175,15 +185,20 @@ namespace Chunk
 
     void Full_Chunk::generateBlocks()
     {
+        /*
+            Good seeds:
+                242553
+        */
+        int seed = 12345;
+
         m_state = State::Populating;
 
         Noise::Generator gen;
-        gen.setSeed(242553);
-        gen.setNoiseFunction({8, 75, 0.55, 245, -25});
-        //gen.setNoiseFunction({8, WATER_LEVEL * 2, 0.5, 245});
+        gen.setSeed(seed);
+        gen.setNoiseFunction({8, 75, 0.505, 235, -25});
 
         Random::Generator<std::mt19937> generator;
-        generator.setSeed(Hasher::hash(500, m_position.x, m_position.y));
+        generator.setSeed(Hasher::hash(seed, m_position.x, m_position.y));
 
         int32_t maxValue = 0;
         std::vector<Block::Position> treeMap;
@@ -193,7 +208,10 @@ namespace Chunk
         {
             for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
             {
-                int32_t heightHere = gen.getValue(x, z, m_position.x + 3, m_position.y + 3);
+                int32_t heightHere = gen.getValue(x,
+                                                  z,
+                                                  m_position.x + 3,
+                                                  m_position.y + 3);
                 m_highestBlocks.at(x, z) = heightHere;
                 maxValue = std::max(maxValue, heightHere);
             }
@@ -209,7 +227,7 @@ namespace Chunk
             {
                 for (int32_t z = 0; z < CHUNK_SIZE; ++z)
                 {
-                    Block::ID blockType;
+                    Block::ID blockType = Block::ID::Air;
                     int32_t height = m_highestBlocks.at(x, z);
 
                     if (y > height)
@@ -263,19 +281,37 @@ namespace Chunk
         //Generate trees af
         for (Block::Position& pos : treeMap)
         {
-            auto height = generator.intInRange(5, 8);
-            int32_t treeSize = 2;
+            auto height = generator.intInRange(4, 6);
+            int32_t crownSize = 2;
 
-            for (int32_t zLeaf = -treeSize; zLeaf <= treeSize; zLeaf++)
+            for (int32_t zLeaf = -crownSize; zLeaf <= crownSize; zLeaf++)
             {
-                for (int32_t xLeaf = -treeSize; xLeaf <= treeSize; xLeaf++)
+                for (int32_t xLeaf = -crownSize; xLeaf <= crownSize; xLeaf++)
                 {
                     setBlock({pos.x + xLeaf, pos.y + height - 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
                     setBlock({pos.x + xLeaf, pos.y + height + 0, pos.z + zLeaf}, Block::ID::Oak_Leaf);
-                    setBlock({pos.x + xLeaf, pos.y + height + 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
                 }
             }
 
+            auto h = pos.y + height;
+            setBlock({pos.x + crownSize, h, pos.z + crownSize}, Block::ID::Air);
+            setBlock({pos.x - crownSize, h, pos.z + crownSize}, Block::ID::Air);
+            setBlock({pos.x + crownSize, h, pos.z - crownSize}, Block::ID::Air);
+            setBlock({pos.x - crownSize, h, pos.z - crownSize}, Block::ID::Air);
+
+            for (int32_t zLeaf = -crownSize + 1; zLeaf <= crownSize - 1; zLeaf++)
+            {
+                int32_t xLeaf = 0;
+                setBlock({pos.x + xLeaf, pos.y + height + 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
+            }
+
+            for (int32_t zLeaf = -crownSize + 1; zLeaf <= crownSize - 1; zLeaf++)
+            {
+                int32_t xLeaf = 0;
+                setBlock({pos.x + zLeaf, pos.y + height + 1, pos.z + xLeaf}, Block::ID::Oak_Leaf);
+            }
+
+            setBlock({pos.x, pos.y + height + 2, pos.z}, Block::ID::Oak_Leaf);
 
             for (int32_t y = 1; y < height; y++)
             {
