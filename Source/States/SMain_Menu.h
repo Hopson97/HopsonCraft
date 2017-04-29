@@ -25,6 +25,8 @@ namespace State
             GUI::Panel* mp_activeMenu = &m_frontMenu;
 
             int32_t m_worldSize = 0;
+
+            const sf::Texture* m_pMenuBackground;
     };
 }
 
