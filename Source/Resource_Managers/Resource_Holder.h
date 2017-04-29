@@ -1,9 +1,7 @@
 #ifndef RESOURCE_HOLDER_H_INCLUDED
 #define RESOURCE_HOLDER_H_INCLUDED
 
-#include "Texture_Manager.h"
-#include "Sound_Manager.h"
-#include "Font_Manager.h"
+#include "Resource_Manager.h"
 
 struct Resource_Holder
 {
