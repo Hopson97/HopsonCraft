@@ -19,15 +19,16 @@
     //Enable dedicated graphics for NVIDIA:
     extern "C"
     {
-      __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
+      __declspec(dllexport) bool NvOptimusEnablement = true;
     }
 
     //Enable dedicated graphics for AMD Radeon:
     extern "C"
     {
-      __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+      __declspec(dllexport) bool AmdPowerXpressRequestHighPerformance = true;
     }
 #endif // __WIN32
+
 
 namespace
 {
@@ -38,6 +39,18 @@ namespace
         #else // __WIN32
             std::cerr << message << std::endl;
         #endif
+/** @TODO Put correct headers for these bad boys
+        #elif __linux
+            const std::string command = "zenity --error --text \"" + message + "\"";
+            system(command.c_str());
+        #elif __APPLE__
+            const std::string command = "osascript -e 'tell app \"System Events\" to display dialog \"" + message + "\" buttons {\"OK\"} default button 1 with icon caution with title \"Error\"'";
+            system(command.c_str());
+        #else
+            std::cerr << message << std::endl;
+            std::cin.ignore();
+        #endif
+*/
     }
 
     void initilize()

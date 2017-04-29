@@ -21,12 +21,11 @@ void Application::runMainGameLoop()
 
     while (Display::isOpen())
     {
+        //m_musicPlayer.update();
         if (m_states.empty())
             break;
 
         auto elapsed = gameTimer.restart().asSeconds();
-
-        //m_musicPlayer.update();
 
         sf::Event e;
         while (Display::get().pollEvent(e))

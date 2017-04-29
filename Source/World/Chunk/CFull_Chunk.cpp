@@ -189,7 +189,7 @@ namespace Chunk
             Good seeds:
                 242553
         */
-        int seed = 12345;
+        int32_t seed = 5256464;
 
         m_state = State::Populating;
 
