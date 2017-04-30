@@ -58,9 +58,9 @@ namespace
         Random  ::init();
         Display ::init();
 
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 30; i++)
         {
-            Random::intInRange(0, 32532); //This is so that the RNG is more random
+            Random::intInRange(0, 63464); //This is so that the RNG is more random
         }
 
         Block::Database::get();
@@ -88,9 +88,10 @@ namespace
 
     void noiseTest(int trials)
     {
+        Random::init();
         Noise::Generator m_noiseGen;
-        m_noiseGen.setSeed(242553);
-        m_noiseGen.setNoiseFunction({8, WATER_LEVEL, 0.55, 245});
+        m_noiseGen.setSeed(Random::intInRange(0, 999999));
+        m_noiseGen.setNoiseFunction({8, 650, 0.515, 290});
 
         float total = 0;
         std::vector<double> test;
@@ -117,8 +118,15 @@ namespace
 
 int main() try
 {
+    //noiseTest(1'000'000);
+
     runGame();
     return 0;
+}
+catch(std::bad_alloc& e)
+{
+    errorMessage("'Bad Alloc' error! (Out of memory)");
+    std::cin.ignore();
 }
 catch(std::exception& e)
 {

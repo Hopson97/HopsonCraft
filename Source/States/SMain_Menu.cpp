@@ -94,11 +94,13 @@ namespace State
                     break;
 
                 case 1:
-                    settings.noiseData = {7, 76, 0.51, 235, -12};
+                    settings.noiseData = {7, 76, 0.51, 235, -18};
                     break;
 
                 case 2:
-                    settings.noiseData = {8, 550, 0.50, 283, -414};
+                    //seeds:
+                    //92879 - VERY TALL MOUTAIN
+                    settings.noiseData = {8, 550, 0.50, 283, -395};
                     break;
             }
 

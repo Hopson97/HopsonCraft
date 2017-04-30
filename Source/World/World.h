@@ -47,8 +47,9 @@ class World
 
     private:
         void regenerateChunks();
-        void buffer(const Camera& camera);
-        void draw  (Renderer::Master& renderer, const Camera& camera);
+        void addChunks  ();
+        void buffer     (const Camera& camera);
+        void draw       (Renderer::Master& renderer, const Camera& camera);
 
         std::vector<New_Block> m_newBlocks;
 
