@@ -6,25 +6,23 @@
 
 namespace Chunk
 {
-    bool Map::addChunk(const Chunk::Position& position, World& world, bool gen)
+    void Map::addChunk(const Chunk::Position& position, World& world, bool populateBlocks)
     {
         mp_world = &world;
 
         if (existsAt(position))
         {
-            const auto& chunk = get(position);
-            if (chunk->getState() == Chunk::State::New)
-            {
-                chunk->generateBlocks(world.getWorldSettings());
-            }
-            return false;
+            get(position)->generateBlocks(world.getWorldSettings());
         }
         else
         {
             m_chunksMap.emplace(std::piecewise_construct,
                                 std::forward_as_tuple(position),
-                                std::forward_as_tuple(world, *this, position, world.getWorldSettings(), gen));
-            return true;
+                                std::forward_as_tuple(world,
+                                                      *this,
+                                                      position,
+                                                      world.getWorldSettings(),
+                                                      populateBlocks));
         }
     }
 
@@ -37,6 +35,7 @@ namespace Chunk
         }
         else
         {
+            std::cout << "A false return\n";
             addChunk(chunkPos, *mp_world, false);
             return m_chunksMap[chunkPos].getSection(position.y);
         }
@@ -58,5 +57,10 @@ namespace Chunk
     bool Map::existsAt(const Chunk::Position& position) const
     {
         return m_chunksMap.find(position) != m_chunksMap.end();
+    }
+
+    std::unordered_map<Position, Full_Chunk>& Map::getChunks()
+    {
+        return m_chunksMap;
     }
 }

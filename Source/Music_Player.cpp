@@ -9,6 +9,7 @@ Music_Player::Music_Player()
 :   m_songs (getFileNamesFromFolder("Data/Music"))
 ,   m_currentSong   (Random::intInRange(0, m_songs.size() - 1))
 {
+    m_music.setVolume(8);
     getNextSong();
 }
 
@@ -17,7 +18,6 @@ void Music_Player::update()
     if (m_duration <= m_timer.getElapsedTime())
     {
         uint32_t song;
-
         do
         {
             song = Random::intInRange(0, m_songs.size() - 1);

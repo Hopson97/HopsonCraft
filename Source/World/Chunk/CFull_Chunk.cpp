@@ -13,6 +13,8 @@
 
 #include "../../Temp/Noise_Generator.h"
 
+#include "../Generators/GStructures.h"
+
 namespace Chunk
 {
     Full_Chunk::Full_Chunk(World& world,
@@ -39,18 +41,8 @@ namespace Chunk
 
         auto pos = Maths::blockToSmallBlockPos(position);
 
-        switch (m_state)
-        {
-            case State::New:
-                m_positionedBlocks.emplace_back(position, block);
-                break;
-
-            case State::Populating:
-            case State::Populated:
-                m_chunkSections[yPositionSection]
-                    ->setBlock(pos, block);
-                    break;
-        }
+        m_chunkSections[yPositionSection]
+            ->setBlock(pos, block);
     }
 
     CBlock Full_Chunk::getBlock(const Block::Position& position)
@@ -192,8 +184,6 @@ namespace Chunk
             Good seeds:
                 242553
         */
-        m_state = State::Populating;
-
         Noise::Generator gen;
         gen.setSeed(settings.seed);
         gen.setNoiseFunction(settings.noiseData);
@@ -282,49 +272,8 @@ namespace Chunk
         //Generate trees af
         for (Block::Position& pos : treeMap)
         {
-            auto height = generator.intInRange(4, 6);
-            int32_t crownSize = 2;
-
-            for (int32_t zLeaf = -crownSize; zLeaf <= crownSize; zLeaf++)
-            {
-                for (int32_t xLeaf = -crownSize; xLeaf <= crownSize; xLeaf++)
-                {
-                    setBlock({pos.x + xLeaf, pos.y + height - 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
-                    setBlock({pos.x + xLeaf, pos.y + height + 0, pos.z + zLeaf}, Block::ID::Oak_Leaf);
-                }
-            }
-
-            auto h = pos.y + height;
-            setBlock({pos.x + crownSize, h, pos.z + crownSize}, Block::ID::Air);
-            setBlock({pos.x - crownSize, h, pos.z + crownSize}, Block::ID::Air);
-            setBlock({pos.x + crownSize, h, pos.z - crownSize}, Block::ID::Air);
-            setBlock({pos.x - crownSize, h, pos.z - crownSize}, Block::ID::Air);
-
-            for (int32_t zLeaf = -crownSize + 1; zLeaf <= crownSize - 1; zLeaf++)
-            {
-                int32_t xLeaf = 0;
-                setBlock({pos.x + xLeaf, pos.y + height + 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
-            }
-
-            for (int32_t zLeaf = -crownSize + 1; zLeaf <= crownSize - 1; zLeaf++)
-            {
-                int32_t xLeaf = 0;
-                setBlock({pos.x + zLeaf, pos.y + height + 1, pos.z + xLeaf}, Block::ID::Oak_Leaf);
-            }
-
-            setBlock({pos.x, pos.y + height + 2, pos.z}, Block::ID::Oak_Leaf);
-
-            for (int32_t y = 1; y < height; y++)
-            {
-                qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood);
-            }
+            makeOakTree(*this, pos, generator);
         }
-
-        for (auto& newBlock : m_positionedBlocks)
-        {
-            setBlock(newBlock.position, newBlock.block);
-        }
-        m_state = State::Populated;
     }
 }
 

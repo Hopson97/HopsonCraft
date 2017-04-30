@@ -21,14 +21,6 @@ class World_Settings;
 
 namespace Chunk
 {
-    enum class State
-    {
-        New,
-        Populating,
-        Populated,
-    };
-
-
     class Map;
 
     class Full_Chunk
@@ -44,11 +36,8 @@ namespace Chunk
 
             void   qSetBlock(const Block::Position& position, CBlock block, bool overrideBlocks = true);
             CBlock qGetBlock(const Block::Position& position);
+
             const Position& getPosition() const;
-
-            ///@TODO Move to .cpp file
-            State getState() { return m_state; }
-
             Section* getSection(int32_t index);
 
             uint32_t draw   (Renderer::Master& renderer, const Camera& camera);
@@ -61,17 +50,12 @@ namespace Chunk
         private:
             Array2D<uint32_t, CHUNK_SIZE> m_highestBlocks;
 
-
             std::vector<std::unique_ptr<Section>>   m_chunkSections;
-
-            std::vector<CPositioned_Block> m_positionedBlocks;
 
             World*      mp_world        = nullptr;
             Map*        mp_chunkMap     = nullptr;
             Position    m_position;
             int32_t     m_sectionCount  = 0;
-
-            State m_state = State::New;
     };
 }
 

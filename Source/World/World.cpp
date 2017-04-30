@@ -16,7 +16,7 @@ World::World(const Camera& camera, const World_Settings& worldSettings)
     {
         for (int32_t z = 0; z < m_worldSettings.worldSize; z++)
         {
-            m_chunks.addChunk({x, z}, *this);
+            m_chunks.addChunk({x, z}, *this, true);
         }
     }
 }

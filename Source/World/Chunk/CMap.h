@@ -16,16 +16,16 @@ namespace Chunk
     class Map
     {
         public:
-            bool addChunk(const Chunk::Position& position, World& world, bool gen = true);
+            void addChunk(const Chunk::Position& position, World& world, bool populateBlocks);
 
             Full_Chunk* get (const Chunk::Position& position);
-            bool existsAt   (const Chunk::Position& position) const;
-            Section* get    (const Chunk::Chunklet_Position& position);
+            Section*    get (const Chunk::Chunklet_Position& position);
 
-            std::unordered_map<Position, Full_Chunk>& getChunks() { return m_chunksMap; }
+            bool existsAt   (const Chunk::Position& position) const;
+
+            std::unordered_map<Position, Full_Chunk>& getChunks();
 
         private:
-
             std::unordered_map<Position, Full_Chunk> m_chunksMap;
             World* mp_world = nullptr;
     };
