@@ -38,17 +38,14 @@ const float& Frame_Time_Checker::getFPS()
     return m_fps;
 }
 
-
-
 namespace State
 {
     Playing::Playing(Application& application,
-                     int32_t worldSize)
+                     const World_Settings& settings)
     :   Game_State  (application)
-    ,   m_world     (application.getCamera(), worldSize)
+    ,   m_world     (application.getCamera(), settings)
     ,   m_player    (application.getCamera())
     ,   m_pauseMenu (GUI::Layout::Center)
-    ,   m_worldSize (worldSize)
     {
         application.getCamera().hookEntity(m_player);
         initHUD();
@@ -173,7 +170,7 @@ namespace State
 
     Vector3 Playing::getCenterPosition()
     {
-        static const auto centre = (m_worldSize * CHUNK_SIZE) / 2;
+        static const auto centre = (m_world.getWorldSettings().worldSize * CHUNK_SIZE) / 2;
 
         return
         {
@@ -195,9 +192,12 @@ namespace State
             return val;
         };
 
-        m_hud.debug.addDebugSector("Frame Time: %fms",          {0, getYPosition()},  &m_frameTimeChecker.getFrameTime());
-        m_hud.debug.addDebugSector("FPS: %.0f",                 {0, getYPosition()},  &m_frameTimeChecker.getFPS());
-        m_hud.debug.addDebugSector("Faces drawn: %.0f",         {0, getYPosition()},  &m_world.m_facesDrawn);
+        m_hud.debug.addDebugSector("Seed: %.0f",    {0, getYPosition()},  &m_world.getWorldSettings().seed);
+
+        m_hud.debug.addDebugSector("Frame Time: %fms",  {0, getYPosition()},  &m_frameTimeChecker.getFrameTime());
+        m_hud.debug.addDebugSector("FPS: %.0f",         {0, getYPosition()},  &m_frameTimeChecker.getFPS());
+        m_hud.debug.addDebugSector("Faces drawn: %.0f", {0, getYPosition()},  &m_world.m_facesDrawn);
+
         m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0, getYPosition()},  &m_player.position.x);
         m_hud.debug.addDebugSector("Player Position: Y: %.1f",  {0, getYPosition()},  &m_player.position.y);
         m_hud.debug.addDebugSector("Player Position: Z: %.1f",  {0, getYPosition()},  &m_player.position.z);

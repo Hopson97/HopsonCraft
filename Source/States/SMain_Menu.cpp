@@ -19,6 +19,9 @@ namespace State
         auto selection      = Random::intInRange(1, backgrounds.size());
         m_pMenuBackground   = &getResources().textures.get("Menu_BG/" + std::to_string(selection));
 
+        settings.name = "Test";
+        settings.seed = Random::intInRange(0, 99'999);
+
         initMenu();
     }
 
@@ -73,12 +76,33 @@ namespace State
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("World Size",
         std::vector<std::string> { "Tiny", "Small", "Medium", "Large", "Huge"},
         std::vector<int32_t>     { 20,     32,       44,      56,      68},
-        m_worldSize));
+        settings.worldSize));
+
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Terrain",
+        std::vector<std::string> { "Flat", "Normal", "Mountains",},
+        std::vector<int32_t>     { 0,      1,        2},
+        m_noiseData));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
             mp_activeMenu = &m_frontMenu;
-            m_application->pushState(std::make_unique<State::Playing>(*m_application, m_worldSize));
+
+            switch(m_noiseData)
+            {
+                case 0:
+                    settings.noiseData = {3, WATER_LEVEL, 0.4, 500, 20};
+                    break;
+
+                case 1:
+                    settings.noiseData = {7, 76, 0.51, 235, -12};
+                    break;
+
+                case 2:
+                    settings.noiseData = {8, 550, 0.50, 283, -414};
+                    break;
+            }
+
+            m_application->pushState(std::make_unique<State::Playing>(*m_application, settings));
         }));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()

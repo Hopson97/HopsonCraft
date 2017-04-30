@@ -12,14 +12,14 @@ namespace Chunk
 
         if (existsAt(position))
         {
-            get(position)->generateBlocks();
+            get(position)->generateBlocks(world.getWorldSettings());
         }
         else
         {
             //m_chunksMap.emplace(
             m_chunksMap.emplace(std::piecewise_construct,
                                 std::forward_as_tuple(position),
-                                std::forward_as_tuple(world, *this, position, gen));
+                                std::forward_as_tuple(world, *this, position, world.getWorldSettings(), gen));
         }
     }
 

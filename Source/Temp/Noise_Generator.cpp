@@ -60,6 +60,13 @@ namespace Noise
 
     double Generator::getValue(int x, int z, int tileX, int tileZ) const
     {
+        if (tileX <= 0 ||
+            tileZ <= 0)
+        {
+            return  WATER_LEVEL - 1;
+        }
+
+
         auto newX = (x + (tileX * CHUNK_SIZE));
         auto newZ = (z + (tileZ * CHUNK_SIZE));
 
@@ -76,7 +83,12 @@ namespace Noise
                                 * amplitude;
         }
 
-        return (((totalValue / 2.1) + 1.2) * m_noiseFunction.amplitudeMultiplier) + m_noiseFunction.heightMod;
+        auto val =
+            (((totalValue / 2.1) + 1.2) * m_noiseFunction.amplitudeMultiplier) + m_noiseFunction.heightMod;
+
+        return val > 0 ?
+                    val :
+                    1;
     }
 
     void Generator::setNoiseFunction(const Noise::Data& data)

@@ -36,7 +36,7 @@ class Application
 
         ///@TODO Just uncomment this line when giving it to people :P
         ///@TODO Don't forget to uncomment in the game loop too!
-        //Music_Player m_musicPlayer;
+        Music_Player m_musicPlayer;
 
         bool m_shouldPopState = false;
 };

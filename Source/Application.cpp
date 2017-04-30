@@ -21,7 +21,7 @@ void Application::runMainGameLoop()
 
     while (Display::isOpen())
     {
-        //m_musicPlayer.update();
+        m_musicPlayer.update();
         if (m_states.empty())
             break;
 

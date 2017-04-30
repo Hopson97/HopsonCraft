@@ -8,6 +8,9 @@
 #include "CSection.h"
 #include "CFull_Chunk.h"
 
+
+class World_Settings;
+
 namespace Chunk
 {
     class Map

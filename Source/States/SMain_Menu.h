@@ -5,6 +5,8 @@
 
 #include "../GUI/GUI.h"
 
+#include "../World/World_Settings.h"
+
 namespace State
 {
     class Main_Menu : public Game_State
@@ -25,8 +27,11 @@ namespace State
             GUI::Panel* mp_activeMenu = &m_frontMenu;
 
             int32_t m_worldSize = 0;
+            int32_t m_noiseData = 0;
 
             const sf::Texture* m_pMenuBackground;
+
+            World_Settings settings;
     };
 }
 

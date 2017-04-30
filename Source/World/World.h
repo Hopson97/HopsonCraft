@@ -9,6 +9,8 @@
 #include "Chunk/CSection.h"
 #include "Chunk/CMap.h"
 
+#include "World_Settings.h"
+
 class Player;
 class Camera;
 
@@ -31,9 +33,7 @@ class World
     };
 
     public:
-        float m_facesDrawn = 0;
-
-        World(const Camera& camera, int32_t worldSize);
+        World(const Camera& camera, const World_Settings& settings);
 
         void checkPlayerBounds(Player& player);
         void drawWorld(Renderer::Master& renderer, const Camera& camera);
@@ -43,6 +43,8 @@ class World
 
         uint32_t getHeightAt (const Vector3& worldPosition);
 
+        const World_Settings& getWorldSettings() const;
+
     private:
         void regenerateChunks();
         void buffer(const Camera& camera);
@@ -50,12 +52,13 @@ class World
 
         std::vector<New_Block> m_newBlocks;
 
+        Chunk::Map      m_chunks;
+        World_Settings  m_worldSettings;
+        int32_t         m_loadingDistance = 1;
         const Camera*   m_p_camera;
-        Chunk::Map m_chunks;
 
-
-        int32_t m_worldSize         = 0;
-        int32_t m_loadingDistance   = 1;
+    public:
+        float m_facesDrawn = 0;
 };
 
 #endif // WORLD_H_INCLUDED

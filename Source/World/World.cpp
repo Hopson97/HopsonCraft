@@ -8,13 +8,13 @@
 #include "../Camera.h"
 #include "../Maths/General_Maths.h"
 
-World::World(const Camera& camera, int32_t worldSize)
-:   m_p_camera      {&camera}
-,   m_worldSize     {worldSize}
+World::World(const Camera& camera, const World_Settings& worldSettings)
+:   m_worldSettings (worldSettings)
+,   m_p_camera      {&camera}
 {
-    for (int32_t x = 0 ; x < m_worldSize; x++)
+    for (int32_t x = 0 ; x < m_worldSettings.worldSize; x++)
     {
-        for (int32_t z = 0; z < m_worldSize; z++)
+        for (int32_t z = 0; z < m_worldSettings.worldSize; z++)
         {
             m_chunks.addChunk({x, z}, *this);
         }
@@ -32,13 +32,13 @@ void World::checkPlayerBounds(Player& player)
         player.position.z = 0.2;
     }
 
-    if (player.position.x + 0.2 > m_worldSize * CHUNK_SIZE - 0.2 )
+    if (player.position.x + 0.2 > m_worldSettings.worldSize * CHUNK_SIZE - 0.2 )
     {
-        player.position.x = m_worldSize * CHUNK_SIZE - 0.3;
+        player.position.x = m_worldSettings.worldSize * CHUNK_SIZE - 0.3;
     }
-    if (player.position.z + 0.2 > m_worldSize * CHUNK_SIZE - 0.2 )
+    if (player.position.z + 0.2 > m_worldSettings.worldSize * CHUNK_SIZE - 0.2 )
     {
-        player.position.z = m_worldSize * CHUNK_SIZE - 0.3;
+        player.position.z = m_worldSettings.worldSize * CHUNK_SIZE - 0.3;
     }
 }
 
@@ -154,10 +154,10 @@ void World::regenerateChunks()
 //It does this in a sort of radius starting from the middle of the world
 void World::buffer(const Camera& camera)
 {
-    if (m_loadingDistance == ((m_worldSize / 2) + 1)) return;
+    if (m_loadingDistance == ((m_worldSettings.worldSize / 2) + 1)) return;
 
-    auto minDis = m_worldSize / 2 - m_loadingDistance;
-    auto maxDis = m_worldSize / 2 + m_loadingDistance;
+    auto minDis = m_worldSettings.worldSize / 2 - m_loadingDistance;
+    auto maxDis = m_worldSettings.worldSize / 2 + m_loadingDistance;
 
     auto isMeshMade = false;
 
@@ -205,3 +205,9 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
     draw(renderer, camera);
     buffer(camera);
 }
+
+const World_Settings& World::getWorldSettings() const
+{
+    return m_worldSettings;
+}
+

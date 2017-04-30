@@ -2,13 +2,16 @@
 #define WORLD_SETTINGS_H_INCLUDED
 
 #include <cstdint>
+#include <string>
+
+#include "../Temp/Noise_Generator.h"
 
 struct World_Settings
 {
-    World_Settings(uint32_t waterLevel, uint32_t beachLevel)
-
-    const uint32_t  WATER_LEVEL,
-                    BEACH_LEVEL;
+    std::string name;
+    float       seed;
+    Noise::Data noiseData;
+    int32_t    worldSize;
 };
 
 #endif // WORLD_SETTINGS_H_INCLUDED

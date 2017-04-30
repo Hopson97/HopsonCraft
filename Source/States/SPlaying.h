@@ -11,6 +11,7 @@
 
 class Application;
 class Camera;
+class World_Settings;
 
 struct Frame_Time_Checker
 {
@@ -32,7 +33,8 @@ namespace State
     class Playing : public Game_State
     {
         public:
-            Playing(Application& application, int32_t worldSize);
+            Playing(Application& application,
+                    const World_Settings& settings);
 
             void input  (const sf::Event& e) override;
             void input  (Camera& camera) override;
@@ -54,8 +56,6 @@ namespace State
             GUI::Panel m_pauseMenu;
 
             bool                m_isPaused = false;
-
-            int32_t m_worldSize = 0;
     };
 }
 

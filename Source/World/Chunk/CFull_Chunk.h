@@ -17,6 +17,7 @@ namespace Renderer
 
 class World;
 class Camera;
+class World_Settings;
 
 namespace Chunk
 {
@@ -34,9 +35,9 @@ namespace Chunk
     {
         public:
             Full_Chunk() = default;
-            Full_Chunk(World& world, Map& map, const Position& position, bool generate = true);
+            Full_Chunk(World& world, Map& map, const Position& position, const World_Settings& settings, bool generate = true);
 
-            void generateBlocks();
+            void generateBlocks(const World_Settings& settings);
 
             void   setBlock(const Block::Position& position, CBlock block);
             CBlock getBlock(const Block::Position& position);

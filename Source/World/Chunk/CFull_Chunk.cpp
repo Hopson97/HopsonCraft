@@ -9,6 +9,8 @@
 #include "../../Util/Random.h"
 #include "../../Util/Hasher.h"
 
+#include "../World_Settings.h"
+
 #include "../../Temp/Noise_Generator.h"
 
 namespace Chunk
@@ -16,13 +18,14 @@ namespace Chunk
     Full_Chunk::Full_Chunk(World& world,
                            Map& map,
                            const Position& position,
+                           const World_Settings& settings,
                            bool generate)
     :   mp_world    {&world}
     ,   mp_chunkMap {&map}
     ,   m_position  {position}
     {
         if (generate)
-            generateBlocks();
+            generateBlocks(settings);
     }
 
     void Full_Chunk::setBlock(const Block::Position& position, CBlock block)
@@ -183,22 +186,20 @@ namespace Chunk
         return false;
     }
 
-    void Full_Chunk::generateBlocks()
+    void Full_Chunk::generateBlocks(const World_Settings& settings)
     {
         /*
             Good seeds:
                 242553
         */
-        int32_t seed = 5256464;
-
         m_state = State::Populating;
 
         Noise::Generator gen;
-        gen.setSeed(seed);
-        gen.setNoiseFunction({8, 75, 0.505, 235, -25});
+        gen.setSeed(settings.seed);
+        gen.setNoiseFunction(settings.noiseData);
 
         Random::Generator<std::mt19937> generator;
-        generator.setSeed(Hasher::hash(seed, m_position.x, m_position.y));
+        generator.setSeed(Hasher::hash((int32_t)settings.seed, m_position.x, m_position.y));
 
         int32_t maxValue = 0;
         std::vector<Block::Position> treeMap;
