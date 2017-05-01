@@ -17,7 +17,7 @@ namespace Chunk
 
             void addFace(const std::vector<GLfloat>&    templateFace,
                          const std::vector<GLfloat>&    texCoords,
-                         GLfloat                        cardinalLight,
+                         const sf::Vector3<GLfloat>&    light,
                          const Chunklet_Position&       chunkPos,
                          const Block::Small_Position&   blockPos);
 
@@ -28,10 +28,10 @@ namespace Chunk
             uint32_t getFaceCount() const;
 
         private:
-            std::vector<GLfloat> m_verticies;
-            std::vector<GLfloat> m_texCoords;
-            std::vector<GLfloat> m_cardinalLights;
-            std::vector<GLuint> m_indices;
+            std::vector<GLfloat>    m_verticies;
+            std::vector<GLfloat>    m_texCoords;
+            std::vector<GLfloat>    m_lights;
+            std::vector<GLuint>     m_indices;
 
             Model m_model;
 

@@ -67,16 +67,19 @@ namespace Chunk
                                CBlock block,
                                bool overrideBlocks)
     {
+        if (!overrideBlocks)
+        {
+            if (qGetBlock(position).getData().blockID != Block::ID::Air)
+            {
+                return;
+            }
+        }
+
         int32_t yPositionSection = position.y / CHUNK_SIZE;
 
         while (yPositionSection > m_sectionCount - 1)
         {
             addSection();
-        }
-
-        if (!overrideBlocks)
-        {
-            ///@TODO This
         }
 
         ///@TODO Handle the height of the chunk getting lower

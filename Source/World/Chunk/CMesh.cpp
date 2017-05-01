@@ -2,6 +2,8 @@
 
 #include "../World_Constants.h"
 
+#include <SFML/Graphics.hpp>
+
 namespace
 {
     template<typename T>
@@ -20,11 +22,11 @@ namespace Chunk
         m_facesCount   = 0;
     }
 
-    void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
-                        const std::vector<GLfloat>&    texCoords,
-                        GLfloat light,
-                        const Chunklet_Position&       chunkPos,
-                        const Block::Small_Position&   blockPos)
+    void Mesh::addFace(  const std::vector<GLfloat>&    templateFace,
+                         const std::vector<GLfloat>&    texCoords,
+                         const sf::Vector3<GLfloat>&    light,
+                         const Chunklet_Position&       chunkPos,
+                         const Block::Small_Position&   blockPos)
     {
         ++m_facesCount;
 
@@ -41,7 +43,9 @@ namespace Chunk
 
         for (int i = 0; i < 4; ++i)
         {
-            m_cardinalLights.push_back(light);
+            m_lights.push_back(light.x);
+            m_lights.push_back(light.y);
+            m_lights.push_back(light.z);
         }
 
         m_indices.insert(m_indices.end(),
@@ -59,13 +63,13 @@ namespace Chunk
     void Mesh::buffer()
     {
         m_model.addData(m_verticies, m_texCoords, m_indices);
-        m_model.addVBO(1, m_cardinalLights);
+        m_model.addVBO(3, m_lights);
 
         //Clear up some memory, also prevents odd stuff happening for mesh rebuild
         clearMemory(m_verticies);
         clearMemory(m_texCoords);
         clearMemory(m_indices);
-        clearMemory(m_cardinalLights);
+        clearMemory(m_lights);
     }
 
     const Model& Mesh::getModel() const

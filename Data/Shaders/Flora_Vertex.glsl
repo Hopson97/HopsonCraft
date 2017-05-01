@@ -5,7 +5,7 @@ layout (location = 1) in vec2 inTextureCoords;
 layout (location = 2) in vec3 inLightValue;
 
 out vec2 passTextureCoords;
-out float passLightValue;
+out vec3 passLightValue;
 
 uniform mat4 projViewMatrix;
 uniform float timer;

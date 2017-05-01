@@ -7,6 +7,7 @@
     #include <windows.h>
 #elif __LINUX__
     #include <sys/types.h>
+    #include <dirent.h>
 #endif // __LINUX__
 
 std::string getFileContents(const std::string& filePath)

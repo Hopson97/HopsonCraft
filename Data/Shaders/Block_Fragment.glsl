@@ -10,7 +10,19 @@ uniform int maxLightValue;
 
 void main()
 {
-    colour = texture(ourTexture, passTextureCoords) * passLightValue.x / maxLightValue;
+    float cardinalLight = passLightValue.x / maxLightValue;
+    float naturalLight  = passLightValue.y;
+    float blockLight    = passLightValue.z;
+
+    //Check if natural or block light is greater, as it will user the greater value
+    float lightMultiplier = max(naturalLight, blockLight) / maxLightValue;
+
+    //Add texture to the colour
+    colour = texture(ourTexture, passTextureCoords);
+
+    //Light multiplier
+    colour *= cardinalLight * lightMultiplier;
+
     if (colour.a == 0)
     {
         discard;
