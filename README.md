@@ -12,7 +12,7 @@ https://github.com/Hopson97/HopsonCraft/tree/90a5d596d07dfe71b5dbf47ec76c0b0802e
 ## Dependencies
 The project requires these libraries: SFML (minimum 2.4), GLEW (OpenGL 3.3+), and OpenGL Maths Library (GLM).
 
-Compile using compiler flags: ``-std=c++14 -O3 -s``
+Compile using compiler flags: ``-std=c++14 -O3 -s -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window``
 
 ## Contributing
 An easy way to contribute is to look for the ``///@TODO`` parts in the code. please actually test before doing a pull request.
