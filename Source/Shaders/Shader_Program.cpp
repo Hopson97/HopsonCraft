@@ -23,6 +23,11 @@ namespace Shader
         glUseProgram(0);
     }
 
+    void Shader_Program::loadInt(GLuint location, int value)
+    {
+        glUniform1i(location, value);
+    }
+
     void Shader_Program::loadFloat(GLuint location, float value)
     {
         glUniform1f(location, value);

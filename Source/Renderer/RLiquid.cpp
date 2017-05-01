@@ -10,6 +10,12 @@
 
 namespace Renderer
 {
+    RLiquid::RLiquid()
+    :   m_shader("Liquid")
+    {
+
+    }
+
     void RLiquid::draw(const Chunk::Section& section)
     {
         if (section.getMeshes().liquidMesh.getFaceCount() > 0)
@@ -27,7 +33,7 @@ namespace Renderer
         m_shader.bind();
 
         m_shader.setProjViewMatrix(camera.getProjectionViewMatrix());
-        m_shader.loadWaveTimer(m_waveTimer.getElapsedTime().asSeconds());
+        m_shader.loadTimer(m_waveTimer.getElapsedTime().asSeconds());
 
         for (const auto& renderInfo : m_renderInfo)
         {

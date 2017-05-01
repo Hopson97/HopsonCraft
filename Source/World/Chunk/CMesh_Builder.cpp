@@ -62,10 +62,10 @@ namespace
         0,          0, BLOCK_SIZE
     };
 
-    constexpr GLfloat TOP_LIGHT      = 1.0f;
-    constexpr GLfloat X_LIGHT        = 0.8f;
-    constexpr GLfloat Z_LIGHT        = 0.6f;
-    constexpr GLfloat BOTTOM_LIGHT   = 0.6f;
+    constexpr GLfloat TOP_LIGHT      = MAX_LIGHT;
+    constexpr GLfloat X_LIGHT        = MAX_LIGHT / 1.3;
+    constexpr GLfloat Z_LIGHT        = MAX_LIGHT / 1.7;
+    constexpr GLfloat BOTTOM_LIGHT   = MAX_LIGHT / 2.2;
 }
 
 
@@ -173,18 +173,11 @@ namespace Chunk
             }
         }
 
-        auto timeForGen = timer.getElapsedTime().asSeconds();
+        float timeForGen = timer.getElapsedTime().asSeconds();
         sum += timeForGen;
-
 
         LOG("Chunk mesh made in:    %.3f ms!\nAverage:                %.3f ms \n\n",
             timeForGen * 1000.0f, (sum / n) * 1000.0f);
-
-/*
-
-        std::cout   << "Chunk section created in: "   << timeForGen   * 1000.0f << "ms" <<  "\n"
-                    << "Average: "                    << (sum / n)    * 1000.0f << "ms\n\n";
-*/
     }
 
     void Mesh_Builder::tryAddFace(const std::vector<GLfloat>& face,
@@ -197,7 +190,7 @@ namespace Chunk
         {
             m_pActiveMesh->addFace(face,
                                    Block::Database::get().textures.getTextureCoords(textureCoords),
-                                   cardinalLight,
+                                   mp_section->getNaturalLight(adjacentBlockPosition),
                                    mp_section->getPosition(),
                                    thisBlockPos);
         }

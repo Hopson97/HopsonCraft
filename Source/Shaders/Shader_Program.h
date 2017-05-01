@@ -22,7 +22,8 @@ namespace Shader
 
             GLuint getID() const;
 
-            void loadFloat(GLuint location, float value);
+            void loadInt    (GLuint location, int value);
+            void loadFloat  (GLuint location, float value);
             void loadVector2(GLuint location, const Vector2& vector);
             void loadMatrix4(GLuint location, const Matrix4& matrix);
 

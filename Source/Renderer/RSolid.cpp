@@ -10,6 +10,12 @@
 
 namespace Renderer
 {
+    RChunk::RChunk()
+    :   m_shader("Solid")
+    {
+
+    }
+
     void RChunk::draw(const Chunk::Section& section)
     {
         if (section.getMeshes().solidMesh.getFaceCount() > 0)

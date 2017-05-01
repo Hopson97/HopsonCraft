@@ -10,6 +10,12 @@
 
 namespace Renderer
 {
+    RFlora::RFlora()
+    :   m_shader("Flora")
+    {
+
+    }
+
     void RFlora::draw(const Chunk::Section& section)
     {
         if (section.getMeshes().floraMesh.getFaceCount() > 0)
@@ -26,7 +32,7 @@ namespace Renderer
         m_shader.bind();
 
         m_shader.setProjViewMatrix(camera.getProjectionViewMatrix());
-        m_shader.loadWindTimer(m_windTimer.getElapsedTime().asSeconds());
+        m_shader.loadTimer(m_windTimer.getElapsedTime().asSeconds());
 
         for (const auto& section : m_renderInfo)
         {
