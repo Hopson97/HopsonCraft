@@ -18,15 +18,11 @@ namespace Chunk
     CBlock Section::getBlock(Block::Small_Position& position) const
     {
         const auto&  section = getConstSection(position, this, *mp_chunks);
-        if(section)
-        {
-            return section->qGetBlock(position);
-        }
-        else
-        {
-            return Block::ID::Air;
-        }
+        return  section ?
+                section->qGetBlock(position) :
+                Block::ID::Air;
     }
+
 /*
     //===============================
     //Natural Light
@@ -38,20 +34,16 @@ namespace Chunk
             section->qSetNaturalLight(position, value);
         }
     }
-
+*/
     uint8_t Section::getNaturalLight(Block::Small_Position& position) const
     {
-        auto* section = getConstSection(position);
-        if(section)
-        {
-            return section->qGetNaturalLight(position);
-        }
-        else
-        {
-            return MAX_LIGHT;
-        }
-    }
+        const auto&  section = getConstSection(position, this, *mp_chunks);
 
+        return  section ?
+                section->qGetNaturalLight(position) :
+                MAX_LIGHT;
+    }
+/*
     //===============================
     //Block lights
     void Section::setBlockLight(Block::Small_Position& position, uint8_t value)
@@ -96,15 +88,15 @@ namespace Chunk
     {
         return m_light[getIndexFrom(position)].block;
     }
-
+*/
     void Section::qSetNaturalLight(const Block::Small_Position& position, uint8_t value)
     {
-        m_light[getIndexFrom(position)].natural = value;
+        m_light.at(position).natural = value;
     }
 
     uint8_t Section::qGetNaturalLight(const Block::Small_Position& position) const
     {
-        return m_light[getIndexFrom(position)].natural;
+        return m_light.at(position).natural;
     }
-*/
+
 }

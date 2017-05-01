@@ -10,6 +10,8 @@
 #include "CFull_Chunk.h"
 #include "../Block/Block_Database.h"
 
+#include "../../Util/Log.h"
+
 namespace
 {
     const std::vector<GLfloat> frontFace
@@ -111,9 +113,6 @@ namespace Chunk
         meshes.solidMesh.reset();
         meshes.liquidMesh.reset();
 
-        auto& atlas = Block::Database::get().textures;
-        auto& position = mp_section->getPosition();
-
         //Local direction vectors
         //This is used in the if statements below
         Block::Small_Position up;
@@ -151,71 +150,59 @@ namespace Chunk
                     //Set the active mesh (Solid blocks, liquid blocks, flora blocks)
                     setActiveMesh(meshes);
 
+                    //Add faces to the chunk's mesh where the adjacent block is non-opaque
                     //Y-Faces
-                    if (shouldMakeFaceAdjTo(up))
-                    {
-                        m_pActiveMesh->addFace(topFace,
-                                               atlas.getTextureCoords(mp_activeData->topTextureCoords),
-                                               TOP_LIGHT,
-                                               position,
-                                               blockPosition);
-                    }
-                    if (shouldMakeFaceAdjTo(down))
-                    {
-                        m_pActiveMesh->addFace(bottomFace,
-                                               atlas.getTextureCoords(mp_activeData->bottomTextureCoords),
-                                               BOTTOM_LIGHT,
-                                               position,
-                                               blockPosition);
+                    tryAddFace(topFace, mp_activeData->topTextureCoords,
+                               blockPosition, up, TOP_LIGHT);
 
-                    }
-
+                    tryAddFace(bottomFace, mp_activeData->bottomTextureCoords,
+                               blockPosition, down, BOTTOM_LIGHT);
                     //X-Faces
-                    if (shouldMakeFaceAdjTo(right))
-                    {
-                        m_pActiveMesh->addFace(rightFace,
-                                               atlas.getTextureCoords(mp_activeData->sideTextureCoords),
-                                               X_LIGHT,
-                                               position,
-                                               blockPosition);
-                    }
-                    if (shouldMakeFaceAdjTo(left))
-                    {
-                        m_pActiveMesh->addFace(leftFace,
-                                               atlas.getTextureCoords(mp_activeData->sideTextureCoords),
-                                               X_LIGHT,
-                                               position,
-                                               blockPosition);
-                    }
+                    tryAddFace(rightFace, mp_activeData->sideTextureCoords,
+                               blockPosition, right, X_LIGHT);
 
+                    tryAddFace(leftFace, mp_activeData->sideTextureCoords,
+                               blockPosition, left, X_LIGHT);
                     //Z-Faces
-                    if (shouldMakeFaceAdjTo(front))
-                    {
-                        m_pActiveMesh->addFace(frontFace,
-                                                 atlas.getTextureCoords(mp_activeData->sideTextureCoords),
-                                                 Z_LIGHT,
-                                                 position,
-                                                 blockPosition);
-                    }
+                    tryAddFace(frontFace, mp_activeData->sideTextureCoords,
+                               blockPosition, front, Z_LIGHT);
 
-                    if (shouldMakeFaceAdjTo(back))
-                    {
-                        m_pActiveMesh->addFace(backFace,
-                                                 atlas.getTextureCoords(mp_activeData->sideTextureCoords),
-                                                 Z_LIGHT,
-                                                 position,
-                                                 blockPosition);
-                    }
-
+                    tryAddFace(backFace, mp_activeData->sideTextureCoords,
+                               blockPosition, back, Z_LIGHT);
                 }
             }
         }
 
         auto timeForGen = timer.getElapsedTime().asSeconds();
         sum += timeForGen;
-        std::cout << "Chunk section created in: "   << timeForGen   * 1000.0f << "ms" <<  "\n";
-        std::cout << "Average: "                    << (sum / n)    * 1000.0f << "ms\n\n";
+
+
+        LOG("Chunk mesh made in:    %.3f ms!\nAverage:                %.3f ms \n\n",
+            timeForGen * 1000.0f, (sum / n) * 1000.0f);
+
+/*
+
+        std::cout   << "Chunk section created in: "   << timeForGen   * 1000.0f << "ms" <<  "\n"
+                    << "Average: "                    << (sum / n)    * 1000.0f << "ms\n\n";
+*/
     }
+
+    void Mesh_Builder::tryAddFace(const std::vector<GLfloat>& face,
+                                  const Vector2& textureCoords,
+                                  const Block::Small_Position& thisBlockPos,
+                                  Block::Small_Position& adjacentBlockPosition,
+                                  GLfloat cardinalLight)
+    {
+        if (shouldMakeFaceAdjTo(adjacentBlockPosition))
+        {
+            m_pActiveMesh->addFace(face,
+                                   Block::Database::get().textures.getTextureCoords(textureCoords),
+                                   cardinalLight,
+                                   mp_section->getPosition(),
+                                   thisBlockPos);
+        }
+    }
+
 
     //Looks at a layer of chunk
     //Returns true if the layer itself, or an adjacent one, has a non-opaque block
@@ -269,6 +256,3 @@ namespace Chunk
     }
 
 }
-
-
-

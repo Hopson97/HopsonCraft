@@ -161,7 +161,7 @@ void World::buffer(const Camera& camera)
 
     auto isMeshMade = false;
 
-    std::cout << m_loadingDistance << std::endl;
+    //std::cout << m_loadingDistance << std::endl;
 
     for (int32_t x = minDis ; x < maxDis; x++)
     {

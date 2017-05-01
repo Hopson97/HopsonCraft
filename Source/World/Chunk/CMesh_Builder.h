@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include "../../Glm_Common.h"
+
 #include "../Block/Block_Position.h"
 
 #include "CMesh.h"
@@ -24,6 +26,12 @@ namespace Chunk
             void generateMesh(Meshes& meshes);
 
         private:
+            void tryAddFace(const std::vector<GLfloat>& face,
+                            const Vector2& textureCoords,
+                            const Block::Small_Position& thisBlockPos,
+                            Block::Small_Position& adjacentBlockPosition,
+                            GLfloat cardinalLight);
+
             bool shouldCreateLayer  (uint32_t yPosition);
             bool shouldMakeFaceAdjTo(Block::Small_Position& pos) const;
             void setActiveMesh(Meshes& meshes);
