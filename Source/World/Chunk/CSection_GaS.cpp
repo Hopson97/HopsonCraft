@@ -23,32 +23,32 @@ namespace Chunk
                 Block::ID::Air;
     }
 
-/*
+
     //===============================
     //Natural Light
     void Section::setNaturalLight(Block::Small_Position& position, uint8_t value)
     {
-        Section* section = getSection(position);
+        const auto& section = getSection(position, this, *mp_chunks);
         if(section)
         {
             section->qSetNaturalLight(position, value);
         }
     }
-*/
+
     uint8_t Section::getNaturalLight(Block::Small_Position& position) const
     {
-        const auto&  section = getConstSection(position, this, *mp_chunks);
+        const auto& section = getConstSection(position, this, *mp_chunks);
 
         return  section ?
                 section->qGetNaturalLight(position) :
                 MAX_LIGHT;
     }
-/*
+
     //===============================
     //Block lights
     void Section::setBlockLight(Block::Small_Position& position, uint8_t value)
     {
-        Section* section = getSection(position);
+        const auto& section = getSection(position, this, *mp_chunks);
         if(section)
         {
             section->qSetBlockLight(position, value);
@@ -57,7 +57,7 @@ namespace Chunk
 
     uint8_t Section::getBlockLight(Block::Small_Position& position) const
     {
-        auto* section = getConstSection(position);
+        const auto& section = getConstSection(position, this, *mp_chunks);
         if(section)
         {
             return section->qGetBlockLight(position);
@@ -67,7 +67,12 @@ namespace Chunk
             return MAX_LIGHT;
         }
     }
-*/
+
+
+
+
+
+
     void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
     {
         m_layerHasAir[position.y].update(block);
@@ -78,17 +83,17 @@ namespace Chunk
     {
         return m_blocks.at(position);
     }
-/*
+
     void Section::qSetBlockLight(const Block::Small_Position& position, uint8_t value)
     {
-        m_light[getIndexFrom(position)].block = value;
+        m_light.at(position).block = value;
     }
 
     uint8_t Section::qGetBlockLight(const Block::Small_Position& position) const
     {
-        return m_light[getIndexFrom(position)].block;
+        return m_light.at(position).block;
     }
-*/
+
     void Section::qSetNaturalLight(const Block::Small_Position& position, uint8_t value)
     {
         m_light.at(position).natural = value;

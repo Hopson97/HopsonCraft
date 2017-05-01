@@ -47,10 +47,7 @@ struct CBlock
 
 struct CLight
 {
-    CLight()
-    :   natural    (MAX_LIGHT)
-    ,   block      (MAX_LIGHT)
-    { }
+    CLight();
 
     uint8_t natural : 4;
     uint8_t block   : 4;

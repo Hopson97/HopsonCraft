@@ -189,7 +189,7 @@ namespace Chunk
         if (shouldMakeFaceAdjTo(adjacentBlockPosition))
         {
             GLfloat natLight   = mp_section->getNaturalLight(adjacentBlockPosition);
-            GLfloat blockLight = MAX_LIGHT;
+            GLfloat blockLight = mp_section->getBlockLight(adjacentBlockPosition);
 
             m_pActiveMesh->addFace(face,
                                    Block::Database::get().textures.getTextureCoords(textureCoords),

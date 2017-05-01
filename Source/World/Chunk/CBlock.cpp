@@ -23,3 +23,9 @@ const Block::Type& CBlock::getType() const
 {
     return Block::Database::get().getBlock(id);
 }
+
+//Light
+CLight::CLight()
+:   natural    (MAX_LIGHT)
+,   block      (MAX_LIGHT)
+{ }

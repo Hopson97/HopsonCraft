@@ -33,8 +33,6 @@ namespace Chunk
     }
 
 
-
-
     const Chunklet_Position& Section::getPosition() const   { return m_position;        }
     const Meshes& Section::getMeshes()              const   { return m_meshes;          }
     const AABB& Section::getAABB()                  const   { return m_aabb;            }
@@ -76,24 +74,6 @@ namespace Chunk
                                 m_position.z + (int32_t)change.y});
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
