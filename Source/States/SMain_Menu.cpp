@@ -20,7 +20,6 @@ namespace State
         m_pMenuBackground   = &getResources().textures.get("Menu_BG/" + std::to_string(selection));
 
         settings.name = "Test";
-        settings.seed = Random::intInRange(0, 99'999);
 
         initMenu();
     }
@@ -103,6 +102,8 @@ namespace State
                     settings.noiseData = {8, 550, 0.50, 283, -395};
                     break;
             }
+
+            settings.seed = Random::intInRange(0, 99'999);
 
             m_application->pushState(std::make_unique<State::Playing>(*m_application, settings));
         }));

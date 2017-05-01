@@ -23,6 +23,7 @@ file(GLOB src_files
 	Source/Resource_Managers/*.cpp
 	Source/World/Block/*.cpp
 	Source/World/Chunk/*.cpp
+	Source/World/Generators/*.cpp
 	Source/Util/*.cpp
 	)
 

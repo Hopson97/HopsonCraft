@@ -243,7 +243,7 @@ namespace Chunk
                             else
                             {
                                 blockType = Block::ID::Grass;
-                                if (generator.intInRange(0, 110) == 5)
+                                if (generator.intInRange(0, 20) == 5)
                                 {
                                     treeMap.emplace_back(x, y, z);
                                 }
