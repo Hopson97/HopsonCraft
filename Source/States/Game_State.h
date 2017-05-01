@@ -27,6 +27,8 @@ namespace State
             virtual void update (Camera& camera, float dt) = 0;
             virtual void draw   (Renderer::Master& renderer) = 0;
 
+            virtual void onOpen() {}
+
         protected:
             Application* m_application;
     };

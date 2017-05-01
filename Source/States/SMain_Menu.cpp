@@ -8,6 +8,8 @@
 #include "../Util/Random.h"
 #include "../Util/File_Util.h"
 
+#include "../Display.h"
+
 namespace State
 {
     Main_Menu::Main_Menu(Application& application)
@@ -42,6 +44,11 @@ namespace State
         mp_activeMenu->draw(renderer);
     }
 
+    void Main_Menu::onOpen()
+    {
+        Display::get().setFramerateLimit(30);
+    }
+
     void Main_Menu::initMenu()
     {
         m_frontMenu.addPadding(100);
@@ -73,12 +80,12 @@ namespace State
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("World Size",
-        std::vector<std::string> { "Tiny", "Small", "Medium", "Large", "Huge"},
+        std::vector<std::string> { "Tiny", "Small", "Medium", "Large", "Huge \n Warning: Potentially high memory usage and low FPS!"},
         std::vector<int32_t>     { 20,     32,       44,      56,      68},
         settings.worldSize));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Terrain",
-        std::vector<std::string> { "Flat", "Normal", "Mountains",},
+        std::vector<std::string> { "Smooth", "Normal", "Mountains",},
         std::vector<int32_t>     { 0,      1,        2},
         m_noiseData));
 
@@ -89,7 +96,7 @@ namespace State
             switch(m_noiseData)
             {
                 case 0:
-                    settings.noiseData = {3, WATER_LEVEL, 0.4, 500, 20};
+                    settings.noiseData = {4, WATER_LEVEL, 0.4, 500};
                     break;
 
                 case 1:
@@ -99,6 +106,7 @@ namespace State
                 case 2:
                     //seeds:
                     //92879 - VERY TALL MOUTAIN
+                    //5184
                     settings.noiseData = {8, 550, 0.50, 283, -395};
                     break;
             }

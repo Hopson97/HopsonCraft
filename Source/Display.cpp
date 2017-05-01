@@ -37,6 +37,8 @@ namespace Display
         glViewport(0, 0, get().getSize().x, get().getSize().y);
 
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        window->setFramerateLimit(120);
     }
 
     void close()

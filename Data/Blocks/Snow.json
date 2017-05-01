@@ -1,0 +1,11 @@
+{
+	"Name": 		"Snow Block",
+	"ID": 			8,
+	"Opaque": 		true,
+	"Obstacle": 	true,
+	"Mesh":			0,
+	
+	"Texture Top": 		[ 9, 0],
+	"Texture Side": 	[ 9, 0],
+	"Texture Bottom": 	[ 9, 0]
+}

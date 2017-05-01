@@ -17,6 +17,7 @@ namespace Block
         Oak_Wood    = 5,
         Oak_Leaf    = 6,
         Water       = 7,
+        Snow        = 8,
 
         NUM_BLOCK_TYPES
     };

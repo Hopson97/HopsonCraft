@@ -35,7 +35,6 @@ namespace Chunk
         }
         else
         {
-            std::cout << "A false return\n";
             addChunk(chunkPos, *mp_world, false);
             return m_chunksMap[chunkPos].getSection(position.y);
         }

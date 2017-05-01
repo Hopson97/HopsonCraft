@@ -19,6 +19,8 @@ namespace State
             void update (Camera& camera, float dt) override;
             void draw   (Renderer::Master& renderer) override;
 
+            void onOpen() override;
+
         private:
             void initMenu();
 

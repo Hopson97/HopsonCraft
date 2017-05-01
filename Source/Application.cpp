@@ -53,6 +53,7 @@ void Application::runMainGameLoop()
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)
 {
+    state->onOpen();
     m_states.push_back(std::move(state));
 }
 
@@ -80,6 +81,10 @@ void Application::realPopState()
 {
     m_states.pop_back();
     m_shouldPopState = false;
+    if (!m_states.empty())
+    {
+        m_states.back()->onOpen();
+    }
 }
 
 

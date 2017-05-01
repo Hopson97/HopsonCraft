@@ -62,4 +62,20 @@ void makeOakTree(Access& access,
     }
 }
 
+template<typename Access>
+void makePyramid(Access& access,
+                 const Block::Position& pos)
+{
+    for(int base = 5, h = 0; base > 0; base -= 2, h++)
+    {
+        for (int x = pos.x - base / 2; x < pos.x + base / 2; x++)
+        {
+            for (int z = pos.z - base / 2; z < pos.z + base / 2; z++)
+            {
+                access.setBlock({pos.x + x, pos.y + h + 1, pos.z + z}, Block::ID::Stone);
+            }
+        }
+    }
+}
+
 #endif // GSTRUCTURES_H_INCLUDED

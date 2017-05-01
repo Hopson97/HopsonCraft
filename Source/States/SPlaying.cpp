@@ -54,6 +54,8 @@ namespace State
         m_quady.position = getCenterPosition();
 
         m_player.position = getCenterPosition();
+
+        Display::get().setFramerateLimit(1000);
     }
 
     void Playing::input(const sf::Event& e)

@@ -48,6 +48,10 @@ namespace GUI
         }
         initText(m_text, 40, m_label + ": " + m_options[m_optionIndex]);
         *mp_option = m_optionValues[m_optionIndex];
+
+        m_text.setPosition(m_quad.getPosition());
+        m_text.move(m_quad.getSize().x / 2 - m_text.getLocalBounds().width  / 2,
+                    m_quad.getSize().y / 2 - m_text.getLocalBounds().height / 2);
     }
 
 
@@ -63,8 +67,7 @@ namespace GUI
     void Toggle_Option_Button::setPosition(const sf::Vector2f& position)
     {
         m_quad.setPosition(position);
-
-        m_text.setPosition(position);
+        m_text.setPosition(m_quad.getPosition());
         m_text.move(m_quad.getSize().x / 2 - m_text.getLocalBounds().width  / 2,
                     m_quad.getSize().y / 2 - m_text.getLocalBounds().height / 2);
     }

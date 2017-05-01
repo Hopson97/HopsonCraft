@@ -34,8 +34,6 @@ class Application
         Renderer::Master m_renderer;
         Camera m_camera;
 
-        ///@TODO Just uncomment this line when giving it to people :P
-        ///@TODO Don't forget to uncomment in the game loop too!
         Music_Player m_musicPlayer;
 
         bool m_shouldPopState = false;

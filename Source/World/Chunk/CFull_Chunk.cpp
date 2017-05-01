@@ -243,7 +243,7 @@ namespace Chunk
                             else
                             {
                                 blockType = Block::ID::Grass;
-                                if (generator.intInRange(0, 20) == 5)
+                                if (generator.intInRange(0, 110) == 5)
                                 {
                                     treeMap.emplace_back(x, y, z);
                                 }
@@ -276,19 +276,3 @@ namespace Chunk
         }
     }
 }
-
-/*
-        for (auto& pos : treeMap)
-        {
-            for(int base = 5, h = 0; base > 0; base -= 2, h++)
-            {
-                for (int x = pos.x - base / 2; x < pos.x + base / 2; x++)
-                {
-                    for (int z = pos.z - base / 2; z < pos.z + base / 2; z++)
-                    {
-                        setBlock({pos.x + x, pos.y + h, pos.z + z}, Block::ID::Stone);
-                    }
-                }
-            }
-        }
-*/
