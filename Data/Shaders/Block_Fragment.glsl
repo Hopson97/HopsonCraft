@@ -14,14 +14,21 @@ void main()
     float naturalLight  = passLightValue.y;
     float blockLight    = passLightValue.z;
 
+
+    naturalLight = max (naturalLight,   1.5f);
+    blockLight   = max (blockLight,     1.5f);
+
+    float lightVal = max(naturalLight, blockLight) / maxLightValue;
+
     //Check if natural or block light is greater, as it will user the greater value
-    float lightMultiplier = max(naturalLight, blockLight) / maxLightValue;
+    vec4 lightMultiplier = vec4(lightVal, lightVal, lightVal, 1.0f);
 
     //Add texture to the colour
     colour = texture(ourTexture, passTextureCoords);
 
     //Light multiplier
-    colour *= cardinalLight * lightMultiplier;
+    colour *= cardinalLight;
+    colour *= lightMultiplier;
 
     if (colour.a == 0)
     {

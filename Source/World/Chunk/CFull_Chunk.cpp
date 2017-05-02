@@ -31,19 +31,31 @@ namespace Chunk
             generateBlocks(settings);
     }
 
-    void Full_Chunk::setBlock(const Block::Position& position, CBlock block)
-    {
-        int32_t yPositionSection = position.y / CHUNK_SIZE;
 
-        while (yPositionSection > m_sectionCount - 1)
-        {
-            addSection();
-        }
+    void Full_Chunk::setBlock(const Block::Position& position,
+                               CBlock block,
+                               bool overrideBlocks)
+    {
+        addSections(position.y);
+        //if (overrideBlockFails(overrideBlocks, position)) return;
+        //updateTopBlockLocation(position);
 
         auto pos = Maths::blockToSmallBlockPos(position);
 
-        m_chunkSections[yPositionSection]
+        m_chunkSections[position.y / CHUNK_SIZE]
             ->setBlock(pos, block);
+    }
+
+    void Full_Chunk::qSetBlock(const Block::Position& position,
+                               CBlock block,
+                               bool overrideBlocks)
+    {
+        addSections(position.y);
+        //if (overrideBlockFails(overrideBlocks, position)) return;
+        //updateTopBlockLocation(position);
+
+        m_chunkSections[position.y / CHUNK_SIZE]
+            ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
     }
 
     CBlock Full_Chunk::getBlock(const Block::Position& position)
@@ -63,37 +75,6 @@ namespace Chunk
     }
 
 
-
-    void Full_Chunk::qSetBlock(const Block::Position& position,
-                               CBlock block,
-                               bool overrideBlocks)
-    {
-        if (!overrideBlocks)
-        {
-            if (qGetBlock(position).getData().blockID != Block::ID::Air)
-            {
-                return;
-            }
-        }
-
-        int32_t yPositionSection = position.y / CHUNK_SIZE;
-
-        while (yPositionSection > m_sectionCount - 1)
-        {
-            addSection();
-        }
-
-        ///@TODO Handle the height of the chunk getting lower
-        if (m_highestBlocks.at(position.x, position.z) < (uint32_t)position.y)
-        {
-            m_highestBlocks.at(position.x, position.z) = position.y;
-        }
-
-        m_chunkSections[yPositionSection]
-            ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
-    }
-
-
     CBlock Full_Chunk::qGetBlock(const Block::Position& position)
     {
         int32_t yPositionSection = position.y / CHUNK_SIZE;
@@ -107,6 +88,34 @@ namespace Chunk
                 ->qGetBlock(Maths::blockToSmallBlockPos(position));
         }
     }
+
+    void Full_Chunk::updateTopBlockLocation(const Block::Position& position)
+    {
+        auto val = m_highestBlocks.at(position.x, position.z);
+        if ((int32_t)val < position.y)
+        {
+            m_highestBlocks.at(position.x, position.z) = position.y;
+        }
+    }
+
+    void Full_Chunk::addSections(uint32_t blockTarget)
+    {
+        int32_t yPositionSection = blockTarget / CHUNK_SIZE;
+
+        while (yPositionSection > m_sectionCount - 1)
+        {
+            addSection();
+        }
+    }
+
+    bool Full_Chunk::overrideBlockFails(bool overrideBlocks, const Block::Position& position)
+    {
+        if (!overrideBlocks)
+        {
+            return qGetBlock(position).getData().blockID != Block::ID::Air;
+        }
+    }
+
 
     const Position& Full_Chunk::getPosition() const
     {

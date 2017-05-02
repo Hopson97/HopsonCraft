@@ -31,7 +31,7 @@ namespace Chunk
 
             void generateBlocks(const World_Settings& settings);
 
-            void   setBlock(const Block::Position& position, CBlock block);
+            void   setBlock(const Block::Position& position, CBlock block, bool overrideBlocks = true);
             CBlock getBlock(const Block::Position& position);
 
             void   qSetBlock(const Block::Position& position, CBlock block, bool overrideBlocks = true);
@@ -48,6 +48,12 @@ namespace Chunk
             uint32_t getHeightAt(int8_t x, int8_t z) const;
 
         private:
+            void addSections(uint32_t blockTarget);
+            void initBasicSunlight();
+            void updateTopBlockLocation(const Block::Position& position);
+            bool overrideBlockFails(bool overrideBlocks,
+                                    const Block::Position& position);
+
             Array2D<uint32_t, CHUNK_SIZE> m_highestBlocks;
 
             std::vector<std::unique_ptr<Section>>   m_chunkSections;
