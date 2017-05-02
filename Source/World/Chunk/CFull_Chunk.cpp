@@ -4,6 +4,7 @@
 
 #include "../World_Constants.h"
 #include "../../Maths/General_Maths.h"
+#include "../../Maths/Position_Conversion.h"
 #include "../../Camera.h"
 #include "../../Renderer/RMaster.h"
 #include "../../Util/Random.h"
@@ -258,7 +259,7 @@ namespace Chunk
                                                                          Block::ID::Dirt;
                         }
                     }
-                    else if (y < height && y > height - 4)
+                    else if (Maths::inRange(y, height - 3, height))
                     {
                         blockType = Block::ID::Dirt;
                     }

@@ -6,7 +6,7 @@
 #include "../Renderer/RMaster.h"
 #include "../Player/Player.h"
 #include "../Camera.h"
-#include "../Maths/General_Maths.h"
+#include "../Maths/Position_Conversion.h"
 
 World::World(const Camera& camera, const World_Settings& worldSettings)
 :   m_worldSettings (worldSettings)
