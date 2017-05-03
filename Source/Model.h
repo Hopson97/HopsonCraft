@@ -12,9 +12,13 @@ class Model
         Model(const std::vector<GLfloat>& vertexPositions,
               const std::vector<GLfloat>& textureCoordinates,
               const std::vector<GLuint>&  indices);
+
         ~Model();
         Model(const Model& other) = delete;
+        Model& operator =(const Model& other) = delete;
+
         Model(Model&& other);
+        Model& operator =(Model&& other);
 
         void addData(const std::vector<GLfloat>& vertexPositions,
                      const std::vector<GLfloat>& textureCoordinates,

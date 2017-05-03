@@ -38,7 +38,6 @@ namespace Chunk
     {
         addSections(position.y);
         //if (overrideBlockFails(overrideBlocks, position)) return;
-        //updateTopBlockLocation(position);
 
         auto pos = Maths::blockToSmallBlockPos(position);
 
@@ -52,7 +51,7 @@ namespace Chunk
     {
         addSections(position.y);
         //if (overrideBlockFails(overrideBlocks, position)) return;
-        //updateTopBlockLocation(position);
+        updateTopBlockLocation(position);
 
         m_chunkSections[position.y / CHUNK_SIZE]
             ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
@@ -73,7 +72,6 @@ namespace Chunk
                 ->getBlock(pos);
         }
     }
-
 
     CBlock Full_Chunk::qGetBlock(const Block::Position& position)
     {
@@ -108,6 +106,8 @@ namespace Chunk
         }
     }
 
+    ///@TODO Fix and test this function
+/*
     bool Full_Chunk::overrideBlockFails(bool overrideBlocks, const Block::Position& position)
     {
         if (!overrideBlocks)
@@ -115,7 +115,7 @@ namespace Chunk
             return qGetBlock(position).getData().blockID != Block::ID::Air;
         }
     }
-
+*/
 
     const Position& Full_Chunk::getPosition() const
     {
@@ -145,12 +145,6 @@ namespace Chunk
                                                             *mp_chunkMap,
                                                             *this));
     }
-
-    uint32_t Full_Chunk::getHeightAt(int8_t x, int8_t z) const
-    {
-        return m_highestBlocks.at(x, z);
-    }
-
 
     //Adds all of the chunks within the viewing frustum into the master renderer
     //Returns number of faces drawn
@@ -287,5 +281,10 @@ namespace Chunk
         {
             makeOakTree(*this, pos, generator);
         }
+    }
+
+    uint32_t Full_Chunk::getHeightAt(int8_t x, int8_t z) const
+    {
+        return m_highestBlocks.at(x, z);
     }
 }

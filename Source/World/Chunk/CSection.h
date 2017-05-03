@@ -78,6 +78,8 @@ namespace Chunk
             const Full_Chunk& getParentChunk() const;
 
         private:
+            Full_Chunk& getParentChunk();
+
             Array3D<CBlock, CHUNK_SIZE>     m_blocks;
             Array3D<CLight, CHUNK_SIZE>     m_light;
             std::array<Layer, CHUNK_SIZE>   m_layerHasAir;

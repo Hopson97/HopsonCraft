@@ -1,6 +1,6 @@
 #ifndef SHADER_PROGRAM_H_INCLUDED
 #define SHADER_PROGRAM_H_INCLUDED
-
+#include <GL/glew.h>
 #include <GL/glew.h>
 #include <string>
 

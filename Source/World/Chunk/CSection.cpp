@@ -38,6 +38,8 @@ namespace Chunk
     const AABB& Section::getAABB()                  const   { return m_aabb;            }
     const Full_Chunk& Section::getParentChunk()      const  { return *m_parentChunk;    }
 
+    Full_Chunk& Section::getParentChunk() { return *m_parentChunk; }
+
 
     const Section::Layer& Section::getLayer(int8_t y)const
     {

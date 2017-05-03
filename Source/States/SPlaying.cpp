@@ -172,7 +172,7 @@ namespace State
 
     Vector3 Playing::getCenterPosition()
     {
-        static const auto centre = (m_world.getWorldSettings().worldSize * CHUNK_SIZE) / 2;
+        int32_t centre = (m_world.getWorldSettings().worldSize * CHUNK_SIZE) / 2;
 
         return
         {

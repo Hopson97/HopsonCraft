@@ -1,6 +1,7 @@
 #include "CSection.h"
 
 #include "CBoundsCheck.h"
+#include "CFull_Chunk.h"
 
 namespace Chunk
 {
@@ -12,6 +13,9 @@ namespace Chunk
         if(section)
         {
             section->qSetBlock(position, block);
+            section->getParentChunk().updateTopBlockLocation({position.x,
+                                                              position.y * m_position.y,
+                                                              position.z});
         }
     }
 

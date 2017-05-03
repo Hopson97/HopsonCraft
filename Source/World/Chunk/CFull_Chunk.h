@@ -25,6 +25,8 @@ namespace Chunk
 
     class Full_Chunk
     {
+        friend class Section;
+
         public:
             Full_Chunk() = default;
             Full_Chunk(World& world, Map& map, const Position& position, const World_Settings& settings, bool generate = true);
