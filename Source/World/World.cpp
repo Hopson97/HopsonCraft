@@ -189,6 +189,7 @@ void World::regenerateChunks()
     {
         Chunk::Section* sect = chunk.second;
         sect->makeMesh();
+        sect->bufferMesh();
     }
 
     m_newBlocks.clear();
@@ -196,7 +197,7 @@ void World::regenerateChunks()
 
 //Generates meshes for the chunks.
 //It does this in a sort of radius starting from the middle of the world
-void World::buffer(const Camera& camera)
+void World::buildMeshes()
 {
     if (m_loadingDistance == ((m_worldSettings.worldSize / 2) + 1)) return;
 
@@ -214,7 +215,7 @@ void World::buffer(const Camera& camera)
             if (m_chunks.existsAt(position))
             {
                 const auto& chunk = m_chunks.get({x, z});
-                if(chunk->tryGen(camera))
+                if(chunk->tryGen())
                 {
                     isMeshMade = true;
                     break;
@@ -232,7 +233,7 @@ void World::buffer(const Camera& camera)
             Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
             if (chunk)
             {
-                const auto& build = chunk->tryGen(camera);
+                const auto& build = chunk->tryGen();
                 if (!build->prepForBuild)
                 {
                     build->prepForBuild = true;
@@ -266,9 +267,8 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
     if (!m_newBlocks.empty())
         regenerateChunks();
 
-    buffer(camera);
     draw(renderer, camera);
-
+    buildMeshes();
 }
 
 const World_Settings& World::getWorldSettings() const

@@ -49,10 +49,10 @@ class World
         const World_Settings& getWorldSettings() const;
 
     private:
-        void regenerateChunks();
-        void addChunks  ();
-        void buffer     (const Camera& camera);
-        void draw       (Renderer::Master& renderer, const Camera& camera);
+        void regenerateChunks   ();
+        void addChunks          ();
+        void buildMeshes        ();
+        void draw               (Renderer::Master& renderer, const Camera& camera);
 
         std::vector<New_Block> m_newBlocks;
         std::vector<std::thread> m_workers;

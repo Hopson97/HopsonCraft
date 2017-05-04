@@ -181,7 +181,7 @@ namespace Chunk
         return facesDrawn;
     }
 
-    bool Full_Chunk::tryGen(const Camera& camera)
+    bool Full_Chunk::tryGen()
     {
         for (auto& chunk : m_chunkSections)
         {
@@ -195,7 +195,7 @@ namespace Chunk
     }
 
 /*
-    Chunk::Section* Full_Chunk::tryGen(const Camera& camera)
+    Chunk::Section* Full_Chunk::tryGen()
     {
         for (auto& chunk : m_chunkSections)
         {
