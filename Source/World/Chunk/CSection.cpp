@@ -25,6 +25,7 @@ namespace Chunk
     {
         m_meshBuilder.generateMesh(m_meshes);
         made = true;
+        buffered = false;
     }
 
     void Section::bufferMesh()
