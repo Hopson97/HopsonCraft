@@ -43,7 +43,9 @@ namespace Chunk
         public:
             Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk);
             bool made = false; ///@TODO Better solution for this
-            void makeMesh();
+            bool buffered = false;
+            void makeMesh   ();
+            void bufferMesh ();
 
             //Blocks getters/ Setters
             //with bounds checking

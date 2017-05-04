@@ -162,10 +162,17 @@ namespace Chunk
 
                 if (chunk->made)
                 {
-                    renderer.draw(*chunk);
-                    faces += chunk->getMeshes().solidMesh.getFaceCount() +
-                             chunk->getMeshes().floraMesh.getFaceCount() +
-                             chunk->getMeshes().liquidMesh.getFaceCount();
+                    if (chunk->buffered)
+                    {
+                        renderer.draw(*chunk);
+                        faces += chunk->getMeshes().solidMesh.getFaceCount() +
+                                 chunk->getMeshes().floraMesh.getFaceCount() +
+                                 chunk->getMeshes().liquidMesh.getFaceCount();
+                    }
+                    else
+                    {
+                        chunk->bufferMesh();
+                    }
                 }
             }
         }

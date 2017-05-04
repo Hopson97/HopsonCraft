@@ -85,8 +85,8 @@ namespace State
         settings.worldSize));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Terrain",
-        std::vector<std::string> { "Smooth", "Normal", "Mountains",},
-        std::vector<int32_t>     { 0,      1,        2},
+        std::vector<std::string> { "Smooth", "Normal", "Mountains", "Water"},
+        std::vector<int32_t>     { 0,         1,           2,       3},
         m_noiseData));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
@@ -107,7 +107,12 @@ namespace State
                     //seeds:
                     //92879 - VERY TALL MOUTAIN
                     //5184
+                    //72390 - Very cool valleys
                     settings.noiseData = {8, 550, 0.50, 283, -395};
+                    break;
+
+                case 3:
+                    settings.noiseData = {7, 43, 0.5, 55};
                     break;
             }
 
@@ -120,11 +125,5 @@ namespace State
         {
             mp_activeMenu = &m_frontMenu;
         }));
-
-
     }
 }
-
-/*
-    m_application->pushState(std::make_unique<State::Playing>(*m_application));
-*/

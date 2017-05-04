@@ -24,13 +24,17 @@ namespace Chunk
     void Section::makeMesh()
     {
         m_meshBuilder.generateMesh(m_meshes);
+        made = true;
+    }
 
-        ///@TODO Move these buffer calls to new function
+    void Section::bufferMesh()
+    {
         m_meshes.solidMesh.buffer();
         m_meshes.floraMesh.buffer();
         m_meshes.liquidMesh.buffer();
-        made = true;
+        buffered = true;
     }
+
 
 
     const Chunklet_Position& Section::getPosition() const   { return m_position;        }

@@ -156,12 +156,10 @@ void World::buffer(const Camera& camera)
 {
     if (m_loadingDistance == ((m_worldSettings.worldSize / 2) + 1)) return;
 
-    auto minDis = m_worldSettings.worldSize / 2 - m_loadingDistance;
-    auto maxDis = m_worldSettings.worldSize / 2 + m_loadingDistance;
+    int32_t minDis = m_worldSettings.worldSize / 2 - m_loadingDistance;
+    int32_t maxDis = m_worldSettings.worldSize / 2 + m_loadingDistance;
 
-    auto isMeshMade = false;
-
-    //std::cout << m_loadingDistance << std::endl;
+    bool isMeshMade = false;
 
     for (int32_t x = minDis ; x < maxDis; x++)
     {
