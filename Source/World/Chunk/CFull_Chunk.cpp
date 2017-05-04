@@ -124,7 +124,7 @@ namespace Chunk
 
     Section* Full_Chunk::getSection(int32_t index)
     {
-        if (index < 0) return nullptr;
+        if (index < 0 || index > m_sectionCount) return nullptr;
 
         while (index > m_sectionCount - 1)
         {

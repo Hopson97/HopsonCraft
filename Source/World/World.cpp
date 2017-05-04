@@ -12,6 +12,7 @@ World::World(const World_Settings& worldSettings)
 :   m_chunks        (*this)
 ,   m_worldSettings (worldSettings)
 {
+
     for (int32_t x = 0 ; x < m_worldSettings.worldSize; x++)
     {
         for (int32_t z = 0; z < m_worldSettings.worldSize; z++)
@@ -20,6 +21,8 @@ World::World(const World_Settings& worldSettings)
         }
     }
 
+
+    /*
     for (int i = 0; i < 1; i++)
     {
         m_workers.emplace_back([&]()
@@ -45,6 +48,7 @@ World::World(const World_Settings& worldSettings)
         });
 
     }
+    */
 }
 
 World::~World()
@@ -88,6 +92,11 @@ CBlock World::getBlock(const Vector3& position)
     auto    blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(position));
 
     const auto& chunk = m_chunks.get(chunkPosition);
+
+    if (!chunk)
+    {
+        return Block::ID::Air;
+    }
 
     return chunk->qGetBlock(blockPosition);
 }
@@ -200,8 +209,9 @@ void World::buffer(const Camera& camera)
     {
         for (int32_t z = minDis; z < maxDis; z++)
         {
-            /**/
-            if (m_chunks.existsAt({x, z}))
+            Chunk::Position position(x, z);
+
+            if (m_chunks.existsAt(position))
             {
                 const auto& chunk = m_chunks.get({x, z});
                 if(chunk->tryGen(camera))
@@ -209,6 +219,13 @@ void World::buffer(const Camera& camera)
                     isMeshMade = true;
                     break;
                 }
+            }
+            /*
+            else
+            {
+                m_chunks.addChunk(position, true);
+                isMeshMade = true;
+                break;
             }
             /**/
             /*
@@ -249,8 +266,9 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
     if (!m_newBlocks.empty())
         regenerateChunks();
 
-    draw(renderer, camera);
     buffer(camera);
+    draw(renderer, camera);
+
 }
 
 const World_Settings& World::getWorldSettings() const
