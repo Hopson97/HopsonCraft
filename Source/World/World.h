@@ -35,7 +35,7 @@ class World
     };
 
     public:
-        World(const Camera& camera, const World_Settings& settings);
+        World(const World_Settings& settings);
         ~World();
 
         void checkPlayerBounds(Player& player);
@@ -63,7 +63,6 @@ class World
         Chunk::Map      m_chunks;
         World_Settings  m_worldSettings;
         int32_t         m_loadingDistance = 1;
-        const Camera*   m_p_camera;
 
         bool m_isRunning = true;
 

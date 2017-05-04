@@ -63,7 +63,7 @@ namespace
             Random::intInRange(0, 63464); //This is so that the RNG is more random
         }
 
-        Block::Database::get();
+        Block::Database::get(); //Loads up the block database
     }
 
     void loadConfig()
@@ -91,7 +91,7 @@ namespace
         Random::init();
         Noise::Generator m_noiseGen;
         m_noiseGen.setSeed(Random::intInRange(0, 999999));
-        m_noiseGen.setNoiseFunction({8, 650, 0.515, 290});
+        m_noiseGen.setNoiseFunction({8, 65000, 0.515, 290});
 
         float total = 0;
         std::vector<double> test;
@@ -110,16 +110,12 @@ namespace
 
 /*
     ~
-    ~
+    ~   The main function is here guise :^)
     ~
 */
-
-
-
 int main() try
 {
-    //noiseTest(1'000'000);
-
+    //noiseTest(1'0000);
     runGame();
     return 0;
 }

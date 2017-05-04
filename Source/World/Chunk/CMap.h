@@ -17,7 +17,9 @@ namespace Chunk
     class Map
     {
         public:
-            void addChunk(const Chunk::Position& position, World& world, bool populateBlocks);
+            Map(World& world);
+
+            void addChunk(const Chunk::Position& position, bool populateBlocks);
 
             Full_Chunk* get (const Chunk::Position& position);
             Section*    get (const Chunk::Chunklet_Position& position);
@@ -28,6 +30,7 @@ namespace Chunk
 
         private:
             std::unordered_map<Position, Full_Chunk> m_chunksMap;
+            std::unordered_map<Position, Full_Chunk> m_tempChunks;
             World* mp_world = nullptr;
 
             std::mutex m_chunkAddMutex;

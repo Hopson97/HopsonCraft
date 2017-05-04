@@ -80,11 +80,6 @@ namespace Chunk
 
     void Mesh_Builder::setActiveMesh(Meshes& meshes)
     {
-        //m_pActiveMesh = &meshes.solidMesh;
-        //return;
-
-
-        ///@TODO For some reason, flora and liquid meshes will only work when there is a solid block
         switch(mp_activeData->meshType)
         {
             case Block::Mesh_Type::Solid:

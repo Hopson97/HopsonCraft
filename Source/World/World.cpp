@@ -8,21 +8,20 @@
 #include "../Camera.h"
 #include "../Maths/Position_Conversion.h"
 
-World::World(const Camera& camera, const World_Settings& worldSettings)
-:   m_worldSettings (worldSettings)
-,   m_p_camera      {&camera}
+World::World(const World_Settings& worldSettings)
+:   m_chunks        (*this)
+,   m_worldSettings (worldSettings)
 {
     for (int32_t x = 0 ; x < m_worldSettings.worldSize; x++)
     {
         for (int32_t z = 0; z < m_worldSettings.worldSize; z++)
         {
-            m_chunks.addChunk({x, z}, *this, true);
+            m_chunks.addChunk({x, z}, true);
         }
     }
 
     for (int i = 0; i < 1; i++)
     {
-        /*
         m_workers.emplace_back([&]()
         {
             while (m_isRunning)
@@ -44,7 +43,7 @@ World::World(const Camera& camera, const World_Settings& worldSettings)
                 }
             }
         });
-        */
+
     }
 }
 
@@ -205,7 +204,7 @@ void World::buffer(const Camera& camera)
             Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
             if (chunk)
             {
-                if(chunk->tryGen(*m_p_camera))
+                if(chunk->tryGen(camera))
                 {
                     isMeshMade = true;
                     break;
@@ -215,7 +214,7 @@ void World::buffer(const Camera& camera)
             Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
             if (chunk)
             {
-                const auto& build = chunk->tryGen(*m_p_camera);
+                const auto& build = chunk->tryGen(camera);
                 if (!build->prepForBuild)
                 {
                     build->prepForBuild = true;

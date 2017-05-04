@@ -32,8 +32,7 @@ class ResourceManager
 
         const Resource& qGet(const std::string& name)
         {
-            ///@TODO Maybe change to use operator []?
-            return m_resourceMap.at(name);
+            return m_resourceMap[name];
         }
 
         void add(const std::string& name)

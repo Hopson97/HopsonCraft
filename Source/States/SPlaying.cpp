@@ -43,7 +43,7 @@ namespace State
     Playing::Playing(Application& application,
                      const World_Settings& settings)
     :   Game_State  (application)
-    ,   m_world     (application.getCamera(), settings)
+    ,   m_world     (settings)
     ,   m_player    (application.getCamera())
     ,   m_pauseMenu (GUI::Layout::Center)
     {
