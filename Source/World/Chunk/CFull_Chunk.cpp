@@ -150,7 +150,7 @@ namespace Chunk
     //Returns number of faces drawn
     uint32_t Full_Chunk::draw(Renderer::Master& renderer, const Camera& camera)
     {
-        auto faces = 0;
+        int facesDrawn = 0;
         for (auto& chunk : m_chunkSections)
         {
             //No point trying to render a chunk with no faces
@@ -158,16 +158,20 @@ namespace Chunk
             {
                 //Frustum test
                 if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
+                {
                     continue;
+                }
 
                 if (chunk->made)
                 {
                     if (chunk->buffered)
                     {
                         renderer.draw(*chunk);
-                        faces += chunk->getMeshes().solidMesh.getFaceCount() +
-                                 chunk->getMeshes().floraMesh.getFaceCount() +
-                                 chunk->getMeshes().liquidMesh.getFaceCount();
+                        facesDrawn +=
+                            chunk->getMeshes().solidMesh.getFaceCount() +
+                            chunk->getMeshes().floraMesh.getFaceCount() +
+                            chunk->getMeshes().liquidMesh.getFaceCount();
+
                     }
                     else
                     {
@@ -176,7 +180,7 @@ namespace Chunk
                 }
             }
         }
-        return faces;
+        return facesDrawn;
     }
 
     bool Full_Chunk::tryGen(const Camera& camera)
@@ -191,6 +195,20 @@ namespace Chunk
         }
         return false;
     }
+
+/*
+    Chunk::Section* Full_Chunk::tryGen(const Camera& camera)
+    {
+        for (auto& chunk : m_chunkSections)
+        {
+            if (!chunk->made)
+            {
+                return chunk.get();
+            }
+        }
+        return nullptr;
+    }
+*/
 
     void Full_Chunk::generateBlocks(const World_Settings& settings)
     {

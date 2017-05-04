@@ -2,6 +2,8 @@
 
 #include "CBoundsCheck.h"
 #include "CFull_Chunk.h"
+#include "../World_Constants.h"
+#include "CMap.h"
 
 namespace Chunk
 {
@@ -106,6 +108,44 @@ namespace Chunk
     uint8_t Section::qGetNaturalLight(const Block::Small_Position& position) const
     {
         return m_light.at(position).natural;
+    }
+
+
+
+    //Layers
+    const Section::Layer& Section::getLayer(int8_t y)const
+    {
+        ///@TODO This to use better bounds
+        if (y == -1)
+        {
+            const auto& chunk = mp_chunks->get({m_position.x, m_position.y - 1, m_position.z});
+            if(!chunk)
+            {
+                return errorLayer;
+            }
+            else return chunk->m_layerHasAir[CHUNK_SIZE - 1];
+        }
+        else if (y == CHUNK_SIZE)
+        {
+            const Section* chunk = mp_chunks->get({m_position.x, m_position.y + 1, m_position.z});
+            if(!chunk)
+            {
+                return errorLayer;
+            }
+            else return chunk->m_layerHasAir[0];
+        }
+        else
+        {
+            return m_layerHasAir[y];
+        }
+    }
+
+
+    const Section* Section::getAdjacentSection(const Vector2& change) const
+    {
+        return mp_chunks->get({ m_position.x + (int32_t)change.x,
+                                m_position.y,
+                                m_position.z + (int32_t)change.y});
     }
 
 }

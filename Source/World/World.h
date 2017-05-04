@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <memory>
+#include <thread>
+#include <mutex>
 
 #include "Block_Editor.h"
 
@@ -34,6 +36,7 @@ class World
 
     public:
         World(const Camera& camera, const World_Settings& settings);
+        ~World();
 
         void checkPlayerBounds(Player& player);
         void drawWorld(Renderer::Master& renderer, const Camera& camera);
@@ -52,13 +55,21 @@ class World
         void draw       (Renderer::Master& renderer, const Camera& camera);
 
         std::vector<New_Block> m_newBlocks;
+        std::vector<std::thread> m_workers;
+        std::vector<Chunk::Section*> m_buildQueue;
+
+        std::mutex m_buildMutex;
 
         Chunk::Map      m_chunks;
         World_Settings  m_worldSettings;
         int32_t         m_loadingDistance = 1;
         const Camera*   m_p_camera;
 
+        bool m_isRunning = true;
+
     public:
+        ///@TODO Make this private somehow.
+        ///I say "somehow", as it has to be accessed by the HUD debug display
         float m_facesDrawn = 0;
 };
 

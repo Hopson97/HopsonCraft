@@ -19,6 +19,42 @@ World::World(const Camera& camera, const World_Settings& worldSettings)
             m_chunks.addChunk({x, z}, *this, true);
         }
     }
+
+    for (int i = 0; i < 1; i++)
+    {
+        /*
+        m_workers.emplace_back([&]()
+        {
+            while (m_isRunning)
+            {
+                m_buildMutex.lock();
+                if (m_buildQueue.empty())
+                {
+                    m_buildMutex.unlock();
+                    continue;
+                }
+
+                else
+                {
+                    const auto& chunk = m_buildQueue.back();
+                    m_buildQueue.pop_back();
+                    m_buildMutex.unlock();
+                    chunk->makeMesh();
+                    std::cout << "mesh built" << std::endl;
+                }
+            }
+        });
+        */
+    }
+}
+
+World::~World()
+{
+    m_isRunning = false;
+    for (auto& thread : m_workers)
+    {
+        thread.join();
+    }
 }
 
 void World::checkPlayerBounds(Player& player)
@@ -111,7 +147,7 @@ void World::regenerateChunks()
         }
     };
 
-
+    //Lambda's end above, function technically begins here
 
     for (New_Block& newBlock : m_newBlocks)
     {
@@ -165,6 +201,7 @@ void World::buffer(const Camera& camera)
     {
         for (int32_t z = minDis; z < maxDis; z++)
         {
+
             Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
             if (chunk)
             {
@@ -174,6 +211,18 @@ void World::buffer(const Camera& camera)
                     break;
                 }
             }
+            /*
+            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
+            if (chunk)
+            {
+                const auto& build = chunk->tryGen(*m_p_camera);
+                if (!build->prepForBuild)
+                {
+                    build->prepForBuild = true;
+                    m_buildQueue.push_back(build);
+                }
+            }
+            */
         }
         if (isMeshMade)
         {

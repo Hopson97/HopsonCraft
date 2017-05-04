@@ -42,8 +42,11 @@ namespace Chunk
 
         public:
             Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk);
-            bool made = false; ///@TODO Better solution for this
-            bool buffered = false;
+
+            bool made           = false; ///@TODO Better solution for this
+            bool buffered       = false;
+            bool prepForBuild   = false;
+
             void makeMesh   ();
             void bufferMesh ();
 
