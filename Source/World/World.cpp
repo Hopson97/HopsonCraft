@@ -148,7 +148,6 @@ void World::regenerateChunks()
     };
 
     //Lambda's end above, function technically begins here
-
     for (New_Block& newBlock : m_newBlocks)
     {
         //Get respective positions and objects
@@ -156,7 +155,7 @@ void World::regenerateChunks()
         auto    blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(newBlock.position));
         const auto& chunkFull   = m_chunks.get({chunkPosition.x, chunkPosition.z});
 
-        Chunk::Section*             chunk           = nullptr;
+        Chunk::Section* chunk = nullptr;
 
         //Adds sections onto a chunk until it reaches the height of the block
         while (!chunk)
@@ -171,6 +170,7 @@ void World::regenerateChunks()
 
         //Insert chunks into a regeneration map
         insertChunk(chunkPosition, chunk);
+        //Check neighbours of this chunk, and then add those into regeneration queue thing
         checkForBatchAdd(blockPosition.x, chunkPosition, {1, 0, 0});
         checkForBatchAdd(blockPosition.y, chunkPosition, {0, 1, 0});
         checkForBatchAdd(blockPosition.z, chunkPosition, {0, 0, 1});
