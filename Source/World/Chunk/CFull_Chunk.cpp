@@ -137,9 +137,7 @@ namespace Chunk
 
     void Full_Chunk::addSection()
     {
-        Chunklet_Position position (m_position.x,
-                                    m_sectionCount++,
-                                    m_position.y);
+        Chunklet_Position position (m_position.x, m_sectionCount++, m_position.y);
 
         m_chunkSections.push_back(std::make_unique<Section>(position,
                                                             *mp_chunkMap,

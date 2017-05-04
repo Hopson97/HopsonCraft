@@ -200,16 +200,17 @@ void World::buffer(const Camera& camera)
     {
         for (int32_t z = minDis; z < maxDis; z++)
         {
-
-            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
-            if (chunk)
+            /**/
+            if (m_chunks.existsAt({x, z}))
             {
+                const auto& chunk = m_chunks.get({x, z});
                 if(chunk->tryGen(camera))
                 {
                     isMeshMade = true;
                     break;
                 }
             }
+            /**/
             /*
             Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
             if (chunk)
@@ -221,7 +222,7 @@ void World::buffer(const Camera& camera)
                     m_buildQueue.push_back(build);
                 }
             }
-            */
+            /**/
         }
         if (isMeshMade)
         {

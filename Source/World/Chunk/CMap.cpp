@@ -4,6 +4,8 @@
 
 #include "../World.h"
 
+#include "../../Util/STD_Util.h"
+
 namespace Chunk
 {
     Map::Map(World& world)
@@ -26,9 +28,10 @@ namespace Chunk
 
     void Map::addChunk(const Chunk::Position& position, bool populateBlocks)
     {
-        if (existsAt(position))
+        if (m_tempChunks.find(position) != m_tempChunks.end())
         {
-            get(position)->generateBlocks(mp_world->getWorldSettings());
+            m_tempChunks[position].generateBlocks(mp_world->getWorldSettings());
+            m_chunksMap.emplace(position, std::move(m_tempChunks[position]));
         }
         else
         {
@@ -45,9 +48,8 @@ namespace Chunk
         }
         else
         {
-            return nullptr;
-            //addChunk(chunkPos, false);
-            //return m_chunksMap[chunkPos].getSection(position.y);
+            addChunk(m_tempChunks, chunkPos, false);
+            return m_tempChunks[chunkPos].getSection(position.y);
         }
     }
 
@@ -59,9 +61,8 @@ namespace Chunk
         }
         else
         {
-            return nullptr;
-            //addChunk(position, false);
-            //return &m_chunksMap[position];
+            addChunk(m_tempChunks, position, false);
+            return &m_tempChunks[position];
         }
     }
 
