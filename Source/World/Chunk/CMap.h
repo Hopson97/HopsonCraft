@@ -29,6 +29,10 @@ namespace Chunk
             std::unordered_map<Position, Full_Chunk>& getChunks();
 
         private:
+            void addChunk(std::unordered_map<Position, Full_Chunk>& map,
+                          const Chunk::Position& position,
+                          bool populateBlocks);
+
             std::unordered_map<Position, Full_Chunk> m_chunksMap;
             std::unordered_map<Position, Full_Chunk> m_tempChunks;
             World* mp_world = nullptr;
