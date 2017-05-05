@@ -19,17 +19,24 @@ Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
     worldSettings.noiseData.print();
 }
 
+void Chunk_Generator::reset()
+{
+    m_maxHeight = 0;
+    m_heightMap.reset();
+    m_oakTreeLocations.clear();
+}
+
+
 void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
 {
     m_genMutex.lock();
 
     m_pChunk = &chunk;
-    m_maxHeight = 0;
-    m_heightMap.reset();
-    m_oakTreeLocations.clear();
 
+    reset();
     setRandomSeed();
     makeHeightMap();
+
 
     m_maxHeight = std::max(m_maxHeight, WATER_LEVEL);
 

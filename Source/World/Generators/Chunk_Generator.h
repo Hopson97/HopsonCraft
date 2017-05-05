@@ -36,6 +36,7 @@ class Chunk_Generator
 
         void setRandomSeed();
         void makeHeightMap();
+        void reset();
 
         //Generators
         Random::Generator<std::mt19937> m_randomGenerator;
