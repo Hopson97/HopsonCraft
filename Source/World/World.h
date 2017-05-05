@@ -11,6 +11,8 @@
 #include "Chunk/CSection.h"
 #include "Chunk/CMap.h"
 
+#include "../Physics/AABB.h"
+
 #include "World_Settings.h"
 
 class Player;
@@ -51,6 +53,8 @@ class World
         const World_Settings& getWorldSettings() const;
 
         void f();
+
+        AABB getBlockAABB(const Block::Position& position);
 
     private:
         void regenerateChunks   ();

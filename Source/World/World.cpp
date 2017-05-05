@@ -276,3 +276,10 @@ const World_Settings& World::getWorldSettings() const
     return m_worldSettings;
 }
 
+AABB World::getBlockAABB(const Block::Position& position)
+{
+    AABB blockAABB({1, 1, 1});
+    blockAABB.update({position.x, position.y, position.z});
+    return blockAABB;
+}
+
