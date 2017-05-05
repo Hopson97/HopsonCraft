@@ -5,13 +5,18 @@ out vec4 colour;
 in vec2 passTextureCoords;
 in vec3 passLightValue;
 
+in float passTimer;
+
 uniform sampler2D ourTexture;
 uniform int maxLightValue;
 
+
 void main()
 {
+    float timeOfDayVal = sin(passTimer / 10);
+
     float cardinalLight = passLightValue.x / maxLightValue;
-    float naturalLight  = passLightValue.y;
+    float naturalLight  = passLightValue.y * abs(timeOfDayVal);
     float blockLight    = passLightValue.z;
 
 

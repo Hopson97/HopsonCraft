@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <SFML/System.hpp>
+
 #include "../Shaders/Chunk_Shader.h"
 #include "RInfo.h"
 
@@ -31,6 +33,8 @@ namespace Renderer
             std::vector<Info> m_renderInfo;
 
             Shader::Chunk_Shader m_shader;
+
+            sf::Clock m_timer;
     };
 }
 

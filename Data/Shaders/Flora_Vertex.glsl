@@ -7,6 +7,8 @@ layout (location = 2) in vec3 inLightValue;
 out vec2 passTextureCoords;
 out vec3 passLightValue;
 
+out float passTimer;
+
 uniform mat4 projViewMatrix;
 uniform float timer;
 
@@ -24,4 +26,6 @@ void main()
 
     passTextureCoords = inTextureCoords;
     passLightValue    = inLightValue;
+
+    passTimer = timer;
 }

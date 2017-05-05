@@ -13,27 +13,13 @@ namespace Maths
         return  var <= high &&
                 var >= low;
     }
+
+    template<typename T, typename L>
+    bool lessThan(T var, L val)
+    {
+        return var < val;
+    }
+
 }
 
 #endif // GENERAL_MATHS_H_INCLUDED
-
-
-/*
-namespace Maths
-{
-    Chunk::Position worldToChunkPos(const Vector3& position)
-    {
-        return  Chunk::Position(std::floor(position.x / World_Constants::CH_SIZE),
-                                std::floor(position.z / World_Constants::CH_SIZE));
-    }
-
-    Block::Column_Position worldToBlockPos(const Vector3& position)
-    {
-        int32_t x = (int32_t) position.x % World_Constants::CH_SIZE;
-        int32_t z = (int32_t) position.z % World_Constants::CH_SIZE;
-
-        return  {x, (int32_t)position.y, z};
-    }
-
-}
-*/

@@ -33,6 +33,7 @@ namespace Renderer
         m_shader.bind();
 
         m_shader.setProjViewMatrix(camera.getProjectionViewMatrix());
+        m_shader.loadTimer(m_timer.getElapsedTime().asSeconds());
 
         for (const auto& section : m_renderInfo)
         {
