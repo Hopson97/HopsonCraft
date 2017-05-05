@@ -38,11 +38,13 @@ class Model
 
         void addEBO(const std::vector<GLuint>& indices);
 
-        std::vector<GLuint> m_buffers;
-
         GLuint m_vao = 0;
         GLuint m_vboCount = 0;
         GLuint m_indicesCount = 0;
+
+        std::vector<GLuint> m_buffers;
 };
+
+
 
 #endif // MODEL_H_INCLUDED

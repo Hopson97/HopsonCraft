@@ -15,8 +15,8 @@ namespace Block
         public:
             const Data& getData() const;
 
-            virtual void tick   (World& world, const Position& position){}
-            virtual void trigger(World& world, const Position& position){}
+            virtual void tick   (World& world, const Position& position) const{}
+            virtual void trigger(World& world, const Position& position) const{}
 
         protected:
             Type(const std::string& fileName);

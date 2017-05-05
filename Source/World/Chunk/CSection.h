@@ -2,11 +2,12 @@
 #define CSECTION_H_INCLUDED
 
 #include <array>
+#include <atomic>
 
 #include "../World_Constants.h"
 
 #include "CPosition.h"
-#include "CBlock.h"
+#include "CNodes.h"
 #include "CMesh_Builder.h"
 #include "../Block/Block_Database.h"
 #include "../../Physics/AABB.h"
@@ -43,12 +44,14 @@ namespace Chunk
         public:
             Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk);
 
-            bool made           = false; ///@TODO Better solution for this
-            bool buffered       = false;
-            bool prepForBuild   = false;
+            std::atomic<bool> made; ///@TODO Better solution for this
+            std::atomic<bool> buffered;
+            std::atomic<bool> prepForBuild;
 
             void makeMesh   ();
             void bufferMesh ();
+
+            void tick(World& world);
 
             //Blocks getters/ Setters
             //with bounds checking

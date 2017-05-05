@@ -8,11 +8,31 @@
 #include "../Camera.h"
 #include "../Maths/Position_Conversion.h"
 
+//Threading test
+void World::f()
+{
+    while (m_isRunning)
+    {
+        m_buildMutex.lock();
+        if (m_buildQueue.empty())
+        {
+            m_buildMutex.unlock();
+            continue;
+        }
+        else
+        {
+            const auto& chunk = m_buildQueue.back();
+            m_buildQueue.pop_back();
+            chunk->makeMesh();
+            m_buildMutex.unlock();
+        }
+    }
+}
+
 World::World(const World_Settings& worldSettings)
 :   m_chunks        (*this)
 ,   m_worldSettings (worldSettings)
 {
-
     for (int32_t x = 0 ; x < m_worldSettings.worldSize; x++)
     {
         for (int32_t z = 0; z < m_worldSettings.worldSize; z++)
@@ -21,34 +41,9 @@ World::World(const World_Settings& worldSettings)
         }
     }
 
+    //for (int i = 0; i < 1; i++)
+    //    m_workers.emplace_back(std::bind(World::f, this));
 
-    /*
-    for (int i = 0; i < 1; i++)
-    {
-        m_workers.emplace_back([&]()
-        {
-            while (m_isRunning)
-            {
-                m_buildMutex.lock();
-                if (m_buildQueue.empty())
-                {
-                    m_buildMutex.unlock();
-                    continue;
-                }
-
-                else
-                {
-                    const auto& chunk = m_buildQueue.back();
-                    m_buildQueue.pop_back();
-                    m_buildMutex.unlock();
-                    chunk->makeMesh();
-                    std::cout << "mesh built" << std::endl;
-                }
-            }
-        });
-
-    }
-    */
 }
 
 World::~World()
@@ -59,6 +54,15 @@ World::~World()
         thread.join();
     }
 }
+
+void World::updateChunks()
+{
+    for (auto& chunk : m_chunks.getChunks())
+    {
+        chunk.second.tick();
+    }
+}
+
 
 void World::checkPlayerBounds(Player& player)
 {
@@ -199,7 +203,8 @@ void World::regenerateChunks()
 //It does this in a sort of radius starting from the middle of the world
 void World::buildMeshes()
 {
-    if (m_loadingDistance == ((m_worldSettings.worldSize / 2) + 1)) return;
+    if (m_loadingDistance == ((m_worldSettings.worldSize / 2) + 1))
+        return;
 
     int32_t minDis = m_worldSettings.worldSize / 2 - m_loadingDistance;
     int32_t maxDis = m_worldSettings.worldSize / 2 + m_loadingDistance;
@@ -211,24 +216,19 @@ void World::buildMeshes()
         for (int32_t z = minDis; z < maxDis; z++)
         {
             Chunk::Position position(x, z);
-
-            if (m_chunks.existsAt(position))
+            if(!m_chunks.existsAt(position))
             {
-                const auto& chunk = m_chunks.get({x, z});
-                if(chunk->tryGen())
-                {
-                    isMeshMade = true;
-                    break;
-                }
+                continue;
             }
-            /*
-            else
+
+            auto chunk = m_chunks.get({x, z});
+
+            if(chunk->tryGen())
             {
-                m_chunks.addChunk(position, true);
                 isMeshMade = true;
                 break;
             }
-            /**/
+
             /*
             Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
             if (chunk)

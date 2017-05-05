@@ -38,6 +38,8 @@ class World
         World(const World_Settings& settings);
         ~World();
 
+        void updateChunks();
+
         void checkPlayerBounds(Player& player);
         void drawWorld(Renderer::Master& renderer, const Camera& camera);
 
@@ -48,9 +50,10 @@ class World
 
         const World_Settings& getWorldSettings() const;
 
+        void f();
+
     private:
         void regenerateChunks   ();
-        void addChunks          ();
         void buildMeshes        ();
         void draw               (Renderer::Master& renderer, const Camera& camera);
 

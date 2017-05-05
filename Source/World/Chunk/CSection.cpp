@@ -5,6 +5,8 @@
 #include "../World_Constants.h"
 #include "CMap.h"
 
+#include "../../Util/Random.h"
+
 namespace Chunk
 {
     const Section::Layer Section::errorLayer;
@@ -15,6 +17,10 @@ namespace Chunk
     ,   mp_chunks       (&map)
     ,   m_parentChunk   (&fullChunk)
     ,   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
+
+    ,   made            (false)
+    ,   buffered        (false)
+    ,   prepForBuild    (false)
     {
         m_aabb.update({ position.x * CHUNK_SIZE,
                         position.y * CHUNK_SIZE,
@@ -25,15 +31,25 @@ namespace Chunk
     {
         m_meshBuilder.generateMesh(m_meshes);
         made = true;
+
         buffered = false;
     }
 
     void Section::bufferMesh()
     {
-        m_meshes.solidMesh.buffer();
-        m_meshes.floraMesh.buffer();
-        m_meshes.liquidMesh.buffer();
+        m_meshes.buffer();
         buffered = true;
+    }
+
+    void Section::tick(World& world)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            int8_t x = (int8_t)Random::intInRange(0, CHUNK_SIZE);
+            int8_t y = (int8_t)Random::intInRange(0, CHUNK_SIZE);
+            int8_t z = (int8_t)Random::intInRange(0, CHUNK_SIZE);
+            m_blocks.at(x, y, z).getType().tick(world, {x, y, z});
+        }
     }
 
     const Chunklet_Position& Section::getPosition() const   { return m_position;        }

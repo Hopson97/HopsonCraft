@@ -5,7 +5,7 @@
 
 #include <SFML/System.hpp>
 
-#include "CBlock.h"
+#include "CNodes.h"
 #include "CSection.h"
 #include "CFull_Chunk.h"
 #include "../Block/Block_Database.h"
@@ -194,11 +194,12 @@ namespace Chunk
         }
     }
 
-
-    //Looks at a layer of chunk
-    //Returns true if the layer itself, or an adjacent one, has a non-opaque block
-    //I do this as it saves ALOT of time when iterating through underground chunks, which typically get skipped
-    //thanks to this function (reduction, on my laptop, from >5ms to <0.5ms average chunk mesh gen time)
+    /*
+        Looks at a layer of chunk
+        Returns true if the layer itself, or an adjacent one, has a non-opaque block
+        I do this as it saves ALOT of time when iterating through underground chunks, which typically get skipped
+        thanks to this function (reduction, on my laptop, from >5ms to <0.5ms average chunk mesh gen time)
+    */
     bool Mesh_Builder::shouldCreateLayer(uint32_t yPosition)
     {
         auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)
@@ -222,9 +223,6 @@ namespace Chunk
                hasAdjLayerGotTranslucentBlock   ( 0, -1) ||
                hasAdjLayerGotTranslucentBlock   ( 0,  1);
     }
-
-
-
 
     bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
     {

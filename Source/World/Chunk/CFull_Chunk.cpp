@@ -32,6 +32,15 @@ namespace Chunk
     }
 
 
+    void Full_Chunk::tick()
+    {
+        for (auto& chunk : m_chunkSections)
+        {
+            chunk->tick(*mp_world);
+        }
+    }
+
+
     void Full_Chunk::setBlock(const Block::Position& position,
                                CBlock block,
                                bool overrideBlocks)
@@ -122,8 +131,9 @@ namespace Chunk
         return m_position;
     }
 
-    Section* Full_Chunk::getSection(int32_t index)
+    Section* Full_Chunk::getSection(int32_t index, bool)
     {
+        //This causes trees and other structures to sometimes not work correctly!
         if (index < 0 || index > m_sectionCount) return nullptr;
 
         while (index > m_sectionCount - 1)
@@ -165,10 +175,7 @@ namespace Chunk
                     if (chunk->buffered)
                     {
                         renderer.draw(*chunk);
-                        facesDrawn +=
-                            chunk->getMeshes().solidMesh.getFaceCount() +
-                            chunk->getMeshes().floraMesh.getFaceCount() +
-                            chunk->getMeshes().liquidMesh.getFaceCount();
+                        facesDrawn += chunk->getMeshes().getFacesCount();
 
                     }
                     else
@@ -181,6 +188,7 @@ namespace Chunk
         return facesDrawn;
     }
 
+/**/
     bool Full_Chunk::tryGen()
     {
         for (auto& chunk : m_chunkSections)
@@ -193,7 +201,7 @@ namespace Chunk
         }
         return false;
     }
-
+/**/
 /*
     Chunk::Section* Full_Chunk::tryGen()
     {
@@ -206,7 +214,7 @@ namespace Chunk
         }
         return nullptr;
     }
-*/
+/**/
 
     void Full_Chunk::generateBlocks(const World_Settings& settings)
     {

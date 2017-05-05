@@ -5,6 +5,12 @@
 #include "../Block/Block_Position.h"
 #include "../World_Constants.h"
 
+/*
+    These are basically things that up chunks.
+    For examples, CBlocks is how chunks store blocks.
+    CLight is how the chunks store light maps.
+*/
+
 namespace Block
 {
     class Type;
@@ -39,8 +45,8 @@ struct CBlock
         return id == static_cast<Block_t>(newID);
     }
 
-    uint16_t id          : 12;  //Maximum value -> 4095
-    uint16_t metaData    : 4;   //Maximum value -> 15
+    uint16_t id         : 12;  //Maximum value -> 4095
+    uint8_t metaData    : 4;   //Maximum value -> 15
 
     //meta data?
 };
@@ -49,6 +55,11 @@ struct CLight
 {
     CLight();
 
+    /*  4 bits for natural light,
+        4 bits for block light
+        This gives them a maximum value of 15.
+        And also makes the struct just 1 byte in size!
+    */
     uint8_t natural : 4;
     uint8_t block   : 4;
 };

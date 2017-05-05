@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-#include "CBlock.h"
+#include "CNodes.h"
 #include "CPosition.h"
 #include "CSection.h"
 
@@ -33,6 +33,8 @@ namespace Chunk
 
             void generateBlocks(const World_Settings& settings);
 
+            void tick();
+
             void   setBlock(const Block::Position& position, CBlock block, bool overrideBlocks = true);
             CBlock getBlock(const Block::Position& position);
 
@@ -40,10 +42,11 @@ namespace Chunk
             CBlock qGetBlock(const Block::Position& position);
 
             const Position& getPosition() const;
-            Section* getSection(int32_t index);
+            Section* getSection(int32_t index, bool settingBlocks = false);
 
             uint32_t draw   (Renderer::Master& renderer, const Camera& camera);
             bool tryGen     ();
+            //Section* tryGen ();
 
             void addSection();
 

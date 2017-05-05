@@ -1,7 +1,8 @@
-#include "CBlock.h"
+#include "CNodes.h"
 
 #include "../Block/Block_Database.h"
 
+//Blocks
 CBlock::CBlock()
 :   id  {0}
 { }
@@ -27,5 +28,5 @@ const Block::Type& CBlock::getType() const
 //Light
 CLight::CLight()
 :   natural    (MAX_LIGHT)
-,   block      (MAX_LIGHT)
+,   block      (0)
 { }

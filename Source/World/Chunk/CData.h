@@ -3,7 +3,7 @@
 
 #include "../../Util/Array3D.h"
 #include "../World_Constants.h"
-#include "CBlock.h"
+#include "CNodes.h"
 
 /*
     As of 04/05/2017, this class is unused (for now)
