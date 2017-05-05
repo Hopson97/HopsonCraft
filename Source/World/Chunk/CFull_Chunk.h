@@ -28,10 +28,12 @@ namespace Chunk
         friend class Section;
 
         public:
-            Full_Chunk() = default;
-            Full_Chunk(World& world, Map& map, const Position& position, const World_Settings& settings, bool generate = true);
+            bool hasGeneratedBlockData = false; ///@TODO Better solution for this
 
-            void generateBlocks(const World_Settings& settings);
+            Full_Chunk() = default;
+            Full_Chunk(World& world, Map& map, const Position& position, const World_Settings& settings);
+
+            Full_Chunk(Full_Chunk&& other);
 
             void tick();
 

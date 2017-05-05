@@ -9,6 +9,11 @@ template<typename T, uint32_t Size>
 class Array2D
 {
     public:
+        Array2D()
+        {
+            reset();
+        }
+
         T& at(uint32_t xPos, uint32_t yPos)
         {
             return m_array[xPos + yPos * Size];
@@ -29,6 +34,16 @@ class Array2D
         const T& at(const Vector& pos) const
         {
             return at(pos.x, pos.y);
+        }
+
+        const std::array<T, Size * Size>& getRaw()
+        {
+            return m_array;
+        }
+
+        void reset()
+        {
+            std::fill(m_array.begin(), m_array.end(), 0);
         }
 
     private:

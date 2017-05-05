@@ -63,9 +63,10 @@ class World
 
         std::mutex m_buildMutex;
 
-        Chunk::Map      m_chunks;
         World_Settings  m_worldSettings;
-        int32_t         m_loadingDistance = 1;
+        Chunk::Map      m_chunks;
+
+        int m_loadingDistance = 1;
 
         bool m_isRunning = true;
 

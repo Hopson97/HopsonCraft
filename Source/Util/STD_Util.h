@@ -1,9 +1,11 @@
 #ifndef STD_UTIL_H_INCLUDED
 #define STD_UTIL_H_INCLUDED
 
+#include <unordered_map>
 
-template <template<class, class> class Map, typename T, typename R>
-bool existsInMap(const Map<T, R>& m, const T& toFind)
+
+template <typename Key, typename Value>
+bool existsInMap(const std::unordered_map<Key, Value>& m, const Key& toFind)
 {
     return m.find(toFind) != m.end();
 }

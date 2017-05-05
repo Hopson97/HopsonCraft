@@ -1,6 +1,7 @@
 #include "Noise_Generator.h"
 
 #include <cmath>
+#include <iostream>
 
 #include "../World/World_Constants.h"
 
@@ -70,7 +71,8 @@ namespace Noise
         auto newX = (x + (tileX * CHUNK_SIZE));
         auto newZ = (z + (tileZ * CHUNK_SIZE));
 
-        if (newX < 0 || newZ < 0) return WATER_LEVEL;
+        if (newX < 0 || newZ < 0)
+            return WATER_LEVEL - 1;
 
         auto totalValue = 0.0;
 
@@ -86,9 +88,7 @@ namespace Noise
         auto val =
             (((totalValue / 2.1) + 1.2) * m_noiseFunction.amplitudeMultiplier) + m_noiseFunction.heightMod;
 
-        return val > 0 ?
-                    val :
-                    1;
+        return val > 0 ? val : 1;
     }
 
     void Generator::setNoiseFunction(const Noise::Data& data)

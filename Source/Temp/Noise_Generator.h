@@ -2,6 +2,7 @@
 #define NOISE_GENERATOR_H
 
 #include <cstdint>
+#include <iostream>
 
 namespace Noise
 {
@@ -20,6 +21,15 @@ namespace Noise
         double roughness = 0.48;
         double smoother = 190;
         int heightMod = 0;
+
+        void print() const
+        {
+            std::cout   << "Octaves:    " << octaves
+                        << "Amplitude:  " << amplitudeMultiplier
+                        << "Roughness:  " << roughness
+                        << "Smoother:   " << smoother << "\n";
+
+        }
     };
 
     uint64_t getSeed    ();

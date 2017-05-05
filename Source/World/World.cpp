@@ -30,8 +30,8 @@ void World::f()
 }
 
 World::World(const World_Settings& worldSettings)
-:   m_chunks        (*this)
-,   m_worldSettings (worldSettings)
+:   m_worldSettings (worldSettings)
+,   m_chunks        (*this)
 {
     for (int32_t x = 0 ; x < m_worldSettings.worldSize; x++)
     {

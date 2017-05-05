@@ -21,15 +21,11 @@ namespace Chunk
     Full_Chunk::Full_Chunk(World& world,
                            Map& map,
                            const Position& position,
-                           const World_Settings& settings,
-                           bool generate)
+                           const World_Settings& settings)
     :   mp_world    {&world}
     ,   mp_chunkMap {&map}
     ,   m_position  {position}
-    {
-        if (generate)
-            generateBlocks(settings);
-    }
+    { }
 
 
     void Full_Chunk::tick()
@@ -215,104 +211,6 @@ namespace Chunk
         return nullptr;
     }
 /**/
-
-    void Full_Chunk::generateBlocks(const World_Settings& settings)
-    {
-        /*
-            Good seeds:
-                242553
-        */
-        Noise::Generator gen;
-        gen.setSeed(settings.seed);
-        gen.setNoiseFunction(settings.noiseData);
-
-        Random::Generator<std::mt19937> generator;
-        generator.setSeed(Hasher::hash((int32_t)settings.seed, m_position.x, m_position.y));
-
-        int32_t maxValue = 0;
-        std::vector<Block::Position> treeMap;
-
-        //Create height map from noise
-        for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
-        {
-            for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
-            {
-                int32_t heightHere = gen.getValue(x,
-                                                  z,
-                                                  m_position.x + 3,
-                                                  m_position.y + 3);
-                m_highestBlocks.at(x, z) = heightHere;
-                maxValue = std::max(maxValue, heightHere);
-            }
-        }
-
-
-        maxValue = std::max(maxValue, WATER_LEVEL);
-
-        //Populate the blocks
-        for (int32_t y = 0; y < maxValue + 1; ++y)
-        {
-            for (int32_t x = 0; x < CHUNK_SIZE; ++x)
-            {
-                for (int32_t z = 0; z < CHUNK_SIZE; ++z)
-                {
-                    Block::ID blockType = Block::ID::Air;
-                    int32_t height = m_highestBlocks.at(x, z);
-
-                    if (y > height)
-                    {
-                        if (y > WATER_LEVEL)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            blockType = Block::ID::Water;
-                        }
-                    }
-                    else if (y == height)
-                    {
-                        if (y >= WATER_LEVEL)
-                        {
-                            if (y < BEACH_LEVEL)
-                            {
-                                blockType = Block::ID::Sand;
-                            }
-                            else
-                            {
-                                blockType = Block::ID::Grass;
-                                if (generator.intInRange(0, 110) == 5)
-                                {
-                                    treeMap.emplace_back(x, y, z);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            blockType = generator.intInRange(0, 5) > 1 ? Block::ID::Sand :
-                                                                         Block::ID::Dirt;
-                        }
-                    }
-                    else if (Maths::inRange(y, height - 3, height))
-                    {
-                        blockType = Block::ID::Dirt;
-                    }
-                    else if (y <= height - 4)
-                    {
-                        blockType = Block::ID::Stone;
-                    }
-
-                    qSetBlock({x, y, z}, blockType);
-                }
-            }
-        }
-
-        //Generate trees af
-        for (Block::Position& pos : treeMap)
-        {
-            makeOakTree(*this, pos, generator);
-        }
-    }
 
     uint32_t Full_Chunk::getHeightAt(int8_t x, int8_t z) const
     {

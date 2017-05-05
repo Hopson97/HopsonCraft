@@ -9,6 +9,8 @@
 #include "CSection.h"
 #include "CFull_Chunk.h"
 
+#include "../Generators/Chunk_Generator.h"
+
 
 class World_Settings;
 
@@ -38,6 +40,8 @@ namespace Chunk
             std::unordered_map<Position, Full_Chunk> m_chunksMap;
             std::unordered_map<Position, Full_Chunk> m_tempChunks;
             World* mp_world = nullptr;
+
+            Chunk_Generator m_chunkGenerator;
 
             std::mutex m_chunkAddMutex;
     };
