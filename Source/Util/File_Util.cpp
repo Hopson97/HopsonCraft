@@ -1,14 +1,14 @@
 #include "File_Util.h"
-
+#include <iostream>
 #include <fstream>
 #include <sstream>
 
 #ifdef __WIN32
     #include <windows.h>
-#elif __LINUX__
+#elif __linux__
     #include <sys/types.h>
     #include <dirent.h>
-#endif // __LINUX__
+#endif // __linux__
 
 std::string getFileContents(const std::string& filePath)
 {
@@ -51,9 +51,9 @@ std::string getFileContents(const std::string& filePath)
 
         DIR *dp;
         struct dirent *dirp;
-        if((dp  = opendir(dir.c_str())) == NULL) {
-            std::cout << "Error(" << errno << ") opening " << dir << std::endl;
-            return errno;
+        if((dp  = opendir(folderName.c_str())) == NULL) {
+            std::cout << "Error(" << errno << ") opening " << dirp << std::endl;
+            //return errno;
         }
 
         while ((dirp = readdir(dp)) != NULL) {
@@ -62,16 +62,5 @@ std::string getFileContents(const std::string& filePath)
         closedir(dp);
         return fileNames;
     }
-#elif __APPLE__
-std::vector<std::string> getFileNamesFromFolder(const std::string& folderName)
-{
-    ///@TODO Mac implementation of this
-    return {};
-}
-
 #endif
-
-
-
-
 
