@@ -28,7 +28,6 @@ namespace GUI
             sf::Text initText   (int size, const std::string& title);
 
             static sf::Texture guiTexture;
-            static sf::Font    guiFont;
     };
 
     class Empty_Component : public Component
