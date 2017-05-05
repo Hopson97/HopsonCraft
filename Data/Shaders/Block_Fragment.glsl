@@ -13,10 +13,10 @@ uniform int maxLightValue;
 
 void main()
 {
-    float timeOfDayVal = sin(passTimer / 10);
+    float timeOfDayVal = abs(sin(passTimer / 10));
 
     float cardinalLight = passLightValue.x / maxLightValue;
-    float naturalLight  = passLightValue.y * abs(timeOfDayVal);
+    float naturalLight  = passLightValue.y;// * passTimer;
     float blockLight    = passLightValue.z;
 
 

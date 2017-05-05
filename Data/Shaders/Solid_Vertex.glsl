@@ -20,5 +20,5 @@ void main()
     passTextureCoords = inTextureCoords;
     passLightValue = inLightValue;
 
-    passTimer = timer;
+    passTimer = abs(sin(timer / 10));
 }
