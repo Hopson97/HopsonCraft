@@ -32,7 +32,7 @@ void Application::runMainGameLoop()
         {
             handleEvents(e);
         }
-        if (!Display::isOpen())
+        if (!Display::isOpen() || m_states.empty())
         {
             break;
         }
@@ -44,10 +44,6 @@ void Application::runMainGameLoop()
 
         m_renderer.clear();
         m_renderer.update(m_camera);
-        if (m_shouldPopState)
-        {
-            realPopState();
-        }
     }
 }
 
@@ -59,7 +55,12 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
 
 void Application::popState()
 {
-   m_shouldPopState = true;
+   m_states.pop_back();
+   m_camera.unhookEntity();
+   if (!m_states.empty())
+   {
+       m_states.back()->onOpen();
+   }
 }
 
 Camera& Application::getCamera()
@@ -74,17 +75,6 @@ void Application::handleEvents(const sf::Event& e)
         Display::close();
     }
     m_states.back()->input(e);
-}
-
-
-void Application::realPopState()
-{
-    m_states.pop_back();
-    m_shouldPopState = false;
-    if (!m_states.empty())
-    {
-        m_states.back()->onOpen();
-    }
 }
 
 

@@ -8,8 +8,9 @@ class Camera : public Entity
 {
     public:
         Camera();
-        void update ();
-        void hookEntity(const Entity& entity);
+        void update         ();
+        void hookEntity     (const Entity& entity);
+        void unhookEntity   ();
 
         const Frustum& getFrustum() const;
 

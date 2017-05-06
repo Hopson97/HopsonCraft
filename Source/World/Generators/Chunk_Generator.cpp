@@ -16,13 +16,16 @@ Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
 {
     m_noiseGenerator.setSeed            (worldSettings.seed);
     m_noiseGenerator.setNoiseFunction   (worldSettings.noiseData);
-    worldSettings.noiseData.print();
+
+    //m_biomeNoise.setSeed            (worldSettings.seed);
+    //m_biomeNoise.setNoiseFunction   ({5, 100, 0.4, 450});
 }
 
 void Chunk_Generator::reset()
 {
     m_maxHeight = 0;
     m_heightMap.reset();
+    //m_biomeMap.reset();
     m_oakTreeLocations.clear();
 }
 
@@ -35,6 +38,7 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
 
     reset();
     setRandomSeed();
+    makeBiomeMap();
     makeHeightMap();
 
 
@@ -104,12 +108,14 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
         {
             blockID = Block::ID::Sand;
         }
-        else    //Grass
+        else    //Ground blocks
         {
+            //int biome = m_biomeMap.at(pos.x, pos.z);
+
             blockID = Block::ID::Grass;
             if (m_randomGenerator.intInRange(0, 110) == 5)
             {
-                m_oakTreeLocations.push_back(pos);
+                    m_oakTreeLocations.push_back(pos);
             }
         }
     }
@@ -144,3 +150,21 @@ void Chunk_Generator::makeHeightMap()
         }
     }
 }
+
+void Chunk_Generator::makeBiomeMap()
+{
+    /*
+    for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
+    {
+        for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
+        {
+            int32_t height =
+                m_biomeNoise.getValue(x, z,
+                                      m_pChunk->getPosition().x + 3,
+                                      m_pChunk->getPosition().y + 3);
+            m_biomeMap.at(x, z) = height;
+        }
+    }
+    */
+}
+

@@ -91,7 +91,7 @@ namespace
         Random::init();
         Noise::Generator m_noiseGen;
         m_noiseGen.setSeed(Random::intInRange(0, 999999));
-        m_noiseGen.setNoiseFunction({8, 65000, 0.515, 290});
+        m_noiseGen.setNoiseFunction({5, 100, 0.4, 450});
 
         float total = 0;
         std::vector<double> test;
@@ -115,7 +115,7 @@ namespace
 */
 int main() try
 {
-    //noiseTest(1'0000);
+    //noiseTest(100000);
     runGame();
     return 0;
 }

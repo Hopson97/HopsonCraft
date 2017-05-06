@@ -10,10 +10,19 @@ Camera::Camera()
     m_projectionMatrix = Maths::createProjMatrix(110);
 }
 
+void Camera::unhookEntity()
+{
+    m_P_entity = nullptr;
+}
+
+
 void Camera::update()
 {
-    position = m_P_entity->position;
-    rotation = m_P_entity->rotation;
+    if(m_P_entity)
+    {
+        position = m_P_entity->position;
+        rotation = m_P_entity->rotation;
+    }
 
     m_viewMatrix = Maths::createViewMatrix(*this);
 

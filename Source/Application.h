@@ -28,15 +28,12 @@ class Application
 
     private:
         void handleEvents(const sf::Event& e);
-        void realPopState();
 
         std::vector<std::unique_ptr<State::Game_State>> m_states;
         Renderer::Master m_renderer;
         Camera m_camera;
 
         Music_Player m_musicPlayer;
-
-        bool m_shouldPopState = false;
 };
 
 #endif // APPLICATION_H_INCLUDED

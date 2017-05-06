@@ -34,17 +34,21 @@ class Chunk_Generator
         Block::ID getBlock  (const Block::Position& pos);
         void setTopBlock    (const Block::Position& pos, Block::ID& id);
 
-        void setRandomSeed();
-        void makeHeightMap();
+        void setRandomSeed  ();
+        void makeHeightMap  ();
+        void makeBiomeMap   ();
         void reset();
+
+        //Containers
+        std::vector<Block::Position>    m_oakTreeLocations;
+        Array2D<int, CHUNK_AREA>   m_biomeMap;
+        Array2D<int, CHUNK_AREA>   m_heightMap;
+
 
         //Generators
         Random::Generator<std::mt19937> m_randomGenerator;
         Noise::Generator m_noiseGenerator;
-
-        //Containers
-        std::vector<Block::Position>    m_oakTreeLocations;
-        Array2D<uint32_t, CHUNK_AREA>   m_heightMap;
+        Noise::Generator m_biomeNoise;
 
         //Etc
         const World_Settings* m_pWorldSettings;
