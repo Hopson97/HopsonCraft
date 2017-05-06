@@ -26,6 +26,7 @@ namespace Block
         bool        isOpaque;
         bool        isObstacle;
         Mesh_Type   meshType;
+        bool        canUpdate = false;
         Vector2     topTextureCoords;
         Vector2     sideTextureCoords;
         Vector2     bottomTextureCoords;

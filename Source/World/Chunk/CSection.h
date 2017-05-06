@@ -86,6 +86,8 @@ namespace Chunk
             const Full_Chunk& getParentChunk() const;
 
         private:
+            bool m_hasUpdatableBlocks = false;
+
             Full_Chunk& getParentChunk();
 
             Array3D<CBlock, CHUNK_SIZE>     m_blocks;
