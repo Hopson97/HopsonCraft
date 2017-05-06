@@ -17,15 +17,15 @@ Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
     m_noiseGenerator.setSeed            (worldSettings.seed);
     m_noiseGenerator.setNoiseFunction   (worldSettings.noiseData);
 
-    //m_biomeNoise.setSeed            (worldSettings.seed);
-    //m_biomeNoise.setNoiseFunction   ({5, 100, 0.4, 450});
+    m_biomeNoise.setSeed            (worldSettings.seed);
+    m_biomeNoise.setNoiseFunction   ({5, 112, 0.5, 200});
 }
 
 void Chunk_Generator::reset()
 {
     m_maxHeight = 0;
     m_heightMap.reset();
-    //m_biomeMap.reset();
+    m_biomeMap.reset();
     m_oakTreeLocations.clear();
 }
 
@@ -102,20 +102,59 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
 {
     auto y = pos.y;
 
+    enum Biome
+    {
+        Grassland,
+        Forest,
+        Desert
+    } biomeType;
+
+    int biome = m_biomeMap.at(pos.x, pos.z);
+
+    if (biome < 120)
+    {
+        biomeType = Grassland;
+    }
+    else if (biome >= 120 && biome < 150)
+    {
+        biomeType = Forest;
+    }
+    else
+    {
+        biomeType = Desert;
+    }
+
     if (y >= WATER_LEVEL)   //Above water
     {
         if (y <= BEACH_LEVEL)   //Beach
         {
             blockID = Block::ID::Sand;
         }
-        else    //Ground blocks
+        else //Ground blocks
         {
-            //int biome = m_biomeMap.at(pos.x, pos.z);
-
-            blockID = Block::ID::Grass;
-            if (m_randomGenerator.intInRange(0, 110) == 5)
+            switch (biomeType)
             {
-                    m_oakTreeLocations.push_back(pos);
+                case Grassland:
+                    blockID = Block::ID::Grass;
+                    if (m_randomGenerator.intInRange(0, 350) == 5)
+                    {
+                            m_oakTreeLocations.push_back(pos);
+                    }
+                    break;
+
+                case Forest:
+                    blockID = m_randomGenerator.intInRange(0, 10) <= 7 ?
+                        Block::ID::Grass :
+                        Block::ID::Dirt;
+                    if (m_randomGenerator.intInRange(0, 50) == 5)
+                    {
+                            m_oakTreeLocations.push_back(pos);
+                    }
+                    break;
+
+                case Desert:
+                    blockID = Block::ID::Sand;
+                    break;
             }
         }
     }
@@ -153,7 +192,6 @@ void Chunk_Generator::makeHeightMap()
 
 void Chunk_Generator::makeBiomeMap()
 {
-    /*
     for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
     {
         for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
@@ -165,6 +203,5 @@ void Chunk_Generator::makeBiomeMap()
             m_biomeMap.at(x, z) = height;
         }
     }
-    */
 }
 
