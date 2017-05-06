@@ -121,13 +121,11 @@ int main() try
 }
 catch(std::bad_alloc& e)
 {
-    errorMessage("'Bad Alloc' error! (Out of memory)");
-    std::cin.ignore();
+    errorMessage("Out of memory!");
 }
 catch(std::exception& e)
 {
     errorMessage(std::string(e.what()));
-    std::cin.ignore();
 }
 
 
