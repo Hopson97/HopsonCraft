@@ -105,8 +105,7 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
     enum Biome
     {
         Grassland,
-        Forest,
-        Desert
+        Forest
     } biomeType;
 
     int biome = m_biomeMap.at(pos.x, pos.z);
@@ -115,13 +114,9 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
     {
         biomeType = Grassland;
     }
-    else if (biome >= 120 && biome < 150)
-    {
-        biomeType = Forest;
-    }
     else
     {
-        biomeType = Desert;
+        biomeType = Forest;
     }
 
     if (y >= WATER_LEVEL)   //Above water
@@ -150,10 +145,6 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                     {
                             m_oakTreeLocations.push_back(pos);
                     }
-                    break;
-
-                case Desert:
-                    blockID = Block::ID::Sand;
                     break;
             }
         }
