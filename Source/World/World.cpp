@@ -8,27 +8,6 @@
 #include "../Camera.h"
 #include "../Maths/Position_Conversion.h"
 
-//Threading test
-void World::f()
-{
-    while (m_isRunning)
-    {
-        m_buildMutex.lock();
-        if (m_buildQueue.empty())
-        {
-            m_buildMutex.unlock();
-            continue;
-        }
-        else
-        {
-            const auto& chunk = m_buildQueue.back();
-            m_buildQueue.pop_back();
-            chunk->makeMesh();
-            m_buildMutex.unlock();
-        }
-    }
-}
-
 World::World(const World_Settings& worldSettings)
 :   m_worldSettings (worldSettings)
 ,   m_chunks        (*this)
@@ -57,12 +36,9 @@ World::~World()
 
 void World::updateChunks()
 {
-    for (auto itr = m_chunks.getChunks().begin(); itr != m_chunks.getChunks().end();)
+    for (auto& chunk : m_chunks.getChunks())
     {
-        Chunk::Full_Chunk& chunk = itr->second;
-
-        chunk.tick();
-        itr++;
+        chunk.second.tick();
     }
 }
 
@@ -306,5 +282,26 @@ AABB World::getBlockAABB(const Block::Position& position)
     AABB blockAABB({1, 1, 1});
     blockAABB.update({position.x, position.y, position.z});
     return blockAABB;
+}
+
+//Threading test
+void World::f()
+{
+    while (m_isRunning)
+    {
+        m_buildMutex.lock();
+        if (m_buildQueue.empty())
+        {
+            m_buildMutex.unlock();
+            continue;
+        }
+        else
+        {
+            const auto& chunk = m_buildQueue.back();
+            m_buildQueue.pop_back();
+            chunk->makeMesh();
+            m_buildMutex.unlock();
+        }
+    }
 }
 

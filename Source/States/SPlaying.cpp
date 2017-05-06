@@ -155,7 +155,10 @@ namespace State
         }
         m_player.update(dt);
         m_world.checkPlayerBounds(m_player);
+
+        ///@TODO Work out why this causes a crash for some odd reason.
         //m_world.updateChunks();
+
         m_frameTimeChecker.update();
     }
 
