@@ -19,7 +19,7 @@ namespace Block
         blocks[(int)ID::Grass   ] = std::make_unique<Default>   ("Grass");
         blocks[(int)ID::Dirt    ] = std::make_unique<Default>   ("Dirt");
         blocks[(int)ID::Stone   ] = std::make_unique<Default>   ("Stone");
-        blocks[(int)ID::Sand    ] = std::make_unique<Default>   ("Sand");
+        blocks[(int)ID::Sand    ] = std::make_unique<BSand>     ();
 
         blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default>   ("Oak_Wood");
         blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default>   ("Oak_Leaf");

@@ -10,6 +10,14 @@ namespace Block
         public:
             Default(const std::string& dataFileName);
     };
+
+    class BSand : public Type
+    {
+        public:
+            BSand();
+
+            void tick(World& world, const Position& pos);
+    };
 }
 
 #endif // BDEFAULT_H_INCLUDED

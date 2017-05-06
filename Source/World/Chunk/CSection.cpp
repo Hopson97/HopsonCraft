@@ -51,13 +51,22 @@ namespace Chunk
 
     void Section::tick(World& world)
     {
+        ///@TODO Why the heck is this crashing
+        /*
         for (int i = 0; i < 3; i++)
         {
-            int8_t x = (int8_t)Random::intInRange(0, CHUNK_SIZE);
-            int8_t y = (int8_t)Random::intInRange(0, CHUNK_SIZE);
-            int8_t z = (int8_t)Random::intInRange(0, CHUNK_SIZE);
+
+            std::cout << "Called the update " << i << std::endl;
+            int32_t x = Random::intInRange(0, CHUNK_SIZE - 1) + m_position.x * CHUNK_SIZE;
+            int32_t y = Random::intInRange(0, CHUNK_SIZE - 1) + m_position.y * CHUNK_SIZE;
+            int32_t z = Random::intInRange(0, CHUNK_SIZE - 1) + m_position.z * CHUNK_SIZE;
+
+            std::cout << "X Y Z " << x << " " << y << " " << z << "\n";
+
             m_blocks.at(x, y, z).getType().tick(world, {x, y, z});
         }
+        std::cout << "End\n";
+        */
     }
 
     const Chunklet_Position& Section::getPosition() const   { return m_position;        }

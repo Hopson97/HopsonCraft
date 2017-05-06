@@ -12,6 +12,18 @@ World::World(const World_Settings& worldSettings)
 :   m_worldSettings (worldSettings)
 ,   m_chunks        (*this)
 {
+/*
+    //Just loads a few chunks in the centre. This causes the world to open instantly.
+    int32_t centre = getWorldSettings().worldSize / 2;
+    for (int32_t x = -1 ; x <= 1; x++)
+    {
+        for (int32_t z = -1; z <= 1; z++)
+        {
+            m_chunks.addChunk({centre + x, centre + z}, true);
+        }
+    }
+*/
+
     for (int32_t x = 0 ; x < m_worldSettings.worldSize; x++)
     {
         for (int32_t z = 0; z < m_worldSettings.worldSize; z++)
@@ -19,10 +31,6 @@ World::World(const World_Settings& worldSettings)
             m_chunks.addChunk({x, z}, true);
         }
     }
-
-    //for (int i = 0; i < 1; i++)
-    //    m_workers.emplace_back(std::bind(World::f, this));
-
 }
 
 World::~World()
