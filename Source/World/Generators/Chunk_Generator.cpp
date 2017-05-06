@@ -27,6 +27,7 @@ void Chunk_Generator::reset()
     m_heightMap.reset();
     m_biomeMap.reset();
     m_oakTreeLocations.clear();
+    m_littleBlockLoc.clear();
 }
 
 
@@ -57,6 +58,12 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
                 }
             }
         }
+    }
+
+    //Make foliage
+    for (auto& pos : m_littleBlockLoc)
+    {
+        chunk.qSetBlock({pos.first.x, pos.first.y + 1, pos.first.z}, pos.second);
     }
 
     //Make trees
@@ -133,7 +140,17 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                     blockID = Block::ID::Grass;
                     if (m_randomGenerator.intInRange(0, 350) == 5)
                     {
-                            m_oakTreeLocations.push_back(pos);
+                        m_oakTreeLocations.push_back(pos);
+                    }
+                    if (m_randomGenerator.intInRange(0, 150) < 5)
+                    {
+                        m_littleBlockLoc.push_back(std::make_pair(pos,
+                                                                  Block::ID::Rose));
+                    }
+                    if (m_randomGenerator.intInRange(0, 45) < 5)
+                    {
+                        m_littleBlockLoc.push_back(std::make_pair(pos,
+                                                                  Block::ID::Tall_Grass));
                     }
                     break;
 
@@ -143,7 +160,17 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                         Block::ID::Dirt;
                     if (m_randomGenerator.intInRange(0, 50) == 5)
                     {
-                            m_oakTreeLocations.push_back(pos);
+                        m_oakTreeLocations.push_back(pos);
+                    }
+                    if (m_randomGenerator.intInRange(0, 250) < 5)
+                    {
+                        m_littleBlockLoc.push_back(std::make_pair(pos,
+                                                                  Block::ID::Rose));
+                    }
+                    if (m_randomGenerator.intInRange(0, 145) < 5)
+                    {
+                        m_littleBlockLoc.push_back(std::make_pair(pos,
+                                                                  Block::ID::Tall_Grass));
                     }
                     break;
             }

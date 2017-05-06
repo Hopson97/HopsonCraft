@@ -32,6 +32,9 @@ namespace Chunk
                             Block::Small_Position& adjacentBlockPosition,
                             GLfloat cardinalLight);
 
+            void addXMesh  (const Vector2& textureCoords,
+                            const Block::Small_Position& thisBlockPos);
+
             bool shouldCreateLayer  (uint32_t yPosition);
             bool shouldMakeFaceAdjTo(Block::Small_Position& pos) const;
             void setActiveMesh(Meshes& meshes);

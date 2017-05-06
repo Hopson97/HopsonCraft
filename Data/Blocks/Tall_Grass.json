@@ -1,0 +1,12 @@
+{
+	"Name": 		"Tall Grass",
+	"ID": 			10,
+	"Opaque": 		false,
+	"Obstacle": 	false,
+	"Mesh":			1,
+	"Style":		1,
+	
+	"Texture Top": 		[ 11, 0],
+	"Texture Side": 	[ 11, 0],
+	"Texture Bottom": 	[ 11, 0]
+}

@@ -62,6 +62,22 @@ namespace
         0,          0, BLOCK_SIZE
     };
 
+    const std::vector<GLfloat> xMesh1
+    {
+        0,          0,          0,
+        BLOCK_SIZE, 0,          BLOCK_SIZE,
+        BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
+        0,          BLOCK_SIZE, 0,
+    };
+
+    const std::vector<GLfloat> xMesh2
+    {
+        0,          0,          BLOCK_SIZE,
+        BLOCK_SIZE, 0,          0,
+        BLOCK_SIZE, BLOCK_SIZE, 0,
+        0,          BLOCK_SIZE, BLOCK_SIZE,
+    };
+
     constexpr GLfloat TOP_LIGHT      = MAX_LIGHT;
     constexpr GLfloat X_LIGHT        = MAX_LIGHT / 1.3;
     constexpr GLfloat Z_LIGHT        = MAX_LIGHT / 1.7;
@@ -132,6 +148,14 @@ namespace Chunk
                         continue;
 
                     mp_activeData = &mp_section->qGetBlock(blockPosition).getData();
+                    setActiveMesh(meshes);
+                    if (mp_activeData->meshStyle == Block::Mesh_Style::XStyle)
+                    {
+                        addXMesh(mp_activeData->bottomTextureCoords,
+                                 blockPosition);
+                        continue;
+                    }
+
 
                     //Set local block position vectors.
                     //This is mostly to make the if statements below to look neater.
@@ -143,7 +167,7 @@ namespace Chunk
                     back    =   {       x,              y, int8_t(  z - 1)};
 
                     //Set the active mesh (Solid blocks, liquid blocks, flora blocks)
-                    setActiveMesh(meshes);
+
 
                     //Add faces to the chunk's mesh where the adjacent block is non-opaque
                     //Y-Faces
@@ -171,9 +195,31 @@ namespace Chunk
         float timeForGen = timer.getElapsedTime().asSeconds();
         sum += timeForGen;
 
-        LOG("Chunk mesh made in:    %.3f ms!\nAverage:                %.3f ms \n\n",
+        LOG("Chunk mesh made in: %.3f ms!\nAverage: %.3f ms \n\n",
             timeForGen * 1000.0f, (sum / n) * 1000.0f);
     }
+
+    void Mesh_Builder::addXMesh(const Vector2& textureCoords,
+                                const Block::Small_Position& thisBlockPos)
+    {
+        GLfloat natLight   = mp_section->qGetNaturalLight(thisBlockPos);
+        GLfloat blockLight = mp_section->qGetBlockLight  (thisBlockPos);
+
+        auto tex = Block::Database::get().textures.getTextureCoords(textureCoords);
+
+        m_pActiveMesh->addFace(xMesh1,
+                               tex,
+                               {X_LIGHT, natLight, blockLight},
+                               mp_section->getPosition(),
+                               thisBlockPos);
+
+        m_pActiveMesh->addFace(xMesh2,
+                               tex,
+                               {X_LIGHT, natLight, blockLight},
+                               mp_section->getPosition(),
+                               thisBlockPos);
+    }
+
 
     void Mesh_Builder::tryAddFace(const std::vector<GLfloat>& face,
                                   const Vector2& textureCoords,

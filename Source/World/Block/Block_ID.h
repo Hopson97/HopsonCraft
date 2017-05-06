@@ -18,6 +18,8 @@ namespace Block
         Oak_Leaf    = 6,
         Water       = 7,
         Snow        = 8,
+        Rose        = 9,
+        Tall_Grass  = 10,
 
         NUM_BLOCK_TYPES
     };

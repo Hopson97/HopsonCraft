@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <mutex>
+#include <map>
 
 #include "../../Util/Random.h"
 #include "../../Util/Array2D.h"
@@ -13,6 +14,8 @@
 #include "../Block/Block_ID.h"
 
 #include "../World_Constants.h"
+
+#include "../Chunk/CNodes.h"
 
 
 
@@ -40,7 +43,8 @@ class Chunk_Generator
         void reset();
 
         //Containers
-        std::vector<Block::Position>    m_oakTreeLocations;
+        std::vector<Block::Position>                    m_oakTreeLocations;
+        std::vector<std::pair<Block::Position, CBlock>> m_littleBlockLoc;
         Array2D<int, CHUNK_AREA>   m_biomeMap;
         Array2D<int, CHUNK_AREA>   m_heightMap;
 

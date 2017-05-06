@@ -16,6 +16,12 @@ namespace Block
         Liquid  = 2,
     };
 
+    enum Mesh_Style
+    {
+        Block   = 0,
+        XStyle  = 1
+    };
+
     struct Data_Holder
     {
         Data_Holder() = default;
@@ -25,8 +31,11 @@ namespace Block
         std::string name;
         bool        isOpaque;
         bool        isObstacle;
-        Mesh_Type   meshType;
         bool        canUpdate = false;
+
+        Mesh_Type   meshType;
+        Mesh_Style  meshStyle;
+
         Vector2     topTextureCoords;
         Vector2     sideTextureCoords;
         Vector2     bottomTextureCoords;
