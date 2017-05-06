@@ -105,7 +105,8 @@ namespace State
                     break;
 
                 case 1:
-                    settings.noiseData = {7, 76, 0.51, 235, -18};
+                    //settings.noiseData = {7, 76, 0.51, 235, -18};
+                    settings.noiseData = {7, 85, 0.51, 235, -15};
                     break;
 
                 case 2:
