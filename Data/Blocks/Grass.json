@@ -4,7 +4,6 @@
 	"Opaque": 		true,
 	"Obstacle": 	true,
 	"Mesh":			0,
-	"Updates":      false,
 
 	"Texture Top": 		[ 0, 0],
 	"Texture Side": 	[ 1, 0],
