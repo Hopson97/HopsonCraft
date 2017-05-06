@@ -90,8 +90,8 @@ namespace State
         m_noiseData));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Infinite Terrain",
-        std::vector<std::string> { "Yes", "No"  },
-        std::vector<int32_t>     { 1,      0    },
+        std::vector<std::string> { "No", "Yes"  },
+        std::vector<int32_t>     {  0,    1     },
         settings.infiniteTerrain));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()

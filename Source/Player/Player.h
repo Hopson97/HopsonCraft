@@ -23,7 +23,7 @@ class Player : public Entity
 
         void addForce       (const Vector3& force);
 
-    private:
+    //private:
         void keyBoardInput  ();
         void mouseInput     ();
 
