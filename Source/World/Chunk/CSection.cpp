@@ -51,6 +51,9 @@ namespace Chunk
 
     void Section::tick(World& world)
     {
+        if(!m_hasUpdatableBlocks)
+            return;
+
         for (int i = 0; i < 2; i++)
         {
             int32_t x = Random::intInRange(0, CHUNK_SIZE - 1);

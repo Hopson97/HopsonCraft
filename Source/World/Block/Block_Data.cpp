@@ -16,6 +16,8 @@ namespace Block
         m_holder.name       = jsonFile["Name"]      .get<std::string>();
         m_holder.isOpaque   = jsonFile["Opaque"]    .get<bool>();
         m_holder.isObstacle = jsonFile["Obstacle"]  .get<bool>();
+        m_holder.canUpdate  = jsonFile["Updates"]   .get<bool>();
+        ///@TODO Fix the weird JSON parse error which doesn't let this work ^
 
         m_holder.blockID    = (Block::ID) jsonFile["ID"]    .get<int32_t>();
         m_holder.meshType   = (Mesh_Type) jsonFile["Mesh"]  .get<int32_t>();
