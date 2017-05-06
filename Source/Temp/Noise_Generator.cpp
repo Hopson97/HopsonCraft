@@ -61,18 +61,14 @@ namespace Noise
 
     double Generator::getValue(int x, int z, int tileX, int tileZ) const
     {
-        if (tileX <= 0 ||
-            tileZ <= 0)
+        if (tileX < 0 ||
+            tileZ < 0)
         {
             return  WATER_LEVEL - 1;
         }
 
-
         auto newX = (x + (tileX * CHUNK_SIZE));
         auto newZ = (z + (tileZ * CHUNK_SIZE));
-
-        if (newX < 0 || newZ < 0)
-            return WATER_LEVEL - 1;
 
         auto totalValue = 0.0;
 

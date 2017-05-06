@@ -173,8 +173,8 @@ void Chunk_Generator::makeHeightMap()
         {
             int32_t height =
                 m_noiseGenerator.getValue(x, z,
-                                          m_pChunk->getPosition().x + 3,
-                                          m_pChunk->getPosition().y + 3);
+                                          m_pChunk->getPosition().x,
+                                          m_pChunk->getPosition().y);
             m_heightMap.at(x, z) = height;
             m_maxHeight = std::max(m_maxHeight, height);
         }
