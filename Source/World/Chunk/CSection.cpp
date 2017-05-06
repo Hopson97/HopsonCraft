@@ -29,6 +29,14 @@ namespace Chunk
 
     void Section::makeMesh()
     {
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int z = -1; z <= 1; z++)
+            {
+                mp_chunks->addChunk({m_position.x + x, m_position.z + z}, true);
+            }
+        }
+
         m_meshBuilder.generateMesh(m_meshes);
         made = true;
 

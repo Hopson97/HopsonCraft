@@ -58,7 +58,7 @@ class World
 
     private:
         void regenerateChunks   ();
-        void buildMeshes        ();
+        void buildMeshes        (const Camera& camera);
         void draw               (Renderer::Master& renderer, const Camera& camera);
 
         std::vector<New_Block> m_newBlocks;

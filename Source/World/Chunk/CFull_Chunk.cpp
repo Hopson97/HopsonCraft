@@ -42,7 +42,6 @@ namespace Chunk
                                bool overrideBlocks)
     {
         addSections(position.y);
-        //if (overrideBlockFails(overrideBlocks, position)) return;
 
         auto pos = Maths::blockToSmallBlockPos(position);
 
@@ -55,10 +54,9 @@ namespace Chunk
                                bool overrideBlocks)
     {
         addSections(position.y);
-        //if (overrideBlockFails(overrideBlocks, position)) return;
         updateTopBlockLocation(position);
 
-        m_chunkSections[position.y / CHUNK_SIZE]
+        m_chunkSections.at(position.y / CHUNK_SIZE)
             ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
     }
 

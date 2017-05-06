@@ -31,14 +31,22 @@ namespace Chunk
     }
 
 
+    void Map::deleteChunk(const Chunk::Position& position)
+    {
+        m_tempChunks.erase(position);
+        m_chunksMap .erase(position);
+    }
+
+
     void Map::addChunk(const Chunk::Position& position, bool populateBlocks)
     {
         if (existsInMap(m_tempChunks, position))
         {
             m_chunkGenerator.generateBlocksFor(m_tempChunks[position]);
             m_chunksMap.emplace(position, std::move(m_tempChunks[position]));
+            m_tempChunks.erase(position);
         }
-        else
+        else if (!existsAt(position))
         {
             addChunk(m_chunksMap, position, populateBlocks);
         }

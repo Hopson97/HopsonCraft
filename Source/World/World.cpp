@@ -57,9 +57,12 @@ World::~World()
 
 void World::updateChunks()
 {
-    for (auto& chunk : m_chunks.getChunks())
+    for (auto itr = m_chunks.getChunks().begin(); itr != m_chunks.getChunks().end();)
     {
-        chunk.second.tick();
+        Chunk::Full_Chunk& chunk = itr->second;
+
+        chunk.tick();
+        itr++;
     }
 }
 
@@ -75,13 +78,20 @@ void World::checkPlayerBounds(Player& player)
         player.position.z = 0.2;
     }
 
-    if (player.position.x + 0.2 > m_worldSettings.worldSize * CHUNK_SIZE - 0.2 )
+    if (m_worldSettings.infiniteTerrain)
     {
-        player.position.x = m_worldSettings.worldSize * CHUNK_SIZE - 0.3;
+        return;
     }
-    if (player.position.z + 0.2 > m_worldSettings.worldSize * CHUNK_SIZE - 0.2 )
+    else
     {
-        player.position.z = m_worldSettings.worldSize * CHUNK_SIZE - 0.3;
+        if (player.position.x + 0.2 > m_worldSettings.worldSize * CHUNK_SIZE - 0.2 )
+        {
+            player.position.x = m_worldSettings.worldSize * CHUNK_SIZE - 0.3;
+        }
+        if (player.position.z + 0.2 > m_worldSettings.worldSize * CHUNK_SIZE - 0.2 )
+        {
+            player.position.z = m_worldSettings.worldSize * CHUNK_SIZE - 0.3;
+        }
     }
 }
 
@@ -201,24 +211,52 @@ void World::regenerateChunks()
 
 //Generates meshes for the chunks.
 //It does this in a sort of radius starting from the middle of the world
-void World::buildMeshes()
+void World::buildMeshes(const Camera& camera)
 {
     if (m_loadingDistance == ((m_worldSettings.worldSize / 2) + 1))
-        return;
+    {
+        m_loadingDistance = 1;
+    }
 
-    int32_t minDis = m_worldSettings.worldSize / 2 - m_loadingDistance;
-    int32_t maxDis = m_worldSettings.worldSize / 2 + m_loadingDistance;
+    auto chunkPos = Maths::worldToChunkPos(camera.position);
+
+    int32_t minDisX = 0;
+    int32_t maxDisX = 0;
+
+    int32_t minDisZ = 0;
+    int32_t maxDisZ = 0;
 
     bool isMeshMade = false;
 
-    for (int32_t x = minDis ; x < maxDis; x++)
+    if (m_worldSettings.infiniteTerrain)
     {
-        for (int32_t z = minDis; z < maxDis; z++)
+        minDisX = chunkPos.x - m_loadingDistance;
+        maxDisX = chunkPos.x + m_loadingDistance;
+
+        minDisZ = chunkPos.y - m_loadingDistance;
+        maxDisZ = chunkPos.y + m_loadingDistance;
+    }
+    else
+    {
+        int32_t minDis = m_worldSettings.worldSize / 2 - m_loadingDistance;
+        int32_t maxDis = m_worldSettings.worldSize / 2 + m_loadingDistance;
+
+        minDisX = minDis;
+        maxDisX = maxDis;
+
+        minDisZ = minDis;
+        maxDisZ = maxDis;
+
+    }
+
+    for (int32_t x = minDisX; x < maxDisX; x++)
+    {
+        for (int32_t z = minDisZ; z < maxDisZ; z++)
         {
             Chunk::Position position(x, z);
             if(!m_chunks.existsAt(position))
             {
-                continue;
+                m_chunks.addChunk(position, true);
             }
 
             auto chunk = m_chunks.get({x, z});
@@ -228,19 +266,6 @@ void World::buildMeshes()
                 isMeshMade = true;
                 break;
             }
-
-            /*
-            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
-            if (chunk)
-            {
-                const auto& build = chunk->tryGen();
-                if (!build->prepForBuild)
-                {
-                    build->prepForBuild = true;
-                    m_buildQueue.push_back(build);
-                }
-            }
-            /**/
         }
         if (isMeshMade)
         {
@@ -268,7 +293,7 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
         regenerateChunks();
 
     draw(renderer, camera);
-    buildMeshes();
+    buildMeshes(camera);
 }
 
 const World_Settings& World::getWorldSettings() const

@@ -84,10 +84,15 @@ namespace State
         std::vector<int32_t>     { 20,     32,       44,      56,      68},
         settings.worldSize));
 
-        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Terrain",
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Terrain Type",
         std::vector<std::string> { "Smooth", "Normal", "Mountains", "Water"},
         std::vector<int32_t>     { 0,         1,           2,       3},
         m_noiseData));
+
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Infinite Terrain",
+        std::vector<std::string> { "Yes", "No"  },
+        std::vector<int32_t>     { 1,      0    },
+        settings.infiniteTerrain));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {

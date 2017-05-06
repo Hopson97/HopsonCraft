@@ -155,6 +155,7 @@ namespace State
         }
         m_player.update(dt);
         m_world.checkPlayerBounds(m_player);
+        //m_world.updateChunks();
         m_frameTimeChecker.update();
     }
 
