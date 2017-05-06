@@ -79,6 +79,12 @@ void World::checkPlayerBounds(Player& player)
     }
 }
 
+void World::qSetBlock(const Vector3& position, CBlock block)
+{
+    setBlock(position, block);
+}
+
+
 void World::setBlock(const Vector3& position, CBlock block)
 {
     m_newBlocks.emplace_back(block, position);

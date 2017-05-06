@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include "../../World.h"
+
 namespace Block
 {
     Default::Default(const std::string& dataFileName)
@@ -13,12 +15,5 @@ namespace Block
     BSand::BSand()
     :   Type ("Sand")
     {
-
     }
-
-    void BSand::tick(World& world, const Position& pos)
-    {
-        //std::cout << "Sand tick\n";
-    }
-
 }

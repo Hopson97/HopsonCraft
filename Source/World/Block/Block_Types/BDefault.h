@@ -15,8 +15,6 @@ namespace Block
     {
         public:
             BSand();
-
-            void tick(World& world, const Position& pos);
     };
 }
 
