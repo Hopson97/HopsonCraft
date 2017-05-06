@@ -55,6 +55,8 @@ namespace
 
     void initilize()
     {
+        Block::Database::get(); //Loads up the block database
+
         Random  ::init();
         Display ::init();
 
@@ -62,8 +64,6 @@ namespace
         {
             Random::intInRange(0, 63464); //This is so that the RNG is more random
         }
-
-        Block::Database::get(); //Loads up the block database
     }
 
     void loadConfig()
@@ -121,13 +121,11 @@ int main() try
 }
 catch(std::bad_alloc& e)
 {
-    errorMessage("'Bad Alloc' error! (Out of memory)");
-    std::cin.ignore();
+    errorMessage("Out of memory! :(");
 }
 catch(std::exception& e)
 {
     errorMessage(std::string(e.what()));
-    std::cin.ignore();
 }
 
 
