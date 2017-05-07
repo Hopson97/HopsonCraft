@@ -19,6 +19,16 @@ void Application::runMainGameLoop()
 {
     sf::Clock gameTimer;
 
+    /**
+        @TODO
+        In real Minecraft, the game updates every 0.05s
+        Aka, 20 Ticks Per Second.
+        Problem is of course this makes the game feel very
+        stutter-like.
+        So, we have to figure out how to make this work
+        better using interpolation and other
+        techniques.
+    */
     auto MS_PER_UPDATE = 0.0083; //120 TPS
 
     float lastTime = gameTimer.getElapsedTime().asSeconds();
