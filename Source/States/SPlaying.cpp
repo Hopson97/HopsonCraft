@@ -119,23 +119,26 @@ namespace State
         }
     }
 
-
     void Playing::update(Camera& camera, float dt)
     {
+        m_player.update(dt);
+        m_world.checkPlayerBounds(m_player);
+
         static sf::Clock c;
-        m_quady.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 20;
-        m_quady.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 20;
+        m_quady.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 2;
+        m_quady.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 2;
         m_quady.position.y = m_world.getHeightAt({m_quady.position.x,
                                                  0,
                                                  m_quady.position.z}) + 1;
+    }
+
+    void Playing::fixedUpdate(Camera& camera, float dt)
+    {
         if (m_isPaused)
         {
             m_pauseMenu.update();
         }
-        m_player.update(dt);
-        m_world.checkPlayerBounds(m_player);
         m_world.updateChunks();
-
         m_tickRate.update();
     }
 

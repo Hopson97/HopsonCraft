@@ -34,7 +34,7 @@ namespace State
     void Main_Menu::input(Camera& camera)
     { }
 
-    void Main_Menu::update(Camera& camera, float dt)
+    void Main_Menu::fixedUpdate(Camera& camera, float dt)
     {
         mp_activeMenu->update();
     }

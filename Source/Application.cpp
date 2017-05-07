@@ -30,7 +30,7 @@ void Application::runMainGameLoop()
         techniques so the tick rate can be reduced to
         20 TPS rather than 120 TPS.
 */
-    auto MS_PER_UPDATE = 0.0083; //120 TPS
+    auto MS_PER_UPDATE = 0.05; //120 TPS
 
     float lastTime = gameTimer.getElapsedTime().asSeconds();
     float lag = 0.0f;
@@ -58,24 +58,24 @@ void Application::runMainGameLoop()
         ///uncommented
 
         //Fixed timestep
-        //while (lag >= MS_PER_UPDATE)
+        while (lag >= MS_PER_UPDATE)
         {
             update(elapsed);
             lag -= MS_PER_UPDATE;
         }
-        m_states.back()->draw   (m_renderer);
+        m_camera.update();
+        m_states.back()->update(m_camera, elapsed);
+
+        m_states.back()->draw(m_renderer);
 
         m_renderer.clear();
         m_renderer.update(m_camera);
-
-
     }
 }
 
 void Application::update(float elapsed)
 {
-    m_states.back()->update (m_camera, elapsed);
-    m_camera.update();
+    m_states.back()->fixedUpdate (m_camera, elapsed);
     m_musicPlayer.update();
 }
 
