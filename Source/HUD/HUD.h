@@ -13,13 +13,10 @@ struct HUD
     {
         vignette.draw   (renderer);
         crosshair.draw  (renderer);
-
-        debug.draw(renderer);
     }
 
     Vignette    vignette;
     Crosshair   crosshair;
-    Debug_HUD   debug;
 };
 
 #endif // HUD_H_INCLUDED

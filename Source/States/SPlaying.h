@@ -35,6 +35,7 @@ namespace State
 
             World               m_world;
             HUD                 m_hud;
+            Debug_HUD           m_debugHud;
             Player              m_player;
             Frame_Time_Checker  m_tickRate;
             Frame_Time_Checker  m_frameRate;

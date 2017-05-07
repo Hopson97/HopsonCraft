@@ -9,6 +9,7 @@
 #include "../Application.h"
 #include "../Display.h"
 #include "../Physics/Ray.h"
+#include "../Input/Function_Toggle_Key.h"
 
 namespace State
 {
@@ -102,8 +103,14 @@ namespace State
                     }
                     else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
                     {
+                        Block::Position blockPos(lastPosition.x,
+                                                lastPosition.y,
+                                                lastPosition.z);
                         timer.restart();
-                        m_world.setBlock(lastPosition, Block::ID::Grass);
+                        //if(!m_player.box.isCollidingWith(m_world.getBlockAABB(blockPos)))
+                        {
+                            m_world.setBlock(lastPosition, Block::ID::Grass);
+                        }
                         break;
                     }
                 }
@@ -143,6 +150,12 @@ namespace State
         renderer.draw(m_quady);
 
         m_hud.draw(renderer);
+
+        static Toggle drawDebugHUD(sf::Keyboard::Key::F3, sf::seconds(0.5));
+        if (drawDebugHUD)
+        {
+            m_debugHud.draw(renderer);
+        }
     }
 
     Vector3 Playing::getCenterPosition()
@@ -169,17 +182,17 @@ namespace State
             return val;
         };
 
-        m_hud.debug.addDebugSector("Seed: %.0f",    {0, getYPosition()},  &m_world.getWorldSettings().seed);
+        m_debugHud.addDebugSector("Seed: %.0f",    {0, getYPosition()},  &m_world.getWorldSettings().seed);
 
-        m_hud.debug.addDebugSector("Tick Time:  %fms",  {0, getYPosition()},  &m_tickRate.getFrameTime());
-        m_hud.debug.addDebugSector("Frame Time: %fms",  {0, getYPosition()},  &m_frameRate.getFrameTime());
-        m_hud.debug.addDebugSector("TPS: %.0f",         {0, getYPosition()},  &m_tickRate.getFPS());
-        m_hud.debug.addDebugSector("FPS: %.0f",         {0, getYPosition()},  &m_frameRate.getFPS());
-        m_hud.debug.addDebugSector("Faces drawn: %.0f", {0, getYPosition()},  &m_world.m_facesDrawn);
+        m_debugHud.addDebugSector("Tick Time:  %fms",  {0, getYPosition()},  &m_tickRate.getFrameTime());
+        m_debugHud.addDebugSector("Frame Time: %fms",  {0, getYPosition()},  &m_frameRate.getFrameTime());
+        m_debugHud.addDebugSector("TPS: %.0f",         {0, getYPosition()},  &m_tickRate.getFPS());
+        m_debugHud.addDebugSector("FPS: %.0f",         {0, getYPosition()},  &m_frameRate.getFPS());
+        m_debugHud.addDebugSector("Faces drawn: %.0f", {0, getYPosition()},  &m_world.m_facesDrawn);
 
-        m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0, getYPosition()},  &m_player.position.x);
-        m_hud.debug.addDebugSector("Player Position: Y: %.1f",  {0, getYPosition()},  &m_player.position.y);
-        m_hud.debug.addDebugSector("Player Position: Z: %.1f",  {0, getYPosition()},  &m_player.position.z);
+        m_debugHud.addDebugSector("Player Position: X: %.1f",  {0, getYPosition()},  &m_player.position.x);
+        m_debugHud.addDebugSector("Player Position: Y: %.1f",  {0, getYPosition()},  &m_player.position.y);
+        m_debugHud.addDebugSector("Player Position: Z: %.1f",  {0, getYPosition()},  &m_player.position.z);
     }
 
     void Playing::initPause()
