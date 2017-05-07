@@ -19,16 +19,17 @@ void Application::runMainGameLoop()
 {
     sf::Clock gameTimer;
 
-    /**
+/**
         @TODO
         In real Minecraft, the game updates every 0.05s
-        Aka, 20 Ticks Per Second.
+        Aka, 20 Ticks Per Second (TPS).
         Problem is of course this makes the game feel very
         stutter-like.
         So, we have to figure out how to make this work
         better using interpolation and other
-        techniques.
-    */
+        techniques so the tick rate can be reduced to
+        20 TPS rather than 120 TPS.
+*/
     auto MS_PER_UPDATE = 0.0083; //120 TPS
 
     float lastTime = gameTimer.getElapsedTime().asSeconds();
@@ -52,7 +53,12 @@ void Application::runMainGameLoop()
 
         m_states.back()->input  (m_camera);
 
-        while (lag >= MS_PER_UPDATE)
+
+        ///@TODO When the above todo is done, this can
+        ///uncommented
+
+        //Fixed timestep
+        //while (lag >= MS_PER_UPDATE)
         {
             update(elapsed);
             lag -= MS_PER_UPDATE;
