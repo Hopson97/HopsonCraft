@@ -1,21 +1,28 @@
 #ifndef FUNCTION_TOGGLE_KEY_H
 #define FUNCTION_TOGGLE_KEY_H
 
-#include <functional>
-#include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
-class Function_Toggle_Key
+class Toggle
 {
     public:
-        Function_Toggle_Key(std::function<void(void)> f, sf::Keyboard::Key k, sf::Time seconds);
+        Toggle(sf::Keyboard::Key key, sf::Time delay);
 
-        bool checkInput();
+        explicit operator bool()
+        {
+            checkInput();
+            return m_isToogleOn;
+        }
 
     private:
-        std::function<void(void)>   m_func;
-        sf::Keyboard::Key   m_key;
-        sf::Time            m_toggleTime;
-        sf::Clock           m_toggleClock;
+        void checkInput();
+
+        sf::Keyboard::Key   m_toggleKey;
+
+        bool        m_isToogleOn = false;
+        sf::Time    m_toggleDelay;
+        sf::Clock   m_toggleTimer;
 };
 
 #endif // FUNCTION_TOGGLE_KEY_H

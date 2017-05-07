@@ -1,18 +1,21 @@
 #include "Function_Toggle_Key.h"
 
-Function_Toggle_Key::Function_Toggle_Key (std::function<void(void)> func, sf::Keyboard::Key key, sf::Time seconds)
-:   m_func          (func)
-,   m_key           (key)
-,   m_toggleTime    (seconds)
-{ }
-
-bool Function_Toggle_Key::checkInput()
+Toggle::Toggle(sf::Keyboard::Key key, sf::Time delay)
+:   m_toggleKey     (key)
+,   m_toggleDelay   (delay)
 {
-    if (sf::Keyboard::isKeyPressed(m_key) && m_toggleClock.getElapsedTime().asSeconds() > m_toggleTime.asSeconds())
+
+}
+
+void Toggle::checkInput()
+{
+    if (m_toggleDelay.asMilliseconds() <
+        m_toggleTimer.getElapsedTime().asMilliseconds())
     {
-        m_func();
-        m_toggleClock.restart();
-        return true;
+        if (sf::Keyboard::isKeyPressed(m_toggleKey))
+        {
+            m_isToogleOn = !m_isToogleOn;
+            m_toggleTimer.restart();
+        }
     }
-    return false;
 }
