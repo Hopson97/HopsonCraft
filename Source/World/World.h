@@ -63,7 +63,7 @@ class World
         void draw               (Renderer::Master& renderer, const Camera& camera);
 
         std::vector<New_Block> m_newBlocks;
-        std::vector<std::thread> m_workers;
+        std::vector<std::unique_ptr<std::thread>> m_workers;
         std::vector<Chunk::Section*> m_buildQueue;
 
         std::mutex m_buildMutex;

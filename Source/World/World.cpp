@@ -12,6 +12,11 @@ World::World(const World_Settings& worldSettings)
 :   m_worldSettings (worldSettings)
 ,   m_chunks        (*this)
 {
+    m_workers.emplace_back(std::make_unique<std::thread>([&]()
+    {
+        f();
+    }));
+
 
     //Just loads a few chunks in the centre. This causes the world to open instantly.
     int32_t centre = getWorldSettings().worldSize / 2;
@@ -38,7 +43,7 @@ World::~World()
     m_isRunning = false;
     for (auto& thread : m_workers)
     {
-        thread.join();
+        thread->join();
     }
 }
 
@@ -249,13 +254,24 @@ void World::buildMeshes(const Camera& camera)
                 m_chunks.addChunk(position, true);
             }
 
-            auto chunk = m_chunks.get({x, z});
+            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
 
+            /*
+            Chunk::Section* sect = chunk->tryGen();
+            if (sect)
+            {
+                m_buildQueue.push_back(sect);
+                isMeshMade = true;
+                break;
+            }
+            /**/
+            /**/
             if(chunk->tryGen())
             {
                 isMeshMade = true;
                 break;
             }
+            /**/
         }
         if (isMeshMade)
         {

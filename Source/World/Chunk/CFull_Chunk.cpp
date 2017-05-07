@@ -109,17 +109,6 @@ namespace Chunk
         }
     }
 
-    ///@TODO Fix and test this function
-/*
-    bool Full_Chunk::overrideBlockFails(bool overrideBlocks, const Block::Position& position)
-    {
-        if (!overrideBlocks)
-        {
-            return qGetBlock(position).getData().blockID != Block::ID::Air;
-        }
-    }
-*/
-
     const Position& Full_Chunk::getPosition() const
     {
         return m_position;
