@@ -21,6 +21,12 @@ namespace Chunk
 
     class Section
     {
+        struct State
+        {
+            bool made = false;
+            bool buffered = false;
+        };
+
         //This struct helps with optimizing the creation of the mesh
         struct Layer
         {
@@ -44,9 +50,7 @@ namespace Chunk
         public:
             Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk);
 
-            std::atomic<bool> made; ///@TODO Better solution for this
-            std::atomic<bool> buffered;
-            std::atomic<bool> prepForBuild;
+            State getStates();
 
             void makeMesh   ();
             void bufferMesh ();
@@ -87,6 +91,8 @@ namespace Chunk
 
         private:
             bool m_hasUpdatableBlocks = false;
+
+            State m_states;
 
             Full_Chunk& getParentChunk();
 

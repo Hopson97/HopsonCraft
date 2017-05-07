@@ -153,9 +153,9 @@ namespace Chunk
                     continue;
                 }
 
-                if (chunk->made)
+                if (chunk->getStates().made)
                 {
-                    if (chunk->buffered)
+                    if (chunk->getStates().buffered)
                     {
                         renderer.draw(*chunk);
                         facesDrawn += chunk->getMeshes().getFacesCount();
@@ -175,7 +175,7 @@ namespace Chunk
     {
         for (auto& chunk : m_chunkSections)
         {
-            if (!chunk->made)
+            if (!chunk->getStates().made)
             {
                 chunk->makeMesh();
                 return true;

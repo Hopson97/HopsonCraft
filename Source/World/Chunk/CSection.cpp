@@ -17,15 +17,17 @@ namespace Chunk
     ,   mp_chunks       (&map)
     ,   m_parentChunk   (&fullChunk)
     ,   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
-
-    ,   made            (false)
-    ,   buffered        (false)
-    ,   prepForBuild    (false)
     {
         m_aabb.update({ position.x * CHUNK_SIZE,
                         position.y * CHUNK_SIZE,
                         position.z * CHUNK_SIZE});
     }
+
+    Section::State Section::getStates()
+    {
+        return m_states;
+    }
+
 
     void Section::makeMesh()
     {
@@ -38,15 +40,15 @@ namespace Chunk
         }
 
         m_meshBuilder.generateMesh(m_meshes);
-        made = true;
+        m_states.made = true;
 
-        buffered = false;
+        m_states.buffered = false;
     }
 
     void Section::bufferMesh()
     {
         m_meshes.buffer();
-        buffered = true;
+        m_states.buffered = true;
     }
 
     void Section::tick(World& world)
