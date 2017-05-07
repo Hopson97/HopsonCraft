@@ -171,7 +171,6 @@ namespace Chunk
         return facesDrawn;
     }
 
-/**/
     bool Full_Chunk::tryGen()
     {
         for (auto& chunk : m_chunkSections)
@@ -184,20 +183,6 @@ namespace Chunk
         }
         return false;
     }
-/**/
-/*
-    Chunk::Section* Full_Chunk::tryGen()
-    {
-        for (auto& chunk : m_chunkSections)
-        {
-            if (!chunk->made)
-            {
-                return chunk.get();
-            }
-        }
-        return nullptr;
-    }
-/**/
 
     uint32_t Full_Chunk::getHeightAt(int8_t x, int8_t z) const
     {

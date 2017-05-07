@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <chrono>
+#include <thread>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Graphics.hpp>
 #include "Resource_Managers/Resource_Holder.h"
