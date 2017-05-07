@@ -14,7 +14,7 @@ namespace GUI
     ,   mp_option       (&option)
     ,   m_label         (std::move(title))
     {
-        m_quad.setSize({800, 150});
+        m_quad.setSize({500, 100});
         m_quad.setTexture(&Component::guiTexture);
         m_quad.setOutlineColor(sf::Color::Black);
         m_quad.setOutlineThickness(4);
@@ -46,7 +46,7 @@ namespace GUI
         {
             m_optionIndex = 0;
         }
-        initText(m_text, 40, m_label + ": " + m_options[m_optionIndex]);
+        initText(m_text, 24, m_label + ": " + m_options[m_optionIndex]);
         *mp_option = m_optionValues[m_optionIndex];
 
         m_text.setPosition(m_quad.getPosition());

@@ -9,12 +9,12 @@ namespace GUI
                    std::function<void(void)> function)
     :   m_function  (function)
     {
-        m_quad.setSize({800, 150});
+        m_quad.setSize({500, 100});
         m_quad.setTexture(&Component::guiTexture);
         m_quad.setOutlineColor(sf::Color::Black);
         m_quad.setOutlineThickness(4);
 
-        initText(m_text, 40, text);
+        initText(m_text, 24, text);
     }
 
     void Button::input(const sf::Event& e)

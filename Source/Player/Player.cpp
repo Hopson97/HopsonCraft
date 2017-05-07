@@ -20,5 +20,5 @@ void Player::addForce(const Vector3& force)
 void Player::update(float dt)
 {
     position    += m_velocity * dt;
-    m_velocity  = {0, 0, 0}; ///@TODO Dampen the velocity using dt
+    m_velocity  *= 0.95; ///@TODO Dampen the velocity using dt
 }
