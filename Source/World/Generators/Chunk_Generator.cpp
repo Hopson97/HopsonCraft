@@ -8,7 +8,9 @@
 #include "../World_Settings.h"
 #include "../Chunk/CFull_Chunk.h"
 
-#include "GStructures.h"
+#include "../../Libs/stb_perlin.hpp"
+
+#include "GTrees.h"
 
 
 Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
@@ -142,12 +144,12 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                     {
                         m_oakTreeLocations.push_back(pos);
                     }
-                    if (m_randomGenerator.intInRange(0, 150) < 5)
+                    if (m_randomGenerator.intInRange(0, 200) < 5)
                     {
                         m_littleBlockLoc.push_back(std::make_pair(pos,
                                                                   Block::ID::Rose));
                     }
-                    if (m_randomGenerator.intInRange(0, 45) < 5)
+                    if (m_randomGenerator.intInRange(0, 30) < 5)
                     {
                         m_littleBlockLoc.push_back(std::make_pair(pos,
                                                                   Block::ID::Tall_Grass));
@@ -198,10 +200,12 @@ void Chunk_Generator::makeHeightMap()
     {
         for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
         {
+
             int32_t height =
                 m_noiseGenerator.getValue(x, z,
                                           m_pChunk->getPosition().x,
                                           m_pChunk->getPosition().y);
+
             m_heightMap.at(x, z) = height;
             m_maxHeight = std::max(m_maxHeight, height);
         }

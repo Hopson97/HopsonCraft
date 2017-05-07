@@ -6,13 +6,13 @@
 #include <thread>
 #include <mutex>
 
-#include "Block_Editor.h"
+#include <SFML/System/Clock.hpp>
 
-#include "Chunk/CSection.h"
-#include "Chunk/CMap.h"
 
 #include "../Physics/AABB.h"
 
+#include "Chunk/CSection.h"
+#include "Chunk/CMap.h"
 #include "World_Settings.h"
 
 class Player;
