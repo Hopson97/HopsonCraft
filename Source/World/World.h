@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <memory>
+#include <thread>
+#include <mutex>
 
 #include <SFML/System/Clock.hpp>
 
@@ -36,8 +38,9 @@ class World
 
     public:
         World(const World_Settings& settings);
+        ~World();
 
-        void updateChunks();
+        void updateChunks(const Player& player);
 
         void checkPlayerBounds(Player& player);
         void drawWorld(Renderer::Master& renderer, const Camera& camera);
@@ -59,12 +62,20 @@ class World
         void buildMeshes        (const Camera& camera);
         void draw               (Renderer::Master& renderer, const Camera& camera);
 
+        void checkChunksForDelete();
+
         std::vector<New_Block> m_newBlocks;
+        std::vector<Chunk::Position> m_deleteChunks;
 
         World_Settings  m_worldSettings;
         Chunk::Map      m_chunks;
 
+        Chunk::Position m_cameraPosition;
+
         int m_loadingDistance = 1;
+        bool m_isRunning = true;
+
+        std::mutex deleteChunkMutex;
 
     public:
         ///@TODO Make this private somehow.

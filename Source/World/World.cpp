@@ -21,13 +21,67 @@ World::World(const World_Settings& worldSettings)
             m_chunks.addChunk({centre + x, centre + z}, true);
         }
     }
+
+    if (m_worldSettings.infiniteTerrain)
+    {
+        std::thread([&]()
+        {
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+            checkChunksForDelete();
+        }).detach();
+    }
 }
 
-void World::updateChunks()
+World::~World()
 {
-    for (auto& chunk : m_chunks.getChunks())
+    m_isRunning = false;
+}
+
+void World::checkChunksForDelete()
+{
+    while (m_isRunning)
     {
-        chunk.second.tick();
+        deleteChunkMutex.lock();
+
+        int minX = m_cameraPosition.x - m_worldSettings.worldSize / 2 - 1;
+        int maxX = m_cameraPosition.x + m_worldSettings.worldSize / 2 + 1;
+
+        int minZ = m_cameraPosition.y - m_worldSettings.worldSize / 2 - 1;
+        int maxZ = m_cameraPosition.y + m_worldSettings.worldSize / 2 + 1;
+
+        for (auto itr = m_chunks.getChunks().begin(); itr != m_chunks.getChunks().end(); itr++)
+        {
+            Chunk::Full_Chunk& chunk = itr->second;
+            auto location = chunk.getPosition();
+            if (location.x <= minX ||
+                location.x >= maxX ||
+                location.y <= minZ ||
+                location.y >= maxZ)
+            {
+                m_deleteChunks.push_back(location);
+            }
+        }
+        deleteChunkMutex.unlock();
+    }
+}
+
+void World::updateChunks(const Player& player)
+{
+    for (auto itr = m_chunks.getChunks().begin(); itr != m_chunks.getChunks().end(); itr++)
+    {
+        Chunk::Full_Chunk& chunk = itr->second;
+        chunk.tick();
+    }
+
+    if (!m_deleteChunks.empty())
+    {
+        deleteChunkMutex.lock();
+        for (Chunk::Position& pos : m_deleteChunks)
+        {
+            m_chunks.deleteChunk(pos);
+        }
+        m_deleteChunks.clear();
+        deleteChunkMutex.unlock();
     }
 }
 
@@ -189,7 +243,7 @@ void World::buildMeshes(const Camera& camera)
         m_loadingDistance = 1;
     }
 
-    auto chunkPos = Maths::worldToChunkPos(camera.position);
+    m_cameraPosition = Maths::worldToChunkPos(camera.position);
 
     int32_t minDisX = 0;
     int32_t maxDisX = 0;
@@ -201,11 +255,11 @@ void World::buildMeshes(const Camera& camera)
 
     if (m_worldSettings.infiniteTerrain)
     {
-        minDisX = chunkPos.x - m_loadingDistance;
-        maxDisX = chunkPos.x + m_loadingDistance;
+        minDisX = m_cameraPosition.x - m_loadingDistance;
+        maxDisX = m_cameraPosition.x + m_loadingDistance;
 
-        minDisZ = chunkPos.y - m_loadingDistance;
-        maxDisZ = chunkPos.y + m_loadingDistance;
+        minDisZ = m_cameraPosition.y - m_loadingDistance;
+        maxDisZ = m_cameraPosition.y + m_loadingDistance;
     }
     else
     {

@@ -138,7 +138,7 @@ namespace State
         {
             m_pauseMenu.update();
         }
-        m_world.updateChunks();
+        m_world.updateChunks(m_player);
         m_tickRate.update();
     }
 
