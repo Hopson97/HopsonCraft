@@ -17,7 +17,7 @@ namespace GUI
         m_quad.setOutlineColor(sf::Color::Black);
         m_quad.setOutlineThickness(2);
 
-        for(auto& option : options)
+        for (auto& option : options)
         {
             m_options.emplace_back(initText(15, option));
         }

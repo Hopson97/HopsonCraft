@@ -140,55 +140,54 @@ namespace Chunk
                 continue;
             }
             for (int8_t x = 0; x < CHUNK_SIZE; ++x)
+            for (int8_t z = 0; z < CHUNK_SIZE; ++z)
             {
-                for (int8_t z = 0; z < CHUNK_SIZE; ++z)
+                Block::Small_Position blockPosition(x, y, z);
+                if(mp_section->qGetBlock(blockPosition) == Block::ID::Air)
+                    continue;
+
+                mp_activeData = &mp_section->qGetBlock(blockPosition).getData();
+                setActiveMesh(meshes);
+                if (mp_activeData->meshStyle == Block::Mesh_Style::XStyle)
                 {
-                    Block::Small_Position blockPosition(x, y, z);
-                    if(mp_section->qGetBlock(blockPosition) == Block::ID::Air)
-                        continue;
-
-                    mp_activeData = &mp_section->qGetBlock(blockPosition).getData();
-                    setActiveMesh(meshes);
-                    if (mp_activeData->meshStyle == Block::Mesh_Style::XStyle)
-                    {
-                        addXMesh(mp_activeData->bottomTextureCoords,
-                                 blockPosition);
-                        continue;
-                    }
-
-
-                    //Set local block position vectors.
-                    //This is mostly to make the if statements below to look neater.
-                    up      =   {       x,      int8_t( y + 1),     z};
-                    down    =   {       x,      int8_t( y - 1),     z};
-                    left    =   {int8_t(x - 1),         y,          z};
-                    right   =   {int8_t(x + 1),         y,          z};
-                    front   =   {       x,              y, int8_t(  z + 1)};
-                    back    =   {       x,              y, int8_t(  z - 1)};
-
-                    //Set the active mesh (Solid blocks, liquid blocks, flora blocks)
-
-
-                    //Add faces to the chunk's mesh where the adjacent block is non-opaque
-                    //Y-Faces
-                    tryAddFace(topFace, mp_activeData->topTextureCoords,
-                               blockPosition, up, TOP_LIGHT);
-
-                    tryAddFace(bottomFace, mp_activeData->bottomTextureCoords,
-                               blockPosition, down, BOTTOM_LIGHT);
-                    //X-Faces
-                    tryAddFace(rightFace, mp_activeData->sideTextureCoords,
-                               blockPosition, right, X_LIGHT);
-
-                    tryAddFace(leftFace, mp_activeData->sideTextureCoords,
-                               blockPosition, left, X_LIGHT);
-                    //Z-Faces
-                    tryAddFace(frontFace, mp_activeData->sideTextureCoords,
-                               blockPosition, front, Z_LIGHT);
-
-                    tryAddFace(backFace, mp_activeData->sideTextureCoords,
-                               blockPosition, back, Z_LIGHT);
+                    addXMesh(mp_activeData->bottomTextureCoords,
+                                blockPosition);
+                    continue;
                 }
+
+
+                //Set local block position vectors.
+                //This is mostly to make the if statements below to look neater.
+                up      =   {       x,      int8_t( y + 1),     z};
+                down    =   {       x,      int8_t( y - 1),     z};
+                left    =   {int8_t(x - 1),         y,          z};
+                right   =   {int8_t(x + 1),         y,          z};
+                front   =   {       x,              y, int8_t(  z + 1)};
+                back    =   {       x,              y, int8_t(  z - 1)};
+
+                //Set the active mesh (Solid blocks, liquid blocks, flora blocks)
+
+
+                //Add faces to the chunk's mesh where the adjacent block is non-opaque
+                //Y-Faces
+                tryAddFace(topFace, mp_activeData->topTextureCoords,
+                            blockPosition, up, TOP_LIGHT);
+
+                tryAddFace(bottomFace, mp_activeData->bottomTextureCoords,
+                            blockPosition, down, BOTTOM_LIGHT);
+                //X-Faces
+                tryAddFace(rightFace, mp_activeData->sideTextureCoords,
+                            blockPosition, right, X_LIGHT);
+
+                tryAddFace(leftFace, mp_activeData->sideTextureCoords,
+                            blockPosition, left, X_LIGHT);
+                //Z-Faces
+                tryAddFace(frontFace, mp_activeData->sideTextureCoords,
+                            blockPosition, front, Z_LIGHT);
+
+                tryAddFace(backFace, mp_activeData->sideTextureCoords,
+                            blockPosition, back, Z_LIGHT);
+
             }
         }
 

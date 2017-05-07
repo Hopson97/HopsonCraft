@@ -24,7 +24,7 @@ namespace Renderer
         Display::get().resetGLStates();
 
 
-        for(const auto& sfd : m_drawables)
+        for (const auto& sfd : m_drawables)
         {
             Display::sfDraw(*sfd);
         }

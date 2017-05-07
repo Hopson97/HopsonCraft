@@ -8,8 +8,6 @@
 #include "../World_Settings.h"
 #include "../Chunk/CFull_Chunk.h"
 
-#include "../../Libs/stb_perlin.hpp"
-
 #include "GTrees.h"
 
 
@@ -44,21 +42,16 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
     makeBiomeMap();
     makeHeightMap();
 
-
     m_maxHeight = std::max(m_maxHeight, WATER_LEVEL);
 
     for (int y = 0; y < m_maxHeight + 1; ++y)
+    for (int x = 0; x < CHUNK_SIZE; ++x)
+    for (int z = 0; z < CHUNK_SIZE; ++z)
     {
-        for (int x = 0; x < CHUNK_SIZE; ++x)
+        auto block = getBlock({x, y, z});
+        if (block != Block::ID::Air)
         {
-            for (int z = 0; z < CHUNK_SIZE; ++z)
-            {
-                auto block = getBlock({x, y, z});
-                if (block != Block::ID::Air)
-                {
-                    chunk.qSetBlock({x, y, z}, block);
-                }
-            }
+            chunk.qSetBlock({x, y, z}, block);
         }
     }
 
@@ -197,33 +190,28 @@ void Chunk_Generator::setRandomSeed()
 void Chunk_Generator::makeHeightMap()
 {
     for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
+    for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
     {
-        for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
-        {
+        int32_t height =
+            m_noiseGenerator.getValue(x, z,
+                                    m_pChunk->getPosition().x,
+                                    m_pChunk->getPosition().y);
 
-            int32_t height =
-                m_noiseGenerator.getValue(x, z,
-                                          m_pChunk->getPosition().x,
-                                          m_pChunk->getPosition().y);
-
-            m_heightMap.at(x, z) = height;
-            m_maxHeight = std::max(m_maxHeight, height);
-        }
+        m_heightMap.at(x, z) = height;
+        m_maxHeight = std::max(m_maxHeight, height);
     }
 }
 
 void Chunk_Generator::makeBiomeMap()
 {
     for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
+    for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
     {
-        for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
-        {
-            int32_t height =
-                m_biomeNoise.getValue(x, z,
-                                      m_pChunk->getPosition().x + 3,
-                                      m_pChunk->getPosition().y + 3);
-            m_biomeMap.at(x, z) = height;
-        }
+        int32_t height =
+            m_biomeNoise.getValue(x, z,
+                                m_pChunk->getPosition().x + 3,
+                                m_pChunk->getPosition().y + 3);
+        m_biomeMap.at(x, z) = height;
     }
 }
 
