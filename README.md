@@ -17,17 +17,17 @@ Compile using compiler flags: ``-std=c++14 -O3 -s -lsfml-graphics -lsfml-audio -
 ## Contributing
 An easy way to contribute is to look for the ``///@TODO`` parts in the code. please actually test before doing a pull request.
 
+Please follow CODESTYLE.md if you plan to contribute!
+
 ## Description
 Simple Minecraft clone written using C++.
 
 ## Screenshots
-![Valley](http://i.imgur.com/pDkpGmN.png "Valley")
+![Trees](http://i.imgur.com/4yvLWQE.png "Trees")
 
-![Mountain](http://i.imgur.com/HLMnOjZ.png "Mountain")
+![Mountain](http://i.imgur.com/4FKz3it.png "Mountain")
 
-![View](http://i.imgur.com/Bl5CFdI.png "View")
-
-Note: Some of these pictures may be from older versions of the game.
+![Cliff](http://i.imgur.com/PGaiYCB.png "Cliff")
 
 ## Implementation details
 
@@ -41,7 +41,7 @@ The 16x16x16 chunks are then made into a mesh, and drawn.
 #### Rendering
 The camera class stores an object of a "Frustum" type. This is used to cull out anything (For now, just chunk sections) that is not within the field of view, which increases performance a fair amount.
 
-Each major mesh type has it's own shader and renderer class, each with their own unique responsabilities. 
+Each major mesh type has it's own shader and renderer class, each with their own unique responsabilities.
 
 For example, the solid chunk renderer enables face-culling and disables blending before drawing, and the liquid renderer disables face-culling, enables blending, and also uploads a time variable to the "Liquid Shader" so it can have a wave effect.
 
@@ -57,7 +57,7 @@ Coming soon...
 
 ## Credits
 
-#### Design 
+#### Design
 Matthew Hopson, https://github.com/Hopson97/
 
 #### Programming
