@@ -19,11 +19,16 @@ void Application::runMainGameLoop()
 {
     sf::Clock gameTimer;
 
+    auto MS_PER_UPDATE = 0.0083; //120 TPS
+
     float lastTime = gameTimer.getElapsedTime().asSeconds();
+    float lag = 0.0f;
     while (Display::isOpen())
     {
         float current = gameTimer.getElapsedTime().asSeconds();
         float elapsed = current - lastTime;
+        lastTime = current;
+        lag += elapsed;
 
         sf::Event e;
         while (Display::get().pollEvent(e))
@@ -36,13 +41,18 @@ void Application::runMainGameLoop()
         }
 
         m_states.back()->input  (m_camera);
-        update(elapsed);
+
+        while (lag >= MS_PER_UPDATE)
+        {
+            update(elapsed);
+            lag -= MS_PER_UPDATE;
+        }
         m_states.back()->draw   (m_renderer);
 
         m_renderer.clear();
         m_renderer.update(m_camera);
 
-        lastTime = current;
+
     }
 }
 

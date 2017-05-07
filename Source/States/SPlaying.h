@@ -50,7 +50,8 @@ namespace State
             World               m_world;
             HUD                 m_hud;
             Player              m_player;
-            Frame_Time_Checker  m_frameTimeChecker;
+            Frame_Time_Checker  m_tickRate;
+            Frame_Time_Checker  m_frameRate;
             Quad                m_quady;
 
             GUI::Panel m_pauseMenu;

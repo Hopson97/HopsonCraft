@@ -10,8 +10,7 @@
 Player::Player(Camera& camera)
 :   m_p_camera  (&camera)
 ,   box         ({0.5, 0.5, 0.5})
-{
-}
+{ }
 
 void Player::addForce(const Vector3& force)
 {
@@ -21,8 +20,5 @@ void Player::addForce(const Vector3& force)
 void Player::update(float dt)
 {
     position    += m_velocity * dt;
-    m_velocity  *= 0.95;
-
-    if(m_isFlying)
-        m_velocity.y *= 0.98;
+    m_velocity  = {0, 0, 0}; ///@TODO Dampen the velocity using dt
 }

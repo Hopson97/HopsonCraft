@@ -157,11 +157,12 @@ namespace State
         m_world.checkPlayerBounds(m_player);
         m_world.updateChunks();
 
-        m_frameTimeChecker.update();
+        m_tickRate.update();
     }
 
     void Playing::draw(Renderer::Master& renderer)
     {
+        m_frameRate.update();
         if (m_isPaused)
         {
             m_pauseMenu.draw(renderer);
@@ -198,8 +199,10 @@ namespace State
 
         m_hud.debug.addDebugSector("Seed: %.0f",    {0, getYPosition()},  &m_world.getWorldSettings().seed);
 
-        m_hud.debug.addDebugSector("Frame Time: %fms",  {0, getYPosition()},  &m_frameTimeChecker.getFrameTime());
-        m_hud.debug.addDebugSector("FPS: %.0f",         {0, getYPosition()},  &m_frameTimeChecker.getFPS());
+        m_hud.debug.addDebugSector("Tick Time:  %fms",  {0, getYPosition()},  &m_tickRate.getFrameTime());
+        m_hud.debug.addDebugSector("Frame Time: %fms",  {0, getYPosition()},  &m_frameRate.getFrameTime());
+        m_hud.debug.addDebugSector("TPS: %.0f",         {0, getYPosition()},  &m_tickRate.getFPS());
+        m_hud.debug.addDebugSector("FPS: %.0f",         {0, getYPosition()},  &m_frameRate.getFPS());
         m_hud.debug.addDebugSector("Faces drawn: %.0f", {0, getYPosition()},  &m_world.m_facesDrawn);
 
         m_hud.debug.addDebugSector("Player Position: X: %.1f",  {0, getYPosition()},  &m_player.position.x);
