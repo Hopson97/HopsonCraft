@@ -12,13 +12,6 @@ World::World(const World_Settings& worldSettings)
 :   m_worldSettings (worldSettings)
 ,   m_chunks        (*this)
 {
-/*
-    m_workers.emplace_back(std::make_unique<std::thread>([&]()
-    {
-        f();
-    }));
-*/
-
     //Just loads a few chunks in the centre. This causes the world to open instantly.
     int32_t centre = getWorldSettings().worldSize / 2;
     for (int32_t x = -1 ; x <= 1; x++)
@@ -27,24 +20,6 @@ World::World(const World_Settings& worldSettings)
         {
             m_chunks.addChunk({centre + x, centre + z}, true);
         }
-    }
-/*
-    for (int32_t x = 0 ; x < m_worldSettings.worldSize; x++)
-    {
-        for (int32_t z = 0; z < m_worldSettings.worldSize; z++)
-        {
-            m_chunks.addChunk({x, z}, true);
-        }
-    }
-*/
-}
-
-World::~World()
-{
-    m_isRunning = false;
-    for (auto& thread : m_workers)
-    {
-        thread->join();
     }
 }
 
@@ -303,25 +278,3 @@ AABB World::getBlockAABB(const Block::Position& position)
     blockAABB.update({position.x, position.y, position.z});
     return blockAABB;
 }
-
-//Threading test
-void World::f()
-{
-    while (m_isRunning)
-    {
-        m_buildMutex.lock();
-        if (m_buildQueue.empty())
-        {
-            m_buildMutex.unlock();
-            continue;
-        }
-        else
-        {
-            const auto& chunk = m_buildQueue.back();
-            m_buildQueue.pop_back();
-            chunk->makeMesh();
-            m_buildMutex.unlock();
-        }
-    }
-}
-

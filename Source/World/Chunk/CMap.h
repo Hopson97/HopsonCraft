@@ -4,7 +4,6 @@
 #include <unordered_map>
 #include <vector>
 #include <memory>
-#include <mutex>
 
 #include "CSection.h"
 #include "CFull_Chunk.h"
@@ -41,8 +40,6 @@ namespace Chunk
             World* mp_world = nullptr;
 
             Chunk_Generator m_chunkGenerator;
-
-            std::mutex m_chunkAddMutex;
     };
 }
 
