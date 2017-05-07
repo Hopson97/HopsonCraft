@@ -8,25 +8,11 @@
 #include "../Temp/Quad.h"
 
 #include "../GUI/GUI.h"
+#include "../Util/Time_Check.h"
 
 class Application;
 class Camera;
 class World_Settings;
-
-struct Frame_Time_Checker
-{
-    public:
-        void         update();
-        const float& getFrameTime();
-        const float& getFPS();
-
-    private:
-        sf::Clock   m_timer;
-        sf::Clock   m_updateTimer;
-        float       m_frameCount = 0;
-        float       m_frameTime  = 0;
-        float       m_fps        = 0;
-};
 
 namespace State
 {
