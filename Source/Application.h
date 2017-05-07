@@ -27,6 +27,8 @@ class Application
         void resetSong();
 
     private:
+        void update(float elapsed);
+
         void handleEvents(const sf::Event& e);
 
         std::vector<std::unique_ptr<State::Game_State>> m_states;

@@ -9,11 +9,7 @@ class Toggle
     public:
         Toggle(sf::Keyboard::Key key, sf::Time delay);
 
-        explicit operator bool()
-        {
-            checkInput();
-            return m_isToogleOn;
-        }
+        explicit operator bool();
 
     private:
         void checkInput();

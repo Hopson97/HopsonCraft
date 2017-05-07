@@ -19,13 +19,11 @@ void Application::runMainGameLoop()
 {
     sf::Clock gameTimer;
 
+    float lastTime = gameTimer.getElapsedTime().asSeconds();
     while (Display::isOpen())
     {
-        m_musicPlayer.update();
-        if (m_states.empty())
-            break;
-
-        auto elapsed = gameTimer.restart().asSeconds();
+        float current = gameTimer.getElapsedTime().asSeconds();
+        float elapsed = current - lastTime;
 
         sf::Event e;
         while (Display::get().pollEvent(e))
@@ -38,13 +36,21 @@ void Application::runMainGameLoop()
         }
 
         m_states.back()->input  (m_camera);
-        m_states.back()->update (m_camera, elapsed);
-        m_camera.update();
+        update(elapsed);
         m_states.back()->draw   (m_renderer);
 
         m_renderer.clear();
         m_renderer.update(m_camera);
+
+        lastTime = current;
     }
+}
+
+void Application::update(float elapsed)
+{
+    m_states.back()->update (m_camera, elapsed);
+    m_camera.update();
+    m_musicPlayer.update();
 }
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)

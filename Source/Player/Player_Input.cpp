@@ -67,7 +67,7 @@ void Player::keyBoardInput ()
 
 void Player::mouseInput ()
 {
-    static Toggle lock(sf::Keyboard::L, sf::seconds(2));
+    static Toggle lock(sf::Keyboard::L, sf::seconds(0.5));
 
     if (lock)
         return;

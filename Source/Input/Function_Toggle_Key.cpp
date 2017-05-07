@@ -7,6 +7,12 @@ Toggle::Toggle(sf::Keyboard::Key key, sf::Time delay)
 
 }
 
+Toggle::operator bool()
+{
+    checkInput();
+    return m_isToogleOn;
+}
+
 void Toggle::checkInput()
 {
     if (m_toggleDelay.asMilliseconds() <
