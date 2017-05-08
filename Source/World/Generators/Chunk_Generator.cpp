@@ -33,7 +33,7 @@ void Chunk_Generator::reset()
 
 void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
 {
-    m_genMutex.lock();
+    //m_genMutex.lock();
 
     m_pChunk = &chunk;
 
@@ -68,7 +68,7 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
     }
 
     chunk.hasGeneratedBlockData = true;
-    m_genMutex.unlock();
+    //m_genMutex.unlock();
 }
 
 Block::ID Chunk_Generator::getBlock(const Block::Position& pos)

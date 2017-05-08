@@ -88,12 +88,12 @@ namespace State
         std::vector<std::string> { "Smooth", "Normal", "Mountains", "Water"},
         std::vector<int32_t>     { 0,         1,           2,       3},
         m_noiseData));
-
+/*
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Infinite Terrain",
         std::vector<std::string> { "No", "Yes"  },
         std::vector<int32_t>     {  0,    1     },
         settings.infiniteTerrain));
-
+*/
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
             m_pActiveMenu = &m_frontMenu;
