@@ -23,7 +23,7 @@ namespace Chunk
                         position.z * CHUNK_SIZE});
     }
 
-    Section::State Section::getStates()
+    const Section::State& Section::getStates() const
     {
         return m_states;
     }

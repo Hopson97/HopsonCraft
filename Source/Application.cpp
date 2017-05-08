@@ -20,7 +20,7 @@ void Application::runMainGameLoop()
 {
     sf::Clock gameTimer;
 
-    auto MS_PER_UPDATE = 0.05; //120 TPS
+    auto MS_PER_UPDATE = 0.05; //20 Ticks/ updates per second
 
     float lastTime = gameTimer.getElapsedTime().asSeconds();
     float lag = 0.0f;
@@ -49,6 +49,8 @@ void Application::runMainGameLoop()
             update(elapsed);
             lag -= MS_PER_UPDATE;
         }
+        ///@TODO Are the the two update function calls able to be put in the fixed
+        ///time step thing above?
         m_camera.update();
         m_states.back()->update(m_camera, elapsed);
 
@@ -95,83 +97,3 @@ void Application::handleEvents(const sf::Event& e)
     m_states.back()->input(e);
 }
 
-
-/*
-namespace
-{
-    struct Timestep
-    {
-        public:
-            Timestep(float initialTime)
-            : m_timestep(0.0f), m_lastTime(initialTime)
-            {
-            }
-
-            void update(float currentTime)
-            {
-                m_timestep = currentTime - m_lastTime;
-                m_lastTime = currentTime;
-            }
-
-            float asSeconds() const { return asMillis() * 0.001f; }
-            float asMillis() const { return m_timestep; }
-
-        private:
-            float m_timestep;
-            float m_lastTime;
-    };
-}
-
-
-void Application::runMainGameLoop()
-{
-    sf::Clock   gameTimer;
-    Timestep    timeStep    (gameTimer.getElapsedTime().asMilliseconds());
-
-    auto timer          = 0.0f;
-    auto updateTimer    = (float)gameTimer.getElapsedTime().asMilliseconds();
-
-    uint64_t updates = 0;
-    uint64_t frames  = 0;
-
-    constexpr auto UPDATE_TIME = 1000.0f / 60.0f;    //in ms
-
-    while (Display::isOpen())
-    {
-        if (m_states.empty()) break;
-
-        sf::Event e;
-        while (Display::get().pollEvent(e))
-        {
-            handleEvents(e);
-        }
-        if (!Display::isOpen()) break;
-
-        auto now = (float)gameTimer.getElapsedTime().asMilliseconds();
-
-        //if (now - updateTimer > UPDATE_TIME)
-        {
-            timeStep.update(now);
-            ++updates;
-            updateTimer += UPDATE_TIME;
-            m_states.back()->input  (m_camera);
-            m_states.back()->update (m_camera, timeStep.asSeconds());
-            m_camera.update();
-        }
-
-        frames++;
-        sf::Clock frameTime;
-
-        m_states.back()->draw   (m_renderer);
-
-        m_renderer.clear();
-        m_renderer.update(m_camera);
-
-        if (m_shouldPopState)
-        {
-            realPopState();
-            m_shouldPopState = false;
-        }
-    }
-}
-*/

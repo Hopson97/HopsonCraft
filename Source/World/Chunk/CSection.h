@@ -23,8 +23,13 @@ namespace Chunk
     {
         struct State
         {
-            bool made = false;
-            bool buffered = false;
+            State()
+            :   made    (false)
+            ,   buffered(false)
+            { }
+
+            std::atomic<bool> made;
+            std::atomic<bool> buffered;
         };
 
         //This struct helps with optimizing the creation of the mesh
@@ -50,7 +55,7 @@ namespace Chunk
         public:
             Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk);
 
-            State getStates();
+            const State& getStates() const;
 
             void makeMesh   ();
             void bufferMesh ();

@@ -159,7 +159,6 @@ namespace Chunk
                     {
                         renderer.draw(*chunk);
                         facesDrawn += chunk->getMeshes().faceCount;
-
                     }
                     else
                     {

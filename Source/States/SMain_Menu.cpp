@@ -80,8 +80,8 @@ namespace State
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("World Size",
-        std::vector<std::string> { "Developer Mode", "Tiny", "Small", "Medium", "Large", "Huge \n Warning: Potentially high memory usage and low FPS!"},
-        std::vector<int32_t>     {  12,             20,     32,       44,      56,      68},
+        std::vector<std::string> { "Very Tiny", "Tiny", "Small", "Medium", "Large", "Huge \n Warning: Potentially high memory usage and low FPS!"},
+        std::vector<int32_t>     {  12,          20,     32,      44,       56,      68},
         settings.worldSize));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Terrain Type",

@@ -315,7 +315,8 @@ void World::draw(Renderer::Master& renderer, const Camera& camera)
     m_facesDrawn = 0;
     for (auto& chunk : m_chunks.getChunks())
     {
-        m_facesDrawn += chunk.second.draw(renderer, camera);
+        if (chunk.second.hasGeneratedBlockData)
+            m_facesDrawn += chunk.second.draw(renderer, camera);
     }
 }
 
