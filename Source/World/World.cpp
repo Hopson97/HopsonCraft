@@ -8,9 +8,10 @@
 #include "../Camera.h"
 #include "../Maths/Position_Conversion.h"
 
-World::World(const World_Settings& worldSettings)
+World::World(const World_Settings& worldSettings, const Camera& camera)
 :   m_worldSettings (worldSettings)
 ,   m_chunks        (*this)
+,   m_pCamera       (&camera)
 {
     //Just loads a few chunks in the centre. This causes the world to open instantly.
     int32_t centre = getWorldSettings().worldSize / 2;
@@ -22,21 +23,20 @@ World::World(const World_Settings& worldSettings)
         }
     }
 
-    if (m_worldSettings.infiniteTerrain)
+    std::thread([&]()
     {
-        std::thread([&]()
+        while (m_isRunning)
         {
-            std::this_thread::sleep_for(std::chrono::seconds(5));
-            checkChunksForDelete();
-        }).detach();
-    }
+            buildMeshes(*m_pCamera);
+        }
+    }).detach();
 }
 
 World::~World()
 {
     m_isRunning = false;
 }
-
+/*
 //Ran on a different thread
 void World::checkChunksForDelete()
 {
@@ -72,7 +72,7 @@ void World::checkChunksForDelete()
         deleteChunkMutex.unlock();
     }
 }
-
+*/
 void World::updateChunks(const Player& player)
 {
     for (auto itr = m_chunks.getChunks().begin(); itr != m_chunks.getChunks().end(); itr++)
@@ -80,7 +80,7 @@ void World::updateChunks(const Player& player)
         Chunk::Full_Chunk& chunk = itr->second;
         chunk.tick();
     }
-
+/*
     if (!m_deleteChunks.empty())
     {
         deleteChunkMutex.lock();
@@ -91,6 +91,7 @@ void World::updateChunks(const Player& player)
         m_deleteChunks.clear();
         deleteChunkMutex.unlock();
     }
+*/
 }
 
 
@@ -127,9 +128,13 @@ void World::qSetBlock(const Vector3& position, CBlock block)
     setBlock(position, block);
 }
 
-
 void World::setBlock(const Vector3& position, CBlock block)
 {
+    std::cout << block.getData().name   << " placed at"
+                                        << " X: " << (int)position.x
+                                        << " Y: " << (int)position.y
+                                        << " Z: " << (int)position.z << ".\n";
+
     m_newBlocks.emplace_back(block, position);
 }
 
@@ -326,7 +331,7 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
         regenerateChunks();
 
     draw(renderer, camera);
-    buildMeshes(camera);
+    //buildMeshes(camera);
 }
 
 const World_Settings& World::getWorldSettings() const

@@ -37,7 +37,7 @@ class World
     };
 
     public:
-        World(const World_Settings& settings);
+        World(const World_Settings& settings, const Camera& camera);
         ~World();
 
         void updateChunks(const Player& player);
@@ -75,7 +75,7 @@ class World
         int m_loadingDistance = 1;
         bool m_isRunning = true;
 
-        std::mutex deleteChunkMutex;
+        const Camera* m_pCamera = nullptr;
 
     public:
         ///@TODO Make this private somehow.

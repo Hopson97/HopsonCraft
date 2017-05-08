@@ -16,7 +16,7 @@ namespace State
     Playing::Playing(Application& application,
                      const World_Settings& settings)
     :   Game_State  (application)
-    ,   m_world     (settings)
+    ,   m_world     (settings, application.getCamera())
     ,   m_player    (application.getCamera())
     ,   m_pauseMenu (GUI::Layout::Center)
     {
@@ -86,7 +86,7 @@ namespace State
                 raycast.getEndPoint().z < 0 ||
                 raycast.getEndPoint().y < 1 ) return;
 
-            CBlock block = m_world.getBlock(raycast.getEndPoint());
+            auto block = m_world.getBlock(raycast.getEndPoint());
 
             if (!(block == Block::ID::Air ||
                   block == Block::ID::Water))
