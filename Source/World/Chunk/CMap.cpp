@@ -9,7 +9,7 @@
 namespace Chunk
 {
     Map::Map(World& world)
-    :   mp_world            (&world)
+    :   m_pWorld            (&world)
     ,   m_chunkGenerator    (world.getWorldSettings())
     { }
 
@@ -19,10 +19,10 @@ namespace Chunk
     {
         map.emplace(std::piecewise_construct,
                     std::forward_as_tuple(position),
-                    std::forward_as_tuple(*mp_world,
+                    std::forward_as_tuple(*m_pWorld,
                                         *this,
                                         position,
-                                        mp_world->getWorldSettings()));
+                                        m_pWorld->getWorldSettings()));
 
         if (populateBlocks)
         {

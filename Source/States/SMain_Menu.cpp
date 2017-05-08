@@ -28,7 +28,7 @@ namespace State
 
     void Main_Menu::input( const sf::Event& e)
     {
-        mp_activeMenu->input(e);
+        m_pActiveMenu->input(e);
     }
 
     void Main_Menu::input(Camera& camera)
@@ -36,12 +36,12 @@ namespace State
 
     void Main_Menu::fixedUpdate(Camera& camera, float dt)
     {
-        mp_activeMenu->update();
+        m_pActiveMenu->update();
     }
 
     void Main_Menu::draw(Renderer::Master& renderer)
     {
-        mp_activeMenu->draw(renderer);
+        m_pActiveMenu->draw(renderer);
     }
 
     void Main_Menu::onOpen()
@@ -57,16 +57,16 @@ namespace State
 
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
-            mp_activeMenu = &m_playMenu;
+            m_pActiveMenu = &m_playMenu;
         }));
 
-        mp_activeMenu->addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
+        m_pActiveMenu->addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
         { }));
 
-        mp_activeMenu->addComponent(std::make_unique<GUI::Button>("Settings (Unused)", [&]()
+        m_pActiveMenu->addComponent(std::make_unique<GUI::Button>("Settings (Unused)", [&]()
         { }));
 
-        mp_activeMenu->addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
+        m_pActiveMenu->addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
         { }));
 
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
@@ -96,7 +96,7 @@ namespace State
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
-            mp_activeMenu = &m_frontMenu;
+            m_pActiveMenu = &m_frontMenu;
 
             switch(m_noiseData)
             {
@@ -129,7 +129,7 @@ namespace State
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
         {
-            mp_activeMenu = &m_frontMenu;
+            m_pActiveMenu = &m_frontMenu;
         }));
     }
 }

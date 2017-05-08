@@ -37,7 +37,7 @@ namespace Chunk
 
             std::unordered_map<Position, Full_Chunk> m_chunksMap;
             std::unordered_map<Position, Full_Chunk> m_tempChunks;
-            World* mp_world = nullptr;
+            World* m_pWorld = nullptr;
 
             Chunk_Generator m_chunkGenerator;
     };

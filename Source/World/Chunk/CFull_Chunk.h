@@ -64,8 +64,8 @@ namespace Chunk
 
             std::vector<std::unique_ptr<Section>>   m_chunkSections;
 
-            World*      mp_world        = nullptr;
-            Map*        mp_chunkMap     = nullptr;
+            World*      m_pWorld        = nullptr;
+            Map*        m_pChunkMap     = nullptr;
             Position    m_position;
             int32_t     m_sectionCount  = 0;
     };

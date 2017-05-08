@@ -14,7 +14,7 @@ namespace Chunk
     Section::Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk)
     :   m_position      (position)
     ,   m_meshBuilder   (*this)
-    ,   mp_chunks       (&map)
+    ,   m_pChunkMap       (&map)
     ,   m_parentChunk   (&fullChunk)
     ,   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
     {
@@ -31,11 +31,13 @@ namespace Chunk
 
     void Section::makeMesh()
     {
+        //Adds chunks around this chunk so that the mesh
+        //builder can put block faces in the correct place
         for (int x = -1; x <= 1; x++)
         {
             for (int z = -1; z <= 1; z++)
             {
-                mp_chunks->addChunk({m_position.x + x, m_position.z + z}, true);
+                m_pChunkMap->addChunk({m_position.x + x, m_position.z + z}, true);
             }
         }
 

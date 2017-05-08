@@ -25,9 +25,9 @@ namespace State
         private:
             void initMenu();
 
-            GUI::Panel m_frontMenu;
-            GUI::Panel m_playMenu;
-            GUI::Panel* mp_activeMenu = &m_frontMenu;
+            GUI::Panel  m_frontMenu;
+            GUI::Panel  m_playMenu;
+            GUI::Panel* m_pActiveMenu = &m_frontMenu;
 
             int32_t m_worldSize = 0;
             int32_t m_noiseData = 0;

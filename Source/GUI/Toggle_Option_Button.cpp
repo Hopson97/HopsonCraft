@@ -11,7 +11,7 @@ namespace GUI
                                                int32_t& option)
     :   m_options       (std::move(order))
     ,   m_optionValues  (std::move(values))
-    ,   mp_option       (&option)
+    ,   m_pOption       (&option)
     ,   m_label         (std::move(title))
     {
         m_quad.setSize({500, 100});
@@ -47,7 +47,7 @@ namespace GUI
             m_optionIndex = 0;
         }
         initText(m_text, 24, m_label + ": " + m_options[m_optionIndex]);
-        *mp_option = m_optionValues[m_optionIndex];
+        *m_pOption = m_optionValues[m_optionIndex];
 
         m_text.setPosition(m_quad.getPosition());
         m_text.move(m_quad.getSize().x / 2 - m_text.getLocalBounds().width  / 2,

@@ -88,7 +88,7 @@ namespace
 namespace Chunk
 {
     Mesh_Builder::Mesh_Builder(const Section& section)
-    :   mp_section (&section)
+    :   m_pSection (&section)
     { }
 
     float sum = 0;
@@ -96,7 +96,7 @@ namespace Chunk
 
     void Mesh_Builder::setActiveMesh(Meshes& meshes)
     {
-        switch(mp_activeData->meshType)
+        switch(m_pActiveData->meshType)
         {
             case Block::Mesh_Type::Solid:
                 m_pActiveMesh = &meshes.solidMesh;
@@ -143,14 +143,14 @@ namespace Chunk
             for (int8_t z = 0; z < CHUNK_SIZE; ++z)
             {
                 Block::Small_Position blockPosition(x, y, z);
-                if(mp_section->qGetBlock(blockPosition) == Block::ID::Air)
+                if(m_pSection->qGetBlock(blockPosition) == Block::ID::Air)
                     continue;
 
-                mp_activeData = &mp_section->qGetBlock(blockPosition).getData();
+                m_pActiveData = &m_pSection->qGetBlock(blockPosition).getData();
                 setActiveMesh(meshes);
-                if (mp_activeData->meshStyle == Block::Mesh_Style::XStyle)
+                if (m_pActiveData->meshStyle == Block::Mesh_Style::XStyle)
                 {
-                    addXMesh(mp_activeData->bottomTextureCoords,
+                    addXMesh(m_pActiveData->bottomTextureCoords,
                                 blockPosition);
                     continue;
                 }
@@ -170,22 +170,22 @@ namespace Chunk
 
                 //Add faces to the chunk's mesh where the adjacent block is non-opaque
                 //Y-Faces
-                tryAddFace(topFace, mp_activeData->topTextureCoords,
+                tryAddFace(topFace, m_pActiveData->topTextureCoords,
                             blockPosition, up, TOP_LIGHT);
 
-                tryAddFace(bottomFace, mp_activeData->bottomTextureCoords,
+                tryAddFace(bottomFace, m_pActiveData->bottomTextureCoords,
                             blockPosition, down, BOTTOM_LIGHT);
                 //X-Faces
-                tryAddFace(rightFace, mp_activeData->sideTextureCoords,
+                tryAddFace(rightFace, m_pActiveData->sideTextureCoords,
                             blockPosition, right, X_LIGHT);
 
-                tryAddFace(leftFace, mp_activeData->sideTextureCoords,
+                tryAddFace(leftFace, m_pActiveData->sideTextureCoords,
                             blockPosition, left, X_LIGHT);
                 //Z-Faces
-                tryAddFace(frontFace, mp_activeData->sideTextureCoords,
+                tryAddFace(frontFace, m_pActiveData->sideTextureCoords,
                             blockPosition, front, Z_LIGHT);
 
-                tryAddFace(backFace, mp_activeData->sideTextureCoords,
+                tryAddFace(backFace, m_pActiveData->sideTextureCoords,
                             blockPosition, back, Z_LIGHT);
 
             }
@@ -203,21 +203,21 @@ namespace Chunk
     void Mesh_Builder::addXMesh(const Vector2& textureCoords,
                                 const Block::Small_Position& thisBlockPos)
     {
-        GLfloat natLight   = mp_section->qGetNaturalLight(thisBlockPos);
-        GLfloat blockLight = mp_section->qGetBlockLight  (thisBlockPos);
+        GLfloat natLight   = m_pSection->qGetNaturalLight(thisBlockPos);
+        GLfloat blockLight = m_pSection->qGetBlockLight  (thisBlockPos);
 
         auto tex = Block::Database::get().textures.getTextureCoords(textureCoords);
 
         m_pActiveMesh->addFace(xMesh1,
                                tex,
                                {X_LIGHT, natLight, blockLight},
-                               mp_section->getPosition(),
+                               m_pSection->getPosition(),
                                thisBlockPos);
 
         m_pActiveMesh->addFace(xMesh2,
                                tex,
                                {X_LIGHT, natLight, blockLight},
-                               mp_section->getPosition(),
+                               m_pSection->getPosition(),
                                thisBlockPos);
     }
 
@@ -230,13 +230,13 @@ namespace Chunk
     {
         if (shouldMakeFaceAdjTo(adjacentBlockPosition))
         {
-            GLfloat natLight   = mp_section->getNaturalLight(adjacentBlockPosition);
-            GLfloat blockLight = mp_section->getBlockLight(adjacentBlockPosition);
+            GLfloat natLight   = m_pSection->getNaturalLight(adjacentBlockPosition);
+            GLfloat blockLight = m_pSection->getBlockLight(adjacentBlockPosition);
 
             m_pActiveMesh->addFace(face,
                                    Block::Database::get().textures.getTextureCoords(textureCoords),
                                    {cardinalLight, natLight, blockLight},
-                                   mp_section->getPosition(),
+                                   m_pSection->getPosition(),
                                    thisBlockPos);
         }
     }
@@ -251,7 +251,7 @@ namespace Chunk
     {
         auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)
         {
-            const Section* c = mp_section->getAdjacentSection({xd, zd});
+            const Section* c = m_pSection->getAdjacentSection({xd, zd});
             if(!c)
             {
                 return true;
@@ -262,9 +262,9 @@ namespace Chunk
             }
         };
 
-        return mp_section->getLayer             (yPosition)      .opaqueCount < CHUNK_AREA ||
-               mp_section->getLayer             (yPosition + 1)  .opaqueCount < CHUNK_AREA ||
-               mp_section->getLayer             (yPosition - 1)  .opaqueCount < CHUNK_AREA ||
+        return m_pSection->getLayer             (yPosition)      .opaqueCount < CHUNK_AREA ||
+               m_pSection->getLayer             (yPosition + 1)  .opaqueCount < CHUNK_AREA ||
+               m_pSection->getLayer             (yPosition - 1)  .opaqueCount < CHUNK_AREA ||
                hasAdjLayerGotTranslucentBlock   ( 1,  0) ||
                hasAdjLayerGotTranslucentBlock   (-1,  0) ||
                hasAdjLayerGotTranslucentBlock   ( 0, -1) ||
@@ -273,14 +273,14 @@ namespace Chunk
 
     bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
     {
-        auto block = mp_section->getBlock(pos);
+        auto block = m_pSection->getBlock(pos);
         const Block::Data_Holder& data = block.getData();
 
         if (block == Block::ID::Air)
         {
             return true;
         }
-        else if ((data.blockID != mp_activeData->blockID) &&
+        else if ((data.blockID != m_pActiveData->blockID) &&
                  !data.isOpaque)
         {
             return true;

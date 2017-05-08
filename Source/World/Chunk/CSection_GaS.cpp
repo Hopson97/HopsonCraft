@@ -11,7 +11,7 @@ namespace Chunk
     //Blocks
     void Section::setBlock(Block::Small_Position& position, CBlock block)
     {
-        const auto& section = getSection(position, this, *mp_chunks);
+        const auto& section = getSection(position, this, *m_pChunkMap);
         if(section)
         {
             section->qSetBlock(position, block);
@@ -23,7 +23,7 @@ namespace Chunk
 
     CBlock Section::getBlock(Block::Small_Position& position) const
     {
-        const auto&  section = getConstSection(position, this, *mp_chunks);
+        const auto&  section = getConstSection(position, this, *m_pChunkMap);
         return  section ?
                 section->qGetBlock(position) :
                 Block::ID::Air;
@@ -34,7 +34,7 @@ namespace Chunk
     //Natural Light
     void Section::setNaturalLight(Block::Small_Position& position, uint8_t value)
     {
-        const auto& section = getSection(position, this, *mp_chunks);
+        const auto& section = getSection(position, this, *m_pChunkMap);
         if(section)
         {
             section->qSetNaturalLight(position, value);
@@ -43,7 +43,7 @@ namespace Chunk
 
     uint8_t Section::getNaturalLight(Block::Small_Position& position) const
     {
-        const auto& section = getConstSection(position, this, *mp_chunks);
+        const auto& section = getConstSection(position, this, *m_pChunkMap);
 
         return  section ?
                 section->qGetNaturalLight(position) :
@@ -54,7 +54,7 @@ namespace Chunk
     //Block lights
     void Section::setBlockLight(Block::Small_Position& position, uint8_t value)
     {
-        const auto& section = getSection(position, this, *mp_chunks);
+        const auto& section = getSection(position, this, *m_pChunkMap);
         if(section)
         {
             section->qSetBlockLight(position, value);
@@ -63,7 +63,7 @@ namespace Chunk
 
     uint8_t Section::getBlockLight(Block::Small_Position& position) const
     {
-        const auto& section = getConstSection(position, this, *mp_chunks);
+        const auto& section = getConstSection(position, this, *m_pChunkMap);
         if(section)
         {
             return section->qGetBlockLight(position);
@@ -119,7 +119,7 @@ namespace Chunk
         ///@TODO This to use better bounds
         if (y == -1)
         {
-            const auto& chunk = mp_chunks->get({m_position.x, m_position.y - 1, m_position.z});
+            const auto& chunk = m_pChunkMap->get({m_position.x, m_position.y - 1, m_position.z});
             if(!chunk)
             {
                 return errorLayer;
@@ -128,7 +128,7 @@ namespace Chunk
         }
         else if (y == CHUNK_SIZE)
         {
-            const Section* chunk = mp_chunks->get({m_position.x, m_position.y + 1, m_position.z});
+            const Section* chunk = m_pChunkMap->get({m_position.x, m_position.y + 1, m_position.z});
             if(!chunk)
             {
                 return errorLayer;
@@ -144,7 +144,7 @@ namespace Chunk
 
     const Section* Section::getAdjacentSection(const Vector2& change) const
     {
-        return mp_chunks->get({ m_position.x + (int32_t)change.x,
+        return m_pChunkMap->get({ m_position.x + (int32_t)change.x,
                                 m_position.y,
                                 m_position.z + (int32_t)change.y});
     }

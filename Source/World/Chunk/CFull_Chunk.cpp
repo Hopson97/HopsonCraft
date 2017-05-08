@@ -22,8 +22,8 @@ namespace Chunk
                            Map& map,
                            const Position& position,
                            const World_Settings& settings)
-    :   mp_world    {&world}
-    ,   mp_chunkMap {&map}
+    :   m_pWorld    {&world}
+    ,   m_pChunkMap {&map}
     ,   m_position  {position}
     { }
 
@@ -32,7 +32,7 @@ namespace Chunk
     {
         for (auto& chunk : m_chunkSections)
         {
-            chunk->tick(*mp_world);
+            chunk->tick(*m_pWorld);
         }
     }
 
@@ -133,7 +133,7 @@ namespace Chunk
         Chunklet_Position position (m_position.x, m_sectionCount++, m_position.y);
 
         m_chunkSections.push_back(std::make_unique<Section>(position,
-                                                            *mp_chunkMap,
+                                                            *m_pChunkMap,
                                                             *this));
     }
 

@@ -39,9 +39,9 @@ namespace Chunk
             bool shouldMakeFaceAdjTo(Block::Small_Position& pos) const;
             void setActiveMesh(Meshes& meshes);
 
-            Mesh*           m_pActiveMesh;
-            const Section*  mp_section;
-            const Block::Data_Holder*   mp_activeData;
+            Mesh*                       m_pActiveMesh;
+            const Section*              m_pSection;
+            const Block::Data_Holder*   m_pActiveData;
 
 
     };

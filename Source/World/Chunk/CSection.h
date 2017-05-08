@@ -105,7 +105,7 @@ namespace Chunk
             Mesh_Builder m_meshBuilder;
             Meshes       m_meshes;
 
-            Map* mp_chunks;
+            Map* m_pChunkMap;
             Full_Chunk* m_parentChunk;
 
             AABB m_aabb;

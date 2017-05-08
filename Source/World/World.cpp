@@ -249,6 +249,7 @@ void World::regenerateChunks()
 
 //Generates meshes for the chunks.
 //It does this in a sort of radius starting from the middle of the world
+//This is ran concurrently alongside the main render/ update thread
 void World::buildMeshes(const Camera& camera)
 {
     if (m_loadingDistance == ((m_worldSettings.worldSize / 2) + 1))
@@ -331,7 +332,6 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
         regenerateChunks();
 
     draw(renderer, camera);
-    //buildMeshes(camera);
 }
 
 const World_Settings& World::getWorldSettings() const
