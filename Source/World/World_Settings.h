@@ -12,7 +12,7 @@ struct World_Settings
     float       seed;
     Noise::Data noiseData;
     int32_t worldSize;
-    int32_t infiniteTerrain;
+    int32_t infiniteTerrain = 0;
 };
 
 #endif // WORLD_SETTINGS_H_INCLUDED

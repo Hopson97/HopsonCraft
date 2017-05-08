@@ -64,8 +64,9 @@ class World
 
         void checkChunksForDelete();
 
-        std::vector<New_Block> m_newBlocks;
-        std::vector<Chunk::Position> m_deleteChunks;
+        std::vector<New_Block>          m_newBlocks;
+        std::vector<std::thread>        m_threads;
+        std::vector<Chunk::Position>    m_deleteChunks;
 
         World_Settings  m_worldSettings;
         Chunk::Map      m_chunks;

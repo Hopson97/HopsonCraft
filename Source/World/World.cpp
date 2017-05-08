@@ -23,18 +23,23 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
         }
     }
 
-    std::thread([&]()
+    m_threads.emplace_back([&]()
     {
         while (m_isRunning)
         {
             buildMeshes(*m_pCamera);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
-    }).detach();
+    });
 }
 
 World::~World()
 {
     m_isRunning = false;
+    for (auto& thread : m_threads)
+    {
+        thread.join();
+    }
 }
 /*
 //Ran on a different thread
@@ -75,23 +80,16 @@ void World::checkChunksForDelete()
 */
 void World::updateChunks(const Player& player)
 {
+    if (!m_newBlocks.empty())
+    {
+        regenerateChunks();
+    }
+
     for (auto itr = m_chunks.getChunks().begin(); itr != m_chunks.getChunks().end(); itr++)
     {
         Chunk::Full_Chunk& chunk = itr->second;
         chunk.tick();
     }
-/*
-    if (!m_deleteChunks.empty())
-    {
-        deleteChunkMutex.lock();
-        for (Chunk::Position& pos : m_deleteChunks)
-        {
-            m_chunks.deleteChunk(pos);
-        }
-        m_deleteChunks.clear();
-        deleteChunkMutex.unlock();
-    }
-*/
 }
 
 
@@ -130,11 +128,6 @@ void World::qSetBlock(const Vector3& position, CBlock block)
 
 void World::setBlock(const Vector3& position, CBlock block)
 {
-    std::cout << block.getData().name   << " placed at"
-                                        << " X: " << (int)position.x
-                                        << " Y: " << (int)position.y
-                                        << " Z: " << (int)position.z << ".\n";
-
     m_newBlocks.emplace_back(block, position);
 }
 
@@ -328,9 +321,6 @@ void World::draw(Renderer::Master& renderer, const Camera& camera)
 
 void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
-    if (!m_newBlocks.empty())
-        regenerateChunks();
-
     draw(renderer, camera);
 }
 
