@@ -191,6 +191,8 @@ namespace Chunk
             }
         }
 
+        meshes.update();
+
         float timeForGen = timer.getElapsedTime().asSeconds();
         sum += timeForGen;
 

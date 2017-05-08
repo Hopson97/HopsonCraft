@@ -145,7 +145,7 @@ namespace Chunk
         for (auto& chunk : m_chunkSections)
         {
             //No point trying to render a chunk with no faces
-            if (chunk->getMeshes().hasFaces())
+            if (chunk->getMeshes().hasFaces)
             {
                 //Frustum test
                 if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
@@ -158,7 +158,7 @@ namespace Chunk
                     if (chunk->getStates().buffered)
                     {
                         renderer.draw(*chunk);
-                        facesDrawn += chunk->getMeshes().getFacesCount();
+                        facesDrawn += chunk->getMeshes().faceCount;
 
                     }
                     else

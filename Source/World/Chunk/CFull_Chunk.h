@@ -51,6 +51,8 @@ namespace Chunk
 
             uint32_t getHeightAt(int8_t x, int8_t z) const;
 
+            bool hasDeleteFlag = false;
+
         private:
             void addSections(uint32_t blockTarget);
             void initBasicSunlight();

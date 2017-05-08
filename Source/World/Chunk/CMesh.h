@@ -45,26 +45,22 @@ namespace Chunk
         Mesh floraMesh;
         Mesh liquidMesh;
 
+        int faceCount = 0;
+        bool hasFaces = false;
+
+        void update()
+        {
+            faceCount = solidMesh.getFaceCount() +
+                        floraMesh.getFaceCount() +
+                        liquidMesh.getFaceCount();
+            hasFaces = faceCount > 0;
+        }
+
         void buffer()
         {
-           solidMesh    .buffer();
-           floraMesh    .buffer();
-           liquidMesh   .buffer();
-        }
-
-        bool hasFaces() const
-        {
-            return  solidMesh   .getFaceCount() > 0    ||
-                    floraMesh   .getFaceCount() > 0    ||
-                    liquidMesh  .getFaceCount() > 0;
-
-        }
-
-        uint32_t getFacesCount() const
-        {
-            return  solidMesh.getFaceCount() +
-                    floraMesh.getFaceCount() +
-                    liquidMesh.getFaceCount();
+            solidMesh    .buffer();
+            floraMesh    .buffer();
+            liquidMesh   .buffer();
         }
     };
 }

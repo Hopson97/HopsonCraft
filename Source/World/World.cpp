@@ -37,15 +37,16 @@ World::~World()
     m_isRunning = false;
 }
 
+//Ran on a different thread
 void World::checkChunksForDelete()
 {
     while (m_isRunning)
     {
         deleteChunkMutex.lock();
 
+        //Bounds of where chunks are allowed to exist
         int minX = m_cameraPosition.x - m_worldSettings.worldSize / 2 - 1;
         int maxX = m_cameraPosition.x + m_worldSettings.worldSize / 2 + 1;
-
         int minZ = m_cameraPosition.y - m_worldSettings.worldSize / 2 - 1;
         int maxZ = m_cameraPosition.y + m_worldSettings.worldSize / 2 + 1;
 
@@ -53,12 +54,19 @@ void World::checkChunksForDelete()
         {
             Chunk::Full_Chunk& chunk = itr->second;
             auto location = chunk.getPosition();
+
+            //Check bounds
             if (location.x <= minX ||
                 location.x >= maxX ||
                 location.y <= minZ ||
                 location.y >= maxZ)
             {
-                m_deleteChunks.push_back(location);
+                //If the chunk is outside of the bounds of the render distance, then add the position of it into a delete vector
+                if (!chunk.hasDeleteFlag)
+                {
+                    chunk.hasDeleteFlag = true;
+                    m_deleteChunks.push_back(location);
+                }
             }
         }
         deleteChunkMutex.unlock();
