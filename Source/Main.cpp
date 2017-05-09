@@ -16,16 +16,11 @@
 #ifdef __WIN32
     #include <windows.h>
 
-    //Enable dedicated graphics for NVIDIA:
+    //Enable dedicated graphics
     extern "C"
     {
-      __declspec(dllexport) bool NvOptimusEnablement = true;
-    }
-
-    //Enable dedicated graphics for AMD Radeon:
-    extern "C"
-    {
-      __declspec(dllexport) bool AmdPowerXpressRequestHighPerformance = true;
+        __declspec(dllexport) bool NvOptimusEnablement = true;
+        __declspec(dllexport) bool AmdPowerXpressRequestHighPerformance = true;
     }
 #endif // __WIN32
 

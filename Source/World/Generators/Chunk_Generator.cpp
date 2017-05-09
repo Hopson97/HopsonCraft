@@ -112,7 +112,7 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
 
     int biome = m_biomeMap.at(pos.x, pos.z);
 
-    if (biome < 120)
+    if (biome < 136)
     {
         biomeType = Grassland;
     }
