@@ -60,13 +60,13 @@ namespace State
             m_pActiveMenu = &m_playMenu;
         }));
 
-        m_pActiveMenu->addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
         { }));
 
-        m_pActiveMenu->addComponent(std::make_unique<GUI::Button>("Settings (Unused)", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Settings (Unused)", [&]()
         { }));
 
-        m_pActiveMenu->addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
         { }));
 
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
