@@ -18,6 +18,12 @@ namespace State
 {
     class Playing : public Game_State
     {
+        struct Hit_Info
+        {
+            bool    isHit = false;
+            Vector3 location;
+        } m_hitInfo;
+
         public:
             Playing(Application& application,
                     const World_Settings& settings);

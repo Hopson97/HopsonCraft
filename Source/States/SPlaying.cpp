@@ -78,6 +78,8 @@ namespace State
 
         static sf::Clock timer;
 
+        m_hitInfo.isHit = false;
+
         for (uint32_t i = 0; i < 5 / 0.1; i++)
         {
             raycast.step(0.1);
@@ -92,6 +94,13 @@ namespace State
                   block == Block::ID::Water))
             {
                 constexpr static float delay = 0.15f;
+
+                m_hitInfo.isHit     = true;
+                m_hitInfo.location  = {(int)raycast.getEndPoint().x,
+                                       (int)raycast.getEndPoint().y,
+                                       (int)raycast.getEndPoint().z};
+
+
 
                 if (timer.getElapsedTime().asSeconds() > delay)
                 {
@@ -151,6 +160,11 @@ namespace State
         }
         m_world.drawWorld(renderer, m_application->getCamera());
         renderer.draw(m_quady);
+
+        if (m_hitInfo.isHit)
+        {
+            renderer.draw(m_hitInfo.location);
+        }
 
         m_hud.draw(renderer);
 
