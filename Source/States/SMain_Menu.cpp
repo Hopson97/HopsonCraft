@@ -51,6 +51,21 @@ namespace State
 
     void Main_Menu::initMenu()
     {
+        /*
+            Mountains Seeds:
+            *   92879 - VERY TALL MOUTAIN
+            *   5184
+            *   72390 - Very cool valleys
+        */
+
+
+        Noise::Data nSmooth     {4, WATER_LEVEL,    0.4,    500         };
+        Noise::Data nNormal     {7, 85,             0.51,   235, -15    };
+        Noise::Data nMountains  {8, 550,            0.50,   283, -395   };
+        Noise::Data nWater      {7, 43,             0.5,    55          };
+        Noise::Data nHilly      {7, 100,            0.52,   230  -10    };
+
+        //Front menu
         m_frontMenu.addPadding(100);
         m_frontMenu.addBackgroud(*m_pMenuBackground);
         m_frontMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
@@ -79,51 +94,27 @@ namespace State
         m_playMenu.addBackgroud(*m_pMenuBackground);
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
-        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("World Size",
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<int32_t>>("World Size",
         std::vector<std::string> { "Very Tiny", "Tiny", "Small", "Medium", "Large", "Huge \n Warning: Potentially high memory usage and low FPS!"},
         std::vector<int32_t>     {  12,          20,     32,      44,       56,      68},
         settings.worldSize));
 
-        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Terrain Type",
-        std::vector<std::string> { "Smooth", "Normal", "Mountains", "Water"},
-        std::vector<int32_t>     { 0,         1,           2,       3},
-        m_noiseData));
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<Noise::Data>>("Terrain Type",
+        std::vector<std::string> { "Smooth", "Normal", "Mountains", "Water", "Hilly"},
+        std::vector<Noise::Data> { nSmooth,  nNormal,  nMountains,  nWater,  nHilly},
+        settings.noiseData));
+
 /*
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button>("Infinite Terrain",
         std::vector<std::string> { "No", "Yes"  },
         std::vector<int32_t>     {  0,    1     },
         settings.infiniteTerrain));
 */
+
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
             m_pActiveMenu = &m_frontMenu;
-
-            switch(m_noiseData)
-            {
-                case 0:
-                    settings.noiseData = {4, WATER_LEVEL, 0.4, 500};
-                    break;
-
-                case 1:
-                    //settings.noiseData = {7, 76, 0.51, 235, -18};
-                    settings.noiseData = {7, 85, 0.51, 235, -15};
-                    break;
-
-                case 2:
-                    //seeds:
-                    //92879 - VERY TALL MOUTAIN
-                    //5184
-                    //72390 - Very cool valleys
-                    settings.noiseData = {8, 550, 0.50, 283, -395};
-                    break;
-
-                case 3:
-                    settings.noiseData = {7, 43, 0.5, 55};
-                    break;
-            }
-
             settings.seed = Random::intInRange(0, 99'999);
-
             m_application->pushState(std::make_unique<State::Playing>(*m_application, settings));
         }));
 
