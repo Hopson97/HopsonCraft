@@ -36,8 +36,36 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
     m_genMutex.lock();
 
     m_pChunk = &chunk;
-
     reset();
+
+    //Makes a superflat world
+    if (m_pWorldSettings->isSuperFlat)
+    {
+        for (int y = 0; y < CHUNK_SIZE; ++y)
+        for (int x = 0; x < CHUNK_SIZE; ++x)
+        for (int z = 0; z < CHUNK_SIZE; ++z)
+        {
+            Block::ID block = Block::ID::Grass;
+            if (y == CHUNK_SIZE - 1)
+            {
+                block = Block::ID::Grass;
+            }
+            else if (Maths::inRange(y, 12, 15))
+            {
+                block = Block::ID::Dirt;
+            }
+            else
+            {
+                block = Block::ID::Stone;
+            }
+
+             chunk.qSetBlock({x, y, z}, block);
+        }
+        chunk.hasGeneratedBlockData = true;
+        m_genMutex.unlock();
+        return;
+    }
+
     setRandomSeed();
     makeBiomeMap();
     makeHeightMap();
@@ -64,7 +92,7 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
     //Make trees
     for (auto& pos : m_oakTreeLocations)
     {
-        makeOakTree(*m_pChunk, pos, m_randomGenerator);
+        makeOakTree(chunk, pos, m_randomGenerator);
     }
 
     chunk.hasGeneratedBlockData = true;

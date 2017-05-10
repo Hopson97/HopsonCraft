@@ -104,7 +104,7 @@ void World::checkPlayerBounds(Player& player)
         player.position.z = 0.2;
     }
 
-    if (m_worldSettings.infiniteTerrain)
+    if (m_worldSettings.isInfiniteTerrain)
     {
         return;
     }
@@ -260,7 +260,7 @@ void World::buildMeshes(const Camera& camera)
 
     bool isMeshMade = false;
 
-    if (m_worldSettings.infiniteTerrain)
+    if (m_worldSettings.isInfiniteTerrain)
     {
         minDisX = m_cameraPosition.x - m_loadingDistance;
         maxDisX = m_cameraPosition.x + m_loadingDistance;

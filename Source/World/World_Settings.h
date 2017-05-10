@@ -9,10 +9,11 @@
 struct World_Settings
 {
     std::string name;
-    float       seed;
     Noise::Data noiseData;
-    int32_t worldSize;
-    int32_t infiniteTerrain = 0;
+    int32_t     worldSize;
+    float       seed;
+    bool        isInfiniteTerrain  = false;
+    bool        isSuperFlat        = false;
 };
 
 #endif // WORLD_SETTINGS_H_INCLUDED
