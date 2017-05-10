@@ -114,10 +114,8 @@ namespace State
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
-            if (settings.noiseData.octaves == 0)
-            {
-                settings.isSuperFlat = true;
-            }
+
+            settings.isSuperFlat = (settings.noiseData.octaves == 0);
 
             m_pActiveMenu = &m_frontMenu;
             settings.seed = Random::intInRange(0, 99'999);

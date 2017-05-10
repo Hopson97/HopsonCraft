@@ -129,21 +129,30 @@ void World::qSetBlock(const Vector3& position, CBlock block)
 void World::setBlock(const Vector3& position, CBlock block)
 {
     m_newBlocks.emplace_back(block, position);
+
+    for (int y = -1; y <= 1; y++)
+    for (int x = -1; x <= 1; x++)
+    for (int z = -1; z <= 1; z++)
+    {
+        getBlock(position + Vector3{x, y, z}).getType().trigger(*this, {int(position.x + x),
+                                                                        int(position.y + y),
+                                                                        int(position.z + z)});
+    }
 }
 
 CBlock World::getBlock(const Vector3& position)
 {
-    auto    chunkPosition   = Maths::worldToChunkletPos(position);
-    auto    blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(position));
+    auto chunkPos = Maths::worldToChunkPos(position);
 
-    const auto& chunk = m_chunks.get(chunkPosition);
-
-    if (!chunk)
+    if (m_chunks.existsAt(chunkPos))
+    {
+        auto blockPosition = Maths::worldToBlockPos(position);
+        return m_chunks.get(chunkPos)->qGetBlock(blockPosition);
+    }
+    else
     {
         return Block::ID::Air;
     }
-
-    return chunk->qGetBlock(blockPosition);
 }
 
 uint32_t World::getHeightAt(const Vector3& worldPosition)
