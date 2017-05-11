@@ -2,7 +2,7 @@
 #define BLOCK_DATABASE_H_INCLUDED
 
 #include <memory>
-#include <vector>
+#include <array>
 
 #include "Block_Types/Block_Type.h"
 #include "Block_ID.h"
@@ -22,7 +22,7 @@ namespace Block
             const Type& getBlock(ID blockID);
 
         private:
-            std::vector<std::unique_ptr<Type>> blocks;
+            std::array<std::unique_ptr<Type>, (int)ID::NUM_BLOCK_TYPES> blocks;
 
         public:
             Texture::Atlas textures;

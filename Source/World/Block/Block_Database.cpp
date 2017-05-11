@@ -16,8 +16,7 @@ namespace Block
     }
 
     Database::Database()
-    :   blocks ((int)ID::NUM_BLOCK_TYPES)
-    ,   textures   ("Texture_Atlas", 512, 16)
+    :   textures   ("Texture_Atlas", 512, 16)
     {
 /*
         auto blockNames = getFileNamesFromFolder("Data/Blocks");
