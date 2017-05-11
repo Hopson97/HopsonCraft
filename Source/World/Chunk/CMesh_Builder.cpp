@@ -206,7 +206,7 @@ namespace Chunk
         GLfloat natLight   = m_pSection->qGetNaturalLight(thisBlockPos);
         GLfloat blockLight = m_pSection->qGetBlockLight  (thisBlockPos);
 
-        auto tex = Block::Database::get().textures.getTextureCoords(textureCoords);
+        auto tex = Block::Database::get().getTextureAtlas().getTextureCoords(textureCoords);
 
         m_pActiveMesh->addFace(xMesh1,
                                tex,
@@ -234,7 +234,7 @@ namespace Chunk
             GLfloat blockLight = m_pSection->getBlockLight(adjacentBlockPosition);
 
             m_pActiveMesh->addFace(face,
-                                   Block::Database::get().textures.getTextureCoords(textureCoords),
+                                   Block::Database::get().getTextureAtlas().getTextureCoords(textureCoords),
                                    {cardinalLight, natLight, blockLight},
                                    m_pSection->getPosition(),
                                    thisBlockPos);

@@ -83,13 +83,13 @@ namespace
 
     RSimple::RSimple()
     {
-        Texture::Atlas* textureAtlas = &Block::Database::get().textures;
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 0}));
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 0}));
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 0}));
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 0}));
-        insertTextureCoords(textureAtlas->getTextureCoords({0, 0}));
-        insertTextureCoords(textureAtlas->getTextureCoords({2, 0}));
+        auto& textureAtlas = Block::Database::get().getTextureAtlas();
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 0}));
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 0}));
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 0}));
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 0}));
+        insertTextureCoords(textureAtlas.getTextureCoords({0, 0}));
+        insertTextureCoords(textureAtlas.getTextureCoords({2, 0}));
 
         m_cubeModel.addData(vertexPositions, textureCoords, indices);
     }

@@ -33,12 +33,12 @@ namespace Texture
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    void Basic_Texture::bind()
+    void Basic_Texture::bind() const
     {
         glBindTexture(GL_TEXTURE_2D, m_textureID);
     }
 
-    void Basic_Texture::unbind()
+    void Basic_Texture::unbind() const
     {
         glBindTexture(GL_TEXTURE_2D, 0);
     }

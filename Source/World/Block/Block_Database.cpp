@@ -16,42 +16,41 @@ namespace Block
     }
 
     Database::Database()
-    :   textures   ("Texture_Atlas", 512, 16)
+    :   m_textures  ("Texture_Atlas", 512, 16)
     {
-/*
-        auto blockNames = getFileNamesFromFolder("Data/Blocks");
-        for (auto& name : blockNames)
-        {
-            std::cout << name << std::endl;
-        }
-*/
 
-        blocks[(int)ID::Air     ] = std::make_unique<Default>   ("Air");
-        blocks[(int)ID::Grass   ] = std::make_unique<Default>   ("Grass");
-        blocks[(int)ID::Dirt    ] = std::make_unique<Default>   ("Dirt");
-        blocks[(int)ID::Stone   ] = std::make_unique<Default>   ("Stone");
-        blocks[(int)ID::Sand    ] = std::make_unique<BSand>     ();
+        m_blocks[(int)ID::Air     ] = std::make_unique<Default>   ("Air");
+        m_blocks[(int)ID::Grass   ] = std::make_unique<Default>   ("Grass");
+        m_blocks[(int)ID::Dirt    ] = std::make_unique<Default>   ("Dirt");
+        m_blocks[(int)ID::Stone   ] = std::make_unique<Default>   ("Stone");
+        m_blocks[(int)ID::Sand    ] = std::make_unique<BSand>     ();
 
-        blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default>       ("Oak_Wood");
-        blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default>       ("Oak_Leaf");
+        m_blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default>       ("Oak_Wood");
+        m_blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default>       ("Oak_Leaf");
 
-        blocks[(int)ID::Water       ] = std::make_unique<Default>       ("Water");
+        m_blocks[(int)ID::Water       ] = std::make_unique<Default>       ("Water");
 
-        blocks[(int)ID::Snow       ] = std::make_unique<Default>        ("Snow");
+        m_blocks[(int)ID::Snow        ] = std::make_unique<Default>        ("Snow");
 
-        blocks[(int)ID::Rose       ] = std::make_unique<Default>        ("Rose");
-        blocks[(int)ID::Tall_Grass       ] = std::make_unique<Default>  ("Tall_Grass");
+        m_blocks[(int)ID::Rose        ] = std::make_unique<Default>        ("Rose");
+        m_blocks[(int)ID::Tall_Grass  ] = std::make_unique<Default>  ("Tall_Grass");
     }
 
-    const Type& Database::getBlock(uint8_t id)
+    const Type& Database::getBlock(uint8_t id) const
     {
-        return *blocks[id];
+        return *m_blocks[id];
     }
 
-    const Type& Database::getBlock(ID blockID)
+    const Type& Database::getBlock(ID blockID) const
     {
-        return *blocks[(int)blockID];
+        return *m_blocks[(int)blockID];
     }
+
+    const Texture::Atlas& Database::getTextureAtlas() const
+    {
+        return m_textures;
+    }
+
 
 
     const Type& get(uint8_t id)

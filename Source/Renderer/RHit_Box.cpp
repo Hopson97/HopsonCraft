@@ -87,13 +87,13 @@ namespace
 
     RHit_Box::RHit_Box()
     {
-        Texture::Atlas* textureAtlas = &Block::Database::get().textures;
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas->getTextureCoords({1, 1}));
+        auto& textureAtlas = Block::Database::get().getTextureAtlas();
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
+        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
 
         m_cubeModel.addData(vertexPositions, textureCoords, indices);
     }

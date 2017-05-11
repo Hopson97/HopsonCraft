@@ -16,7 +16,7 @@ namespace Renderer
 
     void Master::update(const Camera& camera)
     {
-        Block::Database::get().textures.bind();
+        Block::Database::get().getTextureAtlas().bind();
 
         glEnable(GL_DEPTH_TEST);
         m_simpleRenderer.update(camera);
