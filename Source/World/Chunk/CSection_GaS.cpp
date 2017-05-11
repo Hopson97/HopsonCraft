@@ -64,14 +64,9 @@ namespace Chunk
     uint8_t Section::getBlockLight(Block::Small_Position& position) const
     {
         const auto& section = getConstSection(position, this, *m_pChunkMap);
-        if(section)
-        {
-            return section->qGetBlockLight(position);
-        }
-        else
-        {
-            return MAX_LIGHT;
-        }
+        return  section ?
+                section->qGetBlockLight(position) :
+                MAX_LIGHT;
     }
 
 
@@ -81,7 +76,9 @@ namespace Chunk
 
     void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
     {
-        if (block.getData().canUpdate) m_hasUpdatableBlocks = true;
+        if (block.getData().canUpdate)
+            m_hasUpdatableBlocks = true;
+
         m_layerHasAir[position.y].update(block);
         m_blocks.at(position) = block;
     }

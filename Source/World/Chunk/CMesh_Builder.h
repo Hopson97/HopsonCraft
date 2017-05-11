@@ -9,6 +9,11 @@
 
 #include "CMesh.h"
 
+/*
+    This class is owned by every Chunk::Section, and is used to
+    build the mesh that makes it up.
+*/
+
 namespace Block
 {
     class Data_Holder;

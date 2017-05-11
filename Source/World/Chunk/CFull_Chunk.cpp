@@ -22,9 +22,9 @@ namespace Chunk
                            Map& map,
                            const Position& position,
                            const World_Settings& settings)
-    :   m_pWorld    {&world}
+    :   m_position  {position}
+    ,   m_pWorld    {&world}
     ,   m_pChunkMap {&map}
-    ,   m_position  {position}
     { }
 
 
@@ -45,7 +45,7 @@ namespace Chunk
 
         auto pos = Maths::blockToSmallBlockPos(position);
 
-        m_chunkSections[position.y / CHUNK_SIZE]
+        getSection(position.y / CHUNK_SIZE)
             ->setBlock(pos, block);
     }
 
@@ -56,7 +56,7 @@ namespace Chunk
         addSections(position.y);
         updateTopBlockLocation(position);
 
-        m_chunkSections.at(position.y / CHUNK_SIZE)
+        getSection(position.y / CHUNK_SIZE)
             ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
     }
 
@@ -71,9 +71,10 @@ namespace Chunk
         {
             auto pos = Maths::blockToSmallBlockPos(position);
 
-            return m_chunkSections[yPositionSection]
+            getSection(yPositionSection)
                 ->getBlock(pos);
         }
+        return Block::ID::Air;
     }
 
     CBlock Full_Chunk::qGetBlock(const Block::Position& position)
@@ -85,17 +86,8 @@ namespace Chunk
         }
         else
         {
-            return m_chunkSections[yPositionSection]
+            return getSection(yPositionSection)
                 ->qGetBlock(Maths::blockToSmallBlockPos(position));
-        }
-    }
-
-    void Full_Chunk::updateTopBlockLocation(const Block::Position& position)
-    {
-        auto val = m_highestBlocks.at(position.x, position.z);
-        if ((int32_t)val < position.y)
-        {
-            m_highestBlocks.at(position.x, position.z) = position.y;
         }
     }
 
@@ -109,10 +101,14 @@ namespace Chunk
         }
     }
 
+
+
     const Position& Full_Chunk::getPosition() const
     {
         return m_position;
     }
+
+
 
     Section* Full_Chunk::getSection(int32_t index, bool)
     {
@@ -130,12 +126,40 @@ namespace Chunk
 
     void Full_Chunk::addSection()
     {
-        Chunklet_Position position (m_position.x, m_sectionCount++, m_position.y);
+        Chunklet_Position position (m_position.x,
+                                    m_sectionCount++,
+                                    m_position.y);
 
         m_chunkSections.push_back(std::make_unique<Section>(position,
                                                             *m_pChunkMap,
                                                             *this));
+        m_maxBlockHeight += CHUNK_SIZE - 1;
     }
+
+
+
+    void Full_Chunk::initBasicSunlight()
+    {/*
+        for (uint8_t x = 0; x < CHUNK_SIZE; ++x)
+        for (uint8_t z = 0; z < CHUNK_SIZE; ++z)
+        {
+            int height = getHeightAt(x, z);
+            for (int y = m_maxBlockHeight; y >= height; y--)
+            {
+                auto pos = Maths::blockToSmallBlockPos({x, y, z});
+                getSection(y / CHUNK_SIZE)
+                    ->qSetNaturalLight(pos, MAX_LIGHT);
+            }
+        }*/
+    }
+
+    void Full_Chunk::updateTopBlockLocation(const Block::Position& position)
+    {
+        int val = m_highestBlocks.at(position.x, position.z);
+
+        m_highestBlocks.at(position.x, position.z) = std::max((int)val, position.y);
+    }
+
 
     //Adds all of the chunks within the viewing frustum into the master renderer
     //Returns number of faces drawn

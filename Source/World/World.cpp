@@ -13,11 +13,13 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
 ,   m_chunks        (*this)
 ,   m_pCamera       (&camera)
 {
+
+    int size = 2;
     //Just loads a few chunks in the centre. This causes the world to open instantly.
     int32_t centre = getWorldSettings().worldSize / 2;
-    for (int32_t x = -1 ; x <= 1; x++)
+    for (int32_t x = -size ; x <= size; x++)
     {
-        for (int32_t z = -1; z <= 1; z++)
+        for (int32_t z = -size; z <= size; z++)
         {
             m_chunks.addChunk({centre + x, centre + z}, true);
         }

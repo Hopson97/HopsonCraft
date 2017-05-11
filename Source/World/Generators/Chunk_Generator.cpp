@@ -61,7 +61,7 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
 
              chunk.qSetBlock({x, y, z}, block);
         }
-        chunk.hasGeneratedBlockData = true;
+        chunk.setHasGeneratedFlag();
         m_genMutex.unlock();
         return;
     }
@@ -95,7 +95,7 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
         makeOakTree(chunk, pos, m_randomGenerator);
     }
 
-    chunk.hasGeneratedBlockData = true;
+    chunk.setHasGeneratedFlag();
     m_genMutex.unlock();
 }
 

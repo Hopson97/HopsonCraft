@@ -10,6 +10,12 @@
 
 #include "../../Util/Array2D.h"
 
+/*
+    This class is basically the manager for a vertical column of chunks.
+    It stores a vector them, and adds more Chunk::Section if a block is
+    placed above the current maximum chunk height of this chunk
+*/
+
 namespace Renderer
 {
     class Master;
@@ -28,7 +34,8 @@ namespace Chunk
         friend class Section;
 
         public:
-            bool hasGeneratedBlockData = false; ///@TODO Better solution for this
+            ///@TODO Better solution for this
+            bool hasGeneratedBlockData = false;
             bool m_hasDeleteFlag = false;
 
             Full_Chunk() = default;
@@ -54,10 +61,17 @@ namespace Chunk
 
             bool hasDeleteFlag = false;
 
+            void setHasGeneratedFlag()
+            {
+                initBasicSunlight();
+                hasGeneratedBlockData = true;
+            }
+
+            void updateTopBlockLocation(const Block::Position& position);
+
         private:
             void addSections(uint32_t blockTarget);
             void initBasicSunlight();
-            void updateTopBlockLocation(const Block::Position& position);
             bool overrideBlockFails(bool overrideBlocks,
                                     const Block::Position& position);
 
@@ -65,10 +79,12 @@ namespace Chunk
 
             std::vector<std::unique_ptr<Section>>   m_chunkSections;
 
+            Position    m_position;
+            int32_t     m_sectionCount      = 0;
+            int32_t     m_maxBlockHeight    = 0;
+
             World*      m_pWorld        = nullptr;
             Map*        m_pChunkMap     = nullptr;
-            Position    m_position;
-            int32_t     m_sectionCount  = 0;
     };
 }
 

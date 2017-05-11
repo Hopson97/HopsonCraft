@@ -57,6 +57,7 @@ namespace State
             *   5184
             *   72390 - Very cool valleys
             *   63624   High Cliffs
+            *   45830 - 700m high cliff
         */
 
 
