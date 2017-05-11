@@ -246,51 +246,56 @@ void World::buildMeshes(const Camera& camera)
 
     bool isMeshMade = false;
 
-    if (m_worldSettings.isInfiniteTerrain)
-    {
-        minDisX = m_cameraPosition.x - m_loadingDistance;
-        maxDisX = m_cameraPosition.x + m_loadingDistance;
-
-        minDisZ = m_cameraPosition.y - m_loadingDistance;
-        maxDisZ = m_cameraPosition.y + m_loadingDistance;
-    }
-    else
-    {
-        int32_t minDis = m_worldSettings.worldSize / 2 - m_loadingDistance;
-        int32_t maxDis = m_worldSettings.worldSize / 2 + m_loadingDistance;
-
-        minDisX = minDis;
-        maxDisX = maxDis;
-
-        minDisZ = minDis;
-        maxDisZ = maxDis;
-
-    }
-
     m_deleteMutex.lock();
-    for (int32_t x = minDisX; x < maxDisX; x++)
+    for (int i = 0; i < m_loadingDistance; i++)
     {
-        for (int32_t z = minDisZ; z < maxDisZ; z++)
+        m_deleteMutex.unlock();
+        if (m_worldSettings.isInfiniteTerrain)
         {
-            Chunk::Position position(x, z);
-            if(!m_chunks.existsAt(position))
+            minDisX = m_cameraPosition.x - i;
+            maxDisX = m_cameraPosition.x + i;
+
+            minDisZ = m_cameraPosition.y - i;
+            maxDisZ = m_cameraPosition.y + i;
+        }
+        else
+        {
+            int32_t minDis = m_worldSettings.worldSize / 2 - m_loadingDistance;
+            int32_t maxDis = m_worldSettings.worldSize / 2 + m_loadingDistance;
+
+            minDisX = minDis;
+            maxDisX = maxDis;
+
+            minDisZ = minDis;
+            maxDisZ = maxDis;
+
+        }
+        m_deleteMutex.lock();
+        for (int32_t x = minDisX; x < maxDisX; x++)
+        {
+            for (int32_t z = minDisZ; z < maxDisZ; z++)
             {
-                m_chunks.addChunk(position, true);
+                Chunk::Position position(x, z);
+                if(!m_chunks.existsAt(position))
+                {
+                    m_chunks.addChunk(position, true);
+                }
+
+                Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
+
+                if(chunk->tryGen())
+                {
+                    isMeshMade = true;
+                    break;
+                }
             }
-
-            Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
-
-            if(chunk->tryGen())
+            if (isMeshMade)
             {
-                isMeshMade = true;
                 break;
             }
         }
-        if (isMeshMade)
-        {
-            break;
-        }
     }
+
     if (!isMeshMade)
     {
         m_loadingDistance++;
