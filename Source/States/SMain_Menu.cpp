@@ -105,12 +105,10 @@ namespace State
         std::vector<Noise::Data> { nSmooth,  nNormal,  nMountains,  nWater,  nHilly},
         settings.noiseData));
 
-/*
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Infinite Terrain",
         std::vector<std::string>    { "No",  "Yes"  },
         std::vector<bool>           { false, true   },
         settings.isInfiniteTerrain));
-*/
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {

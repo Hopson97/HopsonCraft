@@ -29,6 +29,7 @@ namespace Chunk
 
         public:
             bool hasGeneratedBlockData = false; ///@TODO Better solution for this
+            bool m_hasDeleteFlag = false;
 
             Full_Chunk() = default;
             Full_Chunk(World& world, Map& map, const Position& position, const World_Settings& settings);

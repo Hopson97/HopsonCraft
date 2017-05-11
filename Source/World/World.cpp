@@ -28,7 +28,7 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
         while (m_isRunning)
         {
             buildMeshes(*m_pCamera);
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            std::this_thread::sleep_for(std::chrono::microseconds(10));
         }
     });
 }
@@ -41,43 +41,7 @@ World::~World()
         thread.join();
     }
 }
-/*
-//Ran on a different thread
-void World::checkChunksForDelete()
-{
-    while (m_isRunning)
-    {
-        deleteChunkMutex.lock();
 
-        //Bounds of where chunks are allowed to exist
-        int minX = m_cameraPosition.x - m_worldSettings.worldSize / 2 - 1;
-        int maxX = m_cameraPosition.x + m_worldSettings.worldSize / 2 + 1;
-        int minZ = m_cameraPosition.y - m_worldSettings.worldSize / 2 - 1;
-        int maxZ = m_cameraPosition.y + m_worldSettings.worldSize / 2 + 1;
-
-        for (auto itr = m_chunks.getChunks().begin(); itr != m_chunks.getChunks().end(); itr++)
-        {
-            Chunk::Full_Chunk& chunk = itr->second;
-            auto location = chunk.getPosition();
-
-            //Check bounds
-            if (location.x <= minX ||
-                location.x >= maxX ||
-                location.y <= minZ ||
-                location.y >= maxZ)
-            {
-                //If the chunk is outside of the bounds of the render distance, then add the position of it into a delete vector
-                if (!chunk.hasDeleteFlag)
-                {
-                    chunk.hasDeleteFlag = true;
-                    m_deleteChunks.push_back(location);
-                }
-            }
-        }
-        deleteChunkMutex.unlock();
-    }
-}
-*/
 void World::updateChunks(const Player& player)
 {
     if (!m_newBlocks.empty())
@@ -89,6 +53,17 @@ void World::updateChunks(const Player& player)
     {
         Chunk::Full_Chunk& chunk = itr->second;
         chunk.tick();
+    }
+
+    if (!m_deleteChunks.empty())
+    {
+        m_deleteMutex.lock();
+        for (auto& chunkLocation : m_deleteChunks)
+        {
+            m_chunks.deleteChunk(chunkLocation);
+        }
+        m_deleteChunks.clear();
+        m_deleteMutex.unlock();
     }
 }
 
@@ -290,6 +265,7 @@ void World::buildMeshes(const Camera& camera)
 
     }
 
+    m_deleteMutex.lock();
     for (int32_t x = minDisX; x < maxDisX; x++)
     {
         for (int32_t z = minDisZ; z < maxDisZ; z++)
@@ -317,6 +293,35 @@ void World::buildMeshes(const Camera& camera)
     {
         m_loadingDistance++;
     }
+    if (m_worldSettings.isInfiniteTerrain)
+    {
+        int minX = m_cameraPosition.x - m_worldSettings.worldSize / 2 - 1;
+        int maxX = m_cameraPosition.x + m_worldSettings.worldSize / 2 + 1;
+        int minZ = m_cameraPosition.y - m_worldSettings.worldSize / 2 - 1;
+        int maxZ = m_cameraPosition.y + m_worldSettings.worldSize / 2 + 1;
+
+        for(auto& chunk : m_chunks.getChunks())
+        {
+            Chunk::Full_Chunk& c = chunk.second;
+            auto location = c.getPosition();
+
+            //Check bounds
+            if (location.x <= minX ||
+                location.x >= maxX ||
+                location.y <= minZ ||
+                location.y >= maxZ)
+            {
+                //If the chunk is outside of the bounds of the render distance, then add the position of it into a delete vector
+                if (!c.hasDeleteFlag)
+                {
+                    c.hasDeleteFlag = true;
+                    m_deleteChunks.push_back(location);
+                }
+            }
+        }
+    }
+
+    m_deleteMutex.unlock();
 }
 
 void World::draw(Renderer::Master& renderer, const Camera& camera)

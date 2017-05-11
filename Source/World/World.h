@@ -67,6 +67,7 @@ class World
         std::vector<New_Block>          m_newBlocks;
         std::vector<std::thread>        m_threads;
         std::vector<Chunk::Position>    m_deleteChunks;
+        std::mutex m_deleteMutex;
 
         World_Settings  m_worldSettings;
         Chunk::Map      m_chunks;
