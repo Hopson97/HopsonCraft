@@ -62,6 +62,8 @@ class World
     private:
         void regenerateChunks   ();
         void generateWorld      (const Camera& camera);
+
+
         void draw               (Renderer::Master& renderer, const Camera& camera);
 
         void checkChunksForDelete();

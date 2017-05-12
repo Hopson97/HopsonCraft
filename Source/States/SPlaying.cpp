@@ -82,8 +82,6 @@ namespace State
 
         for (uint32_t i = 0; i < 5 / 0.1; i++)
         {
-            raycast.step(0.1);
-
             if (raycast.getEndPoint().x < 0 ||
                 raycast.getEndPoint().z < 0 ||
                 raycast.getEndPoint().y < 1 ) return;
@@ -123,6 +121,10 @@ namespace State
                         break;
                     }
                 }
+            }
+            else
+            {
+                 raycast.step(0.1);
             }
             lastPosition = raycast.getEndPoint();
         }

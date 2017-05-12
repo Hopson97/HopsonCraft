@@ -21,7 +21,6 @@ struct Area
     Vec2 minPoint, maxPoint;
 };
 
-
 //Generates meshes for the chunks.
 //It does this in a sort of radius starting from the middle of the world
 //This is ran concurrently alongside the main render/ update thread
