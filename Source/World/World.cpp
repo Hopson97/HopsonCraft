@@ -26,7 +26,7 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
         }
     }
 
-    //m_worldGen.launch();
+   // m_worldGen.launch();
 
     //See "World_Gen.cpp"
     m_threads.emplace_back([&]()

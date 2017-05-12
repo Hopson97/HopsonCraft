@@ -42,6 +42,9 @@ class World_Generator
                         const Camera&           camera,
                         std::vector<Chunk::Position>& deleteChunks);
 
+        World_Generator             (const World_Generator& other) = delete;
+        World_Generator& operator=  (const World_Generator& other) = delete;
+
         ~World_Generator();
 
         void launch();

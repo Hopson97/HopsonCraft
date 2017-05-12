@@ -30,6 +30,7 @@ World_Generator::~World_Generator()
     m_isRunning = false;
     for (auto& thread : m_workers)
     {
+
         thread.join();
     }
 
@@ -42,7 +43,6 @@ void World_Generator::launch()
         while (m_isRunning)
         {
             generateWorld();
-            std::this_thread::sleep_for(std::chrono::microseconds(10));
         }
     });
 }
@@ -64,7 +64,6 @@ void World_Generator::generateWorld()
 
     bool isMeshMade = false;
 
-//m_pDeleteMutex->lock();
     for (int i = 0; i < m_loadingDistance; i++)
     {
         m_pDeleteMutex->unlock();

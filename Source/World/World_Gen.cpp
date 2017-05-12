@@ -5,6 +5,22 @@
 #include "../Camera.h"
 #include "../Maths/Position_Conversion.h"
 
+struct Area
+{
+    struct Vec2
+    {
+        Vec2() = default;
+        Vec2(int ix, int iz)
+        :   x   (ix)
+        ,   z   (iz)
+        { }
+
+        int x, z;
+    };
+
+    Vec2 minPoint, maxPoint;
+};
+
 
 //Generates meshes for the chunks.
 //It does this in a sort of radius starting from the middle of the world
@@ -18,12 +34,7 @@ void World::generateWorld(const Camera& camera)
 
     m_cameraPosition = Maths::worldToChunkPos(camera.position);
 
-    int32_t minDisX = 0;
-    int32_t maxDisX = 0;
-
-    int32_t minDisZ = 0;
-    int32_t maxDisZ = 0;
-
+    Area area;
     bool isMeshMade = false;
 
     m_deleteMutex.lock();
@@ -32,28 +43,28 @@ void World::generateWorld(const Camera& camera)
         m_deleteMutex.unlock();
         if (m_worldSettings.isInfiniteTerrain)
         {
-            minDisX = m_cameraPosition.x - i;
-            maxDisX = m_cameraPosition.x + i;
+            area.minPoint = {m_cameraPosition.x - i,
+                             m_cameraPosition.y - i};
 
-            minDisZ = m_cameraPosition.y - i;
-            maxDisZ = m_cameraPosition.y + i;
+            area.maxPoint = {m_cameraPosition.x + i,
+                             m_cameraPosition.y + i};
         }
         else
         {
             int32_t minDis = m_worldSettings.worldSize / 2 - m_loadingDistance;
             int32_t maxDis = m_worldSettings.worldSize / 2 + m_loadingDistance;
 
-            minDisX = minDis;
-            maxDisX = maxDis;
+            area.minPoint = {minDis,
+                             minDis};
 
-            minDisZ = minDis;
-            maxDisZ = maxDis;
+            area.maxPoint = {maxDis,
+                             maxDis};
 
         }
         m_deleteMutex.lock();
-        for (int32_t x = minDisX; x < maxDisX; x++)
+        for (int32_t x = area.minPoint.x; x < area.maxPoint.x; x++)
         {
-            for (int32_t z = minDisZ; z < maxDisZ; z++)
+            for (int32_t z = area.minPoint.z; z < area.maxPoint.z; z++)
             {
                 Chunk::Position position(x, z);
                 if(!m_chunks.existsAt(position))
@@ -82,10 +93,12 @@ void World::generateWorld(const Camera& camera)
     }
     if (m_worldSettings.isInfiniteTerrain)
     {
-        int minX = m_cameraPosition.x - m_worldSettings.worldSize / 2 - 1;
-        int maxX = m_cameraPosition.x + m_worldSettings.worldSize / 2 + 1;
-        int minZ = m_cameraPosition.y - m_worldSettings.worldSize / 2 - 1;
-        int maxZ = m_cameraPosition.y + m_worldSettings.worldSize / 2 + 1;
+        Area bounds;
+        bounds.minPoint = { m_cameraPosition.x - m_worldSettings.worldSize / 2 - 1,
+                            m_cameraPosition.y - m_worldSettings.worldSize / 2 - 1};
+
+        bounds.maxPoint = { m_cameraPosition.x + m_worldSettings.worldSize / 2 + 1,
+                            m_cameraPosition.y + m_worldSettings.worldSize / 2 + 1};
 
         for(auto& chunk : m_chunks.getChunks())
         {
@@ -93,10 +106,10 @@ void World::generateWorld(const Camera& camera)
             auto location = c.getPosition();
 
             //Check bounds
-            if (location.x <= minX ||
-                location.x >= maxX ||
-                location.y <= minZ ||
-                location.y >= maxZ)
+            if (location.x <= bounds.minPoint.x ||
+                location.x >= bounds.maxPoint.x ||
+                location.y <= bounds.minPoint.z ||
+                location.y >= bounds.maxPoint.z)
             {
                 //If the chunk is outside of the bounds of the render distance, then add the position of it into a delete vector
                 if (!c.hasDeleteFlag)
