@@ -136,8 +136,8 @@ namespace State
         m_world.checkPlayerBounds(m_player);
 
         static sf::Clock c;
-        m_quady.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 2;
-        m_quady.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 2;
+        m_quady.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 5;
+        m_quady.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 5;
         m_quady.position.y = m_world.getHeightAt({m_quady.position.x,
                                                  0,
                                                  m_quady.position.z}) + 1;

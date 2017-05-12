@@ -37,7 +37,9 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
             std::this_thread::sleep_for(std::chrono::microseconds(10));
         }
     });
+
 }
+
 
 World::~World()
 {
@@ -252,7 +254,7 @@ const World_Settings& World::getWorldSettings() const
 
 AABB World::getBlockAABB(const Block::Position& position)
 {
-    AABB blockAABB({1, 1, 1});
-    blockAABB.update({position.x, position.y, position.z});
+    AABB blockAABB({1.2, 1.2, 1.2});
+    blockAABB.update({position.x - 0.1, position.y - 0.1, position.z - 0.1});
     return blockAABB;
 }

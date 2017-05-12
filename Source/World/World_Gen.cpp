@@ -36,7 +36,6 @@ void World::generateWorld(const Camera& camera)
     Area area;
     bool isMeshMade = false;
 
-    m_deleteMutex.lock();
     for (int i = 0; i < m_loadingDistance; i++)
     {
         m_deleteMutex.unlock();

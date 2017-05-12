@@ -10,92 +10,32 @@
 
 #include "../Camera.h"
 
+#include "../Model_Coords.h"
+
 namespace Renderer
 {
-namespace
-{
-    constexpr float size = 0.1;
-
-    std::vector<GLfloat> vertexPositions =
+    namespace
     {
-        //Back
-        1 + size,   -size,      -size,
-        -size,      -size,      -size,
-        -size,      1 + size,   -size,
-        1 + size,   1 + size,   -size,
+        std::vector<GLfloat> textureCoords;
 
-        //Right-Side
-        1 + size, -size,    1 + size,
-        1 + size, -size,    -size,
-        1 + size, 1 + size, -size,
-        1 + size, 1 + size, 1 + size,
-
-        //Front
-        -size,      -size,      1 + size,
-        1 + size,   -size,      1 + size,
-        1 + size,   1 + size,   1 + size,
-        -size,      1 + size,   1 + size,
-
-        //Left
-        -size, -size,       -size,
-        -size, -size,       1 + size,
-        -size, 1 + size,    1 + size,
-        -size, 1 + size,    -size,
-
-        //Top
-        -size,      1 + size, 1 + size,
-        1 + size,   1 + size, 1 + size,
-        1 + size,   1 + size, -size,
-        -size,      1 + size, -size,
-
-        //Bottom
-        -size,      -size, -size,
-        1 + size,   -size, -size,
-        1 + size,   -size, 1 + size,
-        -size,      -size, 1
-    };
-
-
-    std::vector<GLuint> indices =
-    {
-        0, 1, 2,
-        2, 3, 0,
-
-        4, 5, 6,
-        6, 7, 4,
-
-        8, 9, 10,
-        10, 11, 8,
-
-        12, 13, 14,
-        14, 15, 12,
-
-        16, 17, 18,
-        18, 19, 16,
-
-        20, 21, 22,
-        22, 23, 20
-    };
-
-    std::vector<GLfloat> textureCoords;
-
-    void insertTextureCoords(const std::vector<GLfloat>& coords)
-    {
-        textureCoords.insert(textureCoords.end(), coords.begin(), coords.end());
+        void insertTextureCoords(const std::vector<GLfloat>& coords)
+        {
+            textureCoords.insert(textureCoords.end(), coords.begin(), coords.end());
+        }
     }
-}
 
     RHit_Box::RHit_Box()
     {
         auto& textureAtlas = Block::Database::get().getTextureAtlas();
-        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
-        insertTextureCoords(textureAtlas.getTextureCoords({1, 1}));
+        auto coords = textureAtlas.getTextureCoords({1, 1});
+        insertTextureCoords(coords);
+        insertTextureCoords(coords);
+        insertTextureCoords(coords);
+        insertTextureCoords(coords);
+        insertTextureCoords(coords);
+        insertTextureCoords(coords);
 
-        m_cubeModel.addData(vertexPositions, textureCoords, indices);
+        m_cubeModel.addData(getCubeVerticies(0.1), textureCoords, getCubeIndices());
     }
 
 
