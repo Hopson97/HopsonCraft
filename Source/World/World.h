@@ -15,6 +15,8 @@
 #include "Chunk/CMap.h"
 #include "World_Settings.h"
 
+#include "Generators/World_Generator.h"
+
 class Player;
 class Camera;
 
@@ -59,10 +61,12 @@ class World
 
     private:
         void regenerateChunks   ();
-        void buildMeshes        (const Camera& camera);
+        void generateWorld      (const Camera& camera);
         void draw               (Renderer::Master& renderer, const Camera& camera);
 
         void checkChunksForDelete();
+
+        World_Generator m_worldGen;
 
         std::vector<New_Block>          m_newBlocks;
         std::vector<std::thread>        m_threads;

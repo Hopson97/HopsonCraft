@@ -9,7 +9,8 @@
 #include "../Maths/Position_Conversion.h"
 
 World::World(const World_Settings& worldSettings, const Camera& camera)
-:   m_worldSettings (worldSettings)
+:   m_worldGen      (m_chunks, m_deleteMutex, worldSettings, camera, m_deleteChunks)
+,   m_worldSettings (worldSettings)
 ,   m_chunks        (*this)
 ,   m_pCamera       (&camera)
 {
@@ -25,11 +26,13 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
         }
     }
 
+    //m_worldGen.launch();
+
     m_threads.emplace_back([&]()
     {
         while (m_isRunning)
         {
-            buildMeshes(*m_pCamera);
+            generateWorld(*m_pCamera);
             std::this_thread::sleep_for(std::chrono::microseconds(10));
         }
     });
@@ -229,7 +232,7 @@ void World::regenerateChunks()
 //Generates meshes for the chunks.
 //It does this in a sort of radius starting from the middle of the world
 //This is ran concurrently alongside the main render/ update thread
-void World::buildMeshes(const Camera& camera)
+void World::generateWorld(const Camera& camera)
 {
     if (m_loadingDistance == ((m_worldSettings.worldSize / 2) + 1))
     {
