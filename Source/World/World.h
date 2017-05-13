@@ -27,6 +27,14 @@ namespace Renderer
 
 class World
 {
+    enum class State
+    {
+        Nothing,
+        Regenerating,
+        Triggering,
+    } m_state = State::Nothing;
+
+
     struct Position_Block
     {
         Position_Block(CBlock newBlock, const Vector3& blockPosition)
@@ -71,6 +79,7 @@ class World
 
         std::vector<Position_Block> m_newBlocks;
         std::vector<Position_Block> m_triggerBlocks;
+        std::vector<Position_Block> m_sheduledTriggerBlocks;
 
         std::vector<std::thread>    m_threads;
         std::vector<Chunk::Position>    m_deleteChunks;

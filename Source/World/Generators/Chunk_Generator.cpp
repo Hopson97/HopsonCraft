@@ -86,7 +86,10 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
     //Make foliage
     for (auto& pos : m_littleBlockLoc)
     {
-        chunk.qSetBlock({pos.first.x, pos.first.y + 1, pos.first.z}, pos.second);
+        //chunk.qSetBlock({pos.first.x, pos.first.y + 1, pos.first.z}, pos.second);
+
+        for (int y = 1; y < 100; y++)
+            chunk.qSetBlock({pos.first.x, pos.first.y + y, pos.first.z}, pos.second);
     }
 
     //Make trees

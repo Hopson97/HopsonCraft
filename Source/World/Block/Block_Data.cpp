@@ -17,8 +17,6 @@ namespace Block
         m_holder.isOpaque   = jsonFile["Opaque"]    .get<bool>();
         m_holder.isObstacle = jsonFile["Obstacle"]  .get<bool>();
 
-
-
         m_holder.blockID    = (Block::ID)   jsonFile["ID"]      .get<int32_t>();
         m_holder.meshType   = (Mesh_Type)   jsonFile["Mesh"]    .get<int32_t>();
         m_holder.meshStyle  = (Mesh_Style)  jsonFile["Style"]   .get<int32_t>();

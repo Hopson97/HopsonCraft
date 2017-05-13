@@ -62,6 +62,7 @@ void World::updateChunks(const Player& player)
     {
         triggerBlocks();
     }
+    m_state = State::Nothing;
 
     for (auto itr = m_chunks.getChunks().begin(); itr != m_chunks.getChunks().end(); itr++)
     {
@@ -127,13 +128,28 @@ void World::setBlock(const Vector3& position, CBlock block)
                                                 << " "      << (int)position.z << "\n";
     m_newBlocks.emplace_back(block, position);
 
-    for (int y = -1; y <= 1; y++)
-    for (int x = -1; x <= 1; x++)
-    for (int z = -1; z <= 1; z++)
+    for (int y = -1; y <= 1; ++y)
+    for (int x = -1; x <= 1; ++x)
+    for (int z = -1; z <= 1; ++z)
     {
-        auto pos = position + Vector3{x, y, z};
+        if (x == 0 &&
+            z == 0 &&
+            y == 0)
+        {
+            continue;
+        }
 
-        m_triggerBlocks.emplace_back(getBlock(pos), pos);
+        auto pos = position + Vector3{x, y, z};
+        switch(m_state)
+        {
+            case State::Triggering:
+                m_sheduledTriggerBlocks.emplace_back(getBlock(pos), pos);
+                break;
+
+            default:
+                m_triggerBlocks.emplace_back(getBlock(pos), pos);
+                break;
+        }
     }
 }
 
@@ -165,6 +181,7 @@ uint32_t World::getHeightAt(const Vector3& worldPosition)
 
 void World::regenerateChunks()
 {
+    m_state = State::Regenerating;
     std::unordered_map<Chunk::Chunklet_Position, Chunk::Section*> chunksToUpdate;
 
     //Duh, inserts a chunk into the map..
@@ -246,6 +263,7 @@ void World::regenerateChunks()
 
 void World::triggerBlocks()
 {
+    m_state = State::Triggering;
     for (auto& block : m_triggerBlocks)
     {
         auto& p = block.position;
@@ -253,7 +271,16 @@ void World::triggerBlocks()
                                               int(p.y),
                                               int(p.z)});
     }
-    m_triggerBlocks.clear();
+    /*
+     *  When blocks are triggered, they have potential to trigger yet more blocks.
+     *  Usually, you would just clear the triggered blocks here
+     *  But, this would cause the blocks that get triggered during the triggering of blocks to not get
+     *  triggered, because the std::vector would be cleared.
+     *
+     *   So, instead, I add them into a different std::vector if the block is triggered during this
+     *   state of the world (State::Triggering)
+     */
+    m_triggerBlocks = std::move(m_sheduledTriggerBlocks);
 }
 
 
