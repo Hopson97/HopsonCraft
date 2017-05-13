@@ -16,6 +16,13 @@ namespace Block
         public:
             BSand();
     };
+
+    class BTall_Grass : public Type
+    {
+        public:
+            BTall_Grass();
+            void trigger(World& world, const Position& position) const;
+    };
 }
 
 #endif // BDEFAULT_H_INCLUDED

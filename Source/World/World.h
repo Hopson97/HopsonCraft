@@ -27,9 +27,9 @@ namespace Renderer
 
 class World
 {
-    struct New_Block
+    struct Position_Block
     {
-        New_Block(CBlock newBlock, const Vector3& blockPosition)
+        Position_Block(CBlock newBlock, const Vector3& blockPosition)
         :   block       (newBlock)
         ,   position    (blockPosition)
         { }
@@ -55,12 +55,11 @@ class World
 
         const World_Settings& getWorldSettings() const;
 
-        void f();
-
         AABB getBlockAABB(const Block::Position& position);
 
     private:
         void regenerateChunks   ();
+        void triggerBlocks      ();
         void generateWorld      (const Camera& camera);
 
 
@@ -70,8 +69,10 @@ class World
 
         World_Generator m_worldGen;
 
-        std::vector<New_Block>          m_newBlocks;
-        std::vector<std::thread>        m_threads;
+        std::vector<Position_Block> m_newBlocks;
+        std::vector<Position_Block> m_triggerBlocks;
+
+        std::vector<std::thread>    m_threads;
         std::vector<Chunk::Position>    m_deleteChunks;
         std::mutex m_deleteMutex;
 

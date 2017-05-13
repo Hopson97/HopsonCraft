@@ -33,7 +33,7 @@ namespace
         insertTextureCoords(textureAtlas.getTextureCoords({0, 0}));
         insertTextureCoords(textureAtlas.getTextureCoords({2, 0}));
 
-        m_cubeModel.addData(getCubeVerticies(-5.f), textureCoords, getCubeIndices());
+        m_cubeModel.addData(getCubeVerticies(0.0f), textureCoords, getCubeIndices());
     }
 
 

@@ -25,15 +25,15 @@ namespace Block
         m_blocks[(int)ID::Stone   ] = std::make_unique<Default>   ("Stone");
         m_blocks[(int)ID::Sand    ] = std::make_unique<BSand>     ();
 
-        m_blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default>       ("Oak_Wood");
-        m_blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default>       ("Oak_Leaf");
+        m_blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default> ("Oak_Wood");
+        m_blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default> ("Oak_Leaf");
 
-        m_blocks[(int)ID::Water       ] = std::make_unique<Default>       ("Water");
+        m_blocks[(int)ID::Water       ] = std::make_unique<Default> ("Water");
 
-        m_blocks[(int)ID::Snow        ] = std::make_unique<Default>        ("Snow");
+        m_blocks[(int)ID::Snow        ] = std::make_unique<Default> ("Snow");
 
-        m_blocks[(int)ID::Rose        ] = std::make_unique<Default>        ("Rose");
-        m_blocks[(int)ID::Tall_Grass  ] = std::make_unique<Default>  ("Tall_Grass");
+        m_blocks[(int)ID::Rose        ] = std::make_unique<Default> ("Rose");
+        m_blocks[(int)ID::Tall_Grass  ] = std::make_unique<BTall_Grass> ();
     }
 
     const Type& Database::getBlock(uint8_t id) const

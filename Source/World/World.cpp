@@ -56,6 +56,10 @@ void World::updateChunks(const Player& player)
     {
         regenerateChunks();
     }
+    if (!m_triggerBlocks.empty())
+    {
+        triggerBlocks();
+    }
 
     for (auto itr = m_chunks.getChunks().begin(); itr != m_chunks.getChunks().end(); itr++)
     {
@@ -117,9 +121,8 @@ void World::setBlock(const Vector3& position, CBlock block)
     for (int x = -1; x <= 1; x++)
     for (int z = -1; z <= 1; z++)
     {
-        getBlock(position + Vector3{x, y, z}).getType().trigger(*this, {int(position.x + x),
-                                                                        int(position.y + y),
-                                                                        int(position.z + z)});
+        m_triggerBlocks.emplace_back(getBlock(position + Vector3{x, y, z}),
+                                     position + Vector3{x, y, z});
     }
 }
 
@@ -193,7 +196,7 @@ void World::regenerateChunks()
     };
 
     //Lambda's end above, function technically begins here
-    for (New_Block& newBlock : m_newBlocks)
+    for (auto& newBlock : m_newBlocks)
     {
         //Get respective positions and objects
         auto    chunkPosition   = Maths::worldToChunkletPos(newBlock.position);
@@ -231,6 +234,18 @@ void World::regenerateChunks()
 
     m_newBlocks.clear();
 }
+
+void World::triggerBlocks()
+{
+    for (auto& block : m_triggerBlocks)
+    {
+        auto& p = block.position;
+        block.block.getType().trigger(*this, {int(p.x),
+                                              int(p.y),
+                                              int(p.z)});
+    }
+}
+
 
 void World::draw(Renderer::Master& renderer, const Camera& camera)
 {

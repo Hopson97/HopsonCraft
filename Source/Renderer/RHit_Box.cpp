@@ -35,7 +35,7 @@ namespace Renderer
         insertTextureCoords(coords);
         insertTextureCoords(coords);
 
-        m_cubeModel.addData(getCubeVerticies(0.1), textureCoords, getCubeIndices());
+        m_cubeModel.addData(getCubeVerticies(0.1f), textureCoords, getCubeIndices());
     }
 
 
