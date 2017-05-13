@@ -115,7 +115,7 @@ namespace State
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Experimental Mode",
         std::vector<std::string>    { "Off",  "On"    },
         std::vector<bool>           { false,   true   },
-        settings.isInfiniteTerrain));
+        settings.isExperimentalMode));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {

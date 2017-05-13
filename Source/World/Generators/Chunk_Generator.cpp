@@ -128,8 +128,8 @@ void Chunk_Generator::makeRegularWorld()
     makeBiomeMap    ();
 
     m_pWorldSettings->isExperimentalMode ?
-            makeHeightMap() :
-            makeAdvancedHeigtMap();
+            makeAdvancedHeigtMap() :
+            makeHeightMap();
 
     m_maxHeight = std::max(m_maxHeight, WATER_LEVEL);
 
@@ -278,6 +278,8 @@ void Chunk_Generator::makeHeightMap()
     }
 }
 
+//This uses interpolation to um interpolate between values rather
+//than using noise function on every point.
 void Chunk_Generator::makeAdvancedHeigtMap()
 {
     static auto edge = CHUNK_SIZE;
