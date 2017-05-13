@@ -37,6 +37,8 @@ namespace Chunk
         {
             int16_t opaqueCount = 0;
 
+            Layer() { }
+
             void update(CBlock block)
             {
                 block.getData().isOpaque ?

@@ -5,7 +5,7 @@
 
 #ifdef __WIN32
     #include <windows.h>
-#elif __linux__
+#elif __linux__ || __APPLE__
     #include <sys/types.h>
     #include <dirent.h>
 #endif // __linux__
@@ -44,7 +44,7 @@ std::string getFileContents(const std::string& filePath)
 
         return fileNames;
     }
-#elif __linux__
+#elif __linux__ || __APPLE__
     std::vector<std::string> getFileNamesFromFolder(const std::string& folderName)
     {
         std::vector<std::string> fileNames;
@@ -63,4 +63,3 @@ std::string getFileContents(const std::string& filePath)
         return fileNames;
     }
 #endif
-
