@@ -35,7 +35,7 @@ World_Generator::~World_Generator()
     }
 
 }
-
+/*
 void World_Generator::launch()
 {
     m_workers.emplace_back([&]()
@@ -100,7 +100,7 @@ void World_Generator::generateWorld()
 
                 Chunk::Full_Chunk* chunk = m_pChunkMap->get({x, z});
 
-                if(chunk->tryGen())
+                if(chunk->tryGen(*m_pCamera))
                 {
                     isMeshMade = true;
                     break;
@@ -147,4 +147,4 @@ void World_Generator::generateWorld()
 
     m_pDeleteMutex->unlock();
 }
-
+*/

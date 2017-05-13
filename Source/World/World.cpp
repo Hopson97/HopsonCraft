@@ -29,15 +29,17 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
    // m_worldGen.launch();
 
     //See "World_Gen.cpp"
-    m_threads.emplace_back([&]()
+    for (int i = 0; i < 1; i++)
     {
-        while (m_isRunning)
+        m_threads.emplace_back([&]()
         {
-            generateWorld(*m_pCamera);
-            std::this_thread::sleep_for(std::chrono::microseconds(10));
-        }
-    });
-
+            while (m_isRunning)
+            {
+                generateWorld(*m_pCamera);
+                std::this_thread::sleep_for(std::chrono::microseconds(10));
+            }
+        });
+    }
 }
 
 
@@ -115,14 +117,23 @@ void World::qSetBlock(const Vector3& position, CBlock block)
 
 void World::setBlock(const Vector3& position, CBlock block)
 {
+    if (position.y < 1)
+    {
+        return;
+    }   //Do not allow block breaking at the bottom of the world
+
+    std::cout << "Set " << block.getData().name << " at "   << (int)position.x
+                                                << " "      << (int)position.y
+                                                << " "      << (int)position.z << "\n";
     m_newBlocks.emplace_back(block, position);
 
     for (int y = -1; y <= 1; y++)
     for (int x = -1; x <= 1; x++)
     for (int z = -1; z <= 1; z++)
     {
-        m_triggerBlocks.emplace_back(getBlock(position + Vector3{x, y, z}),
-                                     position + Vector3{x, y, z});
+        auto pos = position + Vector3{x, y, z};
+
+        m_triggerBlocks.emplace_back(getBlock(pos), pos);
     }
 }
 
@@ -133,7 +144,7 @@ CBlock World::getBlock(const Vector3& position)
     if (m_chunks.existsAt(chunkPos))
     {
         auto blockPosition = Maths::worldToBlockPos(position);
-        return m_chunks.get(chunkPos)->qGetBlock(blockPosition);
+        return m_chunks.get(chunkPos).qGetBlock(blockPosition);
     }
     else
     {
@@ -148,7 +159,7 @@ uint32_t World::getHeightAt(const Vector3& worldPosition)
 
     const auto& chunk = m_chunks.get(chunkPosition);
 
-    return chunk->getHeightAt(blockPosition.x, blockPosition.z);
+    return chunk.getHeightAt(blockPosition.x, blockPosition.z);
 }
 
 
@@ -160,14 +171,12 @@ void World::regenerateChunks()
     auto insertChunk = [&](const Chunk::Chunklet_Position& chunkPosition,
                                  Chunk::Section* chunk)
     {
-        const auto& chunkFull = m_chunks.get({chunkPosition.x, chunkPosition.z});
-        if(!chunkFull)
-            return;
+        auto& chunkFull = m_chunks.get({chunkPosition.x, chunkPosition.z});
 
         while (!chunk)
         {
-            chunkFull->addSection();
-            chunk = chunkFull->getSection(chunkPosition.y);
+            chunkFull.addSection();
+            chunk = chunkFull.getSection(chunkPosition.y);
         }
         chunksToUpdate.insert(std::make_pair(chunkPosition, chunk));
     };
@@ -201,15 +210,15 @@ void World::regenerateChunks()
         //Get respective positions and objects
         auto    chunkPosition   = Maths::worldToChunkletPos(newBlock.position);
         auto    blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(newBlock.position));
-        const auto& chunkFull   = m_chunks.get({chunkPosition.x, chunkPosition.z});
+        auto&   chunkFull       = m_chunks.get({chunkPosition.x, chunkPosition.z});
 
         Chunk::Section* chunk = nullptr;
 
         //Adds sections onto a chunk until it reaches the height of the block
         while (!chunk)
         {
-            chunkFull->addSection();
-            chunk = chunkFull->getSection(chunkPosition.y);
+            chunkFull.addSection();
+            chunk = chunkFull.getSection(chunkPosition.y);
         }
 
 
@@ -244,6 +253,7 @@ void World::triggerBlocks()
                                               int(p.y),
                                               int(p.z)});
     }
+    m_triggerBlocks.clear();
 }
 
 

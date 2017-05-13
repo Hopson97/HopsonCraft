@@ -16,6 +16,8 @@ namespace Renderer
 
     void Master::update(const Camera& camera)
     {
+        ///@TODO This is starting to feel a bit bad
+        ///Another way to do this?
         Block::Database::get().getTextureAtlas().bind();
 
         glEnable(GL_DEPTH_TEST);

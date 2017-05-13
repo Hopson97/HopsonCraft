@@ -139,19 +139,7 @@ namespace Chunk
 
 
     void Full_Chunk::initBasicSunlight()
-    {/*
-        for (uint8_t x = 0; x < CHUNK_SIZE; ++x)
-        for (uint8_t z = 0; z < CHUNK_SIZE; ++z)
-        {
-            int height = getHeightAt(x, z);
-            for (int y = m_maxBlockHeight; y >= height; y--)
-            {
-                auto pos = Maths::blockToSmallBlockPos({x, y, z});
-                getSection(y / CHUNK_SIZE)
-                    ->qSetNaturalLight(pos, MAX_LIGHT);
-            }
-        }*/
-    }
+    { }
 
     void Full_Chunk::updateTopBlockLocation(const Block::Position& position)
     {
@@ -194,12 +182,14 @@ namespace Chunk
         return facesDrawn;
     }
 
-    bool Full_Chunk::tryGen()
+    bool Full_Chunk::tryGen(/*const Camera& camera*/)
     {
         for (auto& chunk : m_chunkSections)
         {
             if (!chunk->getStates().made)
             {
+                //if (!camera.getFrustum().boxInFrustum(chunk->getAABB())) continue;
+
                 chunk->makeMesh();
                 return true;
             }

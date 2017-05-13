@@ -66,16 +66,16 @@ namespace Chunk
         }
     }
 
-    Full_Chunk* Map::get(const Chunk::Position& position)
+    Full_Chunk& Map::get(const Chunk::Position& position)
     {
         if (existsAt(position))
         {
-            return &m_chunksMap[position];
+            return m_chunksMap[position];
         }
         else
         {
             addChunk(m_tempChunks, position, false);
-            return &m_tempChunks[position];
+            return m_tempChunks[position];
         }
     }
 

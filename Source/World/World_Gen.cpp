@@ -70,9 +70,9 @@ void World::generateWorld(const Camera& camera)
                     m_chunks.addChunk(position, true);
                 }
 
-                Chunk::Full_Chunk* chunk = m_chunks.get({x, z});
+                auto& chunk = m_chunks.get({x, z});
 
-                if(chunk->tryGen())
+                if(chunk.tryGen(/*m_pCamera*/))
                 {
                     isMeshMade = true;
                     break;

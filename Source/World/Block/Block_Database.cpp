@@ -4,6 +4,7 @@
 
 
 #include "Block_Types/BDefault.h"
+#include "Block_Types/BPlant.h"
 
 #include "../../Util/File_Util.h"
 
@@ -32,8 +33,8 @@ namespace Block
 
         m_blocks[(int)ID::Snow        ] = std::make_unique<Default> ("Snow");
 
-        m_blocks[(int)ID::Rose        ] = std::make_unique<Default> ("Rose");
-        m_blocks[(int)ID::Tall_Grass  ] = std::make_unique<BTall_Grass> ();
+        m_blocks[(int)ID::Rose        ] = std::make_unique<BPlant> ("Rose");
+        m_blocks[(int)ID::Tall_Grass  ] = std::make_unique<BPlant> ("Tall_Grass");
     }
 
     const Type& Database::getBlock(uint8_t id) const
