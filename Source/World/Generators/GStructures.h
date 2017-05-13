@@ -31,4 +31,50 @@ void makePyramid(Access& access,
     }
 }
 
+template<typename Access>
+void makeLattice(Access& access,
+                 const Block::Position& pos)
+{
+    int baseSize  = 8;
+    bool windowLayer = false;
+
+    int z = pos.z - baseSize / 2;
+
+    for (int y = 1; y < 15; y++)
+    for (int x = -baseSize / 2; x < baseSize / 2; x++)
+    {
+        if (windowLayer)
+        {
+            if (y % 2 == 0)
+            {
+                access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone);
+            }
+        }
+        else
+        {
+            access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone);
+        }
+        windowLayer = !windowLayer;
+    }
+}
+
 #endif // GSTRUCTURES_H_INCLUDED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

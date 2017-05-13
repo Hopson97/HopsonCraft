@@ -14,6 +14,7 @@ struct World_Settings
     float       seed;
     bool        isInfiniteTerrain  = false;
     bool        isSuperFlat        = false;
+    bool        isExperimentalMode = false;
 };
 
 #endif // WORLD_SETTINGS_H_INCLUDED

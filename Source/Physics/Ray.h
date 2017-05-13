@@ -11,9 +11,12 @@ class Ray
         void step (float scaler);
         const Vector3& getEndPoint() const;
 
+        float getLength();
+
     private:
         float m_yaw;
         float m_pitch;
+        Vector3 m_startPoint;
         Vector3 m_endPoint;
 };
 

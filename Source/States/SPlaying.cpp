@@ -33,7 +33,6 @@ namespace State
 
     void Playing::input(const sf::Event& e)
     {
-
         if (m_isPaused)
         {
             m_pauseMenu.input(e);
@@ -65,70 +64,12 @@ namespace State
 
         m_player.input();
 
-
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
         {
             m_player.position = getCenterPosition();
         }
 
-        Ray raycast (m_player.rotation.y + 90,
-                     m_player.rotation.x,
-                     m_player.position);
-        Vector3 lastPosition = raycast.getEndPoint();
-
-        static sf::Clock timer;
-
-        m_hitInfo.isHit = false;
-
-        for (uint32_t i = 0; i < 5 / 0.1; i++)
-        {
-            if (raycast.getEndPoint().x < 0 ||
-                raycast.getEndPoint().z < 0 ||
-                raycast.getEndPoint().y < 1 ) return;
-
-            auto block = m_world.getBlock(raycast.getEndPoint());
-
-            if (!(block == Block::ID::Air ||
-                  block == Block::ID::Water))
-            {
-                constexpr static float delay = 0.15f;
-
-                m_hitInfo.isHit     = true;
-                m_hitInfo.location  = {(int)raycast.getEndPoint().x,
-                                       (int)raycast.getEndPoint().y,
-                                       (int)raycast.getEndPoint().z};
-
-
-
-                if (timer.getElapsedTime().asSeconds() > delay)
-                {
-                    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                    {
-                        timer.restart();
-                        m_world.setBlock(raycast.getEndPoint(), Block::ID::Air);
-                        break;
-                    }
-                    else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
-                    {
-                        Block::Position blockPos(lastPosition.x,
-                                                lastPosition.y,
-                                                lastPosition.z);
-                        timer.restart();
-                        //if(!m_player.box.isCollidingWith(m_world.getBlockAABB(blockPos)))
-                        {
-                            m_world.setBlock(lastPosition, Block::ID::Grass);
-                        }
-                        break;
-                    }
-                }
-                break;
-            }
-            else
-            {
-                 raycast.step(0.1);
-            }
-            lastPosition = raycast.getEndPoint();
-        }
+        editBlockInput();
     }
 
     void Playing::update(Camera& camera, float dt)
@@ -177,6 +118,69 @@ namespace State
             m_debugHud.draw(renderer);
         }
     }
+
+    void Playing::editBlockInput()
+    {
+        Ray raycast (m_player.rotation.y + 90,
+                     m_player.rotation.x,
+                     m_player.position);
+        Vector3 lastPosition = raycast.getEndPoint();
+
+        static sf::Clock timer;
+
+        m_hitInfo.isHit = false;
+
+        while(raycast.getLength() < 6 * BLOCK_SIZE)
+        {
+            if (raycast.getEndPoint().x < 0 ||
+                raycast.getEndPoint().z < 0 ||
+                raycast.getEndPoint().y < 1 ) return;
+
+            auto block = m_world.getBlock(raycast.getEndPoint());
+
+            if (!(block == Block::ID::Air ||
+                  block == Block::ID::Water))
+            {
+                constexpr static float delay = 0.15f;
+
+                m_hitInfo.isHit     = true;
+                m_hitInfo.location  = {(int)raycast.getEndPoint().x,
+                                       (int)raycast.getEndPoint().y,
+                                       (int)raycast.getEndPoint().z};
+
+
+
+                if (timer.getElapsedTime().asSeconds() > delay)
+                {
+                    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                    {
+                        timer.restart();
+                        m_world.setBlock(raycast.getEndPoint(), Block::ID::Air);
+                        break;
+                    }
+                    else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                    {
+                        Block::Position blockPos(lastPosition.x,
+                                                 lastPosition.y,
+                                                 lastPosition.z);
+                        timer.restart();
+                        //if(!m_player.box.isCollidingWith(m_world.getBlockAABB(blockPos)))
+                        {
+                            m_world.setBlock(lastPosition, Block::ID::Grass);
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+            else
+            {
+                 raycast.step(0.1);
+            }
+            lastPosition = raycast.getEndPoint();
+        }
+    }
+
 
     Vector3 Playing::getCenterPosition()
     {

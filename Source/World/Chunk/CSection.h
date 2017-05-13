@@ -37,7 +37,7 @@ namespace Chunk
         {
             int16_t opaqueCount = 0;
 
-            Layer() { }
+            Layer() = default;
 
             void update(CBlock block)
             {

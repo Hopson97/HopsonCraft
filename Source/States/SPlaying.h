@@ -35,6 +35,8 @@ namespace State
             void draw       (Renderer::Master& renderer)override;
 
         private:
+            void editBlockInput();
+
             Vector3 getCenterPosition();
 
             void initHUD();

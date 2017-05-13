@@ -1,9 +1,10 @@
 #include "Ray.h"
 
 Ray::Ray(float yaw, float pitch, const Vector3& origin)
- :   m_yaw       (glm::radians(yaw))
- ,   m_pitch     (glm::radians(pitch))
- ,   m_endPoint  (origin)
+ :  m_yaw           (glm::radians(yaw))
+ ,  m_pitch         (glm::radians(pitch))
+ ,  m_startPoint    (origin)
+ ,  m_endPoint      (origin)
  {}
 
  void Ray::step(float scaler)
@@ -17,3 +18,9 @@ Ray::Ray(float yaw, float pitch, const Vector3& origin)
  {
      return m_endPoint;
  }
+
+float Ray::getLength()
+{
+   return glm::distance(m_startPoint, m_endPoint);
+}
+

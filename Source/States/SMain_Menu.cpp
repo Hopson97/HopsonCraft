@@ -58,6 +58,7 @@ namespace State
             *   72390 - Very cool valleys
             *   63624   High Cliffs
             *   45830 - 700m high cliff
+            *   20400 - 800m high
         */
 
 
@@ -109,6 +110,11 @@ namespace State
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Infinite Terrain",
         std::vector<std::string>    { "No",  "Yes"  },
         std::vector<bool>           { false, true   },
+        settings.isInfiniteTerrain));
+
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Experimental Mode",
+        std::vector<std::string>    { "Off",  "On"    },
+        std::vector<bool>           { false,   true   },
         settings.isInfiniteTerrain));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
