@@ -33,6 +33,7 @@ void Chunk_Generator::reset()
 
 void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
 {
+    //Only one chunk can generate a time smh
     m_genMutex.lock();
 
     m_pChunk = &chunk;
@@ -41,34 +42,49 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
     //Makes a superflat world
     if (m_pWorldSettings->isSuperFlat)
     {
-        for (int y = 0; y < CHUNK_SIZE; ++y)
-        for (int x = 0; x < CHUNK_SIZE; ++x)
-        for (int z = 0; z < CHUNK_SIZE; ++z)
-        {
-            Block::ID block = Block::ID::Grass;
-            if (y == CHUNK_SIZE - 1)
-            {
-                block = Block::ID::Grass;
-            }
-            else if (Maths::inRange(y, 12, 15))
-            {
-                block = Block::ID::Dirt;
-            }
-            else
-            {
-                block = Block::ID::Stone;
-            }
-
-             chunk.qSetBlock({x, y, z}, block);
-        }
-        chunk.setHasGeneratedFlag();
+        makeSuperFlatWorld();
         m_genMutex.unlock();
         return;
     }
+    else
+    {
+        makeRegularWorld();
+    }
 
-    setRandomSeed();
-    makeBiomeMap();
-    makeHeightMap();
+    chunk.setHasGeneratedFlag();
+    m_genMutex.unlock();
+}
+
+void Chunk_Generator::makeSuperFlatWorld()
+{
+    for (int y = 0; y < CHUNK_SIZE; ++y)
+    for (int x = 0; x < CHUNK_SIZE; ++x)
+    for (int z = 0; z < CHUNK_SIZE; ++z)
+    {
+        Block::ID block = Block::ID::Grass;
+        if (y == CHUNK_SIZE - 1)
+        {
+            block = Block::ID::Grass;
+        }
+        else if (Maths::inRange(y, 12, 15))
+        {
+            block = Block::ID::Dirt;
+        }
+        else
+        {
+            block = Block::ID::Stone;
+        }
+
+        m_pChunk->qSetBlock({x, y, z}, block);
+    }
+    m_pChunk->setHasGeneratedFlag();
+}
+
+void Chunk_Generator::makeRegularWorld()
+{
+    setRandomSeed   ();
+    makeBiomeMap    ();
+    makeHeightMap   ();
 
     m_maxHeight = std::max(m_maxHeight, WATER_LEVEL);
 
@@ -79,28 +95,21 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
         auto block = getBlock({x, y, z});
         if (block != Block::ID::Air)
         {
-            chunk.qSetBlock({x, y, z}, block);
+            m_pChunk->qSetBlock({x, y, z}, block);
         }
     }
 
-    //Make foliage
     for (auto& pos : m_littleBlockLoc)
     {
-        //chunk.qSetBlock({pos.first.x, pos.first.y + 1, pos.first.z}, pos.second);
-
-        for (int y = 1; y < 100; y++)
-            chunk.qSetBlock({pos.first.x, pos.first.y + y, pos.first.z}, pos.second);
+        m_pChunk->qSetBlock({pos.first.x, pos.first.y + 1, pos.first.z}, pos.second);
     }
 
-    //Make trees
     for (auto& pos : m_oakTreeLocations)
     {
-        makeOakTree(chunk, pos, m_randomGenerator);
+        makeOakTree(*m_pChunk, pos, m_randomGenerator);
     }
-
-    chunk.setHasGeneratedFlag();
-    m_genMutex.unlock();
 }
+
 
 Block::ID Chunk_Generator::getBlock(const Block::Position& pos)
 {
@@ -176,6 +185,9 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                     if (m_randomGenerator.intInRange(0, 30) < 5)
                     {
                         m_littleBlockLoc.push_back(std::make_pair(pos,
+                                                                  Block::ID::Tall_Grass));
+                        if (m_randomGenerator.intInRange(0, 5) < 2)
+                        m_littleBlockLoc.push_back(std::make_pair(Block::Position{pos.x, pos.y + 1, pos.z},
                                                                   Block::ID::Tall_Grass));
                     }
                     break;

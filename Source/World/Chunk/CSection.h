@@ -55,6 +55,14 @@ namespace Chunk
         public:
             Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk);
 
+            Section              (const Section& other) = delete;
+            Section& operator=   (const Section& other) = delete;
+
+            Section              (Section&& other) = default;
+            Section& operator=   (Section&& other) = default;
+
+            ~Section() = default;
+
             const State& getStates() const;
 
             void makeMesh   ();

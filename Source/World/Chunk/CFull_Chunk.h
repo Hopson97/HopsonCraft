@@ -41,6 +41,12 @@ namespace Chunk
             Full_Chunk() = default;
             Full_Chunk(World& world, Map& map, const Position& position, const World_Settings& settings);
 
+            Full_Chunk              (const Full_Chunk& other) = delete;
+            Full_Chunk& operator=   (const Full_Chunk& other) = delete;
+
+            Full_Chunk              (Full_Chunk&& other) = default;
+            Full_Chunk& operator=   (Full_Chunk&& other) = default;
+
             void tick();
 
             void   setBlock(const Block::Position& position, CBlock block, bool overrideBlocks = true);

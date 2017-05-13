@@ -23,7 +23,7 @@ template<typename Access>
 void makePyramid(Access& access,
                  const Block::Position& pos)
 {
-    for (int base = 5, h = 0; base > 0; base -= 2, h++)
+    for (int base = 9, h = 0; base > 0; base -= 2, h++)
     for (int x = pos.x - base / 2; x < pos.x + base / 2; x++)
     for (int z = pos.z - base / 2; z < pos.z + base / 2; z++)
     {

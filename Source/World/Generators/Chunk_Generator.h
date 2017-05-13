@@ -34,6 +34,9 @@ class Chunk_Generator
         void generateBlocksFor(Chunk::Full_Chunk& chunk);
 
     private:
+        void makeSuperFlatWorld ();
+        void makeRegularWorld   ();
+
         Block::ID getBlock  (const Block::Position& pos);
         void setTopBlock    (const Block::Position& pos, Block::ID& id);
 
@@ -54,7 +57,6 @@ class Chunk_Generator
         Noise::Generator m_noiseGenerator;
         Noise::Generator m_biomeNoise;
 
-        //Etc
         const World_Settings* m_pWorldSettings;
         int m_maxHeight = 0;
 
