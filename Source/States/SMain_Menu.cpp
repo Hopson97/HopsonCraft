@@ -62,11 +62,11 @@ namespace State
         */
 
 
-        Noise::Data nSmooth     {0, 0, 0, 0};
-        Noise::Data nNormal     {7, 85,             0.51,   235, -15    };
-        Noise::Data nMountains  {8, 550,            0.50,   283, -395   };
-        Noise::Data nWater      {7, 43,             0.5,    55          };
-        Noise::Data nHilly      {7, 100,            0.52,   230  -10    };
+        Noise::Data nSmooth     {0, 0,      0,      0};
+        Noise::Data nNormal     {7, 85,     0.51,   235, -15    };
+        Noise::Data nMountains  {8, 550,    0.50,   283, -395   };
+        Noise::Data nWater      {7, 43,     0.5,    55          };
+        Noise::Data nHilly      {7, 100,    0.52,   230  -10    };
 
         //Front menu
         m_frontMenu.addPadding(100);
@@ -123,7 +123,7 @@ namespace State
             settings.isSuperFlat = (settings.noiseData.octaves == 0);
 
             m_pActiveMenu = &m_frontMenu;
-            settings.seed = Random::intInRange(0, 99'999);
+            settings.seed = Random::intInRange(0, 999'999);
             m_application->pushState(std::make_unique<State::Playing>(*m_application, settings));
         }));
 

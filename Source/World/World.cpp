@@ -284,7 +284,7 @@ void World::triggerBlocks()
 }
 
 
-void World::draw(Renderer::Master& renderer, const Camera& camera)
+void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
     m_facesDrawn = 0;
     for (auto& chunk : m_chunks.getChunks())
@@ -292,11 +292,6 @@ void World::draw(Renderer::Master& renderer, const Camera& camera)
         if (chunk.second.hasGeneratedBlockData)
             m_facesDrawn += chunk.second.draw(renderer, camera);
     }
-}
-
-void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
-{
-    draw(renderer, camera);
 }
 
 const World_Settings& World::getWorldSettings() const

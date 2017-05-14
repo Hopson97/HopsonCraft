@@ -16,38 +16,54 @@ namespace
     {
         Grassland,
         Forest,
-        Mountains
+        Mountains,
+        Ocean,
     };
 
     Biome getBiome(int val)
     {
-        if (val > 140)
-        {
-            return Grassland;
-        }
-        else if (Maths::inRange(val, 120, 140))
+        if (val > 180)
         {
             return Mountains;
         }
-        else
+        else if (Maths::inRange(val, 145, 180))
         {
             return Forest;
         }
+        else if (Maths::inRange(val, 120, 145))
+        {
+            return Grassland;
+        }
+        else
+        {
+            return Ocean;
+        }
     }
 
-    Noise::Data getBiomeNoise (Biome b)
+    Noise::Data& getBiomeNoise (Biome b)
     {
+        static Noise::Data forest       {7, 100,    0.52,   230  -10 };
+        static Noise::Data grassland    {7, 85,     0.51,   235, -15 };
+        static Noise::Data mountains    {8, 550,    0.50,   383, -395 };
+        static Noise::Data ocean        {7, 43,     0.5,    55};
+
+
         switch(b)
         {
             case Biome::Forest:
-                return {7, 100, 0.52, 230  -10 };
+                return forest;
 
             case Biome::Grassland:
-                return {7, 85, 0.51, 235, -15 };
+                return grassland;
 
             case Biome::Mountains:
-                return {8, 550, 0.50, 283, -395 };
+                return mountains;
+
+            case Biome::Ocean:
+                return ocean;
+
         }
+        return ocean;
     }
 
 }
@@ -60,7 +76,7 @@ Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
     m_noiseGenerator.setNoiseFunction   (worldSettings.noiseData);
 
     m_biomeNoise.setSeed            (worldSettings.seed);
-    m_biomeNoise.setNoiseFunction   ({6, 112, 0.5, 200});
+    m_biomeNoise.setNoiseFunction   ({6, 150, 0.5, 450});
 }
 
 void Chunk_Generator::reset()
@@ -223,6 +239,7 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                     }
                     break;
 
+                case Ocean:
                 case Mountains:
                     //blockID = Block::ID::Stone;
                    // break;
@@ -284,20 +301,25 @@ void Chunk_Generator::makeAdvancedHeigtMap()
 {
     static auto edge = CHUNK_SIZE;
 
-    int q11 = m_noiseGenerator.getValue( 0, 0,
+    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(0, 0))));
+    int q11 = m_noiseGenerator.getValue(0, 0,
                                         m_pChunk->getPosition().x,
                                         m_pChunk->getPosition().y);
-    int q21 = m_noiseGenerator.getValue( 0, 0,
-                                        m_pChunk->getPosition().x + 1,
+
+    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(edge, 0))));
+    int q21 = m_noiseGenerator.getValue(edge, 0,
+                                        m_pChunk->getPosition().x,
                                         m_pChunk->getPosition().y);
 
-    int q12 = m_noiseGenerator.getValue( 0, 0,
+    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(0, edge))));
+    int q12 = m_noiseGenerator.getValue(0, edge,
                                         m_pChunk->getPosition().x,
-                                        m_pChunk->getPosition().y + 1);
+                                        m_pChunk->getPosition().y);
 
-    int q22 = m_noiseGenerator.getValue( 0, 0,
-                                        m_pChunk->getPosition().x + 1,
-                                        m_pChunk->getPosition().y + 1);
+    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(edge, edge))));
+    int q22 = m_noiseGenerator.getValue(edge, edge,
+                                        m_pChunk->getPosition().x,
+                                        m_pChunk->getPosition().y);
     for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
     for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
     {

@@ -70,9 +70,6 @@ class World
         void triggerBlocks      ();
         void generateWorld      (const Camera& camera);
 
-
-        void draw               (Renderer::Master& renderer, const Camera& camera);
-
         void checkChunksForDelete();
 
         World_Generator m_worldGen;
