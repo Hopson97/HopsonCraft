@@ -21,7 +21,7 @@ namespace GUI
             ,   m_pOption       (&option)
             ,   m_label         (std::move(title))
             {
-                m_quad.setSize({500, 100});
+                m_quad.setSize({BASE_WIDTH, BASE_HEIGHT});
                 m_quad.setTexture(&Component::guiTexture);
                 m_quad.setOutlineColor(sf::Color::Black);
                 m_quad.setOutlineThickness(4);

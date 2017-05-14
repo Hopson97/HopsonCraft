@@ -10,6 +10,9 @@ namespace GUI
     class Component
     {
         public:
+            static constexpr int BASE_WIDTH     = 500;
+            static constexpr int BASE_HEIGHT    = 100;
+
             Component();
             virtual ~Component(){}
 

@@ -67,7 +67,26 @@ namespace GUI
 
     void Panel::addComponentGrid2x(std::unique_ptr<Component>& component)
     {
+        if(m_2xCount == 2)
+        {
+            m_currentY += Component::BASE_HEIGHT;
+            m_2xRow++;
+            m_2xCount = 0;
+        }
+        m_2xCount++;
 
+        static auto w = Component::BASE_WIDTH;
+        if (m_isGrid2xleft)
+        {
+            component->setPosition({Display::get().getSize().x / 2 - component->getSize().x / 2 - w / 2,
+                                    float(m_currentY) });
+        }
+        else
+        {
+            component->setPosition({Display::get().getSize().x / 2 + component->getSize().x / 2 + w / 2,
+                                    float(m_currentY) });
+        }
+        m_isGrid2xleft = !m_isGrid2xleft;
     }
 
 

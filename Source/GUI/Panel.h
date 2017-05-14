@@ -46,6 +46,10 @@ namespace GUI
             int m_currentX = 0;
             int m_currentY = 15;
 
+            bool m_isGrid2xleft = true;
+            int  m_2xRow = 0;
+            int  m_2xCount = 0;
+
     };
 }
 
