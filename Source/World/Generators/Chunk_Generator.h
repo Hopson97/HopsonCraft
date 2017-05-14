@@ -49,8 +49,8 @@ class Chunk_Generator
         //Containers
         std::vector<Block::Position>                    m_oakTreeLocations;
         std::vector<std::pair<Block::Position, CBlock>> m_littleBlockLoc;
-        Array2D<int, CHUNK_AREA + 1> m_biomeMap;
-        Array2D<int, CHUNK_AREA>     m_heightMap;
+        Array2D<int, CHUNK_AREA + 1>    m_biomeMap;
+        Array2D<int, CHUNK_AREA + 1>    m_heightMap;
 
 
         //Generators

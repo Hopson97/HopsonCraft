@@ -20,10 +20,10 @@ namespace Maths
         return var < val;
     }
 
-    float bilinearInterpolate(float q11, float q12, float q21, float q22,
-                              float x1,  float x2,
-                              float y1,  float y2,
-                              float x,   float y);
+    float bilinearInterpolate(float bottomLeft, float topLeft, float bottomRight, float topRight,
+                              float xMin,       float xMax,
+                              float yMin,       float yMax,
+                              float xToCalc,    float yToCalc);
 
 }
 

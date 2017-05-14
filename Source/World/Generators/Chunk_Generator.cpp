@@ -22,15 +22,15 @@ namespace
 
     Biome getBiome(int val)
     {
-        if (val > 240)
+        if (val > 235)
         {
             return Mountains;
         }
-        else if (Maths::inRange(val, 180, 240))
+        else if (Maths::inRange(val, 190, 235))
         {
             return Forest;
         }
-        else if (Maths::inRange(val, 120, 180))
+        else if (Maths::inRange(val, 145, 190))
         {
             return Grassland;
         }
@@ -299,32 +299,80 @@ void Chunk_Generator::makeHeightMap()
 //than using noise function on every point.
 void Chunk_Generator::makeAdvancedHeigtMap()
 {
-    static auto edge = CHUNK_SIZE;
+    static constexpr auto EDGE = CHUNK_SIZE;
+    static constexpr auto SCALE = 4;
+/*
+    for (int32_t x = 0 ; x < CHUNK_SIZE + 1; x += SCALE)
+    for (int32_t z = 0 ; z < CHUNK_SIZE + 1; z += SCALE)
+    {
+        m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(x, z))));
+        int h = m_noiseGenerator.getValue(x, z,
+                                            m_pChunk->getPosition().x,
+                                            m_pChunk->getPosition().y);
+        m_heightMap.at(x, z) = h;
+    }
+
+    for (int qx = 0; qx < CHUNK_SIZE; qx += SCALE )
+    for (int qz = 0; qz < CHUNK_SIZE; qz += SCALE )
+    for (int32_t x = 0 ; x < 4; x++)
+    for (int32_t z = 0 ; z < 4; z++)
+    {
+        int q11 = m_heightMap.at(qx,            qz);
+        int q12 = m_heightMap.at(qx + SCALE,    qz);
+        int q21 = m_heightMap.at(qx,            qz + SCALE);
+        int q22 = m_heightMap.at(qx + SCALE,    qz + SCALE);
+
+        int height =
+            Maths::bilinearInterpolate(q11, q12, q21, q22,
+                                       qx, qx + x,
+                                       qz, qz + z,
+                                       qx + x, qz + z);
+
+
+            m_heightMap.at(x + qx * SCALE,
+                           z + qz * SCALE) = height;
+
+            m_maxHeight = std::max(m_maxHeight, height);
+    }
+*/
+
+    ///@TODO Rather than finding noise 4 corners, find it every 4 blocks and interpolate. This would have a more seamless result.
+    /*
+        Right now, noise is found at 4-corners of the chunk, and then bilinear interpolation is applied
+        to make a smooth step of height values between the corners.
+
+        This way, I can have multiple biome types with different noise functions, without having completely flat cliff
+        faces, but (ideally) smoother cliffs.
+    */
+
 
     m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(0, 0))));
     int q11 = m_noiseGenerator.getValue(0, 0,
                                         m_pChunk->getPosition().x,
                                         m_pChunk->getPosition().y);
 
-    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(edge, 0))));
-    int q21 = m_noiseGenerator.getValue(edge, 0,
+    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(EDGE, 0))));
+    int q21 = m_noiseGenerator.getValue(EDGE, 0,
                                         m_pChunk->getPosition().x,
                                         m_pChunk->getPosition().y);
 
-    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(0, edge))));
-    int q12 = m_noiseGenerator.getValue(0, edge,
+    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(0, EDGE))));
+    int q12 = m_noiseGenerator.getValue(0, EDGE,
                                         m_pChunk->getPosition().x,
                                         m_pChunk->getPosition().y);
 
-    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(edge, edge))));
-    int q22 = m_noiseGenerator.getValue(edge, edge,
+    m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(EDGE, EDGE))));
+    int q22 = m_noiseGenerator.getValue(EDGE, EDGE,
                                         m_pChunk->getPosition().x,
                                         m_pChunk->getPosition().y);
     for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
     for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
     {
         int height =
-            Maths::bilinearInterpolate(q11, q12, q21, q22, 0, edge, 0, edge, x, z);
+            Maths::bilinearInterpolate(q11, q12, q21, q22, //The values to interpolate between
+                                       0, EDGE,             //X range of the values
+                                       0, EDGE,             //Z Range of the values
+                                       x, z);               //X and Z position to find value for
 
         m_heightMap.at(x, z) = height;
         m_maxHeight = std::max(m_maxHeight, height);

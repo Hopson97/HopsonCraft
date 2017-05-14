@@ -3,6 +3,7 @@
 
 namespace Maths
 {
+    /*
     float bilinearInterpolate(float q11, float q12, float q21, float q22,
                               float x1,  float x2,
                               float y1,  float y2,
@@ -29,4 +30,48 @@ namespace Maths
             q22 * xx1 * yy1
         );
     }
+    */
+    float bilinearInterpolate(float bottomLeft, float topLeft, float bottomRight, float topRight,
+                              float xMin,       float xMax,
+                              float yMin,       float yMax,
+                              float xToCalc,    float yToCalc)
+    {
+        float   width,          //x2x1
+                height,         //y2y1
+                xDistanceToMax, //x2x
+                yDistanceToMax, //y2y
+                xDistanceToMin, //yy1
+                yDistanceToMin; //xx1
+
+        width   = xMax - xMin;
+        height  = yMax - yMin;
+        xDistanceToMax = xMax - xToCalc;
+        yDistanceToMax = yMax - yToCalc;
+
+        xDistanceToMin = xToCalc - xMin;
+        yDistanceToMin = yToCalc - yMin;
+
+        return 1.0f / (width * height) *
+            (
+                bottomLeft  * xDistanceToMax * yDistanceToMax +
+                bottomRight * xDistanceToMin * yDistanceToMax +
+                topLeft     * xDistanceToMax * yDistanceToMin +
+                topRight    * xDistanceToMin * yDistanceToMin
+            );
+
+
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
