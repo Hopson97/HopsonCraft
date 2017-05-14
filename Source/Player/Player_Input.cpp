@@ -16,7 +16,7 @@ void Player::input()
 void Player::keyBoardInput ()
 {
     Vector3 change;
-    float speed = 0.15;
+    float speed = 0.30;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
         speed *= 10;

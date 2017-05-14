@@ -18,6 +18,7 @@ namespace
         Forest,
         Mountains,
         Ocean,
+        Desert,
     };
 
     Biome getBiome(int val)
@@ -42,13 +43,18 @@ namespace
 
     Noise::Data& getBiomeNoise (Biome b)
     {
-        static Noise::Data forest       {7, 100,    0.52,   230  -15 };
-        static Noise::Data grassland    {7, 85,     0.51,   235, -10 };
-        static Noise::Data mountains    {8, 550,    0.50,   200, -395 };
-        static Noise::Data ocean        {7, 43,     0.5,    55};
+                                        //Octaves   amplitude   roughness,  smoothness  height offset
+        static Noise::Data forest       {5,         100,        0.52,       230         -15 };
+        static Noise::Data desert       {5,         93,         0.45,       230         -20 };
+        static Noise::Data grassland    {7,         85,         0.51,       235,        -10 };
+        static Noise::Data mountains    {8,         550,        0.50,       200,        -395 };
+        static Noise::Data ocean        {7,         43,         0.5,        55,         0};
 
         switch(b)
         {
+            case Biome::Desert:
+                return desert;
+
             case Biome::Forest:
                 return forest;
 
@@ -217,6 +223,30 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
         {
             switch (biomeType)
             {
+                case Desert:
+                    blockID = Block::ID::Sand;
+                    break;
+
+                case Mountains:
+                    blockID = m_randomGenerator.intInRange(0, 10) <= 7 ?
+                        Block::ID::Grass :
+                        Block::ID::Dirt;
+                    if (m_randomGenerator.intInRange(0, 280) == 5)
+                    {
+                        m_oakTreeLocations.push_back(pos);
+                    }
+                    if (m_randomGenerator.intInRange(0, 800) < 5)
+                    {
+                        m_littleBlockLoc.push_back(std::make_pair(pos,
+                                                                  Block::ID::Rose));
+                    }
+                    if (m_randomGenerator.intInRange(0, 500) < 5)
+                    {
+                        m_littleBlockLoc.push_back(std::make_pair(pos,
+                                                                  Block::ID::Tall_Grass));
+                    }
+                    break;
+
                 case Grassland:
                     blockID = Block::ID::Grass;
                     if (m_randomGenerator.intInRange(0, 350) == 5)
@@ -239,9 +269,6 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                     break;
 
                 case Ocean:
-                case Mountains:
-                    //blockID = Block::ID::Stone;
-                   // break;
                 case Forest:
                     blockID = m_randomGenerator.intInRange(0, 10) <= 7 ?
                         Block::ID::Grass :
@@ -294,33 +321,37 @@ void Chunk_Generator::makeHeightMap()
     }
 }
 
+
+
 void Chunk_Generator::advancedHeightSection(int xMin, int zMin, int xMax, int zMax)
 {
     m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(xMin, zMin))));
-    int q11 = m_noiseGenerator.getValue(xMin, zMin,
-                                        m_pChunk->getPosition().x,
-                                        m_pChunk->getPosition().y);
+    int bottomLeft = m_noiseGenerator.getValue(xMin, zMin,
+                                               m_pChunk->getPosition().x,
+                                               m_pChunk->getPosition().y);
 
     m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(xMax, zMin))));
-    int q21 = m_noiseGenerator.getValue(xMax, zMin,
-                                        m_pChunk->getPosition().x,
-                                        m_pChunk->getPosition().y);
+    int bottomRight = m_noiseGenerator.getValue(xMax, zMin,
+                                                m_pChunk->getPosition().x,
+                                                m_pChunk->getPosition().y);
 
     m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(xMin, zMax))));
-    int q12 = m_noiseGenerator.getValue(xMin, zMax,
-                                        m_pChunk->getPosition().x,
-                                        m_pChunk->getPosition().y);
+    int topLeft = m_noiseGenerator.getValue(xMin, zMax,
+                                            m_pChunk->getPosition().x,
+                                            m_pChunk->getPosition().y);
 
     m_noiseGenerator.setNoiseFunction(getBiomeNoise(getBiome(m_biomeMap.at(xMax, zMax))));
-    int q22 = m_noiseGenerator.getValue(xMax, zMax,
-                                        m_pChunk->getPosition().x,
-                                        m_pChunk->getPosition().y);
+    int topRight = m_noiseGenerator.getValue(xMax, zMax,
+                                             m_pChunk->getPosition().x,
+                                             m_pChunk->getPosition().y);
 
-    for (int32_t x = xMin ; x < xMax; ++x)
-    for (int32_t z = zMin ; z < zMax; ++z)
+    int itr = 0;
+    for (int32_t x = xMin ; x <= xMax; ++x)
+    for (int32_t z = zMin ; z <= zMax; ++z)
     {
+        itr++;
         int height =
-            Maths::bilinearInterpolate(q11, q12, q21, q22, //The values to interpolate between
+            Maths::bilinearInterpolate(bottomLeft, topLeft, bottomRight, topRight, //The values to interpolate between
                                        xMin, xMax,             //X range of the values
                                        zMin, zMax,             //Z Range of the values
                                        x + xMin, z + zMin);               //X and Z position to find value for
@@ -335,8 +366,6 @@ void Chunk_Generator::advancedHeightSection(int xMin, int zMin, int xMax, int zM
 //than using noise function on every point.
 void Chunk_Generator::makeAdvancedHeigtMap()
 {
-    static constexpr auto EDGE = CHUNK_SIZE;
-
 /*
     ///@TODO Rather than having my "advanced heightmap" like this, it might be possible to
     advancedHeightSection(0,    0,      4,              4);
@@ -344,8 +373,8 @@ void Chunk_Generator::makeAdvancedHeigtMap()
     advancedHeightSection(0,    8,      4,              12);
     advancedHeightSection(0,    12,     4,              CHUNK_SIZE);
 
-    advancedHeightSection(4,    4,      8,              8);
     advancedHeightSection(4,    0,      8,              4);
+    advancedHeightSection(4,    4,      8,              8);
     advancedHeightSection(4,    8,      8,              12);
     advancedHeightSection(4,    12,     8,              CHUNK_SIZE);
 
@@ -358,8 +387,10 @@ void Chunk_Generator::makeAdvancedHeigtMap()
     advancedHeightSection(12,   4,      CHUNK_SIZE,     8);
     advancedHeightSection(12,   8,      CHUNK_SIZE,     12);
     advancedHeightSection(12,   12,     CHUNK_SIZE,     CHUNK_SIZE);
+
     return;
 */
+
     ///@TODO Rather than finding noise 4 corners, find it every 4 blocks and interpolate. This would have a more seamless result.
     /*
         Right now, noise is found at 4-corners of the chunk, and then bilinear interpolation is applied
