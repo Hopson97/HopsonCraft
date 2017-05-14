@@ -97,10 +97,10 @@ namespace State
         m_playMenu.addBackgroud(*m_pMenuBackground);
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
-        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<int32_t>>("World Size",
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<int32_t>>("Render Distance",
         std::vector<std::string> { "Very Tiny", "Tiny", "Small", "Medium", "Large", "Huge \n Warning: Potentially high memory usage and low FPS!"},
         std::vector<int32_t>     {  12,          20,     32,      44,       56,      68},
-        settings.worldSize));
+        settings.renderDistance));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<Noise::Data>>("Terrain Type",
         std::vector<std::string> { "Flat", "Normal", "Mountains", "Water", "Hilly"},

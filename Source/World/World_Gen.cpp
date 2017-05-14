@@ -26,7 +26,7 @@ struct Area
 //This is ran concurrently alongside the main render/ update thread
 void World::generateWorld(const Camera& camera)
 {
-    if (m_loadingDistance == ((m_worldSettings.worldSize / 2) + 1))
+    if (m_loadingDistance == ((m_worldSettings.renderDistance / 2) + 1))
     {
         m_loadingDistance = 1;
     }
@@ -78,11 +78,11 @@ void World::generateWorld(const Camera& camera)
     }
 
     Area bounds;
-    bounds.minPoint = { m_cameraPosition.x - m_worldSettings.worldSize / 2 - 1,
-                        m_cameraPosition.y - m_worldSettings.worldSize / 2 - 1};
+    bounds.minPoint = { m_cameraPosition.x - m_worldSettings.renderDistance / 2 - 1,
+                        m_cameraPosition.y - m_worldSettings.renderDistance / 2 - 1};
 
-    bounds.maxPoint = { m_cameraPosition.x + m_worldSettings.worldSize / 2 + 1,
-                        m_cameraPosition.y + m_worldSettings.worldSize / 2 + 1};
+    bounds.maxPoint = { m_cameraPosition.x + m_worldSettings.renderDistance / 2 + 1,
+                        m_cameraPosition.y + m_worldSettings.renderDistance / 2 + 1};
 
     for(auto& chunk : m_chunks.getChunks())
     {

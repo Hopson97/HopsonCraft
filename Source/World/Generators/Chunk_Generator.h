@@ -41,6 +41,7 @@ class Chunk_Generator
         void setTopBlock    (const Block::Position& pos, Block::ID& id);
 
         void setRandomSeed  ();
+        void advancedHeightSection(int xMin, int xMax, int yMin, int yMax);
         void makeAdvancedHeigtMap();
         void makeHeightMap  ();
         void makeBiomeMap   ();

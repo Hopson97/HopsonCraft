@@ -10,7 +10,7 @@ struct World_Settings
 {
     std::string name;
     Noise::Data noiseData;
-    int32_t     worldSize;
+    int32_t     renderDistance;
     float       seed;
     bool        isSuperFlat        = false;
     bool        isExperimentalMode = false;
