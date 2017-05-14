@@ -22,15 +22,15 @@ namespace
 
     Biome getBiome(int val)
     {
-        if (val > 180)
+        if (val > 240)
         {
             return Mountains;
         }
-        else if (Maths::inRange(val, 145, 180))
+        else if (Maths::inRange(val, 180, 240))
         {
             return Forest;
         }
-        else if (Maths::inRange(val, 120, 145))
+        else if (Maths::inRange(val, 120, 180))
         {
             return Grassland;
         }
@@ -76,7 +76,7 @@ Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
     m_noiseGenerator.setNoiseFunction   (worldSettings.noiseData);
 
     m_biomeNoise.setSeed            (worldSettings.seed);
-    m_biomeNoise.setNoiseFunction   ({6, 150, 0.5, 450});
+    m_biomeNoise.setNoiseFunction   ({7, 150, 0.52, 450});
 }
 
 void Chunk_Generator::reset()

@@ -33,6 +33,12 @@ namespace Display
                                                     "HopsonCraft - 'V4.0'",
                                                     sf::Style::Fullscreen,
                                                     settings);
+/*
+        window = std::make_unique<sf::RenderWindow>(sf::VideoMode{1280, 720},
+                                                    "HopsonCraft - 'V4.0'",
+                                                    sf::Style::Default,
+                                                    settings);
+*/
         glewInit();
         glViewport(0, 0, get().getSize().x, get().getSize().y);
 

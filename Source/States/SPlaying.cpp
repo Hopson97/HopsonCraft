@@ -24,9 +24,8 @@ namespace State
         initHUD();
         initPause();
 
-        m_quady.position = getCenterPosition();
-
-        m_player.position = getCenterPosition();
+        m_quady.position    = getCenterPosition();
+        m_player.position   = getCenterPosition();
 
         Display::get().setFramerateLimit(1000);
     }
@@ -61,14 +60,7 @@ namespace State
         {
             return;
         }
-
         m_player.input();
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-        {
-            m_player.position = getCenterPosition();
-        }
-
         editBlockInput();
     }
 
@@ -184,13 +176,13 @@ namespace State
 
     Vector3 Playing::getCenterPosition()
     {
-        int32_t centre = (m_world.getWorldSettings().worldSize * CHUNK_SIZE) / 2;
+        int32_t centre = 20000;
 
         return
         {
-            centre + 0.5,
+            centre,
             m_world.getHeightAt({centre, 0, centre}) + 3,
-            centre + 0.5
+            centre
         };
     }
 

@@ -12,7 +12,6 @@ struct World_Settings
     Noise::Data noiseData;
     int32_t     worldSize;
     float       seed;
-    bool        isInfiniteTerrain  = false;
     bool        isSuperFlat        = false;
     bool        isExperimentalMode = false;
 };

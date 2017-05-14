@@ -14,9 +14,7 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
 ,   m_chunks        (*this)
 ,   m_pCamera       (&camera)
 {
-    //Just loads a few chunks in the centre. This causes the world to open instantly,
-    //while having player at correct height
-    int32_t centre = getWorldSettings().worldSize / 2;
+    int32_t centre = 20000;
     int size = 2;
     for (int x = -size ; x <= size; x++)
     {
@@ -92,22 +90,6 @@ void World::checkPlayerBounds(Player& player)
     if (player.position.z < 0.2)
     {
         player.position.z = 0.2;
-    }
-
-    if (m_worldSettings.isInfiniteTerrain)
-    {
-        return;
-    }
-    else
-    {
-        if (player.position.x + 0.2 > m_worldSettings.worldSize * CHUNK_SIZE - 0.2 )
-        {
-            player.position.x = m_worldSettings.worldSize * CHUNK_SIZE - 0.3;
-        }
-        if (player.position.z + 0.2 > m_worldSettings.worldSize * CHUNK_SIZE - 0.2 )
-        {
-            player.position.z = m_worldSettings.worldSize * CHUNK_SIZE - 0.3;
-        }
     }
 }
 
