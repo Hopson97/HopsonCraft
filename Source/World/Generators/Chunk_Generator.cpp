@@ -16,6 +16,7 @@ namespace
     {
         Grassland,
         Forest,
+        Sub_Mountains,
         Mountains,
         Ocean,
         Desert,
@@ -23,15 +24,19 @@ namespace
 
     Biome getBiome(int val)
     {
-        if (val > 235)
+        if (val > 260)
         {
             return Mountains;
         }
-        else if (Maths::inRange(val, 190, 235))
+        if (Maths::inRange(val, 230, 260))
+        {
+            return Sub_Mountains;
+        }
+        else if (Maths::inRange(val, 185, 230))
         {
             return Forest;
         }
-        else if (Maths::inRange(val, 145, 190))
+        else if (Maths::inRange(val, 150, 185))
         {
             return Grassland;
         }
@@ -44,11 +49,12 @@ namespace
     Noise::Data& getBiomeNoise (Biome b)
     {
                                         //Octaves   amplitude   roughness,  smoothness  height offset
-        static Noise::Data forest       {5,         100,        0.52,       230         -15 };
-        static Noise::Data desert       {5,         93,         0.45,       230         -20 };
-        static Noise::Data grassland    {7,         85,         0.51,       235,        -10 };
-        static Noise::Data mountains    {8,         550,        0.50,       200,        -395 };
-        static Noise::Data ocean        {7,         43,         0.5,        55,         0};
+        static Noise::Data forest       {5,         100,        0.52,       230         -40     };
+        static Noise::Data desert       {5,         93,         0.45,       230         -20     };
+        static Noise::Data grassland    {7,         85,         0.51,       235,        -10     };
+        static Noise::Data subMountains {7,         150,        0.51,       235,        -60     };
+        static Noise::Data mountains    {8,         450,        0.50,       280,        -395    };
+        static Noise::Data ocean        {7,         43,         0.5,        55,                 0};
 
         switch(b)
         {
@@ -67,6 +73,8 @@ namespace
             case Biome::Ocean:
                 return ocean;
 
+            case Biome::Sub_Mountains:
+                return subMountains;
         }
         return ocean;
     }
@@ -227,6 +235,7 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                     blockID = Block::ID::Sand;
                     break;
 
+                case Sub_Mountains:
                 case Mountains:
                     blockID = m_randomGenerator.intInRange(0, 10) <= 7 ?
                         Block::ID::Grass :
@@ -346,15 +355,15 @@ void Chunk_Generator::advancedHeightSection(int xMin, int zMin, int xMax, int zM
                                              m_pChunk->getPosition().y);
 
     int itr = 0;
-    for (int32_t x = xMin ; x <= xMax; ++x)
-    for (int32_t z = zMin ; z <= zMax; ++z)
+    for (int32_t x = xMin ; x < xMax; ++x)
+    for (int32_t z = zMin ; z < zMax; ++z)
     {
         itr++;
         int height =
             Maths::bilinearInterpolate(bottomLeft, topLeft, bottomRight, topRight, //The values to interpolate between
                                        xMin, xMax,             //X range of the values
                                        zMin, zMax,             //Z Range of the values
-                                       x + xMin, z + zMin);               //X and Z position to find value for
+                                       x, z);               //X and Z position to find value for
 
         m_heightMap.at(x, z) = height;
         m_maxHeight = std::max(m_maxHeight, height);
@@ -366,30 +375,28 @@ void Chunk_Generator::advancedHeightSection(int xMin, int zMin, int xMax, int zM
 //than using noise function on every point.
 void Chunk_Generator::makeAdvancedHeigtMap()
 {
-/*
-    ///@TODO Rather than having my "advanced heightmap" like this, it might be possible to
+
+    ///@TODO Rather than having my "advanced heightmap" like this, it might be possible to do it in a for loop
+
     advancedHeightSection(0,    0,      4,              4);
     advancedHeightSection(0,    4,      4,              8);
     advancedHeightSection(0,    8,      4,              12);
     advancedHeightSection(0,    12,     4,              CHUNK_SIZE);
-
     advancedHeightSection(4,    0,      8,              4);
     advancedHeightSection(4,    4,      8,              8);
     advancedHeightSection(4,    8,      8,              12);
     advancedHeightSection(4,    12,     8,              CHUNK_SIZE);
-
     advancedHeightSection(8,    0,      12,             4);
     advancedHeightSection(8,    4,      12,             8);
     advancedHeightSection(8,    8,      12,             12);
     advancedHeightSection(8,    12,     12,             CHUNK_SIZE);
-
     advancedHeightSection(12,   0,      CHUNK_SIZE,     4);
     advancedHeightSection(12,   4,      CHUNK_SIZE,     8);
     advancedHeightSection(12,   8,      CHUNK_SIZE,     12);
     advancedHeightSection(12,   12,     CHUNK_SIZE,     CHUNK_SIZE);
-
     return;
-*/
+
+
 
     ///@TODO Rather than finding noise 4 corners, find it every 4 blocks and interpolate. This would have a more seamless result.
     /*
