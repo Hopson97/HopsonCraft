@@ -29,7 +29,7 @@ namespace Block
         m_blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default> ("Oak_Wood");
         m_blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default> ("Oak_Leaf");
 
-        m_blocks[(int)ID::Water       ] = std::make_unique<BWater> ();
+        m_blocks[(int)ID::Water       ] = std::make_unique<Default> ("Water");
 
         m_blocks[(int)ID::Snow        ] = std::make_unique<Default> ("Snow");
 

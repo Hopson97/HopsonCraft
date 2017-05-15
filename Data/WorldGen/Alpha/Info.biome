@@ -1,0 +1,21 @@
+Noise
+4
+150
+0.65
+450
+
+Biome
+Mountains
+Greater 250
+
+Biome
+Forest
+Range 190 250
+
+Biome
+Fields
+Range 140 190
+
+Ocean
+Less
+140

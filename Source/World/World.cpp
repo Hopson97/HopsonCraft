@@ -106,11 +106,11 @@ void World::setBlock(const Vector3& position, CBlock block)
     {
         return;
     }   //Do not allow block breaking at the bottom of the world
-/*
+
     std::cout << "Set " << block.getData().name << " at "   << (int)position.x
                                                 << " "      << (int)position.y
                                                 << " "      << (int)position.z << "\n";
-*/
+
     m_newBlocks.emplace_back(block, position);
 
     for (int y = -1; y <= 1; ++y)

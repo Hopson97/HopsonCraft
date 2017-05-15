@@ -55,7 +55,7 @@ namespace
         {
             case Biome::Desert:
                 return desert;
-
+//
             case Biome::Forest:
                 return forest;
 
