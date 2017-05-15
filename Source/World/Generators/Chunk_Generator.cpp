@@ -81,7 +81,8 @@ Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
     m_noiseGenerator.setNoiseFunction   (worldSettings.noiseData);
 
     m_biomeNoise.setSeed            (worldSettings.seed);
-    m_biomeNoise.setNoiseFunction   ({4, 150, 0.65, 450});
+    //m_biomeNoise.setNoiseFunction   ({4, 150, 0.65, 450});
+    m_biomeNoise.setNoiseFunction   ({4, 150, 0.7, 900});
 }
 
 void Chunk_Generator::reset()

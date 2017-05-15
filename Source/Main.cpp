@@ -7,10 +7,8 @@
 #include "Util/Config.h"
 #include "Util/ConfigParser.h"
 #include "Util/Singleton.h"
-#include "World/Chunk/CSection.h"
-
+#include "Util/File_Util.h"
 #include "World/Block/Block_Database.h"
-
 #include "Temp/Noise_Generator.h"
 
 #ifdef __WIN32
@@ -109,6 +107,14 @@ namespace
 */
 int main() try
 {
+/*
+    auto dir = getFileNamesFromFolder("Data/WorldGen/");
+    for (auto& dirName : dir)
+    {
+        std::cout << dirName << std::endl;
+    }
+*/
+
     //noiseTest(100000);
     runGame();
     return 0;

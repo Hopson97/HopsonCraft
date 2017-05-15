@@ -14,8 +14,6 @@
 #include "Chunk/CMap.h"
 #include "World_Settings.h"
 
-#include "Generators/World_Generator.h"
-
 class Player;
 class Camera;
 
@@ -70,8 +68,6 @@ class World
         void generateWorld      (const Camera& camera);
 
         void checkChunksForDelete();
-
-        World_Generator m_worldGen;
 
         std::vector<Position_Block> m_newBlocks;
 

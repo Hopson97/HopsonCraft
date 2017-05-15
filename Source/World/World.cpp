@@ -11,8 +11,7 @@
 #include "../Util/STD_Util.h"
 
 World::World(const World_Settings& worldSettings, const Camera& camera)
-:   m_worldGen      (m_chunks, m_deleteMutex, worldSettings, camera, m_deleteChunks)
-,   m_worldSettings (worldSettings)
+:   m_worldSettings (worldSettings)
 ,   m_chunks        (*this)
 ,   m_pCamera       (&camera)
 {
@@ -25,8 +24,6 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
             m_chunks.addChunk({centre + x, centre + z}, true);
         }
     }
-
-   // m_worldGen.launch();
 
     //See "World_Gen.cpp"
     for (int i = 0; i < 1; i++)
@@ -296,3 +293,108 @@ AABB World::getBlockAABB(const Block::Position& position)
     blockAABB.update({position.x - 0.1, position.y - 0.1, position.z - 0.1});
     return blockAABB;
 }
+
+
+//Generates meshes for the chunks.
+//It does this in a sort of radius starting from the middle of the world
+//This is ran concurrently alongside the main render/ update thread
+void World::generateWorld(const Camera& camera)
+{
+    struct Area
+    {
+        struct Vec2
+        {
+            Vec2() = default;
+            Vec2(int ix, int iz)
+            :   x   (ix)
+            ,   z   (iz)
+            { }
+
+            int x, z;
+        };
+
+        Vec2 minPoint, maxPoint;
+    };
+
+    if (m_loadingDistance == ((m_worldSettings.renderDistance / 2) + 1))
+    {
+        m_loadingDistance = 1;
+    }
+
+    m_cameraPosition = Maths::worldToChunkPos(camera.position);
+
+    Area area;
+    bool isMeshMade = false;
+
+    for (int i = 0; i < m_loadingDistance; i++)
+    {
+        m_deleteMutex.unlock();
+
+        area.minPoint = {m_cameraPosition.x - i,
+                         m_cameraPosition.y - i};
+
+        area.maxPoint = {m_cameraPosition.x + i,
+                         m_cameraPosition.y + i};
+
+        m_deleteMutex.lock();
+        for (int32_t x = area.minPoint.x; x < area.maxPoint.x; x++)
+        {
+            for (int32_t z = area.minPoint.z; z < area.maxPoint.z; z++)
+            {
+                Chunk::Position position(x, z);
+                if(!m_chunks.existsAt(position))
+                {
+                    m_chunks.addChunk(position, true);
+                }
+
+                auto& chunk = m_chunks.get({x, z});
+
+                if(chunk.tryGen(/*m_pCamera*/))
+                {
+                    isMeshMade = true;
+                    break;
+                }
+            }
+            if (isMeshMade)
+            {
+                break;
+            }
+        }
+    }
+
+    if (!isMeshMade)
+    {
+        m_loadingDistance++;
+    }
+
+    Area bounds;
+    bounds.minPoint = { m_cameraPosition.x - m_worldSettings.renderDistance / 2 - 1,
+                        m_cameraPosition.y - m_worldSettings.renderDistance / 2 - 1};
+
+    bounds.maxPoint = { m_cameraPosition.x + m_worldSettings.renderDistance / 2 + 1,
+                        m_cameraPosition.y + m_worldSettings.renderDistance / 2 + 1};
+
+    for(auto& chunk : m_chunks.getChunks())
+    {
+        Chunk::Full_Chunk& c = chunk.second;
+        auto location = c.getPosition();
+
+        //Check bounds
+        if (location.x <= bounds.minPoint.x ||
+            location.x >= bounds.maxPoint.x ||
+            location.y <= bounds.minPoint.z ||
+            location.y >= bounds.maxPoint.z)
+        {
+            //If the chunk is outside of the bounds of the render distance, then add the position of it into a delete vector
+            if (!c.hasDeleteFlag)
+            {
+                c.hasDeleteFlag = true;
+                m_deleteChunks.push_back(location);
+            }
+        }
+    }
+
+
+    m_deleteMutex.unlock();
+}
+

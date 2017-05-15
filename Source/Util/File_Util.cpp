@@ -44,6 +44,20 @@ std::string getFileContents(const std::string& filePath)
 
         return fileNames;
     }
+/*
+    ///@TODO Linux/ etc of this
+    std::vector<std::string> getFolderNamesFromFolder(const std::string& folderName)
+    {
+        std::vector<std::string> folderNames;
+
+        WIN32_FIND_DATA findData;
+        auto hFind = INVALID_HANDLE_VALUE;
+
+
+
+    }
+*/
+
 #elif __linux__ || __APPLE__
     std::vector<std::string> getFileNamesFromFolder(const std::string& folderName)
     {
@@ -63,3 +77,4 @@ std::string getFileContents(const std::string& filePath)
         return fileNames;
     }
 #endif
+
