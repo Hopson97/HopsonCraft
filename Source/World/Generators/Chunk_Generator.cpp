@@ -82,7 +82,7 @@ Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
 
     m_biomeNoise.setSeed            (worldSettings.seed);
     //m_biomeNoise.setNoiseFunction   ({4, 150, 0.65, 450});
-    m_biomeNoise.setNoiseFunction   ({4, 150, 0.7, 900});
+    m_biomeNoise.setNoiseFunction   ({7, 150, 0.65, 900});
 }
 
 void Chunk_Generator::reset()
@@ -361,7 +361,6 @@ void Chunk_Generator::advancedHeightSection(int xMin, int zMin, int xMax, int zM
         m_maxHeight = std::max(m_maxHeight, height);
     }
 }
-
 
 //This uses interpolation to um interpolate between values rather
 //than using noise function on every point.
