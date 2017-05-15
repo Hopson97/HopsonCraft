@@ -4,12 +4,16 @@
 
 namespace Texture
 {
-    void Basic_Texture::load(const std::string& fileName)
+    bool Basic_Texture::loadFromFile(const std::string& fileName)
     {
+        clear();
         std::string filePath = "Data/Textures/" + fileName + ".png";
 
         sf::Image image;
-        image.loadFromFile(filePath);
+        if (!image.loadFromFile(filePath))
+        {
+            return false;
+        }
 
         glGenTextures(1, &m_textureID);
         glBindTexture(GL_TEXTURE_2D, m_textureID);
@@ -30,8 +34,19 @@ namespace Texture
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        glBindTexture(GL_TEXTURE_2D, 0);
+        return true;
     }
+
+    Basic_Texture::~Basic_Texture()
+    {
+        clear();
+    }
+
+    void Basic_Texture::clear()
+    {
+        glDeleteTextures(1, &m_textureID);
+    }
+
 
     void Basic_Texture::bind() const
     {

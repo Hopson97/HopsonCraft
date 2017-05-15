@@ -2,8 +2,6 @@
 
 #include "../../World.h"
 
-#include <iostream>
-
 namespace Block
 {
     BPlant::BPlant(const std::string& name)

@@ -9,12 +9,15 @@ namespace Texture
     class Basic_Texture
     {
         public:
-            void load(const std::string& fileName);
+            bool loadFromFile(const std::string& fileName);
+            ~Basic_Texture();
 
             void bind() const;
             void unbind() const;
 
         private:
+            void clear();
+
             GLuint m_textureID;
     };
 }

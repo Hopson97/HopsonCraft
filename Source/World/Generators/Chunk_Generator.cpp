@@ -8,7 +8,7 @@
 #include "../World_Settings.h"
 #include "../Chunk/CFull_Chunk.h"
 
-#include "GTrees.h"
+#include "G_ID.h"
 
 namespace
 {
@@ -48,6 +48,7 @@ namespace
         static Noise::Data desert       {5,         93,         0.45,       230         -20     };
         static Noise::Data grassland    {7,         85,         0.51,       235,        -10     };
         static Noise::Data mountains    {8,         550,        0.50,       280,        -395    };
+        //static Noise::Data mountains    {8,         350,        0.50,       283,        -320    };
         static Noise::Data ocean        {7,         43,         0.5,        55,         0};
 
         switch(b)
@@ -229,7 +230,7 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                 case Mountains:
                     blockID = m_randomGenerator.intInRange(0, 10) <= 7 ?
                         Block::ID::Grass :
-                        Block::ID::Dirt;
+                        Block::ID::Stone;
                     if (m_randomGenerator.intInRange(0, 280) == 5)
                     {
                         m_oakTreeLocations.push_back(pos);
@@ -369,6 +370,7 @@ void Chunk_Generator::makeAdvancedHeigtMap()
     advancedHeightSection(8, 0, 16, 8);
     advancedHeightSection(0, 8, 8,  16);
     advancedHeightSection(8, 8, 16, 16);
+    advancedHeightSection(4, 4, 12, 12);
 return;
     ///@TODO Rather than finding noise 4 corners, find it every 4 blocks and interpolate. This would have a more seamless result.
     /*

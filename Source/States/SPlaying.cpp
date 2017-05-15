@@ -158,7 +158,7 @@ namespace State
                         timer.restart();
                         //if(!m_player.box.isCollidingWith(m_world.getBlockAABB(blockPos)))
                         {
-                            m_world.setBlock(lastPosition, Block::ID::Grass);
+                            m_world.setBlock(lastPosition, Block::ID::Water);
                         }
                         break;
                     }

@@ -8,7 +8,6 @@
 
 #include <SFML/System/Clock.hpp>
 
-
 #include "../Physics/AABB.h"
 
 #include "Chunk/CSection.h"
@@ -75,8 +74,9 @@ class World
         World_Generator m_worldGen;
 
         std::vector<Position_Block> m_newBlocks;
-        std::vector<Position_Block> m_triggerBlocks;
-        std::vector<Position_Block> m_sheduledTriggerBlocks;
+
+        std::unordered_map<Vector3, CBlock> m_triggerBlocks;
+        std::unordered_map<Vector3, CBlock> m_sheduledTriggerBlocks;
 
         std::vector<std::thread>    m_threads;
         std::vector<Chunk::Position>    m_deleteChunks;

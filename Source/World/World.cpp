@@ -8,6 +8,8 @@
 #include "../Camera.h"
 #include "../Maths/Position_Conversion.h"
 
+#include "../Util/STD_Util.h"
+
 World::World(const World_Settings& worldSettings, const Camera& camera)
 :   m_worldGen      (m_chunks, m_deleteMutex, worldSettings, camera, m_deleteChunks)
 ,   m_worldSettings (worldSettings)
@@ -104,10 +106,11 @@ void World::setBlock(const Vector3& position, CBlock block)
     {
         return;
     }   //Do not allow block breaking at the bottom of the world
-
+/*
     std::cout << "Set " << block.getData().name << " at "   << (int)position.x
                                                 << " "      << (int)position.y
                                                 << " "      << (int)position.z << "\n";
+*/
     m_newBlocks.emplace_back(block, position);
 
     for (int y = -1; y <= 1; ++y)
@@ -125,11 +128,17 @@ void World::setBlock(const Vector3& position, CBlock block)
         switch(m_state)
         {
             case State::Triggering:
-                m_sheduledTriggerBlocks.emplace_back(getBlock(pos), pos);
+                if (!existsInMap(m_triggerBlocks, pos) && !existsInMap(m_sheduledTriggerBlocks, pos))
+                {
+                    m_sheduledTriggerBlocks.emplace(std::make_pair(pos, getBlock(pos)));
+                }
                 break;
 
             default:
-                m_triggerBlocks.emplace_back(getBlock(pos), pos);
+                if (!existsInMap(m_triggerBlocks, pos) && !existsInMap(m_sheduledTriggerBlocks, pos))
+                {
+                    m_triggerBlocks.emplace(std::make_pair(pos, getBlock(pos)));
+                }
                 break;
         }
     }
@@ -248,8 +257,8 @@ void World::triggerBlocks()
     m_state = State::Triggering;
     for (auto& block : m_triggerBlocks)
     {
-        auto& p = block.position;
-        block.block.getType().trigger(*this, {int(p.x),
+        auto& p = block.first;
+        block.second.getType().trigger(*this, {int(p.x),
                                               int(p.y),
                                               int(p.z)});
     }

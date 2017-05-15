@@ -6,29 +6,19 @@ namespace Texture
     :   m_size          (size)
     ,   m_textureSize   (textureSize)
     {
-        load(textureName);
+        Basic_Texture::loadFromFile(textureName);
     }
-/*
-    std::vector<GLfloat> Atlas::getTextureCoords(const Vector2& location) const
+
+    bool Atlas::loadFromFile(const std::string& textureName,
+                             GLuint size,
+                             GLuint textureSize)
     {
-        static auto texturesPerRow  = m_size / m_textureSize;
-        static auto unitSize        = 1.0f / (float)texturesPerRow;
+        m_size = size;
+        m_textureSize = textureSize;
 
-        auto xMin = location.x * unitSize;
-        auto yMin = location.y * unitSize;
-
-        auto xMax = xMin + unitSize;
-        auto yMax = yMin + unitSize;
-
-        return
-        {
-            xMax, yMax,
-            xMin, yMax,
-            xMin, yMin,
-            xMax, yMin
-        };
+        return Basic_Texture::loadFromFile(textureName);
     }
-    */
+
 
     std::vector<GLfloat> Atlas::getTextureCoords(const Vector2& location) const
     {
