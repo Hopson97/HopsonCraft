@@ -375,29 +375,11 @@ void Chunk_Generator::advancedHeightSection(int xMin, int zMin, int xMax, int zM
 //than using noise function on every point.
 void Chunk_Generator::makeAdvancedHeigtMap()
 {
-
-    ///@TODO Rather than having my "advanced heightmap" like this, it might be possible to do it in a for loop
-
-    advancedHeightSection(0,    0,      4,              4);
-    advancedHeightSection(0,    4,      4,              8);
-    advancedHeightSection(0,    8,      4,              12);
-    advancedHeightSection(0,    12,     4,              CHUNK_SIZE);
-    advancedHeightSection(4,    0,      8,              4);
-    advancedHeightSection(4,    4,      8,              8);
-    advancedHeightSection(4,    8,      8,              12);
-    advancedHeightSection(4,    12,     8,              CHUNK_SIZE);
-    advancedHeightSection(8,    0,      12,             4);
-    advancedHeightSection(8,    4,      12,             8);
-    advancedHeightSection(8,    8,      12,             12);
-    advancedHeightSection(8,    12,     12,             CHUNK_SIZE);
-    advancedHeightSection(12,   0,      CHUNK_SIZE,     4);
-    advancedHeightSection(12,   4,      CHUNK_SIZE,     8);
-    advancedHeightSection(12,   8,      CHUNK_SIZE,     12);
-    advancedHeightSection(12,   12,     CHUNK_SIZE,     CHUNK_SIZE);
-    return;
-
-
-
+    advancedHeightSection(0, 0, 8,  8);
+    advancedHeightSection(8, 0, 16, 8);
+    advancedHeightSection(0, 8, 8,  16);
+    advancedHeightSection(8, 8, 16, 16);
+return;
     ///@TODO Rather than finding noise 4 corners, find it every 4 blocks and interpolate. This would have a more seamless result.
     /*
         Right now, noise is found at 4-corners of the chunk, and then bilinear interpolation is applied
