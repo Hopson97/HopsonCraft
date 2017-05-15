@@ -16,7 +16,6 @@ namespace
     {
         Grassland,
         Forest,
-        Sub_Mountains,
         Mountains,
         Ocean,
         Desert,
@@ -24,13 +23,9 @@ namespace
 
     Biome getBiome(int val)
     {
-        if (val > 260)
+        if (val > 230)
         {
             return Mountains;
-        }
-        if (Maths::inRange(val, 230, 260))
-        {
-            return Sub_Mountains;
         }
         else if (Maths::inRange(val, 185, 230))
         {
@@ -52,9 +47,8 @@ namespace
         static Noise::Data forest       {5,         100,        0.52,       230         -40     };
         static Noise::Data desert       {5,         93,         0.45,       230         -20     };
         static Noise::Data grassland    {7,         85,         0.51,       235,        -10     };
-        static Noise::Data subMountains {7,         150,        0.51,       235,        -60     };
-        static Noise::Data mountains    {8,         450,        0.50,       280,        -395    };
-        static Noise::Data ocean        {7,         43,         0.5,        55,                 0};
+        static Noise::Data mountains    {8,         550,        0.50,       280,        -395    };
+        static Noise::Data ocean        {7,         43,         0.5,        55,         0};
 
         switch(b)
         {
@@ -72,9 +66,6 @@ namespace
 
             case Biome::Ocean:
                 return ocean;
-
-            case Biome::Sub_Mountains:
-                return subMountains;
         }
         return ocean;
     }
@@ -89,7 +80,7 @@ Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
     m_noiseGenerator.setNoiseFunction   (worldSettings.noiseData);
 
     m_biomeNoise.setSeed            (worldSettings.seed);
-    m_biomeNoise.setNoiseFunction   ({7, 150, 0.52, 450});
+    m_biomeNoise.setNoiseFunction   ({4, 150, 0.65, 450});
 }
 
 void Chunk_Generator::reset()
@@ -235,7 +226,6 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
                     blockID = Block::ID::Sand;
                     break;
 
-                case Sub_Mountains:
                 case Mountains:
                     blockID = m_randomGenerator.intInRange(0, 10) <= 7 ?
                         Block::ID::Grass :
