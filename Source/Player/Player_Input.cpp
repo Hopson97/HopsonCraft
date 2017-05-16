@@ -19,7 +19,7 @@ void Player::keyBoardInput ()
     float speed = 0.4;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
-        speed *= 10;
+        speed *= 3;
     }
 
     if(m_isInLiquid) speed /= 1.5;
@@ -67,6 +67,9 @@ void Player::keyBoardInput ()
     {
         change.y -= speed;
     }
+
+    static Toggle_Bool flyModeToggle(sf::Keyboard::F, sf::seconds(0.3), m_isFlying);
+    flyModeToggle.input();
 
     addForce(change);
 }

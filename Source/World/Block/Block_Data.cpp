@@ -20,6 +20,7 @@ namespace Block
         m_holder.blockID    = (Block::ID)   jsonFile["ID"]      .get<int32_t>();
         m_holder.meshType   = (Mesh_Type)   jsonFile["Mesh"]    .get<int32_t>();
         m_holder.meshStyle  = (Mesh_Style)  jsonFile["Style"]   .get<int32_t>();
+        //m_holder.state      = (State)       jsonFile["State"]   .get<int32_t>();
 
         auto getTexCoords = [&](const std::string& loc, Vector2& vect)
         {

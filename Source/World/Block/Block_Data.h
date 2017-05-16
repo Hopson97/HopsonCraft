@@ -22,6 +22,13 @@ namespace Block
         XStyle  = 1
     };
 
+    enum class State
+    {
+        Solid   = 0,
+        Liquid  = 1,
+        Gas     = 2
+    };
+
     struct Data_Holder
     {
         Data_Holder() = default;
@@ -35,6 +42,7 @@ namespace Block
 
         Mesh_Type   meshType;
         Mesh_Style  meshStyle;
+        State       state;
 
         Vector2     topTextureCoords;
         Vector2     sideTextureCoords;

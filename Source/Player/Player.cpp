@@ -25,6 +25,11 @@ void Player::update(float dt)
     box.update(position);
     m_velocity.x  *= 0.95;
     m_velocity.z  *= 0.95; ///@TODO Dampen the velocity using dt
+
+    if (m_isFlying)
+    {
+        m_velocity.y *= 0.95;
+    }
 }
 
 void Player::doCollisionTest(World& world, float dt)
@@ -54,11 +59,13 @@ void Player::collisionTest(World& world, float dt, float vx, float vy, float vz)
     float size      = 0.5;
     float height    = 1.5;
 
-    for (int32_t x = position.x - size    ; x < position.x + size     ; x++)
-    for (int32_t y = position.y - height  ; y < position.y + height   ; y++)
-    for (int32_t z = position.z - size    ; z < position.z + size     ; z++)
+    for (int32_t x = position.x - size    ; x < position.x + size   ; x++)
+    for (int32_t y = position.y - height  ; y < position.y + 0.6    ; y++)///@TODO Allow player
+    for (int32_t z = position.z - size    ; z < position.z + size   ; z++)///to enter 2 height hole
     {
         auto block = world.getBlock({x, y, z});
+
+
 
         if (block.getData().isObstacle)
         {
