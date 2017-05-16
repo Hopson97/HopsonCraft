@@ -53,7 +53,14 @@ void Player::keyBoardInput ()
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Up)))
     {
-        change.y += speed;
+        if (m_isFlying)
+        {
+            change.y += speed;
+        }
+        else if (m_isOnGround)
+        {
+            change.y += 12;
+        }
     }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Down)))

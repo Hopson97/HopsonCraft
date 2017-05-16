@@ -11,6 +11,7 @@ namespace Chunk
     class Map;
 }
 
+class World;
 class Camera;
 
 class Player : public Entity
@@ -23,7 +24,15 @@ class Player : public Entity
 
         void addForce       (const Vector3& force);
 
-    //private:
+        void doCollisionTest(World& world, float dt);
+
+    private:
+        void collisionTest  (World& world,
+                             float dt,
+                             float vx,
+                             float vy,
+                             float vz);
+
         void keyBoardInput  ();
         void mouseInput     ();
 
@@ -33,7 +42,7 @@ class Player : public Entity
 
         bool m_isOnGround = false;
         bool m_isInLiquid = false;
-        bool m_isFlying   = true;
+        bool m_isFlying   = false;
 
     public:
         AABB box;
