@@ -48,7 +48,7 @@ namespace Renderer
     {
         if (m_nextDrawLocation == Vector3{-1, -1, -1}) return;
 
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDisable(GL_CULL_FACE);
 
         m_shader.bind();
         m_cubeModel.bind();
@@ -58,12 +58,12 @@ namespace Renderer
                                                          {0, 0, 0}}));
 
 
-        glDrawElements(GL_TRIANGLES,
+        glDrawElements(GL_LINES,
                        m_cubeModel.getIndicesCount(),
                        GL_UNSIGNED_INT,
                        nullptr);
 
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
         m_nextDrawLocation = {-1, -1, -1};
     }
 }
