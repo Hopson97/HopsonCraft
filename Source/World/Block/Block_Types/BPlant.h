@@ -8,7 +8,7 @@ namespace Block
     class BPlant : public Type
     {
         public:
-            BPlant(const std::string& name);
+            BPlant(std::string&& name);
             void trigger(World& world, const Position& position) const;
     };
 }

@@ -4,8 +4,8 @@
 
 namespace Block
 {
-    BPlant::BPlant(const std::string& name)
-    :   Type (name)
+    BPlant::BPlant(std::string&& name)
+    :   Type (std::move(name))
     { }
 
     void BPlant::trigger(World& world, const Position& position) const

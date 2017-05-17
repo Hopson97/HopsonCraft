@@ -8,7 +8,7 @@ namespace Block
     class Default : public Type
     {
         public:
-            Default(const std::string& dataFileName);
+            Default(std::string&& dataFileName);
     };
 
     class BSand : public Type

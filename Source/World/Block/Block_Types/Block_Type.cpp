@@ -2,8 +2,8 @@
 
 namespace Block
 {
-    Type::Type(const std::string& fileName)
-    :   m_data (fileName)
+    Type::Type(std::string&& fileName)
+    :   m_data (std::move(fileName))
     {
 
     }

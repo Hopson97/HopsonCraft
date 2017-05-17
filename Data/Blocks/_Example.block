@@ -1,0 +1,36 @@
+Example block file:
+	Refer to Source/World/Block/Block_Data.h for the enum IDs
+
+Name
+Blocky
+	
+ID
+5
+
+Opaque
+1
+
+Obstacle
+1
+
+Update
+0
+
+Mesht
+0
+
+Style
+0
+
+State
+0
+
+Texture Top
+2 0
+
+Texture Side
+2 0
+
+Texture Bottom
+2 0
+

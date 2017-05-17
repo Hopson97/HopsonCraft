@@ -19,7 +19,7 @@ namespace Block
             virtual void trigger(World& world, const Position& position) const{}
 
         protected:
-            Type(const std::string& fileName);
+            Type(std::string&& fileName);
 
         private:
             Data m_data;

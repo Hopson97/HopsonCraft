@@ -8,8 +8,8 @@
 
 namespace Block
 {
-    Default::Default(const std::string& dataFileName)
-    :   Type (dataFileName)
+    Default::Default(std::string&& dataFileName)
+    :   Type (std::move(dataFileName))
     {}
 
     BSand::BSand()

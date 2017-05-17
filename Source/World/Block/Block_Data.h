@@ -36,13 +36,14 @@ namespace Block
 
         ID          blockID;
         std::string name;
-        bool        isOpaque;
-        bool        isObstacle;
-        bool        canUpdate = false;
 
-        Mesh_Type   meshType;
-        Mesh_Style  meshStyle;
-        State       state;
+        bool        isOpaque    = true;
+        bool        isObstacle  = true;
+        bool        canUpdate   = false;
+
+        Mesh_Type   meshType    = Mesh_Type     ::Solid;
+        Mesh_Style  meshStyle   = Mesh_Style    ::Block;
+        State       state       = State         ::Solid;
 
         Vector2     topTextureCoords;
         Vector2     sideTextureCoords;
@@ -52,11 +53,14 @@ namespace Block
     class Data
     {
         public:
-            Data(const std::string& fileName);
+            Data(std::string&& fileName);
 
             const Data_Holder& get() const { return m_holder; }
 
         private:
+            void load       ();
+            void parseLine  (const std::string& line, std::ifstream& stream);
+
             template<typename T>
             void loadEnum(std::ifstream& stream, T& data)
             {
@@ -64,6 +68,8 @@ namespace Block
                 stream >> val;
                 data = static_cast<T>(val);
             }
+
+            std::string m_fileName;
 
             Data_Holder m_holder;
     };
