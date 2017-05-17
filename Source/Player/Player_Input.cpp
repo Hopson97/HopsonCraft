@@ -61,6 +61,11 @@ void Player::keyBoardInput ()
         {
             change.y += 12;
         }
+        else if (m_isInLiquid)
+        {
+            change.y += 0.5;
+            m_velocity.y = std::max(m_velocity.y, 0.0f);
+        }
     }
 
     if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Down)))

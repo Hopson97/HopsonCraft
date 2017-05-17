@@ -99,8 +99,6 @@ namespace Block
             throw std::runtime_error("Unrecognised block token \"" + line + "\" in " + m_fileName);
         }
     }
-
-
 }
 
 

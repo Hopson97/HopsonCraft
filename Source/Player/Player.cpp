@@ -34,14 +34,19 @@ void Player::update(float dt)
 
 void Player::doCollisionTest(World& world, float dt)
 {
+    float gravity = 50.0f;
+
     if (!m_isFlying)
     {
-        if (!m_isOnGround)
+        if (!m_isOnGround && !m_isInLiquid)
         {
-            m_velocity.y -= 50 * dt;
+            m_velocity.y -= gravity * dt;
+        }
+        else if (m_isInLiquid)
+        {
+            m_velocity.y -= (gravity / 10) * dt;
         }
         m_isOnGround = false;
-        m_isInLiquid = false;
     }
 
     position.x += m_velocity.x * dt;
@@ -64,6 +69,8 @@ void Player::collisionTest(World& world, float dt, float vx, float vy, float vz)
     for (int32_t z = position.z - size    ; z < position.z + size   ; z++)///to enter 2 height hole
     {
         auto block = world.getBlock({x, y, z});
+
+        m_isInLiquid = (block.getData().state == Block::State::Liquid);
 
         if (block.getData().isObstacle)
         {
