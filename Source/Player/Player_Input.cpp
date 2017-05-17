@@ -64,7 +64,6 @@ void Player::keyBoardInput ()
         else if (m_isInLiquid)
         {
             change.y += 0.5;
-            m_velocity.y = std::max(m_velocity.y, 0.0f);
         }
     }
 
