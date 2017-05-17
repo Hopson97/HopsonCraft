@@ -35,7 +35,9 @@ class Application
         Renderer::Master m_renderer;
         Camera m_camera;
 
+        #ifdef MUSIC_PLAYER_ACTIVE
         Music_Player m_musicPlayer;
+        #endif // MUSIC_PLAYER_ACTIVE
 };
 
 #endif // APPLICATION_H_INCLUDED

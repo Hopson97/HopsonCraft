@@ -64,7 +64,9 @@ void Application::runMainGameLoop()
 void Application::update(float elapsed)
 {
     m_states.back()->fixedUpdate (m_camera, elapsed);
+    #ifdef MUSIC_PLAYER_ACTIVE
     m_musicPlayer.update();
+    #endif // MUSIC_PLAYER_ACTIVE
 }
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)

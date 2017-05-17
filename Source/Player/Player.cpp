@@ -65,8 +65,6 @@ void Player::collisionTest(World& world, float dt, float vx, float vy, float vz)
     {
         auto block = world.getBlock({x, y, z});
 
-
-
         if (block.getData().isObstacle)
         {
             if (vx > 0)
