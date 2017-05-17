@@ -27,7 +27,7 @@ namespace State
         m_quady.position    = getCenterPosition();
         m_player.position   = getCenterPosition();
 
-        Display::get().setFramerateLimit(1000);
+        //Display::get().setFramerateLimit(1000);
     }
 
     void Playing::input(const sf::Event& e)
@@ -114,16 +114,18 @@ namespace State
 
     void Playing::editBlockInput()
     {
+        constexpr static float delay = 0.15f;
+        static      sf::Clock timer;
+
         Ray raycast (m_player.rotation.y + 90,
                      m_player.rotation.x,
                      m_player.position);
-        Vector3 lastPosition = raycast.getEndPoint();
 
-        static sf::Clock timer;
+        Vector3 lastPosition;
 
         m_hitInfo.isHit = false;
 
-        while(raycast.getLength() < 6 * BLOCK_SIZE)
+        for(;raycast.getLength() < 6 * BLOCK_SIZE; raycast.step(0.1))
         {
             if (raycast.getEndPoint().x < 0 ||
                 raycast.getEndPoint().z < 0 ||
@@ -134,8 +136,6 @@ namespace State
             if (!(block == Block::ID::Air ||
                   block == Block::ID::Water))
             {
-                constexpr static float delay = 0.15f;
-
                 m_hitInfo.isHit     = true;
                 m_hitInfo.location  = {(int)raycast.getEndPoint().x,
                                        (int)raycast.getEndPoint().y,
@@ -153,22 +153,12 @@ namespace State
                     }
                     else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
                     {
-                        Block::Position blockPos(lastPosition.x,
-                                                 lastPosition.y,
-                                                 lastPosition.z);
                         timer.restart();
-                        //if(!m_player.box.isCollidingWith(m_world.getBlockAABB(blockPos)))
-                        {
-                            m_world.setBlock(lastPosition, Block::ID::Stone);
-                        }
+                        m_world.setBlock(lastPosition, Block::ID::Stone);
                         break;
                     }
                 }
                 break;
-            }
-            else
-            {
-                 raycast.step(0.1);
             }
             lastPosition = raycast.getEndPoint();
         }
@@ -177,12 +167,12 @@ namespace State
 
     Vector3 Playing::getCenterPosition()
     {
-        int32_t centre = 20000;
+        int32_t centre = 5000;
 
         return
         {
             centre,
-            200, //m_world.getHeightAt({centre, 0, centre}) + 3,
+            150,// m_world.getHeightAt({centre, 60, centre}) + 3,
             centre
         };
     }

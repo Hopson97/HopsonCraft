@@ -11,7 +11,7 @@ namespace Block
     void BWater::trigger(World& world,
                          const Position& position) const
     {
-        /*
+/*
         auto block = world.getBlock({position.x, position.y - 1, position.z});
         if (block == Block::ID::Water)
             return;
@@ -23,7 +23,7 @@ namespace Block
         if(tryMove(world, position, {-1,  0,  0})) return;
         if(tryMove(world, position, { 0,  0,  1})) return;
         if(tryMove(world, position, { 0,  0, -1})) return;
-        */
+*/
     }
 
     bool BWater::tryMove(World& world,
@@ -38,6 +38,7 @@ namespace Block
 
         if (block == 0)
         {
+            world.setBlock({position.x, position.y, position.z}, Block::ID::Air);
             world.setBlock(blockPos, Block::ID::Water);
             return true;
         }

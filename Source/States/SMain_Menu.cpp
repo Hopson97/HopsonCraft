@@ -46,7 +46,7 @@ namespace State
 
     void Main_Menu::onOpen()
     {
-        Display::get().setFramerateLimit(30);
+        //Display::get().setFramerateLimit(30);
     }
 
     void Main_Menu::initMenu()
