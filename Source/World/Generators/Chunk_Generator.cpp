@@ -11,7 +11,7 @@
 #include "G_ID.h"
 
 Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
-:   m_worldGenType      ("Islands")
+:   m_worldGenType      ("Classic")
 ,   m_pWorldSettings    (&worldSettings)
 {
     m_heightGen.setSeed            (worldSettings.seed);
