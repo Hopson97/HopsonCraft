@@ -5,13 +5,6 @@
 
 bool World_Generation_Type::BiomeRange::isThisBiome(int biomeKey)
 {
-/*
-    std::cout   << "\nKey: "      << biomeKey
-                << "\nCompare: "  << (int)m_compare
-                << "\nMin"        << m_min
-                << "\nMax"        << m_max
-                << "\n\n";
-*/
     switch (m_compare)
     {
         case Compare::Greater:
@@ -138,7 +131,6 @@ void World_Generation_Type::loadBiome(std::ifstream& inFile)
 
     Biome b(std::move(biomeName), m_folder);
 
-    std::cout << "Add biome\n";
     m_biomes.emplace_back(minVal, maxVal, compare, std::move(b));
 }
 
