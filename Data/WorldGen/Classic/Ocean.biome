@@ -7,20 +7,28 @@ Noise
 
 Surface
 1
-6
+3
 
 Surface
 2
-3
+2
 
 Flora
 9
-200
+1
 
 Flora
 10
-200
+5
 
 Tree
 0
-45
+1
+
+Flora Freq
+25
+
+Tree Freq
+50
+
+

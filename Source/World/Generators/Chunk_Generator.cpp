@@ -10,72 +10,8 @@
 
 #include "G_ID.h"
 
-namespace
-{
-    enum Biomee
-    {
-        Grassland,
-        Forest,
-        Mountains,
-        Ocean,
-        Desert,
-    };
-
-    Biomee getBiome(int val)
-    {
-        if (val > 230)
-        {
-            return Mountains;
-        }
-        else if (Maths::inRange(val, 185, 230))
-        {
-            return Forest;
-        }
-        else if (Maths::inRange(val, 150, 185))
-        {
-            return Grassland;
-        }
-        else
-        {
-            return Ocean;
-        }
-    }
-
-    Noise::Data& getBiomeNoise (Biomee b)
-    {
-                                        //Octaves   amplitude   roughness,  smoothness  height offset
-        static Noise::Data forest       {5,         100,        0.52,       230         -40     };
-        static Noise::Data desert       {5,         93,         0.45,       230         -20     };
-        static Noise::Data grassland    {7,         85,         0.51,       235,        -10     };
-        static Noise::Data mountains    {8,         550,        0.50,       280,        -395    };
-        //static Noise::Data mountains    {8,         350,        0.50,       283,        -320    };
-        static Noise::Data ocean        {7,         43,         0.5,        55,         0};
-
-        switch(b)
-        {
-            case Biomee::Desert:
-                return desert;
-//
-            case Biomee::Forest:
-                return forest;
-
-            case Biomee::Grassland:
-                return grassland;
-
-            case Biomee::Mountains:
-                return mountains;
-
-            case Biomee::Ocean:
-                return ocean;
-        }
-        return ocean;
-    }
-
-}
-
-
 Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
-:   m_worldGenType      ("Classic")
+:   m_worldGenType      ("Islands")
 ,   m_pWorldSettings    (&worldSettings)
 {
     m_heightGen.setSeed            (worldSettings.seed);
@@ -97,13 +33,13 @@ void Chunk_Generator::reset()
 
 void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
 {
-    //Only one chunk can generate a time smh
+    //Only one chunk can generate a time
     m_genMutex.lock();
 
     m_pChunk = &chunk;
     reset();
 
-    //Makes a superflat world
+    //Check to create a super flat or a terrain world
     if (m_pWorldSettings->isSuperFlat)
     {
         makeSuperFlatWorld();
@@ -173,7 +109,8 @@ void Chunk_Generator::makeRegularWorld()
 
     for (auto& pos : m_oakTreeLocations)
     {
-        makeOakTree(*m_pChunk, pos, m_randomGenerator);
+        auto id = pos.second;
+        getStructureFromID(*m_pChunk, pos.first, m_randomGenerator, id);
     }
 }
 
@@ -224,6 +161,22 @@ void Chunk_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID
         else //Ground blocks
         {
             blockID = (Block::ID)biome.getSurfaceBlock(m_randomGenerator).id;
+            if (biome.hasFlora())
+            {
+                if (m_randomGenerator.intInRange(0, biome.getFloraFrequency()) == 5)
+                {
+                    auto block =  biome.getFloraBlock(m_randomGenerator);
+                    m_littleBlockLoc.emplace_back(std::make_pair(pos, block));
+                }
+            }
+            if (biome.hasStructure())
+            {
+                if (m_randomGenerator.intInRange(0, biome.getTreeFrequencey()) == 5)
+                {
+                    auto tree =  biome.getTree(m_randomGenerator);
+                    m_oakTreeLocations.emplace_back(std::make_pair(pos, tree));
+                }
+            }
         }
     }
     else //Underwater

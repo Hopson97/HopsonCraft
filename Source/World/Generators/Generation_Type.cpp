@@ -15,10 +15,10 @@ bool World_Generation_Type::BiomeRange::isThisBiome(int biomeKey)
     switch (m_compare)
     {
         case Compare::Greater:
-            return biomeKey > m_max;
+            return biomeKey >= m_max;
 
         case Compare::Less:
-            return biomeKey < m_max;
+            return biomeKey <= m_max;
 
         case Compare::Range:
             return Maths::inRange(biomeKey, m_min, m_max);

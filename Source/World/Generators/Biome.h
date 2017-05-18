@@ -33,6 +33,11 @@ class Biome : public Loader
         CBlock          getFloraBlock   (RNG& rd) const;
         Structure_ID    getTree         (RNG& rd) const;
 
+        bool hasFlora       () const;
+        bool hasStructure   () const;
+
+        int getFloraFrequency() const;
+        int getTreeFrequencey() const;
 
 
         const Noise::Data& getNoise     () const;
@@ -55,6 +60,9 @@ class Biome : public Loader
         Gen_Container<CBlock>   m_floraBlocks;
 
         Gen_Container<Structure_ID> m_trees;
+
+        int m_floraFreq     = 0;
+        int m_treeFreq      = 0;
 };
 
 

@@ -20,6 +20,28 @@ CBlock Biome::getFloraBlock(RNG& rd) const
     return getBlock(m_floraBlocks, rd);
 }
 
+bool Biome::hasFlora() const
+{
+    return m_floraBlocks.total > 0;
+}
+
+bool Biome::hasStructure() const
+{
+    return m_trees.total > 0;
+}
+
+int Biome::getFloraFrequency() const
+{
+    return m_floraFreq;
+}
+
+int Biome::getTreeFrequencey() const
+{
+    return m_treeFreq;
+}
+
+
+
 Structure_ID Biome::getTree(RNG& rd) const
 {
     return m_trees.holder[rd.intInRange(0, m_trees.total - 1)];
@@ -52,6 +74,14 @@ bool Biome::parseLine(const std::string& line, std::ifstream& inFile)
     else if (areStringsSame(line, "Tree"))
     {
         loadTree(inFile);
+    }
+    else if (areStringsSame(line, "Flora Freq"))
+    {
+        inFile >> m_floraFreq;
+    }
+    else if (areStringsSame(line, "Tree Freq"))
+    {
+        inFile >> m_treeFreq;
     }
     else
     {
@@ -95,7 +125,7 @@ void Biome::loadIntoBlockList(std::ifstream& inFile,
     int id, freq;
     inFile >> id >> freq;
 
-    for (int i = 0; i <freq; i++)
+    for (int i = 0; i < freq; i++)
     {
         container.holder.emplace_back(id);
     }
