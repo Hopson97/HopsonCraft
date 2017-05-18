@@ -9,11 +9,10 @@
 struct World_Settings
 {
     std::string name;
-    Noise::Data noiseData;
+    std::string generator;
     int32_t     renderDistance;
     float       seed;
     bool        isSuperFlat        = false;
-    bool        isExperimentalMode = false;
 };
 
 #endif // WORLD_SETTINGS_H_INCLUDED

@@ -35,8 +35,8 @@ const Biome& World_Generation_Type::BiomeRange::getBiome() const
 
 
 
-World_Generation_Type::World_Generation_Type(std::string&& folderName)
-:   m_folder    (std::move(folderName))
+World_Generation_Type::World_Generation_Type(const std::string& folderName)
+:   m_folder    (folderName)
 {
     std::string full = "Data/WorldGen/" + m_folder + "/Info.biome";
     Loader::load(full);

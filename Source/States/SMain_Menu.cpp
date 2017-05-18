@@ -102,21 +102,18 @@ namespace State
         std::vector<int32_t>     {  12,          20,     32,      44,       56,      68},
         settings.renderDistance));
 
-        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<Noise::Data>>("Terrain Type",
-        std::vector<std::string> { "Flat", "Normal", "Mountains", "Water", "Hilly"},
-        std::vector<Noise::Data> { nSmooth,  nNormal,  nMountains,  nWater,  nHilly},
-        settings.noiseData));
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<std::string>>("Terrain Type",
+        std::vector<std::string> { "Classic", "Islands"},
+        std::vector<std::string> { "Classic", "Islands"},
+        settings.generator));
 
-        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Experimental Mode",
-        std::vector<std::string>    { "Off",  "On"    },
-        std::vector<bool>           { false,   true   },
-        settings.isExperimentalMode));
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Super-flat Mode",
+        std::vector<std::string> { "No", "Yes"},
+        std::vector<bool>        { false, true},
+        settings.isSuperFlat));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
-
-            settings.isSuperFlat = (settings.noiseData.octaves == 0);
-
             m_pActiveMenu = &m_frontMenu;
             settings.seed = Random::intInRange(0, 999'999);
             m_application->pushState(std::make_unique<State::Playing>(*m_application, settings));

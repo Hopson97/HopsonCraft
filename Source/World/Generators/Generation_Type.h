@@ -37,7 +37,7 @@ class World_Generation_Type : public Loader
     };
 
     public:
-        World_Generation_Type(std::string&& folderName);
+        World_Generation_Type(const std::string& folderName);
 
         const Noise::Data&  getBiomeMapNoise    ();
         const Biome&        getBiome            (int biomeKey);

@@ -39,15 +39,14 @@ class Chunk_Generator
         void makeSuperFlatWorld ();
         void makeRegularWorld   ();
 
-        Block::ID getBlock  (const Block::Position& pos);
-        void setTopBlock    (const Block::Position& pos, Block::ID& id);
+        Block::ID getBlock      (const Block::Position& pos);
+        void setTopBlock        (const Block::Position& pos, Block::ID& id);
 
-        void setRandomSeed  ();
-        void advancedHeightSection(int xMin, int xMax, int yMin, int yMax);
-        void makeAdvancedHeigtMap();
-        void makeHeightMap  ();
-        void makeBiomeMap   ();
-        void reset();
+        void setRandomSeed      ();
+        void makeHeightSection  (int xMin, int xMax, int yMin, int yMax);
+        void makeHeightMap      ();
+        void makeBiomeMap       ();
+        void reset              ();
 
         World_Generation_Type m_worldGenType;
 

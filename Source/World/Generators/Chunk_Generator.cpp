@@ -11,13 +11,12 @@
 #include "G_ID.h"
 
 Chunk_Generator::Chunk_Generator(const World_Settings& worldSettings)
-:   m_worldGenType      ("Classic")
+:   m_worldGenType      (worldSettings.generator)
 ,   m_pWorldSettings    (&worldSettings)
 {
     m_heightGen.setSeed            (worldSettings.seed);
-    m_heightGen.setNoiseFunction   (worldSettings.noiseData);
-
     m_biomeNoise.setSeed            (worldSettings.seed);
+
     m_biomeNoise.setNoiseFunction   (m_worldGenType.getBiomeMapNoise());
 }
 
@@ -85,9 +84,7 @@ void Chunk_Generator::makeRegularWorld()
     setRandomSeed   ();
     makeBiomeMap    ();
 
-    m_pWorldSettings->isExperimentalMode ?
-            makeAdvancedHeigtMap() :
-            makeHeightMap();
+    makeHeightMap();
 
     m_maxHeight = std::max(m_maxHeight, WATER_LEVEL);
 
@@ -195,23 +192,7 @@ void Chunk_Generator::setRandomSeed()
                                            m_pChunk->getPosition().y));
 }
 
-void Chunk_Generator::makeHeightMap()
-{
-    for (int32_t x = 0 ; x < CHUNK_SIZE; ++x)
-    for (int32_t z = 0 ; z < CHUNK_SIZE; ++z)
-    {
-        int32_t height =
-            m_heightGen.getValue(x, z,
-                                    m_pChunk->getPosition().x,
-                                    m_pChunk->getPosition().y);
-        m_heightMap.at(x, z) = height;
-        m_maxHeight = std::max(m_maxHeight, height);
-    }
-}
-
-
-
-void Chunk_Generator::advancedHeightSection(int xMin, int zMin, int xMax, int zMax)
+void Chunk_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
 {
 
     auto getVal = [&](int indexA, int indexB)
@@ -247,13 +228,13 @@ void Chunk_Generator::advancedHeightSection(int xMin, int zMin, int xMax, int zM
 
 //This uses interpolation to um interpolate between values rather
 //than using noise function on every point.
-void Chunk_Generator::makeAdvancedHeigtMap()
+void Chunk_Generator::makeHeightMap()
 {
-    advancedHeightSection(0, 0, 8,  8);
-    advancedHeightSection(8, 0, 16, 8);
-    advancedHeightSection(0, 8, 8,  16);
-    advancedHeightSection(8, 8, 16, 16);
-    advancedHeightSection(4, 4, 12, 12);
+    makeHeightSection(0, 0, 8,  8);
+    makeHeightSection(8, 0, 16, 8);
+    makeHeightSection(0, 8, 8,  16);
+    makeHeightSection(8, 8, 16, 16);
+    makeHeightSection(4, 4, 12, 12);
 }
 
 void Chunk_Generator::makeBiomeMap()
