@@ -11,7 +11,7 @@ struct Model_Data
     std::vector<GLuint>     indices;
 };
 
-std::vector<GLfloat>    getCubeVerticies   (float size = 1.0f);
+std::vector<GLfloat>    getCubeVerticies   (float enlarger = 0.0f);
 std::vector<GLuint>     getCubeIndices     ();
 
 #endif // MODEL_COORDS_H_INCLUDED

@@ -8,6 +8,11 @@ class Camera : public Entity
 {
     public:
         Camera();
+
+
+        void setFOV     (float FOV);
+        float getFOV    () const;
+
         void update         ();
         void hookEntity     (const Entity& entity);
         void unhookEntity   ();
@@ -19,6 +24,8 @@ class Camera : public Entity
     private:
         const Entity* m_P_entity = this;
         Frustum m_frustum;
+
+        float m_fov = 100;
 
         Matrix4 m_viewMatrix;
         Matrix4 m_projectionMatrix;

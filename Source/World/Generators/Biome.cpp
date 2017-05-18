@@ -2,8 +2,6 @@
 
 #include "../../Util/STD_Util.h"
 
-using RNG = Random::Generator<std::minstd_rand>;
-
 Biome::Biome(std::string&& fileName, const std::string& worldGen)
 :   m_fileName      (std::move(fileName))
 ,   m_worldGenName  (worldGen)
@@ -12,24 +10,24 @@ Biome::Biome(std::string&& fileName, const std::string& worldGen)
     Loader::load(fullName);
 }
 
-CBlock Biome::getSurfaceBlock(RNG& rd)
+CBlock Biome::getSurfaceBlock(RNG& rd) const
 {
     return getBlock(m_surfaceBlocks, rd);
 }
 
-CBlock Biome::getFloraBlock(RNG& rd)
+CBlock Biome::getFloraBlock(RNG& rd) const
 {
     return getBlock(m_floraBlocks, rd);
 }
 
-Structure_ID Biome::getTree(RNG& rd)
+Structure_ID Biome::getTree(RNG& rd) const
 {
-    return m_trees.holder[rd.intInRange(0, m_trees.total)];
+    return m_trees.holder[rd.intInRange(0, m_trees.total - 1)];
 }
 
-CBlock Biome::getBlock(const Biome::Gen_Container<CBlock>& container, RNG rd)
+CBlock Biome::getBlock(const Biome::Gen_Container<CBlock>& container, RNG& rd) const
 {
-    return container.holder[rd.intInRange(0, container.total)];
+    return container.holder[rd.intInRange(0, container.total - 1)];
 }
 
 const Noise::Data& Biome::getNoise() const

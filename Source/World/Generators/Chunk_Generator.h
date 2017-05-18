@@ -17,6 +17,8 @@
 
 #include "../Chunk/CNodes.h"
 
+#include "Generation_Type.h"
+
 
 
 namespace Chunk
@@ -47,6 +49,8 @@ class Chunk_Generator
         void makeBiomeMap   ();
         void reset();
 
+        World_Generation_Type m_worldGenType;
+
         //Containers
         std::vector<Block::Position>                    m_oakTreeLocations;
         std::vector<std::pair<Block::Position, CBlock>> m_littleBlockLoc;
@@ -56,7 +60,7 @@ class Chunk_Generator
 
         //Generators
         Random::Generator<std::mt19937> m_randomGenerator;
-        Noise::Generator m_noiseGenerator;
+        Noise::Generator m_heightGen;
         Noise::Generator m_biomeNoise;
 
         const World_Settings* m_pWorldSettings;

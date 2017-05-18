@@ -9,10 +9,10 @@
 #include "../../Util/Loader.h"
 #include "../../Temp/Noise_Generator.h"
 
+typedef Random::Generator<std::mt19937> RNG;
+
 class Biome : public Loader
 {
-    using RNG = Random::Generator<std::minstd_rand>;
-
     struct Range
     {
         int minVal;
@@ -23,15 +23,17 @@ class Biome : public Loader
     struct Gen_Container
     {
         std::vector<T>  holder;
-        int             total;
+        int             total = 0;
     };
 
     public:
         Biome(std::string&& fileName, const std::string& worldGen);
 
-        CBlock          getSurfaceBlock (RNG& rd);
-        CBlock          getFloraBlock   (RNG& rd);
-        Structure_ID    getTree         (RNG& rd);
+        CBlock          getSurfaceBlock (RNG& rd) const;
+        CBlock          getFloraBlock   (RNG& rd) const;
+        Structure_ID    getTree         (RNG& rd) const;
+
+
 
         const Noise::Data& getNoise     () const;
 
@@ -42,7 +44,7 @@ class Biome : public Loader
 
         void loadIntoBlockList(std::ifstream& inFile, Gen_Container<CBlock>& container);
 
-        CBlock getBlock(const Biome::Gen_Container<CBlock>& container, RNG rd);
+        CBlock getBlock(const Biome::Gen_Container<CBlock>& container, RNG& rd) const;
 
         std::string m_fileName;
         std::string m_worldGenName;

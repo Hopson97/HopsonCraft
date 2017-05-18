@@ -1,45 +1,45 @@
 #include "Model_Coords.h"
 
 
-std::vector<GLfloat> getCubeVerticies(float size)
+std::vector<GLfloat> getCubeVerticies(float enlarger)
 {
     return
     {
         //Back
-        1 + size,   -size,      -size,
-        -size,      -size,      -size,
-        -size,      1 + size,   -size,
-        1 + size,   1 + size,   -size,
+        1 + enlarger,   -enlarger,      -enlarger,
+        -enlarger,      -enlarger,      -enlarger,
+        -enlarger,      1 + enlarger,   -enlarger,
+        1 + enlarger,   1 + enlarger,   -enlarger,
 
         //Right-Side
-        1 + size, -size,    1 + size,
-        1 + size, -size,    -size,
-        1 + size, 1 + size, -size,
-        1 + size, 1 + size, 1 + size,
+        1 + enlarger, -enlarger,        1 + enlarger,
+        1 + enlarger, -enlarger,        -enlarger,
+        1 + enlarger, 1 + enlarger,     -enlarger,
+        1 + enlarger, 1 + enlarger,     1 + enlarger,
 
         //Front
-        -size,      -size,      1 + size,
-        1 + size,   -size,      1 + size,
-        1 + size,   1 + size,   1 + size,
-        -size,      1 + size,   1 + size,
+        -enlarger,      -enlarger,      1 + enlarger,
+        1 + enlarger,   -enlarger,      1 + enlarger,
+        1 + enlarger,   1 + enlarger,   1 + enlarger,
+        -enlarger,      1 + enlarger,   1 + enlarger,
 
         //Left
-        -size, -size,       -size,
-        -size, -size,       1 + size,
-        -size, 1 + size,    1 + size,
-        -size, 1 + size,    -size,
+        -enlarger, -enlarger,           -enlarger,
+        -enlarger, -enlarger,           1 + enlarger,
+        -enlarger, 1 + enlarger,        1 + enlarger,
+        -enlarger, 1 + enlarger,        -enlarger,
 
         //Top
-        -size,      1 + size, 1 + size,
-        1 + size,   1 + size, 1 + size,
-        1 + size,   1 + size, -size,
-        -size,      1 + size, -size,
+        -enlarger,      1 + enlarger,   1 + enlarger,
+        1 + enlarger,   1 + enlarger,   1 + enlarger,
+        1 + enlarger,   1 + enlarger,   -enlarger,
+        -enlarger,      1 + enlarger,   -enlarger,
 
         //Bottom
-        -size,      -size, -size,
-        1 + size,   -size, -size,
-        1 + size,   -size, 1 + size,
-        -size,      -size, 1
+        -enlarger,      -enlarger,      -enlarger,
+        1 + enlarger,   -enlarger,      -enlarger,
+        1 + enlarger,   -enlarger,      1 + enlarger,
+        -enlarger,      -enlarger,      1
     };
 }
 

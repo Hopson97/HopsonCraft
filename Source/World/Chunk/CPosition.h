@@ -20,21 +20,6 @@ namespace Chunk
         Chunklet_Position       chunkletPos;
         Block::Small_Position   blockPos;
     };
-
-    /*
-    struct Position
-    {
-        Position() = default;
-        Position(int64_t x, int64_t y, int64_t z);
-
-        int64_t  x,
-                 y,
-                 z;
-
-        bool operator == (const Chunk::Position& other) const;
-        const Position& operator - (const Chunk::Position& other) const;
-    };
-    */
 }
 
 namespace std

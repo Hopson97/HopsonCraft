@@ -7,8 +7,20 @@
 
 Camera::Camera()
 {
-    m_projectionMatrix = Maths::createProjMatrix(110);
+    m_projectionMatrix = Maths::createProjMatrix(m_fov);
 }
+
+void Camera::setFOV(float FOV)
+{
+    m_fov = FOV;
+    m_projectionMatrix = Maths::createProjMatrix(m_fov);
+}
+
+float Camera::getFOV() const
+{
+    return m_fov;
+}
+
 
 void Camera::unhookEntity()
 {
