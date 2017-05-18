@@ -6,6 +6,7 @@
 
 #include "Block_ID.h"
 #include "../../Glm_Common.h"
+#include "../../Util/Loader.h"
 
 namespace Block
 {
@@ -50,7 +51,7 @@ namespace Block
         Vector2     bottomTextureCoords;
     };
 
-    class Data
+    class Data : public Loader
     {
         public:
             Data(std::string&& fileName);
@@ -58,8 +59,7 @@ namespace Block
             const Data_Holder& get() const { return m_holder; }
 
         private:
-            void load       ();
-            void parseLine  (const std::string& line, std::ifstream& stream);
+            bool parseLine  (const std::string& line, std::ifstream& stream) override;
 
             template<typename T>
             void loadEnum(std::ifstream& stream, T& data)

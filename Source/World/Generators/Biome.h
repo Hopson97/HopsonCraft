@@ -6,10 +6,10 @@
 #include "G_ID.h"
 #include "../Chunk/CNodes.h"
 #include "../../Util/Random.h"
-
+#include "../../Util/Loader.h"
 #include "../../Temp/Noise_Generator.h"
 
-class Biome
+class Biome : public Loader
 {
     using RNG = Random::Generator<std::minstd_rand>;
 
@@ -36,8 +36,7 @@ class Biome
         const Noise::Data& getNoise     () const;
 
     private:
-        void load();
-        void parseLine  (const std::string& line, std::ifstream& inFile);
+        bool parseLine  (const std::string& line, std::ifstream& inFile);
         void loadNoise  (std::ifstream& inFile);
         void loadTree   (std::ifstream& inFile);
 

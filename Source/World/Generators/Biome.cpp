@@ -8,7 +8,8 @@ Biome::Biome(std::string&& fileName, const std::string& worldGen)
 :   m_fileName      (std::move(fileName))
 ,   m_worldGenName  (worldGen)
 {
-    load();
+    std::string fullName = "Data/WorldGen/" + m_worldGenName + "/" + m_fileName + ".biome";
+    Loader::load(fullName);
 }
 
 CBlock Biome::getSurfaceBlock(RNG& rd)
@@ -36,24 +37,7 @@ const Noise::Data& Biome::getNoise() const
     return m_noise;
 }
 
-void Biome::load()
-{
-    std::string fullName = "Data/WorldGen/" + m_worldGenName + "/" + m_fileName + ".biome";
-
-    std::ifstream inFile (fullName);
-    if (!inFile.is_open())
-    {
-        throw std::runtime_error ("Unable to load biome: " + fullName);
-    }
-
-    std::string line;
-    while(std::getline(inFile, line))
-    {
-        parseLine(line, inFile);
-    }
-}
-
-void Biome::parseLine(const std::string& line, std::ifstream& inFile)
+bool Biome::parseLine(const std::string& line, std::ifstream& inFile)
 {
     if (areStringsSame(line, "Noise"))
     {
@@ -71,6 +55,11 @@ void Biome::parseLine(const std::string& line, std::ifstream& inFile)
     {
         loadTree(inFile);
     }
+    else
+    {
+        return false;
+    }
+    return true;
 }
 
 void Biome::loadNoise(std::ifstream& inFile)

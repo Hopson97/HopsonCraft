@@ -12,28 +12,11 @@ namespace Block
     Data::Data(std::string&& fileName)
     :   m_fileName  (std::move(fileName))
     {
-        load();
-    }
-
-    void Data::load()
-    {
         std::string fullName = "Data/Blocks/" + m_fileName + ".block";
-
-        std::string line;
-        std::ifstream inFile (fullName);
-
-        if (!inFile.is_open())
-        {
-            throw std::runtime_error("Unable to open block file" + m_fileName);
-        }
-
-        while (std::getline(inFile, line))
-        {
-            parseLine(line, inFile);
-        }
+        Loader::load(fullName);
     }
 
-    void Data::parseLine(const std::string& line, std::ifstream& inFile)
+    bool Data::parseLine(const std::string& line, std::ifstream& inFile)
     {
         if(areStringsSame(line, "Name"))
         {
@@ -82,16 +65,11 @@ namespace Block
             inFile  >> m_holder.bottomTextureCoords.x
                     >> m_holder.bottomTextureCoords.y;
         }
-        else if (areStringsSame(line, ""  )  ||
-                areStringsSame(line, " " ) ||
-                areStringsSame(line, "\t"))
-        {
-            return;
-        }
         else
         {
-            throw std::runtime_error("Unrecognised block token \"" + line + "\" in " + m_fileName);
+            return false;
         }
+        return true;
     }
 }
 
