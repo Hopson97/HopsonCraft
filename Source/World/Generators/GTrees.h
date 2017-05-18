@@ -3,6 +3,7 @@
 
 #include "../../Util/Random.h"
 #include "../Block/Block_Position.h"
+#include "../Block/Block_ID.h"
 
 //See GStructures.h for a definition
 

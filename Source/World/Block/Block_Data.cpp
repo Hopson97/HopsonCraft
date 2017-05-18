@@ -5,13 +5,7 @@
 
 #include "../../Util/File_Util.h"
 
-namespace
-{
-    bool areStringsSame(const std::string& a, const std::string& b)
-    {
-        return !a.compare(b);
-    }
-}
+#include "../../Util/STD_Util.h"
 
 namespace Block
 {
