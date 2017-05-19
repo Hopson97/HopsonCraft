@@ -218,7 +218,7 @@ void World::regenerateChunks()
         }
 
         //Set block
-        chunk->qSetBlock(blockPosition, newBlock.block);
+        chunk->qSetBlock(blockPosition, newBlock.block, false);
 
         //Insert chunks into a regeneration map
         insertChunk(chunkPosition, chunk);

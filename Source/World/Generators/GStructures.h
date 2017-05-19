@@ -33,7 +33,8 @@ void makePyramid(Access& access,
 
 template<typename Access>
 void makeLattice(Access& access,
-                 const Block::Position& pos)
+                 const Block::Position& pos,
+                 bool isMadeDuringWorldGen = true)
 {
     int baseSize  = 8;
     bool windowLayer = false;
@@ -47,12 +48,12 @@ void makeLattice(Access& access,
         {
             if (y % 2 == 0)
             {
-                access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone);
+                access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone, isMadeDuringWorldGen);
             }
         }
         else
         {
-            access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone);
+            access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone, isMadeDuringWorldGen);
         }
         windowLayer = !windowLayer;
     }

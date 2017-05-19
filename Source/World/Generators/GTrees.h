@@ -5,25 +5,14 @@
 #include "../Block/Block_Position.h"
 #include "../Block/Block_ID.h"
 
-//See GStructures.h for a definition
-
-template<typename Access, typename Rand>
-void makeOakTree(Access& access,
-                 const Block::Position& pos,
-                 Random::Generator<Rand> random);
-
-template<typename Access, typename Rand>
-void makeAcaciaTree(Access& access,
-                 const Block::Position& pos,
-                 Random::Generator<Rand> random);
-
-
+//See GStructures.h for a definition of the args
 
 
 template<typename Access, typename Rand>
 void makeOakTree(Access& access,
                  const Block::Position& pos,
-                 Random::Generator<Rand> random)
+                 Random::Generator<Rand> random,
+                 bool isMadeDuringWorldGen = true)
 {
     auto height = random.intInRange(5, 8);
     int32_t crownSize = 2;
@@ -31,41 +20,42 @@ void makeOakTree(Access& access,
     for (int32_t zLeaf = -crownSize; zLeaf <= crownSize; zLeaf++)
     for (int32_t xLeaf = -crownSize; xLeaf <= crownSize; xLeaf++)
     {
-        access.setBlock({pos.x + xLeaf, pos.y + height - 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
-        access.setBlock({pos.x + xLeaf, pos.y + height + 0, pos.z + zLeaf}, Block::ID::Oak_Leaf);
+        access.setBlock({pos.x + xLeaf, pos.y + height - 1, pos.z + zLeaf}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+        access.setBlock({pos.x + xLeaf, pos.y + height + 0, pos.z + zLeaf}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
     }
 
 
     auto h = pos.y + height;
-    access.setBlock({pos.x + crownSize, h, pos.z + crownSize}, Block::ID::Air);
-    access.setBlock({pos.x - crownSize, h, pos.z + crownSize}, Block::ID::Air);
-    access.setBlock({pos.x + crownSize, h, pos.z - crownSize}, Block::ID::Air);
-    access.setBlock({pos.x - crownSize, h, pos.z - crownSize}, Block::ID::Air);
+    access.setBlock({pos.x + crownSize, h, pos.z + crownSize}, Block::ID::Air, isMadeDuringWorldGen);
+    access.setBlock({pos.x - crownSize, h, pos.z + crownSize}, Block::ID::Air, isMadeDuringWorldGen);
+    access.setBlock({pos.x + crownSize, h, pos.z - crownSize}, Block::ID::Air, isMadeDuringWorldGen);
+    access.setBlock({pos.x - crownSize, h, pos.z - crownSize}, Block::ID::Air, isMadeDuringWorldGen);
 
     for (int32_t zLeaf = -crownSize + 1; zLeaf <= crownSize - 1; zLeaf++)
     {
         int32_t xLeaf = 0;
-        access.setBlock({pos.x + xLeaf, pos.y + height + 1, pos.z + zLeaf}, Block::ID::Oak_Leaf);
+        access.setBlock({pos.x + xLeaf, pos.y + height + 1, pos.z + zLeaf}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
     }
 
     for (int32_t zLeaf = -crownSize + 1; zLeaf <= crownSize - 1; zLeaf++)
     {
         int32_t xLeaf = 0;
-        access.setBlock({pos.x + zLeaf, pos.y + height + 1, pos.z + xLeaf}, Block::ID::Oak_Leaf);
+        access.setBlock({pos.x + zLeaf, pos.y + height + 1, pos.z + xLeaf}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
     }
 
-    access.setBlock({pos.x, pos.y + height + 2, pos.z}, Block::ID::Oak_Leaf);
+    access.setBlock({pos.x, pos.y + height + 2, pos.z}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
 
     for (int32_t y = 1; y < height; y++)
     {
-        access.qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood);
+        access.qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
     }
 }
 
 template<typename Access, typename Rand>
 void makeAcaciaTree(Access& access,
                  const Block::Position& pos,
-                 Random::Generator<Rand> random)
+                 Random::Generator<Rand> random,
+                 bool isMadeDuringWorldGen = true)
 {
     auto height = random.intInRange(5, 8);
     auto width1 = random.intInRange(4, 5);
@@ -73,7 +63,7 @@ void makeAcaciaTree(Access& access,
 
     for (int32_t y = 1; y < height; y++)
     {
-        access.qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood);
+        access.qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
     }
 
     float y = pos.y + height;
@@ -82,7 +72,7 @@ void makeAcaciaTree(Access& access,
         case 0:
             for (int32_t i = 0; i <= width1; i++)
             {
-                access.setBlock({pos.x, (int)std::floor(y), pos.z + i}, Block::ID::Oak_Wood);
+                access.setBlock({pos.x, (int)std::floor(y), pos.z + i}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
                 y += 0.5;
             }
             break;
@@ -90,7 +80,7 @@ void makeAcaciaTree(Access& access,
         case 1:
             for (int32_t i = 0; i <= width1; i++)
             {
-                access.setBlock({pos.x + i, (int)std::floor(y), pos.z}, Block::ID::Oak_Wood);
+                access.setBlock({pos.x + i, (int)std::floor(y), pos.z}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
                 y += 0.5;
             }
             break;
@@ -100,7 +90,7 @@ void makeAcaciaTree(Access& access,
 
     for (int32_t y = 1; y < height; y++)
     {
-        access.qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood);
+        access.qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
     }
 
     y = pos.y + height;
@@ -109,7 +99,7 @@ void makeAcaciaTree(Access& access,
         case 0:
             for (int32_t i = 0; i <= width1; i++)
             {
-                access.setBlock({pos.x, (int)std::floor(y), pos.z - i}, Block::ID::Oak_Wood);
+                access.setBlock({pos.x, (int)std::floor(y), pos.z - i}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
                 y += 0.5;
             }
             break;
@@ -117,7 +107,7 @@ void makeAcaciaTree(Access& access,
         case 1:
             for (int32_t i = 0; i <= width1; i++)
             {
-                access.setBlock({pos.x - i, (int)std::floor(y), pos.z}, Block::ID::Oak_Wood);
+                access.setBlock({pos.x - i, (int)std::floor(y), pos.z}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
                 y += 0.5;
             }
             break;
@@ -125,13 +115,5 @@ void makeAcaciaTree(Access& access,
 
     ///@TODO Leaves
 }
-
-
-
-
-
-
-
-
 
 #endif // GTREES_H_INCLUDED

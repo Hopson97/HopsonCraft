@@ -123,11 +123,11 @@ namespace Chunk
 
         public: //Getter/ Setter mess
             //Blocks getters/ Setters with bounds checking
-            void    setBlock(Block::Small_Position& position, CBlock block);
+            void    setBlock(Block::Small_Position& position, CBlock block, bool generatedBlock = true);
             CBlock  getBlock(Block::Small_Position& position) const;
 
             //Blocks getters/ Setters with no bounds checking
-            void    qSetBlock(const Block::Small_Position& position, CBlock block);
+            void    qSetBlock(const Block::Small_Position& position, CBlock block, bool generatedBlock = true);
             CBlock  qGetBlock(const Block::Small_Position& position) const;
 
             //Natural lights getters/ setters with bounds checking

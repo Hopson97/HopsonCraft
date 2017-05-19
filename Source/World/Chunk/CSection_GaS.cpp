@@ -7,14 +7,14 @@
 
 namespace Chunk
 {
-    //===============================
-    //Blocks
-    void Section::setBlock(Block::Small_Position& position, CBlock block)
+
+    //Getters/ Setters with bounds checks
+    void Section::setBlock(Block::Small_Position& position, CBlock block, bool generatedBlock)
     {
         const auto& section = getSection(position, this, *m_pChunkMap);
         if(section)
         {
-            section->qSetBlock(position, block);
+            section->qSetBlock(position, block, generatedBlock);
             section->getParentChunk().updateTopBlockLocation({position.x,
                                                               position.y * m_position.y,
                                                               position.z});
@@ -29,9 +29,6 @@ namespace Chunk
                 Block::ID::Air;
     }
 
-
-    //===============================
-    //Natural Light
     void Section::setNaturalLight(Block::Small_Position& position, uint8_t value)
     {
         const auto& section = getSection(position, this, *m_pChunkMap);
@@ -50,8 +47,6 @@ namespace Chunk
                 MAX_LIGHT;
     }
 
-    //===============================
-    //Block lights
     void Section::setBlockLight(Block::Small_Position& position, uint8_t value)
     {
         const auto& section = getSection(position, this, *m_pChunkMap);
@@ -69,13 +64,14 @@ namespace Chunk
                 MAX_LIGHT;
     }
 
-    void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
+    //Quick functions
+    void Section::qSetBlock(const Block::Small_Position& position, CBlock block, bool generatedBlock)
     {
         if (block.getData().canUpdate)
         {
             m_hasUpdatableBlocks = true;
         }
-        if (m_parentChunk->hasGeneratedBlockData)
+        if (m_parentChunk->hasGeneratedBlockData && !generatedBlock)
         {
             m_placedBlocks.emplace_back(block, (uint16_t)m_blocks.getIndex(position));
         }
