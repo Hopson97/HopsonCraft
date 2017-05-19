@@ -43,11 +43,17 @@ class Array3D
                     m_SIZE + pos.z;
         }
 
+        std::array<T, Size * Size * Size>& getRaw()
+        {
+            return m_array;
+        }
+
     private:
         std::array<T, Size * Size * Size> m_array;
 
-        const uint32_t m_AREA = Size * Size;
-        const uint32_t m_SIZE = Size;
+        const uint32_t m_VOLUME = Size * Size * Size;
+        const uint32_t m_AREA   = Size * Size;
+        const uint32_t m_SIZE   = Size;
 };
 
 #endif // ARRAY3D_H_INCLUDED

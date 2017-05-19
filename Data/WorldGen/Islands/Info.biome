@@ -8,17 +8,17 @@ Noise
 Biome
 Highland
 Greater
-240
+260
 
 Biome
 Land
 Range
-220 240
+230 260
 
 Biome
 Ocean
 Range
-120 220
+120 230
 
 Biome
 Trench
@@ -26,6 +26,6 @@ Range
 100 120
 
 Biome
-Trench
+Deep Trench
 Less
 100

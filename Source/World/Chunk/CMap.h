@@ -12,6 +12,7 @@
 
 
 class World_Settings;
+class World_File;
 
 namespace Chunk
 {
@@ -20,8 +21,10 @@ namespace Chunk
         public:
             Map(World& world);
 
-            void addChunk    (const Chunk::Position& position, bool populateBlocks);
-            void deleteChunk (const Chunk::Position& position);
+            void save           (World_File& worldFile);
+
+            void addChunk       (const Chunk::Position& position, bool populateBlocks);
+            void deleteChunk    (const Chunk::Position& position, World_File& worldFile);
 
             Full_Chunk& get (const Chunk::Position& position);
             Section*    get (const Chunk::Chunklet_Position& position);

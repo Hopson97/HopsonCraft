@@ -188,6 +188,20 @@ namespace Chunk
         return m_highestBlocks.at(x, z);
     }
 
+    void Full_Chunk::save(World_File& worldFile)
+    {
+        for (auto& section : m_chunkSections)
+        {
+            section->save(worldFile);
+        }
+    }
+
+    void Full_Chunk::load(World_File& worldFile)
+    {
+
+    }
+
+
     const Position& Full_Chunk::getPosition     () const    { return m_position;        }
     const World&    Full_Chunk::getWorld        () const    { return *m_pWorld;         }
     bool            Full_Chunk::hasDeleteFlag   () const    { return m_hasDeleteFlag;   }

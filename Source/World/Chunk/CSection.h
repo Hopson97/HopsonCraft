@@ -14,6 +14,8 @@
 
 #include "../../Util/Array3D.h"
 
+class World_File;
+
 namespace Chunk
 {
     class Map;
@@ -90,12 +92,19 @@ namespace Chunk
             const AABB& getAABB() const;
             const Full_Chunk& getParentChunk() const;
 
+            void save(World_File& worldFile);
+            void load(World_File& worldFile);
+
+            Full_Chunk& getParentChunk();
+
         private:
+            std::string getFileName(World_File& worldFile) const;
+
             bool m_hasUpdatableBlocks = false;
 
             State m_states;
 
-            Full_Chunk& getParentChunk();
+
 
             Array3D<CBlock, CHUNK_SIZE>     m_blocks;
             Array3D<CLight, CHUNK_SIZE>     m_light;

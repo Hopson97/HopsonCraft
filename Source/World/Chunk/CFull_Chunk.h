@@ -25,6 +25,7 @@ namespace Renderer
 class World;
 class Camera;
 class World_Settings;
+class World_File;
 
 namespace Chunk
 {
@@ -70,6 +71,10 @@ namespace Chunk
 
             void setForDelete();
             bool hasDeleteFlag() const;
+
+            void save(World_File& worldFile);
+            void load(World_File& worldFile);
+
 
         private:
             void addSections(uint32_t blockTarget);

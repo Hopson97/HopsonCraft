@@ -22,6 +22,7 @@ struct CBlock
     CBlock();
     CBlock(Block_t      newID);
     CBlock(Block::ID    newID);
+    CBlock(Block_t i, uint8_t meta);
 
     const Block::Data_Holder& getData() const;
     const Block::Type&        getType() const;
@@ -47,8 +48,6 @@ struct CBlock
 
     uint16_t id         : 12;  //Maximum value -> 4095
     uint8_t metaData    : 4;   //Maximum value -> 15
-
-    //meta data?
 };
 
 struct CLight

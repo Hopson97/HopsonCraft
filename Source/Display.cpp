@@ -33,13 +33,8 @@ namespace Display
                                                     "HopsonCraft - 'V4.0'",
                                                     sf::Style::Fullscreen,
                                                     settings);
-/*
-        window = std::make_unique<sf::RenderWindow>(sf::VideoMode{1280, 720},
-                                                    "HopsonCraft - 'V4.0'",
-                                                    sf::Style::Default,
-                                                    settings);
-*/
         glewInit();
+        glewExperimental = GL_TRUE;
         glViewport(0, 0, get().getSize().x, get().getSize().y);
 
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

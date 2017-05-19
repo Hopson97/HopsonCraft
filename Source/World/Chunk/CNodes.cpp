@@ -3,16 +3,25 @@
 #include "../Block/Block_Database.h"
 
 //Blocks
+
+CBlock::CBlock(Block_t ID, uint8_t meta)
+:   id          {ID}
+,   metaData    {meta}
+{ }
+
 CBlock::CBlock()
-:   id  {0}
+:   id          {0}
+,   metaData    {0}
 { }
 
 CBlock::CBlock(Block_t t)
-:   id  {t}
+:   id          {t}
+,   metaData    {0}
 { }
 
 CBlock::CBlock(Block::ID newID)
-:   id  {static_cast<Block_t>(newID)}
+:   id          {static_cast<Block_t>(newID)}
+,   metaData    {0}
 { }
 
 const Block::Data_Holder& CBlock::getData() const

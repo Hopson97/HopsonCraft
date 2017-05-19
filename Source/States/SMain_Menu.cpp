@@ -21,8 +21,6 @@ namespace State
         auto selection      = Random::intInRange(1, backgrounds.size());
         m_pMenuBackground   = &getResources().textures.get("Menu_BG/" + std::to_string(selection));
 
-        settings.name = "Test";
-
         initMenu();
     }
 

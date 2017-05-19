@@ -13,6 +13,7 @@
 #include "Chunk/CSection.h"
 #include "Chunk/CMap.h"
 #include "World_Settings.h"
+#include "World_File.h"
 
 class Player;
 class Camera;
@@ -78,6 +79,7 @@ class World
         std::vector<Chunk::Position>    m_deleteChunks;
         std::mutex m_deleteMutex;
 
+        World_File      m_worldFile;
         World_Settings  m_worldSettings;
         Chunk::Map      m_chunks;
 

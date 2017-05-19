@@ -11,21 +11,11 @@
 #include "../Util/STD_Util.h"
 
 World::World(const World_Settings& worldSettings, const Camera& camera)
-:   m_worldSettings (worldSettings)
+:   m_worldFile     (worldSettings)
+,   m_worldSettings (worldSettings)
 ,   m_chunks        (*this)
 ,   m_pCamera       (&camera)
 {
-    int32_t centre = 20000;
-    int size = 2;
-    for (int x = -size ; x <= size; x++)
-    {
-        for (int z = -size; z <= size; z++)
-        {
-            m_chunks.addChunk({centre + x, centre + z}, true);
-        }
-    }
-
-    //See "World_Gen.cpp"
     for (int i = 0; i < 1; i++)
     {
         m_threads.emplace_back([&]()
@@ -47,6 +37,7 @@ World::~World()
     {
         thread.join();
     }
+    m_chunks.save(m_worldFile);
 }
 
 void World::updateChunks(const Player& player)
@@ -72,7 +63,7 @@ void World::updateChunks(const Player& player)
         m_deleteMutex.lock();
         for (auto& chunkLocation : m_deleteChunks)
         {
-            m_chunks.deleteChunk(chunkLocation);
+            m_chunks.deleteChunk(chunkLocation, m_worldFile);
         }
         m_deleteChunks.clear();
         m_deleteMutex.unlock();

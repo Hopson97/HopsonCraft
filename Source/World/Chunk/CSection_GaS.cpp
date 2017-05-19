@@ -69,16 +69,12 @@ namespace Chunk
                 MAX_LIGHT;
     }
 
-
-
-
-
-
     void Section::qSetBlock(const Block::Small_Position& position, CBlock block)
     {
         if (block.getData().canUpdate)
+        {
             m_hasUpdatableBlocks = true;
-
+        }
         if (m_parentChunk->hasGeneratedBlockData)
         {
             m_placedBlocks.emplace_back(block, (uint16_t)m_blocks.getIndex(position));
