@@ -72,8 +72,7 @@ void Player::keyBoardInput ()
         change.y -= speed;
     }
 
-    static Toggle_Bool flyModeToggle(sf::Keyboard::F, sf::seconds(0.3), m_isFlying);
-    flyModeToggle.input();
+    m_flyModeToggle.input();
 
     addForce(change);
 }
@@ -81,9 +80,7 @@ void Player::keyBoardInput ()
 
 void Player::mouseInput ()
 {
-    static Toggle lock(sf::Keyboard::L, sf::seconds(0.5));
-
-    if (lock)
+    if (m_mouseLock)
         return;
 
     static sf::Vector2i lastMousePosition = sf::Mouse::getPosition();

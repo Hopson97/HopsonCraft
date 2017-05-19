@@ -30,11 +30,12 @@ namespace Chunk
                     std::forward_as_tuple(*m_pWorld,
                                         *this,
                                         position,
-                                        m_pWorld->getWorldSettings()));
+                                        m_pWorld->getWorldSettings(),
+                                        m_pWorld->getWorldFile()));
 
         if (populateBlocks)
         {
-            m_chunkGenerator.generateBlocksFor(map[position]);
+            m_chunkGenerator.generateBlocksFor(map[position], m_pWorld->getWorldFile());
         }
     }
 
@@ -55,7 +56,7 @@ namespace Chunk
     {
         if (existsInMap(m_tempChunks, position))
         {
-            m_chunkGenerator.generateBlocksFor(m_tempChunks[position]);
+            m_chunkGenerator.generateBlocksFor(m_tempChunks[position], m_pWorld->getWorldFile());
             m_chunksMap.emplace(position, std::move(m_tempChunks[position]));
             m_tempChunks.erase(position);
         }

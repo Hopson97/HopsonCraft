@@ -40,7 +40,10 @@ namespace Chunk
             bool hasGeneratedBlockData = false;
 
             Full_Chunk() = default;
-            Full_Chunk(World& world, Map& map, const Position& position, const World_Settings& settings);
+            Full_Chunk(World& world, Map& map,
+                       const Position& position,
+                       const World_Settings& settings,
+                       World_File& worldFile);
 
             Full_Chunk              (const Full_Chunk& other) = delete;
             Full_Chunk& operator=   (const Full_Chunk& other) = delete;
@@ -77,6 +80,8 @@ namespace Chunk
 
 
         private:
+            std::string getFileName(World_File& worldFile) const;
+
             void addSections(uint32_t blockTarget);
             void initBasicSunlight();
             bool overrideBlockFails(bool overrideBlocks,

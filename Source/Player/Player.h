@@ -6,6 +6,8 @@
 #include "../Physics/AABB.h"
 #include "../Entity.h"
 
+#include "../Input/Function_Toggle_Key.h"
+
 namespace Chunk
 {
     class Map;
@@ -26,6 +28,8 @@ class Player : public Entity
 
         void doCollisionTest(World& world, float dt);
 
+        AABB box;
+
     private:
         void collisionTest  (World& world,
                              float dt,
@@ -40,12 +44,12 @@ class Player : public Entity
         Camera* m_p_camera;
         Vector3 m_velocity;
 
+        Toggle_Bool m_flyModeToggle;
+        Toggle      m_mouseLock;
+
         bool m_isOnGround = false;
         bool m_isInLiquid = false;
         bool m_isFlying   = false;
-
-    public:
-        AABB box;
 };
 
 #endif // PLAYER_H_INCLUDED

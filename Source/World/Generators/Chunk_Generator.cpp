@@ -30,7 +30,7 @@ void Chunk_Generator::reset()
 }
 
 
-void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
+void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& worldFile)
 {
     //Only one chunk can generate a time
     m_genMutex.lock();
@@ -42,8 +42,6 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
     if (m_pWorldSettings->isSuperFlat)
     {
         makeSuperFlatWorld();
-        m_genMutex.unlock();
-        return;
     }
     else
     {
@@ -51,6 +49,7 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
     }
 
     chunk.hasGeneratedBlockData = true;
+    chunk.load(worldFile);
     m_genMutex.unlock();
 }
 
@@ -76,7 +75,6 @@ void Chunk_Generator::makeSuperFlatWorld()
 
         m_pChunk->qSetBlock({x, y, z}, block);
     }
-    m_pChunk->hasGeneratedBlockData = true;
 }
 
 void Chunk_Generator::makeRegularWorld()

@@ -10,8 +10,10 @@
 #include "../Maths/General_Maths.h"
 
 Player::Player(Camera& camera)
-:   m_p_camera  (&camera)
-,   box         ({0.5, 1.7, 0.5})
+:   box             ({0.5, 1.7, 0.5})
+,   m_p_camera      (&camera)
+,   m_flyModeToggle {sf::Keyboard::F, sf::seconds(0.3), m_isFlying}
+,   m_mouseLock     {sf::Keyboard::L, sf::seconds(0.5)}
 { }
 
 void Player::addForce(const Vector3& force)

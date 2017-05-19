@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "../World_File.h"
 #include "../World_Constants.h"
 #include "../../Maths/General_Maths.h"
 #include "../../Maths/Position_Conversion.h"
@@ -18,14 +19,16 @@
 
 namespace Chunk
 {
-    Full_Chunk::Full_Chunk(World& world,
-                           Map& map,
-                           const Position& position,
-                           const World_Settings& settings)
+    Full_Chunk::Full_Chunk( World& world,
+                            Map& map,
+                            const Position& position,
+                            const World_Settings& settings,
+                            World_File& worldFile)
     :   m_position  {position}
     ,   m_pWorld    {&world}
     ,   m_pChunkMap {&map}
-    { }
+    {
+    }
 
 
     void Full_Chunk::tick()
@@ -190,6 +193,9 @@ namespace Chunk
 
     void Full_Chunk::save(World_File& worldFile)
     {
+        //std::ofstream outFile(getFileName(worldFile));
+        //outFile << m_chunkSections.size();
+
         for (auto& section : m_chunkSections)
         {
             section->save(worldFile);
@@ -198,7 +204,29 @@ namespace Chunk
 
     void Full_Chunk::load(World_File& worldFile)
     {
+        /*
+        std::ifstream inFile(getFileName(worldFile));
+        if (inFile.is_open())
+        {
+            int numberOfChunks;
+            inFile >> numberOfChunks;
+            addSections(numberOfChunks);
+        }
 
+        for (auto& chunk : m_chunkSections)
+        {
+            chunk->load(worldFile);
+        }
+        */
+    }
+
+    std::string Full_Chunk::getFileName(World_File& worldFile) const
+    {
+        /*
+        return  worldFile.getFolderName() +
+                std::to_string(m_position.x) + " " +
+                std::to_string(m_position.y) + ".chunk";
+        */
     }
 
 

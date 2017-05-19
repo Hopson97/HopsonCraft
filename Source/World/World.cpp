@@ -277,6 +277,12 @@ const World_Settings& World::getWorldSettings() const
     return m_worldSettings;
 }
 
+World_File& World::getWorldFile()
+{
+    return m_worldFile;
+}
+
+
 AABB World::getBlockAABB(const Block::Position& position)
 {
     AABB blockAABB({1.2, 1.2, 1.2});

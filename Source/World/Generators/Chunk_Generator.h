@@ -27,13 +27,14 @@ namespace Chunk
 }
 
 class World_Settings;
+class World_File;
 
 class Chunk_Generator
 {
     public:
         Chunk_Generator(const World_Settings& worldSettings);
 
-        void generateBlocksFor(Chunk::Full_Chunk& chunk);
+        void generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& worldFile);
 
     private:
         void makeSuperFlatWorld ();

@@ -59,7 +59,8 @@ class World
 
         uint32_t getHeightAt (const Vector3& worldPosition);
 
-        const World_Settings& getWorldSettings() const;
+        const World_Settings&   getWorldSettings    () const;
+              World_File&       getWorldFile        ();
 
         AABB getBlockAABB(const Block::Position& position);
 
