@@ -76,7 +76,7 @@ namespace Chunk
     }
 
     void Section::save(World_File& worldFile)
-    {
+    {/*
         if (m_placedBlocks.empty())
         {
             return;
@@ -89,11 +89,11 @@ namespace Chunk
             outFile << (int)block.block.id          << " "
                     << (int)block.block.metaData    << " "
                     << (int)block.index             << "\n";
-        }
+        }*/
     }
 
     void Section::load(World_File& worldFile)
-    {
+    {/*
         std::ifstream inFile(getFileName(worldFile));
         if (!inFile.is_open())
         {
@@ -112,7 +112,7 @@ namespace Chunk
         for (Placed_Blocked& block : m_placedBlocks)
         {
             m_blocks.getRaw()[block.index] = block.block;
-        }
+        }*/
     }
 
     std::string Section::getFileName(World_File& worldFile) const
