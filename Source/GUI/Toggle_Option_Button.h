@@ -3,6 +3,8 @@
 
 #include "Component.h"
 
+#include <map>
+
 #include "../Display.h"
 #include "../Renderer/RMaster.h"
 
@@ -13,14 +15,17 @@ namespace GUI
     {
         public:
             Toggle_Option_Button(std::string&& title,
-                                 std::vector<std::string>&& order,
-                                 std::vector<T>&&     values,
+                                 const std::map<std::string, T>& options,
                                  T& option)
-            :   m_options       (std::move(order))
-            ,   m_optionValues  (std::move(values))
-            ,   m_pOption       (&option)
+            :   m_pOption       (&option)
             ,   m_label         (std::move(title))
             {
+                for (auto& option : options)
+                {
+                    m_options       .push_back(option.first);
+                    m_optionValues  .push_back(option.second);
+                }
+
                 m_quad.setSize({BASE_WIDTH, BASE_HEIGHT});
                 m_quad.setTexture(&Component::guiTexture);
                 m_quad.setOutlineColor(sf::Color::Black);
@@ -87,7 +92,7 @@ namespace GUI
             sf::Text            m_text;
 
             std::vector<std::string> m_options;
-            std::vector<T>     m_optionValues;
+            std::vector<T>          m_optionValues;
             T* m_pOption;
             std::string m_label;
             int32_t m_optionIndex = -1;

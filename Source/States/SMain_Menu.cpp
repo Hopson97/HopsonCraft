@@ -98,18 +98,31 @@ namespace State
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<int32_t>>("Render Distance",
-        std::vector<std::string> { "Very Tiny", "Tiny", "Small", "Medium", "Large", "Huge \n Warning: Potentially high memory usage and low FPS!"},
-        std::vector<int32_t>     {  12,          20,     32,      44,       56,      68},
+        std::map<std::string, int32_t>
+        {
+            { "Very Tiny, 5",   10 },
+            { "Tiny, 10",       20 },
+            { "Small, 16",      32 },
+            { "Medium, 22",     44 },
+            { "Large, 28",      56 },
+            { "Huge, 34",       68 },
+        },
         settings.renderDistance));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<std::string>>("Terrain Type",
-        std::vector<std::string> { "Classic", "Islands"},
-        std::vector<std::string> { "Classic", "Islands"},
+        std::map<std::string, std::string>
+        {
+            { "Classic", "Classic" },
+            { "Islands", "Islands" },
+        },
         settings.generator));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Super-flat Mode",
-        std::vector<std::string> { "No", "Yes"},
-        std::vector<bool>        { false, true},
+        std::map<std::string, bool>
+        {
+            { "No",     false },
+            { "Yes",    true  },
+        },
         settings.isSuperFlat));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()

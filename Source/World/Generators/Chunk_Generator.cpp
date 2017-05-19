@@ -195,7 +195,7 @@ void Chunk_Generator::setRandomSeed()
 void Chunk_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
 {
 
-    auto getVal = [&](int indexA, int indexB)
+    auto getHeightAt = [&](int indexA, int indexB)
     {
         m_heightGen.setNoiseFunction(m_worldGenType.getBiome(m_biomeMap.at(indexA, indexB)).getNoise());
         return m_heightGen.getValue(indexA,
@@ -205,10 +205,10 @@ void Chunk_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
 
     };
 
-    int bottomLeft  = getVal(xMin, zMin);
-    int bottomRight = getVal(xMax, zMin);
-    int topLeft     = getVal(xMin, zMax);
-    int topRight    = getVal(xMax, zMax);
+    int bottomLeft  = getHeightAt(xMin, zMin);
+    int bottomRight = getHeightAt(xMax, zMin);
+    int topLeft     = getHeightAt(xMin, zMax);
+    int topRight    = getHeightAt(xMax, zMax);
 
     int itr = 0;
     for (int32_t x = xMin ; x < xMax; ++x)
@@ -230,6 +230,7 @@ void Chunk_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
 //than using noise function on every point.
 void Chunk_Generator::makeHeightMap()
 {
+    ///@TODO For loop?
     makeHeightSection(0, 0, 8,  8);
     makeHeightSection(8, 0, 16, 8);
     makeHeightSection(0, 8, 8,  16);
