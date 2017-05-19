@@ -101,15 +101,6 @@ namespace Chunk
         }
     }
 
-
-
-    const Position& Full_Chunk::getPosition() const
-    {
-        return m_position;
-    }
-
-
-
     Section* Full_Chunk::getSection(int32_t index, bool)
     {
         //This causes trees and other structures to sometimes not work correctly!
@@ -135,11 +126,6 @@ namespace Chunk
                                                             *this));
         m_maxBlockHeight += CHUNK_SIZE - 1;
     }
-
-
-
-    void Full_Chunk::initBasicSunlight()
-    { }
 
     void Full_Chunk::updateTopBlockLocation(const Block::Position& position)
     {
@@ -201,4 +187,22 @@ namespace Chunk
     {
         return m_highestBlocks.at(x, z);
     }
+
+    const Position& Full_Chunk::getPosition     () const    { return m_position;        }
+    const World&    Full_Chunk::getWorld        () const    { return *m_pWorld;         }
+    bool            Full_Chunk::hasDeleteFlag   () const    { return m_hasDeleteFlag;   }
+    void            Full_Chunk::setForDelete    ()          { m_hasDeleteFlag = true;   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

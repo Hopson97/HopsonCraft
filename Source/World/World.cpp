@@ -226,7 +226,6 @@ void World::regenerateChunks()
             chunk = chunkFull.getSection(chunkPosition.y);
         }
 
-
         //Set block
         chunk->qSetBlock(blockPosition, newBlock.block);
 
@@ -386,9 +385,9 @@ void World::generateWorld(const Camera& camera)
             location.y >= bounds.maxPoint.z)
         {
             //If the chunk is outside of the bounds of the render distance, then add the position of it into a delete vector
-            if (!c.hasDeleteFlag)
+            if (!c.hasDeleteFlag())
             {
-                c.hasDeleteFlag = true;
+                c.setForDelete();
                 m_deleteChunks.push_back(location);
             }
         }

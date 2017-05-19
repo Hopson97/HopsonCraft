@@ -37,7 +37,6 @@ namespace Chunk
         public:
             ///@TODO Better solution for this
             bool hasGeneratedBlockData = false;
-            bool m_hasDeleteFlag = false;
 
             Full_Chunk() = default;
             Full_Chunk(World& world, Map& map, const Position& position, const World_Settings& settings);
@@ -65,16 +64,12 @@ namespace Chunk
             void addSection();
 
             uint32_t getHeightAt(int8_t x, int8_t z) const;
-
-            bool hasDeleteFlag = false;
-
-            void setHasGeneratedFlag()
-            {
-                initBasicSunlight();
-                hasGeneratedBlockData = true;
-            }
+            const World& getWorld() const;
 
             void updateTopBlockLocation(const Block::Position& position);
+
+            void setForDelete();
+            bool hasDeleteFlag() const;
 
         private:
             void addSections(uint32_t blockTarget);
@@ -92,6 +87,8 @@ namespace Chunk
 
             World*      m_pWorld        = nullptr;
             Map*        m_pChunkMap     = nullptr;
+
+            bool m_hasDeleteFlag = false;
     };
 }
 

@@ -50,7 +50,7 @@ void Chunk_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk)
         makeRegularWorld();
     }
 
-    chunk.setHasGeneratedFlag();
+    chunk.hasGeneratedBlockData = true;
     m_genMutex.unlock();
 }
 
@@ -76,7 +76,7 @@ void Chunk_Generator::makeSuperFlatWorld()
 
         m_pChunk->qSetBlock({x, y, z}, block);
     }
-    m_pChunk->setHasGeneratedFlag();
+    m_pChunk->hasGeneratedBlockData = true;
 }
 
 void Chunk_Generator::makeRegularWorld()
