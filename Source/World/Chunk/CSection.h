@@ -32,6 +32,16 @@ namespace Chunk
             std::atomic<bool> buffered;
         };
 
+        struct Placed_Blocked
+        {
+            Placed_Blocked(CBlock b, uint16_t i)
+            :   block   (b)
+            ,   index   (i) {}
+
+            CBlock block;
+            uint16_t index;
+        };
+
         //This struct helps with optimizing the creation of the mesh
         struct Layer
         {
@@ -90,6 +100,7 @@ namespace Chunk
             Array3D<CBlock, CHUNK_SIZE>     m_blocks;
             Array3D<CLight, CHUNK_SIZE>     m_light;
             std::array<Layer, CHUNK_SIZE>   m_layerHasAir;
+            std::vector<Placed_Blocked>     m_placedBlocks;
 
             Chunklet_Position m_position;
 

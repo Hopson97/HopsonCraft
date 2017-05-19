@@ -79,6 +79,11 @@ namespace Chunk
         if (block.getData().canUpdate)
             m_hasUpdatableBlocks = true;
 
+        if (m_parentChunk->hasGeneratedBlockData)
+        {
+            m_placedBlocks.emplace_back(block, (uint16_t)m_blocks.getIndex(position));
+        }
+
         m_layerHasAir[position.y].update(block);
         m_blocks.at(position) = block;
     }

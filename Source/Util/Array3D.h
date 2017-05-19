@@ -13,14 +13,14 @@ class Array3D
         {
             return m_array[yPos *
                            m_AREA + zPos *
-                           Size + xPos];
+                           m_SIZE + xPos];
         }
 
         const T& at(uint32_t xPos, uint32_t yPos, uint32_t zPos) const
         {
             return m_array[yPos *
                            m_AREA + zPos *
-                           Size + xPos];
+                           m_SIZE + xPos];
         }
 
         template<typename Vector>
@@ -35,10 +35,19 @@ class Array3D
             return at(pos.x, pos.y, pos.z);
         }
 
+        template<typename Vector>
+        int getIndex(const Vector& pos)
+        {
+            return  pos.y *
+                    m_AREA + pos.z *
+                    m_SIZE + pos.z;
+        }
+
     private:
         std::array<T, Size * Size * Size> m_array;
 
         const uint32_t m_AREA = Size * Size;
+        const uint32_t m_SIZE = Size;
 };
 
 #endif // ARRAY3D_H_INCLUDED
