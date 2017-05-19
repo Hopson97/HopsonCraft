@@ -6,16 +6,26 @@ Noise
 0
 
 Biome
-Land
+Highland
 Greater
-210
+240
+
+Biome
+Land
+Range
+220 240
 
 Biome
 Ocean
 Range
-120 210
+120 220
+
+Biome
+Trench
+Range
+100 120
 
 Biome
 Trench
 Less
-120
+100
