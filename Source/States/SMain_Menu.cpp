@@ -10,6 +10,8 @@
 
 #include "../Display.h"
 
+#include "SSettings_Menu.h"
+
 namespace State
 {
     Main_Menu::Main_Menu(Application& application)
@@ -45,27 +47,11 @@ namespace State
     void Main_Menu::onOpen()
     {
         //Display::get().setFramerateLimit(30);
+        m_application->getCamera().unhookEntity();
     }
 
     void Main_Menu::initMenu()
     {
-        /*
-            Mountains Seeds:
-            *   92879 - VERY TALL MOUTAIN
-            *   5184
-            *   72390 - Very cool valleys
-            *   63624   High Cliffs
-            *   45830 - 700m high cliff
-            *   20400 - 800m high
-        */
-
-
-        Noise::Data nSmooth     {0, 0,      0,      0};
-        Noise::Data nNormal     {7, 85,     0.51,   235, -15    };
-        Noise::Data nMountains  {8, 350,    0.50,   283, -320   };
-        Noise::Data nWater      {7, 43,     0.5,    55          };
-        Noise::Data nHilly      {7, 100,    0.52,   230  -10    };
-
         //Front menu
         m_frontMenu.addPadding(100);
         m_frontMenu.addBackgroud(*m_pMenuBackground);
@@ -79,8 +65,10 @@ namespace State
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
         { }));
 
-        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Settings (Unused)", [&]()
-        { }));
+        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Settings", [&]()
+        {
+            m_application->pushState(std::make_unique<State::Settings_Menu>(*m_application, settings));
+        }));
 
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
         { }));
@@ -94,18 +82,6 @@ namespace State
         m_playMenu.addPadding(100);
         m_playMenu.addBackgroud(*m_pMenuBackground);
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
-
-        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<int32_t>>("Render Distance",
-        std::vector<std::pair<std::string, int32_t>>
-        {
-            { "Very Tiny, 5",   10 },
-            { "Tiny, 10",       20 },
-            { "Small, 16",      32 },
-            { "Medium, 22",     44 },
-            { "Large, 28",      56 },
-            { "Huge, 34",       68 },
-        },
-        settings.renderDistance));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<std::string>>("Terrain Type",
         std::vector<std::pair<std::string, std::string>>

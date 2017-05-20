@@ -10,6 +10,7 @@
 #include "../Display.h"
 #include "../Physics/Ray.h"
 #include "../Input/Function_Toggle_Key.h"
+#include "SSettings_Menu.h"
 
 namespace State
 {
@@ -112,6 +113,11 @@ namespace State
         }
     }
 
+    void Playing::onOpen()
+    {
+
+    }
+
     void Playing::editBlockInput()
     {
         constexpr static float delay = 0.15f;
@@ -209,6 +215,11 @@ namespace State
         m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Resume", [&]()
         {
             m_isPaused = false;
+        }));
+
+        m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Settings", [&]()
+        {
+            m_application->pushState(std::make_unique<State::Settings_Menu>(*m_application, m_world.m_worldSettings));
         }));
 
         m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()

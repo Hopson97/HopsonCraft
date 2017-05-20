@@ -23,8 +23,15 @@ namespace Renderer
     class Master;
 }
 
+namespace State
+{
+    class Playing;
+}
+
 class World
 {
+    friend class State::Playing;
+
     enum class State
     {
         Nothing,

@@ -9,6 +9,11 @@
 class World_Settings;
 class Application;
 
+namespace sf
+{
+    class Texture;
+}
+
 namespace State
 {
     class Settings_Menu : public Game_State
@@ -25,11 +30,15 @@ namespace State
             void onOpen() override;
 
         private:
+            void initMenu();
+
             World_Settings* m_pWorldSettings;
 
             GUI::Panel m_frontMenu;
             GUI::Panel m_videoSettings;
             GUI::Panel* m_pActiveMenu   = &m_frontMenu;
+
+            const sf::Texture* m_pMenuBackground;
     };
 }
 

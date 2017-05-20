@@ -78,7 +78,6 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
 void Application::popState()
 {
    m_states.pop_back();
-   m_camera.unhookEntity();
    if (!m_states.empty())
    {
        m_states.back()->onOpen();

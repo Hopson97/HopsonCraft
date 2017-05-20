@@ -8,13 +8,13 @@
 
 struct World_Settings
 {
-    std::string name            = "Test World";
+    std::string name                = "Test World";
     std::string generator;
 
-    int         renderDistance;
+    int         renderDistance      = 44;
 
     float       seed;
-    bool        isSuperFlat        = false;
+    bool        isSuperFlat         = false;
 };
 
 #endif // WORLD_SETTINGS_H_INCLUDED
