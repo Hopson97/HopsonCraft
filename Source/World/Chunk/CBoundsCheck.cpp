@@ -53,7 +53,7 @@ namespace Chunk
         else
         {
             Chunk::Chunklet_Position newPos = defaultSection->getPosition() + change;
-            return chunkMap.safeGet({newPos.x, newPos.y, newPos.z});
+            return chunkMap.editableGet({newPos.x, newPos.y, newPos.z});
         }
     }
 
@@ -76,7 +76,7 @@ namespace Chunk
         else
         {
             Chunk::Chunklet_Position newPos = defaultSection->getPosition() + change;
-            return chunkMap.safeGet({newPos.x, newPos.y, newPos.z});
+            return chunkMap.editableGet({newPos.x, newPos.y, newPos.z});
         }
     }
 }

@@ -30,7 +30,7 @@ namespace State
     class Playing;
 }
 
-class World// : public IBlock_Accessible
+class World : public IBlock_Accessible
 {
     friend class State::Playing;
 

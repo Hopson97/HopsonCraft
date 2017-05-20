@@ -81,21 +81,21 @@ namespace Chunk
     }
 
 
-    Section* Map::safeGet(const Chunk::Chunklet_Position& position)
+    Section* Map::editableGet(const Chunk::Chunklet_Position& position)
     {
         Position chunkPos (position.x, position.z);
         if (existsAt(chunkPos))
         {
-            return m_chunksMap[chunkPos].safeGetSection(position.y);
+            return m_chunksMap[chunkPos].editableGetSection(position.y);
         }
         else
         {
             addChunk(m_tempChunks, chunkPos, false);
-            return m_tempChunks[chunkPos].safeGetSection(position.y);
+            return m_tempChunks[chunkPos].editableGetSection(position.y);
         }
     }
 
-    Full_Chunk& Map::safeGet(const Chunk::Position& position)
+    Full_Chunk& Map::editableGet(const Chunk::Position& position)
     {
         if (existsAt(position))
         {
