@@ -2,25 +2,30 @@ Noise
 7
 150
 0.65
-900
+700
 0
 
 Biome
 Mountains
 Greater
-230
+235
+
+Biome
+Dense Forest
+Range
+210 235
 
 Biome
 Forest
 Range
-185 230
+175 210
 
 Biome
 Grassland
 Range
-150 185
+140 175
 
 Biome
 Ocean
 Less
-150
+140

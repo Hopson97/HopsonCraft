@@ -3,7 +3,7 @@
 
 #include "Component.h"
 
-#include <map>
+#include <utility>
 
 #include "../Display.h"
 #include "../Renderer/RMaster.h"
@@ -15,7 +15,7 @@ namespace GUI
     {
         public:
             Toggle_Option_Button(std::string&& title,
-                                 const std::map<std::string, T>& options,
+                                 const std::vector<std::pair<std::string, T>>& options,
                                  T& option)
             :   m_pOption       (&option)
             ,   m_label         (std::move(title))

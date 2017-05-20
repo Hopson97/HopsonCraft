@@ -96,7 +96,7 @@ namespace State
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<int32_t>>("Render Distance",
-        std::map<std::string, int32_t>
+        std::vector<std::pair<std::string, int32_t>>
         {
             { "Very Tiny, 5",   10 },
             { "Tiny, 10",       20 },
@@ -108,7 +108,7 @@ namespace State
         settings.renderDistance));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<std::string>>("Terrain Type",
-        std::map<std::string, std::string>
+        std::vector<std::pair<std::string, std::string>>
         {
             { "Classic", "Classic" },
             { "Islands", "Islands" },
@@ -116,7 +116,7 @@ namespace State
         settings.generator));
 
         m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Super-flat Mode",
-        std::map<std::string, bool>
+        std::vector<std::pair<std::string, bool>>
         {
             { "No",     false },
             { "Yes",    true  },
