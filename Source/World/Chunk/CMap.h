@@ -26,8 +26,11 @@ namespace Chunk
             void addChunk       (const Chunk::Position& position, bool populateBlocks);
             void deleteChunk    (const Chunk::Position& position, World_File& worldFile);
 
-            Full_Chunk& get (const Chunk::Position& position);
-            Section*    get (const Chunk::Chunklet_Position& position);
+            const Full_Chunk* get (const Chunk::Position& position)             const;
+            const Section*    get (const Chunk::Chunklet_Position& position)    const;
+
+            Full_Chunk& safeGet (const Chunk::Position& position);
+            Section*    safeGet (const Chunk::Chunklet_Position& position);
 
             bool existsAt   (const Chunk::Position& position) const;
 

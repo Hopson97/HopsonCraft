@@ -15,6 +15,8 @@
 #include "World_Settings.h"
 #include "World_File.h"
 
+#include "IBlock_Accessible.h"
+
 class Player;
 class Camera;
 
@@ -28,7 +30,7 @@ namespace State
     class Playing;
 }
 
-class World
+class World// : public IBlock_Accessible
 {
     friend class State::Playing;
 

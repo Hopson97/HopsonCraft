@@ -60,7 +60,9 @@ namespace Chunk
             CBlock qGetBlock(const Block::Position& position);
 
             const Position& getPosition() const;
-            Section* getSection(int32_t index, bool settingBlocks = false);
+
+            const   Section* getSection     (int32_t index) const;
+                    Section* safeGetSection (int32_t index);
 
             uint32_t draw   (Renderer::Master& renderer, const Camera& camera);
             bool tryGen     (/*const Camera& camera*/);

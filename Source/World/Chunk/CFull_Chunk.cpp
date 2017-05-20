@@ -48,7 +48,7 @@ namespace Chunk
 
         auto pos = Maths::blockToSmallBlockPos(position);
 
-        getSection(position.y / CHUNK_SIZE)
+        safeGetSection(position.y / CHUNK_SIZE)
             ->setBlock(pos, block);
     }
 
@@ -59,7 +59,7 @@ namespace Chunk
         addSections(position.y);
         updateTopBlockLocation(position);
 
-        getSection(position.y / CHUNK_SIZE)
+        safeGetSection(position.y / CHUNK_SIZE)
             ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
     }
 
@@ -74,7 +74,7 @@ namespace Chunk
         {
             auto pos = Maths::blockToSmallBlockPos(position);
 
-            getSection(yPositionSection)
+            safeGetSection(yPositionSection)
                 ->getBlock(pos);
         }
         return Block::ID::Air;
@@ -104,10 +104,20 @@ namespace Chunk
         }
     }
 
-    Section* Full_Chunk::getSection(int32_t index, bool)
+    const Section* Full_Chunk::getSection(int32_t index) const
     {
         //This causes trees and other structures to sometimes not work correctly!
-        if (index < 0 || index > m_sectionCount) return nullptr;
+        if (index < 0 || index > m_sectionCount)
+            return nullptr;
+
+        return m_chunkSections[index].get();
+    }
+
+    Section* Full_Chunk::safeGetSection (int32_t index)
+    {
+        //This causes trees and other structures to sometimes not work correctly!
+        if (index < 0)
+            return nullptr;
 
         while (index > m_sectionCount - 1)
         {

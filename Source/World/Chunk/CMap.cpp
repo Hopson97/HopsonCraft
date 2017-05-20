@@ -66,21 +66,36 @@ namespace Chunk
         }
     }
 
-    Section* Map::get(const Chunk::Chunklet_Position& position)
+    const Full_Chunk* Map::get(const Chunk::Position& position) const
+    {
+        return existsAt(position) ?
+            &m_chunksMap.at(position) :
+            nullptr;
+    }
+
+    const Section* Map::get(const Chunk::Chunklet_Position& position) const
+    {
+        return existsAt({position.x, position.z}) ?
+            m_chunksMap.at({position.x, position.z}).getSection(position.y) :
+            nullptr;
+    }
+
+
+    Section* Map::safeGet(const Chunk::Chunklet_Position& position)
     {
         Position chunkPos (position.x, position.z);
         if (existsAt(chunkPos))
         {
-            return m_chunksMap[chunkPos].getSection(position.y);
+            return m_chunksMap[chunkPos].safeGetSection(position.y);
         }
         else
         {
             addChunk(m_tempChunks, chunkPos, false);
-            return m_tempChunks[chunkPos].getSection(position.y);
+            return m_tempChunks[chunkPos].safeGetSection(position.y);
         }
     }
 
-    Full_Chunk& Map::get(const Chunk::Position& position)
+    Full_Chunk& Map::safeGet(const Chunk::Position& position)
     {
         if (existsAt(position))
         {
