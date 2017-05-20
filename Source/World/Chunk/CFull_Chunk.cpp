@@ -41,8 +41,7 @@ namespace Chunk
 
 
     void Full_Chunk::setBlock(const Block::Position& position,
-                               CBlock block,
-                               bool overrideBlocks)
+                               CBlock block)
     {
         addSections(position.y);
 
@@ -53,8 +52,7 @@ namespace Chunk
     }
 
     void Full_Chunk::qSetBlock(const Block::Position& position,
-                               CBlock block,
-                               bool overrideBlocks)
+                               CBlock block)
     {
         addSections(position.y);
         updateTopBlockLocation(position);
@@ -63,7 +61,7 @@ namespace Chunk
             ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
     }
 
-    CBlock Full_Chunk::getBlock(const Block::Position& position)
+    CBlock Full_Chunk::getBlock(const Block::Position& position) const
     {
         int32_t yPositionSection = position.y / CHUNK_SIZE;
         if (yPositionSection > (int32_t)m_chunkSections.size() - 1)
@@ -74,13 +72,13 @@ namespace Chunk
         {
             auto pos = Maths::blockToSmallBlockPos(position);
 
-            editableGetSection(yPositionSection)
+            getSection(yPositionSection)
                 ->getBlock(pos);
         }
         return Block::ID::Air;
     }
 
-    CBlock Full_Chunk::qGetBlock(const Block::Position& position)
+    CBlock Full_Chunk::qGetBlock(const Block::Position& position) const
     {
         int32_t yPositionSection = position.y / CHUNK_SIZE;
         if (yPositionSection > (int32_t)m_chunkSections.size() - 1)
@@ -116,7 +114,7 @@ namespace Chunk
     Section* Full_Chunk::editableGetSection (int32_t index)
     {
         //This causes trees and other structures to sometimes not work correctly!
-        if (index < 0)
+        if (index < 0 || index > m_sectionCount)//todo remove this
             return nullptr;
 
         while (index > m_sectionCount - 1)

@@ -83,13 +83,9 @@ void World::checkPlayerBounds(Player& player)
     }
 }
 
-void World::qSetBlock(const Vector3& position, CBlock block)
+void World::setBlock (int x, int y, int z, CBlock block)
 {
-    setBlock(position, block);
-}
-
-void World::setBlock(const Vector3& position, CBlock block)
-{
+    Vector3 position(x, y, z);
     if (position.y < 1)
     {
         return;
@@ -132,20 +128,38 @@ void World::setBlock(const Vector3& position, CBlock block)
     }
 }
 
-CBlock World::getBlock(const Vector3& position)
+
+CBlock World::getBlock (int x, int y, int z) const
 {
+    Vector3 position(x, y, z);
     auto chunkPos = Maths::worldToChunkPos(position);
 
     if (m_chunks.existsAt(chunkPos))
     {
         auto blockPosition = Maths::worldToBlockPos(position);
-        return m_chunks.editableGet(chunkPos).qGetBlock(blockPosition);
+        return m_chunks.get(chunkPos)->qGetBlock(blockPosition);
     }
     else
     {
         return Block::ID::Air;
     }
 }
+
+void World::qSetBlock(const Vector3& position, CBlock block)
+{
+    setBlock(position.x, position.y, position.z , block);
+}
+
+void World::setBlock(const Vector3& position, CBlock block)
+{
+    setBlock(position.x, position.y, position.z, block);
+}
+
+CBlock World::getBlock(const Vector3& position)
+{
+    return getBlock(position.x, position.y, position.z);
+}
+
 
 uint32_t World::getHeightAt(const Vector3& worldPosition)
 {

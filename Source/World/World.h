@@ -73,6 +73,9 @@ class World : public IBlock_Accessible
 
         AABB getBlockAABB(const Block::Position& position);
 
+        void setBlock   (int x, int y, int z, CBlock block) override;
+        CBlock getBlock (int x, int y, int z) const override;
+
     private:
         void regenerateChunks   ();
         void triggerBlocks      ();

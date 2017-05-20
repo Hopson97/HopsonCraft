@@ -9,12 +9,14 @@
 
 ///@TODO Refactor the sh*t out of this
 
+
 template<typename Access, typename Rand>
 void makeOakTree(Access& access,
                  const Block::Position& pos,
                  Random::Generator<Rand> random,
                  bool isMadeDuringWorldGen = true)
 {
+    /*
     auto height = random.intInRange(5, 8);
     int32_t crownSize = 2;
 
@@ -49,7 +51,7 @@ void makeOakTree(Access& access,
     for (int32_t y = 1; y < height; y++)
     {
         access.qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
-    }
+    }*/
 }
 
 template<typename Access, typename Rand>
@@ -57,7 +59,7 @@ void makePalmTree(Access& access,
                  const Block::Position& pos,
                  Random::Generator<Rand> random,
                  bool isMadeDuringWorldGen = true)
-{
+{/*
     auto height = random.intInRange(5, 8);
     int32_t crownSize = random.intInRange(4, 5);
 
@@ -87,7 +89,7 @@ void makePalmTree(Access& access,
     for (int32_t y = 1; y < height; y++)
     {
         access.qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
-    }
+    }*/
 }
 
 template<typename Access, typename Rand>
@@ -95,7 +97,7 @@ void makeAcaciaTree(Access& access,
                  const Block::Position& pos,
                  Random::Generator<Rand> random,
                  bool isMadeDuringWorldGen = true)
-{
+{/*
     auto height = random.intInRange(5, 8);
     auto width1 = random.intInRange(4, 5);
     auto dir1 = random.intInRange(0, 1);
@@ -151,7 +153,7 @@ void makeAcaciaTree(Access& access,
             }
             break;
     }
-
+*/
     ///@TODO Leaves for the Acacia tree
 }
 

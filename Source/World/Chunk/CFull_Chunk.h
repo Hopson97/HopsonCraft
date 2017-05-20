@@ -53,11 +53,11 @@ namespace Chunk
 
             void tick();
 
-            void   setBlock(const Block::Position& position, CBlock block, bool overrideBlocks = true);
-            CBlock getBlock(const Block::Position& position);
+            void   setBlock(const Block::Position& position, CBlock block);
+            CBlock getBlock(const Block::Position& position) const;
 
-            void   qSetBlock(const Block::Position& position, CBlock block, bool overrideBlocks = true);
-            CBlock qGetBlock(const Block::Position& position);
+            void   qSetBlock(const Block::Position& position, CBlock block);
+            CBlock qGetBlock(const Block::Position& position) const;
 
             const Position& getPosition() const;
 
