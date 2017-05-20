@@ -76,7 +76,7 @@ void makePalmTree(IBlock_Accessible& access,
     std::vector<Block::Position> leafPositions;
 
     int height      = Random::intInRange(5, 8);
-    int crownSize   = 2;
+    int crownSize   = Random::intInRange(4, 6);
 
     for (int x = -crownSize; x <= crownSize; x++)
     {

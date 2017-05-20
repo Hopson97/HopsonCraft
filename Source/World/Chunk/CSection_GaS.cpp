@@ -139,9 +139,9 @@ namespace Chunk
 
     const Section* Section::getAdjacentSection(const Vector2& change) const
     {
-        return m_pChunkMap->get({ m_position.x + (int32_t)change.x,
-                                m_position.y,
-                                m_position.z + (int32_t)change.y});
+        return m_pChunkMap->get({   m_position.x + (int32_t)change.x,
+                                    m_position.y,
+                                    m_position.z + (int32_t)change.y});
     }
 
 }
