@@ -8,6 +8,7 @@ enum class Structure_ID
 {
     Oak_Tree        = 0,
     Acacia_Tree     = 1,
+    Palm_Tree       = 2,
 
     Pyramid         = 100,
 };
@@ -26,6 +27,10 @@ void getStructureFromID(Access& access,
 
         case Structure_ID::Acacia_Tree:
             makeAcaciaTree(access, pos, random);
+            break;
+
+        case Structure_ID::Palm_Tree:
+            makePalmTree(access, pos, random);
             break;
 
 

@@ -7,6 +7,7 @@
 
 //See GStructures.h for a definition of the args
 
+///@TODO Refactor the sh*t out of this
 
 template<typename Access, typename Rand>
 void makeOakTree(Access& access,
@@ -44,6 +45,44 @@ void makeOakTree(Access& access,
     }
 
     access.setBlock({pos.x, pos.y + height + 2, pos.z}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+
+    for (int32_t y = 1; y < height; y++)
+    {
+        access.qSetBlock({pos.x, pos.y + y, pos.z}, Block::ID::Oak_Wood, isMadeDuringWorldGen);
+    }
+}
+
+template<typename Access, typename Rand>
+void makePalmTree(Access& access,
+                 const Block::Position& pos,
+                 Random::Generator<Rand> random,
+                 bool isMadeDuringWorldGen = true)
+{
+    auto height = random.intInRange(5, 8);
+    int32_t crownSize = random.intInRange(4, 5);
+
+    for (int x = -crownSize; x <= crownSize; x++)
+    {
+        access.setBlock({pos.x + x, pos.y + height, pos.z}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+    }
+
+    for (int z = -crownSize; z <= crownSize; z++)
+    {
+        access.setBlock({pos.x, pos.y + height, pos.z + z}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+    }
+
+    access.setBlock({pos.x,             pos.y + height - 1, pos.z + crownSize}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+    access.setBlock({pos.x,             pos.y + height - 1, pos.z - crownSize}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+    access.setBlock({pos.x + crownSize, pos.y + height - 1, pos.z},             Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+    access.setBlock({pos.x - crownSize, pos.y + height - 1, pos.z},             Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+    access.setBlock({pos.x,             pos.y + height + 1, pos.z},             Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+
+    for (int32_t zLeaf = -1; zLeaf <= 1; zLeaf++)
+    for (int32_t xLeaf = -1; xLeaf <= 1; xLeaf++)
+    {
+        access.setBlock({pos.x + xLeaf, pos.y + height - 1, pos.z + zLeaf}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+        access.setBlock({pos.x + xLeaf, pos.y + height    , pos.z + zLeaf}, Block::ID::Oak_Leaf, isMadeDuringWorldGen);
+    }
 
     for (int32_t y = 1; y < height; y++)
     {
@@ -113,7 +152,7 @@ void makeAcaciaTree(Access& access,
             break;
     }
 
-    ///@TODO Leaves
+    ///@TODO Leaves for the Acacia tree
 }
 
 #endif // GTREES_H_INCLUDED

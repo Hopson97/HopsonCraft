@@ -50,7 +50,7 @@ const Biome& World_Generation_Type::getBiome(int biomeKey)
         }
     }
     throw std::runtime_error("Unable to get biome: " + std::to_string(biomeKey));
-    ///@TODO Return an "error biome"
+    ///@TODO Return an "error biome" rather than crash the game
 }
 
 

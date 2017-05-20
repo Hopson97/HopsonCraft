@@ -192,14 +192,14 @@ namespace Chunk
     }
 
     void Full_Chunk::save(World_File& worldFile)
-    {
-        //std::ofstream outFile(getFileName(worldFile));
-        //outFile << m_chunkSections.size();
+    {/*
+        std::ofstream outFile(getFileName(worldFile));
+        outFile << m_chunkSections.size();
 
         for (auto& section : m_chunkSections)
         {
             section->save(worldFile);
-        }
+        }*/
     }
 
     void Full_Chunk::load(World_File& worldFile)
@@ -222,11 +222,9 @@ namespace Chunk
 
     std::string Full_Chunk::getFileName(World_File& worldFile) const
     {
-        /*
         return  worldFile.getFolderName() +
                 std::to_string(m_position.x) + " " +
                 std::to_string(m_position.y) + ".chunk";
-        */
     }
 
 

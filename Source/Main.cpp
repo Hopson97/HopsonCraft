@@ -83,7 +83,7 @@ namespace
         Random::init();
         Noise::Generator m_noiseGen;
         m_noiseGen.setSeed(Random::intInRange(0, 999999));
-        m_noiseGen.setNoiseFunction({5, 100, 0.4, 450});
+        m_noiseGen.setNoiseFunction({5, 500, 0.4, 5000});
 
         float total = 0;
         std::vector<double> test;
@@ -107,15 +107,7 @@ namespace
 */
 int main() try
 {
-/*
-    auto dir = getFileNamesFromFolder("Data/WorldGen/");
-    for (auto& dirName : dir)
-    {
-        std::cout << dirName << std::endl;
-    }
-*/
-
-    //noiseTest(100000);
+    //noiseTest(1000000);
     runGame();
     return 0;
 }

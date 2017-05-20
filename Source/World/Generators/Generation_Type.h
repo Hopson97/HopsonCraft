@@ -5,7 +5,7 @@
 
 #include "../../Util/Loader.h"
 
-///@TODO Come up with a better name for this
+///@TODO Come up with a better name for this class
 class World_Generation_Type : public Loader
 {
     enum class Compare
@@ -15,7 +15,7 @@ class World_Generation_Type : public Loader
         Less    = 2
     };
 
-    ///@TODO Come up with a better name for this
+    ///@TODO Come up with a better name for this class
     class BiomeRange
     {
         public:
