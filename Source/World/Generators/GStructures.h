@@ -27,7 +27,7 @@ void makePyramid(Access& access,
     for (int x = pos.x - base / 2; x < pos.x + base / 2; x++)
     for (int z = pos.z - base / 2; z < pos.z + base / 2; z++)
     {
-        access.setBlock({pos.x + x, pos.y + h + 1, pos.z + z}, Block::ID::Stone);
+        //access.setBlock({pos.x + x, pos.y + h + 1, pos.z + z}, Block::ID::Stone);
     }
 }
 
@@ -48,12 +48,12 @@ void makeLattice(Access& access,
         {
             if (y % 2 == 0)
             {
-                access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone, isMadeDuringWorldGen);
+                //access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone, isMadeDuringWorldGen);
             }
         }
         else
         {
-            access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone, isMadeDuringWorldGen);
+            //access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone, isMadeDuringWorldGen);
         }
         windowLayer = !windowLayer;
     }

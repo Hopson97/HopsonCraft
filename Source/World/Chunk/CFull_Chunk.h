@@ -9,6 +9,8 @@
 #include "CPosition.h"
 #include "CSection.h"
 
+#include "../IBlock_Accessible.h"
+
 #include "../../Util/Array2D.h"
 
 /*
