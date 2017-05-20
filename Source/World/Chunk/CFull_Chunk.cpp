@@ -92,6 +92,12 @@ namespace Chunk
         }
     }
 
+    void    Full_Chunk::setBlock    (int x, int y, int z, CBlock block) {   setBlock({x, y, z}, block); }
+    void    Full_Chunk::qSetBlock   (int x, int y, int z, CBlock block) {   qSetBlock({x, y, z}, block); }
+    CBlock  Full_Chunk::qGetBlock   (int x, int y, int z) const { return    qGetBlock({x, y, z}); }
+    CBlock  Full_Chunk::getBlock    (int x, int y, int z) const { return    getBlock({x, y, z}); }
+
+
     void Full_Chunk::addSections(uint32_t blockTarget)
     {
         int32_t yPositionSection = blockTarget / CHUNK_SIZE;

@@ -12,6 +12,8 @@
 #include "../Block/Block_Database.h"
 #include "../../Physics/AABB.h"
 
+#include "../IBlock_Accessible.h"
+
 #include "../../Util/Array3D.h"
 
 class World_File;
@@ -21,7 +23,7 @@ namespace Chunk
     class Map;
     class Full_Chunk;
 
-    class Section
+    class Section : public IBlock_Accessible
     {
         struct State
         {
@@ -145,6 +147,13 @@ namespace Chunk
             //Block lights getters/ setters with no bounds checking
             void qSetBlockLight(const Block::Small_Position& position, uint8_t value);
             uint8_t qGetBlockLight(const Block::Small_Position& position) const;
+
+            //For the interface
+            void    setBlock    (int x, int y, int z, CBlock block) override;
+            void    qSetBlock   (int x, int y, int z, CBlock block) override;
+            CBlock  qGetBlock   (int x, int y, int z) const override;
+            CBlock  getBlock    (int x, int y, int z) const override;
+
     };
 }
 

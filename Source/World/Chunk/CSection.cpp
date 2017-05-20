@@ -129,6 +129,20 @@ namespace Chunk
     const Full_Chunk& Section::getParentChunk()      const  { return *m_parentChunk;    }
     Full_Chunk& Section::getParentChunk()                   { return *m_parentChunk;    }
 
+    void Section::setBlock (int x, int y, int z, CBlock block)
+    {
+        Block::Small_Position position(x, y, z);
+        setBlock(position, block);
+    }
+
+    CBlock Section::getBlock (int x, int y, int z) const
+    {
+        Block::Small_Position position(x, y, z);
+        return getBlock(position);
+    }
+
+    void    Section::qSetBlock   (int x, int y, int z, CBlock block) {   qSetBlock({x, y, z}, block); }
+    CBlock  Section::qGetBlock   (int x, int y, int z) const { return    qGetBlock({x, y, z}); }
 }
 
 

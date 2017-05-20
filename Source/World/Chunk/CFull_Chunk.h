@@ -33,7 +33,7 @@ namespace Chunk
 {
     class Map;
 
-    class Full_Chunk
+    class Full_Chunk : IBlock_Accessible
     {
         friend class Section;
 
@@ -57,9 +57,13 @@ namespace Chunk
 
             void   setBlock(const Block::Position& position, CBlock block);
             CBlock getBlock(const Block::Position& position) const;
-
             void   qSetBlock(const Block::Position& position, CBlock block);
             CBlock qGetBlock(const Block::Position& position) const;
+
+            void    setBlock    (int x, int y, int z, CBlock block) override;
+            void    qSetBlock   (int x, int y, int z, CBlock block) override;
+            CBlock  qGetBlock   (int x, int y, int z) const override;
+            CBlock  getBlock    (int x, int y, int z) const override;
 
             const Position& getPosition() const;
 
