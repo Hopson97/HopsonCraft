@@ -33,7 +33,7 @@ namespace Chunk
 {
     class Map;
 
-    class Full_Chunk : IBlock_Accessible
+    class Full_Chunk : public IBlock_Accessible
     {
         friend class Section;
 

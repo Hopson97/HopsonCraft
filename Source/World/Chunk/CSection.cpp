@@ -141,8 +141,17 @@ namespace Chunk
         return getBlock(position);
     }
 
-    void    Section::qSetBlock   (int x, int y, int z, CBlock block) {   qSetBlock({x, y, z}, block); }
-    CBlock  Section::qGetBlock   (int x, int y, int z) const { return    qGetBlock({x, y, z}); }
+    void    Section::qSetBlock (int x, int y, int z, CBlock block)
+    {
+        Block::Small_Position position(x, y, z);
+        qSetBlock(position, block);
+    }
+
+    CBlock  Section::qGetBlock   (int x, int y, int z) const
+    {
+        Block::Small_Position position(x, y, z);
+        return    qGetBlock(position);
+    }
 }
 
 
