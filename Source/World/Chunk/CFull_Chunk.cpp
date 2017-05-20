@@ -120,7 +120,7 @@ namespace Chunk
     Section* Full_Chunk::editableGetSection (int32_t index)
     {
         //This causes trees and other structures to sometimes not work correctly!
-        if (index < 0 || index > m_sectionCount)//todo remove this
+        if (index < 0)
             return nullptr;
 
         while (index > m_sectionCount - 1)
