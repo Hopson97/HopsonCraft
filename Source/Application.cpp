@@ -65,7 +65,7 @@ void Application::update(float elapsed)
 {
     m_states.back()->fixedUpdate (m_camera, elapsed);
     #ifdef MUSIC_PLAYER_ACTIVE
-    m_musicPlayer.update();
+    musicPlayer.update();
     #endif // MUSIC_PLAYER_ACTIVE
 }
 

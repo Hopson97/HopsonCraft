@@ -1,5 +1,5 @@
-#ifndef CHUNK_GENERATOR_H_INCLUDED
-#define CHUNK_GENERATOR_H_INCLUDED
+#ifndef Terrain_Generator_H_INCLUDED
+#define Terrain_Generator_H_INCLUDED
 
 #include <vector>
 #include <mutex>
@@ -29,10 +29,10 @@ namespace Chunk
 class World_Settings;
 class World_File;
 
-class Chunk_Generator
+class Terrain_Generator
 {
     public:
-        Chunk_Generator(const World_Settings& worldSettings);
+        Terrain_Generator(const World_Settings& worldSettings);
 
         void generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& worldFile);
 
@@ -71,4 +71,4 @@ class Chunk_Generator
         std::mutex m_genMutex;
 };
 
-#endif // CHUNK_GENERATOR_H_INCLUDED
+#endif // Terrain_Generator_H_INCLUDED

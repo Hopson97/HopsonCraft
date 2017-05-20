@@ -8,7 +8,7 @@
 #include "CSection.h"
 #include "CFull_Chunk.h"
 
-#include "../Generators/Chunk_Generator.h"
+#include "../Generators/Terrain_Generator.h"
 
 
 class World_Settings;
@@ -45,7 +45,7 @@ namespace Chunk
             std::unordered_map<Position, Full_Chunk> m_tempChunks;
             World* m_pWorld = nullptr;
 
-            Chunk_Generator m_chunkGenerator;
+            Terrain_Generator m_chunkGenerator;
     };
 }
 

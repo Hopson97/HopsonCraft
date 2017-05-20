@@ -1,9 +1,6 @@
 #include "BDefault.h"
 
-#include "../../Generators/GStructures.h"
-
-#include <iostream>
-
+#include "../../Generators/Structures.h"
 #include "../../World.h"
 
 namespace Block

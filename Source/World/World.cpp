@@ -299,8 +299,8 @@ World_File& World::getWorldFile()
 
 AABB World::getBlockAABB(const Block::Position& position)
 {
-    AABB blockAABB({1.2, 1.2, 1.2});
-    blockAABB.update({position.x - 0.1, position.y - 0.1, position.z - 0.1});
+    AABB blockAABB({1.0, 1.0, 1.0});
+    blockAABB.update({position.x, position.y, position.z});
     return blockAABB;
 }
 

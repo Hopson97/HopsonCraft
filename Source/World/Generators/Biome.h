@@ -3,7 +3,7 @@
 
 #include <fstream>
 
-#include "G_ID.h"
+#include "GeneratorID.h"
 #include "../Chunk/CNodes.h"
 #include "../../Util/Random.h"
 #include "../../Util/Loader.h"

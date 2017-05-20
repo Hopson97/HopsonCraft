@@ -1,8 +1,8 @@
 #ifndef G_ID_H_INCLUDED
 #define G_ID_H_INCLUDED
 
-#include "GTrees.h"
-#include "GStructures.h"
+#include "Trees.h"
+#include "Structures.h"
 
 enum class Structure_ID
 {
