@@ -15,7 +15,7 @@
 
 #include "../../Temp/Noise_Generator.h"
 
-#include "../Generators/GStructures.h"
+#include "../Generators/Structures.h"
 
 namespace Chunk
 {

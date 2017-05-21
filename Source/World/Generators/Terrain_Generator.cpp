@@ -233,7 +233,7 @@ void Terrain_Generator::makeHeightMap()
     makeHeightSection(8, 0, 16, 8);
     makeHeightSection(0, 8, 8,  16);
     makeHeightSection(8, 8, 16, 16);
-    makeHeightSection(4, 4, 12, 12);
+    makeHeightSection(4, 2, 5, 12);
 }
 
 void Terrain_Generator::makeBiomeMap()

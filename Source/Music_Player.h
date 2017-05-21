@@ -6,7 +6,8 @@
 //This is for when I send the game to friends.
 //Music takes up alot of space, and I would rather send a 3mb .7z rather than
 //a 50mb .7z, hence I can just comment out this define, and then
-//#define MUSIC_PLAYER_ACTIVE
+
+#define MUSIC_PLAYER_ACTIVE
 
 class Music_Player
 {
