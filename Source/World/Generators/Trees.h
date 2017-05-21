@@ -5,10 +5,6 @@
 #include "../Block/Block_Position.h"
 #include "../Block/Block_ID.h"
 
-//See GStructures.h for a definition of the args
-
-///@TODO Refactor the sh*t out of this
-
 class IBlock_Accessible;
 
 void makeOakTree(IBlock_Accessible& access,

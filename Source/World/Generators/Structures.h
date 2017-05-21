@@ -3,61 +3,13 @@
 
 #include "../../Util/Random.h"
 #include "../Block/Block_Position.h"
+#include "../Block/Block_ID.h"
 
-/*
-    Q: What is the template "Access"?
+class IBlock_Accessible;
 
-    A: Access is the way this function is able to reach functions such as "setBlock" and "qSetBlock",
-    as this can be done in multiple areas.
-
-    For example, if you make a tree during generation, then it just uses a "Full_Chunk"
-
-    But, if a tree is grown from a sapling (As of 30/04/2017, this is not in the game), then it
-    uses the "world" to access these functions.
-
-    The reason being is that the world set blocks functions will add a changed chunk into a chunk
-    rebuild std::vector, which is very handy!
-*/
-
-template<typename Access>
-void makePyramid(Access& access,
-                 const Block::Position& pos)
-{
-    for (int base = 9, h = 0; base > 0; base -= 2, h++)
-    for (int x = pos.x - base / 2; x < pos.x + base / 2; x++)
-    for (int z = pos.z - base / 2; z < pos.z + base / 2; z++)
-    {
-        //access.setBlock({pos.x + x, pos.y + h + 1, pos.z + z}, Block::ID::Stone);
-    }
-}
-
-template<typename Access>
-void makeLattice(Access& access,
-                 const Block::Position& pos,
-                 bool isMadeDuringWorldGen = true)
-{
-    int baseSize  = 8;
-    bool windowLayer = false;
-
-    int z = pos.z - baseSize / 2;
-
-    for (int y = 1; y < 15; y++)
-    for (int x = -baseSize / 2; x < baseSize / 2; x++)
-    {
-        if (windowLayer)
-        {
-            if (y % 2 == 0)
-            {
-                //access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone, isMadeDuringWorldGen);
-            }
-        }
-        else
-        {
-            //access.setBlock({pos.x + x, pos.y + y, pos.z + z}, Block::ID::Stone, isMadeDuringWorldGen);
-        }
-        windowLayer = !windowLayer;
-    }
-}
+void makePyramid(IBlock_Accessible& access,
+                  const Block::Position& pos,
+                  Random::Generator<std::mt19937>& random);
 
 #endif // GSTRUCTURES_H_INCLUDED
 

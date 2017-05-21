@@ -35,7 +35,7 @@ void getStructureFromID(Access& access,
 
 
         case Structure_ID::Pyramid:
-            makePyramid(access, pos);
+            makePyramid(access, pos, random);
             break;
     }
 }

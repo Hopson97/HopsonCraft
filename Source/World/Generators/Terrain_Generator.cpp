@@ -228,11 +228,15 @@ void Terrain_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax
 //than using noise function on every point.
 void Terrain_Generator::makeHeightMap()
 {
+    static constexpr int HCS = CHUNK_SIZE / 2;
+    static constexpr int CS  = CHUNK_SIZE;
+
     ///@TODO For loop?
-    makeHeightSection(0, 0, 8,  8);
-    makeHeightSection(8, 0, 16, 8);
-    makeHeightSection(0, 8, 8,  16);
-    makeHeightSection(8, 8, 16, 16);
+    makeHeightSection(0,    0,      HCS,    HCS);
+    makeHeightSection(HCS,  0,      CS,     HCS);
+    makeHeightSection(0,    HCS,    HCS,    CS);
+    makeHeightSection(HCS,  HCS,    CS,     CS);
+
     makeHeightSection(4, 2, 5, 12);
 }
 
