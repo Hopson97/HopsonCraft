@@ -16,16 +16,19 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
 ,   m_chunks        (*this)
 ,   m_pCamera       (&camera)
 {
-    for (int i = 0; i < 1; i++)
+    if (m_worldSettings.concurrentGeneration)
     {
-        m_threads.emplace_back([&]()
+        for (int i = 0; i < 1; i++)
         {
-            while (m_isRunning)
+            m_threads.emplace_back([&]()
             {
-                generateWorld(*m_pCamera);
-                std::this_thread::sleep_for(std::chrono::microseconds(10));
-            }
-        });
+                while (m_isRunning)
+                {
+                    generateWorld(*m_pCamera);
+                    std::this_thread::sleep_for(std::chrono::microseconds(10));
+                }
+            });
+        }
     }
 }
 
@@ -90,11 +93,11 @@ void World::setBlock (int x, int y, int z, CBlock block)
     {
         return;
     }   //Do not allow block breaking at the bottom of the world
-
+/*
     std::cout << "Set " << block.getData().name << " at "   << (int)position.x
                                                 << " "      << (int)position.y
                                                 << " "      << (int)position.z << "\n";
-
+*/
     m_newBlocks.emplace_back(block, position);
 
     for (int y = -1; y <= 1; ++y)
@@ -259,9 +262,10 @@ void World::triggerBlocks()
     for (auto& block : m_triggerBlocks)
     {
         auto& p = block.first;
-        block.second.getType().trigger(*this, {int(p.x),
-                                              int(p.y),
-                                              int(p.z)});
+        auto& b = block.second;
+        block.second.getType().trigger(*this, b, {int(p.x),
+                                                  int(p.y),
+                                                  int(p.z)});
     }
     /*
      *  When blocks are triggered, they have potential to trigger yet more blocks.
@@ -278,6 +282,9 @@ void World::triggerBlocks()
 
 void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
+    if (!m_worldSettings.concurrentGeneration)
+        generateWorld(*m_pCamera);
+
     m_facesDrawn = 0;
     for (auto& chunk : m_chunks.getChunks())
     {

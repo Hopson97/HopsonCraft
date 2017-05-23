@@ -33,6 +33,19 @@ namespace Chunk
 
     void Full_Chunk::tick()
     {
+        auto n = Random::intInRange(1, 16);
+        if (n == 1)
+        {
+            auto x = Random::intInRange(0, CHUNK_SIZE - 1);
+            auto z = Random::intInRange(0, CHUNK_SIZE - 1);
+
+            /**
+                @TODO Use this x and z position to  update top block of
+                column at location according to weather conditions
+                (of which is not implemented as of 23/05/2017)
+            */
+        }
+
         for (auto& chunk : m_chunkSections)
         {
             chunk->tick(*m_pWorld);

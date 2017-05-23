@@ -7,6 +7,7 @@
 #include "../Block_Position.h"
 
 class World;
+class CBlock;
 
 namespace Block
 {
@@ -15,8 +16,8 @@ namespace Block
         public:
             const Data& getData() const;
 
-            virtual void tick   (World& world, const Position& position) const{}
-            virtual void trigger(World& world, const Position& position) const{}
+            virtual void tick   (World& world, CBlock& block, const Position& position) const{}
+            virtual void trigger(World& world, CBlock& block, const Position& position) const{}
 
         protected:
             Type(std::string&& fileName);

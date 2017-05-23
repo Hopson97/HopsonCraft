@@ -8,13 +8,14 @@
 
 struct World_Settings
 {
-    std::string name                = "Test World";
+    std::string name        = "Test World";
     std::string generator;
 
-    int         renderDistance      = 44;
+    int         renderDistance  = 44;
 
     float       seed;
-    bool        isSuperFlat         = false;
+    bool        isSuperFlat             = false;
+    bool        concurrentGeneration    = false;
 };
 
 #endif // WORLD_SETTINGS_H_INCLUDED

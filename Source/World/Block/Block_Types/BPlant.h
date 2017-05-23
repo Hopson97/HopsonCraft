@@ -9,7 +9,7 @@ namespace Block
     {
         public:
             BPlant(std::string&& name);
-            void trigger(World& world, const Position& position) const;
+            void trigger(World& world, CBlock& block, const Position& position) const override;
     };
 }
 

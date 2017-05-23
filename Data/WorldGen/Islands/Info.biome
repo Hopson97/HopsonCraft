@@ -11,14 +11,19 @@ Greater
 260
 
 Biome
+Land2
+Range
+240 260
+
+Biome
 Land
 Range
-230 260
+225 240
 
 Biome
 Ocean
 Range
-120 230
+120 225
 
 Biome
 Trench

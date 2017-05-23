@@ -57,10 +57,7 @@ namespace Chunk
 
     void Section::tick(World& world)
     {
-        if(!m_hasUpdatableBlocks)
-            return;
-
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             int32_t x = Random::intInRange(0, CHUNK_SIZE - 1);
             int32_t y = Random::intInRange(0, CHUNK_SIZE - 1);
@@ -70,8 +67,8 @@ namespace Chunk
                                      y + m_position.y * CHUNK_SIZE,
                                      z + m_position.z * CHUNK_SIZE);
 
-
-            m_blocks.at(x, y, z).getType().tick(world, worldPos);
+            auto& block = m_blocks.at(x, y, z);
+            block.getType().tick(world, block, worldPos);
         }
     }
 
@@ -141,7 +138,7 @@ namespace Chunk
         return getBlock(position);
     }
 
-    void    Section::qSetBlock (int x, int y, int z, CBlock block)
+    void Section::qSetBlock (int x, int y, int z, CBlock block)
     {
         Block::Small_Position position(x, y, z);
         qSetBlock(position, block);
@@ -150,7 +147,7 @@ namespace Chunk
     CBlock  Section::qGetBlock   (int x, int y, int z) const
     {
         Block::Small_Position position(x, y, z);
-        return    qGetBlock(position);
+        return qGetBlock(position);
     }
 }
 

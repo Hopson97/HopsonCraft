@@ -80,7 +80,7 @@ namespace GUI
                 {
                     m_optionIndex = 0;
                 }
-                initText(m_text, 24, m_label + ": " + m_options[m_optionIndex]);
+                initText(m_text, 24, m_label + ":\n" + m_options[m_optionIndex]);
                 *m_pOption = m_optionValues[m_optionIndex];
 
                 m_text.setPosition(m_quad.getPosition());

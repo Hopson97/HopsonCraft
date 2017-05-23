@@ -18,6 +18,7 @@ namespace Texture
         glGenTextures(1, &m_textureID);
         glBindTexture(GL_TEXTURE_2D, m_textureID);
 
+        //glGenerateMipmap(GL_TEXTURE_2D);
         glTexImage2D(GL_TEXTURE_2D,
                      0,
                      GL_RGBA,

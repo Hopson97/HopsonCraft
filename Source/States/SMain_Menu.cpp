@@ -99,6 +99,14 @@ namespace State
         },
         settings.isSuperFlat));
 
+        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Concurrent Chunk Generation (multi-threading)",
+        std::vector<std::pair<std::string, bool>>
+        {
+            { "No  - Slower, but doesn't crash",  false },
+            { "Yes - Faster, but can crash",      true  },
+        },
+        settings.concurrentGeneration));
+
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {
             m_pActiveMenu = &m_frontMenu;

@@ -53,18 +53,21 @@ void Terrain_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& 
     m_genMutex.unlock();
 }
 
+/*
+    This causes a crash for some odd reason
+*/
 void Terrain_Generator::makeSuperFlatWorld()
 {
-    for (int y = 0; y < CHUNK_SIZE; ++y)
+    for (int y = 0; y < 13; ++y)
     for (int x = 0; x < CHUNK_SIZE; ++x)
     for (int z = 0; z < CHUNK_SIZE; ++z)
     {
         Block::ID block = Block::ID::Grass;
-        if (y == CHUNK_SIZE - 1)
+        if (y == 12)
         {
             block = Block::ID::Grass;
         }
-        else if (Maths::inRange(y, 12, 15))
+        else if (Maths::inRange(y, 9, 12))
         {
             block = Block::ID::Dirt;
         }
@@ -190,6 +193,12 @@ void Terrain_Generator::setRandomSeed()
                                            m_pChunk->getPosition().y));
 }
 
+/*
+    Creates an area of the height map for the chunk currently being generated
+    between the specified regions.
+    It will create a height at the 4 corners of the area, and then
+    bilinear-interpolate between them
+*/
 void Terrain_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
 {
 
@@ -224,8 +233,6 @@ void Terrain_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax
     }
 }
 
-//This uses interpolation to um interpolate between values rather
-//than using noise function on every point.
 void Terrain_Generator::makeHeightMap()
 {
     static constexpr int HCS = CHUNK_SIZE / 2;
@@ -237,7 +244,7 @@ void Terrain_Generator::makeHeightMap()
     makeHeightSection(0,    HCS,    HCS,    CS);
     makeHeightSection(HCS,  HCS,    CS,     CS);
 
-    makeHeightSection(4, 2, 5, 12);
+    makeHeightSection(4, 2, 12, 7);
 }
 
 void Terrain_Generator::makeBiomeMap()

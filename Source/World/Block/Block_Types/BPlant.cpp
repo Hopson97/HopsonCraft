@@ -8,7 +8,7 @@ namespace Block
     :   Type (std::move(name))
     { }
 
-    void BPlant::trigger(World& world, const Position& position) const
+    void BPlant::trigger(World& world, CBlock& cBlock, const Position& position) const
     {
         auto block = world.getBlock({position.x, position.y - 1, position.z});
         if (block == Block::ID::Air)
