@@ -39,7 +39,7 @@ The chunk meshes are actually made out [3 parts](https://github.com/Hopson97/Hop
 The solid mesh is for rendering the blocks, such as stone and grass; the flora mesh is rendering plants, such as leaves, and roses; and the liquid mesh is for rendering water blocks.
 
 #### Collisions
-THIS IS A MAJOR "TODO"
+For the player, this is a simple tile-based solution.
 
 #### Block editing
 
