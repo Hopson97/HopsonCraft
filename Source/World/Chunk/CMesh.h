@@ -19,7 +19,7 @@ namespace Chunk
                          const std::vector<GLfloat>&    texCoords,
                          const sf::Vector3<GLfloat>&    light,
                          const Chunklet_Position&       chunkPos,
-                         const Block::Small_Position&   blockPos);
+                         const Block::Position&         localPosition);
 
             void buffer();
 

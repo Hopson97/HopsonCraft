@@ -126,12 +126,12 @@ namespace Chunk
 
         //Local direction vectors
         //This is used in the if statements below
-        Block::Small_Position up;
-        Block::Small_Position down;
-        Block::Small_Position left;
-        Block::Small_Position right;
-        Block::Small_Position front;
-        Block::Small_Position back;
+        Block::Position up;
+        Block::Position down;
+        Block::Position left;
+        Block::Position right;
+        Block::Position front;
+        Block::Position back;
 
         for (int8_t y = 0; y < CHUNK_SIZE; ++y)
         {
@@ -142,7 +142,7 @@ namespace Chunk
             for (int8_t x = 0; x < CHUNK_SIZE; ++x)
             for (int8_t z = 0; z < CHUNK_SIZE; ++z)
             {
-                Block::Small_Position blockPosition(x, y, z);
+                Block::Position blockPosition(x, y, z);
                 if(m_pSection->qGetBlock(blockPosition) == Block::ID::Air)
                     continue;
 
@@ -201,7 +201,7 @@ namespace Chunk
     }
 
     void Mesh_Builder::addXMesh(const Vector2& textureCoords,
-                                const Block::Small_Position& thisBlockPos)
+                                const Block::Position& thisBlockPos)
     {
         GLfloat natLight   = m_pSection->qGetNaturalLight(thisBlockPos);
         GLfloat blockLight = m_pSection->qGetBlockLight  (thisBlockPos);
@@ -224,8 +224,8 @@ namespace Chunk
 
     void Mesh_Builder::tryAddFace(const std::vector<GLfloat>& face,
                                   const Vector2& textureCoords,
-                                  const Block::Small_Position& thisBlockPos,
-                                  Block::Small_Position& adjacentBlockPosition,
+                                  const Block::Position& thisBlockPos,
+                                  Block::Position& adjacentBlockPosition,
                                   GLfloat cardinalLight)
     {
         if (shouldMakeFaceAdjTo(adjacentBlockPosition))
@@ -271,7 +271,7 @@ namespace Chunk
                hasAdjLayerGotTranslucentBlock   ( 0,  1);
     }
 
-    bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Small_Position& pos) const
+    bool Mesh_Builder::shouldMakeFaceAdjTo(Block::Position& pos) const
     {
         auto block = m_pSection->getBlock(pos);
         const Block::Data_Holder& data = block.getData();

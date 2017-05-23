@@ -125,28 +125,28 @@ namespace Chunk
 
         public: //Getter/ Setter mess
             //Blocks getters/ Setters with bounds checking
-            void    setBlock(Block::Small_Position& position, CBlock block, bool generatedBlock = true);
-            CBlock  getBlock(Block::Small_Position& position) const;
+            void    setBlock(Block::Position& position, CBlock block, bool generatedBlock = true);
+            CBlock  getBlock(Block::Position& position) const;
 
             //Blocks getters/ Setters with no bounds checking
-            void    qSetBlock(const Block::Small_Position& position, CBlock block, bool generatedBlock = true);
-            CBlock  qGetBlock(const Block::Small_Position& position) const;
+            void    qSetBlock(const Block::Position& position, CBlock block, bool generatedBlock = true);
+            CBlock  qGetBlock(const Block::Position& position) const;
 
             //Natural lights getters/ setters with bounds checking
-            void setNaturalLight(Block::Small_Position& position, uint8_t value);
-            uint8_t getNaturalLight(Block::Small_Position& position) const;
+            void setNaturalLight(Block::Position& position, uint8_t value);
+            uint8_t getNaturalLight(Block::Position& position) const;
 
             //Natural lights getters/ setters with no bounds checking
-            void qSetNaturalLight(const Block::Small_Position& position, uint8_t value);
-            uint8_t qGetNaturalLight(const Block::Small_Position& position) const;
+            void qSetNaturalLight(const Block::Position& position, uint8_t value);
+            uint8_t qGetNaturalLight(const Block::Position& position) const;
 
             //Block lights getters/ setters with bounds checking
-            void setBlockLight(Block::Small_Position& position, uint8_t value);
-            uint8_t getBlockLight(Block::Small_Position& position) const;
+            void setBlockLight(Block::Position& position, uint8_t value);
+            uint8_t getBlockLight(Block::Position& position) const;
 
             //Block lights getters/ setters with no bounds checking
-            void qSetBlockLight(const Block::Small_Position& position, uint8_t value);
-            uint8_t qGetBlockLight(const Block::Small_Position& position) const;
+            void qSetBlockLight(const Block::Position& position, uint8_t value);
+            uint8_t qGetBlockLight(const Block::Position& position) const;
 
             //For the interface
             void    setBlock    (int x, int y, int z, CBlock block) override;

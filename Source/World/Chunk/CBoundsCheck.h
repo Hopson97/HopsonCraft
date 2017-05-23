@@ -10,11 +10,11 @@ namespace Chunk
     class Section;
     class Map;
 
-    Section* getSection(Block::Small_Position& position,
+    Section* getSection(Block::Position& position,
                         Section* defaultSection,
                         Map& chunkMap);
 
-    const Section* getConstSection(Block::Small_Position& position,
+    const Section* getConstSection(Block::Position& position,
                                    const Section* defaultSection,
                                    Map& chunkMap);
 }

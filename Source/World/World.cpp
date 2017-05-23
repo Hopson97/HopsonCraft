@@ -135,11 +135,11 @@ void World::setBlock (int x, int y, int z, CBlock block)
 CBlock World::getBlock (int x, int y, int z) const
 {
     Vector3 position(x, y, z);
-    auto chunkPos = Maths::worldToChunkPos(position);
+    auto chunkPos = Maths::Convert::worldToChunkPosition(position);
 
     if (m_chunks.existsAt(chunkPos))
     {
-        auto blockPosition = Maths::worldToBlockPos(position);
+        auto blockPosition = Maths::Convert::worldToChunkBlockPosition(position);
         return m_chunks.get(chunkPos)->qGetBlock(blockPosition);
     }
     else
@@ -166,8 +166,8 @@ CBlock World::getBlock(const Vector3& position)
 
 uint32_t World::getHeightAt(const Vector3& worldPosition)
 {
-    auto    chunkPosition   = Maths::worldToChunkPos(worldPosition);
-    auto    blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(worldPosition));
+    auto    chunkPosition   = Maths::Convert::worldToChunkPosition(worldPosition);
+    auto    blockPosition   = Maths::Convert::chunkBlockToSectionBlockPosition(Maths::Convert::worldToChunkBlockPosition(worldPosition));
 
     const auto& chunk = m_chunks.editableGet(chunkPosition);
 
@@ -221,8 +221,8 @@ void World::regenerateChunks()
     for (auto& newBlock : m_newBlocks)
     {
         //Get respective positions and objects
-        auto    chunkPosition   = Maths::worldToChunkletPos(newBlock.position);
-        auto    blockPosition   = Maths::blockToSmallBlockPos(Maths::worldToBlockPos(newBlock.position));
+        auto    chunkPosition   = Maths::Convert::worldToChunkletPosition(newBlock.position);
+        auto    blockPosition   = Maths::Convert::chunkBlockToSectionBlockPosition(Maths::Convert::worldToChunkBlockPosition(newBlock.position));
         auto&   chunkFull       = m_chunks.editableGet({chunkPosition.x, chunkPosition.z});
 
         Chunk::Section* chunk = nullptr;
@@ -338,7 +338,7 @@ void World::generateWorld(const Camera& camera)
         m_loadingDistance = 1;
     }
 
-    m_cameraPosition = Maths::worldToChunkPos(camera.position);
+    m_cameraPosition = Maths::Convert::worldToChunkPosition(camera.position);
 
     Area area;
     bool isMeshMade = false;

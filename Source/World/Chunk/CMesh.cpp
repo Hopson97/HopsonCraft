@@ -26,7 +26,7 @@ namespace Chunk
                          const std::vector<GLfloat>&    texCoords,
                          const sf::Vector3<GLfloat>&    light,
                          const Chunklet_Position&       chunkPos,
-                         const Block::Small_Position&   blockPos)
+                         const Block::Position&         localPosition)
     {
         ++m_facesCount;
 
@@ -34,9 +34,9 @@ namespace Chunk
         //Does this 4 times for each of the 4 vertices that makes up a block face
         for (int i = 0, index = 0; i < 4; ++i)
         {
-            m_verticies.push_back(templateFace[index++] + chunkPos.x * CHUNK_SIZE + blockPos.x);
-            m_verticies.push_back(templateFace[index++] + chunkPos.y * CHUNK_SIZE + blockPos.y);
-            m_verticies.push_back(templateFace[index++] + chunkPos.z * CHUNK_SIZE + blockPos.z);
+            m_verticies.push_back(templateFace[index++] + chunkPos.x * CHUNK_SIZE + localPosition.x);
+            m_verticies.push_back(templateFace[index++] + chunkPos.y * CHUNK_SIZE + localPosition.y);
+            m_verticies.push_back(templateFace[index++] + chunkPos.z * CHUNK_SIZE + localPosition.z);
         }
 
         m_texCoords.insert(m_texCoords.end(), texCoords.begin(), texCoords.end());

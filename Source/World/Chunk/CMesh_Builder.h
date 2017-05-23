@@ -33,15 +33,15 @@ namespace Chunk
         private:
             void tryAddFace(const std::vector<GLfloat>& face,
                             const Vector2& textureCoords,
-                            const Block::Small_Position& thisBlockPos,
-                            Block::Small_Position& adjacentBlockPosition,
+                            const Block::Position& thisBlockPos,
+                            Block::Position& adjacentBlockPosition,
                             GLfloat cardinalLight);
 
             void addXMesh  (const Vector2& textureCoords,
-                            const Block::Small_Position& thisBlockPos);
+                            const Block::Position& thisBlockPos);
 
             bool shouldCreateLayer  (uint32_t yPosition);
-            bool shouldMakeFaceAdjTo(Block::Small_Position& pos) const;
+            bool shouldMakeFaceAdjTo(Block::Position& pos) const;
             void setActiveMesh(Meshes& meshes);
 
             Mesh*                       m_pActiveMesh;

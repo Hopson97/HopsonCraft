@@ -57,11 +57,10 @@ namespace Chunk
                                CBlock block)
     {
         addSections(position.y);
-
-        auto pos = Maths::blockToSmallBlockPos(position);
+        auto blockPos = Maths::Convert::chunkBlockToSectionBlockPosition(position);
 
         editableGetSection(position.y / CHUNK_SIZE)
-            ->setBlock(pos, block);
+            ->setBlock(blockPos, block);
     }
 
     void Full_Chunk::qSetBlock(const Block::Position& position,
@@ -70,8 +69,10 @@ namespace Chunk
         addSections(position.y);
         updateTopBlockLocation(position);
 
+        auto blockPos = Maths::Convert::chunkBlockToSectionBlockPosition(position);
+
         editableGetSection(position.y / CHUNK_SIZE)
-            ->qSetBlock(Maths::blockToSmallBlockPos(position), block);
+            ->qSetBlock(blockPos, block);
     }
 
     CBlock Full_Chunk::getBlock(const Block::Position& position) const
@@ -83,10 +84,10 @@ namespace Chunk
         }
         else
         {
-            auto pos = Maths::blockToSmallBlockPos(position);
+            auto blockPos = Maths::Convert::chunkBlockToSectionBlockPosition(position);
 
             getSection(yPositionSection)
-                ->getBlock(pos);
+                ->getBlock(blockPos);
         }
         return Block::ID::Air;
     }
@@ -100,8 +101,10 @@ namespace Chunk
         }
         else
         {
+            auto blockPos = Maths::Convert::chunkBlockToSectionBlockPosition(position);
+
             return getSection(yPositionSection)
-                ->qGetBlock(Maths::blockToSmallBlockPos(position));
+                ->qGetBlock(blockPos);
         }
     }
 

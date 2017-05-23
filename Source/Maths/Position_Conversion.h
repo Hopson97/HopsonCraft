@@ -5,14 +5,16 @@
 #include "../World/Chunk/CPosition.h"
 #include "../World/Block/Block_Position.h"
 
-namespace Maths
+namespace Maths {
+namespace Convert
 {
-    Chunk::Chunklet_Position    worldToChunkletPos      (const Vector3& position);
-    Chunk::Position             worldToChunkPos         (const Vector3& position);
+    Chunk::Chunklet_Position    worldToChunkletPosition      (const Vector3& position);
+    Chunk::Position             worldToChunkPosition         (const Vector3& position);
 
-    Block::Small_Position       worldToSmallBlockPos    (const Vector3& position);
-    Block::Position             worldToBlockPos         (const Vector3& position);
-    Block::Small_Position       blockToSmallBlockPos    (const Block::Position& position);
+    Block::Position worldToSectionBlockPosition         (const Vector3& position);
+    Block::Position worldToChunkBlockPosition           (const Vector3& position);
+    Block::Position chunkBlockToSectionBlockPosition    (const Block::Position& position);
+}
 }
 
 #endif // POSITION_CONVERSION_H_INCLUDED

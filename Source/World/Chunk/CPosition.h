@@ -14,12 +14,6 @@ namespace Chunk
 {
     typedef sf::Vector3<int32_t> Chunklet_Position;
     typedef sf::Vector2<int32_t> Position;
-
-    struct Chu_Blo_Pos
-    {
-        Chunklet_Position       chunkletPos;
-        Block::Small_Position   blockPos;
-    };
 }
 
 namespace std

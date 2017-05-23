@@ -9,7 +9,7 @@ namespace Chunk
 {
 
     //Getters/ Setters with bounds checks
-    void Section::setBlock(Block::Small_Position& position, CBlock block, bool generatedBlock)
+    void Section::setBlock(Block::Position& position, CBlock block, bool generatedBlock)
     {
         const auto& section = getSection(position, this, *m_pChunkMap);
         if(section)
@@ -21,7 +21,7 @@ namespace Chunk
         }
     }
 
-    CBlock Section::getBlock(Block::Small_Position& position) const
+    CBlock Section::getBlock(Block::Position& position) const
     {
         const auto&  section = getConstSection(position, this, *m_pChunkMap);
         return  section ?
@@ -29,7 +29,7 @@ namespace Chunk
                 Block::ID::Air;
     }
 
-    void Section::setNaturalLight(Block::Small_Position& position, uint8_t value)
+    void Section::setNaturalLight(Block::Position& position, uint8_t value)
     {
         const auto& section = getSection(position, this, *m_pChunkMap);
         if(section)
@@ -38,7 +38,7 @@ namespace Chunk
         }
     }
 
-    uint8_t Section::getNaturalLight(Block::Small_Position& position) const
+    uint8_t Section::getNaturalLight(Block::Position& position) const
     {
         const auto& section = getConstSection(position, this, *m_pChunkMap);
 
@@ -47,7 +47,7 @@ namespace Chunk
                 MAX_LIGHT;
     }
 
-    void Section::setBlockLight(Block::Small_Position& position, uint8_t value)
+    void Section::setBlockLight(Block::Position& position, uint8_t value)
     {
         const auto& section = getSection(position, this, *m_pChunkMap);
         if(section)
@@ -56,7 +56,7 @@ namespace Chunk
         }
     }
 
-    uint8_t Section::getBlockLight(Block::Small_Position& position) const
+    uint8_t Section::getBlockLight(Block::Position& position) const
     {
         const auto& section = getConstSection(position, this, *m_pChunkMap);
         return  section ?
@@ -65,7 +65,7 @@ namespace Chunk
     }
 
     //Quick functions
-    void Section::qSetBlock(const Block::Small_Position& position, CBlock block, bool generatedBlock)
+    void Section::qSetBlock(const Block::Position& position, CBlock block, bool generatedBlock)
     {
         if (block.getData().canUpdate)
         {
@@ -81,27 +81,27 @@ namespace Chunk
         m_blocks.at(position) = block;
     }
 
-    CBlock Section::qGetBlock(const Block::Small_Position& position) const
+    CBlock Section::qGetBlock(const Block::Position& position) const
     {
         return m_blocks.at(position);
     }
 
-    void Section::qSetBlockLight(const Block::Small_Position& position, uint8_t value)
+    void Section::qSetBlockLight(const Block::Position& position, uint8_t value)
     {
         m_light.at(position).block = value;
     }
 
-    uint8_t Section::qGetBlockLight(const Block::Small_Position& position) const
+    uint8_t Section::qGetBlockLight(const Block::Position& position) const
     {
         return m_light.at(position).block;
     }
 
-    void Section::qSetNaturalLight(const Block::Small_Position& position, uint8_t value)
+    void Section::qSetNaturalLight(const Block::Position& position, uint8_t value)
     {
         m_light.at(position).natural = value;
     }
 
-    uint8_t Section::qGetNaturalLight(const Block::Small_Position& position) const
+    uint8_t Section::qGetNaturalLight(const Block::Position& position) const
     {
         return m_light.at(position).natural;
     }
