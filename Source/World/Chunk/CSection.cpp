@@ -25,6 +25,44 @@ namespace Chunk
                         position.z * CHUNK_SIZE});
     }
 
+    Section::Section (Section&& other)
+    :   m_position      (other.m_position)
+    ,   m_meshBuilder   (*this)
+    ,   m_pChunkMap     (other.m_pChunkMap)
+    ,   m_parentChunk   (other.m_parentChunk)
+    ,   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
+    ,   m_states        (std::move(other.m_states))
+    ,   m_blocks        (std::move(other.m_blocks))
+    ,   m_light         (std::move(other.m_light))
+    ,   m_layerHasAir   (std::move(other.m_layerHasAir))
+    ,   m_placedBlocks  (std::move(other.m_placedBlocks))
+    ,   m_meshes        (std::move(other.m_meshes))
+    {
+        m_aabb.update({ m_position.x * CHUNK_SIZE,
+                        m_position.y * CHUNK_SIZE,
+                        m_position.z * CHUNK_SIZE});
+        other.m_pChunkMap   = nullptr;
+        other.m_parentChunk = nullptr;
+    }
+
+    Section& Section::operator= (Section&& other)
+    {
+        m_position      = other.m_position;
+        m_meshBuilder   = *this;
+        m_pChunkMap     = other.m_pChunkMap;
+        m_parentChunk   = other.m_parentChunk;
+        m_aabb          = other.m_aabb;
+        m_states        = std::move(other.m_states);
+        m_blocks        = std::move(other.m_blocks);
+        m_light         = std::move(other.m_light);
+        m_layerHasAir   = std::move(other.m_layerHasAir);
+        m_placedBlocks  = std::move(other.m_placedBlocks);
+        m_meshes        = std::move(other.m_meshes);
+
+        other.m_pChunkMap   = nullptr;
+        other.m_parentChunk = nullptr;
+    }
+
     const Section::State& Section::getStates() const
     {
         return m_states;
@@ -39,6 +77,7 @@ namespace Chunk
         {
             for (int z = -1; z <= 1; z++)
             {
+                if (x == 0 && z == 0) continue;
                 m_pChunkMap->addChunk({m_position.x + x, m_position.z + z}, true);
             }
         }

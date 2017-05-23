@@ -48,7 +48,7 @@ namespace Chunk
 
         for (auto& chunk : m_chunkSections)
         {
-            chunk->tick(*m_pWorld);
+            chunk.tick(*m_pWorld);
         }
     }
 
@@ -78,7 +78,7 @@ namespace Chunk
     CBlock Full_Chunk::getBlock(const Block::Position& position) const
     {
         int32_t yPositionSection = position.y / CHUNK_SIZE;
-        if (yPositionSection > (int32_t)m_chunkSections.size() - 1)
+        if (yPositionSection > static_cast<int>(m_chunkSections.size() - 1))
         {
             return Block::ID::Air;
         }
@@ -95,7 +95,7 @@ namespace Chunk
     CBlock Full_Chunk::qGetBlock(const Block::Position& position) const
     {
         int32_t yPositionSection = position.y / CHUNK_SIZE;
-        if (yPositionSection > (int32_t)m_chunkSections.size() - 1)
+        if (yPositionSection > static_cast<int>(m_chunkSections.size() - 1))
         {
             return Block::ID::Air;
         }
@@ -130,7 +130,7 @@ namespace Chunk
         if (index < 0 || index > m_sectionCount)
             return nullptr;
 
-        return m_chunkSections[index].get();
+        return &m_chunkSections[index];
     }
 
     Section* Full_Chunk::editableGetSection (int32_t index)
@@ -144,7 +144,7 @@ namespace Chunk
             addSection();
         }
 
-        return m_chunkSections[index].get();
+        return &m_chunkSections[index];
     }
 
 
@@ -154,9 +154,7 @@ namespace Chunk
                                     m_sectionCount++,
                                     m_position.y);
 
-        m_chunkSections.push_back(std::make_unique<Section>(position,
-                                                            *m_pChunkMap,
-                                                            *this));
+        m_chunkSections.emplace_back(position, *m_pChunkMap, *this);
         m_maxBlockHeight += CHUNK_SIZE - 1;
     }
 
@@ -176,24 +174,24 @@ namespace Chunk
         for (auto& chunk : m_chunkSections)
         {
             //No point trying to render a chunk with no faces
-            if (chunk->getMeshes().hasFaces)
+            if (chunk.getMeshes().hasFaces)
             {
                 //Frustum test
-                if(!camera.getFrustum().boxInFrustum(chunk->getAABB()))
+                if(!camera.getFrustum().boxInFrustum(chunk.getAABB()))
                 {
                     continue;
                 }
 
-                if (chunk->getStates().made)
+                if (chunk.getStates().made)
                 {
-                    if (chunk->getStates().buffered)
+                    if (chunk.getStates().buffered)
                     {
-                        renderer.draw(*chunk);
-                        facesDrawn += chunk->getMeshes().faceCount;
+                        renderer.draw(chunk);
+                        facesDrawn += chunk.getMeshes().faceCount;
                     }
                     else
                     {
-                        chunk->bufferMesh();
+                        chunk.bufferMesh();
                     }
                 }
             }
@@ -205,11 +203,11 @@ namespace Chunk
     {
         for (auto& chunk : m_chunkSections)
         {
-            if (!chunk->getStates().made)
+            if (!chunk.getStates().made)
             {
-                //if (!camera.getFrustum().boxInFrustum(chunk->getAABB())) continue;
+                //if (!camera.getFrustum().boxInFrustum(chunk.getAABB())) continue;
 
-                chunk->makeMesh();
+                chunk.makeMesh();
                 return true;
             }
         }
@@ -245,7 +243,7 @@ namespace Chunk
 
         for (auto& chunk : m_chunkSections)
         {
-            chunk->load(worldFile);
+            chunk.load(worldFile);
         }
         */
     }

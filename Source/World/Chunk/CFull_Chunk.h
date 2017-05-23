@@ -97,7 +97,7 @@ namespace Chunk
 
             Array2D<uint32_t, CHUNK_SIZE> m_highestBlocks;
 
-            std::vector<std::unique_ptr<Section>>   m_chunkSections;
+            std::vector<Section>   m_chunkSections;
 
             Position    m_position;
             int32_t     m_sectionCount      = 0;

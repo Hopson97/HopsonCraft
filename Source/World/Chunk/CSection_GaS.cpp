@@ -67,10 +67,6 @@ namespace Chunk
     //Quick functions
     void Section::qSetBlock(const Block::Position& position, CBlock block, bool generatedBlock)
     {
-        if (block.getData().canUpdate)
-        {
-            m_hasUpdatableBlocks = true;
-        }
         /*
         if (m_parentChunk->hasGeneratedBlockData && !generatedBlock)
         {
@@ -139,9 +135,9 @@ namespace Chunk
 
     const Section* Section::getAdjacentSection(const Vector2& change) const
     {
-        return m_pChunkMap->get({   m_position.x + (int32_t)change.x,
+        return m_pChunkMap->get({   m_position.x + static_cast<int>(change.x),
                                     m_position.y,
-                                    m_position.z + (int32_t)change.y});
+                                    m_position.z + static_cast<int>(change.y)});
     }
 
 }

@@ -188,7 +188,7 @@ void Terrain_Generator::setTopBlock(const Block::Position& pos, Block::ID& block
 
 void Terrain_Generator::setRandomSeed()
 {
-    m_randomGenerator.setSeed(Hasher::hash((int32_t)m_pWorldSettings->seed,
+    m_randomGenerator.setSeed(Hasher::hash(static_cast<int>(m_pWorldSettings->seed),
                                            m_pChunk->getPosition().x,
                                            m_pChunk->getPosition().y));
 }

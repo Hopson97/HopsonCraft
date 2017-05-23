@@ -51,9 +51,9 @@ class Array3D
     private:
         std::array<T, Size * Size * Size> m_array;
 
-        const uint32_t m_VOLUME = Size * Size * Size;
-        const uint32_t m_AREA   = Size * Size;
-        const uint32_t m_SIZE   = Size;
+        uint32_t m_VOLUME = Size * Size * Size;
+        uint32_t m_AREA   = Size * Size;
+        uint32_t m_SIZE   = Size;
 };
 
 #endif // ARRAY3D_H_INCLUDED

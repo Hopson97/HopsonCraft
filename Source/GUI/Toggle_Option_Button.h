@@ -76,7 +76,7 @@ namespace GUI
             void nextOption()
             {
                 m_optionIndex++;
-                if (m_optionIndex > (int32_t)m_options.size() - 1 )
+                if (m_optionIndex > static_cast<int>(m_options.size() - 1 ))
                 {
                     m_optionIndex = 0;
                 }

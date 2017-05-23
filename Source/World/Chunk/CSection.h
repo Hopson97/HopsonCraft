@@ -32,8 +32,8 @@ namespace Chunk
             ,   buffered(false)
             { }
 
-            std::atomic<bool> made;
-            std::atomic<bool> buffered;
+            bool made;
+            bool buffered;
         };
 
         struct Placed_Blocked
@@ -74,8 +74,8 @@ namespace Chunk
             Section              (const Section& other) = delete;
             Section& operator=   (const Section& other) = delete;
 
-            Section              (Section&& other) = default;
-            Section& operator=   (Section&& other) = default;
+            Section              (Section&& other);
+            Section& operator=   (Section&& other);
 
             ~Section() = default;
 
@@ -102,11 +102,8 @@ namespace Chunk
         private:
             std::string getFileName(World_File& worldFile) const;
 
-            bool m_hasUpdatableBlocks = false;
 
             State m_states;
-
-
 
             Array3D<CBlock, CHUNK_SIZE>     m_blocks;
             Array3D<CLight, CHUNK_SIZE>     m_light;
