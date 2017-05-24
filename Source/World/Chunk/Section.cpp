@@ -1,11 +1,11 @@
-#include "CSection.h"
+#include "Section.h"
 
 #include <iostream>
 #include <fstream>
 
 #include "../World_Constants.h"
 #include "../World_File.h"
-#include "CMap.h"
+#include "Map.h"
 
 #include "../../Util/Random.h"
 
@@ -15,7 +15,6 @@ namespace Chunk
 
     Section::Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk)
     :   m_position      (position)
-    ,   m_meshBuilder   (*this)
     ,   m_pChunkMap       (&map)
     ,   m_parentChunk   (&fullChunk)
     ,   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
@@ -23,44 +22,6 @@ namespace Chunk
         m_aabb.update({ position.x * CHUNK_SIZE,
                         position.y * CHUNK_SIZE,
                         position.z * CHUNK_SIZE});
-    }
-
-    Section::Section (Section&& other)
-    :   m_position      (other.m_position)
-    ,   m_meshBuilder   (*this)
-    ,   m_pChunkMap     (other.m_pChunkMap)
-    ,   m_parentChunk   (other.m_parentChunk)
-    ,   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
-    ,   m_states        (std::move(other.m_states))
-    ,   m_blocks        (std::move(other.m_blocks))
-    ,   m_light         (std::move(other.m_light))
-    ,   m_layerHasAir   (std::move(other.m_layerHasAir))
-    ,   m_placedBlocks  (std::move(other.m_placedBlocks))
-    ,   m_meshes        (std::move(other.m_meshes))
-    {
-        m_aabb.update({ m_position.x * CHUNK_SIZE,
-                        m_position.y * CHUNK_SIZE,
-                        m_position.z * CHUNK_SIZE});
-        other.m_pChunkMap   = nullptr;
-        other.m_parentChunk = nullptr;
-    }
-
-    Section& Section::operator= (Section&& other)
-    {
-        m_position      = other.m_position;
-        m_meshBuilder   = *this;
-        m_pChunkMap     = other.m_pChunkMap;
-        m_parentChunk   = other.m_parentChunk;
-        m_aabb          = other.m_aabb;
-        m_states        = std::move(other.m_states);
-        m_blocks        = std::move(other.m_blocks);
-        m_light         = std::move(other.m_light);
-        m_layerHasAir   = std::move(other.m_layerHasAir);
-        m_placedBlocks  = std::move(other.m_placedBlocks);
-        m_meshes        = std::move(other.m_meshes);
-
-        other.m_pChunkMap   = nullptr;
-        other.m_parentChunk = nullptr;
     }
 
     const Section::State& Section::getStates() const
@@ -82,7 +43,7 @@ namespace Chunk
             }
         }
 
-        m_meshBuilder.generateMesh(m_meshes);
+        buildMesh(*this, m_meshes);
         m_states.made = true;
 
         m_states.buffered = false;

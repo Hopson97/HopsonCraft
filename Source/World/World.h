@@ -10,8 +10,8 @@
 
 #include "../Physics/AABB.h"
 
-#include "Chunk/CSection.h"
-#include "Chunk/CMap.h"
+#include "Chunk/Section.h"
+#include "Chunk/Map.h"
 #include "World_Settings.h"
 #include "World_File.h"
 

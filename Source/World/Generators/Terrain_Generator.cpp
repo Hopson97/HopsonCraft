@@ -6,7 +6,7 @@
 #include "../../Maths/General_Maths.h"
 
 #include "../World_Settings.h"
-#include "../Chunk/CFull_Chunk.h"
+#include "../Chunk/Full_Chunk.h"
 
 #include "GeneratorID.h"
 

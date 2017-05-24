@@ -4,7 +4,7 @@
 #include <fstream>
 
 #include "GeneratorID.h"
-#include "../Chunk/CNodes.h"
+#include "../Chunk/Nodes.h"
 #include "../../Util/Random.h"
 #include "../../Util/Loader.h"
 #include "../../Temp/Noise_Generator.h"

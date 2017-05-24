@@ -1,9 +1,9 @@
-#include "CSection.h"
+#include "Section.h"
 
-#include "CBoundsCheck.h"
-#include "CFull_Chunk.h"
+#include "BoundsCheck.h"
+#include "Full_Chunk.h"
+#include "Map.h"
 #include "../World_Constants.h"
-#include "CMap.h"
 
 namespace Chunk
 {

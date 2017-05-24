@@ -1,7 +1,7 @@
 #ifndef IBLOCK_ACCESSIBLE_H_INCLUDED
 #define IBLOCK_ACCESSIBLE_H_INCLUDED
 
-#include "Chunk/CNodes.h"
+#include "Chunk/Nodes.h"
 
 struct IBlock_Accessible
 {

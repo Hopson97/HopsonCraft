@@ -6,7 +6,7 @@
 
 #include "../Camera.h"
 
-#include "../World/Chunk/CSection.h"
+#include "../World/Chunk/Section.h"
 
 namespace Renderer
 {

@@ -5,8 +5,8 @@
 #include <vector>
 #include <memory>
 
-#include "CSection.h"
-#include "CFull_Chunk.h"
+#include "Section.h"
+#include "Full_Chunk.h"
 
 #include "../Generators/Terrain_Generator.h"
 

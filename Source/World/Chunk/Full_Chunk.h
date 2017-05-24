@@ -5,9 +5,9 @@
 #include <memory>
 #include <algorithm>
 
-#include "CNodes.h"
-#include "CPosition.h"
-#include "CSection.h"
+#include "Nodes.h"
+#include "Position.h"
+#include "Section.h"
 
 #include "../IBlock_Accessible.h"
 

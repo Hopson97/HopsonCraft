@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "CPosition.h"
+#include "Position.h"
 #include "../Block/Block_Position.h"
 #include "../../Model.h"
 

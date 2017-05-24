@@ -16,19 +16,16 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
 ,   m_chunks        (*this)
 ,   m_pCamera       (&camera)
 {
-    if (m_worldSettings.concurrentGeneration)
+    for (int i = 0; i < 1; i++)
     {
-        for (int i = 0; i < 1; i++)
+        m_threads.emplace_back([&]()
         {
-            m_threads.emplace_back([&]()
+            while (m_isRunning)
             {
-                while (m_isRunning)
-                {
-                    generateWorld(*m_pCamera);
-                    std::this_thread::sleep_for(std::chrono::microseconds(10));
-                }
-            });
-        }
+                generateWorld(*m_pCamera);
+                std::this_thread::sleep_for(std::chrono::microseconds(10));
+            }
+        });
     }
 }
 
@@ -282,9 +279,6 @@ void World::triggerBlocks()
 
 void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
-    if (!m_worldSettings.concurrentGeneration)
-        generateWorld(*m_pCamera);
-
     m_facesDrawn = 0;
     for (auto& chunk : m_chunks.getChunks())
     {

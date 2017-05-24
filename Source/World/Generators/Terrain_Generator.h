@@ -15,7 +15,7 @@
 
 #include "../World_Constants.h"
 
-#include "../Chunk/CNodes.h"
+#include "../Chunk/Nodes.h"
 
 #include "Generation_Type.h"
 

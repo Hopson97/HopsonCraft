@@ -15,7 +15,6 @@ struct World_Settings
 
     float       seed;
     bool        isSuperFlat             = false;
-    bool        concurrentGeneration    = false;
 };
 
 #endif // WORLD_SETTINGS_H_INCLUDED

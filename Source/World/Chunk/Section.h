@@ -6,9 +6,9 @@
 
 #include "../World_Constants.h"
 
-#include "CPosition.h"
-#include "CNodes.h"
-#include "CMesh_Builder.h"
+#include "Position.h"
+#include "Nodes.h"
+#include "Mesh_Builder.h"
 #include "../Block/Block_Database.h"
 #include "../../Physics/AABB.h"
 
@@ -74,8 +74,8 @@ namespace Chunk
             Section              (const Section& other) = delete;
             Section& operator=   (const Section& other) = delete;
 
-            Section              (Section&& other);
-            Section& operator=   (Section&& other);
+            Section              (Section&& other) = default;
+            Section& operator=   (Section&& other) = default;
 
             ~Section() = default;
 
@@ -112,8 +112,7 @@ namespace Chunk
 
             Chunklet_Position m_position;
 
-            Mesh_Builder m_meshBuilder;
-            Meshes       m_meshes;
+            Meshes m_meshes;
 
             Map* m_pChunkMap;
             Full_Chunk* m_parentChunk;

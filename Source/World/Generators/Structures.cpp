@@ -1,6 +1,6 @@
 #include "Structures.h"
 
-#include "../Chunk/CNodes.h"
+#include "../Chunk/Nodes.h"
 #include "../IBlock_Accessible.h"
 
 void makePyramid(IBlock_Accessible& access,
