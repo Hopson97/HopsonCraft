@@ -203,6 +203,8 @@ namespace Structure
                 }
                 break;
         }
+
+        tree.build(access);
     }
 
 
