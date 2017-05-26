@@ -14,8 +14,8 @@ Terrain_Generator::Terrain_Generator(const World_Settings& worldSettings)
 :   m_worldGenType      (worldSettings.generator)
 ,   m_pWorldSettings    (&worldSettings)
 {
-    m_heightGen.setSeed            (worldSettings.seed);
-    m_biomeNoise.setSeed            (worldSettings.seed);
+    m_heightGen.setSeed     (worldSettings.seed);
+    m_biomeNoise.setSeed    (worldSettings.seed);
 
     m_biomeNoise.setNoiseFunction   (m_worldGenType.getBiomeMapNoise());
 }
@@ -201,7 +201,6 @@ void Terrain_Generator::setRandomSeed()
 */
 void Terrain_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
 {
-
     auto getHeightAt = [&](int indexA, int indexB)
     {
         m_heightGen.setNoiseFunction(m_worldGenType.getBiome(m_biomeMap.at(indexA, indexB)).getNoise());

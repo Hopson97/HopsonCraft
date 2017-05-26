@@ -65,8 +65,9 @@ void Model::addData(const std::vector<GLfloat>& vertexPositions,
 
 void Model::deleteData()
 {
-    glDeleteVertexArrays(1, &m_vao);
     glDeleteBuffers(m_buffers.size(), m_buffers.data());
+    glDeleteVertexArrays(1, &m_vao);
+
     m_vao = 0;
     m_vboCount = 0;
     m_indicesCount = 0;

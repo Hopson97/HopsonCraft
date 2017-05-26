@@ -24,7 +24,6 @@ namespace Chunk
     class Section;
     class Meshes;
 
-
     void buildMesh(const Section& chunk, Meshes& meshes);
 }
 

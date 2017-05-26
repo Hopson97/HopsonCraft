@@ -19,6 +19,7 @@ void getStructureFromID(Access& access,
                         Random::Generator<Rand> random,
                         Structure_ID id)
 {
+    return;
     switch (id)
     {
         case Structure_ID::Oak_Tree:

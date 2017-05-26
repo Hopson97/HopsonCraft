@@ -97,6 +97,7 @@ void makeOakTree(IBlock_Accessible& access,
     }
 
     tree.build(access);
+
 }
 
 void makePalmTree(IBlock_Accessible& access,

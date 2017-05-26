@@ -284,7 +284,6 @@ namespace Chunk
                     continue;
                 }
 
-
                 blockData = &block.getData();
 
                 ChunkMesh chunkMesh(chunk, getActiveMesh(*blockData, meshes));

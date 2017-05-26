@@ -22,11 +22,6 @@ namespace Convert
                  (int)position.z / CHUNK_SIZE};
     }
 
-    Block::Position worldToSectionBlockPosition (const Vector3& position)
-    {
-
-    }
-
     Block::Position worldToChunkBlockPosition (const Vector3& position)
     {
         return  {(int) position.x % CHUNK_SIZE,
