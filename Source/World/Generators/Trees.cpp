@@ -3,7 +3,9 @@
 #include "../Chunk/Nodes.h"
 #include "../IBlock_Accessible.h"
 
-class Tree_Helper
+#include "Structures_Builder.h"
+
+class Tree_Helper : public Structure_Builder
 {
     struct Defer_Block
     {
@@ -24,33 +26,30 @@ class Tree_Helper
 
         void addLeaf(int x, int y, int z)
         {
-            m_deferBlocks.emplace_back(x, y, z, m_leafBlock);
+            Structure_Builder::addBlock({x, y, z, m_leafBlock});
         }
 
         void addAir (int x, int y, int z)
         {
-            m_deferBlocks.emplace_back(x, y, z, Block::ID::Air);
+            Structure_Builder::addBlock({x, y, z, Block::ID::Air});
         }
 
         void addWood(int x, int y, int z)
         {
-            m_deferBlocks.emplace_back(x, y, z, m_woodBlock);
+            Structure_Builder::addBlock({x, y, z, m_woodBlock});
         }
 
-        void build(IBlock_Accessible& access)
+        CBlock getWood()
         {
-            for (auto& block : m_deferBlocks)
-            {
-                int x = block.pos.x;
-                int y = block.pos.y;
-                int z = block.pos.z;
-                access.setBlock(x, y, z, block.block);
-            }
+            return m_woodBlock;
+        }
+
+        CBlock getLeaf()
+        {
+            return m_leafBlock;
         }
 
     private:
-        std::vector<Defer_Block> m_deferBlocks;
-
         CBlock m_leafBlock;
         CBlock m_woodBlock;
 
@@ -67,12 +66,15 @@ void makeOakTree(IBlock_Accessible& access,
     int height      = Random::intInRange(5, 8);
     int crownSize   = 2;
 
-    for (int32_t zLeaf = -crownSize; zLeaf <= crownSize; zLeaf++)
-    for (int32_t xLeaf = -crownSize; xLeaf <= crownSize; xLeaf++)
-    {
-        tree.addLeaf(pos.x + xLeaf, pos.y + height - 1,   pos.z + zLeaf);
-        tree.addLeaf(pos.x + xLeaf, pos.y + height,       pos.z + zLeaf);
-    }
+
+    int y = pos.y + height;
+    tree.fillXZ({pos.x - crownSize, y, pos.z - crownSize},
+                {pos.x + crownSize, y, pos.z + crownSize},
+                tree.getLeaf());
+
+    tree.fillXZ({pos.x - crownSize, y - 1, pos.z - crownSize},
+                {pos.x + crownSize, y - 1, pos.z + crownSize},
+                tree.getLeaf());
 
     for (int32_t zLeaf = -crownSize + 1; zLeaf <= crownSize - 1; zLeaf++)
     {
@@ -91,10 +93,8 @@ void makeOakTree(IBlock_Accessible& access,
     tree.addAir(pos.x - crownSize, h, pos.z - crownSize);
     tree.addLeaf(pos.x, pos.y + height + 2, pos.z);
 
-    for (int y = 1; y < height; y++)
-    {
-        tree.addWood(pos.x, pos.y + y, pos.z);
-    }
+    //make the tree trunk
+    tree.makeColumn(pos, height, tree.getWood());
 
     tree.build(access);
 
@@ -132,10 +132,9 @@ void makePalmTree(IBlock_Accessible& access,
     tree.addLeaf(pos.x - crownSize, pos.y + height - 1, pos.z );
     tree.addLeaf(pos.x,             pos.y + height + 1, pos.z );
 
-    for (int32_t y = 1; y < height; y++)
-    {
-        tree.addWood(pos.x, pos.y + y, pos.z);
-    }
+
+    //make the tree trunk
+    tree.makeColumn(pos, height, tree.getWood());
 
     tree.build(access);
 }
