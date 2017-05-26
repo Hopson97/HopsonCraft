@@ -5,7 +5,11 @@
 #include "../Block/Block_Position.h"
 #include "../Block/Block_ID.h"
 
+
 class IBlock_Accessible;
+
+namespace Structure
+{
 
 void makeOakTree(IBlock_Accessible& access,
                  const Block::Position& pos,
@@ -78,6 +82,8 @@ void makeAcaciaTree(Access& access,
     }
 */
     ///@TODO Leaves for the Acacia tree
+}
+
 }
 
 #endif // GTREES_H_INCLUDED

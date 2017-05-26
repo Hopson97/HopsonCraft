@@ -123,7 +123,7 @@ namespace Chunk
     const Chunklet_Position& Section::getPosition() const   { return m_position;        }
     const Meshes& Section::getMeshes()              const   { return m_meshes;          }
     const AABB& Section::getAABB()                  const   { return m_aabb;            }
-    const Full_Chunk& Section::getParentChunk()      const  { return *m_parentChunk;    }
+    const Full_Chunk& Section::getParentChunk()     const   { return *m_parentChunk;    }
     Full_Chunk& Section::getParentChunk()                   { return *m_parentChunk;    }
 
     void Section::setBlock (int x, int y, int z, CBlock block)

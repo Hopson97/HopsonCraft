@@ -5,34 +5,37 @@
 
 class IBlock_Accessible;
 
-class Structure_Builder
+namespace Structure
 {
-    struct Defer_Block
+    class Builder
     {
-        Defer_Block(int x, int y, int z, CBlock b)
-        :   pos     (x, y, z)
-        ,   block   (b)
-        { }
+        struct Defer_Block
+        {
+            Defer_Block(int x, int y, int z, CBlock b)
+            :   pos     (x, y, z)
+            ,   block   (b)
+            { }
 
-        Block::Position pos;
-        CBlock block;
+            Block::Position pos;
+            CBlock block;
+        };
+
+        public:
+            void addBlock(const Defer_Block& block);
+
+            void fillXZ(const Block::Position& start,
+                        const Block::Position& finish,
+                        CBlock fill);
+
+            void makeColumn(const Block::Position& base,
+                            int height,
+                            CBlock block);
+
+            void build(IBlock_Accessible& access);
+
+        private:
+            std::vector<Defer_Block> m_deferBlocks;
     };
-
-    public:
-        void addBlock(const Defer_Block& block);
-
-        void fillXZ(const Block::Position& start,
-                    const Block::Position& finish,
-                    CBlock fill);
-
-        void makeColumn(const Block::Position& base,
-                        int height,
-                        CBlock block);
-
-        void build(IBlock_Accessible& access);
-
-    private:
-        std::vector<Defer_Block> m_deferBlocks;
-};
+}
 
 #endif // STRUCTURES_BUILDER_H_INCLUDED

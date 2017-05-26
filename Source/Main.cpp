@@ -1,15 +1,19 @@
 #include <iostream>
 #include <fstream>
+#include <ctime>
 
-#include "Display.h"
-#include "Application.h"
 #include "Util/Random.h"
+
 #include "Util/Config.h"
-#include "Util/ConfigParser.h"
 #include "Util/Singleton.h"
-#include "Util/File_Util.h"
-#include "World/Block/Block_Database.h"
+
 #include "Temp/Noise_Generator.h"
+
+#include "Application.h"
+#include "Display.h"
+
+
+//#define TEST_NOISE
 
 #ifdef __WIN32
     #include <windows.h>
@@ -25,6 +29,27 @@
 
 namespace
 {
+    void noiseTest(int trials)
+    {
+        Random::init();
+        Noise::Generator m_noiseGen;
+        m_noiseGen.setSeed(Random::intInRange(0, 999999));
+        m_noiseGen.setNoiseFunction({5, 500, 0.4, 5000});
+
+        float total = 0;
+        std::vector<double> test;
+        for (int i = 0 ; i < trials ; i++)
+        {
+            float h = m_noiseGen.getValue(i, i, i, i);
+            test.push_back(h);
+            total += h;
+        }
+
+        std::cout << "MIN: " << *std::min_element(test.begin(), test.end()) << "\n";
+        std::cout << "MAX: " << *std::max_element(test.begin(), test.end()) << "\n";
+        std::cout << "AVG: " << total / trials << std::endl;
+    }
+
     void errorMessage(const std::string& message)
     {
         #ifdef __WIN32
@@ -50,7 +75,6 @@ namespace
     {
         Random  ::init();
         Display ::init();
-        Block::Database::get(); //Loads up the block database
 
         for (int i = 0; i < 30; i++)
         {
@@ -69,6 +93,16 @@ namespace
         }
     }
 
+
+    void logTime(const std::string& start,
+                 const std::string& end)
+    {
+        std::ofstream timeLogOutFile("Log/" + start);
+
+        timeLogOutFile  << "Start:  " << start  << "\n"
+                        << "End:    " << end    << "\n";
+    }
+
     void runGame()
     {
         initilize();
@@ -76,27 +110,6 @@ namespace
 
         Application app;
         app.runMainGameLoop();
-    }
-
-    void noiseTest(int trials)
-    {
-        Random::init();
-        Noise::Generator m_noiseGen;
-        m_noiseGen.setSeed(Random::intInRange(0, 999999));
-        m_noiseGen.setNoiseFunction({5, 500, 0.4, 5000});
-
-        float total = 0;
-        std::vector<double> test;
-        for (int i = 0 ; i < trials ; i++)
-        {
-            float h = m_noiseGen.getValue(i, i, i, i);
-            test.push_back(h);
-            total += h;
-        }
-
-        std::cout << "MIN: " << *std::min_element(test.begin(), test.end()) << "\n";
-        std::cout << "MAX: " << *std::max_element(test.begin(), test.end()) << "\n";
-        std::cout << "AVG: " << total / trials << std::endl;
     }
 }
 
@@ -107,8 +120,16 @@ namespace
 */
 int main() try
 {
-    //noiseTest(1000000);
+    std::time_t startTime;
+    std::time_t endTime;
+
+    std::time(&startTime);
     runGame();
+    std::time(&endTime);
+
+    logTime(std::ctime(&startTime),
+            std::ctime(&endTime));
+
     return 0;
 }
 catch(std::bad_alloc& e)

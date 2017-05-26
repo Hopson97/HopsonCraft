@@ -7,8 +7,12 @@
 
 class IBlock_Accessible;
 
-void makePyramid(IBlock_Accessible& access,
-                  const Block::Position& pos,
-                  Random::Generator<std::mt19937>& random);
+namespace Structure
+{
+    void makePyramid(IBlock_Accessible& access,
+                      const Block::Position& pos,
+                      Random::Generator<std::mt19937>& random);
+
+}
 
 #endif // BUILDINGS_H_INCLUDED
