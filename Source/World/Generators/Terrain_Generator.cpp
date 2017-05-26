@@ -8,7 +8,7 @@
 #include "../World_Settings.h"
 #include "../Chunk/Full_Chunk.h"
 
-#include "GeneratorID.h"
+#include "Structures.h"
 
 Terrain_Generator::Terrain_Generator(const World_Settings& worldSettings)
 :   m_worldGenType      (worldSettings.generator)
@@ -108,7 +108,7 @@ void Terrain_Generator::makeRegularWorld()
     for (auto& pos : m_oakTreeLocations)
     {
         auto id = pos.second;
-        getStructureFromID(*m_pChunk, pos.first, m_randomGenerator, id);
+        Structure::createFromID(id, *m_pChunk, pos.first, m_randomGenerator);
     }
 }
 

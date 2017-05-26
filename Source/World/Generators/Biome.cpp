@@ -42,7 +42,7 @@ int Biome::getTreeFrequencey() const
 
 
 
-Structure_ID Biome::getTree(RNG& rd) const
+Structure::ID Biome::getTree(RNG& rd) const
 {
     return m_trees.holder[rd.intInRange(0, m_trees.total - 1)];
 }
@@ -110,7 +110,7 @@ void Biome::loadTree(std::ifstream& inFile)
     int id, freq;
     inFile >> id >> freq;
 
-    auto idEnum = (Structure_ID)id;
+    auto idEnum = (Structure::ID)id;
 
     for (int i = 0; i <freq; i++)
     {

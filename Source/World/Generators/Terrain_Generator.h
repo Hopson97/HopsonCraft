@@ -52,7 +52,7 @@ class Terrain_Generator
         World_Generation_Type m_worldGenType;
 
         //Containers
-        std::vector<std::pair<Block::Position, Structure_ID>>   m_oakTreeLocations;
+        std::vector<std::pair<Block::Position, Structure::ID>>   m_oakTreeLocations;
         std::vector<std::pair<Block::Position, CBlock>>         m_littleBlockLoc;
         Array2D<int, CHUNK_AREA_P>    m_biomeMap;
         Array2D<int, CHUNK_AREA_P>    m_heightMap;

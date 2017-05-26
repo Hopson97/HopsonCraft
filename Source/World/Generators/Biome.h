@@ -3,11 +3,12 @@
 
 #include <fstream>
 
-#include "GeneratorID.h"
 #include "../Chunk/Nodes.h"
 #include "../../Util/Random.h"
 #include "../../Util/Loader.h"
 #include "../../Temp/Noise_Generator.h"
+
+#include "Structures.h"
 
 typedef Random::Generator<std::mt19937> RNG;
 
@@ -31,7 +32,7 @@ class Biome : public Loader
 
         CBlock          getSurfaceBlock (RNG& rd) const;
         CBlock          getFloraBlock   (RNG& rd) const;
-        Structure_ID    getTree         (RNG& rd) const;
+        Structure::ID   getTree         (RNG& rd) const;
 
         bool hasFlora       () const;
         bool hasStructure   () const;
@@ -59,7 +60,7 @@ class Biome : public Loader
         Gen_Container<CBlock>   m_surfaceBlocks;
         Gen_Container<CBlock>   m_floraBlocks;
 
-        Gen_Container<Structure_ID> m_trees;
+        Gen_Container<Structure::ID> m_trees;
 
         int m_floraFreq     = 0;
         int m_treeFreq      = 0;
