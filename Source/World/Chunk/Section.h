@@ -94,21 +94,14 @@ namespace Chunk
             const AABB& getAABB() const;
             const Full_Chunk& getParentChunk() const;
 
-            void save(World_File& worldFile);
-            void load(World_File& worldFile);
-
             Full_Chunk& getParentChunk();
 
         private:
-            std::string getFileName(World_File& worldFile) const;
-
-
             State m_states;
 
             Array3D<CBlock, CHUNK_SIZE>     m_blocks;
             Array3D<CLight, CHUNK_SIZE>     m_light;
             std::array<Layer, CHUNK_SIZE>   m_layerHasAir;
-            std::vector<Placed_Blocked>     m_placedBlocks;
 
             Chunklet_Position m_position;
 

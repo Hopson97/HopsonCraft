@@ -12,6 +12,8 @@
 #include "Application.h"
 #include "Display.h"
 
+#include  "World/Chunk/Section.h"
+
 
 //#define TEST_NOISE
 
@@ -94,13 +96,15 @@ namespace
     }
 
 
-    void logTime(const std::string& start,
-                 const std::string& end)
+    void logRun( const std::string& start,
+                 const std::string& end,
+                 const std::string& additionalInfo = "")
     {
-        std::ofstream timeLogOutFile("Log/" + start);
+        std::ofstream timeLogOutFile(start + ".txt");
 
         timeLogOutFile  << "Start:  " << start  << "\n"
-                        << "End:    " << end    << "\n";
+                        << "End:    " << end    << "\n"
+                        << "Additional info: " << additionalInfo << "\n";
     }
 
     void runGame()
@@ -111,6 +115,10 @@ namespace
         Application app;
         app.runMainGameLoop();
     }
+
+    std::time_t startTime;
+    std::time_t endTime;
+
 }
 
 /*
@@ -120,25 +128,25 @@ namespace
 */
 int main() try
 {
-    std::time_t startTime;
-    std::time_t endTime;
-
+    std::cout << sizeof(Chunk::Section) << "\n";
     std::time(&startTime);
     runGame();
     std::time(&endTime);
-
-    logTime(std::ctime(&startTime),
+/*
+    logRun( std::ctime(&startTime),
             std::ctime(&endTime));
-
+*/
     return 0;
-}
-catch(std::bad_alloc& e)
-{
-    errorMessage("Out of memory!");
 }
 catch(std::exception& e)
 {
+    std::time(&endTime);
     errorMessage(std::string(e.what()));
+/*
+    logRun( std::ctime(&startTime),
+            std::ctime(&endTime),
+            std::string(e.what()));
+*/
 }
 
 

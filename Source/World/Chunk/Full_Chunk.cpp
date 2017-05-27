@@ -33,11 +33,12 @@ namespace Chunk
 
     void Full_Chunk::tick()
     {
-        auto n = Random::intInRange(1, 16);
-        if (n == 1)
+        if (Random::intInRange(1, 16) == 1)
         {
-            auto x = Random::intInRange(0, CHUNK_SIZE - 1);
-            auto z = Random::intInRange(0, CHUNK_SIZE - 1);
+            auto x = (uint8_t)Random::intInRange(0, CHUNK_SIZE - 1);
+            auto z = (uint8_t)Random::intInRange(0, CHUNK_SIZE - 1);
+
+            auto height = getHeightAt(x, z);
 
             /**
                 @TODO Use this x and z position to  update top block of

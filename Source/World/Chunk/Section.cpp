@@ -72,54 +72,6 @@ namespace Chunk
         }
     }
 
-    void Section::save(World_File& worldFile)
-    {
-        if (m_placedBlocks.empty())
-        {
-            return;
-        }
-
-        std::ofstream outFile(getFileName(worldFile));
-
-        for (auto& block : m_placedBlocks)
-        {
-            outFile << (int)block.block.id          << " "
-                    << (int)block.block.metaData    << " "
-                    << (int)block.index             << "\n";
-        }
-    }
-
-    void Section::load(World_File& worldFile)
-    {
-        std::ifstream inFile(getFileName(worldFile));
-        if (!inFile.is_open())
-        {
-            return;
-        }
-        std::cout << "Loading\n";
-
-        int id, meta, index;
-        while (inFile >> id >> meta >> index)
-        {
-            m_placedBlocks.emplace_back(CBlock((uint16_t)id,
-                                               (uint8_t)meta),
-                                        index);
-        }
-
-        for (Placed_Blocked& block : m_placedBlocks)
-        {
-            m_blocks.getRaw()[block.index] = block.block;
-        }
-    }
-
-    std::string Section::getFileName(World_File& worldFile) const
-    {
-        return worldFile.getFolderName() +
-                std::to_string(m_position.x) + " " +
-                std::to_string(m_position.y) + " " +
-                std::to_string(m_position.z) + ".chunk";
-    }
-
     const Chunklet_Position& Section::getPosition() const   { return m_position;        }
     const Meshes& Section::getMeshes()              const   { return m_meshes;          }
     const AABB& Section::getAABB()                  const   { return m_aabb;            }

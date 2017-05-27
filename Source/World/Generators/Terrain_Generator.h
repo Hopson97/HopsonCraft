@@ -57,7 +57,6 @@ class Terrain_Generator
         Array2D<int, CHUNK_AREA_P>    m_biomeMap;
         Array2D<int, CHUNK_AREA_P>    m_heightMap;
 
-
         //Generators
         Random::Generator<std::mt19937> m_randomGenerator;
         Noise::Generator m_heightGen;

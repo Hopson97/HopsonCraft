@@ -327,7 +327,7 @@ void World::generateWorld(const Camera& camera)
         Vec2 minPoint, maxPoint;
     };
 
-    if (m_loadingDistance == ((m_worldSettings.renderDistance / 2) + 1))
+    if (m_loadingDistance >= ((m_worldSettings.renderDistance / 2) + 1))
     {
         m_loadingDistance = 1;
     }
