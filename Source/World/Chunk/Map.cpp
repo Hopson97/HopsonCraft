@@ -13,14 +13,6 @@ namespace Chunk
     ,   m_chunkGenerator    (world.getWorldSettings())
     { }
 
-    void Map::save(World_File& worldFile)
-    {
-        for (auto& chunk : m_chunksMap)
-        {
-            chunk.second.save(worldFile);
-        }
-    }
-
     void Map::addChunk(std::unordered_map<Position, Full_Chunk>& map,
                        const Chunk::Position& position,
                        bool populateBlocks)
@@ -42,11 +34,6 @@ namespace Chunk
 
     void Map::deleteChunk(const Chunk::Position& position, World_File& worldFile)
     {
-        if (existsAt(position))
-        {
-            m_chunksMap[position].save(worldFile);
-        }
-
         m_tempChunks.erase(position);
         m_chunksMap .erase(position);
     }

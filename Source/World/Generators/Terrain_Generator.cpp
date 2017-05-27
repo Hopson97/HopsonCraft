@@ -49,7 +49,6 @@ void Terrain_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& 
     }
 
     chunk.hasGeneratedBlockData = true;
-    chunk.load(worldFile);
     m_genMutex.unlock();
 }
 

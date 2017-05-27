@@ -128,7 +128,7 @@ namespace
 */
 int main() try
 {
-    std::cout << sizeof(Chunk::Section) << "\n";
+    std::cout << sizeof(AABB) << "\n";
     std::time(&startTime);
     runGame();
     std::time(&endTime);

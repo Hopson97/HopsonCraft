@@ -14,10 +14,10 @@ namespace Chunk
     const Section::Layer Section::errorLayer;
 
     Section::Section(const Chunklet_Position& position, Map& map, Full_Chunk& fullChunk)
-    :   m_position      (position)
-    ,   m_pChunkMap       (&map)
+    :   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
+    ,   m_position      (position)
+    ,   m_pChunkMap     (&map)
     ,   m_parentChunk   (&fullChunk)
-    ,   m_aabb          ({CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE})
     {
         m_aabb.update({ position.x * CHUNK_SIZE,
                         position.y * CHUNK_SIZE,

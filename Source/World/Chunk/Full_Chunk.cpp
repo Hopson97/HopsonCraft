@@ -220,43 +220,6 @@ namespace Chunk
         return m_highestBlocks.at(x, z);
     }
 
-    void Full_Chunk::save(World_File& worldFile)
-    {/*
-        std::ofstream outFile(getFileName(worldFile));
-        outFile << m_chunkSections.size();
-
-        for (auto& section : m_chunkSections)
-        {
-            section->save(worldFile);
-        }*/
-    }
-
-    void Full_Chunk::load(World_File& worldFile)
-    {
-        /*
-        std::ifstream inFile(getFileName(worldFile));
-        if (inFile.is_open())
-        {
-            int numberOfChunks;
-            inFile >> numberOfChunks;
-            addSections(numberOfChunks);
-        }
-
-        for (auto& chunk : m_chunkSections)
-        {
-            chunk.load(worldFile);
-        }
-        */
-    }
-
-    std::string Full_Chunk::getFileName(World_File& worldFile) const
-    {
-        return  worldFile.getFolderName() +
-                std::to_string(m_position.x) + " " +
-                std::to_string(m_position.y) + ".chunk";
-    }
-
-
     const Position& Full_Chunk::getPosition     () const    { return m_position;        }
     const World&    Full_Chunk::getWorld        () const    { return *m_pWorld;         }
     bool            Full_Chunk::hasDeleteFlag   () const    { return m_hasDeleteFlag;   }

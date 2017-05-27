@@ -97,20 +97,17 @@ namespace Chunk
             Full_Chunk& getParentChunk();
 
         private:
-            State m_states;
-
             Array3D<CBlock, CHUNK_SIZE>     m_blocks;
             Array3D<CLight, CHUNK_SIZE>     m_light;
             std::array<Layer, CHUNK_SIZE>   m_layerHasAir;
-
-            Chunklet_Position m_position;
-
             Meshes m_meshes;
+            AABB m_aabb;
+            Chunklet_Position m_position;
 
             Map* m_pChunkMap;
             Full_Chunk* m_parentChunk;
 
-            AABB m_aabb;
+            State m_states;
 
         public: //Getter/ Setter mess
             //Blocks getters/ Setters with bounds checking
