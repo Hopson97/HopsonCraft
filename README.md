@@ -21,6 +21,8 @@ You can view the code style in [contributing.md](https://github.com/Hopson97/Hop
 
 You can view useful implementation details in [implementation.md](https://github.com/Hopson97/HopsonCraft/blob/master/IMPLEMENTATION.md)
 
+Also, checkout the TRELLO! https://trello.com/b/P8ZbobQH/hopsoncraft
+
 
 ## Description
 Simple Minecraft clone written using C++.
