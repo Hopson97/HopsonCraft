@@ -23,7 +23,7 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
             while (m_isRunning)
             {
                 generateWorld(*m_pCamera);
-                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                std::this_thread::sleep_for(std::chrono::microseconds(100));
             }
         });
     }
@@ -280,10 +280,8 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
     m_facesDrawn = 0;
     for (auto& chunk : m_chunks.getChunks())
-    {
         if (chunk.second.hasGeneratedBlockData)
             m_facesDrawn += chunk.second.draw(renderer, camera);
-    }
 }
 
 const World_Settings& World::getWorldSettings() const

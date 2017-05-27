@@ -71,7 +71,7 @@ namespace Chunk
                     Section* editableGetSection (int32_t index);
 
             uint32_t draw   (Renderer::Master& renderer, const Camera& camera);
-            bool tryGen     (/*const Camera& camera*/);
+            bool tryGen     ();
 
             void addSection();
 

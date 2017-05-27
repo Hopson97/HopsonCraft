@@ -14,6 +14,12 @@ namespace Convert
     Block::Position worldToSectionBlockPosition         (const Vector3& position);
     Block::Position worldToChunkBlockPosition           (const Vector3& position);
     Block::Position chunkBlockToSectionBlockPosition    (const Block::Position& position);
+
+    Block::Position chunkBlockToWorldBlockPosition      (const Block::Position& blockPosition,
+                                                         const Chunk::Position& chunkPosition);
+
+    Block::Position sectionBlockToWorldBlockPosition    (const Block::Position&          blockPosition,
+                                                         const Chunk::Chunklet_Position& chunkPosition);
 }
 }
 

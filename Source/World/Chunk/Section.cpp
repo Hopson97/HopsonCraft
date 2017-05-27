@@ -7,6 +7,8 @@
 #include "../World_File.h"
 #include "Map.h"
 
+#include "../../Maths/Position_Conversion.h"
+
 #include "../../Util/Random.h"
 
 namespace Chunk
@@ -63,12 +65,11 @@ namespace Chunk
             int32_t y = Random::intInRange(0, CHUNK_SIZE - 1);
             int32_t z = Random::intInRange(0, CHUNK_SIZE - 1);
 
-            Block::Position worldPos(x + m_position.x * CHUNK_SIZE,
-                                     y + m_position.y * CHUNK_SIZE,
-                                     z + m_position.z * CHUNK_SIZE);
+            auto worldBlockPosition =
+                Maths::Convert::sectionBlockToWorldBlockPosition({x, y, z}, getPosition());
 
             auto& block = m_blocks.at(x, y, z);
-            block.getType().tick(world, block, worldPos);
+            block.getType().tick(world, block, worldBlockPosition);
         }
     }
 

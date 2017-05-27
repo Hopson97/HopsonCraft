@@ -4,6 +4,7 @@
 
 #include "../World_File.h"
 #include "../World_Constants.h"
+#include "../World.h"
 #include "../../Maths/General_Maths.h"
 #include "../../Maths/Position_Conversion.h"
 #include "../../Camera.h"
@@ -39,6 +40,10 @@ namespace Chunk
             auto z = (uint8_t)Random::intInRange(0, CHUNK_SIZE - 1);
 
             auto height = getHeightAt(x, z);
+            auto block = qGetBlock(x, height, z);
+
+            auto worldBlockPosition =
+                Maths::Convert::chunkBlockToWorldBlockPosition({x, height, z}, getPosition());
 
             /**
                 @TODO Use this x and z position to  update top block of
@@ -108,12 +113,6 @@ namespace Chunk
                 ->qGetBlock(blockPos);
         }
     }
-
-    void    Full_Chunk::setBlock    (int x, int y, int z, CBlock block) {   setBlock({x, y, z}, block); }
-    void    Full_Chunk::qSetBlock   (int x, int y, int z, CBlock block) {   qSetBlock({x, y, z}, block); }
-    CBlock  Full_Chunk::qGetBlock   (int x, int y, int z) const { return    qGetBlock({x, y, z}); }
-    CBlock  Full_Chunk::getBlock    (int x, int y, int z) const { return    getBlock({x, y, z}); }
-
 
     void Full_Chunk::addSections(uint32_t blockTarget)
     {
@@ -200,14 +199,12 @@ namespace Chunk
         return facesDrawn;
     }
 
-    bool Full_Chunk::tryGen(/*const Camera& camera*/)
+    bool Full_Chunk::tryGen()
     {
         for (auto& chunk : m_chunkSections)
         {
             if (!chunk.getStates().made)
             {
-                //if (!camera.getFrustum().boxInFrustum(chunk.getAABB())) continue;
-
                 chunk.makeMesh();
                 return true;
             }
@@ -220,10 +217,45 @@ namespace Chunk
         return m_highestBlocks.at(x, z);
     }
 
-    const Position& Full_Chunk::getPosition     () const    { return m_position;        }
-    const World&    Full_Chunk::getWorld        () const    { return *m_pWorld;         }
-    bool            Full_Chunk::hasDeleteFlag   () const    { return m_hasDeleteFlag;   }
-    void            Full_Chunk::setForDelete    ()          { m_hasDeleteFlag = true;   }
+    const Position& Full_Chunk::getPosition () const
+    {
+        return m_position;
+    }
+
+    const World& Full_Chunk::getWorld () const
+    {
+        return *m_pWorld;
+    }
+    bool Full_Chunk::hasDeleteFlag () const
+    {
+        return m_hasDeleteFlag;
+    }
+    void Full_Chunk::setForDelete ()
+    {
+        m_hasDeleteFlag = true;
+    }
+
+    void Full_Chunk::setBlock (int x, int y, int z, CBlock block)
+    {
+        setBlock({x, y, z}, block);
+    }
+
+    void Full_Chunk::qSetBlock (int x, int y, int z, CBlock block)
+    {
+        qSetBlock({x, y, z}, block);
+    }
+
+    CBlock Full_Chunk::qGetBlock (int x, int y, int z) const
+    {
+        return    qGetBlock({x, y, z});
+    }
+
+    CBlock Full_Chunk::getBlock (int x, int y, int z) const
+    {
+        return    getBlock({x, y, z});
+    }
+
+
 }
 
 
