@@ -5,6 +5,7 @@
 #include "../Application.h"
 #include "SPlaying.h"
 
+#include "../Util/Random.h"
 #include "../Util/File_Util.h"
 
 namespace State

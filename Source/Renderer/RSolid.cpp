@@ -5,7 +5,7 @@
 #include "../Maths/Matrix_Maths.h"
 
 #include "../Camera.h"
-
+/*
 #include "../World/Chunk/Section.h"
 
 namespace Renderer
@@ -48,3 +48,4 @@ namespace Renderer
         m_renderInfo.clear();
     }
 }
+*/

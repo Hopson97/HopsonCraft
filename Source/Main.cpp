@@ -7,7 +7,7 @@
 #include "Util/Config.h"
 #include "Util/Singleton.h"
 
-#include "Temp/Noise_Generator.h"
+#include "World/Generators/Noise.h"
 
 #include "Application.h"
 #include "Display.h"

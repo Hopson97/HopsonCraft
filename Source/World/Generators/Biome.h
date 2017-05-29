@@ -6,7 +6,7 @@
 #include "../Chunk/Nodes.h"
 #include "../../Util/Random.h"
 #include "../../Util/Loader.h"
-#include "../../Temp/Noise_Generator.h"
+#include "Noise.h"
 
 #include "Structures.h"
 

@@ -74,9 +74,6 @@ namespace State
         static sf::Clock c;
         m_quady.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 5;
         m_quady.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 5;
-        m_quady.position.y = m_world.getHeightAt({m_quady.position.x,
-                                                 0,
-                                                 m_quady.position.z}) + 1;
     }
 
     void Playing::fixedUpdate(Camera& camera, float dt)
@@ -120,54 +117,7 @@ namespace State
 
     void Playing::editBlockInput()
     {
-        constexpr static float delay = 0.15f;
-        static      sf::Clock timer;
 
-        Ray raycast (m_player.rotation.y + 90,
-                     m_player.rotation.x,
-                     m_player.position);
-
-        Vector3 lastPosition;
-
-        m_hitInfo.isHit = false;
-
-        for(;raycast.getLength() < 6 * BLOCK_SIZE; raycast.step(0.1))
-        {
-            if (raycast.getEndPoint().x < 0 ||
-                raycast.getEndPoint().z < 0 ||
-                raycast.getEndPoint().y < 1 ) return;
-
-            auto block = m_world.getBlock(raycast.getEndPoint());
-
-            if (!(block == Block::ID::Air ||
-                  block == Block::ID::Water))
-            {
-                m_hitInfo.isHit     = true;
-                m_hitInfo.location  = {(int)raycast.getEndPoint().x,
-                                       (int)raycast.getEndPoint().y,
-                                       (int)raycast.getEndPoint().z};
-
-
-
-                if (timer.getElapsedTime().asSeconds() > delay)
-                {
-                    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                    {
-                        timer.restart();
-                        m_world.setBlock(raycast.getEndPoint(), Block::ID::Air);
-                        break;
-                    }
-                    else if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
-                    {
-                        timer.restart();
-                        m_world.setBlock(lastPosition, Block::ID::Stone);
-                        break;
-                    }
-                }
-                break;
-            }
-            lastPosition = raycast.getEndPoint();
-        }
     }
 
 
@@ -178,7 +128,7 @@ namespace State
         return
         {
             centre,
-            150,// m_world.getHeightAt({centre, 60, centre}) + 3,
+            0,
             centre
         };
     }

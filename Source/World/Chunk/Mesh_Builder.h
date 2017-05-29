@@ -13,7 +13,7 @@
     This class is owned by every Chunk::Section, and is used to
     build the mesh that makes it up.
 */
-
+/*
 namespace Block
 {
     class Data_Holder;
@@ -25,5 +25,5 @@ namespace Chunk
 
     Meshes buildMesh(const Section& chunk);
 }
-
+*/
 #endif // CMESH_BUILDER_H_INCLUDED

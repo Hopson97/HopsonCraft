@@ -42,7 +42,7 @@ void Player::doCollisionTest(World& world, float dt)
     {
         if (!m_isOnGround && !m_isInLiquid)
         {
-            m_velocity.y -= gravity * dt;
+            //m_velocity.y -= gravity * dt;
         }
         else if (m_isInLiquid)
         {
@@ -52,19 +52,20 @@ void Player::doCollisionTest(World& world, float dt)
     }
 
     position.x += m_velocity.x * dt;
-    collisionTest(world, {m_velocity.x, 0, 0}, dt);
+    //collisionTest(world, {m_velocity.x, 0, 0}, dt);
 
     position.y += m_velocity.y * dt;
-    collisionTest(world, {0, m_velocity.y, 0}, dt);
+    //collisionTest(world, {0, m_velocity.y, 0}, dt);
 
     position.z += m_velocity.z * dt;
-    collisionTest(world, {0, 0, m_velocity.z}, dt);
+    //collisionTest(world, {0, 0, m_velocity.z}, dt);
 }
 
 void Player::collisionTest(World& world,
                            const Vector3& velocity,
                            float dt)
 {
+    /*
     const auto& dim = box.getDimensions();
 
     ///@TODO Allow player
@@ -108,5 +109,6 @@ void Player::collisionTest(World& world,
             }
         }
     }
+    */
 }
 

@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <string>
 
-#include "../Temp/Noise_Generator.h"
+#include "Generators/Noise.h"
 
 struct World_Settings
 {

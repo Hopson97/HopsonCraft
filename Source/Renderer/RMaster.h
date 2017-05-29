@@ -33,9 +33,9 @@ namespace Renderer
             RSFML       m_sfmlRenderer;
             RSimple     m_simpleRenderer;
 
-            RChunk      m_chunkRenderer;
-            RFlora      m_floraRenderer;
-            RLiquid     m_liquidRenderer;
+            //RChunk      m_chunkRenderer;
+            //RFlora      m_floraRenderer;
+            //RLiquid     m_liquidRenderer;
             RHit_Box    m_hitboxRenderer;
 
 

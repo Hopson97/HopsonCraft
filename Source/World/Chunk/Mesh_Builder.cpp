@@ -5,6 +5,7 @@
 
 #include <SFML/System.hpp>
 
+/*
 #include "Nodes.h"
 #include "Section.h"
 #include "Full_Chunk.h"
@@ -96,12 +97,11 @@ namespace
     };
 
 
-    /*
-        Looks at a layer of chunk
-        Returns true if the layer itself, or an adjacent one, has a non-opaque block
-        I do this as it saves ALOT of time when iterating through underground chunks, which typically get skipped
-        thanks to this function (reduction, on my laptop, from >5ms to <0.5ms average chunk mesh gen time)
-    */
+    //  Looks at a layer of chunk
+    //  Returns true if the layer itself, or an adjacent one, has a non-opaque block
+    //  I do this as it saves ALOT of time when iterating through underground chunks, which typically get skipped
+    //  thanks to this function (reduction, on my laptop, from >5ms to <0.5ms average chunk mesh gen time)
+    //
     bool shouldCreateLayer(int yValue, const Chunk::Section& chunk)
     {
         auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)
@@ -340,4 +340,4 @@ namespace Chunk
 
         return chunkMeshes;
     }
-}
+}*/
