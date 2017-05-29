@@ -62,9 +62,6 @@ namespace State
             m_pActiveMenu = &m_playMenu;
         }));
 
-        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Join (Unused)", [&]()
-        { }));
-
         m_frontMenu.addComponent(std::make_unique<GUI::Button>("Settings", [&]()
         {
             m_application->pushState(std::make_unique<State::Settings_Menu>(*m_application, settings));
@@ -83,21 +80,6 @@ namespace State
         m_playMenu.addBackgroud(*m_pMenuBackground);
         m_playMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
-        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<std::string>>("Terrain Type",
-        std::vector<std::pair<std::string, std::string>>
-        {
-            { "Classic", "Classic" },
-            { "Islands", "Islands" },
-        },
-        settings.generator));
-
-        m_playMenu.addComponent(std::make_unique<GUI::Toggle_Option_Button<bool>>("Super-flat Mode",
-        std::vector<std::pair<std::string, bool>>
-        {
-            { "No",     false },
-            { "Yes",    true  },
-        },
-        settings.isSuperFlat));
 
         m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
         {

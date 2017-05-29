@@ -6,18 +6,19 @@
 
 namespace Display
 {
-    std::unique_ptr<sf::RenderWindow> window;
+    sf::RenderWindow window;
 
-    void deactiveate()
+    namespace
     {
-        window->setActive(false);
-    }
+        void initOpenGL()
+        {
+            glewInit();
+            glewExperimental = GL_TRUE;
+            glViewport(0, 0, get().getSize().x, get().getSize().y);
 
-    void activate()
-    {
-        window->setActive(true);
+            glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        }
     }
-
 
     void init()
     {
@@ -29,61 +30,42 @@ namespace Display
         settings.minorVersion       = 3;
 
 
-        window = std::make_unique<sf::RenderWindow>(sf::VideoMode::getDesktopMode(),
-                                                    "HopsonCraft - 'V4.0'",
-                                                    sf::Style::Fullscreen,
-                                                    settings);
-        glewInit();
-        glewExperimental = GL_TRUE;
-        glViewport(0, 0, get().getSize().x, get().getSize().y);
-
-        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        //window->setFramerateLimit(144);
+        window.create(sf::VideoMode::getDesktopMode(),
+                     "HopsonCraft - 'V4'",
+                     sf::Style::Fullscreen,
+                     settings);
+        initOpenGL();
     }
 
     void close()
     {
-        window->close();
+        window.close();
     }
 
     void clear()
     {
         glClearColor(0.1, 0.5, 1.0, 1.0);
-
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     }
 
     void update()
     {
-        window->display();
-    }
-
-    void checkForClose()
-    {
-        sf::Event e;
-        while (window->pollEvent(e))
-        {
-            if (e.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            {
-                close();
-            }
-        }
+        window.display();
     }
 
     bool isOpen()
     {
-        return window->isOpen();
+        return window.isOpen();
     }
 
     sf::RenderWindow& get()
     {
-        return *window;
+        return window;
     }
 
     void sfDraw(const sf::Drawable& drawable)
     {
-        window->draw(drawable);
+        window.draw(drawable);
     }
 
 }

@@ -25,14 +25,14 @@ class Application
 
         void resetSong();
 
-        #ifdef MUSIC_PLAYER_ACTIVE
         Music_Player musicPlayer;
-        #endif // MUSIC_PLAYER_ACTIVE
 
     private:
+        void handleEvents();
         void update(float elapsed);
+        void render();
 
-        void handleEvents(const sf::Event& e);
+
 
         std::vector<std::unique_ptr<State::Game_State>> m_states;
         Renderer::Master m_renderer;

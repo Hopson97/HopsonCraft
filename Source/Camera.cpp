@@ -21,19 +21,17 @@ float Camera::getFOV() const
     return m_fov;
 }
 
-
 void Camera::unhookEntity()
 {
-    m_P_entity = nullptr;
+    m_pEntity = nullptr;
 }
-
 
 void Camera::update()
 {
-    if(m_P_entity)
+    if(m_pEntity)
     {
-        position = m_P_entity->position;
-        rotation = m_P_entity->rotation;
+        position = m_pEntity->position;
+        rotation = m_pEntity->rotation;
     }
 
     m_viewMatrix = Maths::createViewMatrix(*this);
@@ -44,7 +42,7 @@ void Camera::update()
 
 void Camera::hookEntity(const Entity& entity)
 {
-    m_P_entity = &entity;
+    m_pEntity = &entity;
     update();
 }
 

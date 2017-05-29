@@ -66,18 +66,6 @@ namespace State
         m_videoSettings.addBackgroud(*m_pMenuBackground);
         m_videoSettings.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
 
-        m_videoSettings.addComponent(std::make_unique<GUI::Toggle_Option_Button<int32_t>>("Render Distance",
-        std::vector<std::pair<std::string, int32_t>>
-        {
-            { "Very Tiny, 5",   10 },
-            { "Tiny, 10",       20 },
-            { "Small, 16",      32 },
-            { "Medium, 22",     44 },
-            { "Large, 28",      56 },
-            { "Huge, 34",       68 },
-        },
-        m_pWorldSettings->renderDistance));
-
         m_videoSettings.addComponent(std::make_unique<GUI::Button>("Back", [&]()
         {
             m_pActiveMenu = &m_frontMenu;
