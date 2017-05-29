@@ -44,7 +44,7 @@ namespace State
             Player              m_player;
             Frame_Time_Checker  m_tickRate;
             Frame_Time_Checker  m_frameRate;
-            Cube                m_cube;
+            std::vector<Cube>   m_cubes;
 
             GUI::Panel m_pauseMenu;
 

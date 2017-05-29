@@ -25,7 +25,13 @@ namespace State
         initHUD();
         initPause();
 
-        m_cube.position     = getCenterPosition();
+        for (int x = 0; x < 5; x++)
+        for (int z = 0; z < 5; z++)
+        {
+            Cube cube;
+            cube.position = {x, -1, z};
+            m_cubes.push_back(cube);
+        }
         m_player.position   = getCenterPosition();
 
         //Display::get().setFramerateLimit(1000);
@@ -69,10 +75,6 @@ namespace State
     {
         m_player.doCollisionTest(m_world, dt);
         m_player.update(dt);
-
-        static sf::Clock c;
-        m_cube.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 5;
-        m_cube.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 5;
     }
 
     void Playing::fixedUpdate(Camera& camera, float dt)
@@ -92,7 +94,8 @@ namespace State
             m_pauseMenu.draw(renderer);
         }
 
-        renderer.draw(m_cube);
+        for (auto& cube : m_cubes)
+            renderer.draw(cube);
 
         m_hud.draw(renderer);
 
@@ -120,9 +123,9 @@ namespace State
 
         return
         {
-            centre,
             0,
-            centre
+            1,
+            0
         };
     }
 
