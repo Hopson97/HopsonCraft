@@ -12,6 +12,8 @@
 #include "Application.h"
 #include "Display.h"
 
+#include "Maths/GLM.h"
+
 #ifdef __WIN32
     #include <windows.h>
 

@@ -70,9 +70,9 @@ void Player::collisionTest(World& world,
 
     ///@TODO Allow player
     ///to enter 2 height hole
-    for (int32_t x = position.x - dim.x ; x < position.x + dim.x    ; x++)
-    for (int32_t y = position.y - dim.y ; y < position.y + 0.7      ; y++)
-    for (int32_t z = position.z - dim.z ; z < position.z + dim.z    ; z++)
+    for (int64_t x = position.x - dim.x ; x < position.x + dim.x    ; x++)
+    for (int64_t y = position.y - dim.y ; y < position.y + 0.7      ; y++)
+    for (int64_t z = position.z - dim.z ; z < position.z + dim.z    ; z++)
     {
         auto block = world.getBlock({x, y, z});
 

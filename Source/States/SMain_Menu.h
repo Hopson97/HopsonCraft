@@ -3,7 +3,7 @@
 
 #include "Game_State.h"
 
-#include "../GUI/GUI.h"
+#include "../GUI/Menu.h"
 
 #include "../World/World_Settings.h"
 
@@ -25,14 +25,12 @@ namespace State
         private:
             void initMenu();
 
-            GUI::Panel  m_frontMenu;
-            GUI::Panel  m_playMenu;
-            GUI::Panel* m_pActiveMenu = &m_frontMenu;
+            GUI::Menu  m_frontMenu;
+            GUI::Menu  m_playMenu;
+            GUI::Menu* m_pActiveMenu = &m_frontMenu;
 
             int32_t m_worldSize = 0;
             int32_t m_noiseData = 0;
-
-            const sf::Texture* m_pMenuBackground;
 
             World_Settings settings;
     };
