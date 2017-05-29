@@ -31,8 +31,6 @@ namespace Block
 
         m_blocks[(int)ID::Water       ] = std::make_unique<BWater> ();
 
-        m_blocks[(int)ID::Snow        ] = std::make_unique<Default> ("Snow");
-
         m_blocks[(int)ID::Rose        ] = std::make_unique<BPlant> ("Rose");
         m_blocks[(int)ID::Tall_Grass  ] = std::make_unique<BPlant> ("Tall_Grass");
     }

@@ -18,6 +18,8 @@ struct AABB
         Vector3 getVN(const Vector3& normal) const;
         Vector3 getVP(const Vector3& normal) const;
 
+        const Vector3& getDimensions() const { return m_dimensions; }
+
     private:
         Vector3 m_min;
         Vector3 m_max;

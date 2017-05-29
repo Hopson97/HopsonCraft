@@ -12,7 +12,6 @@ struct World_Settings
     std::string generator;
 
     int         renderDistance  = 44;
-
     float       seed;
     bool        isSuperFlat             = false;
 };

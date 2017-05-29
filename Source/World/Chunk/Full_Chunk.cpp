@@ -34,6 +34,13 @@ namespace Chunk
 
     void Full_Chunk::tick()
     {
+            /**
+                @TODO Use this x and z position to  update top block of
+                column at location according to weather conditions
+                (of which is not implemented as of 23/05/2017)
+            */
+
+/*
         if (Random::intInRange(1, 16) == 1)
         {
             auto x = (uint8_t)Random::intInRange(0, CHUNK_SIZE - 1);
@@ -45,13 +52,8 @@ namespace Chunk
             auto worldBlockPosition =
                 Maths::Convert::chunkBlockToWorldBlockPosition({x, height, z}, getPosition());
 
-            /**
-                @TODO Use this x and z position to  update top block of
-                column at location according to weather conditions
-                (of which is not implemented as of 23/05/2017)
-            */
         }
-
+*/
         for (auto& chunk : m_chunkSections)
         {
             chunk.tick(*m_pWorld);
@@ -192,6 +194,8 @@ namespace Chunk
                     else
                     {
                         chunk.bufferMesh();
+                        renderer.draw(chunk);
+                        facesDrawn += chunk.getMeshes().faceCount;
                     }
                 }
             }
@@ -257,15 +261,6 @@ namespace Chunk
 
 
 }
-
-
-
-
-
-
-
-
-
 
 
 

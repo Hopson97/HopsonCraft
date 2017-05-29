@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 
+#include <SFML/Network.hpp>
+
 #include "../World_Constants.h"
 #include "../World_File.h"
 #include "Map.h"
@@ -45,7 +47,7 @@ namespace Chunk
             }
         }
 
-        buildMesh(*this, m_meshes);
+        m_meshes = buildMesh(*this);
         m_states.made = true;
 
         m_states.buffered = false;

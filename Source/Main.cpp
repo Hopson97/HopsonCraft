@@ -12,11 +12,6 @@
 #include "Application.h"
 #include "Display.h"
 
-#include  "World/Chunk/Section.h"
-
-
-//#define TEST_NOISE
-
 #ifdef __WIN32
     #include <windows.h>
 
@@ -96,17 +91,6 @@ namespace
     }
 
 
-    void logRun( const std::string& start,
-                 const std::string& end,
-                 const std::string& additionalInfo = "")
-    {
-        std::ofstream timeLogOutFile(start + ".txt");
-
-        timeLogOutFile  << "Start:  " << start  << "\n"
-                        << "End:    " << end    << "\n"
-                        << "Additional info: " << additionalInfo << "\n";
-    }
-
     void runGame()
     {
         initilize();
@@ -115,10 +99,6 @@ namespace
         Application app;
         app.runMainGameLoop();
     }
-
-    std::time_t startTime;
-    std::time_t endTime;
-
 }
 
 /*
@@ -128,25 +108,12 @@ namespace
 */
 int main() try
 {
-    std::cout << sizeof(AABB) << "\n";
-    std::time(&startTime);
     runGame();
-    std::time(&endTime);
-/*
-    logRun( std::ctime(&startTime),
-            std::ctime(&endTime));
-*/
     return 0;
 }
 catch(std::exception& e)
 {
-    std::time(&endTime);
     errorMessage(std::string(e.what()));
-/*
-    logRun( std::ctime(&startTime),
-            std::ctime(&endTime),
-            std::string(e.what()));
-*/
 }
 
 

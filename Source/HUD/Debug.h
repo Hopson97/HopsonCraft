@@ -9,6 +9,7 @@ namespace Renderer
     class Master;
 }
 
+///@TODO Right now this only works with floats. Needs to work with string, integer, etc
 class Debug_HUD
 {
     struct Section
