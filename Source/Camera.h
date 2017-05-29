@@ -1,7 +1,7 @@
 #ifndef CAMERA_H_INCLUDED
 #define CAMERA_H_INCLUDED
 
-#include "Entity.h"
+#include "Entity/Entity.h"
 #include "Maths/Frustum.h"
 
 class Camera : public Entity

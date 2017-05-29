@@ -1,7 +1,7 @@
 #ifndef PRAGMA_H_INCLUDE
 #define PRAGMA_H_INCLUDE
 
-#include "../Glm_Common.h"
+#include "GLM.h"
 #include "../Physics/AABB.h"
 
 #include <array>

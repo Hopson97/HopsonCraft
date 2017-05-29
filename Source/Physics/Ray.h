@@ -1,7 +1,7 @@
 #ifndef RAY_H_INCLUDED
 #define RAY_H_INCLUDED
 
-#include "../Glm_Common.h"
+#include "../Maths/GLM.h"
 
 class Ray
 {

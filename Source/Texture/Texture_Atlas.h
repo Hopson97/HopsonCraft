@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include "../Glm_Common.h"
+#include "../Maths/GLM.h"
 
 namespace Texture
 {

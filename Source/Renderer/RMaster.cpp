@@ -27,8 +27,6 @@ namespace Renderer
         //m_floraRenderer .update (camera);
         //m_liquidRenderer.update (camera);
 
-        m_hitboxRenderer.update (camera);
-
         glDisable(GL_DEPTH_TEST);
         m_sfmlRenderer.update ();
 
@@ -47,15 +45,8 @@ namespace Renderer
         m_sfmlRenderer.draw(drawable);
     }
 
-    void Master::draw(const Quad& quad)
+    void Master::draw(const Cube& cube)
     {
-        m_simpleRenderer.draw(quad);
+        m_simpleRenderer.draw(cube);
     }
-
-    void Master::draw(const Vector3& location)
-    {
-        m_hitboxRenderer.draw(location);
-    }
-
-
 }

@@ -1,8 +1,6 @@
 #ifndef GENERAL_MATHS_H_INCLUDED
 #define GENERAL_MATHS_H_INCLUDED
 
-#include "../Glm_Common.h"
-
 namespace Maths
 {
     template<typename T, typename R>

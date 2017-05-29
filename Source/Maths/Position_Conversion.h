@@ -1,7 +1,6 @@
 #ifndef POSITION_CONVERSION_H_INCLUDED
 #define POSITION_CONVERSION_H_INCLUDED
 
-#include "../Glm_Common.h"
 /*
 #include "../World/Chunk/Position.h"
 #include "../World/Block/Block_Position.h"

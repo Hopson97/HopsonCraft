@@ -25,7 +25,7 @@ namespace State
         initHUD();
         initPause();
 
-        m_quady.position    = getCenterPosition();
+        m_cube.position     = getCenterPosition();
         m_player.position   = getCenterPosition();
 
         //Display::get().setFramerateLimit(1000);
@@ -69,11 +69,10 @@ namespace State
     {
         m_player.doCollisionTest(m_world, dt);
         m_player.update(dt);
-        m_world.checkPlayerBounds(m_player);
 
         static sf::Clock c;
-        m_quady.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 5;
-        m_quady.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 5;
+        m_cube.position.x += sin(c.getElapsedTime().asSeconds() / 5) * dt * 5;
+        m_cube.position.z += cos(c.getElapsedTime().asSeconds() / 5) * dt * 5;
     }
 
     void Playing::fixedUpdate(Camera& camera, float dt)
@@ -82,7 +81,6 @@ namespace State
         {
             m_pauseMenu.update();
         }
-        m_world.updateChunks(m_player);
         m_tickRate.update();
     }
 
@@ -93,13 +91,8 @@ namespace State
         {
             m_pauseMenu.draw(renderer);
         }
-        m_world.drawWorld(renderer, m_application->getCamera());
-        renderer.draw(m_quady);
 
-        if (m_hitInfo.isHit)
-        {
-            renderer.draw(m_hitInfo.location);
-        }
+        renderer.draw(m_cube);
 
         m_hud.draw(renderer);
 

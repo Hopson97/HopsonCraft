@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <string>
 
-#include "../Glm_Common.h"
+#include "../Maths/GLM.h"
 
 namespace Shader
 {

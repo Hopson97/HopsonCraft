@@ -5,7 +5,7 @@
 #include "../World/World.h"
 #include "../HUD/HUD.h"
 #include "../Player/Player.h"
-#include "../Temp/Quad.h"
+#include "../Entity/Cube.h"
 
 #include "../GUI/GUI.h"
 #include "../Util/Time_Check.h"
@@ -18,12 +18,6 @@ namespace State
 {
     class Playing : public Game_State
     {
-        struct Hit_Info
-        {
-            bool    isHit = false;
-            Vector3 location;
-        } m_hitInfo;
-
         public:
             Playing(Application& application,
                     const World_Settings& settings);
@@ -50,7 +44,7 @@ namespace State
             Player              m_player;
             Frame_Time_Checker  m_tickRate;
             Frame_Time_Checker  m_frameRate;
-            Quad                m_quady;
+            Cube                m_cube;
 
             GUI::Panel m_pauseMenu;
 
