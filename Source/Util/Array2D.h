@@ -5,7 +5,7 @@
 #include <cstdlib>
 
 //A 2D array with constant width and height
-template<typename T, int Size>
+template<typename T, uint32_t Size>
 class Array2D
 {
     public:
@@ -14,12 +14,12 @@ class Array2D
             reset();
         }
 
-        T& at(int xPos, int yPos)
+        T& at(uint32_t xPos, uint32_t yPos)
         {
             return m_array[xPos + yPos * Size];
         }
 
-        const T& at(int xPos, int yPos) const
+        const T& at(uint32_t xPos, uint32_t yPos) const
         {
             return m_array[xPos + yPos * Size];
         }

@@ -9,6 +9,10 @@ namespace Block
     {
         public:
             BWater();
+            void trigger(World& world, const Position& position) const;
+
+        private:
+            bool tryMove(World& world, const Position& position, const Position& vect) const;
     };
 }
 

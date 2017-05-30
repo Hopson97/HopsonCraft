@@ -1,7 +1,6 @@
 #ifndef STRUCTURES_BUILDER_H_INCLUDED
 #define STRUCTURES_BUILDER_H_INCLUDED
 
-#include <vector>
 #include "../Chunk/Nodes.h"
 
 class IBlock_Accessible;
@@ -12,7 +11,7 @@ namespace Structure
     {
         struct Defer_Block
         {
-            Defer_Block(int64_t x, int64_t y, int64_t z, CBlock b)
+            Defer_Block(int x, int y, int z, CBlock b)
             :   pos     (x, y, z)
             ,   block   (b)
             { }
@@ -29,7 +28,7 @@ namespace Structure
                         CBlock fill);
 
             void makeColumn(const Block::Position& base,
-                            int64_t height,
+                            int height,
                             CBlock block);
 
             void build(IBlock_Accessible& access);

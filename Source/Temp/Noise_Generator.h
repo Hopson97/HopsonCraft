@@ -9,22 +9,18 @@ namespace Noise
     struct Data
     {
         Data() = default;
-        Data(uint64_t numOctaves,
-             uint64_t ampMult,
-             double rough,
-             double smooth,
-             uint64_t heightMod = 0)
+        Data(int numOctaves, int ampMult, double rough, double smooth, int heightMod = 0)
         :   octaves             (numOctaves)
         ,   amplitudeMultiplier (ampMult)
         ,   roughness           (rough)
         ,   smoother            (smooth)
         ,   heightMod           (heightMod)
         {}
-        uint64_t    octaves             = 8;
-        uint64_t    amplitudeMultiplier = 240;
-        double      roughness        = 0.48;
-        double    smoother         = 190;
-        uint64_t    heightMod           = 0;
+        int octaves = 8;
+        int amplitudeMultiplier = 240;
+        double roughness = 0.48;
+        double smoother = 190;
+        int heightMod = 0;
 
         void print() const
         {
@@ -36,6 +32,9 @@ namespace Noise
         }
     };
 
+    uint64_t getSeed    ();
+    void setSeed        (uint64_t newSeed);
+
     class Generator
     {
         public:
@@ -43,14 +42,15 @@ namespace Noise
 
             void setNoiseFunction(const Noise::Data& data);
 
-            uint64_t getSeed    ();
-            void setSeed        (uint64_t newSeed);
+            uint64_t getSeed     ();
+            void setSeed    (uint64_t newSeed);
 
         private:
-            double findNoise1   (int n)                         const;
-            double findNoise2   (double x, double z)            const;
-            double lerp         (double a, double b, double z)  const;
-            double noise        (double x, double z)            const;
+            double findNoise1(int n) const;
+            double findNoise2(double x, double z) const;
+            double lerp(double a, double b, double z) const;
+            double noise(double x, double z) const;
+
 
             Noise::Data m_noiseFunction;
             uint64_t m_seed;

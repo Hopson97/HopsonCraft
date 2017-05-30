@@ -4,10 +4,15 @@
 #include "../Resource_Managers/Resource_Holder.h"
 
 #include "Game_State.h"
-#include "../GUI/Menu.h"
+#include "../GUI/GUI.h"
 
 class World_Settings;
 class Application;
+
+namespace sf
+{
+    class Texture;
+}
 
 namespace State
 {
@@ -29,9 +34,11 @@ namespace State
 
             World_Settings* m_pWorldSettings;
 
-            GUI::Menu m_frontMenu;
-            GUI::Menu m_videoSettings;
-            GUI::Menu* m_pActiveMenu   = &m_frontMenu;
+            GUI::Panel m_frontMenu;
+            GUI::Panel m_videoSettings;
+            GUI::Panel* m_pActiveMenu   = &m_frontMenu;
+
+            const sf::Texture* m_pMenuBackground;
     };
 }
 

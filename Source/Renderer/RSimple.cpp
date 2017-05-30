@@ -1,6 +1,6 @@
 
 #include "RSimple.h"
-#include "../Entity/Cube.h"
+#include "../Temp/Quad.h"
 #include "../Maths/Matrix_Maths.h"
 #include "../Maths/Matrix_Maths.h"
 
@@ -37,9 +37,9 @@ namespace
     }
 
 
-    void RSimple::draw(const Cube& cube)
+    void RSimple::draw(const Quad& quad)
     {
-        m_cubes.push_back(&cube);
+        m_quads.push_back(&quad);
     }
 
     void RSimple::update(const Camera& camera)
@@ -50,18 +50,18 @@ namespace
 
         m_cubeModel.bind();
 
-        for (auto& cube : m_cubes)
+        for (auto& quad : m_quads)
         {
-            prepare(*cube);
+            prepare(*quad);
             glDrawElements(GL_TRIANGLES, m_cubeModel.getIndicesCount(), GL_UNSIGNED_INT, nullptr);
         }
 
-        m_cubes.clear();
+        m_quads.clear();
     }
 
-    void RSimple::prepare(const Cube& cube)
+    void RSimple::prepare(const Quad& quad)
     {
-        m_shader.setModelMatrix(Maths::createModelMatrix(cube));
+        m_shader.setModelMatrix(Maths::createModelMatrix(quad));
 
     }
 }

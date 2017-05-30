@@ -23,9 +23,11 @@ namespace Renderer
         glEnable(GL_DEPTH_TEST);
         m_simpleRenderer.update(camera);
 
-        //m_chunkRenderer .update (camera);
-        //m_floraRenderer .update (camera);
-        //m_liquidRenderer.update (camera);
+        m_chunkRenderer .update (camera);
+        m_floraRenderer .update (camera);
+        m_liquidRenderer.update (camera);
+
+        m_hitboxRenderer.update (camera);
 
         glDisable(GL_DEPTH_TEST);
         m_sfmlRenderer.update ();
@@ -35,9 +37,9 @@ namespace Renderer
 
     void Master::draw(const Chunk::Section& section)
     {
-        //m_chunkRenderer.draw    (section);
-        //m_floraRenderer.draw    (section);
-        //m_liquidRenderer.draw   (section);
+        m_chunkRenderer.draw    (section);
+        m_floraRenderer.draw    (section);
+        m_liquidRenderer.draw   (section);
     }
 
     void Master::draw(const sf::Drawable& drawable)
@@ -45,8 +47,15 @@ namespace Renderer
         m_sfmlRenderer.draw(drawable);
     }
 
-    void Master::draw(const Cube& cube)
+    void Master::draw(const Quad& quad)
     {
-        m_simpleRenderer.draw(cube);
+        m_simpleRenderer.draw(quad);
     }
+
+    void Master::draw(const Vector3& location)
+    {
+        m_hitboxRenderer.draw(location);
+    }
+
+
 }

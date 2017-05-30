@@ -1,6 +1,6 @@
 #include "Matrix_Maths.h"
 
-#include "../Entity/Entity.h"
+#include "../Entity.h"
 #include "../Display.h"
 
 #include "../Camera.h"

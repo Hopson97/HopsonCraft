@@ -13,9 +13,9 @@ namespace Structure
     {
         for (auto& block : m_deferBlocks)
         {
-            int64_t x = block.pos.x;
-            int64_t y = block.pos.y;
-            int64_t z = block.pos.z;
+            int x = block.pos.x;
+            int y = block.pos.y;
+            int z = block.pos.z;
             access.setBlock(x, y, z, block.block);
         }
     }
@@ -24,15 +24,15 @@ namespace Structure
                                    const Block::Position& finish,
                                    CBlock fill)
     {
-        for (int64_t x = start.x; x <= finish.x; x++)
-        for (int64_t z = start.z; z <= finish.z; z++)
+        for (int x = start.x; x <= finish.x; x++)
+        for (int z = start.z; z <= finish.z; z++)
         {
-            int64_t y = start.y;
+            int y = start.y;
             m_deferBlocks.emplace_back(x, y, z, fill);
         }
     }
 
-    void Builder::makeColumn(const Block::Position& base, int64_t height, CBlock block)
+    void Builder::makeColumn(const Block::Position& base, int height, CBlock block)
     {
         for (int32_t y = base.y + 1; y < base.y + height; y++)
         {

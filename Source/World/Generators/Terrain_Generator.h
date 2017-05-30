@@ -8,7 +8,7 @@
 #include "../../Util/Random.h"
 #include "../../Util/Array2D.h"
 
-#include "Noise.h"
+#include "../../Temp/Noise_Generator.h"
 
 #include "../Block/Block_Position.h"
 #include "../Block/Block_ID.h"

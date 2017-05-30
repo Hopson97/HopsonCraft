@@ -7,24 +7,24 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 file(GLOB src_files
     Source/*.cpp
-    Source/Entity/*.cpp
 	Source/GUI/*.cpp
     Source/HUD/*.cpp
 	Source/Input/*.cpp
 	Source/Maths/*.cpp
-	Source/Physics/*.cpp
 	Source/Player/*.cpp
 	Source/Renderer/*.cpp
-    Source/Resource_Managers/*.cpp
+	Source/Physics/*.cpp
 	Source/Shaders/*.cpp
 	Source/States/*cpp
+	Source/Temp/*.cpp
 	Source/Texture/*.cpp
-    Source/Util/*.cpp
 	Source/World/*.cpp
 	Source/World/Block/Block_Types/*.cpp
+	Source/Resource_Managers/*.cpp
 	Source/World/Block/*.cpp
 	Source/World/Chunk/*.cpp
 	Source/World/Generators/*.cpp
+	Source/Util/*.cpp
 	)
 
 find_package(OpenGL REQUIRED)

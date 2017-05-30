@@ -4,7 +4,7 @@
 #include <array>
 
 #include "../Physics/AABB.h"
-#include "../Entity/Entity.h"
+#include "../Entity.h"
 
 #include "../Input/Function_Toggle_Key.h"
 

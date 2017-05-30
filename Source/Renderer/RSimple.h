@@ -7,7 +7,7 @@
 #include "../Shaders/Simple_Shader.h"
 #include "../Model.h"
 
-class Cube;
+class Quad;
 struct Camera;
 
 namespace Renderer
@@ -17,14 +17,14 @@ namespace Renderer
         public:
             RSimple();
 
-            void draw (const Cube& cube);
+            void draw (const Quad& quad);
             void update(const Camera& camera);
 
         private:
-            void prepare(const Cube& cube);
+            void prepare(const Quad& quad);
 
         private:
-            std::vector<const Cube*> m_cubes;
+            std::vector<const Quad*> m_quads;
 
             Shader::Simple_Shader m_shader;
 

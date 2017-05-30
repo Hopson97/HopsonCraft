@@ -1,6 +1,10 @@
 #ifndef GENERAL_MATHS_H_INCLUDED
 #define GENERAL_MATHS_H_INCLUDED
 
+#include "../Glm_Common.h"
+#include "../World/Chunk/Position.h"
+#include "../World/Block/Block_Position.h"
+
 namespace Maths
 {
     template<typename T, typename R>

@@ -1,7 +1,7 @@
 #include "Terrain_Generator.h"
 
 #include <iostream>
-/*
+
 #include "../../Util/Hasher.h"
 #include "../../Maths/General_Maths.h"
 
@@ -52,6 +52,9 @@ void Terrain_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& 
     m_genMutex.unlock();
 }
 
+/*
+    This causes a crash for some odd reason
+*/
 void Terrain_Generator::makeSuperFlatWorld()
 {
     for (int y = 0; y < 13; ++y)
@@ -189,12 +192,12 @@ void Terrain_Generator::setRandomSeed()
                                            m_pChunk->getPosition().y));
 }
 
-
-//    Creates an area of the height map for the chunk currently being generated
-//    between the specified regions.
-//   It will create a height at the 4 corners of the area, and then
-//    bilinear-interpolate between them
-//
+/*
+    Creates an area of the height map for the chunk currently being generated
+    between the specified regions.
+    It will create a height at the 4 corners of the area, and then
+    bilinear-interpolate between them
+*/
 void Terrain_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
 {
     auto getHeightAt = [&](int indexA, int indexB)
@@ -254,6 +257,4 @@ void Terrain_Generator::makeBiomeMap()
         m_biomeMap.at(x, z) = height;
     }
 }
-
-*/
 

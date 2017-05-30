@@ -1,7 +1,7 @@
 #ifndef MATRIX_H_INCLUDED
 #define MATRIX_H_INCLUDED
 
-#include "GLM.h"
+#include "../Glm_Common.h"
 
 struct Entity;
 class Camera;

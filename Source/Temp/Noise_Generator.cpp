@@ -1,18 +1,30 @@
-#include "Noise.h"
+#include "Noise_Generator.h"
 
 #include <cmath>
 #include <iostream>
 
-#include "../World_Constants.h"
+#include "../World/World_Constants.h"
 
 namespace Noise
 {
+    uint64_t seed;
+
+    uint64_t getSeed()
+    {
+        return seed;
+    }
+
+    void setSeed(uint64_t newSeed)
+    {
+        seed = newSeed;
+    }
+
     double Generator::findNoise1(int n) const
     {
         n += m_seed;
         n = (n << 13) ^ n;
-        auto nn = (n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff; //what even?
-        return 1.0 - ((double)nn / 1073741824.0); //what even? (part 2)
+        auto nn = (n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff; //wot
+        return 1.0 - ((double)nn / 1073741824.0); //wot (part 2)
     }
 
     double Generator::findNoise2(double x, double z) const
@@ -60,7 +72,7 @@ namespace Noise
 
         auto totalValue = 0.0;
 
-        for (uint64_t a = 0; a < m_noiseFunction.octaves - 1; a++)      //This loops trough the octaves.
+        for (auto a = 0; a < m_noiseFunction.octaves - 1; a++)      //This loops trough the octaves.
         {
             auto frequency = pow(2.0, a);           //This increases the frequency with every loop of the octave.
             auto amplitude = pow(m_noiseFunction.roughness, a);  //This decreases the amplitude with every loop of the octave.

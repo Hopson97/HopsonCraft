@@ -42,7 +42,7 @@ void Player::doCollisionTest(World& world, float dt)
     {
         if (!m_isOnGround && !m_isInLiquid)
         {
-            //m_velocity.y -= gravity * dt;
+            m_velocity.y -= gravity * dt;
         }
         else if (m_isInLiquid)
         {
@@ -52,27 +52,26 @@ void Player::doCollisionTest(World& world, float dt)
     }
 
     position.x += m_velocity.x * dt;
-    //collisionTest(world, {m_velocity.x, 0, 0}, dt);
+    collisionTest(world, {m_velocity.x, 0, 0}, dt);
 
     position.y += m_velocity.y * dt;
-    //collisionTest(world, {0, m_velocity.y, 0}, dt);
+    collisionTest(world, {0, m_velocity.y, 0}, dt);
 
     position.z += m_velocity.z * dt;
-    //collisionTest(world, {0, 0, m_velocity.z}, dt);
+    collisionTest(world, {0, 0, m_velocity.z}, dt);
 }
 
 void Player::collisionTest(World& world,
                            const Vector3& velocity,
                            float dt)
 {
-    /*
     const auto& dim = box.getDimensions();
 
     ///@TODO Allow player
     ///to enter 2 height hole
-    for (int64_t x = position.x - dim.x ; x < position.x + dim.x    ; x++)
-    for (int64_t y = position.y - dim.y ; y < position.y + 0.7      ; y++)
-    for (int64_t z = position.z - dim.z ; z < position.z + dim.z    ; z++)
+    for (int32_t x = position.x - dim.x ; x < position.x + dim.x    ; x++)
+    for (int32_t y = position.y - dim.y ; y < position.y + 0.7      ; y++)
+    for (int32_t z = position.z - dim.z ; z < position.z + dim.z    ; z++)
     {
         auto block = world.getBlock({x, y, z});
 
@@ -109,6 +108,5 @@ void Player::collisionTest(World& world,
             }
         }
     }
-    */
 }
 

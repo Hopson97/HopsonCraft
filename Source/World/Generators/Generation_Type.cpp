@@ -53,6 +53,9 @@ const Biome& World_Generation_Type::getBiome(int biomeKey)
     ///@TODO Return an "error biome" rather than crash the game
 }
 
+
+
+
 bool World_Generation_Type::parseLine(const std::string& line, std::ifstream& inFile)
 {
     if (areStringsSame(line, "Noise"))
@@ -72,11 +75,11 @@ bool World_Generation_Type::parseLine(const std::string& line, std::ifstream& in
 
 void World_Generation_Type::loadNoise(std::ifstream& inFile)
 {
-    uint64_t    octaves,
-                amplitude,
-                heightOffset;
+    int octaves,
+        amplitude,
+        heightOffset;
 
-    double  roughness,
+    float   roughness,
             smoothness;
 
 

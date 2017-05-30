@@ -7,12 +7,10 @@
 #include "Util/Config.h"
 #include "Util/Singleton.h"
 
-#include "World/Generators/Noise.h"
+#include "Temp/Noise_Generator.h"
 
 #include "Application.h"
 #include "Display.h"
-
-#include "Maths/GLM.h"
 
 #ifdef __WIN32
     #include <windows.h>
