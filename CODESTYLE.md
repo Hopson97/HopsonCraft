@@ -2,8 +2,8 @@
 
 ## Naming conventions
 
-* File names: Pascal_Case
-* Folder names: Pascal_Case
+* File names: PascalCase
+* Folder names: PascalCase
 
 * Class names: Pascal_Case
 * Struct names: Pascal_Case
@@ -13,7 +13,7 @@
 * Functions: camelCase
 * Local variables: camelCase
 
-* Namespaces: Pascal_Case
+* Namespaces: PascalCase
 
 * Constants: SCREAMING_SNAKE_CASE
 
@@ -85,8 +85,8 @@ namespace Bar
 
 #include "../Physics/AABB.h"
 
-#include "Chunk/CSection.h"
-#include "Chunk/CMap.h"
+#include "Chunk/Section.h"
+#include "Chunk/Map.h"
 #include "World_Settings.h"
 
 namespace Renderer {  class Master; }
