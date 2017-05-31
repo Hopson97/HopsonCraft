@@ -6,7 +6,7 @@
 #include "Base.h"
 #include "../GUI/Menu.h"
 
-class World_Settings;
+class WorldSettings;
 class Application;
 
 namespace State
@@ -14,7 +14,7 @@ namespace State
     class SettingsMenu : public Base
     {
         public:
-            SettingsMenu(Application& application, World_Settings& settings);
+            SettingsMenu(Application& application, WorldSettings& settings);
 
             void input      (const sf::Event& e)        override;
             void input      (Camera& camera)            override;
@@ -27,7 +27,7 @@ namespace State
         private:
             void initMenu();
 
-            World_Settings* m_pWorldSettings;
+            WorldSettings* m_pWorldSettings;
 
             GUI::Menu m_frontMenu;
             GUI::Menu m_videoSettings;

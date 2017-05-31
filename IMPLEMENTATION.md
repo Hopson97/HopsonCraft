@@ -7,7 +7,7 @@ This file just has  some information about some implemention details :)
 
 Chunks are made out of a [volume of blocks 16x16x16 in size]
 
-They are stored in a class called "[Full_Chunk](https://github.com/Hopson97/HopsonCraft/blob/master/Source/World/Chunk/CFull_Chunk.h)", which is basically a handler for a vertical-column of these "chunk sections". There can be potentially an infinite number of sections in a full chunk.
+They are stored in a class called "[FullChunk](https://github.com/Hopson97/HopsonCraft/blob/master/Source/World/Chunk/CFullChunk.h)", which is basically a handler for a vertical-column of these "chunk sections". There can be potentially an infinite number of sections in a full chunk.
 
 The 16x16x16 chunks are then made into a mesh, and drawn.
 
@@ -21,7 +21,7 @@ For example, the solid chunk renderer enables face-culling and disables blending
 #### Chunk meshes
 The chunks have their own individual meshes and VAO, represented using the [Model](https://github.com/Hopson97/HopsonCraft/blob/master/Source/Model.cpp) class. As each chunk is represented using a VAO, it means they can drawn with a single draw call.
 
-The chunk meshes are built in "[Mesh_Builder](https://github.com/Hopson97/HopsonCraft/blob/master/Source/World/Chunk/CMesh_Builder.cpp)"
+The chunk meshes are built in "[MeshBuilder](https://github.com/Hopson97/HopsonCraft/blob/master/Source/World/Chunk/CMeshBuilder.cpp)"
 
 1. Cycle through the blocks of a chunk in a nested for loop
 2. For each block:

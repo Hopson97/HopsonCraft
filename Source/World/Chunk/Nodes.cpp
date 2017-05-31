@@ -1,6 +1,6 @@
 #include "Nodes.h"
 
-#include "../Block/Block_Database.h"
+#include "../Block/BlockDatabase.h"
 
 //Blocks
 
@@ -24,7 +24,7 @@ CBlock::CBlock(Block::ID newID)
 ,   metaData    {0}
 { }
 
-const Block::Data_Holder& CBlock::getData() const
+const Block::DataHolder& CBlock::getData() const
 {
     return getType().getData().get();
 }

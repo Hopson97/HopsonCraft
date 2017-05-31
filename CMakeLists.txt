@@ -21,7 +21,7 @@ file(GLOB src_files
 	Source/Texture/*.cpp
     Source/Util/*.cpp
 	Source/World/*.cpp
-	Source/World/Block/Block_Types/*.cpp
+	Source/World/Block/BlockTypes/*.cpp
 	Source/World/Block/*.cpp
 	Source/World/Chunk/*.cpp
 	Source/World/Generators/*.cpp

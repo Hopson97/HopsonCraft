@@ -1,4 +1,4 @@
-#include "Mesh_Builder.h"
+#include "MeshBuilder.h"
 
 #include <GL/glew.h>
 #include <iostream>
@@ -8,8 +8,8 @@
 
 #include "Nodes.h"
 #include "Section.h"
-#include "Full_Chunk.h"
-#include "../Block/Block_Database.h"
+#include "FullChunk.h"
+#include "../Block/BlockDatabase.h"
 
 #include "../../Util/Log.h"
 
@@ -128,18 +128,18 @@ namespace
     }
 
     //Looks at the block data, and sees what type of mesh it belongs to, and then return it
-    Chunk::Mesh& getActiveMesh(const Block::Data_Holder& blockData,
+    Chunk::Mesh& getActiveMesh(const Block::DataHolder& blockData,
                                Chunk::Meshes& meshes)
     {
         switch(blockData.meshType)
         {
-            case Block::Mesh_Type::Solid:
+            case Block::MeshType::Solid:
                 return meshes.solidMesh;
 
-            case Block::Mesh_Type::Flora:
+            case Block::MeshType::Flora:
                 return meshes.floraMesh;
 
-            case Block::Mesh_Type::Liquid:
+            case Block::MeshType::Liquid:
                 return meshes.liquidMesh;
         }
 
@@ -174,10 +174,10 @@ namespace
 
     bool shouldMakeFaceAdjacentTo(Block::Position& position,
                                   const Chunk::Section& section,
-                                  const Block::Data_Holder& blockData)
+                                  const Block::DataHolder& blockData)
     {
         auto  block = section.getBlock(position);
-        const Block::Data_Holder& data = block.getData();
+        const Block::DataHolder& data = block.getData();
 
         if (block == Block::ID::Air)
         {
@@ -201,7 +201,7 @@ namespace
                             Block::Position& adjacentBlockPosition,
                             GLfloat cardinalLight,
                             ChunkMesh& chunkMesh,
-                            const Block::Data_Holder& blockData)
+                            const Block::DataHolder& blockData)
     {
         const Chunk::Section& chunk = chunkMesh.chunk;
 
@@ -263,7 +263,7 @@ namespace Chunk
         chunkMeshes.liquidMesh.reset();
 
 
-        const Block::Data_Holder* blockData = nullptr;
+        const Block::DataHolder* blockData = nullptr;
 
         Direction_Vectors vectors;
 
@@ -288,7 +288,7 @@ namespace Chunk
 
                 ChunkMesh chunkMesh(chunk, getActiveMesh(*blockData, chunkMeshes));
 
-                if (blockData->meshStyle == Block::Mesh_Style::XStyle)
+                if (blockData->meshStyle == Block::MeshStyle::XStyle)
                 {
                     addXMesh(blockData->bottomTextureCoords,
                              blockPosition,

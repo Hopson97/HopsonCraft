@@ -1,11 +1,11 @@
-#ifndef BLOCK_DATABASE_H_INCLUDED
-#define BLOCK_DATABASE_H_INCLUDED
+#ifndef BlockDatabase_H_INCLUDED
+#define BlockDatabase_H_INCLUDED
 
 #include <memory>
 #include <array>
 
-#include "Block_Types/Block_Type.h"
-#include "Block_ID.h"
+#include "Types/BlockType.h"
+#include "BlockID.h"
 
 #include "../../Texture/Texture_Atlas.h"
 
@@ -24,7 +24,7 @@ namespace Block
             const Texture::Atlas& getTextureAtlas() const;
 
         private:
-            std::array<std::unique_ptr<Type>, (int)ID::NUM_BLOCK_TYPES> m_blocks;
+            std::array<std::unique_ptr<Type>, (int)ID::NUM_BlockTypeS> m_blocks;
 
             Texture::Atlas m_textures;
     };
@@ -33,4 +33,4 @@ namespace Block
     const Type& get(ID blockID);
 }
 
-#endif // BLOCK_DATABASE_H_INCLUDED
+#endif // BlockDatabase_H_INCLUDED

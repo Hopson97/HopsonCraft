@@ -1,6 +1,6 @@
-#include "Time_Check.h"
+#include "TimeCheck.h"
 
-void Frame_Time_Checker::update()
+void FrameTimeChecker::update()
 {
     m_frameCount++;
 
@@ -18,12 +18,12 @@ void Frame_Time_Checker::update()
     }
 }
 
-const float& Frame_Time_Checker::getFrameTime()
+const float& FrameTimeChecker::getFrameTime()
 {
     return m_frameTime;
 }
 
-const float& Frame_Time_Checker::getFPS()
+const float& FrameTimeChecker::getFPS()
 {
     return m_fps;
 }

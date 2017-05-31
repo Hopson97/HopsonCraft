@@ -1,5 +1,5 @@
-#ifndef STRUCTURES_BUILDER_H_INCLUDED
-#define STRUCTURES_BUILDER_H_INCLUDED
+#ifndef StructuresBuilder_H_INCLUDED
+#define StructuresBuilder_H_INCLUDED
 
 #include <vector>
 #include "../Chunk/Nodes.h"
@@ -39,4 +39,4 @@ namespace Structure
     };
 }
 
-#endif // STRUCTURES_BUILDER_H_INCLUDED
+#endif // StructuresBuilder_H_INCLUDED

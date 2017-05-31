@@ -1,6 +1,6 @@
 #include "ChunkShader.h"
 
-#include "../World/World_Constants.h"
+#include "../World/WorldConstants.h"
 
 namespace Shader
 {

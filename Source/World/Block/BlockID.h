@@ -1,5 +1,5 @@
-#ifndef BLOCK_ID_H_INCLUDED
-#define BLOCK_ID_H_INCLUDED
+#ifndef BlockID_H_INCLUDED
+#define BlockID_H_INCLUDED
 
 #include <cstdint>
 
@@ -20,8 +20,8 @@ namespace Block
         Rose        = 8,
         Tall_Grass  = 9,
 
-        NUM_BLOCK_TYPES
+        NUM_BlockTypeS
     };
 }
 
-#endif // BLOCK_ID_H_INCLUDED
+#endif // BlockID_H_INCLUDED

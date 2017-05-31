@@ -1,4 +1,4 @@
-#include "Block_Type.h"
+#include "BlockType.h"
 
 namespace Block
 {

@@ -3,7 +3,7 @@
 #include "../Chunk/Nodes.h"
 #include "../IBlock_Accessible.h"
 
-#include "Structures_Builder.h"
+#include "StructuresBuilder.h"
 
 namespace Structure
 {

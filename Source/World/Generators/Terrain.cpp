@@ -1,16 +1,16 @@
-#include "Terrain_Generator.h"
+#include "Terrain.h"
 
 #include <iostream>
 /*
 #include "../../Util/Hasher.h"
 #include "../../Maths/General_Maths.h"
 
-#include "../World_Settings.h"
-#include "../Chunk/Full_Chunk.h"
+#include "../WorldSettings.h"
+#include "../Chunk/FullChunk.h"
 
 #include "Structures.h"
 
-Terrain_Generator::Terrain_Generator(const World_Settings& worldSettings)
+Terrain::Terrain(const WorldSettings& worldSettings)
 :   m_worldGenType      (worldSettings.generator)
 ,   m_pWorldSettings    (&worldSettings)
 {
@@ -20,7 +20,7 @@ Terrain_Generator::Terrain_Generator(const World_Settings& worldSettings)
     m_biomeNoise.setNoiseFunction   (m_worldGenType.getBiomeMapNoise());
 }
 
-void Terrain_Generator::reset()
+void Terrain::reset()
 {
     m_maxHeight = 0;
     m_heightMap.reset();
@@ -30,7 +30,7 @@ void Terrain_Generator::reset()
 }
 
 
-void Terrain_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& worldFile)
+void Terrain::generateBlocksFor(Chunk::FullChunk& chunk, World_File& worldFile)
 {
     //Only one chunk can generate a time
     m_genMutex.lock();
@@ -52,7 +52,7 @@ void Terrain_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& 
     m_genMutex.unlock();
 }
 
-void Terrain_Generator::makeSuperFlatWorld()
+void Terrain::makeSuperFlatWorld()
 {
     for (int y = 0; y < 13; ++y)
     for (int x = 0; x < CHUNK_SIZE; ++x)
@@ -76,7 +76,7 @@ void Terrain_Generator::makeSuperFlatWorld()
     }
 }
 
-void Terrain_Generator::makeRegularWorld()
+void Terrain::makeRegularWorld()
 {
     setRandomSeed   ();
     makeBiomeMap    ();
@@ -109,7 +109,7 @@ void Terrain_Generator::makeRegularWorld()
 }
 
 
-Block::ID Terrain_Generator::getBlock(const Block::Position& pos)
+Block::ID Terrain::getBlock(const Block::Position& pos)
 {
     auto blockID    = Block::ID::Air;
     int heightHere  = m_heightMap.at(pos.x, pos.z);
@@ -138,7 +138,7 @@ Block::ID Terrain_Generator::getBlock(const Block::Position& pos)
     return blockID;
 }
 
-void Terrain_Generator::setTopBlock(const Block::Position& pos, Block::ID& blockID)
+void Terrain::setTopBlock(const Block::Position& pos, Block::ID& blockID)
 {
 
     int y = pos.y;
@@ -182,7 +182,7 @@ void Terrain_Generator::setTopBlock(const Block::Position& pos, Block::ID& block
 }
 
 
-void Terrain_Generator::setRandomSeed()
+void Terrain::setRandomSeed()
 {
     m_randomGenerator.setSeed(Hasher::hash(static_cast<int>(m_pWorldSettings->seed),
                                            m_pChunk->getPosition().x,
@@ -195,7 +195,7 @@ void Terrain_Generator::setRandomSeed()
 //   It will create a height at the 4 corners of the area, and then
 //    bilinear-interpolate between them
 //
-void Terrain_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
+void Terrain::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
 {
     auto getHeightAt = [&](int indexA, int indexB)
     {
@@ -228,7 +228,7 @@ void Terrain_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax
     }
 }
 
-void Terrain_Generator::makeHeightMap()
+void Terrain::makeHeightMap()
 {
     static constexpr int HCS = CHUNK_SIZE / 2;
     static constexpr int CS  = CHUNK_SIZE;
@@ -242,7 +242,7 @@ void Terrain_Generator::makeHeightMap()
     makeHeightSection(4, 2, 12, 7);
 }
 
-void Terrain_Generator::makeBiomeMap()
+void Terrain::makeBiomeMap()
 {
     for (int32_t x = 0 ; x < CHUNK_SIZE + 1; ++x)
     for (int32_t z = 0 ; z < CHUNK_SIZE + 1; ++z)

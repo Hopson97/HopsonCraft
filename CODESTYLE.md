@@ -87,7 +87,7 @@ namespace Bar
 
 #include "Chunk/Section.h"
 #include "Chunk/Map.h"
-#include "World_Settings.h"
+#include "WorldSettings.h"
 
 namespace Renderer {  class Master; }
 class Player;

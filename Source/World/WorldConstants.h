@@ -1,5 +1,5 @@
-#ifndef WORLD_CONSTANTS_H_INCLUDED
-#define WORLD_CONSTANTS_H_INCLUDED
+#ifndef WorldConstants_H_INCLUDED
+#define WorldConstants_H_INCLUDED
 
 #include <cstdint>
 
@@ -17,4 +17,4 @@ namespace
 }
 
 
-#endif // WORLD_CONSTANTS_H_INCLUDED
+#endif // WorldConstants_H_INCLUDED

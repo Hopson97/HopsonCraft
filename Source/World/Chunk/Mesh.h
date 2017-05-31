@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "../Block/Block_Position.h"
+#include "../Block/BlockPosition.h"
 #include "../../Model.h"
 /*
 namespace Chunk

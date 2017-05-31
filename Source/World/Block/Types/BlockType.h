@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "../Block_Data.h"
-#include "../Block_Position.h"
+#include "../BlockData.h"
+#include "../BlockPosition.h"
 
 class World;
 class CBlock;

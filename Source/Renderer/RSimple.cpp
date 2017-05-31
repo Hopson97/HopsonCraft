@@ -4,11 +4,11 @@
 #include "../Maths/Matrix.h"
 #include "../Maths/Matrix.h"
 
-#include "../World/Block/Block_Database.h"
+#include "../World/Block/BlockDatabase.h"
 
 #include "../Camera.h"
 
-#include "../Model_Coords.h"
+#include "../ModelCoords.h"
 
 
 namespace Renderer

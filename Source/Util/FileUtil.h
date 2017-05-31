@@ -1,5 +1,5 @@
-#ifndef FILE_UTIL_H_INCLUDED
-#define FILE_UTIL_H_INCLUDED
+#ifndef FileUtil_H_INCLUDED
+#define FileUtil_H_INCLUDED
 
 #include <vector>
 #include <string>
@@ -10,4 +10,4 @@ std::vector<std::string> getFileNamesFromFolder     (const std::string& folderNa
 std::vector<std::string> getFolderNamesFromFolder   (const std::string& folderName);
 
 
-#endif // FILE_UTIL_H_INCLUDED
+#endif // FileUtil_H_INCLUDED

@@ -3,7 +3,7 @@
 #include <SFML/System/Clock.hpp>
 #include <iostream>
 
-#include "../World/Block/Block_Database.h"
+#include "../World/Block/BlockDatabase.h"
 #include "../Renderer/RMaster.h"
 #include "../Camera.h"
 #include "../Application.h"
@@ -18,7 +18,7 @@
 namespace State
 {
     Playing::Playing(Application& application,
-                     const World_Settings& settings)
+                     const WorldSettings& settings)
     :   Base  (application)
     ,   m_world     (settings, application.getCamera())
     ,   m_player    (application.getCamera())

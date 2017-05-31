@@ -1,12 +1,12 @@
-#ifndef GENERATION_TYPE_H_INCLUDED
-#define GENERATION_TYPE_H_INCLUDED
+#ifndef GenerationType_H_INCLUDED
+#define GenerationType_H_INCLUDED
 
 #include "Biome.h"
 
 #include "../../Util/Loader.h"
 
 ///@TODO Come up with a better name for this class
-class World_Generation_Type : public Loader
+class World_GenerationType : public Loader
 {
     enum class Compare
     {
@@ -37,7 +37,7 @@ class World_Generation_Type : public Loader
     };
 
     public:
-        World_Generation_Type(const std::string& folderName);
+        World_GenerationType(const std::string& folderName);
 
         const Noise::Data&  getBiomeMapNoise    ();
         const Biome&        getBiome            (int biomeKey);
@@ -55,4 +55,4 @@ class World_Generation_Type : public Loader
 };
 
 
-#endif // GENERATION_TYPE_H_INCLUDED
+#endif // GenerationType_H_INCLUDED

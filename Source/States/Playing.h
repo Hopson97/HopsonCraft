@@ -7,13 +7,13 @@
 #include "../Player/Player.h"
 #include "../Entity/Cube.h"
 
-#include "../Util/Time_Check.h"
+#include "../Util/TimeCheck.h"
 
 #include "../GUI/Panel.h"
 
 class Application;
 class Camera;
-class World_Settings;
+class WorldSettings;
 
 namespace State
 {
@@ -21,7 +21,7 @@ namespace State
     {
         public:
             Playing(Application& application,
-                    const World_Settings& settings);
+                    const WorldSettings& settings);
 
             void input      (const sf::Event& e)        override;
             void input      (Camera& camera)            override;
@@ -43,8 +43,8 @@ namespace State
             HUD                 m_hud;
             Debug_HUD           m_debugHud;
             Player              m_player;
-            Frame_Time_Checker  m_tickRate;
-            Frame_Time_Checker  m_frameRate;
+            FrameTimeChecker  m_tickRate;
+            FrameTimeChecker  m_frameRate;
             std::vector<Cube>   m_cubes;
 
             GUI::Panel m_pauseMenu;

@@ -1,7 +1,7 @@
 #ifndef BWATER_H_INCLUDED
 #define BWATER_H_INCLUDED
 
-#include "Block_Type.h"
+#include "BlockType.h"
 
 namespace Block
 {

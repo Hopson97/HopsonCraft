@@ -1,9 +1,9 @@
 #ifndef CBLOCK_H_INCLUDED
 #define CBLOCK_H_INCLUDED
 
-#include "../Block/Block_ID.h"
-#include "../Block/Block_Position.h"
-#include "../World_Constants.h"
+#include "../Block/BlockID.h"
+#include "../Block/BlockPosition.h"
+#include "../WorldConstants.h"
 
 /*
     These are basically things that up chunks.
@@ -14,7 +14,7 @@
 namespace Block
 {
     class Type;
-    class Data_Holder;
+    class DataHolder;
 }
 
 struct CBlock
@@ -24,7 +24,7 @@ struct CBlock
     CBlock(Block::ID    newID);
     CBlock(Block_t i, uint8_t meta);
 
-    const Block::Data_Holder& getData() const;
+    const Block::DataHolder& getData() const;
     const Block::Type&        getType() const;
 
     template<typename T>

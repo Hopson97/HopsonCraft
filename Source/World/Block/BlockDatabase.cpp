@@ -1,13 +1,13 @@
-#include "Block_Database.h"
+#include "BlockDatabase.h"
 
 #include <iostream>
 
 
-#include "Block_Types/BDefault.h"
-#include "Block_Types/BPlant.h"
-#include "Block_Types/BWater.h"
+#include "Types/BDefault.h"
+#include "Types/BPlant.h"
+#include "Types/BWater.h"
 
-#include "../../Util/File_Util.h"
+#include "../../Util/FileUtil.h"
 
 namespace Block
 {

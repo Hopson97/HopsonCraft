@@ -1,5 +1,5 @@
-#ifndef Terrain_Generator_H_INCLUDED
-#define Terrain_Generator_H_INCLUDED
+#ifndef Terrain_H_INCLUDED
+#define Terrain_H_INCLUDED
 
 #include <vector>
 #include <mutex>
@@ -10,31 +10,31 @@
 
 #include "Noise.h"
 
-#include "../Block/Block_Position.h"
-#include "../Block/Block_ID.h"
+#include "../Block/BlockPosition.h"
+#include "../Block/BlockID.h"
 
-#include "../World_Constants.h"
+#include "../WorldConstants.h"
 
 #include "../Chunk/Nodes.h"
 
-#include "Generation_Type.h"
+#include "GenerationType.h"
 
 
 /*
 namespace Chunk
 {
-    class Full_Chunk;
+    class FullChunk;
 }
 
-class World_Settings;
+class WorldSettings;
 class World_File;
 
-class Terrain_Generator
+class Terrain
 {
     public:
-        Terrain_Generator(const World_Settings& worldSettings);
+        Terrain(const WorldSettings& worldSettings);
 
-        void generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& worldFile);
+        void generateBlocksFor(Chunk::FullChunk& chunk, World_File& worldFile);
 
     private:
         void makeSuperFlatWorld ();
@@ -49,7 +49,7 @@ class Terrain_Generator
         void makeBiomeMap       ();
         void reset              ();
 
-        World_Generation_Type m_worldGenType;
+        World_GenerationType m_worldGenType;
 
         //Containers
         std::vector<std::pair<Block::Position, Structure::ID>>   m_oakTreeLocations;
@@ -62,12 +62,12 @@ class Terrain_Generator
         Noise::Generator m_heightGen;
         Noise::Generator m_biomeNoise;
 
-        const World_Settings* m_pWorldSettings;
+        const WorldSettings* m_pWorldSettings;
         int m_maxHeight = 0;
 
-        Chunk::Full_Chunk* m_pChunk;
+        Chunk::FullChunk* m_pChunk;
 
         std::mutex m_genMutex;
 };
 */
-#endif // Terrain_Generator_H_INCLUDED
+#endif // Terrain_H_INCLUDED

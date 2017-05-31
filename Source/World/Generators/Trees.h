@@ -2,8 +2,8 @@
 #define GTREES_H_INCLUDED
 
 #include "../../Util/Random.h"
-#include "../Block/Block_Position.h"
-#include "../Block/Block_ID.h"
+#include "../Block/BlockPosition.h"
+#include "../Block/BlockID.h"
 
 
 class IBlock_Accessible;

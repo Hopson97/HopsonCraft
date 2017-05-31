@@ -1,5 +1,5 @@
-#ifndef FULL_CHUNK_H_INCLUDED
-#define FULL_CHUNK_H_INCLUDED
+#ifndef FullChunk_H_INCLUDED
+#define FullChunk_H_INCLUDED
 
 #include <vector>
 #include <cstdint>
@@ -8,7 +8,7 @@
 
 namespace Chunk
 {
-    class Full_Chunk
+    class FullChunk
     {
         public:
             int64_t getX() const;
@@ -24,4 +24,4 @@ namespace Chunk
     };
 }
 
-#endif // FULL_CHUNK_H_INCLUDED
+#endif // FullChunk_H_INCLUDED

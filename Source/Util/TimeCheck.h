@@ -3,7 +3,7 @@
 
 #include <SFML/System/Clock.hpp>
 
-struct Frame_Time_Checker
+struct FrameTimeChecker
 {
     public:
         void         update();

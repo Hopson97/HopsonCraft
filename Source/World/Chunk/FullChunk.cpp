@@ -1,20 +1,20 @@
-#include "Full_Chunk.h"
+#include "FullChunk.h"
 
-#include "../World_Constants.h"
+#include "../WorldConstants.h"
 
 namespace Chunk
 {
-    int64_t Full_Chunk::getX() const
+    int64_t FullChunk::getX() const
     {
         return m_xPosition;
     }
 
-    int64_t Full_Chunk::getZ() const
+    int64_t FullChunk::getZ() const
     {
         return m_zPosition;
     }
 
-    Section* Full_Chunk::getSection(int64_t blockY)
+    Section* FullChunk::getSection(int64_t blockY)
     {
         auto index = blockY / CHUNK_SIZE;
 

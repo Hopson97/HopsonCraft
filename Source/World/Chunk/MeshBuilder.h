@@ -1,10 +1,10 @@
-#ifndef CMESH_BUILDER_H_INCLUDED
-#define CMESH_BUILDER_H_INCLUDED
+#ifndef CMeshBuilder_H_INCLUDED
+#define CMeshBuilder_H_INCLUDED
 
 #include <vector>
 
 #include "../../Maths/GLM.h"
-#include "../Block/Block_Position.h"
+#include "../Block/BlockPosition.h"
 #include "Mesh.h"
 
 /*
@@ -14,7 +14,7 @@
 
 namespace Block
 {
-    class Data_Holder;
+    class DataHolder;
 }
 
 namespace Chunk
@@ -24,4 +24,4 @@ namespace Chunk
     //Meshes buildMesh(const Section& chunk);
 }
 
-#endif // CMESH_BUILDER_H_INCLUDED
+#endif // CMeshBuilder_H_INCLUDED

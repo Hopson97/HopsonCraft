@@ -1,9 +1,9 @@
 Example block file:
-	Refer to Source/World/Block/Block_Data.h for the enum IDs
+	Refer to Source/World/Block/BlockData.h for the enum IDs
 
 Name
 Blocky
-	
+
 ID
 5
 

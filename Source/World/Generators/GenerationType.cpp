@@ -1,9 +1,9 @@
-#include "Generation_Type.h"
+#include "GenerationType.h"
 
 #include "../../Util/STD_Util.h"
-#include "../../Maths/General_Maths.h"
+#include "../../Maths/General.h"
 
-bool World_Generation_Type::BiomeRange::isThisBiome(int biomeKey)
+bool World_GenerationType::BiomeRange::isThisBiome(int biomeKey)
 {
     switch (m_compare)
     {
@@ -19,7 +19,7 @@ bool World_Generation_Type::BiomeRange::isThisBiome(int biomeKey)
     return false;
 }
 
-const Biome& World_Generation_Type::BiomeRange::getBiome() const
+const Biome& World_GenerationType::BiomeRange::getBiome() const
 {
     return m_biome;
 }
@@ -28,19 +28,19 @@ const Biome& World_Generation_Type::BiomeRange::getBiome() const
 
 
 
-World_Generation_Type::World_Generation_Type(const std::string& folderName)
+World_GenerationType::World_GenerationType(const std::string& folderName)
 :   m_folder    (folderName)
 {
     std::string full = "Data/WorldGen/" + m_folder + "/Info.biome";
     Loader::load(full);
 }
 
-const Noise::Data& World_Generation_Type::getBiomeMapNoise()
+const Noise::Data& World_GenerationType::getBiomeMapNoise()
 {
     return m_biomeNoise;
 }
 
-const Biome& World_Generation_Type::getBiome(int biomeKey)
+const Biome& World_GenerationType::getBiome(int biomeKey)
 {
     for (auto& biome : m_biomes)
     {
@@ -53,7 +53,7 @@ const Biome& World_Generation_Type::getBiome(int biomeKey)
     ///@TODO Return an "error biome" rather than crash the game
 }
 
-bool World_Generation_Type::parseLine(const std::string& line, std::ifstream& inFile)
+bool World_GenerationType::parseLine(const std::string& line, std::ifstream& inFile)
 {
     if (areStringsSame(line, "Noise"))
     {
@@ -70,7 +70,7 @@ bool World_Generation_Type::parseLine(const std::string& line, std::ifstream& in
     return true;
 }
 
-void World_Generation_Type::loadNoise(std::ifstream& inFile)
+void World_GenerationType::loadNoise(std::ifstream& inFile)
 {
     uint64_t    octaves,
                 amplitude,
@@ -85,7 +85,7 @@ void World_Generation_Type::loadNoise(std::ifstream& inFile)
     m_biomeNoise = {octaves, amplitude, roughness, smoothness, heightOffset};
 }
 
-void World_Generation_Type::loadBiome(std::ifstream& inFile)
+void World_GenerationType::loadBiome(std::ifstream& inFile)
 {
     std::string compareString;
     std::string biomeName;

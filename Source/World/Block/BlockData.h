@@ -1,23 +1,23 @@
-#ifndef BLOCK_DATA_H_INCLUDED
-#define BLOCK_DATA_H_INCLUDED
+#ifndef BlockData_H_INCLUDED
+#define BlockData_H_INCLUDED
 
 #include <string>
 #include <fstream>
 
-#include "Block_ID.h"
+#include "BlockID.h"
 #include "../../Maths/GLM.h"
 #include "../../Util/Loader.h"
 
 namespace Block
 {
-    enum Mesh_Type
+    enum MeshType
     {
         Solid   = 0,
         Flora   = 1,
         Liquid  = 2,
     };
 
-    enum Mesh_Style
+    enum MeshStyle
     {
         Block   = 0,
         XStyle  = 1
@@ -30,10 +30,10 @@ namespace Block
         Gas     = 2
     };
 
-    struct Data_Holder
+    struct DataHolder
     {
-        Data_Holder() = default;
-        Data_Holder(Data_Holder& other) = delete;
+        DataHolder() = default;
+        DataHolder(DataHolder& other) = delete;
 
         ID          blockID;
         std::string name;
@@ -42,8 +42,8 @@ namespace Block
         bool        isObstacle  = true;
         bool        canUpdate   = false;
 
-        Mesh_Type   meshType    = Mesh_Type     ::Solid;
-        Mesh_Style  meshStyle   = Mesh_Style    ::Block;
+        MeshType   meshType    = MeshType     ::Solid;
+        MeshStyle  meshStyle   = MeshStyle    ::Block;
         State       state       = State         ::Solid;
 
         Vector2     topTextureCoords;
@@ -56,7 +56,7 @@ namespace Block
         public:
             Data(std::string&& fileName);
 
-            const Data_Holder& get() const { return m_holder; }
+            const DataHolder& get() const { return m_holder; }
 
         private:
             bool parseLine  (const std::string& line, std::ifstream& stream) override;
@@ -71,8 +71,8 @@ namespace Block
 
             std::string m_fileName;
 
-            Data_Holder m_holder;
+            DataHolder m_holder;
     };
 }
 
-#endif // BLOCK_DATA_H_INCLUDED
+#endif // BlockData_H_INCLUDED

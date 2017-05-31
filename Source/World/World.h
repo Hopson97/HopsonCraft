@@ -10,7 +10,7 @@
 
 #include "../Physics/AABB.h"
 
-#include "World_Settings.h"
+#include "WorldSettings.h"
 
 #include "IBlock_Accessible.h"
 
@@ -32,9 +32,9 @@ class World : public IBlock_Accessible
     friend class State::Playing;
 
     public:
-        World(const World_Settings& settings, const Camera& camera);
+        World(const WorldSettings& settings, const Camera& camera);
 
-        const World_Settings& getWorldSettings () const;
+        const WorldSettings& getWorldSettings () const;
 
         AABB getBlockAABB(const Block::Position& position);
 
@@ -42,7 +42,7 @@ class World : public IBlock_Accessible
         CBlock getBlock (int x, int y, int z) const override;
 
     private:
-        World_Settings  m_worldSettings;
+        WorldSettings  m_worldSettings;
         const Camera* m_pCamera = nullptr;
 
     public:

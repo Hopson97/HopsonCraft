@@ -5,7 +5,7 @@
 
 #include "../GUI/Menu.h"
 
-#include "../World/World_Settings.h"
+#include "../World/WorldSettings.h"
 
 namespace State
 {
@@ -32,7 +32,7 @@ namespace State
             int32_t m_worldSize = 0;
             int32_t m_noiseData = 0;
 
-            World_Settings settings;
+            WorldSettings settings;
     };
 }
 
