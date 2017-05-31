@@ -1,11 +1,11 @@
-#ifndef RESOURCE_HOLDER_H_INCLUDED
-#define RESOURCE_HOLDER_H_INCLUDED
+#ifndef ResourceHolder_H_INCLUDED
+#define ResourceHolder_H_INCLUDED
 
-#include "Resource_Manager.h"
+#include "ResourceManager.h"
 
-struct Resource_Holder
+struct ResourceHolder
 {
-    Resource_Holder()
+    ResourceHolder()
     :   textures        ("Data/Textures/",  ".png")
     ,   fonts           ("Data/Fonts/",     ".ttf")
     ,   soundBuffers    ("Data/Sounds/",    ".ogg")
@@ -16,6 +16,6 @@ struct Resource_Holder
     ResourceManager<sf::SoundBuffer>   soundBuffers;
 };
 
-Resource_Holder& getResources();
+ResourceHolder& getResources();
 
-#endif // RESOURCE_HOLDER_H_INCLUDED
+#endif // ResourceHolder_H_INCLUDED

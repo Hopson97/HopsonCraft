@@ -1,11 +1,11 @@
-#include "Music_Player.h"
+#include "MusicPlayer.h"
 
 #include <iostream>
 
 #include "Util/File_Util.h"
 #include "Util/Random.h"
 
-Music_Player::Music_Player()
+MusicPlayer::MusicPlayer()
 :   m_songs (getFileNamesFromFolder("Data/Music"))
 ,   m_currentSong   (Random::intInRange(0, m_songs.size() - 1))
 {
@@ -13,7 +13,7 @@ Music_Player::Music_Player()
     getNextSong();
 }
 
-void Music_Player::update()
+void MusicPlayer::update()
 {
     if (m_duration <= m_timer.getElapsedTime())
     {
@@ -28,7 +28,7 @@ void Music_Player::update()
     }
 }
 
-void Music_Player::getNextSong()
+void MusicPlayer::getNextSong()
 {
     auto& name      = m_songs[m_currentSong];
     auto fullName   = "Data/Music/" + name;

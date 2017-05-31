@@ -15,7 +15,7 @@ file(GLOB src_files
 	Source/Physics/*.cpp
 	Source/Player/*.cpp
 	Source/Renderer/*.cpp
-    Source/Resource_Managers/*.cpp
+    Source/ResourceManagers/*.cpp
 	Source/Shaders/*.cpp
 	Source/States/*cpp
 	Source/Texture/*.cpp

@@ -1,7 +1,7 @@
 #ifndef SSettingsMenu_H_INCLUDED
 #define SSettingsMenu_H_INCLUDED
 
-#include "../Resource_Managers/Resource_Holder.h"
+#include "../ResourceManagers/ResourceHolder.h"
 
 #include "Base.h"
 #include "../GUI/Menu.h"

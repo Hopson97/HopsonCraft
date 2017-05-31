@@ -1,6 +1,6 @@
 #include "SettingsMenu.h"
 
-#include "../Resource_Managers/Resource_Holder.h"
+#include "../ResourceManagers/ResourceHolder.h"
 
 #include "../Application.h"
 #include "Playing.h"

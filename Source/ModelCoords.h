@@ -4,7 +4,7 @@
 #include <vector>
 #include <GL/glew.h>
 
-struct Model_Data
+struct ModelData
 {
     std::vector<GLfloat>    vertexCoords;
     std::vector<GLfloat>    textureCoords;

@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-#include "../Resource_Managers/Resource_Holder.h"
+#include "../ResourceManagers/ResourceHolder.h"
 
 #include "../Util/Random.h"
 #include "../Util/File_Util.h"

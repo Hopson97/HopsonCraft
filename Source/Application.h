@@ -9,7 +9,7 @@
 #include "Renderer/RMaster.h"
 
 #include "Camera.h"
-#include "Music_Player.h"
+#include "MusicPlayer.h"
 
 class Application
 {
@@ -25,7 +25,7 @@ class Application
 
         void resetSong();
 
-        Music_Player musicPlayer;
+        MusicPlayer musicPlayer;
 
     private:
         void handleEvents();

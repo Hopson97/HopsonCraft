@@ -1,7 +1,7 @@
 #include "Component.h"
 
 #include "../Display.h"
-#include "../Resource_Managers/Resource_Holder.h"
+#include "../ResourceManagers/ResourceHolder.h"
 
 namespace GUI
 {

@@ -1,6 +1,6 @@
 #include "Debug.h"
 
-#include "../Resource_Managers/Resource_Holder.h"
+#include "../ResourceManagers/ResourceHolder.h"
 #include "../Renderer/RMaster.h"
 
 Debug_HUD::Section::Section(std::string&& stringFormat, const sf::Vector2f& textPosition, const void* var)

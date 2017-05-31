@@ -2,7 +2,7 @@
 
 #include "../Display.h"
 #include "../Renderer/RMaster.h"
-#include "../Resource_Managers/Resource_Holder.h"
+#include "../ResourceManagers/ResourceHolder.h"
 
 Vignette::Vignette()
 {

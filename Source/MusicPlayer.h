@@ -1,5 +1,5 @@
-#ifndef MUSIC_PLAYER_H_INCLUDED
-#define MUSIC_PLAYER_H_INCLUDED
+#ifndef MusicPlayer_H_INCLUDED
+#define MusicPlayer_H_INCLUDED
 
 #include <SFML/Audio.hpp>
 
@@ -7,12 +7,12 @@
 //Music takes up alot of space, and I would rather send a 3mb .7z rather than
 //a 50mb .7z, hence I can just comment out this define, and then
 
-#define MUSIC_PLAYER_ACTIVE
+#define MusicPlayer_ACTIVE
 
-class Music_Player
+class MusicPlayer
 {
     public:
-        Music_Player();
+        MusicPlayer();
 
         void update();
 
@@ -27,4 +27,4 @@ class Music_Player
         uint32_t m_currentSong = 0;
 };
 
-#endif // MUSIC_PLAYER_H_INCLUDED
+#endif // MusicPlayer_H_INCLUDED

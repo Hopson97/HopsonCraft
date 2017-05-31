@@ -1,5 +1,4 @@
-#include "Model_Coords.h"
-
+#include "ModelCoords.h"
 
 std::vector<GLfloat> getCubeVerticies(float scale)
 {
