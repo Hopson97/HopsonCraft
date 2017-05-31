@@ -3,10 +3,8 @@
 
 #include <vector>
 
-#include "../../Glm_Common.h"
-
+#include "../../Maths/GLM.h"
 #include "../Block/Block_Position.h"
-
 #include "Mesh.h"
 
 /*
@@ -23,7 +21,7 @@ namespace Chunk
 {
     class Section;
 
-    Meshes buildMesh(const Section& chunk);
+    //Meshes buildMesh(const Section& chunk);
 }
 
 #endif // CMESH_BUILDER_H_INCLUDED

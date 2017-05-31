@@ -92,9 +92,9 @@ bool Biome::parseLine(const std::string& line, std::ifstream& inFile)
 
 void Biome::loadNoise(std::ifstream& inFile)
 {
-    int octaves,
-        amplitude,
-        heightOffset;
+    uint64_t    octaves,
+                amplitude,
+                heightOffset;
 
     float   roughness,
             smoothness;

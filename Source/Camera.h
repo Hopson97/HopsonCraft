@@ -1,7 +1,7 @@
 #ifndef CAMERA_H_INCLUDED
 #define CAMERA_H_INCLUDED
 
-#include "Entity.h"
+#include "Entity/Entity.h"
 #include "Maths/Frustum.h"
 
 class Camera : public Entity
@@ -22,7 +22,7 @@ class Camera : public Entity
         const Matrix4& getProjectionViewMatrix() const;
 
     private:
-        const Entity* m_P_entity = this;
+        const Entity* m_pEntity = nullptr;
         Frustum m_frustum;
 
         float m_fov = 100;

@@ -1,45 +1,45 @@
 #include "Model_Coords.h"
 
 
-std::vector<GLfloat> getCubeVerticies(float enlarger)
+std::vector<GLfloat> getCubeVerticies(float scale)
 {
     return
     {
         //Back
-        1 + enlarger,   -enlarger,      -enlarger,
-        -enlarger,      -enlarger,      -enlarger,
-        -enlarger,      1 + enlarger,   -enlarger,
-        1 + enlarger,   1 + enlarger,   -enlarger,
+        1 * scale,  0,          0,
+        0,          0,          0,
+        0,          1 * scale,  0,
+        1 * scale,  1 * scale,  0,
 
         //Right-Side
-        1 + enlarger, -enlarger,        1 + enlarger,
-        1 + enlarger, -enlarger,        -enlarger,
-        1 + enlarger, 1 + enlarger,     -enlarger,
-        1 + enlarger, 1 + enlarger,     1 + enlarger,
+        1 * scale, 0,           1 * scale,
+        1 * scale, 0,           0,
+        1 * scale, 1 * scale,   0,
+        1 * scale, 1 * scale,   1 * scale,
 
         //Front
-        -enlarger,      -enlarger,      1 + enlarger,
-        1 + enlarger,   -enlarger,      1 + enlarger,
-        1 + enlarger,   1 + enlarger,   1 + enlarger,
-        -enlarger,      1 + enlarger,   1 + enlarger,
+        0,          0,          1 * scale,
+        1 * scale,  0,          1 * scale,
+        1 * scale,  1 * scale,  1 * scale,
+        0,          1 * scale,  1 * scale,
 
         //Left
-        -enlarger, -enlarger,           -enlarger,
-        -enlarger, -enlarger,           1 + enlarger,
-        -enlarger, 1 + enlarger,        1 + enlarger,
-        -enlarger, 1 + enlarger,        -enlarger,
+        0, 0,           0,
+        0, 0,           1 * scale,
+        0, 1 * scale,   1 * scale,
+        0, 1 * scale,   0,
 
         //Top
-        -enlarger,      1 + enlarger,   1 + enlarger,
-        1 + enlarger,   1 + enlarger,   1 + enlarger,
-        1 + enlarger,   1 + enlarger,   -enlarger,
-        -enlarger,      1 + enlarger,   -enlarger,
+        0,          1 * scale,   1 * scale,
+        1 * scale,  1 * scale,   1 * scale,
+        1 * scale,  1 * scale,   0,
+        0,          1 * scale,   0,
 
         //Bottom
-        -enlarger,      -enlarger,      -enlarger,
-        1 + enlarger,   -enlarger,      -enlarger,
-        1 + enlarger,   -enlarger,      1 + enlarger,
-        -enlarger,      -enlarger,      1
+        0,          0,  0,
+        1 * scale,  0,  0,
+        1 * scale,  0,  1 * scale,
+        0,          0,  1 * scale
     };
 }
 

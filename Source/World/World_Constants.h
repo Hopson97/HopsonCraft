@@ -5,7 +5,7 @@
 
 namespace
 {
-    constexpr int32_t   CHUNK_SIZE      = 16,
+    constexpr int64_t   CHUNK_SIZE      = 16,
                         CHUNK_SIZE_P    = CHUNK_SIZE + 1, //Chunk size plus one
                         CHUNK_VOLUME    = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE,
                         CHUNK_AREA      = CHUNK_SIZE * CHUNK_SIZE,

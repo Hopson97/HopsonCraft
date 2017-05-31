@@ -3,7 +3,7 @@
 #include "../World_Constants.h"
 
 #include <SFML/Graphics.hpp>
-
+/*
 namespace
 {
     template<typename T>
@@ -84,3 +84,4 @@ namespace Chunk
 
 
 }
+*/

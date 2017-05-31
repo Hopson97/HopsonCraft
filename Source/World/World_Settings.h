@@ -4,16 +4,12 @@
 #include <cstdint>
 #include <string>
 
-#include "../Temp/Noise_Generator.h"
+#include "Generators/Noise.h"
 
 struct World_Settings
 {
-    std::string name        = "Test World";
-    std::string generator;
-
-    int         renderDistance  = 44;
+    std::string name = "Test World";
     float       seed;
-    bool        isSuperFlat             = false;
 };
 
 #endif // WORLD_SETTINGS_H_INCLUDED

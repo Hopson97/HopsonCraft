@@ -5,6 +5,7 @@
 
 #include <SFML/System.hpp>
 
+
 #include "Nodes.h"
 #include "Section.h"
 #include "Full_Chunk.h"
@@ -83,6 +84,7 @@ namespace
     constexpr GLfloat Z_LIGHT        = MAX_LIGHT / 1.7;
     constexpr GLfloat BOTTOM_LIGHT   = MAX_LIGHT / 2.2;
 
+/*
     //Small struct to hold the chunk and it's mesh being used for building
     struct ChunkMesh
     {
@@ -96,12 +98,11 @@ namespace
     };
 
 
-    /*
-        Looks at a layer of chunk
-        Returns true if the layer itself, or an adjacent one, has a non-opaque block
-        I do this as it saves ALOT of time when iterating through underground chunks, which typically get skipped
-        thanks to this function (reduction, on my laptop, from >5ms to <0.5ms average chunk mesh gen time)
-    */
+    //  Looks at a layer of chunk
+    //  Returns true if the layer itself, or an adjacent one, has a non-opaque block
+    //  I do this as it saves ALOT of time when iterating through underground chunks, which typically get skipped
+    //  thanks to this function (reduction, on my laptop, from >5ms to <0.5ms average chunk mesh gen time)
+    //
     bool shouldCreateLayer(int yValue, const Chunk::Section& chunk)
     {
         auto hasAdjLayerGotTranslucentBlock = [&](int32_t xd, int32_t zd)
@@ -144,7 +145,6 @@ namespace
 
         return meshes.solidMesh;
     }
-
 
     //Adds an X-Shaped mesh into the chunk mesh, for example:
     //  * Rose
@@ -191,10 +191,8 @@ namespace
         else
         {
             return false;
-}
+        }
     }
-
-
 
     //Adds a single face into the mesh
     void tryAddFaceToMesh(  const std::vector<GLfloat>& face,
@@ -220,6 +218,7 @@ namespace
                                          thisBlockPos);
         }
     }
+*/
 }
 
 namespace Chunk
@@ -247,7 +246,7 @@ namespace Chunk
         }
     };
 
-
+/*
     //Looks at the faces of every block, and adds block faces to a mesh if said face
     //is non-opaque (Other checks are done too)
     Meshes buildMesh(const Section& chunk)
@@ -340,4 +339,5 @@ namespace Chunk
 
         return chunkMeshes;
     }
+    */
 }

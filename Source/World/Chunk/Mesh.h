@@ -4,10 +4,9 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "Position.h"
 #include "../Block/Block_Position.h"
 #include "../../Model.h"
-
+/*
 namespace Chunk
 {
     class Mesh
@@ -64,5 +63,5 @@ namespace Chunk
         }
     };
 }
-
+*/
 #endif // CMESH_H_INCLUDED

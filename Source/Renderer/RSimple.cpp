@@ -1,6 +1,6 @@
 
 #include "RSimple.h"
-#include "../Temp/Quad.h"
+#include "../Entity/Cube.h"
 #include "../Maths/Matrix_Maths.h"
 #include "../Maths/Matrix_Maths.h"
 
@@ -33,13 +33,13 @@ namespace
         insertTextureCoords(textureAtlas.getTextureCoords({0, 0}));
         insertTextureCoords(textureAtlas.getTextureCoords({2, 0}));
 
-        m_cubeModel.addData(getCubeVerticies(0.0f), textureCoords, getCubeIndices());
+        m_cubeModel.addData(getCubeVerticies(0.5f), textureCoords, getCubeIndices());
     }
 
 
-    void RSimple::draw(const Quad& quad)
+    void RSimple::draw(const Cube& cube)
     {
-        m_quads.push_back(&quad);
+        m_cubes.push_back(&cube);
     }
 
     void RSimple::update(const Camera& camera)
@@ -50,18 +50,18 @@ namespace
 
         m_cubeModel.bind();
 
-        for (auto& quad : m_quads)
+        for (auto& cube : m_cubes)
         {
-            prepare(*quad);
+            prepare(*cube);
             glDrawElements(GL_TRIANGLES, m_cubeModel.getIndicesCount(), GL_UNSIGNED_INT, nullptr);
         }
 
-        m_quads.clear();
+        m_cubes.clear();
     }
 
-    void RSimple::prepare(const Quad& quad)
+    void RSimple::prepare(const Cube& cube)
     {
-        m_shader.setModelMatrix(Maths::createModelMatrix(quad));
+        m_shader.setModelMatrix(Maths::createModelMatrix(cube));
 
     }
 }

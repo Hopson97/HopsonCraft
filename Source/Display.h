@@ -10,17 +10,11 @@ namespace sf
 
 namespace Display
 {
-    void deactiveate();
-    void activate();
-
-
     void init();
     void close();
 
     void clear();
     void update();
-
-    void checkForClose();
 
     bool isOpen();
 

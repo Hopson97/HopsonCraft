@@ -18,56 +18,69 @@ Application::Application()
 
 void Application::runMainGameLoop()
 {
+    unsigned ticks = 0;
+
+    const sf::Time MS_PER_UPDATE = sf::seconds(0.05);//20 Ticks/ updates per second
     sf::Clock gameTimer;
 
-    auto MS_PER_UPDATE = 0.05; //20 Ticks/ updates per second
-
-    float lastTime = gameTimer.getElapsedTime().asSeconds();
-    float lag = 0.0f;
-    while (Display::isOpen())
+    auto lastTime = gameTimer.getElapsedTime();
+    auto updateLag = sf::Time::Zero;
+    while (Display::isOpen() || !m_states.empty())
     {
-        float current = gameTimer.getElapsedTime().asSeconds();
-        float elapsed = current - lastTime;
+        auto current = gameTimer.getElapsedTime();
+        auto elapsed = current - lastTime;
         lastTime = current;
-        lag += elapsed;
+        updateLag += elapsed;
 
-        sf::Event e;
-        while (Display::get().pollEvent(e))
-        {
-            handleEvents(e);
-        }
+        handleEvents();
         if (!Display::isOpen() || m_states.empty())
-        {
             break;
-        }
 
         m_states.back()->input  (m_camera);
 
-        //Fixed time-step of "MS_PER_UPDATE"
-        while (lag >= MS_PER_UPDATE)
+        while (updateLag >= MS_PER_UPDATE)
         {
-            update(elapsed);
-            lag -= MS_PER_UPDATE;
+            ticks++;
+            update(elapsed.asSeconds());
+            updateLag -= MS_PER_UPDATE;
         }
-        ///@TODO Are the the two update function calls able to be put in the fixed
-        ///time step thing above?
+
         m_camera.update();
-        m_states.back()->update(m_camera, elapsed);
+        m_states.back()->update(m_camera, elapsed.asSeconds());
 
-        m_states.back()->draw(m_renderer);
+        render();
+    }
+}
 
-        m_renderer.clear();
-        m_renderer.update(m_camera);
+void Application::handleEvents()
+{
+    sf::Event e;
+    while (Display::get().pollEvent(e))
+    {
+        if (e.type == sf::Event::Closed)
+        {
+            Display::close();
+        }
+        m_states.back()->input(e);
     }
 }
 
 void Application::update(float elapsed)
 {
     m_states.back()->fixedUpdate (m_camera, elapsed);
-    #ifdef MUSIC_PLAYER_ACTIVE
     musicPlayer.update();
-    #endif // MUSIC_PLAYER_ACTIVE
+
+    m_camera.update();
+    m_states.back()->update(m_camera, elapsed);
 }
+
+void Application::render()
+{
+    m_renderer.clear();
+    m_states.back()->draw(m_renderer);
+    m_renderer.update(m_camera);
+}
+
 
 void Application::pushState(std::unique_ptr<State::Game_State> state)
 {
@@ -77,24 +90,15 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
 
 void Application::popState()
 {
-   m_states.pop_back();
-   if (!m_states.empty())
-   {
-       m_states.back()->onOpen();
-   }
+    m_states.pop_back();
+    if (!m_states.empty())
+    {
+        m_states.back()->onOpen();
+    }
 }
 
 Camera& Application::getCamera()
 {
     return m_camera;
-}
-
-void Application::handleEvents(const sf::Event& e)
-{
-    if (e.type == sf::Event::Closed)
-    {
-        Display::close();
-    }
-    m_states.back()->input(e);
 }
 

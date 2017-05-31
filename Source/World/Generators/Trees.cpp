@@ -26,17 +26,17 @@ namespace Structure
             ,   m_woodBlock (wood)
             { }
 
-            void addLeaf(int x, int y, int z)
+            void addLeaf(int64_t x, int64_t y, int64_t z)
             {
                 Builder::addBlock({x, y, z, m_leafBlock});
             }
 
-            void addAir (int x, int y, int z)
+            void addAir (int64_t x, int64_t y, int64_t z)
             {
                 Builder::addBlock({x, y, z, Block::ID::Air});
             }
 
-            void addWood(int x, int y, int z)
+            void addWood(int64_t x, int64_t y, int64_t z)
             {
                 Builder::addBlock({x, y, z, m_woodBlock});
             }
@@ -78,12 +78,12 @@ namespace Structure
                     {pos.x + crownSize, y - 1, pos.z + crownSize},
                     tree.getLeaf());
 
-        for (int32_t zLeaf = -crownSize + 1; zLeaf <= crownSize - 1; zLeaf++)
+        for (int64_t zLeaf = -crownSize + 1; zLeaf <= crownSize - 1; zLeaf++)
         {
             tree.addLeaf(pos.x, pos.y + height + 1, pos.z + zLeaf);
         }
 
-        for (int32_t xLeaf = -crownSize + 1; xLeaf <= crownSize - 1; xLeaf++)
+        for (int64_t xLeaf = -crownSize + 1; xLeaf <= crownSize - 1; xLeaf++)
         {
             tree.addLeaf(pos.x + xLeaf, pos.y + height + 1, pos.z);
         }
@@ -109,20 +109,20 @@ namespace Structure
         Tree_Helper tree(Block::ID::Oak_Leaf,
                          Block::ID::Oak_Wood);
 
-        int height      = Random::intInRange(8, 9);
-        int crownSize   = Random::intInRange(4, 5);
+        int64_t height      = Random::intInRange(8, 9);
+        int64_t crownSize   = Random::intInRange(4, 5);
 
-        for (int x = -crownSize; x <= crownSize; x++)
+        for (int64_t x = -crownSize; x <= crownSize; x++)
         {
             tree.addLeaf(pos.x + x, pos.y + height, pos.z);
         }
-        for (int z = -crownSize; z <= crownSize; z++)
+        for (int64_t z = -crownSize; z <= crownSize; z++)
         {
             tree.addLeaf(pos.x, pos.y + height, pos.z + z);
         }
 
-        for (int32_t zLeaf = -1; zLeaf <= 1; zLeaf++)
-        for (int32_t xLeaf = -1; xLeaf <= 1; xLeaf++)
+        for (int64_t zLeaf = -1; zLeaf <= 1; zLeaf++)
+        for (int64_t xLeaf = -1; xLeaf <= 1; xLeaf++)
         {
             tree.addLeaf(pos.x + xLeaf, pos.y + height - 1, pos.z + zLeaf);
             tree.addLeaf(pos.x + xLeaf, pos.y + height    , pos.z + zLeaf);
@@ -148,11 +148,11 @@ namespace Structure
         Tree_Helper tree(Block::ID::Oak_Leaf,
                          Block::ID::Oak_Wood);
 
-        auto height = random.intInRange(5, 8);
-        auto width1 = random.intInRange(4, 5);
-        auto dir1 = random.intInRange(0, 1);
+        int64_t height = random.intInRange(5, 8);
+        int64_t width1 = random.intInRange(4, 5);
+        int64_t dir1 = random.intInRange(0, 1);
 
-        for (int32_t y = 1; y < height; y++)
+        for (int64_t y = 1; y < height; y++)
         {
             tree.addWood(pos.x, pos.y + y, pos.z);
         }
@@ -161,7 +161,7 @@ namespace Structure
         switch(dir1)
         {
             case 0:
-                for (int32_t i = 0; i <= width1; i++)
+                for (int64_t i = 0; i <= width1; i++)
                 {
                     tree.addWood(pos.x, (int)std::floor(y), pos.z + i);
                     y += 0.5;
@@ -169,7 +169,7 @@ namespace Structure
                 break;
 
             case 1:
-                for (int32_t i = 0; i <= width1; i++)
+                for (int64_t i = 0; i <= width1; i++)
                 {
                     tree.addWood(pos.x + i, (int)std::floor(y), pos.z);
                     y += 0.5;
@@ -177,9 +177,9 @@ namespace Structure
                 break;
         }
 
-        auto dir2 = random.intInRange(0, 1);
+        int64_t dir2 = random.intInRange(0, 1);
 
-        for (int32_t y = 1; y < height; y++)
+        for (int64_t y = 1; y < height; y++)
         {
             tree.addWood(pos.x, pos.y + y, pos.z);
         }
@@ -188,7 +188,7 @@ namespace Structure
         switch(dir2)
         {
             case 0:
-                for (int32_t i = 0; i <= width1; i++)
+                for (int64_t i = 0; i <= width1; i++)
                 {
                     tree.addWood(pos.x, (int)std::floor(y), pos.z + i);
                     y += 0.5;
@@ -196,7 +196,7 @@ namespace Structure
                 break;
 
             case 1:
-                for (int32_t i = 0; i <= width1; i++)
+                for (int64_t i = 0; i <= width1; i++)
                 {
                     tree.addWood(pos.x + i, (int)std::floor(y), pos.z);
                     y += 0.5;

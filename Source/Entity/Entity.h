@@ -1,7 +1,7 @@
 #ifndef ENTITY_H_INCLUDED
 #define ENTITY_H_INCLUDED
 
-#include "Glm_Common.h"
+#include "../Maths/GLM.h"
 
 struct Entity
 {

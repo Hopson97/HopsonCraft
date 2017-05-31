@@ -5,7 +5,7 @@
 #include <string>
 #include <GL/glew.h>
 
-#include "../Glm_Common.h"
+#include "../Maths/GLM.h"
 
 namespace Texture
 {

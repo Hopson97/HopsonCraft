@@ -7,17 +7,17 @@
 #include "Util/Config.h"
 #include "Util/Singleton.h"
 
-#include "Temp/Noise_Generator.h"
+#include "World/Generators/Noise.h"
 
 #include "Application.h"
 #include "Display.h"
 
-#ifdef __WIN32
-    #include <windows.h>
+#include "Util/Native.h"
 
-    //Enable dedicated graphics
+#ifdef __WIN32
     extern "C"
     {
+        //Enable dedicated graphics
         __declspec(dllexport) bool NvOptimusEnablement = true;
         __declspec(dllexport) bool AmdPowerXpressRequestHighPerformance = true;
     }

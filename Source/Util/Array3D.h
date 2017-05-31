@@ -5,18 +5,18 @@
 #include <cstdlib>
 
 //A 3D array with constant width, height and depth
-template<typename T, uint32_t Size>
+template<typename T, int Size>
 class Array3D
 {
     public:
-        T& at(uint32_t xPos, uint32_t yPos, uint32_t zPos)
+        T& at(int xPos, int yPos, int zPos)
         {
             return m_array[yPos *
                            m_AREA + zPos *
                            m_SIZE + xPos];
         }
 
-        const T& at(uint32_t xPos, uint32_t yPos, uint32_t zPos) const
+        const T& at(int xPos, int yPos, int zPos) const
         {
             return m_array[yPos *
                            m_AREA + zPos *
@@ -51,9 +51,9 @@ class Array3D
     private:
         std::array<T, Size * Size * Size> m_array;
 
-        uint32_t m_VOLUME = Size * Size * Size;
-        uint32_t m_AREA   = Size * Size;
-        uint32_t m_SIZE   = Size;
+        int m_VOLUME = Size * Size * Size;
+        int m_AREA   = Size * Size;
+        int m_SIZE   = Size;
 };
 
 #endif // ARRAY3D_H_INCLUDED
