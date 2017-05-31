@@ -26,27 +26,6 @@
 
 namespace
 {
-    void noiseTest(int trials)
-    {
-        Random::init();
-        Noise::Generator m_noiseGen;
-        m_noiseGen.setSeed(Random::intInRange(0, 999999));
-        m_noiseGen.setNoiseFunction({5, 500, 0.4, 5000});
-
-        float total = 0;
-        std::vector<double> test;
-        for (int i = 0 ; i < trials ; i++)
-        {
-            float h = m_noiseGen.getValue(i, i, i, i);
-            test.push_back(h);
-            total += h;
-        }
-
-        std::cout << "MIN: " << *std::min_element(test.begin(), test.end()) << "\n";
-        std::cout << "MAX: " << *std::max_element(test.begin(), test.end()) << "\n";
-        std::cout << "AVG: " << total / trials << std::endl;
-    }
-
     void errorMessage(const std::string& message)
     {
         #ifdef __WIN32
@@ -82,31 +61,22 @@ namespace
             Singleton<Config>::get().loadFromStream(fileName, inFile);
         }
     }
+}
 
-
-    void runGame()
+//entry
+int main()
+{
+    try
     {
         initilize();
         loadConfig();
 
         Application app;
         app.runMainGameLoop();
+        return EXIT_SUCCESS;
+    }
+    catch(std::exception& e)
+    {
+        return EXIT_FAILURE;
     }
 }
-
-/*
-    ~
-    ~   The main function is here guise :^)
-    ~
-*/
-int main() try
-{
-    runGame();
-    return 0;
-}
-catch(std::exception& e)
-{
-    errorMessage(std::string(e.what()));
-}
-
-
