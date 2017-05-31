@@ -1,7 +1,7 @@
 #ifndef PLAYING_H_INCLUDED
 #define PLAYING_H_INCLUDED
 
-#include "Game_State.h"
+#include "Base.h"
 #include "../World/World.h"
 #include "../HUD/HUD.h"
 #include "../Player/Player.h"
@@ -17,7 +17,7 @@ class World_Settings;
 
 namespace State
 {
-    class Playing : public Game_State
+    class Playing : public Base
     {
         public:
             Playing(Application& application,

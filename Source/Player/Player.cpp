@@ -5,9 +5,11 @@
 #include <iostream>
 
 #include "../Camera.h"
+
 #include "../World/Block/Block_Database.h"
 #include "../World/World.h"
-#include "../Maths/General_Maths.h"
+
+#include "../Maths/General.h"
 
 Player::Player(Camera& camera)
 :   box             ({0.5, 1.5, 0.5})

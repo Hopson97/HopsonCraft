@@ -1,4 +1,4 @@
-#include "Function_Toggle_Key.h"
+#include "FunctionToggleKey.h"
 
 Toggle::Toggle(sf::Keyboard::Key key, sf::Time delay)
 :   m_toggleKey     (key)
@@ -24,13 +24,13 @@ void Toggle::checkInput()
     }
 }
 
-Toggle_Bool::Toggle_Bool(sf::Keyboard::Key key, sf::Time delay, bool& value)
+ToggleBool::ToggleBool(sf::Keyboard::Key key, sf::Time delay, bool& value)
 :   m_toggleKey     (key)
 ,   m_pValue        (&value)
 ,   m_toggleDelay   (delay)
 { }
 
-void Toggle_Bool::input()
+void ToggleBool::input()
 {
     if (m_toggleDelay.asMilliseconds() <
         m_toggleTimer.getElapsedTime().asMilliseconds())

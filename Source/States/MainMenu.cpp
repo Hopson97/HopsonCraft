@@ -1,52 +1,48 @@
-#include "SMain_Menu.h"
+#include "MainMenu.h"
 
 #include "../Resource_Managers/Resource_Holder.h"
 
-#include "../Application.h"
-#include "SPlaying.h"
-
 #include "../Util/Random.h"
 #include "../Util/File_Util.h"
-
-#include "../Display.h"
-
-#include "SSettings_Menu.h"
-
 #include "../GUI/BasicButton.h"
+#include "../Display.h"
+#include "../Application.h"
+#include "SettingsMenu.h"
+#include "Playing.h"
 
 namespace State
 {
-    Main_Menu::Main_Menu(Application& application)
-    :   Game_State  (application)
+    MainMenu::MainMenu(Application& application)
+    :   Base  (application)
     {
         initMenu();
     }
 
-    void Main_Menu::input( const sf::Event& e)
+    void MainMenu::input( const sf::Event& e)
     {
         m_pActiveMenu->input(e);
     }
 
-    void Main_Menu::input(Camera& camera)
+    void MainMenu::input(Camera& camera)
     { }
 
-    void Main_Menu::fixedUpdate(Camera& camera, float dt)
+    void MainMenu::fixedUpdate(Camera& camera, float dt)
     {
         m_pActiveMenu->update();
     }
 
-    void Main_Menu::draw(Renderer::Master& renderer)
+    void MainMenu::draw(Renderer::Master& renderer)
     {
         m_pActiveMenu->draw(renderer);
     }
 
-    void Main_Menu::onOpen()
+    void MainMenu::onOpen()
     {
         //Display::get().setFramerateLimit(30);
         m_application->getCamera().unhookEntity();
     }
 
-    void Main_Menu::initMenu()
+    void MainMenu::initMenu()
     {
         //Front menu
         m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Play", [&]()
@@ -56,7 +52,7 @@ namespace State
 
         m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Settings", [&]()
         {
-            m_application->pushState(std::make_unique<State::Settings_Menu>(*m_application, settings));
+            m_application->pushState(std::make_unique<State::SettingsMenu>(*m_application, settings));
         }));
 
         m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Credits (Unused)", [&]()

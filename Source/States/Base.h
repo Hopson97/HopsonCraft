@@ -1,5 +1,5 @@
-#ifndef GAME_STATE_H_INCLUDED
-#define GAME_STATE_H_INCLUDED
+#ifndef StateBase_H_INCLUDED
+#define StateBase_H_INCLUDED
 
 class Application;
 struct Camera;
@@ -16,11 +16,11 @@ namespace Renderer
 
 namespace State
 {
-    class Game_State
+    class Base
     {
         public:
-            Game_State(Application& application);
-            virtual ~Game_State() = default;
+            Base(Application& application);
+            virtual ~Base() = default;
 
             virtual void input  (const sf::Event& e) {}
             virtual void input  (Camera& camera) = 0;
@@ -37,4 +37,4 @@ namespace State
     };
 }
 
-#endif // GAME_STATE_H_INCLUDED
+#endif // StateBase_H_INCLUDED

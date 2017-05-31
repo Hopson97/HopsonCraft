@@ -1,7 +1,7 @@
 #ifndef CHUNK_SHADER_H_INCLUDED
 #define CHUNK_SHADER_H_INCLUDED
 
-#include "Simple_Shader.h"
+#include "SimpleShader.h"
 
 namespace Shader
 {

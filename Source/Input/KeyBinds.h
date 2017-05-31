@@ -1,10 +1,10 @@
-#ifndef KEY_BINDS_H_INCLUDED
-#define KEY_BINDS_H_INCLUDED
+#ifndef KeyBinds_H_INCLUDED
+#define KeyBinds_H_INCLUDED
 
 #include <map>
 #include <SFML/Graphics.hpp>
 
-namespace Key_Binds
+namespace KeyBinds
 {
     enum class Control
     {
@@ -20,4 +20,4 @@ namespace Key_Binds
     sf::Keyboard::Key                       getKey  (Control control);
 }
 
-#endif // KEY_BINDS_H_INCLUDED
+#endif // KeyBinds_H_INCLUDED

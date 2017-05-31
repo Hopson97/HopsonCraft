@@ -5,7 +5,7 @@
 
 #include <SFML/System.hpp>
 
-#include "../Shaders/Chunk_Shader.h"
+#include "../Shaders/ChunkShader.h"
 #include "RInfo.h"
 
 struct Camera;

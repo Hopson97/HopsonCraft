@@ -35,7 +35,7 @@ void Config::loadFromStream(std::string const& filename, std::istream& is)
     }
 }
 
-sf::Keyboard::Key Config::getKey(Key_Binds::Control control) const
+sf::Keyboard::Key Config::getKey(KeyBinds::Control control) const
 {
     return m_keybindings.at(control);
 }
@@ -52,10 +52,10 @@ void Config::setDefaultVideoMode()
 
 void Config::setDefaultKeybindings()
 {
-    m_keybindings[Key_Binds::Control::Player_Forwards]  = sf::Keyboard::W;
-    m_keybindings[Key_Binds::Control::Player_Back]      = sf::Keyboard::S;
-    m_keybindings[Key_Binds::Control::Player_Left]      = sf::Keyboard::A;
-    m_keybindings[Key_Binds::Control::Player_Right]     = sf::Keyboard::D;
+    m_keybindings[KeyBinds::Control::Player_Forwards]  = sf::Keyboard::W;
+    m_keybindings[KeyBinds::Control::Player_Back]      = sf::Keyboard::S;
+    m_keybindings[KeyBinds::Control::Player_Left]      = sf::Keyboard::A;
+    m_keybindings[KeyBinds::Control::Player_Right]     = sf::Keyboard::D;
 }
 
 void Config::loadScreenSettingsFromStream(ConfigParser& parser)
@@ -78,19 +78,19 @@ void Config::loadKeybindingsFromStream(ConfigParser& parser)
         auto kvp = parser.getKVP();
         if (kvp.first == "Player_Forwards")
         {
-            m_keybindings[Key_Binds::Control::Player_Forwards] = static_cast<sf::Keyboard::Key>(std::stoi(kvp.second));
+            m_keybindings[KeyBinds::Control::Player_Forwards] = static_cast<sf::Keyboard::Key>(std::stoi(kvp.second));
         }
         else if (kvp.first == "Player_Back")
         {
-            m_keybindings[Key_Binds::Control::Player_Back] = static_cast<sf::Keyboard::Key>(std::stoi(kvp.second));
+            m_keybindings[KeyBinds::Control::Player_Back] = static_cast<sf::Keyboard::Key>(std::stoi(kvp.second));
         }
         else if (kvp.first == "Player_Left")
         {
-            m_keybindings[Key_Binds::Control::Player_Left] = static_cast<sf::Keyboard::Key>(std::stoi(kvp.second));
+            m_keybindings[KeyBinds::Control::Player_Left] = static_cast<sf::Keyboard::Key>(std::stoi(kvp.second));
         }
         else if (kvp.first == "Player_Right")
         {
-            m_keybindings[Key_Binds::Control::Player_Right] = static_cast<sf::Keyboard::Key>(std::stoi(kvp.second));
+            m_keybindings[KeyBinds::Control::Player_Right] = static_cast<sf::Keyboard::Key>(std::stoi(kvp.second));
         }
         else
         {

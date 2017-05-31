@@ -1,7 +1,7 @@
-#ifndef SMAIN_MENU_H_INCLUDED
-#define SMAIN_MENU_H_INCLUDED
+#ifndef SMainMenu_H_INCLUDED
+#define SMainMenu_H_INCLUDED
 
-#include "Game_State.h"
+#include "Base.h"
 
 #include "../GUI/Menu.h"
 
@@ -9,10 +9,10 @@
 
 namespace State
 {
-    class Main_Menu : public Game_State
+    class MainMenu : public Base
     {
         public:
-            Main_Menu(Application& application);
+            MainMenu(Application& application);
 
             void input      (const sf::Event& e)        override;
             void input      (Camera& camera)            override;
@@ -36,4 +36,4 @@ namespace State
     };
 }
 
-#endif // SMAIN_MENU_H_INCLUDED
+#endif // SMainMenu_H_INCLUDED

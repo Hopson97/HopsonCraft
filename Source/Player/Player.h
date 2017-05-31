@@ -6,7 +6,7 @@
 #include "../Physics/AABB.h"
 #include "../Entity/Entity.h"
 
-#include "../Input/Function_Toggle_Key.h"
+#include "../Input/FunctionToggleKey.h"
 
 namespace Chunk
 {
@@ -42,7 +42,7 @@ class Player : public Entity
         Camera* m_p_camera;
         Vector3 m_velocity;
 
-        Toggle_Bool m_flyModeToggle;
+        ToggleBool m_flyModeToggle;
         Toggle      m_mouseLock;
 
         bool m_isOnGround = false;

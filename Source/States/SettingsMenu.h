@@ -1,9 +1,9 @@
-#ifndef SSETTINGS_MENU_H_INCLUDED
-#define SSETTINGS_MENU_H_INCLUDED
+#ifndef SSettingsMenu_H_INCLUDED
+#define SSettingsMenu_H_INCLUDED
 
 #include "../Resource_Managers/Resource_Holder.h"
 
-#include "Game_State.h"
+#include "Base.h"
 #include "../GUI/Menu.h"
 
 class World_Settings;
@@ -11,10 +11,10 @@ class Application;
 
 namespace State
 {
-    class Settings_Menu : public Game_State
+    class SettingsMenu : public Base
     {
         public:
-            Settings_Menu(Application& application, World_Settings& settings);
+            SettingsMenu(Application& application, World_Settings& settings);
 
             void input      (const sf::Event& e)        override;
             void input      (Camera& camera)            override;
@@ -35,4 +35,4 @@ namespace State
     };
 }
 
-#endif // SSETTINGS_MENU_H_INCLUDED
+#endif // SSettingsMenu_H_INCLUDED

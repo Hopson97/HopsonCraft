@@ -1,4 +1,4 @@
-#include "SPlaying.h"
+#include "Playing.h"
 
 #include <SFML/System/Clock.hpp>
 #include <iostream>
@@ -9,8 +9,8 @@
 #include "../Application.h"
 #include "../Display.h"
 #include "../Physics/Ray.h"
-#include "../Input/Function_Toggle_Key.h"
-#include "SSettings_Menu.h"
+#include "../Input/FunctionToggleKey.h"
+#include "SettingsMenu.h"
 
 #include "../GUI/BasicButton.h"
 #include "../GUI/Image.h"
@@ -19,7 +19,7 @@ namespace State
 {
     Playing::Playing(Application& application,
                      const World_Settings& settings)
-    :   Game_State  (application)
+    :   Base  (application)
     ,   m_world     (settings, application.getCamera())
     ,   m_player    (application.getCamera())
     ,   m_pauseMenu (GUI::Layout::Center)
@@ -164,7 +164,7 @@ namespace State
 
         m_pauseMenu.addComponent(std::make_unique<GUI::BasicButton>("Settings", [&]()
         {
-            m_application->pushState(std::make_unique<State::Settings_Menu>(*m_application, m_world.m_worldSettings));
+            m_application->pushState(std::make_unique<State::SettingsMenu>(*m_application, m_world.m_worldSettings));
         }));
 
         m_pauseMenu.addComponent(std::make_unique<GUI::BasicButton>("Exit", [&]()

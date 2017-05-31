@@ -1,6 +1,6 @@
-#include "Key_Binds.h"
+#include "KeyBinds.h"
 
-namespace Key_Binds
+namespace KeyBinds
 {
     std::map<Control, sf::Keyboard::Key> keys;
 

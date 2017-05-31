@@ -1,4 +1,4 @@
-#include "General_Maths.h"
+#include "General.h"
 
 
 namespace Maths

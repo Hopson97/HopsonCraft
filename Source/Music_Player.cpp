@@ -9,7 +9,7 @@ Music_Player::Music_Player()
 :   m_songs (getFileNamesFromFolder("Data/Music"))
 ,   m_currentSong   (Random::intInRange(0, m_songs.size() - 1))
 {
-    m_music.setVolume(1);
+    m_music.setVolume(2);
     getNextSong();
 }
 

@@ -21,10 +21,10 @@ class Toggle
         sf::Clock   m_toggleTimer;
 };
 
-class Toggle_Bool
+class ToggleBool
 {
     public:
-        Toggle_Bool(sf::Keyboard::Key key, sf::Time delay, bool& value);
+        ToggleBool(sf::Keyboard::Key key, sf::Time delay, bool& value);
 
         void input();
 

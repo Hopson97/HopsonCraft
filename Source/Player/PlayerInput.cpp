@@ -1,10 +1,8 @@
 #include "Player.h"
 
-#include "../Input/Key_Binds.h"
-#include "../Input/Function_Toggle_Key.h"
+#include "../Input/KeyBinds.h"
+#include "../Input/FunctionToggleKey.h"
 #include "../Display.h"
-
-#include <iostream>
 
 void Player::input()
 {
@@ -27,31 +25,31 @@ void Player::keyBoardInput ()
     float yaw   = glm::radians(rotation.y);
     float yaw90 = glm::radians(rotation.y + 90);
 
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Forwards)))
+    if (sf::Keyboard::isKeyPressed(KeyBinds::getKey(KeyBinds::Control::Player_Forwards)))
     {
         change.x -= glm::cos(yaw90) * speed;
         change.z -= glm::sin(yaw90) * speed;
     }
 
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Back)))
+    if (sf::Keyboard::isKeyPressed(KeyBinds::getKey(KeyBinds::Control::Player_Back)))
     {
         change.x += glm::cos(yaw90) * speed;
         change.z += glm::sin(yaw90) * speed;
     }
 
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Left)))
+    if (sf::Keyboard::isKeyPressed(KeyBinds::getKey(KeyBinds::Control::Player_Left)))
     {
         change.x -= glm::cos(yaw) * speed;
         change.z -= glm::sin(yaw) * speed;
     }
 
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Right)))
+    if (sf::Keyboard::isKeyPressed(KeyBinds::getKey(KeyBinds::Control::Player_Right)))
     {
         change.x += glm::cos(yaw) * speed;
         change.z += glm::sin(yaw) * speed;
     }
 
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Up)))
+    if (sf::Keyboard::isKeyPressed(KeyBinds::getKey(KeyBinds::Control::Player_Up)))
     {
         if (m_isFlying)
         {
@@ -67,7 +65,7 @@ void Player::keyBoardInput ()
         }
     }
 
-    if (sf::Keyboard::isKeyPressed(Key_Binds::getKey(Key_Binds::Control::Player_Down)))
+    if (sf::Keyboard::isKeyPressed(KeyBinds::getKey(KeyBinds::Control::Player_Down)))
     {
         change.y -= speed;
     }

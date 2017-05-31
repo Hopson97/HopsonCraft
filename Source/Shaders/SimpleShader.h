@@ -1,7 +1,7 @@
 #ifndef SIMPLE_SHADER_H_INCLUDED
 #define SIMPLE_SHADER_H_INCLUDED
 
-#include "Shader_Program.h"
+#include "ShaderProgram.h"
 
 namespace Shader
 {

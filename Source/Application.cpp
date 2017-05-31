@@ -9,11 +9,11 @@
 
 #include "Display.h"
 
-#include "States/SMain_Menu.h"
+#include "States/MainMenu.h"
 
 Application::Application()
 {
-    pushState(std::make_unique<State::Main_Menu>(*this));
+    pushState(std::make_unique<State::MainMenu>(*this));
 }
 
 void Application::runMainGameLoop()
@@ -82,7 +82,7 @@ void Application::render()
 }
 
 
-void Application::pushState(std::unique_ptr<State::Game_State> state)
+void Application::pushState(std::unique_ptr<State::Base> state)
 {
     state->onOpen();
     m_states.push_back(std::move(state));

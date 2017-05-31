@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "../Input/Key_Binds.h"
+#include "../Input/KeyBinds.h"
 #include "ConfigParser.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics.hpp>
@@ -14,7 +14,7 @@ public:
 	// The filename is used for error reporting.
 	void loadFromStream(std::string const& filename, std::istream&);
 
-	sf::Keyboard::Key getKey(Key_Binds::Control) const;
+	sf::Keyboard::Key getKey(KeyBinds::Control) const;
 	sf::VideoMode getVideoMode() const;
 
 
@@ -26,7 +26,7 @@ private:
 	void loadKeybindingsFromStream(ConfigParser&);
 
 	sf::VideoMode m_video_mode;
-	std::map<Key_Binds::Control, sf::Keyboard::Key> m_keybindings;
+	std::map<KeyBinds::Control, sf::Keyboard::Key> m_keybindings;
 };
 
 #endif

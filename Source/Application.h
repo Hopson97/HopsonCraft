@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-#include "States/Game_State.h"
+#include "States/Base.h"
 
 #include "Renderer/RMaster.h"
 
@@ -18,7 +18,7 @@ class Application
 
         void runMainGameLoop();
 
-        void pushState(std::unique_ptr<State::Game_State> state);
+        void pushState(std::unique_ptr<State::Base> state);
         void popState();
 
         Camera& getCamera();
@@ -34,7 +34,7 @@ class Application
 
 
 
-        std::vector<std::unique_ptr<State::Game_State>> m_states;
+        std::vector<std::unique_ptr<State::Base>> m_states;
         Renderer::Master m_renderer;
         Camera m_camera;
 };

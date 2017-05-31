@@ -1,6 +1,6 @@
-#include "Simple_Shader.h"
+#include "SimpleShader.h"
 
-#include "../Maths/Matrix_Maths.h"
+#include "../Maths/Matrix.h"
 
 namespace Shader
 {

@@ -1,6 +1,6 @@
-#include "Shader_Program.h"
+#include "ShaderProgram.h"
 
-#include "Shader_Loader.h"
+#include "ShaderLoader.h"
 
 namespace Shader
 {

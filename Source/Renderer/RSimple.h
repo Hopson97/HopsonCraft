@@ -4,7 +4,7 @@
 #include <vector>
 #include <SFML/System/Clock.hpp>
 
-#include "../Shaders/Simple_Shader.h"
+#include "../Shaders/SimpleShader.h"
 #include "../Model.h"
 
 class Cube;

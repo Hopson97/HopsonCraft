@@ -1,43 +1,43 @@
-#include "SSettings_Menu.h"
+#include "SettingsMenu.h"
 
 #include "../Resource_Managers/Resource_Holder.h"
 
 #include "../Application.h"
-#include "SPlaying.h"
+#include "Playing.h"
 
 #include "../GUI/BasicButton.h"
 
 namespace State
 {
-    Settings_Menu::Settings_Menu(Application& application, World_Settings& settings)
-    :   Game_State          (application)
+    SettingsMenu::SettingsMenu(Application& application, World_Settings& settings)
+    :   Base          (application)
     ,   m_pWorldSettings    (&settings)
     {
         initMenu();
     }
 
-    void Settings_Menu::input(const sf::Event& e)
+    void SettingsMenu::input(const sf::Event& e)
     {
         m_pActiveMenu->input(e);
     }
 
-    void Settings_Menu::input(Camera& camera)
+    void SettingsMenu::input(Camera& camera)
     { }
 
-    void Settings_Menu::fixedUpdate(Camera& camera, float dt)
+    void SettingsMenu::fixedUpdate(Camera& camera, float dt)
     {
         m_pActiveMenu->update();
     }
 
-    void Settings_Menu::draw(Renderer::Master& renderer)
+    void SettingsMenu::draw(Renderer::Master& renderer)
     {
         m_pActiveMenu->draw(renderer);
     }
 
-    void Settings_Menu::onOpen()
+    void SettingsMenu::onOpen()
     { }
 
-    void Settings_Menu::initMenu()
+    void SettingsMenu::initMenu()
     {
         //Front menu
         m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Video Settings", [&]()
