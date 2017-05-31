@@ -51,21 +51,14 @@ namespace
     {
         #ifdef __WIN32
             MessageBox(nullptr, message.c_str(), "Error", MB_OK);
-        #else // __WIN32
             std::cerr << message << std::endl;
-        #endif
-/** @TODO Put correct headers for these bad boys
-        #elif __linux
+        #elif __linux__ || __APPLE__
             const std::string command = "zenity --error --text \"" + message + "\"";
-            system(command.c_str());
-        #elif __APPLE__
-            const std::string command = "osascript -e 'tell app \"System Events\" to display dialog \"" + message + "\" buttons {\"OK\"} default button 1 with icon caution with title \"Error\"'";
             system(command.c_str());
         #else
             std::cerr << message << std::endl;
             std::cin.ignore();
         #endif
-*/
     }
 
     void initilize()
@@ -75,7 +68,7 @@ namespace
 
         for (int i = 0; i < 30; i++)
         {
-            Random::intInRange(0, 63464); //This is so that the RNG is more random
+            Random::intInRange(0, 6346554); //This is so that the RNG is more random
         }
     }
 
