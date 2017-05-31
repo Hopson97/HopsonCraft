@@ -7,8 +7,9 @@
 #include "../Player/Player.h"
 #include "../Entity/Cube.h"
 
-#include "../GUI/GUI.h"
 #include "../Util/Time_Check.h"
+
+#include "../GUI/Panel.h"
 
 class Application;
 class Camera;

@@ -10,20 +10,18 @@ namespace GUI
     class Button : public Component
     {
         public:
-            Button(const std::string& text,
-                   std::function<void(void)> function);
-
-            void input  (const sf::Event& e)                override;
-            void update ()                                  override;
-            void draw   (Renderer::Master& renderer)         override;
-
-            void setPosition (const sf::Vector2f& position) override;
-            const sf::Vector2f getSize () const             override;
+            Button(const sf::RectangleShape& rect);
 
         private:
-            std::function<void(void)> m_function;
-            sf::RectangleShape  m_quad;
-            sf::Text            m_text;
+
+            void input  (const sf::Event& e)    override;
+            void update ()                      {}
+
+            virtual void onClick()      = 0;
+            virtual void onMouseTouch() = 0;
+            virtual void onNoInteract() = 0;
+
+            const sf::RectangleShape& m_rShape;
     };
 }
 

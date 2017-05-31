@@ -5,6 +5,8 @@
 #include "../Application.h"
 #include "SPlaying.h"
 
+#include "../GUI/BasicButton.h"
+
 namespace State
 {
     Settings_Menu::Settings_Menu(Application& application, World_Settings& settings)
@@ -38,18 +40,18 @@ namespace State
     void Settings_Menu::initMenu()
     {
         //Front menu
-        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Video Settings", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Video Settings", [&]()
         {
             m_pActiveMenu = &m_videoSettings;
         }));
 
-        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Back", [&]()
         {
             m_application->popState();
         }));
 
         //Video settings menu
-        m_videoSettings.addComponent(std::make_unique<GUI::Button>("Back", [&]()
+        m_videoSettings.addComponent(std::make_unique<GUI::BasicButton>("Back", [&]()
         {
             m_pActiveMenu = &m_frontMenu;
         }));

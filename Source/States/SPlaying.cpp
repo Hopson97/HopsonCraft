@@ -12,6 +12,9 @@
 #include "../Input/Function_Toggle_Key.h"
 #include "SSettings_Menu.h"
 
+#include "../GUI/BasicButton.h"
+#include "../GUI/Image.h"
+
 namespace State
 {
     Playing::Playing(Application& application,
@@ -121,9 +124,7 @@ namespace State
     {
         return
         {
-            0,
-            1,
-            0
+            0, 1, 0
         };
     }
 
@@ -156,17 +157,17 @@ namespace State
     {
         m_pauseMenu.addComponent(std::make_unique<GUI::Image>("Logo", sf::Vector2f{800, 100}));
         m_pauseMenu.addPadding(200);
-        m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Resume", [&]()
+        m_pauseMenu.addComponent(std::make_unique<GUI::BasicButton>("Resume", [&]()
         {
             m_isPaused = false;
         }));
 
-        m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Settings", [&]()
+        m_pauseMenu.addComponent(std::make_unique<GUI::BasicButton>("Settings", [&]()
         {
             m_application->pushState(std::make_unique<State::Settings_Menu>(*m_application, m_world.m_worldSettings));
         }));
 
-        m_pauseMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
+        m_pauseMenu.addComponent(std::make_unique<GUI::BasicButton>("Exit", [&]()
         {
             m_application->popState();
         }));

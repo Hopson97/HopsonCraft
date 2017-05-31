@@ -67,17 +67,5 @@ namespace Display
     {
         window.draw(drawable);
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
 

@@ -1,7 +1,7 @@
 #ifndef TOGGLE_OPTION_BUTTON_H_INCLUDED
 #define TOGGLE_OPTION_BUTTON_H_INCLUDED
 
-#include "Component.h"
+#include "Button.h"
 
 #include <utility>
 
@@ -11,12 +11,13 @@
 namespace GUI
 {
     template<typename T>
-    class Toggle_Option_Button : public Component
+    class Toggle_Option_Button : public Button
     {
         public:
             Toggle_Option_Button(std::string&& title,
                                  const std::vector<std::pair<std::string, T>>& options,
                                  T& option)
+            :   Button          (m_quad)
             :   m_pOption       (&option)
             ,   m_label         (std::move(title))
             {
@@ -34,24 +35,20 @@ namespace GUI
                 nextOption();
             }
 
-            void input (const sf::Event& e) override
+            void onMouseTouch()
             {
-                if (touchingMouse(m_quad))
-                {
-                    m_quad.setFillColor(sf::Color::Blue);
-                }
-                else
-                {
-                    m_quad.setFillColor(sf::Color::White);
-                }
-
-                if(clicked(m_quad, e))
-                {
-                    nextOption();
-                }
+                m_quad.setFillColor(sf::Color::Blue);
             }
 
-            void update () override{}
+            void onClick()
+            {
+                m_quad.setFillColor(sf::Color::White);
+            }
+
+            void onNoInteract()
+            {
+                nextOption();
+            }
 
             void draw   (Renderer::Master& renderer) override
             {
@@ -91,8 +88,8 @@ namespace GUI
             sf::RectangleShape  m_quad;
             sf::Text            m_text;
 
-            std::vector<std::string> m_options;
-            std::vector<T>          m_optionValues;
+            std::vector<std::string>    m_options;
+            std::vector<T>              m_optionValues;
             T* m_pOption;
             std::string m_label;
             int32_t m_optionIndex = -1;

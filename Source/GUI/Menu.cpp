@@ -5,7 +5,7 @@
 #include "../Util/Random.h"
 #include "../Util/File_Util.h"
 
-#include <iostream>
+#include "Image.h"
 
 namespace GUI
 {

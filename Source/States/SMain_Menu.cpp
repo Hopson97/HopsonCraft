@@ -12,6 +12,8 @@
 
 #include "SSettings_Menu.h"
 
+#include "../GUI/BasicButton.h"
+
 namespace State
 {
     Main_Menu::Main_Menu(Application& application)
@@ -47,33 +49,33 @@ namespace State
     void Main_Menu::initMenu()
     {
         //Front menu
-        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Play", [&]()
         {
             m_pActiveMenu = &m_playMenu;
         }));
 
-        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Settings", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Settings", [&]()
         {
             m_application->pushState(std::make_unique<State::Settings_Menu>(*m_application, settings));
         }));
 
-        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Credits (Unused)", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Credits (Unused)", [&]()
         { }));
 
-        m_frontMenu.addComponent(std::make_unique<GUI::Button>("Exit", [&]()
+        m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Exit", [&]()
         {
             m_application->popState();
         }));
 
         //Play menu
-        m_playMenu.addComponent(std::make_unique<GUI::Button>("Play", [&]()
+        m_playMenu.addComponent(std::make_unique<GUI::BasicButton>("Play", [&]()
         {
             m_pActiveMenu = &m_frontMenu;
             settings.seed = Random::intInRange(0, 999'999);
             m_application->pushState(std::make_unique<State::Playing>(*m_application, settings));
         }));
 
-        m_playMenu.addComponent(std::make_unique<GUI::Button>("Back", [&]()
+        m_playMenu.addComponent(std::make_unique<GUI::BasicButton>("Back", [&]()
         {
             m_pActiveMenu = &m_frontMenu;
         }));

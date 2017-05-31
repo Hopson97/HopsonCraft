@@ -3,16 +3,14 @@
 #include <ctime>
 
 #include "Util/Random.h"
-
 #include "Util/Config.h"
 #include "Util/Singleton.h"
-
-#include "World/Generators/Noise.h"
+#include "Util/Native.h"
 
 #include "Application.h"
 #include "Display.h"
 
-#include "Util/Native.h"
+
 
 #ifdef __WIN32
     extern "C"

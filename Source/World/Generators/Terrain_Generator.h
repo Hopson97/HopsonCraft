@@ -20,7 +20,7 @@
 #include "Generation_Type.h"
 
 
-
+/*
 namespace Chunk
 {
     class Full_Chunk;
@@ -69,5 +69,5 @@ class Terrain_Generator
 
         std::mutex m_genMutex;
 };
-
+*/
 #endif // Terrain_Generator_H_INCLUDED

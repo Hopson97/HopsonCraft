@@ -42,7 +42,6 @@ Model& Model::operator=(Model&& other)
 }
 
 
-
 Model::~Model()
 {
     deleteData();
@@ -115,8 +114,6 @@ GLuint Model::getVAO() const
 {
     return m_vao;
 }
-
-
 
 void Model::addEBO(const std::vector<GLuint>& indices)
 {

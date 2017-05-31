@@ -1,7 +1,7 @@
 #ifndef MENU_H_INCLUDED
 #define MENU_H_INCLUDED
 
-#include "GUI.h"
+#include "Panel.h"
 
 namespace sf
 {
