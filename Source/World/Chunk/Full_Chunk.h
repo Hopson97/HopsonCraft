@@ -71,7 +71,7 @@ namespace Chunk
                     Section* editableGetSection (int32_t index);
 
             uint32_t draw   (Renderer::Master& renderer, const Camera& camera);
-            bool tryGen     (/*const Camera& camera*/);
+            bool tryGen     ();
 
             void addSection();
 
@@ -83,13 +83,7 @@ namespace Chunk
             void setForDelete();
             bool hasDeleteFlag() const;
 
-            void save(World_File& worldFile);
-            void load(World_File& worldFile);
-
-
         private:
-            std::string getFileName(World_File& worldFile) const;
-
             void addSections(uint32_t blockTarget);
             void initBasicSunlight();
             bool overrideBlockFails(bool overrideBlocks,

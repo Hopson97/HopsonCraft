@@ -38,6 +38,6 @@ namespace Maths
         return glm::perspective(glm::radians(fieldOfView),
                                 (float)Display::get().getSize().x/ (float)Display::get().getSize().y,
                                 0.1f,
-                                1500.0f);
+                                1000.0f);
     }
 }

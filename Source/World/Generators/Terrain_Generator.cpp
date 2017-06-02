@@ -8,14 +8,14 @@
 #include "../World_Settings.h"
 #include "../Chunk/Full_Chunk.h"
 
-#include "GeneratorID.h"
+#include "Structures.h"
 
 Terrain_Generator::Terrain_Generator(const World_Settings& worldSettings)
 :   m_worldGenType      (worldSettings.generator)
 ,   m_pWorldSettings    (&worldSettings)
 {
-    m_heightGen.setSeed            (worldSettings.seed);
-    m_biomeNoise.setSeed            (worldSettings.seed);
+    m_heightGen.setSeed     (worldSettings.seed);
+    m_biomeNoise.setSeed    (worldSettings.seed);
 
     m_biomeNoise.setNoiseFunction   (m_worldGenType.getBiomeMapNoise());
 }
@@ -49,7 +49,6 @@ void Terrain_Generator::generateBlocksFor(Chunk::Full_Chunk& chunk, World_File& 
     }
 
     chunk.hasGeneratedBlockData = true;
-    chunk.load(worldFile);
     m_genMutex.unlock();
 }
 
@@ -108,7 +107,7 @@ void Terrain_Generator::makeRegularWorld()
     for (auto& pos : m_oakTreeLocations)
     {
         auto id = pos.second;
-        getStructureFromID(*m_pChunk, pos.first, m_randomGenerator, id);
+        Structure::createFromID(id, *m_pChunk, pos.first, m_randomGenerator);
     }
 }
 
@@ -201,7 +200,6 @@ void Terrain_Generator::setRandomSeed()
 */
 void Terrain_Generator::makeHeightSection(int xMin, int zMin, int xMax, int zMax)
 {
-
     auto getHeightAt = [&](int indexA, int indexB)
     {
         m_heightGen.setNoiseFunction(m_worldGenType.getBiome(m_biomeMap.at(indexA, indexB)).getNoise());

@@ -22,10 +22,8 @@ namespace Block
 namespace Chunk
 {
     class Section;
-    class Meshes;
 
-
-    void buildMesh(const Section& chunk, Meshes& meshes);
+    Meshes buildMesh(const Section& chunk);
 }
 
 #endif // CMESH_BUILDER_H_INCLUDED

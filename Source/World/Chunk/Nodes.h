@@ -46,8 +46,8 @@ struct CBlock
         return id == static_cast<Block_t>(newID);
     }
 
-    uint16_t id         : 12;  //Maximum value -> 4095
-    uint8_t metaData    : 4;   //Maximum value -> 15
+    uint16_t id         : 12;   //Maximum value -> 2^12 - 1
+    uint16_t metaData    : 4;   //Maximum value -> 2^4  - 1
 };
 
 struct CLight

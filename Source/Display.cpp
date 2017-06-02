@@ -39,7 +39,7 @@ namespace Display
 
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        window->setFramerateLimit(144);
+        //window->setFramerateLimit(144);
     }
 
     void close()

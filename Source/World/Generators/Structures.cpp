@@ -1,16 +1,31 @@
 #include "Structures.h"
 
-#include "../Chunk/Nodes.h"
-#include "../IBlock_Accessible.h"
-
-void makePyramid(IBlock_Accessible& access,
-                 const Block::Position& pos,
-                 Random::Generator<std::mt19937>& random)
+namespace Structure
 {
-    for (int base = 9, h = 0; base > 0; base -= 2, h++)
-    for (int x = pos.x - base / 2; x < pos.x + base / 2; x++)
-    for (int z = pos.z - base / 2; z < pos.z + base / 2; z++)
+    void createFromID(  ID id,
+                        IBlock_Accessible& access,
+                        const Block::Position& pos,
+                        Random::Generator<std::mt19937>& random)
     {
-        access.setBlock(pos.x + x, pos.y + h + 1, pos.z + z, Block::ID::Stone);
+        switch(id)
+        {
+            case ID::Oak_Tree:
+                makeOakTree(access, pos, random);
+                break;
+
+            case ID::Acacia_Tree:
+                makeAcaciaTree(access, pos, random);
+                break;
+
+            case ID::Palm_Tree:
+                makePalmTree(access, pos, random);
+                break;
+
+
+            case ID::Pyramid:
+                makePyramid(access, pos, random);
+                break;
+        }
     }
+
 }

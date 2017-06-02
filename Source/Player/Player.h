@@ -32,10 +32,8 @@ class Player : public Entity
 
     private:
         void collisionTest  (World& world,
-                             float dt,
-                             float vx,
-                             float vy,
-                             float vz);
+                             const Vector3& velocity,
+                             float dt);
 
         void keyBoardInput  ();
         void mouseInput     ();

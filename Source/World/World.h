@@ -88,8 +88,9 @@ class World : public IBlock_Accessible
         std::unordered_map<Vector3, CBlock> m_triggerBlocks;
         std::unordered_map<Vector3, CBlock> m_sheduledTriggerBlocks;
 
-        std::vector<std::thread>    m_threads;
-        std::vector<Chunk::Position>    m_deleteChunks;
+        std::vector<std::thread>                m_threads;
+        std::vector<Chunk::Position>            m_deleteChunks;
+        std::vector<Chunk::Chunklet_Position>   m_rebuildChunks;
         std::mutex m_deleteMutex;
 
         World_File      m_worldFile;

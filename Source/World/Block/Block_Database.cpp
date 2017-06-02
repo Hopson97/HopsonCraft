@@ -18,7 +18,7 @@ namespace Block
     }
 
     Database::Database()
-    :   m_textures  ("Atlas/LHD", 256, 16)
+    :   m_textures  ("Atlas/Low", 512, 16)
     {
         m_blocks[(int)ID::Air     ] = std::make_unique<Default>   ("Air");
         m_blocks[(int)ID::Grass   ] = std::make_unique<Default>   ("Grass");
@@ -30,8 +30,6 @@ namespace Block
         m_blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default> ("Oak_Leaf");
 
         m_blocks[(int)ID::Water       ] = std::make_unique<BWater> ();
-
-        m_blocks[(int)ID::Snow        ] = std::make_unique<Default> ("Snow");
 
         m_blocks[(int)ID::Rose        ] = std::make_unique<BPlant> ("Rose");
         m_blocks[(int)ID::Tall_Grass  ] = std::make_unique<BPlant> ("Tall_Grass");

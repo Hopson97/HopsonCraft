@@ -4,6 +4,7 @@
 
 #include "../World_File.h"
 #include "../World_Constants.h"
+#include "../World.h"
 #include "../../Maths/General_Maths.h"
 #include "../../Maths/Position_Conversion.h"
 #include "../../Camera.h"
@@ -33,19 +34,26 @@ namespace Chunk
 
     void Full_Chunk::tick()
     {
-        auto n = Random::intInRange(1, 16);
-        if (n == 1)
-        {
-            auto x = Random::intInRange(0, CHUNK_SIZE - 1);
-            auto z = Random::intInRange(0, CHUNK_SIZE - 1);
-
             /**
                 @TODO Use this x and z position to  update top block of
                 column at location according to weather conditions
                 (of which is not implemented as of 23/05/2017)
             */
-        }
 
+/*
+        if (Random::intInRange(1, 16) == 1)
+        {
+            auto x = (uint8_t)Random::intInRange(0, CHUNK_SIZE - 1);
+            auto z = (uint8_t)Random::intInRange(0, CHUNK_SIZE - 1);
+
+            auto height = getHeightAt(x, z);
+            auto block = qGetBlock(x, height, z);
+
+            auto worldBlockPosition =
+                Maths::Convert::chunkBlockToWorldBlockPosition({x, height, z}, getPosition());
+
+        }
+*/
         for (auto& chunk : m_chunkSections)
         {
             chunk.tick(*m_pWorld);
@@ -107,12 +115,6 @@ namespace Chunk
                 ->qGetBlock(blockPos);
         }
     }
-
-    void    Full_Chunk::setBlock    (int x, int y, int z, CBlock block) {   setBlock({x, y, z}, block); }
-    void    Full_Chunk::qSetBlock   (int x, int y, int z, CBlock block) {   qSetBlock({x, y, z}, block); }
-    CBlock  Full_Chunk::qGetBlock   (int x, int y, int z) const { return    qGetBlock({x, y, z}); }
-    CBlock  Full_Chunk::getBlock    (int x, int y, int z) const { return    getBlock({x, y, z}); }
-
 
     void Full_Chunk::addSections(uint32_t blockTarget)
     {
@@ -192,6 +194,8 @@ namespace Chunk
                     else
                     {
                         chunk.bufferMesh();
+                        renderer.draw(chunk);
+                        facesDrawn += chunk.getMeshes().faceCount;
                     }
                 }
             }
@@ -199,14 +203,12 @@ namespace Chunk
         return facesDrawn;
     }
 
-    bool Full_Chunk::tryGen(/*const Camera& camera*/)
+    bool Full_Chunk::tryGen()
     {
         for (auto& chunk : m_chunkSections)
         {
             if (!chunk.getStates().made)
             {
-                //if (!camera.getFrustum().boxInFrustum(chunk.getAABB())) continue;
-
                 chunk.makeMesh();
                 return true;
             }
@@ -219,57 +221,46 @@ namespace Chunk
         return m_highestBlocks.at(x, z);
     }
 
-    void Full_Chunk::save(World_File& worldFile)
-    {/*
-        std::ofstream outFile(getFileName(worldFile));
-        outFile << m_chunkSections.size();
-
-        for (auto& section : m_chunkSections)
-        {
-            section->save(worldFile);
-        }*/
-    }
-
-    void Full_Chunk::load(World_File& worldFile)
+    const Position& Full_Chunk::getPosition () const
     {
-        /*
-        std::ifstream inFile(getFileName(worldFile));
-        if (inFile.is_open())
-        {
-            int numberOfChunks;
-            inFile >> numberOfChunks;
-            addSections(numberOfChunks);
-        }
-
-        for (auto& chunk : m_chunkSections)
-        {
-            chunk.load(worldFile);
-        }
-        */
+        return m_position;
     }
 
-    std::string Full_Chunk::getFileName(World_File& worldFile) const
+    const World& Full_Chunk::getWorld () const
     {
-        return  worldFile.getFolderName() +
-                std::to_string(m_position.x) + " " +
-                std::to_string(m_position.y) + ".chunk";
+        return *m_pWorld;
+    }
+    bool Full_Chunk::hasDeleteFlag () const
+    {
+        return m_hasDeleteFlag;
+    }
+    void Full_Chunk::setForDelete ()
+    {
+        m_hasDeleteFlag = true;
+    }
+
+    void Full_Chunk::setBlock (int x, int y, int z, CBlock block)
+    {
+        setBlock({x, y, z}, block);
+    }
+
+    void Full_Chunk::qSetBlock (int x, int y, int z, CBlock block)
+    {
+        qSetBlock({x, y, z}, block);
+    }
+
+    CBlock Full_Chunk::qGetBlock (int x, int y, int z) const
+    {
+        return    qGetBlock({x, y, z});
+    }
+
+    CBlock Full_Chunk::getBlock (int x, int y, int z) const
+    {
+        return    getBlock({x, y, z});
     }
 
 
-    const Position& Full_Chunk::getPosition     () const    { return m_position;        }
-    const World&    Full_Chunk::getWorld        () const    { return *m_pWorld;         }
-    bool            Full_Chunk::hasDeleteFlag   () const    { return m_hasDeleteFlag;   }
-    void            Full_Chunk::setForDelete    ()          { m_hasDeleteFlag = true;   }
 }
-
-
-
-
-
-
-
-
-
 
 
 

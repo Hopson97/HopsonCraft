@@ -31,7 +31,7 @@ Vector3 AABB::getVN(const Vector3& normal) const
     {
         res.y += m_dimensions.y;
     }
-        if (normal.z < 0)
+    if (normal.z < 0)
     {
         res.z += m_dimensions.z;
     }
@@ -51,7 +51,7 @@ Vector3 AABB::getVP(const Vector3& normal) const
     {
         res.y += m_dimensions.y;
     }
-        if (normal.z > 0)
+    if (normal.z > 0)
     {
         res.z += m_dimensions.z;
     }

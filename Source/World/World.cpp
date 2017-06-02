@@ -16,17 +16,16 @@ World::World(const World_Settings& worldSettings, const Camera& camera)
 ,   m_chunks        (*this)
 ,   m_pCamera       (&camera)
 {
-    for (int i = 0; i < 1; i++)
+
+    m_threads.emplace_back([&]()
     {
-        m_threads.emplace_back([&]()
+        while (m_isRunning)
         {
-            while (m_isRunning)
-            {
-                generateWorld(*m_pCamera);
-                std::this_thread::sleep_for(std::chrono::microseconds(10));
-            }
-        });
-    }
+            generateWorld(*m_pCamera);
+            std::this_thread::sleep_for(std::chrono::microseconds(100));
+        }
+    });
+
 }
 
 
@@ -37,7 +36,6 @@ World::~World()
     {
         thread.join();
     }
-    m_chunks.save(m_worldFile);
 }
 
 void World::updateChunks(const Player& player)
@@ -281,10 +279,8 @@ void World::drawWorld(Renderer::Master& renderer, const Camera& camera)
 {
     m_facesDrawn = 0;
     for (auto& chunk : m_chunks.getChunks())
-    {
         if (chunk.second.hasGeneratedBlockData)
             m_facesDrawn += chunk.second.draw(renderer, camera);
-    }
 }
 
 const World_Settings& World::getWorldSettings() const
@@ -327,7 +323,7 @@ void World::generateWorld(const Camera& camera)
         Vec2 minPoint, maxPoint;
     };
 
-    if (m_loadingDistance == ((m_worldSettings.renderDistance / 2) + 1))
+    if (m_loadingDistance >= ((m_worldSettings.renderDistance / 2) + 1))
     {
         m_loadingDistance = 1;
     }
@@ -348,6 +344,7 @@ void World::generateWorld(const Camera& camera)
                          m_cameraPosition.y + i};
 
         m_deleteMutex.lock();
+
         for (int32_t x = area.minPoint.x; x < area.maxPoint.x; x++)
         {
             for (int32_t z = area.minPoint.z; z < area.maxPoint.z; z++)
@@ -404,7 +401,6 @@ void World::generateWorld(const Camera& camera)
             }
         }
     }
-
 
     m_deleteMutex.unlock();
 }

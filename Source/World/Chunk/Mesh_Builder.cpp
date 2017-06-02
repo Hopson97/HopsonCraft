@@ -220,7 +220,6 @@ namespace
                                          thisBlockPos);
         }
     }
-
 }
 
 namespace Chunk
@@ -251,16 +250,18 @@ namespace Chunk
 
     //Looks at the faces of every block, and adds block faces to a mesh if said face
     //is non-opaque (Other checks are done too)
-    void buildMesh(const Section& chunk, Meshes& meshes)
+    Meshes buildMesh(const Section& chunk)
     {
+        Meshes chunkMeshes;
+
         static int      n   = 0;
         static float    sum = 0;
         n++;
         sf::Clock timer;
 
-        meshes.floraMesh.reset();
-        meshes.solidMesh.reset();
-        meshes.liquidMesh.reset();
+        chunkMeshes.floraMesh.reset();
+        chunkMeshes.solidMesh.reset();
+        chunkMeshes.liquidMesh.reset();
 
 
         const Block::Data_Holder* blockData = nullptr;
@@ -284,10 +285,9 @@ namespace Chunk
                     continue;
                 }
 
-
                 blockData = &block.getData();
 
-                ChunkMesh chunkMesh(chunk, getActiveMesh(*blockData, meshes));
+                ChunkMesh chunkMesh(chunk, getActiveMesh(*blockData, chunkMeshes));
 
                 if (blockData->meshStyle == Block::Mesh_Style::XStyle)
                 {
@@ -298,7 +298,7 @@ namespace Chunk
                 }
 
                 //Set local block position vectors.
-                //This is mostly to make the if statements below to look neater.
+                //This is mostly to make the statements below to look neater.
                 vectors.update(x, y, z);
 
                 //Y-Faces
@@ -330,12 +330,14 @@ namespace Chunk
             }
         }
 
-        meshes.update();
+        chunkMeshes.update();
 
         float timeForGen = timer.getElapsedTime().asSeconds();
         sum += timeForGen;
 
         LOG("Chunk mesh made in: %.3f ms!\nAverage: %.3f ms \n\n",
             timeForGen * 1000.0f, (sum / n) * 1000.0f);
+
+        return chunkMeshes;
     }
 }
