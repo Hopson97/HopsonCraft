@@ -5,10 +5,10 @@
 * File names: PascalCase
 * Folder names: PascalCase
 
-* Class names: Pascal_Case
-* Struct names: Pascal_Case
+* Class names: PascalCase
+* Struct names: PascalCase
 * Class members: m_camelCase
-* Class non-owning pointers: m_pCamelCase
+* Class non-owning pointer members: m_pCamelCase
 
 * Functions: camelCase
 * Local variables: camelCase
