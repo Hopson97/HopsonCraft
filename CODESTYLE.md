@@ -40,7 +40,7 @@ class Foo_Bar
 
 * Public functions and members at top, protected in middle, private at bottom
 * Notice a space between the final class member/function and the next accessor!
-* Private members must be prefixed with "_m"
+* Private members must be prefixed with "m_"
 
 * Initilzation lists:
 
