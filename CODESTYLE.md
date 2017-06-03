@@ -105,12 +105,22 @@ class World
 
 ## Functions
 
+* Function names should be descriptive of what they do and should be a verb ("doing word")
+* Functions which return "bool" should be a question eg 
+
+```C++
+bool isXGreaterThan5 (int x)
+{
+    return x > 5;
+}
+```
+
 * Primitives can be passed by value, or reference
 * Objects pass as either const reference (or reference), and NEVER BY VALUE
 * Indent style:
 
 ```C++
-bool functionName(int arg1, const std::string& arg2)
+bool isSomething(int arg1, const std::string& arg2)
 {
     if (arg1 > 5)
     {
@@ -121,7 +131,7 @@ bool functionName(int arg1, const std::string& arg2)
 }
 ```
 
-* For setter functions, use R-Value references and move scematics eg
+* For setter functions, use R-Value references and move scematics (if feasible) eg
 
 ```C++
 void Foo:setString(std::string&& str)
