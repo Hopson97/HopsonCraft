@@ -35,7 +35,7 @@ namespace GUI
     }
 
 
-    void BasicButton::draw(Renderer::Master& renderer)
+    void BasicButton::draw(Renderer::Master& renderer) noexcept
     {
         renderer.draw(m_quad);
         renderer.draw(m_text);

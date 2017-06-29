@@ -6,12 +6,12 @@
 class Ray
 {
     public:
-        Ray(float yaw, float pitch, const Vector3& origin);
+        Ray(float yaw, float pitch, const Vector3& origin) noexcept;
 
-        void step (float scaler);
-        const Vector3& getEndPoint() const;
+        void step (float scaler) noexcept;
+        const Vector3& getEndPoint() const noexcept;
 
-        float getLength();
+        float getLength() noexcept;
 
     private:
         float m_yaw;

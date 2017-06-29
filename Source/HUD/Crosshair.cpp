@@ -16,12 +16,12 @@ Crosshair::Crosshair()
                          getDisplay().get().getSize().y / 2);
 }
 
-void Crosshair::draw(Renderer::Master& renderer)
+void Crosshair::draw(Renderer::Master& renderer) noexcept
 {
     renderer.draw(m_sprite);
 }
 
-void Crosshair::setMode(Mode mode)
+void Crosshair::setMode(Mode mode) noexcept
 {
     switch (mode)
     {

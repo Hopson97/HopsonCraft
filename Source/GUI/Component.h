@@ -38,7 +38,7 @@ namespace GUI
         public:
             void input  (const sf::Event& e){}
             void update (){}
-            void draw   (Renderer::Master& renderer){}
+            void draw   (Renderer::Master& renderer) noexcept {}
 
             void setPosition (const sf::Vector2f& position){}
 

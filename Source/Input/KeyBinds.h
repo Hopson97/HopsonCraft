@@ -17,7 +17,7 @@ namespace KeyBinds
     };
 
     std::map<Control, sf::Keyboard::Key>&   get     ();
-    sf::Keyboard::Key                       getKey  (Control control);
+    sf::Keyboard::Key                       getKey  (Control control) noexcept;
 }
 
 #endif // KeyBinds_H_INCLUDED

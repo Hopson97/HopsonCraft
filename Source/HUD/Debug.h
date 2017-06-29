@@ -30,10 +30,10 @@ class Debug_HUD
                             const sf::Vector2f& position,
                             const void* info);
 
-        void draw(Renderer::Master& master);
+        void draw(Renderer::Master& master) noexcept;
 
     private:
-        void drawSection(Section& section, Renderer::Master& master);
+        void drawSection(Section& section, Renderer::Master& master) noexcept;
 
         std::vector<Section> m_debugSectors;
 };

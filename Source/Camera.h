@@ -7,19 +7,19 @@
 class Camera : public Entity
 {
     public:
-        Camera();
+        Camera() noexcept;
 
 
-        void setFOV     (float FOV);
-        float getFOV    () const;
+        void setFOV     (float FOV)                 noexcept;
+        float getFOV    () const                    noexcept;
 
-        void update         ();
-        void hookEntity     (const Entity& entity);
-        void unhookEntity   ();
+        void update         ()                      noexcept;
+        void hookEntity     (const Entity& entity)  noexcept;
+        void unhookEntity   ()                      noexcept;
 
-        const Frustum& getFrustum() const;
+        const Frustum& getFrustum() const noexcept;
 
-        const Matrix4& getProjectionViewMatrix() const;
+        const Matrix4& getProjectionViewMatrix() const noexcept;
 
     private:
         const Entity* m_pEntity = nullptr;

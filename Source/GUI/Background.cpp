@@ -13,7 +13,7 @@ namespace GUI
         m_quad.setTexture(&texture);
     }
 
-    void Background::draw(Renderer::Master& renderer)
+    void Background::draw(Renderer::Master& renderer) noexcept
     {
         renderer.draw(m_quad);
     }

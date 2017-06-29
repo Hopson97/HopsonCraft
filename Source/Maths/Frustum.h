@@ -11,17 +11,17 @@ struct Plane
     float   distance;
     Vector3 normal;
 
-    float distanceToPoint(const Vector3& point) const;
+    float distanceToPoint(const Vector3& point) const noexcept;
 };
 
 
 class Frustum
 {
     public:
-        void update(const Matrix4& projView);
+        void update(const Matrix4& projView) noexcept;
 
-        bool pointInFrustum(const Vector3& point) const;
-        bool boxInFrustum(const AABB& box) const;
+        bool pointInFrustum(const Vector3& point) const noexcept;
+        bool boxInFrustum(const AABB& box) const noexcept;
 
 
     private:

@@ -13,13 +13,13 @@ namespace Planes
     };
 }
 
-float Plane::distanceToPoint(const Vector3& point) const
+float Plane::distanceToPoint(const Vector3& point) const noexcept
 {
     return glm::dot(point, normal) + distance;
 }
 
 //calcuate matrix based on the projection * view matrix.
-void Frustum::update(const Matrix4& mat)
+void Frustum::update(const Matrix4& mat) noexcept
 {
     // left
     m_planes[Planes::Left].normal.x     = mat[0][3] + mat[0][0];
@@ -66,7 +66,7 @@ void Frustum::update(const Matrix4& mat)
 }
 
 
-bool Frustum::pointInFrustum(const Vector3& point) const
+bool Frustum::pointInFrustum(const Vector3& point) const noexcept
 {
     for (auto& plane : m_planes)
     {
@@ -79,7 +79,7 @@ bool Frustum::pointInFrustum(const Vector3& point) const
 }
 
 
-bool Frustum::boxInFrustum(const AABB& box) const
+bool Frustum::boxInFrustum(const AABB& box) const noexcept
 {
     bool result = true;
 

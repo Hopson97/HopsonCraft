@@ -19,8 +19,8 @@ class Crosshair
 
         Crosshair();
 
-        void draw(Renderer::Master& renderer);
-        void setMode(Mode mode);
+        void draw(Renderer::Master& renderer) noexcept;
+        void setMode(Mode mode) noexcept;
 
     private:
         sf::RectangleShape m_sprite;

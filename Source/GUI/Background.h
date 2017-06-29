@@ -12,7 +12,7 @@ namespace GUI
         public:
             Background(const sf::Texture& texture);
 
-            void draw (Renderer::Master& renderer);
+            void draw (Renderer::Master& renderer) noexcept;
 
         private:
             sf::RectangleShape  m_quad;

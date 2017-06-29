@@ -1,17 +1,17 @@
 #include "AABB.h"
 
 
-AABB::AABB(const Vector3& dimension)
+AABB::AABB(const Vector3& dimension) noexcept
 :   m_dimensions (dimension)
 { }
 
-void AABB::update(const Vector3& position)
+void AABB::update(const Vector3& position) noexcept
 {
     m_min = position;
     m_max = m_min + m_dimensions;
 }
 
-bool AABB::isCollidingWith(const AABB& other)
+bool AABB::isCollidingWith(const AABB& other) noexcept
 {
     return  (m_min.x <= other.m_max.x && m_max.x >= m_min.x) &&
             (m_min.y <= other.m_max.y && m_max.y >= m_min.y) &&
@@ -19,7 +19,7 @@ bool AABB::isCollidingWith(const AABB& other)
 }
 
 
-Vector3 AABB::getVN(const Vector3& normal) const
+Vector3 AABB::getVN(const Vector3& normal) const noexcept
 {
     Vector3 res = m_min;
 
@@ -39,7 +39,7 @@ Vector3 AABB::getVN(const Vector3& normal) const
     return res;
 }
 
-Vector3 AABB::getVP(const Vector3& normal) const
+Vector3 AABB::getVP(const Vector3& normal) const noexcept
 {
     Vector3 res = m_min;
 

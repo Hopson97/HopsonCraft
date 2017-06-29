@@ -25,7 +25,7 @@ namespace KeyBinds
         return keys;
     }
 
-    sf::Keyboard::Key getKey(Control control)
+    sf::Keyboard::Key getKey(Control control) noexcept
     {
         static bool hasInit = false;
         if (!hasInit)

@@ -23,7 +23,7 @@ void Debug_HUD::addDebugSector(std::string&& format,
     m_debugSectors.emplace_back(std::move(format), position, info);
 }
 
-void Debug_HUD::draw(Renderer::Master& master)
+void Debug_HUD::draw(Renderer::Master& master) noexcept
 {
     for (auto& sect : m_debugSectors)
     {
@@ -31,7 +31,7 @@ void Debug_HUD::draw(Renderer::Master& master)
     }
 }
 
-void Debug_HUD::drawSection(Section& section, Renderer::Master& master)
+void Debug_HUD::drawSection(Section& section, Renderer::Master& master) noexcept
 {
     char buffer[256];
 

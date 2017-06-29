@@ -5,28 +5,28 @@
 
 #include "Maths/Matrix.h"
 
-Camera::Camera()
+Camera::Camera() noexcept
 {
     m_projectionMatrix = Maths::createProjMatrix(m_fov);
 }
 
-void Camera::setFOV(float FOV)
+void Camera::setFOV(float FOV) noexcept
 {
     m_fov = FOV;
     m_projectionMatrix = Maths::createProjMatrix(m_fov);
 }
 
-float Camera::getFOV() const
+float Camera::getFOV() const  noexcept
 {
     return m_fov;
 }
 
-void Camera::unhookEntity()
+void Camera::unhookEntity()  noexcept
 {
     m_pEntity = nullptr;
 }
 
-void Camera::update()
+void Camera::update() noexcept
 {
     if(m_pEntity)
     {
@@ -40,18 +40,18 @@ void Camera::update()
     m_frustum.update(m_projectionViewMatrix);
 }
 
-void Camera::hookEntity(const Entity& entity)
+void Camera::hookEntity(const Entity& entity) noexcept
 {
     m_pEntity = &entity;
     update();
 }
 
-const Frustum& Camera::getFrustum() const
+const Frustum& Camera::getFrustum() const noexcept
 {
     return m_frustum;
 }
 
-const Matrix4& Camera::getProjectionViewMatrix() const
+const Matrix4& Camera::getProjectionViewMatrix() const noexcept
 {
     return m_projectionViewMatrix;
 }
