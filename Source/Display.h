@@ -8,19 +8,30 @@ namespace sf
     class Window;
 }
 
-namespace Display
+class Display
 {
-    void init();
-    void close();
+    public:
+        Display()       noexcept;
 
-    void clear();
-    void update();
+        void close()    noexcept;
 
-    bool isOpen();
+        void clear()    noexcept;
+        void update()   noexcept;
 
-    sf::RenderWindow& get();
+        bool isOpen()   noexcept;
 
-    void sfDraw(const sf::Drawable& drawable);
-}
+        sf::RenderWindow& get() noexcept;
+
+        void sfDraw(const sf::Drawable& drawable) noexcept;
+
+    private:
+        sf::ContextSettings getContextSettings() noexcept;
+
+        sf::RenderWindow window;
+};
+
+//Meyer's Singleton
+Display& getDisplay() noexcept;
+
 
 #endif // DISPLAY_H_INCLUDED

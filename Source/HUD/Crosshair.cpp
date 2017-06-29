@@ -12,8 +12,8 @@ Crosshair::Crosshair()
                        rect.top  + rect.height / 2.0f);
 
     m_sprite.setTexture(&getResources().textures.get("Crosshair"));
-    m_sprite.setPosition(Display::get().getSize().x / 2,
-                         Display::get().getSize().y / 2);
+    m_sprite.setPosition(getDisplay().get().getSize().x / 2,
+                         getDisplay().get().getSize().y / 2);
 }
 
 void Crosshair::draw(Renderer::Master& renderer)

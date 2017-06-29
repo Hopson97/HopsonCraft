@@ -4,68 +4,71 @@
 #include <SFML/Graphics.hpp>
 #include <GL/glew.h>
 
-namespace Display
+
+Display& getDisplay() noexcept
 {
-    sf::RenderWindow window;
-
-    namespace
-    {
-        void initOpenGL()
-        {
-            glewInit();
-            glewExperimental = GL_TRUE;
-            glViewport(0, 0, get().getSize().x, get().getSize().y);
-
-            glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        }
-    }
-
-    void init()
-    {
-        sf::ContextSettings settings;
-        settings.depthBits          = 24;
-        settings.stencilBits        = 8;
-        settings.antialiasingLevel  = 0;
-        settings.majorVersion       = 3;
-        settings.minorVersion       = 3;
-
-
-        window.create(sf::VideoMode::getDesktopMode(),
-                     "HopsonCraft - 'V4'",
-                     sf::Style::Fullscreen,
-                     settings);
-        initOpenGL();
-    }
-
-    void close()
-    {
-        window.close();
-    }
-
-    void clear()
-    {
-        glClearColor(0.1, 0.5, 1.0, 1.0);
-        glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    }
-
-    void update()
-    {
-        window.display();
-    }
-
-    bool isOpen()
-    {
-        return window.isOpen();
-    }
-
-    sf::RenderWindow& get()
-    {
-        return window;
-    }
-
-    void sfDraw(const sf::Drawable& drawable)
-    {
-        window.draw(drawable);
-    }
+    static Display d;
+    return d;
 }
+
+Display::Display() noexcept
+:   window  {   sf::VideoMode::getDesktopMode(),
+                "HopsonCraft - 'V4'",
+                sf::Style::Fullscreen,
+                getContextSettings()
+            }
+{
+    glewInit();
+    glewExperimental = GL_TRUE;
+    glViewport(0, 0, get().getSize().x, get().getSize().y);
+
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+sf::ContextSettings Display::getContextSettings() noexcept
+{
+    return sf::ContextSettings
+    {
+        24, //Depth Bits
+        8,  //Stencil Bits
+        0,  //Anti Alias Level
+        3,  //OpenGL Major Version
+        3,  //OpenGL Minor Version
+        sf::ContextSettings::Attribute::Default, //Attribute Flag
+        false   //sRGB Capable
+    };
+}
+
+
+void Display::close() noexcept
+{
+    window.close();
+}
+
+void Display::clear() noexcept
+{
+    glClearColor(0.1, 0.5, 1.0, 1.0);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+}
+
+void Display::update() noexcept
+{
+    window.display();
+}
+
+bool Display::isOpen() noexcept
+{
+    return window.isOpen();
+}
+
+sf::RenderWindow& Display::get() noexcept
+{
+    return window;
+}
+
+void Display::sfDraw(const sf::Drawable& drawable) noexcept
+{
+    window.draw(drawable);
+}
+
 

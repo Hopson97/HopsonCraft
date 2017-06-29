@@ -59,7 +59,7 @@ namespace GUI
 
     void Panel::addComponentCenter(std::unique_ptr<Component>& component)
     {
-        component->setPosition({Display::get().getSize().x / 2 - component->getSize().x / 2,
+        component->setPosition({getDisplay().get().getSize().x / 2 - component->getSize().x / 2,
                                 float(m_currentY) });
 
         m_currentY += component->getSize().y + 10;
@@ -78,12 +78,12 @@ namespace GUI
         static auto w = Component::BASE_WIDTH;
         if (m_isGrid2xleft)
         {
-            component->setPosition({Display::get().getSize().x / 2 - component->getSize().x / 2 - w / 2,
+            component->setPosition({getDisplay().get().getSize().x / 2 - component->getSize().x / 2 - w / 2,
                                     float(m_currentY) });
         }
         else
         {
-            component->setPosition({Display::get().getSize().x / 2 + component->getSize().x / 2 + w / 2,
+            component->setPosition({getDisplay().get().getSize().x / 2 + component->getSize().x / 2 + w / 2,
                                     float(m_currentY) });
         }
         m_isGrid2xleft = !m_isGrid2xleft;

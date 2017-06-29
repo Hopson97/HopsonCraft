@@ -40,12 +40,15 @@ namespace
 
     void initilize()
     {
-        Random  ::init();
-        Display ::init();
+        //cheeky
+        getDisplay();
+        Random::init();
 
-        for (int i = 0; i < 30; i++)
+        //This is so that the RNG is more random
+        //Or else, first value seems to be the same
+        for (int i = 0; i < 15; i++)
         {
-            Random::intInRange(0, 6346554); //This is so that the RNG is more random
+            Random::intInRange(0, RAND_MAX);
         }
     }
 

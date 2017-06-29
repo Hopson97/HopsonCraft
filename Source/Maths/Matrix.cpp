@@ -36,7 +36,7 @@ namespace Maths
     Matrix4 createProjMatrix(float fieldOfView)
     {
         return glm::perspective(glm::radians(fieldOfView),
-                                (float)Display::get().getSize().x/ (float)Display::get().getSize().y,
+                                (float)getDisplay().get().getSize().x/ (float)getDisplay().get().getSize().y,
                                 0.1f,
                                 1000.0f);
     }

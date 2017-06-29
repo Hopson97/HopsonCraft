@@ -11,7 +11,7 @@ namespace Renderer
 {
     void Master::clear()
     {
-        Display::clear();
+        getDisplay().clear();
     }
 
     void Master::update(const Camera& camera)
@@ -30,7 +30,7 @@ namespace Renderer
         glDisable(GL_DEPTH_TEST);
         m_sfmlRenderer.update ();
 
-        Display::update();
+        getDisplay().update();
     }
 
     void Master::draw(const Chunk::Section& section)

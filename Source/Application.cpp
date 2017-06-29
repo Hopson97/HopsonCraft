@@ -25,7 +25,7 @@ void Application::runMainGameLoop()
 
     auto lastTime = gameTimer.getElapsedTime();
     auto updateLag = sf::Time::Zero;
-    while (Display::isOpen() || !m_states.empty())
+    while (getDisplay().isOpen() || !m_states.empty())
     {
         auto current = gameTimer.getElapsedTime();
         auto elapsed = current - lastTime;
@@ -33,7 +33,7 @@ void Application::runMainGameLoop()
         updateLag += elapsed;
 
         handleEvents();
-        if (!Display::isOpen() || m_states.empty())
+        if (!getDisplay().isOpen() || m_states.empty())
             break;
 
         m_states.back()->input  (m_camera);
@@ -55,11 +55,11 @@ void Application::runMainGameLoop()
 void Application::handleEvents()
 {
     sf::Event e;
-    while (Display::get().pollEvent(e))
+    while (getDisplay().get().pollEvent(e))
     {
         if (e.type == sf::Event::Closed)
         {
-            Display::close();
+            getDisplay().close();
         }
         m_states.back()->input(e);
     }
