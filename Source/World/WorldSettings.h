@@ -4,8 +4,6 @@
 #include <cstdint>
 #include <string>
 
-#include "Generators/Noise.h"
-
 struct WorldSettings
 {
     std::string name = "Test World";

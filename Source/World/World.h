@@ -12,8 +12,6 @@
 
 #include "WorldSettings.h"
 
-#include "IBlock_Accessible.h"
-
 class Player;
 class Camera;
 
@@ -27,7 +25,7 @@ namespace State
     class Playing;
 }
 
-class World : public IBlock_Accessible
+class World
 {
     friend class State::Playing;
 
@@ -35,11 +33,6 @@ class World : public IBlock_Accessible
         World(const WorldSettings& settings, const Camera& camera);
 
         const WorldSettings& getWorldSettings () const;
-
-        AABB getBlockAABB(const Block::Position& position);
-
-        void setBlock   (int x, int y, int z, CBlock block) override;
-        CBlock getBlock (int x, int y, int z) const override;
 
     private:
         WorldSettings  m_worldSettings;

@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "Maths/Matrix_Maths.h"
+#include "Maths/Matrix.h"
 
 Camera::Camera()
 {
