@@ -1,5 +1,11 @@
 # HopsonCraft
 
+Note: Game is undergoing redesign at the moment.
+
+To see source as it was in ep 4 "Creating Minecraft", view here:
+
+https://github.com/Hopson97/HopsonCraft/tree/e803ca5fbf51df134cfa7e87c14275c6c73fce8e
+
 ## Versions (As seen in the YouTube videos)
 
 This game has gone through major rewrites and refactors overtime.

@@ -7,7 +7,7 @@
 
 namespace Maths
 {
-    Matrix4 createViewMatrix(const Camera& camera)
+    Matrix4 createViewMatrix(const Camera& camera) noexcept
     {
         Matrix4 matrix;
 
@@ -20,7 +20,7 @@ namespace Maths
         return matrix;
     }
 
-    Matrix4 createModelMatrix(const Entity& entity)
+    Matrix4 createModelMatrix(const Entity& entity) noexcept
     {
         Matrix4 matrix;
 
@@ -33,7 +33,7 @@ namespace Maths
         return matrix;
     }
 
-    Matrix4 createProjMatrix(float fieldOfView)
+    Matrix4 createProjMatrix(float fieldOfView) noexcept
     {
         return glm::perspective(glm::radians(fieldOfView),
                                 (float)getDisplay().get().getSize().x/ (float)getDisplay().get().getSize().y,

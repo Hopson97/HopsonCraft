@@ -19,12 +19,12 @@ class Camera;
 class Player : public Entity
 {
     public:
-        Player(Camera& camera);
+        Player(Camera& camera) noexcept;
 
         void input          ();
         void update         (float dt);
 
-        void addForce       (const Vector3& force);
+        void addForce       (const Vector3& force) noexcept;
 
         void doCollisionTest(World& world, float dt);
 

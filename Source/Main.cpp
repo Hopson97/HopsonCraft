@@ -78,6 +78,7 @@ int main()
     }
     catch(std::exception& e)
     {
+        errorMessage(e.what());
         return EXIT_FAILURE;
     }
 }
