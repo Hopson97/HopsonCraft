@@ -18,11 +18,11 @@ https://github.com/Hopson97/HopsonCraft/tree/90a5d596d07dfe71b5dbf47ec76c0b0802e
 ## Dependencies
 The project requires these libraries: SFML (minimum 2.4), GLEW 2.0+ (OpenGL 3.3+), and OpenGL Maths Library (GLM).
 
-Compile using compiler flags: 
+Compile using compiler flags:
 
 Windows -> ``-std=c++14 -O3 -s -lglew32s -lglu32 -lopengl32 -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window``
 
-Linux -> ``-std=c++14 -O3 -s -lGLEW -lGLU2 -lGL -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window``
+Linux -> ``-std=c++14 -O3 -s -lGLEW -lGLU -lGL -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window``
 
 
 All the libaries for Linux (At least, on Ubuntu) can be installed with
