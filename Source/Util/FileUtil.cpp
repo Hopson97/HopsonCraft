@@ -56,6 +56,7 @@ std::string getFileContents(const std::string& filePath)
 #elif __linux__ || __APPLE__
     std::vector<std::string> getFileNamesFromFolder(const std::string& folderName)
     {
+    return {};
         std::vector<std::string> fileNames;
 
         DIR *dp;

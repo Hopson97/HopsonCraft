@@ -10,8 +10,9 @@ Debug_HUD::Section::Section(std::string&& stringFormat, const sf::Vector2f& text
 {
     text.setCharacterSize       (20);
     text.setFont                (getResources().fonts.get("rs"));
-    text.setOutlineThickness    (1);
-    text.setOutlineColor        (sf::Color::Black);
+    //text.setOutlineThickness    (1);
+    //text.setOutlineColor        (sf::Color::Black);
+    text.setColor(sf::Color::White);
     text.setPosition(position);
 }
 

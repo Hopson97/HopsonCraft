@@ -27,16 +27,25 @@ Display::Display() noexcept
 
 sf::ContextSettings Display::getContextSettings() noexcept
 {
-    return sf::ContextSettings
-    {
-        24, //Depth Bits
-        8,  //Stencil Bits
-        0,  //Anti Alias Level
-        3,  //OpenGL Major Version
-        3,  //OpenGL Minor Version
-        sf::ContextSettings::Attribute::Default, //Attribute Flag
-        false   //sRGB Capable
-    };
+    sf::ContextSettings contextSettings;
+    contextSettings.depthBits = 24;
+    contextSettings.stencilBits = 8;
+    contextSettings.antialiasingLevel = 0;
+    contextSettings.majorVersion = 3;
+    contextSettings.minorVersion = 3;
+    /*
+        return sf::ContextSettings
+        {
+            24, //Depth Bits
+            8,  //Stencil Bits
+            0,  //Anti Alias Level
+            3,  //OpenGL Major Version
+            3,  //OpenGL Minor Version
+            sf::ContextSettings::Attribute::Default, //Attribute Flag
+            false   //sRGB Capable
+        };
+    */
+    return contextSettings;
 }
 
 

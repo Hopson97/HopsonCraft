@@ -44,8 +44,9 @@ namespace GUI
     {
         text.setFont(getResources().fonts.get("rs"));
         text.setString(title);
-        text.setOutlineColor(sf::Color::Black);
-        text.setOutlineThickness(2);
+        text.setColor(sf::Color::White);
+        //text.setOutlineColor(sf::Color::Black);
+        //text.setOutlineThickness(2);
         text.setCharacterSize(size);
     }
 

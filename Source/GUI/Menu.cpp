@@ -20,6 +20,8 @@ namespace GUI
     void Menu::getBackground()
     {
         auto backgrounds    = getFileNamesFromFolder("Data/Textures/Menu_BG");
+        if (backgrounds.empty())
+            return;
         auto textureName    = backgrounds[Random::intInRange(0, backgrounds.size() - 1)];
         textureName.erase(textureName.length() - 4);
         addBackgroud(getResources().textures.get("Menu_BG/" + textureName));
