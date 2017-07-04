@@ -13,19 +13,20 @@
 
 Application::Application()
 {
-    pushState(std::make_unique<State::MainMenu>(*this));
+    pushState<State::MainMenu>(*this);
 }
 
 void Application::runMainGameLoop()
 {
     unsigned ticks = 0;
 
-    const sf::Time MS_PER_UPDATE = sf::seconds(0.05);//20 Ticks/ updates per second
+    constexpr float TICKS_PER_SECOND = 20;
+    const sf::Time MS_PER_UPDATE = sf::seconds(1.0f/ TICKS_PER_SECOND);
     sf::Clock gameTimer;
 
     auto lastTime = gameTimer.getElapsedTime();
     auto updateLag = sf::Time::Zero;
-    while (getDisplay().isOpen() || !m_states.empty())
+    while (getDisplay().isOpen() && !m_states.empty())
     {
         auto current = gameTimer.getElapsedTime();
         auto elapsed = current - lastTime;
@@ -36,7 +37,7 @@ void Application::runMainGameLoop()
         if (!getDisplay().isOpen() || m_states.empty())
             break;
 
-        m_states.back()->input  (m_camera);
+        currentState().input  (m_camera);
 
         while (updateLag >= MS_PER_UPDATE)
         {
@@ -46,7 +47,7 @@ void Application::runMainGameLoop()
         }
 
         m_camera.update();
-        m_states.back()->update(m_camera, elapsed.asSeconds());
+        currentState().update(m_camera, elapsed.asSeconds());
 
         render();
     }
@@ -61,31 +62,23 @@ void Application::handleEvents()
         {
             getDisplay().close();
         }
-        m_states.back()->input(e);
+        currentState().input(e);
     }
 }
 
 void Application::update(float elapsed)
 {
-    m_states.back()->fixedUpdate (m_camera, elapsed);
+    currentState().fixedUpdate (m_camera, elapsed);
     musicPlayer.update();
 
-    m_camera.update();
-    m_states.back()->update(m_camera, elapsed);
+    currentState().update(m_camera, elapsed);
 }
 
 void Application::render()
 {
     m_renderer.clear();
-    m_states.back()->draw(m_renderer);
+    currentState().draw(m_renderer);
     m_renderer.update(m_camera);
-}
-
-
-void Application::pushState(std::unique_ptr<State::Base> state)
-{
-    state->onOpen();
-    m_states.push_back(std::move(state));
 }
 
 void Application::popState()
@@ -93,9 +86,16 @@ void Application::popState()
     m_states.pop_back();
     if (!m_states.empty())
     {
-        m_states.back()->onOpen();
+        currentState().onOpen();
     }
 }
+
+State::Base& Application::currentState()
+{
+    return *m_states.back();
+}
+
+
 
 Camera& Application::getCamera()
 {

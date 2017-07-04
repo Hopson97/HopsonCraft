@@ -37,7 +37,7 @@ namespace State
         }
         m_player.position   = getCenterPosition();
 
-        //getDisplay().get().setFramerateLimit(1000);
+        getDisplay().get().setFramerateLimit(144);
     }
 
     void Playing::input(const sf::Event& e)
@@ -164,7 +164,7 @@ namespace State
 
         m_pauseMenu.addComponent(std::make_unique<GUI::BasicButton>("Settings", [&]()
         {
-            m_application->pushState(std::make_unique<State::SettingsMenu>(*m_application, m_world.m_worldSettings));
+            m_application->pushState<State::SettingsMenu>(*m_application, m_world.m_worldSettings);
         }));
 
         m_pauseMenu.addComponent(std::make_unique<GUI::BasicButton>("Exit", [&]()

@@ -14,7 +14,7 @@ void Player::input()
 void Player::keyBoardInput ()
 {
     Vector3 change;
-    float speed = 0.4;
+    float speed = 0.2;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
         speed *= 3;
@@ -85,8 +85,8 @@ void Player::mouseInput ()
 
     auto mouseChange = sf::Mouse::getPosition() - lastMousePosition;
 
-    rotation.y += mouseChange.x * 0.1;
-    rotation.x += mouseChange.y * 0.1;
+    rotation.y += mouseChange.x * 0.05;
+    rotation.x += mouseChange.y * 0.05;
 
     constexpr int8_t BOUND = 82;
 

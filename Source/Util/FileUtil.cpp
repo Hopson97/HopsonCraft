@@ -56,21 +56,43 @@ std::string getFileContents(const std::string& filePath)
 #elif __linux__ || __APPLE__
     std::vector<std::string> getFileNamesFromFolder(const std::string& folderName)
     {
-    return {};
+        return {};
         std::vector<std::string> fileNames;
+        DIR* directory = opendir(folderName.c_str());
+        dirent* dir;
 
-        DIR *dp;
-        struct dirent *dirp;
-        if((dp  = opendir(folderName.c_str())) == NULL) {
-            std::cout << "Error(" << errno << ") opening " << dirp << std::endl;
-            //return errno;
+        if (directory)
+        {
+            while ((dir = readdir(directory)) != nullptr)
+            {
+                fileNames.push_back(dir->d_name);
+            }
         }
-
-        while ((dirp = readdir(dp)) != NULL) {
-            fileNames.push_back((dirp->d_name));
-        }
-        closedir(dp);
+        closedir(directory);
         return fileNames;
+
     }
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

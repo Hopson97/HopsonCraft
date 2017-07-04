@@ -38,7 +38,7 @@ namespace State
 
     void MainMenu::onOpen()
     {
-        //getDisplay().get().setFramerateLimit(30);
+        getDisplay().get().setFramerateLimit(30);
         m_application->getCamera().unhookEntity();
     }
 
@@ -52,7 +52,7 @@ namespace State
 
         m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Settings", [&]()
         {
-            m_application->pushState(std::make_unique<State::SettingsMenu>(*m_application, settings));
+            m_application->pushState<State::SettingsMenu>(*m_application, settings);
         }));
 
         m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Credits (Unused)", [&]()
@@ -68,7 +68,7 @@ namespace State
         {
             m_pActiveMenu = &m_frontMenu;
             settings.seed = Random::intInRange(0, 999'999);
-            m_application->pushState(std::make_unique<State::Playing>(*m_application, settings));
+            m_application->pushState<State::Playing>(*m_application, settings);
         }));
 
         m_playMenu.addComponent(std::make_unique<GUI::BasicButton>("Back", [&]()

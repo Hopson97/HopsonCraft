@@ -18,8 +18,7 @@ class Application
 
         void runMainGameLoop();
 
-        void pushState(std::unique_ptr<State::Base> state);
-        void popState();
+
 
         Camera& getCamera();
 
@@ -27,12 +26,21 @@ class Application
 
         MusicPlayer musicPlayer;
 
+        template<typename S, typename... Args>
+        void pushState(Args&&... args)
+        {
+            m_states.push_back(std::make_unique<S>(std::forward<Args>(args)...));
+            //currentState().onOpen();
+        }
+
+        void popState();
+
     private:
         void handleEvents();
         void update(float elapsed);
         void render();
 
-
+        State::Base& currentState();
 
         std::vector<std::unique_ptr<State::Base>> m_states;
         Renderer::Master m_renderer;
