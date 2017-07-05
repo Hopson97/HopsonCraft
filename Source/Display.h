@@ -13,6 +13,13 @@ class Display
     public:
         static Display& get();
 
+        Display(const Display& other) = delete;
+        Display& operator =(const Display& other) = delete;
+
+        Display(Display&& other) = delete;
+        Display& operator =(Display&& other) = delete;
+
+
         void close();
 
         void clear();

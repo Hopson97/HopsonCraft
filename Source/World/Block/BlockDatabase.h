@@ -16,6 +16,12 @@ namespace Block
         public:
             static Database& get();
 
+            Database(const Database& other)             = delete;
+            Database& operator =(const Database& other) = delete;
+
+            Database(Database&& other)             = delete;
+            Database& operator =(Database&& other) = delete;
+
             const BlockType& getBlock(uint8_t id) const;
             const BlockType& getBlock(ID blockID) const;
 
