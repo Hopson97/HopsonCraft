@@ -41,7 +41,7 @@ namespace
     void initilize()
     {
         //cheeky
-        getDisplay();
+        Display::get();
         Random::init();
 
         //This is so that the RNG is more random

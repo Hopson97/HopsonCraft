@@ -11,27 +11,26 @@ namespace sf
 class Display
 {
     public:
-        Display()       noexcept;
+        static Display& get();
 
-        void close()    noexcept;
+        void close();
 
-        void clear()    noexcept;
-        void update()   noexcept;
+        void clear();
+        void update();
 
-        bool isOpen()   noexcept;
+        bool isOpen();
 
-        sf::RenderWindow& get() noexcept;
+        sf::RenderWindow& getRaw();
 
-        void sfDraw(const sf::Drawable& drawable) noexcept;
+        void sfDraw(const sf::Drawable& drawable);
 
     private:
-        sf::ContextSettings getContextSettings() noexcept;
+        Display();
+
+        sf::ContextSettings getContextSettings();
 
         sf::RenderWindow window;
 };
-
-//Meyer's Singleton
-Display& getDisplay() noexcept;
 
 
 #endif // DISPLAY_H_INCLUDED

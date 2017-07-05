@@ -107,11 +107,11 @@ void Player::mouseInput ()
         rotation.y = 0;
     }
 
-    auto centerX = getDisplay().get().getSize().x / 4;
-    auto centerY = getDisplay().get().getSize().y / 4;
+    auto centerX = Display::get().getRaw().getSize().x / 4;
+    auto centerY = Display::get().getRaw().getSize().y / 4;
 
     sf::Mouse::setPosition({static_cast<int>(centerX),
-                            static_cast<int>(centerY)}, getDisplay().get());
+                            static_cast<int>(centerY)}, Display::get().getRaw());
 
     lastMousePosition = sf::Mouse::getPosition();
 }

@@ -5,13 +5,13 @@
 #include <GL/glew.h>
 
 
-Display& getDisplay() noexcept
+Display& Display::get()
 {
     static Display d;
     return d;
 }
 
-Display::Display() noexcept
+Display::Display()
 :   window  {   sf::VideoMode::getDesktopMode(),
                 "HopsonCraft - 'V4'",
                 sf::Style::Fullscreen,
@@ -20,12 +20,12 @@ Display::Display() noexcept
 {
     glewInit();
     glewExperimental = GL_TRUE;
-    glViewport(0, 0, get().getSize().x, get().getSize().y);
+    glViewport(0, 0, getRaw().getSize().x, getRaw().getSize().y);
 
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-sf::ContextSettings Display::getContextSettings() noexcept
+sf::ContextSettings Display::getContextSettings()
 {
     sf::ContextSettings contextSettings;
     contextSettings.depthBits = 24;
@@ -49,33 +49,33 @@ sf::ContextSettings Display::getContextSettings() noexcept
 }
 
 
-void Display::close() noexcept
+void Display::close()
 {
     window.close();
 }
 
-void Display::clear() noexcept
+void Display::clear()
 {
     glClearColor(0.1, 0.5, 1.0, 1.0);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 }
 
-void Display::update() noexcept
+void Display::update()
 {
     window.display();
 }
 
-bool Display::isOpen() noexcept
+bool Display::isOpen()
 {
     return window.isOpen();
 }
 
-sf::RenderWindow& Display::get() noexcept
+sf::RenderWindow& Display::getRaw()
 {
     return window;
 }
 
-void Display::sfDraw(const sf::Drawable& drawable) noexcept
+void Display::sfDraw(const sf::Drawable& drawable)
 {
     window.draw(drawable);
 }

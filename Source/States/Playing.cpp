@@ -37,7 +37,7 @@ namespace State
         }
         m_player.position   = getCenterPosition();
 
-        getDisplay().get().setFramerateLimit(144);
+        Display::get().getRaw().setFramerateLimit(144);
     }
 
     void Playing::input(const sf::Event& e)
@@ -45,11 +45,11 @@ namespace State
         if (m_isPaused)
         {
             m_pauseMenu.input(e);
-            getDisplay().get().setMouseCursorVisible(true);
+            Display::get().getRaw().setMouseCursorVisible(true);
         }
         else
         {
-            getDisplay().get().setMouseCursorVisible(false);
+            Display::get().getRaw().setMouseCursorVisible(false);
         }
 
         switch(e.type)

@@ -38,7 +38,7 @@ namespace State
 
     void MainMenu::onOpen()
     {
-        getDisplay().get().setFramerateLimit(30);
+        Display::get().getRaw().setFramerateLimit(30);
         m_application->getCamera().unhookEntity();
     }
 
