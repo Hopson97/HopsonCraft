@@ -22,6 +22,8 @@ namespace State
     :   Base  (application)
     ,   m_world     (settings, application.getCamera())
     ,   m_player    (application.getCamera())
+    ,   m_tickRate  ("Tick", "tps")
+    ,   m_frameRate ("Frame", "fps")
     ,   m_pauseMenu (GUI::Layout::Center)
     {
         application.getCamera().hookEntity(m_player);
@@ -131,26 +133,19 @@ namespace State
 
     void Playing::initHUD()
     {
-        auto yPos = 0;
-
-        auto getYPosition = [&yPos]()
+        auto addSection = [&](std::string&& format, const float& f)
         {
-            float val = yPos;
-            yPos += 27;
-            return val;
+            m_debugHud.addDebugSector(std::move(format), &f);
         };
 
-        m_debugHud.addDebugSector("Seed: %.0f",    {0, getYPosition()},  &m_world.getWorldSettings().seed);
+        m_tickRate.registerForDebug (m_debugHud);
+        m_frameRate.registerForDebug(m_debugHud);
 
-        m_debugHud.addDebugSector("Tick Time:  %fms",  {0, getYPosition()},  &m_tickRate.getFrameTime());
-        m_debugHud.addDebugSector("Frame Time: %fms",  {0, getYPosition()},  &m_frameRate.getFrameTime());
-        m_debugHud.addDebugSector("TPS: %.0f",         {0, getYPosition()},  &m_tickRate.getFPS());
-        m_debugHud.addDebugSector("FPS: %.0f",         {0, getYPosition()},  &m_frameRate.getFPS());
-        m_debugHud.addDebugSector("Faces drawn: %.0f", {0, getYPosition()},  &m_world.m_facesDrawn);
+        addSection("Faces drawn: %.0f", m_world.m_facesDrawn);
 
-        m_debugHud.addDebugSector("Player Position: X: %.1f",  {0, getYPosition()},  &m_player.position.x);
-        m_debugHud.addDebugSector("Player Position: Y: %.1f",  {0, getYPosition()},  &m_player.position.y);
-        m_debugHud.addDebugSector("Player Position: Z: %.1f",  {0, getYPosition()},  &m_player.position.z);
+        addSection("Player Position: X: %.1f", m_player.position.x);
+        addSection("Player Position: Y: %.1f", m_player.position.y);
+        addSection("Player Position: Z: %.1f", m_player.position.z);
     }
 
     void Playing::initPause()

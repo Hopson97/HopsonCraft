@@ -27,15 +27,16 @@ class Debug_HUD
 
     public:
         void addDebugSector(std::string&& format,
-                            const sf::Vector2f& position,
                             const void* info);
 
-        void draw(Renderer::Master& master) noexcept;
+        void draw(Renderer::Master& master);
 
     private:
-        void drawSection(Section& section, Renderer::Master& master) noexcept;
+        void drawSection(Section& section, Renderer::Master& master);
 
         std::vector<Section> m_debugSectors;
+
+        float y = 0;
 };
 
 #endif // DEBUG_H_INCLUDED

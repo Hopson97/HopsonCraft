@@ -18,13 +18,13 @@ Debug_HUD::Section::Section(std::string&& stringFormat, const sf::Vector2f& text
 
 
 void Debug_HUD::addDebugSector(std::string&& format,
-                               const sf::Vector2f& position,
                                const void* info)
 {
-    m_debugSectors.emplace_back(std::move(format), position, info);
+    m_debugSectors.emplace_back(std::move(format), sf::Vector2f{5, y}, info);
+    y += 27;
 }
 
-void Debug_HUD::draw(Renderer::Master& master) noexcept
+void Debug_HUD::draw(Renderer::Master& master)
 {
     for (auto& sect : m_debugSectors)
     {
@@ -32,7 +32,7 @@ void Debug_HUD::draw(Renderer::Master& master) noexcept
     }
 }
 
-void Debug_HUD::drawSection(Section& section, Renderer::Master& master) noexcept
+void Debug_HUD::drawSection(Section& section, Renderer::Master& master)
 {
     char buffer[256];
 

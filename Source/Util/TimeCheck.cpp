@@ -1,5 +1,14 @@
 #include "TimeCheck.h"
 
+#include "../HUD/Debug.h"
+
+FrameTimeChecker::FrameTimeChecker(const std::string& name, const std::string& abv)
+:   m_name          (name)
+,   m_abbreviation  (abv)
+{
+
+}
+
 void FrameTimeChecker::update()
 {
     m_frameCount++;
@@ -18,12 +27,8 @@ void FrameTimeChecker::update()
     }
 }
 
-const float& FrameTimeChecker::getFrameTime()
+void FrameTimeChecker::registerForDebug(Debug_HUD& debugHUD)
 {
-    return m_frameTime;
-}
-
-const float& FrameTimeChecker::getFPS()
-{
-    return m_fps;
+    debugHUD.addDebugSector(m_name +            " Time: %.1f",  &m_frameTime);
+    debugHUD.addDebugSector(m_abbreviation  +   " %.1f",        &m_fps);
 }
