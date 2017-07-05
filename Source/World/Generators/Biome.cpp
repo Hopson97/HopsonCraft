@@ -1,7 +1,7 @@
 #include "Biome.h"
 
 #include "../../Util/STD_Util.h"
-
+/*
 Biome::Biome(std::string&& fileName, const std::string& worldGen)
 :   m_fileName      (std::move(fileName))
 ,   m_worldGenName  (worldGen)
@@ -132,7 +132,7 @@ void Biome::loadIntoBlockList(std::ifstream& inFile,
     container.total += freq;
 }
 
-
+*/
 
 
 

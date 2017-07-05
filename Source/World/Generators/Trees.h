@@ -5,7 +5,7 @@
 #include "../Block/BlockPosition.h"
 #include "../Block/BlockID.h"
 
-
+/*
 class IBlock_Accessible;
 
 namespace Structure
@@ -24,5 +24,5 @@ void makeAcaciaTree(IBlock_Accessible& access,
                     Random::Generator<std::mt19937>& random);
 
 }
-
+*/
 #endif // GTREES_H_INCLUDED

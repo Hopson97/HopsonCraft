@@ -9,7 +9,7 @@
 #include "Noise.h"
 
 #include "Structures.h"
-
+/*
 typedef Random::Generator<std::mt19937> RNG;
 
 class Biome : public Loader
@@ -66,7 +66,7 @@ class Biome : public Loader
         int m_treeFreq      = 0;
 };
 
-
+*/
 
 
 #endif // BIOME_H_INCLUDED

@@ -1,7 +1,7 @@
 #include "StructuresBuilder.h"
 
 #include "../IBlock_Accessible.h"
-
+/*
 namespace Structure
 {
     void Builder::addBlock(const Defer_Block& block)
@@ -40,3 +40,4 @@ namespace Structure
         }
     }
 }
+*/

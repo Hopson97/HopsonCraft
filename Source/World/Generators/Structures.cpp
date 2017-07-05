@@ -1,5 +1,5 @@
 #include "Structures.h"
-
+/*
 namespace Structure
 {
     void createFromID(  ID id,
@@ -29,3 +29,4 @@ namespace Structure
     }
 
 }
+*/

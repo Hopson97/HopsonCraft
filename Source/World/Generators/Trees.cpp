@@ -4,7 +4,7 @@
 #include "../IBlock_Accessible.h"
 
 #include "StructuresBuilder.h"
-
+/*
 namespace Structure
 {
     class Tree_Helper : public Builder
@@ -211,7 +211,7 @@ namespace Structure
 
 }
 
-
+*/
 
 
 

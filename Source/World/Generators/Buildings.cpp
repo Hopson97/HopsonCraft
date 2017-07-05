@@ -4,7 +4,7 @@
 #include "../IBlock_Accessible.h"
 
 #include "StructuresBuilder.h"
-
+/*
 namespace Structure
 {
     void makePyramid(IBlock_Accessible& access,
@@ -21,3 +21,4 @@ namespace Structure
         }
     }
 }
+*/

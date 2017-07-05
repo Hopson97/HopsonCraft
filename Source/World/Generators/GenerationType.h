@@ -4,7 +4,7 @@
 #include "Biome.h"
 
 #include "../../Util/Loader.h"
-
+/*
 ///@TODO Come up with a better name for this class
 class World_GenerationType : public Loader
 {
@@ -53,6 +53,6 @@ class World_GenerationType : public Loader
 
         std::string m_folder;
 };
-
+*/
 
 #endif // GenerationType_H_INCLUDED

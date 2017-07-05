@@ -2,7 +2,7 @@
 
 #include "../../Util/STD_Util.h"
 #include "../../Maths/General.h"
-
+/*
 bool World_GenerationType::BiomeRange::isThisBiome(int biomeKey)
 {
     switch (m_compare)
@@ -130,6 +130,6 @@ void World_GenerationType::loadBiome(std::ifstream& inFile)
 
     m_biomes.emplace_back(minVal, maxVal, compare, std::move(b));
 }
-
+*/
 
 
