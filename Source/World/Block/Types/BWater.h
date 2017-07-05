@@ -5,7 +5,7 @@
 
 namespace Block
 {
-    class BWater : public Type
+    class BWater : public BlockType
     {
         public:
             BWater();

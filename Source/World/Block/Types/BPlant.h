@@ -5,7 +5,7 @@
 
 namespace Block
 {
-    class BPlant : public Type
+    class BPlant : public BlockType
     {
         public:
             BPlant(std::string&& name);

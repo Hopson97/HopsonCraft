@@ -9,14 +9,14 @@
 
 namespace Block
 {
-    Data::Data(std::string&& fileName)
+    BlockData::BlockData(std::string&& fileName)
     :   m_fileName  (std::move(fileName))
     {
         std::string fullName = "Data/Blocks/" + m_fileName + ".block";
         Loader::load(fullName);
     }
 
-    bool Data::parseLine(const std::string& line, std::ifstream& inFile)
+    bool BlockData::parseLine(const std::string& line, std::ifstream& inFile)
     {
         if(areStringsSame(line, "Name"))
         {

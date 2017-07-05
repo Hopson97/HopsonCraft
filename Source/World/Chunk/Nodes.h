@@ -13,7 +13,7 @@
 
 namespace Block
 {
-    class Type;
+    class BlockType;
     class DataHolder;
 }
 
@@ -24,8 +24,8 @@ struct CBlock
     CBlock(Block::ID    newID);
     CBlock(Block_t i, uint8_t meta);
 
-    const Block::DataHolder& getData() const;
-    const Block::Type&        getType() const;
+    const Block::DataHolder&    getData() const;
+    const Block::BlockType&     getType() const;
 
     template<typename T>
     CBlock& operator=(T newID)

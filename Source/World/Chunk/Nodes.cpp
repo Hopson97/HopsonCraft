@@ -29,7 +29,7 @@ const Block::DataHolder& CBlock::getData() const
     return getType().getData().get();
 }
 
-const Block::Type& CBlock::getType() const
+const Block::BlockType& CBlock::getType() const
 {
     return Block::Database::get().getBlock(id);
 }

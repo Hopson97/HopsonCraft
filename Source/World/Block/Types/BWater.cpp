@@ -5,6 +5,6 @@
 namespace Block
 {
     BWater::BWater()
-    :   Type ("Water")
+    :   BlockType ("Water")
     { }
 }

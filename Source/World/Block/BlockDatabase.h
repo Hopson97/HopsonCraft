@@ -18,19 +18,19 @@ namespace Block
 
             Database();
 
-            const Type& getBlock(uint8_t id) const;
-            const Type& getBlock(ID blockID) const;
+            const BlockType& getBlock(uint8_t id) const;
+            const BlockType& getBlock(ID blockID) const;
 
             const Texture::Atlas& getTextureAtlas() const;
 
         private:
-            std::array<std::unique_ptr<Type>, (int)ID::NUM_BlockTypeS> m_blocks;
+            std::array<std::unique_ptr<BlockType>, (int)ID::NUM_BlockTypeS> m_blocks;
 
             Texture::Atlas m_textures;
     };
 
-    const Type& get(uint8_t id);
-    const Type& get(ID blockID);
+    const BlockType& get(uint8_t id);
+    const BlockType& get(ID blockID);
 }
 
 #endif // BlockDatabase_H_INCLUDED

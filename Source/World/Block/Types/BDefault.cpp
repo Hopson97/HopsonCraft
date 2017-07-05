@@ -6,11 +6,11 @@
 namespace Block
 {
     Default::Default(std::string&& dataFileName)
-    :   Type (std::move(dataFileName))
+    :   BlockType (std::move(dataFileName))
     {}
 
     BSand::BSand()
-    :   Type ("Sand")
+    :   BlockType ("Sand")
     {}
 }
 

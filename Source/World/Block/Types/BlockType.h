@@ -11,19 +11,19 @@ class CBlock;
 
 namespace Block
 {
-    class Type
+    class BlockType
     {
         public:
-            const Data& getData() const;
+            const BlockData& getData() const;
 
             virtual void tick   (World& world, CBlock& block, const Position& position) const{}
             virtual void trigger(World& world, CBlock& block, const Position& position) const{}
 
         protected:
-            Type(std::string&& fileName);
+            BlockType(std::string&& fileName);
 
         private:
-            Data m_data;
+            BlockData m_data;
     };
 }
 

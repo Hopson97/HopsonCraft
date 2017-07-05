@@ -2,13 +2,13 @@
 
 namespace Block
 {
-    Type::Type(std::string&& fileName)
+    BlockType::BlockType(std::string&& fileName)
     :   m_data (std::move(fileName))
     {
 
     }
 
-    const Data& Type::getData() const
+    const BlockData& BlockType::getData() const
     {
         return m_data;
     }

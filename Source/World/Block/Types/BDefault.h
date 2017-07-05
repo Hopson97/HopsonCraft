@@ -5,13 +5,13 @@
 
 namespace Block
 {
-    class Default : public Type
+    class Default : public BlockType
     {
         public:
             Default(std::string&& dataFileName);
     };
 
-    class BSand : public Type
+    class BSand : public BlockType
     {
         public:
             BSand();

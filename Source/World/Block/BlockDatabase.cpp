@@ -35,12 +35,12 @@ namespace Block
         m_blocks[(int)ID::Tall_Grass  ] = std::make_unique<BPlant> ("Tall_Grass");
     }
 
-    const Type& Database::getBlock(uint8_t id) const
+    const BlockType& Database::getBlock(uint8_t id) const
     {
         return *m_blocks[id];
     }
 
-    const Type& Database::getBlock(ID blockID) const
+    const BlockType& Database::getBlock(ID blockID) const
     {
         return *m_blocks[(int)blockID];
     }
@@ -52,12 +52,12 @@ namespace Block
 
 
 
-    const Type& get(uint8_t id)
+    const BlockType& get(uint8_t id)
     {
         return Database::get().getBlock(id);
     }
 
-    const Type& get(ID blockID)
+    const BlockType& get(ID blockID)
     {
         return Database::get().getBlock(blockID);
     }

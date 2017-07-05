@@ -1,5 +1,5 @@
-#ifndef BlockData_H_INCLUDED
-#define BlockData_H_INCLUDED
+#ifndef BlockBlockData_H_INCLUDED
+#define BlockBlockData_H_INCLUDED
 
 #include <string>
 #include <fstream>
@@ -51,10 +51,10 @@ namespace Block
         Vector2     bottomTextureCoords;
     };
 
-    class Data : public Loader
+    class BlockData : public Loader
     {
         public:
-            Data(std::string&& fileName);
+            BlockData(std::string&& fileName);
 
             const DataHolder& get() const { return m_holder; }
 
@@ -62,11 +62,11 @@ namespace Block
             bool parseLine  (const std::string& line, std::ifstream& stream) override;
 
             template<typename T>
-            void loadEnum(std::ifstream& stream, T& data)
+            void loadEnum(std::ifstream& stream, T& BlockData)
             {
                 int32_t val;
                 stream >> val;
-                data = static_cast<T>(val);
+                BlockData = static_cast<T>(val);
             }
 
             std::string m_fileName;
@@ -75,4 +75,4 @@ namespace Block
     };
 }
 
-#endif // BlockData_H_INCLUDED
+#endif // BlockBlockData_H_INCLUDED
