@@ -59,7 +59,7 @@ namespace
 
         if(inFile.is_open())
         {
-            Singleton<Config>::get().loadFromStream(fileName, inFile);
+            jesyspa::Singleton<jesyspa::Config>::get().loadFromStream(fileName, inFile);
         }
     }
 }

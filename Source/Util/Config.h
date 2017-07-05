@@ -7,26 +7,30 @@
 #include <SFML/Graphics.hpp>
 #include <istream>
 
-class Config {
-public:
-	Config();
-	// Overwrite the current config with the contents of the stream.
-	// The filename is used for error reporting.
-	void loadFromStream(std::string const& filename, std::istream&);
+namespace jesyspa
+{
+    class Config
+    {
+        public:
+            Config();
+            // Overwrite the current config with the contents of the stream.
+            // The filename is used for error reporting.
+            void loadFromStream(std::string const& filename, std::istream&);
 
-	sf::Keyboard::Key getKey(KeyBinds::Control) const;
-	sf::VideoMode getVideoMode() const;
+            sf::Keyboard::Key getKey(KeyBinds::Control) const;
+            sf::VideoMode getVideoMode() const;
 
 
-private:
-	void setDefaultVideoMode();
-	void setDefaultKeybindings();
+        private:
+            void setDefaultVideoMode();
+            void setDefaultKeybindings();
 
-	void loadScreenSettingsFromStream(ConfigParser&);
-	void loadKeybindingsFromStream(ConfigParser&);
+            void loadScreenSettingsFromStream(ConfigParser&);
+            void loadKeybindingsFromStream(ConfigParser&);
 
-	sf::VideoMode m_video_mode;
-	std::map<KeyBinds::Control, sf::Keyboard::Key> m_keybindings;
-};
+            sf::VideoMode m_video_mode;
+            std::map<KeyBinds::Control, sf::Keyboard::Key> m_keybindings;
+    };
+}
 
 #endif
