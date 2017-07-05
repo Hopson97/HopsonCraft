@@ -16,14 +16,14 @@ namespace Block
         public:
             static Database& get();
 
-            Database();
-
             const BlockType& getBlock(uint8_t id) const;
             const BlockType& getBlock(ID blockID) const;
 
             const Texture::Atlas& getTextureAtlas() const;
 
         private:
+            Database();
+
             std::array<std::unique_ptr<BlockType>, (int)ID::NUM_BlockTypeS> m_blocks;
 
             Texture::Atlas m_textures;
