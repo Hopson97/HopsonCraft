@@ -3,8 +3,6 @@
 #include <ctime>
 
 #include "Util/Random.h"
-#include "Util/Config.h"
-#include "Util/Singleton.h"
 #include "Util/Native.h"
 
 #include "Application.h"
@@ -51,17 +49,6 @@ namespace
             Random::intInRange(0, RAND_MAX);
         }
     }
-
-    void loadConfig()
-    {
-        const std::string fileName = "HopsonCraft.conf";
-        std::ifstream inFile (fileName);
-
-        if(inFile.is_open())
-        {
-            jesyspa::Singleton<jesyspa::Config>::get().loadFromStream(fileName, inFile);
-        }
-    }
 }
 
 //entry
@@ -70,7 +57,6 @@ int main()
     try
     {
         initilize();
-        loadConfig();
 
         Application app;
         app.runMainGameLoop();
