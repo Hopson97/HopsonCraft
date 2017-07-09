@@ -20,11 +20,11 @@ namespace Block
     Database::Database()
     :   m_textures  ("Atlas/Low", 512, 16)
     {
-        m_blocks[(int)ID::Air     ] = std::make_unique<Default>   ("Air");
-        m_blocks[(int)ID::Grass   ] = std::make_unique<Default>   ("Grass");
-        m_blocks[(int)ID::Dirt    ] = std::make_unique<Default>   ("Dirt");
-        m_blocks[(int)ID::Stone   ] = std::make_unique<Default>   ("Stone");
-        m_blocks[(int)ID::Sand    ] = std::make_unique<BSand>     ();
+        m_blocks[(int)ID::Air     ] = std::make_unique<Default> ("Air");
+        m_blocks[(int)ID::Grass   ] = std::make_unique<Default> ("Grass");
+        m_blocks[(int)ID::Dirt    ] = std::make_unique<Default> ("Dirt");
+        m_blocks[(int)ID::Stone   ] = std::make_unique<Default> ("Stone");
+        m_blocks[(int)ID::Sand    ] = std::make_unique<Default> ("Sand");
 
         m_blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default> ("Oak_Wood");
         m_blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default> ("Oak_Leaf");

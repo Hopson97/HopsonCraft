@@ -9,9 +9,8 @@
 
 namespace State
 {
-    SettingsMenu::SettingsMenu(Application& application, WorldSettings& settings)
+    SettingsMenu::SettingsMenu(Application& application)
     :   Base          (application)
-    ,   m_pWorldSettings    (&settings)
     {
         initMenu();
     }

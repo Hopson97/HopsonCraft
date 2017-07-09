@@ -20,8 +20,7 @@ namespace State
     class Playing : public Base
     {
         public:
-            Playing(Application& application,
-                    const WorldSettings& settings);
+            Playing(Application& application);
 
             void input      (const sf::Event& e)        override;
             void input      (Camera& camera)            override;

@@ -17,10 +17,9 @@
 
 namespace State
 {
-    Playing::Playing(Application& application,
-                     const WorldSettings& settings)
-    :   Base  (application)
-    ,   m_world     (settings, application.getCamera())
+    Playing::Playing(Application& application)
+    :   Base        (application)
+    ,   m_world     (application.getCamera())
     ,   m_player    (application.getCamera())
     ,   m_tickRate  ("Tick", "TPS")
     ,   m_frameRate ("Frame", "FPS")
@@ -136,10 +135,8 @@ namespace State
             m_debugHud.addDebugSector(std::move(format), &f);
         };
 
-        m_tickRate  .registerForDebug (m_debugHud);
-        m_frameRate .registerForDebug(m_debugHud);
-
-        addSection("Faces drawn: %.0f", m_world.m_facesDrawn);
+        m_tickRate  .registerForDebug   (m_debugHud);
+        m_frameRate .registerForDebug   (m_debugHud);
 
         addSection("Player Position: X: %.1f", m_player.position.x);
         addSection("Player Position: Y: %.1f", m_player.position.y);
@@ -157,7 +154,7 @@ namespace State
 
         m_pauseMenu.addComponent(std::make_unique<GUI::BasicButton>("Settings", [&]()
         {
-            m_application->pushState<State::SettingsMenu>(*m_application, m_world.m_worldSettings);
+            m_application->pushState<State::SettingsMenu>(*m_application);
         }));
 
         m_pauseMenu.addComponent(std::make_unique<GUI::BasicButton>("Exit", [&]()

@@ -10,12 +10,6 @@ namespace Block
         public:
             Default(std::string&& dataFileName);
     };
-
-    class BSand : public BlockType
-    {
-        public:
-            BSand();
-    };
 }
 
 #endif // BDEFAULT_H_INCLUDED

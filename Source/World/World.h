@@ -10,8 +10,6 @@
 
 #include "../Physics/AABB.h"
 
-#include "WorldSettings.h"
-
 class Player;
 class Camera;
 
@@ -27,21 +25,11 @@ namespace State
 
 class World
 {
-    friend class State::Playing;
-
     public:
-        World(const WorldSettings& settings, const Camera& camera);
-
-        const WorldSettings& getWorldSettings () const;
+        World(const Camera& camera);
 
     private:
-        WorldSettings  m_worldSettings;
         const Camera* m_pCamera = nullptr;
-
-    public:
-        ///@TODO Make this private somehow.
-        ///I say "somehow", as it has to be accessed by the HUD debug display
-        float m_facesDrawn = 0;
 };
 
 #endif // WORLD_H_INCLUDED

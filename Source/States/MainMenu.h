@@ -5,8 +5,6 @@
 
 #include "../GUI/Menu.h"
 
-#include "../World/WorldSettings.h"
-
 namespace State
 {
     class MainMenu : public Base
@@ -31,8 +29,6 @@ namespace State
 
             int32_t m_worldSize = 0;
             int32_t m_noiseData = 0;
-
-            WorldSettings settings;
     };
 }
 

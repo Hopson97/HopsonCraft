@@ -52,7 +52,7 @@ namespace State
 
         m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Settings", [&]()
         {
-            m_application->pushState<State::SettingsMenu>(*m_application, settings);
+            m_application->pushState<State::SettingsMenu>(*m_application);
         }));
 
         m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Credits (Unused)", [&]()
@@ -67,8 +67,8 @@ namespace State
         m_playMenu.addComponent(std::make_unique<GUI::BasicButton>("Play", [&]()
         {
             m_pActiveMenu = &m_frontMenu;
-            settings.seed = Random::intInRange(0, 999'999);
-            m_application->pushState<State::Playing>(*m_application, settings);
+            //settings.seed = Random::intInRange(0, 999'999);
+            m_application->pushState<State::Playing>(*m_application);
         }));
 
         m_playMenu.addComponent(std::make_unique<GUI::BasicButton>("Back", [&]()

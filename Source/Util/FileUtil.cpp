@@ -27,6 +27,7 @@ std::string getFileContents(const std::string& filePath)
     return stream.str();        //Return the string from the string stream
 }
 
+
 std::vector<std::string> getFilePathsFromFolder(const std::string& folderName)
 {
     std::vector<std::string> fileNames;
