@@ -30,7 +30,7 @@ class Application
         void pushState(Args&&... args)
         {
             m_states.push_back(std::make_unique<S>(std::forward<Args>(args)...));
-            //currentState().onOpen();
+            currentState().onOpen();
         }
 
         void popState();
@@ -38,7 +38,6 @@ class Application
     private:
         void handleEvents();
         void update(float elapsed);
-        void render();
 
         State::Base& currentState();
 

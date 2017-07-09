@@ -38,8 +38,6 @@ namespace State
             m_cubes.push_back(cube);
         }
         m_player.position   = getCenterPosition();
-
-        Display::get().getRaw().setFramerateLimit(144);
     }
 
     void Playing::input(const sf::Event& e)
@@ -113,7 +111,7 @@ namespace State
 
     void Playing::onOpen()
     {
-
+        Display::get().getRaw().setFramerateLimit(144);
     }
 
     void Playing::editBlockInput()

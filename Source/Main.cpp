@@ -38,8 +38,7 @@ namespace
 
     void initilize()
     {
-        //cheeky
-        Display::get();
+        Display::get(); //Init the display. This must be done in order to enable OpenGL.
         Random::init();
 
         //This is so that the RNG is more random

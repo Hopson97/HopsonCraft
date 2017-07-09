@@ -11,7 +11,8 @@ class ResourceManager
         ResourceManager(const std::string& folder, const std::string& ext)
         :   m_folder    (folder)
         ,   m_ext       (ext)
-        { }
+        {
+        }
 
         const Resource& get(const std::string& fileName)
         {
@@ -30,9 +31,11 @@ class ResourceManager
     private:
         void addResource(const std::string& name)
         {
-            auto str = buildString(name);
             Resource r;
-            r.loadFromFile(str);
+            if (!r.loadFromFile(buildString(name)))
+            {
+                r.loadFromFile(buildString("fail"));
+            }
             m_resourceMap.emplace(name, r);
         }
 

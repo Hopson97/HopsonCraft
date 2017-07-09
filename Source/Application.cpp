@@ -18,38 +18,40 @@ Application::Application()
 
 void Application::runMainGameLoop()
 {
-    unsigned ticks = 0;
+    constexpr uint32_t  TICKS_PER_FRAME = 30;
+    const sf::Time      MS_PER_TICK     = sf::seconds((float)1 / (float)TICKS_PER_FRAME);
 
-    constexpr float TICKS_PER_SECOND = 20;
-    const sf::Time MS_PER_UPDATE = sf::seconds(1.0f/ TICKS_PER_SECOND);
-    sf::Clock gameTimer;
+    uint32_t tickCount = 0;
 
-    auto lastTime = gameTimer.getElapsedTime();
-    auto updateLag = sf::Time::Zero;
-    while (Display::get().isOpen() && !m_states.empty())
+    sf::Clock timer;
+
+    auto lastTime   = timer.getElapsedTime();
+    auto tickLag    = sf::Time::Zero;
+
+    while (Display::get().isOpen())
     {
-        auto current = gameTimer.getElapsedTime();
-        auto elapsed = current - lastTime;
-        lastTime = current;
-        updateLag += elapsed;
+        auto currentTime    = timer.getElapsedTime();
+        auto elapsed        = currentTime - lastTime;
+        lastTime            = currentTime;
+        tickLag             = elapsed;
 
         handleEvents();
-        if (!Display::get().isOpen() || m_states.empty())
-            break;
+        if (m_states.empty()) break;
+        currentState().input (m_camera);
 
-        currentState().input  (m_camera);
-
-        while (updateLag >= MS_PER_UPDATE)
+        while (tickLag >= MS_PER_TICK)
         {
-            ticks++;
+            tickCount++;
             update(elapsed.asSeconds());
-            updateLag -= MS_PER_UPDATE;
+            tickLag -= MS_PER_TICK;
         }
 
         m_camera.update();
         currentState().update(m_camera, elapsed.asSeconds());
 
-        render();
+        m_renderer.clear();
+        currentState().draw(m_renderer);
+        m_renderer.update(m_camera);
     }
 }
 
@@ -58,9 +60,14 @@ void Application::handleEvents()
     sf::Event e;
     while (Display::get().getRaw().pollEvent(e))
     {
-        if (e.type == sf::Event::Closed)
+        switch(e.type)
         {
-            Display::get().close();
+            case sf::Event::Closed:
+                Display::get().close();
+                break;
+
+            default:
+                break;
         }
         currentState().input(e);
     }
@@ -72,13 +79,6 @@ void Application::update(float elapsed)
     musicPlayer.update();
 
     currentState().update(m_camera, elapsed);
-}
-
-void Application::render()
-{
-    m_renderer.clear();
-    currentState().draw(m_renderer);
-    m_renderer.update(m_camera);
 }
 
 void Application::popState()
@@ -94,8 +94,6 @@ State::Base& Application::currentState()
 {
     return *m_states.back();
 }
-
-
 
 Camera& Application::getCamera()
 {
