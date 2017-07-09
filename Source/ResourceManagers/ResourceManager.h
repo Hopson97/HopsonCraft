@@ -1,52 +1,55 @@
 #ifndef RESOURCEMANAGER_H_INCLUDED
 #define RESOURCEMANAGER_H_INCLUDED
 
-#include <map>
-#include <stdexcept>
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
 #include <unordered_map>
+#include <string>
 
-template <typename Resource>
+template<typename Resource>
 class ResourceManager
 {
     public:
-        ResourceManager(std::string&& path, std::string&& extension)
-        :   m_path      (std::move(path))
-        ,   m_extension (std::move(extension))
-        {}
+        ResourceManager(const std::string& folder, const std::string& ext)
+        :   m_folder    (folder)
+        ,   m_ext       (ext)
+        { }
 
-        const Resource& get(const std::string& name)
+        const Resource& get(const std::string& fileName)
         {
-            std::string full = m_path + name + m_extension;
-
-            if (m_resourceMap.find(full) == m_resourceMap.end())
+            if(!exists(fileName))
             {
-                add(full);
+                addResource(fileName);
             }
-
-            return qGet(full);
+            return m_resourceMap[fileName];
         }
 
-        const Resource& qGet(const std::string& name)
+        void remove(const std::string& fileName)
         {
-            return m_resourceMap[name];
-        }
-
-        void add(const std::string& name)
-        {
-            Resource res;
-            res.loadFromFile(name);
-            m_resourceMap.insert(std::make_pair(name, res));
+            m_resourceMap.erase(fileName);
         }
 
     private:
-        std::string m_path;
-        std::string m_extension;
+        void addResource(const std::string& name)
+        {
+            auto str = buildString(name);
+            Resource r;
+            r.loadFromFile(str);
+            m_resourceMap.emplace(name, r);
+        }
+
+        std::string buildString(const std::string& fileName) const
+        {
+            return m_folder + fileName + "." + m_ext;
+        }
+
+        bool exists(const std::string& fileName) const
+        {
+            return m_resourceMap.find(fileName) != m_resourceMap.end();
+        }
 
         std::unordered_map<std::string, Resource> m_resourceMap;
+
+        std::string m_folder,
+                    m_ext;
 };
 
 #endif // RESOURCEMANAGER_H_INCLUDED

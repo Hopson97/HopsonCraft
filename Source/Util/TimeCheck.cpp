@@ -29,6 +29,6 @@ void FrameTimeChecker::update()
 
 void FrameTimeChecker::registerForDebug(Debug_HUD& debugHUD)
 {
-    debugHUD.addDebugSector(m_name +            " Time: %.1f",  &m_frameTime);
-    debugHUD.addDebugSector(m_abbreviation  +   " %.1f",        &m_fps);
+    debugHUD.addDebugSector(m_name +            " Time: %.1fms",    &m_frameTime);
+    debugHUD.addDebugSector(m_abbreviation  +   " %.1f",            &m_fps);
 }

@@ -29,8 +29,6 @@ namespace GUI
             bool clicked        (const sf::Shape& sprite, const sf::Event& e) const;
             void initText       (sf::Text& text, int size, const std::string& title);
             sf::Text initText   (int size, const std::string& title);
-
-            static sf::Texture guiTexture;
     };
 
     class Empty_Component : public Component

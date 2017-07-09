@@ -3,6 +3,8 @@
 #include "../Display.h"
 #include "../Renderer/RMaster.h"
 
+#include "../ResourceManagers/ResourceHolder.h"
+
 namespace GUI
 {
     BasicButton::BasicButton(const std::string& text,
@@ -11,7 +13,7 @@ namespace GUI
     ,   m_function  (function)
     {
         m_quad.setSize({BASE_WIDTH, BASE_HEIGHT});
-        m_quad.setTexture(&Component::guiTexture);
+        m_quad.setTexture(&ResourceHolder::getTexure("GUI"));
         m_quad.setOutlineColor(sf::Color::Black);
         m_quad.setOutlineThickness(4);
 

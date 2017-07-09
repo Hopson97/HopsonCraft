@@ -3,6 +3,8 @@
 #include "../Display.h"
 #include "../Renderer/RMaster.h"
 
+#include "../ResourceManagers/ResourceHolder.h"
+
 namespace GUI
 {
     Text_Box::Text_Box( unsigned maxTextLength,
@@ -13,7 +15,7 @@ namespace GUI
     ,   m_maxLength     (maxTextLength)
     {
         m_quad.setSize(size);
-        m_quad.setTexture(&Component::guiTexture);
+        m_quad.setTexture(&ResourceHolder::getTexure("GUI"));
         m_quad.setOutlineColor(sf::Color::Black);
         m_quad.setOutlineThickness(2);
 

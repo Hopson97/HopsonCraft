@@ -22,8 +22,8 @@ namespace State
     :   Base  (application)
     ,   m_world     (settings, application.getCamera())
     ,   m_player    (application.getCamera())
-    ,   m_tickRate  ("Tick", "tps")
-    ,   m_frameRate ("Frame", "fps")
+    ,   m_tickRate  ("Tick", "TPS")
+    ,   m_frameRate ("Frame", "FPS")
     ,   m_pauseMenu (GUI::Layout::Center)
     {
         application.getCamera().hookEntity(m_player);
@@ -138,8 +138,8 @@ namespace State
             m_debugHud.addDebugSector(std::move(format), &f);
         };
 
-        m_tickRate.registerForDebug (m_debugHud);
-        m_frameRate.registerForDebug(m_debugHud);
+        m_tickRate  .registerForDebug (m_debugHud);
+        m_frameRate .registerForDebug(m_debugHud);
 
         addSection("Faces drawn: %.0f", m_world.m_facesDrawn);
 

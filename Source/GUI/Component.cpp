@@ -5,19 +5,9 @@
 
 namespace GUI
 {
-    sf::Texture GUI::Component::guiTexture;
-
-    bool hasSetupResources;
-
     Component::Component()
     {
-        if (!hasSetupResources)
-        {
-            guiTexture.loadFromFile("Data/Textures/GUI.png");
-            guiTexture.setRepeated(true);
 
-            hasSetupResources = true;
-        }
     }
 
     bool Component::touchingMouse(const sf::Shape& sprite) const
@@ -42,7 +32,7 @@ namespace GUI
 
     void Component::initText(sf::Text& text, int size, const std::string& title)
     {
-        text.setFont(getResources().fonts.get("rs"));
+        text.setFont(ResourceHolder::getFont("rs"));
         text.setString(title);
         text.setColor(sf::Color::White);
         //text.setOutlineColor(sf::Color::Black);
