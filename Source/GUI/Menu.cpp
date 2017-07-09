@@ -19,12 +19,12 @@ namespace GUI
 
     void Menu::getBackground()
     {
-        auto backgrounds = getFileNamesFromFolder("Data/Textures/Menu_BG");
+        auto backgrounds = getFilePathsFromFolder("Data/Textures/Menu_BG");
         if (backgrounds.empty())
             return;
+
         auto textureName    = backgrounds[Random::intInRange(0, backgrounds.size() - 1)];
-        textureName.erase(textureName.length() - 4);
-        addBackgroud(ResourceHolder::getTexure("Menu_BG/" + textureName));
+        addBackgroud(ResourceHolder::getTexure(textureName, true));
     }
 
 

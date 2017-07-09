@@ -14,11 +14,11 @@ class ResourceManager
         {
         }
 
-        const Resource& get(const std::string& fileName)
+        const Resource& get(const std::string& fileName, bool isFullPath = false)
         {
             if(!exists(fileName))
             {
-                addResource(fileName);
+                addResource(fileName, isFullPath);
             }
             return m_resourceMap[fileName];
         }
@@ -29,10 +29,15 @@ class ResourceManager
         }
 
     private:
-        void addResource(const std::string& name)
+        void addResource(const std::string& name, bool isFullPath = false)
         {
             Resource r;
-            if (!r.loadFromFile(buildString(name)))
+
+            auto str = isFullPath ?
+                            name    :
+                            buildString(name);
+
+            if (!r.loadFromFile(str))
             {
                 r.loadFromFile(buildString("fail"));
             }

@@ -10,9 +10,9 @@ class ResourceHolder
 {
     public:
         static ResourceHolder& get();
-        static const sf::Texture&       getTexure   (const std::string& name);
-        static const sf::Font&          getFont     (const std::string& name);
-        static const sf::SoundBuffer&   getSoundBuff(const std::string& name);
+        static const sf::Texture&       getTexure   (const std::string& name, bool = false);
+        static const sf::Font&          getFont     (const std::string& name, bool = false);
+        static const sf::SoundBuffer&   getSoundBuff(const std::string& name, bool = false);
 
         ResourceHolder(const ResourceHolder& other) = delete;
         ResourceHolder(ResourceHolder&& other) = delete;

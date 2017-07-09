@@ -3,7 +3,15 @@
 #include <fstream>
 #include <sstream>
 
+#include <experimental/filesystem>
+
 #include "Native.h"
+
+
+namespace FS = std::experimental::filesystem;
+
+using Path      = FS::path;
+using DirItr    = FS::directory_iterator;
 
 std::string getFileContents(const std::string& filePath)
 {
@@ -14,66 +22,21 @@ std::string getFileContents(const std::string& filePath)
     return stream.str();        //Return the string from the string stream
 }
 
+std::vector<std::string> getFilePathsFromFolder(const std::string& folderName)
+{
+    std::vector<std::string> fileNames;
 
-
-
-#ifdef __WIN32
-    std::vector<std::string> getFileNamesFromFolder(const std::string& folderName)
+    for (auto& entry : DirItr(folderName))
     {
-        std::vector<std::string> fileNames;
-        std::string searchFor (folderName + "/*.*");
-        WIN32_FIND_DATA findData;
-        auto hFind = ::FindFirstFile(searchFor.c_str(), &findData);
-
-        if (hFind != INVALID_HANDLE_VALUE)
+        if (std::experimental::filesystem::is_regular_file(entry))
         {
-            do
-            {
-                if(!(findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-                {
-                    fileNames.push_back(findData.cFileName);
-                }
-
-            } while (::FindNextFile(hFind, &findData));
+            fileNames.push_back(Path(entry));
+            std::cout << Path(entry);
         }
-
-        return fileNames;
     }
-/*
-    ///@TODO Linux/ etc of this
-    std::vector<std::string> getFolderNamesFromFolder(const std::string& folderName)
-    {
-        std::vector<std::string> folderNames;
 
-        WIN32_FIND_DATA findData;
-        auto hFind = INVALID_HANDLE_VALUE;
-
-
-
-    }
-*/
-
-#elif __linux__ || __APPLE__
-    std::vector<std::string> getFileNamesFromFolder(const std::string& folderName)
-    {
-        return {};
-        std::vector<std::string> fileNames;
-        DIR* directory = opendir(folderName.c_str());
-        dirent* dir;
-
-        if (directory)
-        {
-            while ((dir = readdir(directory)) != nullptr)
-            {
-                fileNames.push_back(dir->d_name);
-            }
-        }
-        closedir(directory);
-        return fileNames;
-
-    }
-#endif
-
+    return fileNames;
+}
 
 
 

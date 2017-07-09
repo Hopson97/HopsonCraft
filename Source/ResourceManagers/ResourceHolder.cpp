@@ -14,20 +14,20 @@ ResourceHolder& ResourceHolder::get()
     return res;
 }
 
-const sf::Texture& ResourceHolder::getTexure(const std::string& name)
+const sf::Texture& ResourceHolder::getTexure(const std::string& name, bool isFullPath)
 {
     LOG("Got Texture: %s\n", name.c_str());
-    return get().textures.get(name);
+    return get().textures.get(name, isFullPath);
 }
 
-const sf::Font& ResourceHolder::getFont(const std::string& name)
+const sf::Font& ResourceHolder::getFont(const std::string& name, bool isFullPath)
 {
     LOG("Got Font: %s\n", name.c_str());
-    return get().fonts.get(name);
+    return get().fonts.get(name, isFullPath);
 }
 
-const sf::SoundBuffer& ResourceHolder::getSoundBuff(const std::string& name)
+const sf::SoundBuffer& ResourceHolder::getSoundBuff(const std::string& name, bool isFullPath)
 {
     LOG("Got SoundBuffer: %s\n", name.c_str());
-    return get().soundBuffers.get(name);
+    return get().soundBuffers.get(name, isFullPath);
 }

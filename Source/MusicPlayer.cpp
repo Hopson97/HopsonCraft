@@ -6,7 +6,7 @@
 #include "Util/Random.h"
 
 MusicPlayer::MusicPlayer()
-:   m_songs         (getFileNamesFromFolder("Data/Music"))
+:   m_songs         (getFilePathsFromFolder("Data/Music"))
 ,   m_currentSong   (Random::intInRange(0, m_songs.size() - 1))
 {
     m_music.setVolume(2);
@@ -32,9 +32,8 @@ void MusicPlayer::getNextSong()
 {
     if (m_songs.empty()) return;
     auto& name      = m_songs[m_currentSong];
-    auto fullName   = "Data/Music/" + name;
 
-    m_music.openFromFile(fullName);
+    m_music.openFromFile(name);
     m_music.stop();
 
     m_duration = m_music.getDuration() + sf::seconds(1);
