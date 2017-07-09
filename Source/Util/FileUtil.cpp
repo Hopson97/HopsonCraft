@@ -7,7 +7,12 @@
 
 #include "Native.h"
 
+/**
+    Because this uses experimental file-system lib (At this time,
+    I can't seem to get GCC 7 to download), you must add compiler option:
 
+    -lstdc++fs
+*/
 namespace FS = std::experimental::filesystem;
 
 using Path      = FS::path;
