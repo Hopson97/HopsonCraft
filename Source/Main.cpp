@@ -28,6 +28,7 @@ namespace
             MessageBox(nullptr, message.c_str(), "Error", MB_OK);
             std::cerr << message << std::endl;
         #elif __linux__ || __APPLE__
+        ///@TODO Test
             const std::string command = "zenity --error --text \"" + message + "\"";
             system(command.c_str());
         #else

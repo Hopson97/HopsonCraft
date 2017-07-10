@@ -19,7 +19,9 @@ class Camera : public Entity
 
         const Frustum& getFrustum() const noexcept;
 
-        const Matrix4& getProjectionViewMatrix() const noexcept;
+        const Matrix4& getProjectionViewMatrix  () const noexcept;
+        const Matrix4& getViewMatrix            () const noexcept;
+        const Matrix4& getProjMatrix            () const noexcept;
 
     private:
         const Entity* m_pEntity = nullptr;

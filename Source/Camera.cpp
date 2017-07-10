@@ -55,3 +55,14 @@ const Matrix4& Camera::getProjectionViewMatrix() const noexcept
 {
     return m_projectionViewMatrix;
 }
+
+const Matrix4& Camera::getViewMatrix() const noexcept
+{
+    return m_viewMatrix;
+}
+
+const Matrix4& Camera::getProjMatrix() const noexcept
+{
+    return m_projectionMatrix;
+}
+

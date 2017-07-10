@@ -15,6 +15,10 @@
 #include "../GUI/BasicButton.h"
 #include "../GUI/Image.h"
 
+#include "../Texture/CubeTexture.h"
+
+Texture::CubeTexture t;
+
 namespace State
 {
     Playing::Playing(Application& application)
@@ -25,6 +29,16 @@ namespace State
     ,   m_frameRate ("Frame", "FPS")
     ,   m_pauseMenu (GUI::Layout::Center)
     {
+        t.loadFromFile(
+        {
+            "Data/Textures/Skybox/Test/right.png",
+            "Data/Textures/Skybox/Test/left.png",
+            "Data/Textures/Skybox/Test/top.png",
+            "Data/Textures/Skybox/Test/bottom.png",
+            "Data/Textures/Skybox/Test/back.png",
+            "Data/Textures/Skybox/Test/front.png"
+        });
+
         application.getCamera().hookEntity(m_player);
         initHUD();
         initPause();
@@ -100,6 +114,8 @@ namespace State
             renderer.draw(cube);
 
         m_hud.draw(renderer);
+
+        //renderer.draw(t);
 
         static Toggle drawDebugHUD(sf::Keyboard::Key::F3, sf::seconds(0.5));
         if (drawDebugHUD)

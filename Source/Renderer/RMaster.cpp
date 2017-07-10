@@ -16,12 +16,11 @@ namespace Renderer
 
     void Master::update(const Camera& camera)
     {
-        ///@TODO This is starting to feel a bit bad
-        ///Another way to do this?
         Block::Database::get().getTextureAtlas().bind();
 
         glEnable(GL_DEPTH_TEST);
         m_simpleRenderer.update(camera);
+        m_skyBoxRenderer.update(camera);
 
         glDisable(GL_DEPTH_TEST);
         m_sfmlRenderer.update ();
@@ -38,4 +37,10 @@ namespace Renderer
     {
         m_simpleRenderer.draw(cube);
     }
+
+    void Master::draw(const Texture::CubeTexture& tex)
+    {
+        m_skyBoxRenderer.draw(tex);
+    }
+
 }

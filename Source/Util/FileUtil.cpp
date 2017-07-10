@@ -5,8 +5,6 @@
 
 #include <experimental/filesystem>
 
-#include "Native.h"
-
 /**
     Because this uses experimental file-system lib (At this time,
     I can't seem to get GCC 7 to download), you must add compiler option:
@@ -34,10 +32,9 @@ std::vector<std::string> getFilePathsFromFolder(const std::string& folderName)
 
     for (auto& entry : DirItr(folderName))
     {
-        if (std::experimental::filesystem::is_regular_file(entry))
+        if (FS::is_regular_file(entry))
         {
             fileNames.push_back(Path(entry));
-            std::cout << Path(entry);
         }
     }
 

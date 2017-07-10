@@ -13,6 +13,9 @@ class Model
               const std::vector<GLfloat>& textureCoordinates,
               const std::vector<GLuint>&  indices);
 
+        Model(const std::vector<GLfloat>& vertexPositions,
+              const std::vector<GLuint>&  indices);
+
         ~Model();
         Model(const Model& other) = delete;
         Model& operator =(const Model& other) = delete;

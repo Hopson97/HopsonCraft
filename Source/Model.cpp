@@ -16,6 +16,17 @@ Model::Model(const std::vector<GLfloat>& vertexPositions,
     addEBO(indices);
 }
 
+Model::Model(const std::vector<GLfloat>& vertexPositions,
+             const std::vector<GLuint>&  indices)
+:   m_indicesCount  (indices.size())
+{
+    glGenVertexArrays(1, &m_vao);
+    bind();
+
+    addVBO(3, vertexPositions);
+    addEBO(indices);
+}
+
 Model::Model(Model&& other)
 :   m_vao           (other.m_vao)
 ,   m_vboCount      (other.m_vboCount)

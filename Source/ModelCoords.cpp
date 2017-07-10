@@ -1,44 +1,44 @@
 #include "ModelCoords.h"
 
-std::vector<GLfloat> getCubeVerticies(float scale)
+std::vector<GLfloat> getCubeVerticies(float posScale, float negScale)
 {
     return
     {
         //Back
-        1 * scale,  0,          0,
-        0,          0,          0,
-        0,          1 * scale,  0,
-        1 * scale,  1 * scale,  0,
+         1 * posScale,  -1 * negScale,  -1 * negScale,
+        -1 * negScale,  -1 * negScale,  -1 * negScale,
+        -1 * negScale,   1 * posScale,  -1 * negScale,
+         1 * posScale,   1 * posScale,  -1 * negScale,
 
         //Right-Side
-        1 * scale, 0,           1 * scale,
-        1 * scale, 0,           0,
-        1 * scale, 1 * scale,   0,
-        1 * scale, 1 * scale,   1 * scale,
+        1 * posScale, -1 * negScale,     1 * posScale,
+        1 * posScale, -1 * negScale,    -1 * negScale,
+        1 * posScale,  1 * posScale,    -1 * negScale,
+        1 * posScale,  1 * posScale,     1 * posScale,
 
         //Front
-        0,          0,          1 * scale,
-        1 * scale,  0,          1 * scale,
-        1 * scale,  1 * scale,  1 * scale,
-        0,          1 * scale,  1 * scale,
+        -1 * negScale,  -1 * negScale,  1 * posScale,
+         1 * posScale,  -1 * negScale,  1 * posScale,
+         1 * posScale,   1 * posScale,  1 * posScale,
+        -1 * negScale,   1 * posScale,  1 * posScale,
 
         //Left
-        0, 0,           0,
-        0, 0,           1 * scale,
-        0, 1 * scale,   1 * scale,
-        0, 1 * scale,   0,
+        -1 * negScale, -1 * negScale,   -1 * negScale,
+        -1 * negScale, -1 * negScale,    1 * posScale,
+        -1 * negScale,  1 * posScale,    1 * posScale,
+        -1 * negScale,  1 * posScale,   -1 * negScale,
 
         //Top
-        0,          1 * scale,   1 * scale,
-        1 * scale,  1 * scale,   1 * scale,
-        1 * scale,  1 * scale,   0,
-        0,          1 * scale,   0,
+        -1 * negScale,  1 * posScale,    1 * posScale,
+         1 * posScale,  1 * posScale,    1 * posScale,
+         1 * posScale,  1 * posScale,   -1 * negScale,
+        -1 * negScale,  1 * posScale,   -1 * negScale,
 
         //Bottom
-        0,          0,  0,
-        1 * scale,  0,  0,
-        1 * scale,  0,  1 * scale,
-        0,          0,  1 * scale
+        -1 * negScale,  -1 * negScale,  -1 * negScale,
+         1 * posScale,  -1 * negScale,  -1 * negScale,
+         1 * posScale,  -1 * negScale,   1 * posScale,
+        -1 * negScale,  -1 * negScale,   1 * posScale
     };
 }
 

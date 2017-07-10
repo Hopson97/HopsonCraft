@@ -3,6 +3,7 @@
 
 #include "RSFML.h"
 #include "RSimple.h"
+#include "RSkyBox.h"
 
 struct Camera;
 
@@ -19,9 +20,12 @@ namespace Renderer
             void draw(const sf::Drawable& drawable);
             void draw(const Cube& cube);
 
+            void draw(const Texture::CubeTexture& tex);
+
         private:
             RSFML       m_sfmlRenderer;
             RSimple     m_simpleRenderer;
+            SkyBox      m_skyBoxRenderer;
     };
 }
 

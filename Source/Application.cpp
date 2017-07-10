@@ -33,7 +33,7 @@ void Application::runMainGameLoop()
         auto currentTime    = timer.getElapsedTime();
         auto elapsed        = currentTime - lastTime;
         lastTime            = currentTime;
-        tickLag             = elapsed;
+        tickLag             += elapsed;
 
         handleEvents();
         if (m_states.empty()) break;
