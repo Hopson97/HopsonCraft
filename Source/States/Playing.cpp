@@ -50,20 +50,12 @@ namespace State
             cube.position = {x, -1, z};
             m_cubes.push_back(cube);
         }
-        m_player.position   = getCenterPosition();
+        m_player.position   = {0, 0, 0};
     }
 
     void Playing::input(const sf::Event& e)
     {
-        if (m_isPaused)
-        {
-            m_pauseMenu.input(e);
-            Display::get().getRaw().setMouseCursorVisible(true);
-        }
-        else
-        {
-            Display::get().getRaw().setMouseCursorVisible(false);
-        }
+        pauseInput(e);
 
         switch(e.type)
         {
@@ -79,12 +71,9 @@ namespace State
 
     void Playing::input(Camera& camera)
     {
-        if (m_isPaused)
-        {
-            return;
-        }
+        if (m_isPaused) return;
+
         m_player.input();
-        editBlockInput();
     }
 
     void Playing::update(Camera& camera, float dt)
@@ -95,29 +84,23 @@ namespace State
 
     void Playing::fixedUpdate(Camera& camera, float dt)
     {
-        if (m_isPaused)
-        {
-            m_pauseMenu.update();
-        }
+        pauseUpdate(camera, dt);
         m_tickRate.update();
     }
 
     void Playing::draw(Renderer::Master& renderer)
     {
+        pauseRender(renderer);
+
+        static Toggle drawDebugHUD(sf::Keyboard::Key::F3, sf::seconds(0.5));
         m_frameRate.update();
-        if (m_isPaused)
-        {
-            m_pauseMenu.draw(renderer);
-        }
+
 
         for (auto& cube : m_cubes)
             renderer.draw(cube);
 
         m_hud.draw(renderer);
 
-        //renderer.draw(t);
-
-        static Toggle drawDebugHUD(sf::Keyboard::Key::F3, sf::seconds(0.5));
         if (drawDebugHUD)
         {
             m_debugHud.draw(renderer);
@@ -129,19 +112,35 @@ namespace State
         Display::get().getRaw().setFramerateLimit(144);
     }
 
-    void Playing::editBlockInput()
+    void Playing::pauseInput(const sf::Event& e)
     {
-
-    }
-
-
-    Vector3 Playing::getCenterPosition()
-    {
-        return
+        if (m_isPaused)
         {
-            0, 1, 0
-        };
+            m_pauseMenu.input(e);
+            Display::get().getRaw().setMouseCursorVisible(true);
+        }
+        else
+        {
+            Display::get().getRaw().setMouseCursorVisible(false);
+        }
     }
+
+    void Playing::pauseUpdate(Camera& camera, float dt)
+    {
+        if (!m_isPaused)
+            return;
+
+        m_pauseMenu.update();
+    }
+
+    void Playing::pauseRender(Renderer::Master& renderer)
+    {
+        if (!m_isPaused)
+            return;
+
+        m_pauseMenu.draw(renderer);
+    }
+
 
 
     void Playing::initHUD()
