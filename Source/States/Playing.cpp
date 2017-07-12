@@ -43,8 +43,9 @@ namespace State
         initHUD();
         initPause();
 
-        for (int x = 0; x < 50; x++)
-        for (int z = 0; z < 50; z++)
+        constexpr int cubeCount = 3;
+        for (int x = -cubeCount; x < cubeCount; x++)
+        for (int z = -cubeCount; z < cubeCount; z++)
         {
             Cube cube;
             cube.position = {x, -1, z};

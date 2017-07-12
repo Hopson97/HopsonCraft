@@ -37,7 +37,6 @@ void Application::runMainGameLoop()
         lastTime            = currentTime;
         tickLag             += elapsed;
 
-
         state.input (m_camera);
 
         while (tickLag >= MS_PER_TICK)
