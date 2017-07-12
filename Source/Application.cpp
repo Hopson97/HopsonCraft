@@ -28,34 +28,34 @@ void Application::runMainGameLoop()
     auto lastTime   = timer.getElapsedTime();
     auto tickLag    = sf::Time::Zero;
 
-    while (Display::get().isOpen())
+    while (Display::get().isOpen() || !m_states.empty())
     {
+        auto& state         = currentState();
         auto currentTime    = timer.getElapsedTime();
         auto elapsed        = currentTime - lastTime;
         lastTime            = currentTime;
         tickLag             += elapsed;
 
-        handleEvents();
-        if ( m_states.empty() ||
-            !Display::get().isOpen())
-        {
-            break;
-        }
-        currentState().input (m_camera);
+
+        state.input (m_camera);
 
         while (tickLag >= MS_PER_TICK)
         {
             tickCount++;
-            update(elapsed.asSeconds());
+
+            state.fixedUpdate (m_camera, elapsed.asSeconds());
+            musicPlayer.update();
+
             tickLag -= MS_PER_TICK;
         }
 
         m_camera.update();
-        currentState().update(m_camera, elapsed.asSeconds());
+        state.update(m_camera, elapsed.asSeconds());
 
         m_renderer.clear();
-        currentState().draw(m_renderer);
+        state.draw(m_renderer);
         m_renderer.update(m_camera);
+        handleEvents();
     }
 }
 
@@ -65,6 +65,7 @@ void Application::handleEvents()
     while (Display::get().getRaw().pollEvent(e))
     {
         currentState().input(e);
+
         switch(e.type)
         {
             case sf::Event::Closed:
@@ -76,14 +77,6 @@ void Application::handleEvents()
         }
 
     }
-}
-
-void Application::update(float elapsed)
-{
-    currentState().fixedUpdate (m_camera, elapsed);
-    musicPlayer.update();
-
-    currentState().update(m_camera, elapsed);
 }
 
 void Application::popState()

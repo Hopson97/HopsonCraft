@@ -37,7 +37,6 @@ class Application
 
     private:
         void handleEvents();
-        void update(float elapsed);
 
         State::Base& currentState();
 

@@ -43,14 +43,14 @@ namespace State
         initHUD();
         initPause();
 
-        for (int x = 0; x < 5; x++)
-        for (int z = 0; z < 5; z++)
+        for (int x = 0; x < 50; x++)
+        for (int z = 0; z < 50; z++)
         {
             Cube cube;
             cube.position = {x, -1, z};
             m_cubes.push_back(cube);
         }
-        m_player.position   = {0, 0, 0};
+        m_player.position   = {0, 2, 0};
     }
 
     void Playing::input(const sf::Event& e)

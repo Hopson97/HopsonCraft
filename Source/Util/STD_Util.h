@@ -2,6 +2,7 @@
 #define STD_UTIL_H_INCLUDED
 
 #include <unordered_map>
+#include <string>
 
 
 template <typename Key, typename Value>
