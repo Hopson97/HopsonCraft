@@ -28,8 +28,9 @@ void Application::runMainGameLoop()
     auto lastTime   = timer.getElapsedTime();
     auto tickLag    = sf::Time::Zero;
 
-    while (Display::get().isOpen() || !m_states.empty())
+    while (Display::get().isOpen())
     {
+        if (m_states.empty()) break;
         auto& state         = currentState();
         auto currentTime    = timer.getElapsedTime();
         auto elapsed        = currentTime - lastTime;
