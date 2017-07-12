@@ -3,19 +3,21 @@
 #include <SFML/System/Clock.hpp>
 #include <iostream>
 
-#include "../World/Block/BlockDatabase.h"
-#include "../Renderer/RMaster.h"
 #include "../Camera.h"
 #include "../Application.h"
 #include "../Display.h"
-#include "../Physics/Ray.h"
+
+#include "../Renderer/RMaster.h"
+
 #include "../Input/FunctionToggleKey.h"
-#include "SettingsMenu.h"
+
 
 #include "../GUI/BasicButton.h"
 #include "../GUI/Image.h"
 
 #include "../Texture/CubeTexture.h"
+
+#include "SettingsMenu.h"
 
 Texture::CubeTexture t;
 
