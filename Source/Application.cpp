@@ -36,7 +36,11 @@ void Application::runMainGameLoop()
         tickLag             += elapsed;
 
         handleEvents();
-        if (m_states.empty()) break;
+        if ( m_states.empty() ||
+            !Display::get().isOpen())
+        {
+            break;
+        }
         currentState().input (m_camera);
 
         while (tickLag >= MS_PER_TICK)
@@ -60,6 +64,7 @@ void Application::handleEvents()
     sf::Event e;
     while (Display::get().getRaw().pollEvent(e))
     {
+        currentState().input(e);
         switch(e.type)
         {
             case sf::Event::Closed:
@@ -69,7 +74,7 @@ void Application::handleEvents()
             default:
                 break;
         }
-        currentState().input(e);
+
     }
 }
 

@@ -31,9 +31,9 @@ namespace State
             void onOpen() override;
 
         private:
-            void editBlockInput();
-
-            Vector3 getCenterPosition();
+            void pauseInput     (const sf::Event& e);
+            void pauseUpdate    (Camera& camera, float dt);
+            void pauseRender    (Renderer::Master& renderer);
 
             void initHUD();
             void initPause();
