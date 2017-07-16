@@ -8,6 +8,9 @@
 #include "Application.h"
 #include "Display.h"
 
+#include "World/Block/BlockData.h"
+#include "World/Block/BlockDatabase.h"
+
 
 
 #ifdef __WIN32

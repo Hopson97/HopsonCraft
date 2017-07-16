@@ -3,22 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Util/Singleton.h"
+
 namespace sf
 {
     class Window;
 }
 
-class Display
+class Display : public Singleton
 {
     public:
         static Display& get();
-
-        Display(const Display& other) = delete;
-        Display& operator =(const Display& other) = delete;
-
-        Display(Display&& other) = delete;
-        Display& operator =(Display&& other) = delete;
-
 
         void close();
 
