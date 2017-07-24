@@ -31,7 +31,7 @@ class Display : public Singleton
 
         sf::ContextSettings getContextSettings();
 
-        sf::RenderWindow window;
+        sf::RenderWindow m_window;
 };
 
 

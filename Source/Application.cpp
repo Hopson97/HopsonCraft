@@ -28,7 +28,9 @@ void Application::runMainGameLoop()
     auto lastTime   = timer.getElapsedTime();
     auto tickLag    = sf::Time::Zero;
 
-    while (Display::get().isOpen())
+    auto& display = Display::get();
+
+    while (display.isOpen())
     {
         if (m_states.empty()) break;
         auto& state         = currentState();
@@ -61,8 +63,10 @@ void Application::runMainGameLoop()
 
 void Application::handleEvents()
 {
+    static auto& display = Display::get().getRaw();
     sf::Event e;
-    while (Display::get().getRaw().pollEvent(e))
+
+    while (display.pollEvent(e))
     {
         currentState().input(e);
 

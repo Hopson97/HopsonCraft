@@ -12,7 +12,7 @@ Display& Display::get()
 }
 
 Display::Display()
-:   window  {   sf::VideoMode::getDesktopMode(),
+:   m_window  {   sf::VideoMode::getDesktopMode(),
                 "HopsonCraft - 'V4'",
                 sf::Style::Fullscreen,
                 getContextSettings()
@@ -51,7 +51,7 @@ sf::ContextSettings Display::getContextSettings()
 
 void Display::close()
 {
-    window.close();
+    m_window.close();
 }
 
 void Display::clear()
@@ -62,22 +62,22 @@ void Display::clear()
 
 void Display::update()
 {
-    window.display();
+    m_window.display();
 }
 
 bool Display::isOpen()
 {
-    return window.isOpen();
+    return m_window.isOpen();
 }
 
 sf::RenderWindow& Display::getRaw()
 {
-    return window;
+    return m_window;
 }
 
 void Display::sfDraw(const sf::Drawable& drawable)
 {
-    window.draw(drawable);
+    m_window.draw(drawable);
 }
 
 
