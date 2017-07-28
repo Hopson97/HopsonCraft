@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-#include "States/Base.h"
+#include "States/StateBase.h"
 
 #include "Renderer/MasterRenderer.h"
 
@@ -38,9 +38,9 @@ class Application
     private:
         void handleEvents();
 
-        State::Base& currentState();
+        StateBase& currentState();
 
-        std::vector<std::unique_ptr<State::Base>> m_states;
+        std::vector<std::unique_ptr<StateBase>> m_states;
         MasterRenderer m_renderer;
         Camera m_camera;
 };

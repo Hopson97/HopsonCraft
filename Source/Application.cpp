@@ -9,11 +9,11 @@
 
 #include "Display.h"
 
-#include "States/MainMenu.h"
+#include "States/StateMainMenu.h"
 
 Application::Application()
 {
-    pushState<State::MainMenu>(*this);
+    pushState<StateMainMenu>(*this);
 }
 
 void Application::runMainGameLoop()
@@ -92,7 +92,7 @@ void Application::popState()
     }
 }
 
-State::Base& Application::currentState()
+StateBase& Application::currentState()
 {
     return *m_states.back();
 }
