@@ -23,7 +23,7 @@ namespace Renderer
             void update(const Camera& camera);
 
         private:
-             Shader::Simple_Shader m_shader;
+             SimpleShader m_shader;
 
              Model m_cube;
 

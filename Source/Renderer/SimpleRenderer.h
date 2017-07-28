@@ -10,23 +10,23 @@
 class Cube;
 struct Camera;
 
-    class SimpleRenderer
-    {
-        public:
-            SimpleRenderer();
+class SimpleRenderer
+{
+    public:
+        SimpleRenderer();
 
-            void draw (const Cube& cube);
-            void update(const Camera& camera);
+        void draw (const Cube& cube);
+        void update(const Camera& camera);
 
-        private:
-            void prepare(const Cube& cube);
+    private:
+        void prepare(const Cube& cube);
 
-        private:
-            std::vector<const Cube*> m_cubes;
+    private:
+        std::vector<const Cube*> m_cubes;
 
-            Shader::Simple_Shader m_shader;
+        SimpleShader m_shader;
 
-            Model m_cubeModel;
-    };
+        Model m_cubeModel;
+};
 
 #endif // SIMPLE_H_INCLUDED

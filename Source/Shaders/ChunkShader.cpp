@@ -2,27 +2,24 @@
 
 #include "../World/WorldConstants.h"
 
-namespace Shader
+ChunkShader::ChunkShader(std::string&& vertexShaderFile)
+:   SimpleShader   (std::move(vertexShaderFile), "Block")
 {
-    Chunk_Shader::Chunk_Shader(std::string&& vertexShaderFile)
-    :   Simple_Shader   (std::move(vertexShaderFile), "Block")
-    {
-        getUniformLocations();
-        bind();
-        Shader::Shader_Program::loadInt(m_locationMaxLightValue, MAX_LIGHT);
-        unbind();
-    }
+    getUniformLocations();
+    bind();
+    ShaderProgram::loadInt(m_locationMaxLightValue, MAX_LIGHT);
+    unbind();
+}
 
-    void Chunk_Shader::loadTimer(float time)
-    {
-        loadFloat(m_locationTimer, time);
-    }
+void ChunkShader::loadTimer(float time)
+{
+    loadFloat(m_locationTimer, time);
+}
 
-    void Chunk_Shader::getUniformLocations()
-    {
-        Simple_Shader::getUniformLocations();
+void ChunkShader::getUniformLocations()
+{
+    SimpleShader::getUniformLocations();
 
-        m_locationTimer         = glGetUniformLocation(getID(), "timer");
-        m_locationMaxLightValue = glGetUniformLocation(getID(), "maxLightValue");
-    }
+    m_locationTimer         = glGetUniformLocation(getID(), "timer");
+    m_locationMaxLightValue = glGetUniformLocation(getID(), "maxLightValue");
 }

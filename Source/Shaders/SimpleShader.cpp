@@ -2,34 +2,30 @@
 
 #include "../Maths/Matrix.h"
 
-namespace Shader
+SimpleShader::SimpleShader()
+:   ShaderProgram ("Simple", "Simple")
 {
-    Simple_Shader::Simple_Shader()
-    :   Shader_Program ("Simple", "Simple")
-    {
-        getUniformLocations();
-    }
+    getUniformLocations();
+}
 
-    Simple_Shader::Simple_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
-    :   Shader_Program (vertexShaderFile, fragmentShaderFile)
-    {
+SimpleShader::SimpleShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
+:   ShaderProgram (vertexShaderFile, fragmentShaderFile)
+{
 
-    }
+}
 
-    void Simple_Shader::setProjViewMatrix(const Matrix4& matrix)
-    {
-        loadMatrix4(m_locationProjViewMatrix, matrix);
-    }
+void SimpleShader::setProjViewMatrix(const Matrix4& matrix)
+{
+    loadMatrix4(m_locationProjViewMatrix, matrix);
+}
 
-    void Simple_Shader::setModelMatrix(const Matrix4& matrix)
-    {
-        loadMatrix4(m_locationModelMatrix, matrix);
-    }
+void SimpleShader::setModelMatrix(const Matrix4& matrix)
+{
+    loadMatrix4(m_locationModelMatrix, matrix);
+}
 
-    void Simple_Shader::getUniformLocations()
-    {
-        m_locationProjViewMatrix    = glGetUniformLocation(getID(), "projViewMatrix");
-        m_locationModelMatrix       = glGetUniformLocation(getID(), "modelMatrix");
-    }
-
+void SimpleShader::getUniformLocations()
+{
+    m_locationProjViewMatrix    = glGetUniformLocation(getID(), "projViewMatrix");
+    m_locationModelMatrix       = glGetUniformLocation(getID(), "modelMatrix");
 }

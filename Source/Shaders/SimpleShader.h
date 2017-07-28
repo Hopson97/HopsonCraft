@@ -1,26 +1,23 @@
-#ifndef SIMPLE_SHADER_H_INCLUDED
-#define SIMPLE_SHADER_H_INCLUDED
+#ifndef SimpleShader_H_INCLUDED
+#define SimpleShader_H_INCLUDED
 
 #include "ShaderProgram.h"
 
-namespace Shader
+class SimpleShader : public ShaderProgram
 {
-    class Simple_Shader : public Shader_Program
-    {
-        public:
-            Simple_Shader();
-            Simple_Shader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
-            virtual ~Simple_Shader() = default;
+    public:
+        SimpleShader();
+        SimpleShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
+        virtual ~SimpleShader() = default;
 
-            void setProjViewMatrix  (const Matrix4& matrix);
-            void setModelMatrix     (const Matrix4& matrix);
+        void setProjViewMatrix  (const Matrix4& matrix);
+        void setModelMatrix     (const Matrix4& matrix);
 
-        protected:
-            virtual void getUniformLocations() override;
+    protected:
+        virtual void getUniformLocations() override;
 
-            GLuint m_locationProjViewMatrix = 0;
-            GLuint m_locationModelMatrix    = 0;
-    };
-}
+        GLuint m_locationProjViewMatrix = 0;
+        GLuint m_locationModelMatrix    = 0;
+};
 
-#endif // SIMPLE_SHADER_H_INCLUDED
+#endif // SimpleShader_H_INCLUDED
