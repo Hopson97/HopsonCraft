@@ -1,7 +1,7 @@
 #include "Crosshair.h"
 
 #include "../Display.h"
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 #include "../ResourceManagers/ResourceHolder.h"
 
 Crosshair::Crosshair()
@@ -16,7 +16,7 @@ Crosshair::Crosshair()
                          Display::get().getRaw().getSize().y / 2);
 }
 
-void Crosshair::draw(Renderer::Master& renderer) noexcept
+void Crosshair::draw(MasterRenderer& renderer) noexcept
 {
     renderer.draw(m_sprite);
 }

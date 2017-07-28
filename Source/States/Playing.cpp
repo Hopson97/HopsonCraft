@@ -7,7 +7,7 @@
 #include "../Application.h"
 #include "../Display.h"
 
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 
 #include "../Input/FunctionToggleKey.h"
 
@@ -91,7 +91,7 @@ namespace State
         m_tickRate.update();
     }
 
-    void Playing::draw(Renderer::Master& renderer)
+    void Playing::draw(MasterRenderer& renderer)
     {
         pauseRender(renderer);
 
@@ -136,7 +136,7 @@ namespace State
         m_pauseMenu.update();
     }
 
-    void Playing::pauseRender(Renderer::Master& renderer)
+    void Playing::pauseRender(MasterRenderer& renderer)
     {
         if (!m_isPaused)
             return;

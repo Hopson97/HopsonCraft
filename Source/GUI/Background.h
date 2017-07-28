@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Renderer { class Master; }
+class MasterRenderer;
 
 namespace GUI
 {
@@ -12,7 +12,7 @@ namespace GUI
         public:
             Background(const sf::Texture& texture);
 
-            void draw (Renderer::Master& renderer) noexcept;
+            void draw (MasterRenderer& renderer) noexcept;
 
         private:
             sf::RectangleShape  m_quad;

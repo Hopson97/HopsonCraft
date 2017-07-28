@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Renderer { class Master; }
+class MasterRenderer;
 
 namespace GUI
 {
@@ -18,7 +18,7 @@ namespace GUI
 
             virtual void input  (const sf::Event& e) = 0;
             virtual void update () = 0;
-            virtual void draw   (Renderer::Master& renderer) = 0;
+            virtual void draw   (MasterRenderer& renderer) = 0;
 
             virtual void setPosition (const sf::Vector2f& position) = 0;
 
@@ -36,7 +36,7 @@ namespace GUI
         public:
             void input  (const sf::Event& e){}
             void update (){}
-            void draw   (Renderer::Master& renderer) noexcept {}
+            void draw   (MasterRenderer& renderer) noexcept {}
 
             void setPosition (const sf::Vector2f& position){}
 

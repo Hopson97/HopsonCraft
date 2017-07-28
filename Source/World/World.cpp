@@ -3,7 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 #include "../Player/Player.h"
 #include "../Camera.h"
 #include "../Maths/PositionConversion.h"

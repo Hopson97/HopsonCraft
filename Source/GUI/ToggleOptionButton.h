@@ -6,7 +6,7 @@
 #include <utility>
 
 #include "../Display.h"
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 
 namespace GUI
 {
@@ -50,7 +50,7 @@ namespace GUI
                 nextOption();
             }
 
-            void draw   (Renderer::Master& renderer) override
+            void draw   (MasterRenderer& renderer) override
             {
                 renderer.draw(m_quad);
                 renderer.draw(m_text);

@@ -1,7 +1,7 @@
 #include "Debug.h"
 
 #include "../ResourceManagers/ResourceHolder.h"
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 
 Debug_HUD::Section::Section(std::string&& stringFormat, const sf::Vector2f& textPosition, const void* var)
 :   format      (std::move(stringFormat))
@@ -10,9 +10,8 @@ Debug_HUD::Section::Section(std::string&& stringFormat, const sf::Vector2f& text
 {
     text.setCharacterSize       (20);
     text.setFont                (ResourceHolder::getFont("rs"));
-    //text.setOutlineThickness    (1);
-    //text.setOutlineColor        (sf::Color::Black);
-    text.setColor(sf::Color::White);
+    text.setOutlineThickness    (1);
+    text.setOutlineColor        (sf::Color::Black);
     text.setPosition(position);
 }
 
@@ -24,7 +23,7 @@ void Debug_HUD::addDebugSector(std::string&& format,
     y += 27;
 }
 
-void Debug_HUD::draw(Renderer::Master& master)
+void Debug_HUD::draw(MasterRenderer& master)
 {
     for (auto& sect : m_debugSectors)
     {
@@ -32,7 +31,7 @@ void Debug_HUD::draw(Renderer::Master& master)
     }
 }
 
-void Debug_HUD::drawSection(Section& section, Renderer::Master& master)
+void Debug_HUD::drawSection(Section& section, MasterRenderer& master)
 {
     char buffer[256];
 

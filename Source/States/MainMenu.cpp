@@ -31,7 +31,7 @@ namespace State
         m_pActiveMenu->update();
     }
 
-    void MainMenu::draw(Renderer::Master& renderer)
+    void MainMenu::draw(MasterRenderer& renderer)
     {
         m_pActiveMenu->draw(renderer);
     }

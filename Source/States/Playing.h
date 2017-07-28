@@ -26,14 +26,14 @@ namespace State
             void input      (Camera& camera)            override;
             void update     (Camera& camera, float dt)  override;
             void fixedUpdate(Camera& camera, float dt)  override;
-            void draw       (Renderer::Master& renderer)override;
+            void draw       (MasterRenderer& renderer)override;
 
             void onOpen() override;
 
         private:
             void pauseInput     (const sf::Event& e);
             void pauseUpdate    (Camera& camera, float dt);
-            void pauseRender    (Renderer::Master& renderer);
+            void pauseRender    (MasterRenderer& renderer);
 
             void initHUD();
             void initPause();

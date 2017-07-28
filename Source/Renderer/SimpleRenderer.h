@@ -1,5 +1,5 @@
-#ifndef SIMPLE_H_INCLUDED
-#define SIMPLE_H_INCLUDED
+#ifndef SIMPLE_RENDER_H_INCLUDED
+#define SIMPLE_RENDER_H_INCLUDED
 
 #include <vector>
 #include <SFML/System/Clock.hpp>
@@ -10,12 +10,10 @@
 class Cube;
 struct Camera;
 
-namespace Renderer
-{
-    class RSimple
+    class SimpleRenderer
     {
         public:
-            RSimple();
+            SimpleRenderer();
 
             void draw (const Cube& cube);
             void update(const Camera& camera);
@@ -30,6 +28,5 @@ namespace Renderer
 
             Model m_cubeModel;
     };
-}
 
 #endif // SIMPLE_H_INCLUDED

@@ -1,18 +1,17 @@
-#include "RSFML.h"
+#include "SFMLRenderer.h"
 
 #include <SFML/Graphics.hpp>
 #include <GL/glew.h>
 
 #include "../Display.h"
 
-namespace Renderer
-{
-    void RSFML::draw(const sf::Drawable& drawbale)
+
+    void SFMLRenderer::draw(const sf::Drawable& drawbale)
     {
         m_drawables.push_back(&drawbale);
     }
 
-    void RSFML::update()
+    void SFMLRenderer::update()
     {
         glDisable(GL_DEPTH_TEST);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -38,4 +37,4 @@ namespace Renderer
 
         m_drawables.clear();
     }
-}
+

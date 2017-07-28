@@ -1,17 +1,13 @@
 #ifndef StateBase_H_INCLUDED
 #define StateBase_H_INCLUDED
 
-class Application;
 struct Camera;
+class Application;
+class MasterRenderer;
 
 namespace sf
 {
     class Event;
-}
-
-namespace Renderer
-{
-    class Master;
 }
 
 namespace State
@@ -28,7 +24,7 @@ namespace State
             virtual void update         (Camera& camera, float dt) = 0;
             virtual void fixedUpdate    (Camera& camera, float dt) = 0;
 
-            virtual void draw   (Renderer::Master& renderer) = 0;
+            virtual void draw   (MasterRenderer& renderer) = 0;
 
             virtual void onOpen() {}
 

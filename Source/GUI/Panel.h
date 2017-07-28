@@ -30,7 +30,7 @@ namespace GUI
 
             void input  (const sf::Event& e);
             void update ();
-            void draw   (Renderer::Master& renderer);
+            void draw   (MasterRenderer& renderer);
 
             void clear  ();
 

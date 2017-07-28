@@ -6,7 +6,7 @@
 
 #include "States/Base.h"
 
-#include "Renderer/RMaster.h"
+#include "Renderer/MasterRenderer.h"
 
 #include "Camera.h"
 #include "MusicPlayer.h"
@@ -41,7 +41,7 @@ class Application
         State::Base& currentState();
 
         std::vector<std::unique_ptr<State::Base>> m_states;
-        Renderer::Master m_renderer;
+        MasterRenderer m_renderer;
         Camera m_camera;
 };
 

@@ -19,7 +19,7 @@ namespace State
             void input      (Camera& camera)            override;
             void update     (Camera& camera, float dt)  override{}
             void fixedUpdate(Camera& camera, float dt)  override;
-            void draw       (Renderer::Master& renderer)override;
+            void draw       (MasterRenderer& renderer)override;
 
             void onOpen() override;
 

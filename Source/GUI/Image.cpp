@@ -1,6 +1,6 @@
 #include "Image.h"
 
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 
 namespace GUI
 {
@@ -18,7 +18,7 @@ namespace GUI
     void Image::update()
     { }
 
-    void Image::draw(Renderer::Master& renderer)
+    void Image::draw(MasterRenderer& renderer)
     {
         renderer.draw(m_quad);
     }

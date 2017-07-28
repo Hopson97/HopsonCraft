@@ -2,7 +2,7 @@
 
 
 #include "../Display.h"
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 
 #include "../ResourceManagers/ResourceHolder.h"
 
@@ -49,7 +49,7 @@ namespace GUI
 
     }
 
-    void Imaged_Button::draw(Renderer::Master& renderer)
+    void Imaged_Button::draw(MasterRenderer& renderer)
     {
         renderer.draw(m_quad);
         renderer.draw(m_text);

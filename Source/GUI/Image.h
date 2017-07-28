@@ -12,7 +12,7 @@ namespace GUI
 
             void input  (const sf::Event& e)                override;
             void update ()                                  override;
-            void draw   (Renderer::Master& renderer)         override;
+            void draw   (MasterRenderer& renderer)         override;
 
             void setPosition (const sf::Vector2f& position) override;
             const sf::Vector2f getSize () const             override;

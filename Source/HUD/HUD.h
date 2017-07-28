@@ -7,7 +7,7 @@
 #include "Vignette.h"
 #include "Debug.h"
 
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 
 enum class HUD_Part
 {
@@ -17,7 +17,7 @@ enum class HUD_Part
 
 struct HUD
 {
-    void draw(Renderer::Master& renderer)
+    void draw(MasterRenderer& renderer)
     {
         vignette.draw   (renderer);
         crosshair.draw  (renderer);

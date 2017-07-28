@@ -1,4 +1,4 @@
-#include "RSkyBox.h"
+#include "SkyboxRenderer.h"
 
 #include "../Camera.h"
 #include "../Texture/CubeTexture.h"

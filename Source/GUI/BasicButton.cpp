@@ -1,7 +1,7 @@
 #include "BasicButton.h"
 
 #include "../Display.h"
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 
 #include "../ResourceManagers/ResourceHolder.h"
 
@@ -37,7 +37,7 @@ namespace GUI
     }
 
 
-    void BasicButton::draw(Renderer::Master& renderer) noexcept
+    void BasicButton::draw(MasterRenderer& renderer) noexcept
     {
         renderer.draw(m_quad);
         renderer.draw(m_text);

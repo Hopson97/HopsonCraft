@@ -4,10 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-namespace Renderer
-{
-    class Master;
-}
+
+class MasterRenderer;
+
 
 ///@TODO Right now this only works with floats.
 ///Needs to work with string, integer, etc
@@ -29,10 +28,10 @@ class Debug_HUD
         void addDebugSector(std::string&& format,
                             const void* info);
 
-        void draw(Renderer::Master& master);
+        void draw(MasterRenderer& master);
 
     private:
-        void drawSection(Section& section, Renderer::Master& master);
+        void drawSection(Section& section, MasterRenderer& master);
 
         std::vector<Section> m_debugSectors;
 

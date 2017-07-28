@@ -1,7 +1,7 @@
 #include "Background.h"
 
 #include "../Display.h"
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 
 namespace GUI
 {
@@ -13,7 +13,7 @@ namespace GUI
         m_quad.setTexture(&texture);
     }
 
-    void Background::draw(Renderer::Master& renderer) noexcept
+    void Background::draw(MasterRenderer& renderer) noexcept
     {
         renderer.draw(m_quad);
     }

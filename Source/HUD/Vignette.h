@@ -3,17 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Renderer
-{
-    class Master;
-}
+class MasterRenderer;
+
 
 class Vignette
 {
     public:
         Vignette();
 
-        void draw(Renderer::Master& renderer);
+        void draw(MasterRenderer& renderer);
 
     private:
         sf::RectangleShape m_sprite;

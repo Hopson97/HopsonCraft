@@ -3,10 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Renderer
-{
-    class Master;
-}
+class MasterRenderer;
 
 class Crosshair
 {
@@ -19,7 +16,7 @@ class Crosshair
 
         Crosshair();
 
-        void draw(Renderer::Master& renderer) noexcept;
+        void draw(MasterRenderer& renderer) noexcept;
         void setMode(Mode mode) noexcept;
 
     private:

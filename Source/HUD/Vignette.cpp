@@ -1,7 +1,7 @@
 #include "Vignette.h"
 
 #include "../Display.h"
-#include "../Renderer/RMaster.h"
+#include "../Renderer/MasterRenderer.h"
 #include "../ResourceManagers/ResourceHolder.h"
 
 Vignette::Vignette()
@@ -11,7 +11,7 @@ Vignette::Vignette()
     m_sprite.setTexture(&ResourceHolder::getTexure("Vignette"));
 }
 
-void Vignette::draw(Renderer::Master& renderer)
+void Vignette::draw(MasterRenderer& renderer)
 {
     renderer.draw(m_sprite);
 }

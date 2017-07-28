@@ -46,7 +46,7 @@ namespace GUI
         }
     }
 
-    void Panel::draw(Renderer::Master& renderer)
+    void Panel::draw(MasterRenderer& renderer)
     {
         if(m_background)
             m_background->draw(renderer);
