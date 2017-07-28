@@ -23,7 +23,7 @@ namespace
 
 SimpleRenderer::SimpleRenderer()
 {
-    auto& textureAtlas = Block::Database::get().getTextureAtlas();
+    auto& textureAtlas = BlockDatabase::get().getTextureAtlas();
     insertTextureCoords(textureAtlas.getTextureCoords({1, 0}));
     insertTextureCoords(textureAtlas.getTextureCoords({1, 0}));
     insertTextureCoords(textureAtlas.getTextureCoords({1, 0}));

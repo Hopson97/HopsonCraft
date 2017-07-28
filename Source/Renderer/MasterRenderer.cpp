@@ -14,7 +14,7 @@ void MasterRenderer::clear()
 
 void MasterRenderer::update(const Camera& camera)
 {
-    Block::Database::get().getTextureAtlas().bind();
+    BlockDatabase::get().getTextureAtlas().bind();
 
     glEnable(GL_DEPTH_TEST);
     m_simpleRenderer.update(camera);

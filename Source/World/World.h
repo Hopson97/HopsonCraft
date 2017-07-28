@@ -12,16 +12,8 @@
 
 class Player;
 class Camera;
-
-namespace Renderer
-{
-    class Master;
-}
-
-namespace State
-{
-    class Playing;
-}
+class MasterRenderer;
+class StatePlaying;
 
 class World
 {
