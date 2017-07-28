@@ -29,8 +29,6 @@ class Display : public Singleton
     private:
         Display();
 
-        sf::ContextSettings getContextSettings();
-
         sf::RenderWindow m_window;
 };
 

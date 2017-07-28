@@ -12,20 +12,6 @@ Display& Display::get()
 }
 
 Display::Display()
-:   m_window  {   sf::VideoMode::getDesktopMode(),
-                "HopsonCraft - 'V4'",
-                sf::Style::Fullscreen,
-                getContextSettings()
-            }
-{
-    glewInit();
-    glewExperimental = GL_TRUE;
-    glViewport(0, 0, getRaw().getSize().x, getRaw().getSize().y);
-
-    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-}
-
-sf::ContextSettings Display::getContextSettings()
 {
     sf::ContextSettings contextSettings;
     contextSettings.depthBits = 24;
@@ -33,21 +19,17 @@ sf::ContextSettings Display::getContextSettings()
     contextSettings.antialiasingLevel = 0;
     contextSettings.majorVersion = 3;
     contextSettings.minorVersion = 3;
-    /*
-        return sf::ContextSettings
-        {
-            24, //Depth Bits
-            8,  //Stencil Bits
-            0,  //Anti Alias Level
-            3,  //OpenGL Major Version
-            3,  //OpenGL Minor Version
-            sf::ContextSettings::Attribute::Default, //Attribute Flag
-            false   //sRGB Capable
-        };
-    */
-    return contextSettings;
-}
 
+    m_window.create(sf::VideoMode::getDesktopMode(),
+                    "HopsonCraft",
+                    sf::Style::Fullscreen,
+                    contextSettings);
+    glewInit();
+    glewExperimental = GL_TRUE;
+    glViewport(0, 0, getRaw().getSize().x, getRaw().getSize().y);
+
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
 
 void Display::close()
 {
