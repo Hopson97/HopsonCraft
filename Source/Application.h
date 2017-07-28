@@ -43,6 +43,8 @@ class Application
         std::vector<std::unique_ptr<StateBase>> m_states;
         MasterRenderer m_renderer;
         Camera m_camera;
+
+        bool m_shouldPop = false;
 };
 
 #endif // APPLICATION_H_INCLUDED

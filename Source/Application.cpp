@@ -54,10 +54,19 @@ void Application::runMainGameLoop()
         m_camera.update();
         state.update(m_camera, elapsed.asSeconds());
 
-        m_renderer.clear();
         state.draw(m_renderer);
         m_renderer.update(m_camera);
         handleEvents();
+
+        if (m_shouldPop)
+        {
+            m_shouldPop = false;
+            m_states.pop_back();
+            if (!m_states.empty())
+            {
+                currentState().onOpen();
+            }
+        }
     }
 }
 
@@ -85,11 +94,7 @@ void Application::handleEvents()
 
 void Application::popState()
 {
-    m_states.pop_back();
-    if (!m_states.empty())
-    {
-        currentState().onOpen();
-    }
+    m_shouldPop = true;
 }
 
 StateBase& Application::currentState()

@@ -9,8 +9,6 @@ struct Camera;
 class MasterRenderer
 {
     public:
-        void clear();
-
         void update(const Camera& camera);
 
         void draw(const Vector3& location);

@@ -17,7 +17,6 @@ class Display : public Singleton
 
         void close();
 
-        void clear();
         void update();
 
         bool isOpen();
