@@ -7,13 +7,13 @@
 
 Camera::Camera() noexcept
 {
-    m_projectionMatrix = Maths::createProjMatrix(m_fov);
+    m_projectionMatrix = createProjMatrix(m_fov);
 }
 
 void Camera::setFOV(float FOV) noexcept
 {
     m_fov = FOV;
-    m_projectionMatrix = Maths::createProjMatrix(m_fov);
+    m_projectionMatrix = createProjMatrix(m_fov);
 }
 
 float Camera::getFOV() const  noexcept
@@ -34,7 +34,7 @@ void Camera::update() noexcept
         rotation = m_pEntity->rotation;
     }
 
-    m_viewMatrix = Maths::createViewMatrix(*this);
+    m_viewMatrix = createViewMatrix(*this);
 
     m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
     m_frustum.update(m_projectionViewMatrix);

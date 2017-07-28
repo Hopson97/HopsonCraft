@@ -44,6 +44,16 @@ namespace State
             m_pActiveMenu = &m_videoSettings;
         }));
 
+        m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Audio Settings", [&]()
+        {
+            m_pActiveMenu = &m_audioSettings;
+        }));
+
+        m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Control Settings", [&]()
+        {
+            m_pActiveMenu = &m_controlSettings;
+        }));
+
         m_frontMenu.addComponent(std::make_unique<GUI::BasicButton>("Back", [&]()
         {
             m_application->popState();
@@ -51,6 +61,18 @@ namespace State
 
         //Video settings menu
         m_videoSettings.addComponent(std::make_unique<GUI::BasicButton>("Back", [&]()
+        {
+            m_pActiveMenu = &m_frontMenu;
+        }));
+
+        //Audio settings menu
+        m_audioSettings.addComponent(std::make_unique<GUI::BasicButton>("Back", [&]()
+        {
+            m_pActiveMenu = &m_frontMenu;
+        }));
+
+        //Control settings menu
+        m_controlSettings.addComponent(std::make_unique<GUI::BasicButton>("Back", [&]()
         {
             m_pActiveMenu = &m_frontMenu;
         }));

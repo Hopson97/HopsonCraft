@@ -28,6 +28,9 @@ namespace State
 
             GUI::Menu m_frontMenu;
             GUI::Menu m_videoSettings;
+            GUI::Menu m_audioSettings;
+            GUI::Menu m_controlSettings;
+
             GUI::Menu* m_pActiveMenu   = &m_frontMenu;
     };
 }

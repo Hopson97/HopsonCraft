@@ -61,7 +61,7 @@ namespace
 
     void RSimple::prepare(const Cube& cube)
     {
-        m_shader.setModelMatrix(Maths::createModelMatrix(cube));
+        m_shader.setModelMatrix(createModelMatrix(cube));
 
     }
 }
