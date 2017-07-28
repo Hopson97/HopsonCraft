@@ -45,7 +45,7 @@ namespace Block
         return *m_blocks[(int)blockID];
     }
 
-    const Texture::Atlas& Database::getTextureAtlas() const
+    const TextureAtlas& Database::getTextureAtlas() const
     {
         return m_textures;
     }

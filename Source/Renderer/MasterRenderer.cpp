@@ -18,7 +18,6 @@ void MasterRenderer::update(const Camera& camera)
 
     glEnable(GL_DEPTH_TEST);
     m_simpleRenderer.update(camera);
-    m_skyBoxRenderer.update(camera);
 
     glDisable(GL_DEPTH_TEST);
     m_sfmlRenderer.update ();
@@ -35,10 +34,4 @@ void MasterRenderer::draw(const Cube& cube)
 {
     m_simpleRenderer.draw(cube);
 }
-
-void MasterRenderer::draw(const Texture::CubeTexture& tex)
-{
-    m_skyBoxRenderer.draw(tex);
-}
-
 

@@ -15,11 +15,7 @@
 #include "../GUI/BasicButton.h"
 #include "../GUI/Image.h"
 
-#include "../Texture/CubeTexture.h"
-
 #include "StateSettingsMenu.h"
-
-Texture::CubeTexture t;
 
 StatePlaying::StatePlaying(Application& application)
 :   StateBase   (application)
@@ -29,16 +25,6 @@ StatePlaying::StatePlaying(Application& application)
 ,   m_frameRate ("Frame", "FPS")
 ,   m_pauseMenu (GUI::Layout::Center)
 {
-    t.loadFromFile(
-    {
-        "Data/Textures/Skybox/Test/right.png",
-        "Data/Textures/Skybox/Test/left.png",
-        "Data/Textures/Skybox/Test/top.png",
-        "Data/Textures/Skybox/Test/bottom.png",
-        "Data/Textures/Skybox/Test/back.png",
-        "Data/Textures/Skybox/Test/front.png"
-    });
-
     application.getCamera().hookEntity(m_player);
     initHUD();
     initPause();
