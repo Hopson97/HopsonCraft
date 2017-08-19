@@ -20,6 +20,9 @@
         __declspec(dllexport) bool NvOptimusEnablement = true;
         __declspec(dllexport) bool AmdPowerXpressRequestHighPerformance = true;
     }
+#else
+    //Include for the linux/apple error message
+    #include <unistd.h>
 #endif // __WIN32
 
 
@@ -31,9 +34,7 @@ namespace
             MessageBox(nullptr, message.c_str(), "Error", MB_OK);
             std::cerr << message << std::endl;
         #elif __linux__ || __APPLE__
-        ///@TODO Test
-            const std::string command = "zenity --error --text \"" + message + "\"";
-            system(command.c_str());
+            execl("/usr/bin/zenity", "zenity", "--error", "--text", message.c_str(), nullptr);
         #else
             std::cerr << message << std::endl;
             std::cin.ignore();
