@@ -1,10 +1,3 @@
-# Note
-
-When I made this, I was highly inexperienced at programming (Less than 2 years), and the code is mostly pretty messy and game crashes a lot. 
-
-I have kept it on my GitHub for historical reasons, seeing as I have videos about this on my YouTube channel.
-
-
 # HopsonCraft
 
 Note: Game is undergoing redesign at the moment.
@@ -12,6 +5,13 @@ Note: Game is undergoing redesign at the moment.
 To see source as it was in ep 4 "Creating Minecraft", view here:
 
 https://github.com/Hopson97/HopsonCraft/tree/e803ca5fbf51df134cfa7e87c14275c6c73fce8e
+
+# Note
+
+When I made this, I was highly inexperienced at programming (Less than 2 years), and the code is mostly pretty messy and game crashes a lot. 
+
+I have kept it on my GitHub for historical reasons, seeing as I have videos about this on my YouTube channel.
+
 
 ## Versions (As seen in the YouTube videos)
 
