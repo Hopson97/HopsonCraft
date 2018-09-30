@@ -6,6 +6,22 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 file(GLOB src_files
+    Source/*.cpp
+	Source/GUI/*.cpp
+    Source/HUD/*.cpp
+	Source/Input/*.cpp
+	Source/Maths/*.cpp
+	Source/Physics/*.cpp
+	Source/Player/*.cpp
+	Source/Renderer/*.cpp
+    Source/ResourceManagers/*.cpp
+	Source/Shaders/*.cpp
+	Source/States/*cpp
+	Source/Texture/*.cpp
+    Source/Util/*.cpp
+	Source/World/*.cpp
+	Source/World/Block/Types/*.cpp
+	Source/World/Block/*.cpp
 	)
 
 find_package(OpenGL REQUIRED)

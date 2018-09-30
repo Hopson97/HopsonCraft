@@ -1,0 +1,36 @@
+Noise
+9
+145
+0.65
+950
+0
+
+Biome
+Highland
+Greater
+260
+
+Biome
+Land2
+Range
+240 260
+
+Biome
+Land
+Range
+225 240
+
+Biome
+Ocean
+Range
+120 225
+
+Biome
+Trench
+Range
+100 120
+
+Biome
+Deep Trench
+Less
+100
