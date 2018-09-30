@@ -1,3 +1,10 @@
+# Note
+
+When I made this, I was highly inexperienced at programming (Less than 2 years), and the code is mostly pretty messy and game crashes a lot. 
+
+I have kept it on my GitHub for historical reasons, seeing as I have videos about this on my YouTube channel.
+
+
 # HopsonCraft
 
 Note: Game is undergoing redesign at the moment.
