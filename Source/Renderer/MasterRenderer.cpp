@@ -18,7 +18,7 @@ void MasterRenderer::update(const Camera& camera)
     m_simpleRenderer.update(camera);
 
     glDisable(GL_DEPTH_TEST);
-    m_sfmlRenderer.update ();
+    //m_sfmlRenderer.update ();
 
     Display::get().update();
 }
