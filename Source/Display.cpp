@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <SFML/Graphics.hpp>
-#include <GL/glew.h>
+#include "glad/glad.h"
 
 
 Display& Display::get()
@@ -24,8 +24,7 @@ Display::Display()
                     "HopsonCraft",
                     sf::Style::Fullscreen,
                     contextSettings);
-    glewInit();
-    glewExperimental = GL_TRUE;
+    gladLoadGL();
     glViewport(0, 0, getRaw().getSize().x, getRaw().getSize().y);
 
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

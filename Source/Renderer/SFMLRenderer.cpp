@@ -1,7 +1,7 @@
 #include "SFMLRenderer.h"
 
 #include <SFML/Graphics.hpp>
-#include <GL/glew.h>
+#include "../glad/glad.h"
 
 #include "../Display.h"
 

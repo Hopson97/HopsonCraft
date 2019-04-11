@@ -2,7 +2,7 @@
 #define MODEL_COORDS_H_INCLUDED
 
 #include <vector>
-#include <GL/glew.h>
+#include "glad/glad.h"
 
 struct ModelData
 {

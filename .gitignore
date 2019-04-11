@@ -15,3 +15,8 @@ Project/
 
 #Profiler
 *.out
+
+.vscode/
+*.make
+Makefile
+game
