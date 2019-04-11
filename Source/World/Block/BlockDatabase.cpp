@@ -3,58 +3,63 @@
 #include <iostream>
 
 
-#include "Types/DefaultBlock.h"
-#include "Types/PlantBlock.h"
+#include "Types/BDefault.h"
+#include "Types/BPlant.h"
+#include "Types/BWater.h"
 
 #include "../../Util/FileUtil.h"
 
-BlockDatabase& BlockDatabase::get()
+namespace Block
 {
-    static BlockDatabase database;
-    return database;
+    Database& Database::get()
+    {
+        static Database database;
+        return database;
+    }
+
+    Database::Database()
+    :   m_textures  ("Atlas/Low", 512, 16)
+    {
+        m_blocks[(int)ID::Air     ] = std::make_unique<Default>   ("Air");
+        m_blocks[(int)ID::Grass   ] = std::make_unique<Default>   ("Grass");
+        m_blocks[(int)ID::Dirt    ] = std::make_unique<Default>   ("Dirt");
+        m_blocks[(int)ID::Stone   ] = std::make_unique<Default>   ("Stone");
+        m_blocks[(int)ID::Sand    ] = std::make_unique<BSand>     ();
+
+        m_blocks[(int)ID::Oak_Wood    ] = std::make_unique<Default> ("Oak_Wood");
+        m_blocks[(int)ID::Oak_Leaf    ] = std::make_unique<Default> ("Oak_Leaf");
+
+        m_blocks[(int)ID::Water       ] = std::make_unique<BWater> ();
+
+        m_blocks[(int)ID::Rose        ] = std::make_unique<BPlant> ("Rose");
+        m_blocks[(int)ID::Tall_Grass  ] = std::make_unique<BPlant> ("Tall_Grass");
+    }
+
+    const Type& Database::getBlock(uint8_t id) const
+    {
+        return *m_blocks[id];
+    }
+
+    const Type& Database::getBlock(ID blockID) const
+    {
+        return *m_blocks[(int)blockID];
+    }
+
+    const Texture::Atlas& Database::getTextureAtlas() const
+    {
+        return m_textures;
+    }
+
+
+
+    const Type& get(uint8_t id)
+    {
+        return Database::get().getBlock(id);
+    }
+
+    const Type& get(ID blockID)
+    {
+        return Database::get().getBlock(blockID);
+    }
+
 }
-
-BlockDatabase::BlockDatabase()
-:   m_textures  ("Atlas/Low", 512, 16)
-{
-    m_blocks[(int)BlockID::Air     ] = std::make_unique<DefaultBlock> ("Air");
-    m_blocks[(int)BlockID::Grass   ] = std::make_unique<DefaultBlock> ("Grass");
-    m_blocks[(int)BlockID::Dirt    ] = std::make_unique<DefaultBlock> ("Dirt");
-    m_blocks[(int)BlockID::Stone   ] = std::make_unique<DefaultBlock> ("Stone");
-    m_blocks[(int)BlockID::Sand    ] = std::make_unique<DefaultBlock> ("Sand");
-
-    m_blocks[(int)BlockID::Oak_Wood    ] = std::make_unique<DefaultBlock> ("Oak_Wood");
-    m_blocks[(int)BlockID::Oak_Leaf    ] = std::make_unique<DefaultBlock> ("Oak_Leaf");
-
-    m_blocks[(int)BlockID::Water       ] = std::make_unique<DefaultBlock> ("Water");
-
-    m_blocks[(int)BlockID::Rose        ] = std::make_unique<PlantBlock> ("Rose");
-    m_blocks[(int)BlockID::Tall_Grass  ] = std::make_unique<PlantBlock> ("Tall_Grass");
-}
-
-const BlockType& BlockDatabase::getBlock(uint8_t id) const
-{
-    return *m_blocks[id];
-}
-
-const BlockType& BlockDatabase::getBlock(BlockID blockID) const
-{
-    return *m_blocks[(int)blockID];
-}
-
-const TextureAtlas& BlockDatabase::getTextureAtlas() const
-{
-    return m_textures;
-}
-
-const BlockType& get(uint8_t id)
-{
-    return BlockDatabase::get().getBlock(id);
-}
-
-const BlockType& get(BlockID blockID)
-{
-    return BlockDatabase::get().getBlock(blockID);
-}
-
-

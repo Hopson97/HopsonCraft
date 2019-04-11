@@ -9,19 +9,22 @@
 class World;
 class CBlock;
 
-class BlockType
+namespace Block
 {
-    public:
-        const BlockData& getData() const;
+    class Type
+    {
+        public:
+            const Data& getData() const;
 
-        virtual void tick   (World& world, CBlock& block, const BlockPosition& position) const{}
-        virtual void trigger(World& world, CBlock& block, const BlockPosition& position) const{}
+            virtual void tick   (World& world, CBlock& block, const Position& position) const{}
+            virtual void trigger(World& world, CBlock& block, const Position& position) const{}
 
-    protected:
-        BlockType(std::string&& fileName);
+        protected:
+            Type(std::string&& fileName);
 
-    private:
-        BlockData m_data;
-};
+        private:
+            Data m_data;
+    };
+}
 
 #endif // BLOCK_TYPE_H

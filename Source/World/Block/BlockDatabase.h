@@ -7,29 +7,30 @@
 #include "Types/BlockType.h"
 #include "BlockID.h"
 
-#include "../../Texture/TextureAtlas.h"
-#include "../../Util/Singleton.h"
+#include "../../Texture/Texture_Atlas.h"
 
-class BlockDatabase : public Singleton
+namespace Block
 {
-    public:
-        static BlockDatabase& get();
+    class Database
+    {
+        public:
+            static Database& get();
 
-        const BlockType& getBlock(uint8_t id) const;
-        const BlockType& getBlock(BlockID blockID) const;
+            Database();
 
-        const TextureAtlas& getTextureAtlas() const;
+            const Type& getBlock(uint8_t id) const;
+            const Type& getBlock(ID blockID) const;
 
-    private:
-        BlockDatabase();
+            const Texture::Atlas& getTextureAtlas() const;
 
-        std::array<std::unique_ptr<BlockType>, (int)BlockID::NUM_BlockTypeS> m_blocks;
+        private:
+            std::array<std::unique_ptr<Type>, (int)ID::NUM_BlockTypeS> m_blocks;
 
-        TextureAtlas m_textures;
-};
+            Texture::Atlas m_textures;
+    };
 
-const BlockType& get(uint8_t id);
-const BlockType& get(BlockID blockID);
-
+    const Type& get(uint8_t id);
+    const Type& get(ID blockID);
+}
 
 #endif // BlockDatabase_H_INCLUDED

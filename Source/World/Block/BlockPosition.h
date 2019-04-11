@@ -4,6 +4,9 @@
 #include <cstdint>
 #include <SFML/System/Vector3.hpp>
 
-typedef sf::Vector3<int64_t> BlockPosition;
+namespace Block
+{
+    typedef sf::Vector3<int64_t> Position;
+}
 
 #endif // BlockPosition_H_INCLUDED

@@ -1,12 +1,16 @@
 #include "BlockType.h"
 
-BlockType::BlockType(std::string&& fileName)
-:   m_data (std::move(fileName))
+namespace Block
 {
+    Type::Type(std::string&& fileName)
+    :   m_data (std::move(fileName))
+    {
 
-}
+    }
 
-const BlockData& BlockType::getData() const
-{
-    return m_data;
+    const Data& Type::getData() const
+    {
+        return m_data;
+    }
+
 }
