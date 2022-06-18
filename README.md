@@ -32,7 +32,7 @@ Windows -> ``-std=c++14 -O3 -s -lglew32s -lglu32 -lopengl32 -lsfml-graphics -lsf
 Linux -> ``-std=c++14 -O3 -s -lGLEW -lGLU -lGL -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window``
 
 
-All the libaries for Linux (At least, on Ubuntu) can be installed with
+All the libraries for Linux (At least, on Ubuntu) can be installed with
 
 
 `` sudo apt-get install libsfml-dev``
@@ -80,3 +80,4 @@ Matthew Hopson, https://github.com/Hopson97/
 Anton Golov, https://github.com/jesyspa
 
 Zoltan Fazekas, https://github.com/zfazek
+
