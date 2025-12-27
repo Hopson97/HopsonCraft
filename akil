@@ -1,0 +1,35 @@
+using UnityEngine;
+
+public class BlockPlacer : MonoBehaviour
+{
+    public GameObject blockPrefab; // এখানে আপনার তৈরি করা কিউবটি ড্র্যাগ করে দিন
+
+    void Update()
+    {
+        // মাউসের বাম বাটনে ক্লিক করলে ব্লক বসবে
+        if (Input.GetMouseButtonDown(0))
+        {
+            PlaceBlock();
+        }
+    }
+
+    void PlaceBlock()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            // যেখানে ক্লিক করা হয়েছে ঠিক সেই পজিশনে নতুন ব্লক তৈরি হবে
+            Vector3 spawnPos = hit.point + hit.normal * 0.5f;
+            
+            // গ্রিড সিস্টেমের জন্য পজিশন রাউন্ড করা (মাইনক্রাফটের মতো)
+            spawnPos.x = Mathf.Round(spawnPos.x);
+            spawnPos.y = Mathf.Round(spawnPos.y);
+            spawnPos.z = Mathf.Round(spawnPos.z);
+
+            Instantiate(blockPrefab, spawnPos, Quaternion.identity);
+        }
+    }
+}
+
